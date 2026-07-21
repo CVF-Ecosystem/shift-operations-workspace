@@ -3,30 +3,31 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-21.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-21_P1A.md",
   "last_updated": "2026-07-21",
   "required_reads": [
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-07-21.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-21_P1A.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_CATALOG.md",
     "docs/cvf/CVF_CONTROL_MAPPING.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Follow EXECUTION_ROADMAP.md in order. Next item by dependency: P1-A — DB-backed integration test for SqlLedger (Postgres round-trip) to move operations-ledger partial->enforced. Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
+  "next_allowed_move": "P1-A' done (SqlLedger dual-backend, SQLite-verified). Follow EXECUTION_ROADMAP.md in order. Next item: P2-A — replicate the CVF chain (identity/permission/risk/approval/evidence/audit) to another domain (tasks, customer-requests, incidents, or handovers), reusing cvf-runtime gates the same way EventService/CorrectionService do. Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P1-A) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
-    "Claiming SqlLedger is production-verified without a real PostgreSQL round-trip test.",
+    "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test (SQLite round-trip IS verified; Postgres is the same code path but not yet run live - Docker daemon unavailable in this environment).",
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
     "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md).",
     "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
     "as_of": "2026-07-21",
-    "pytest": "47 passed",
-    "make_validate": "PASS (catalog + session-state check)",
+    "pytest": "51 passed",
+    "make_validate": "PASS (catalog + session-state + file-size checks)",
     "cvf_controls_enforced": "12/12 (cost+termination AI-gated)",
-    "modules_by_status": "enforced=1, partial=5, contract-only=6, stub=8"
+    "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8",
+    "operations_ledger": "enforced - dual-backend (SQLite verified via tests/integration/test_sql_ledger_sqlite.py; PostgreSQL same code path, not yet run live)"
   }
 }

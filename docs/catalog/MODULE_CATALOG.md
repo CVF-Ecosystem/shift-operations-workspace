@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-21T00:12:28.968794+00:00_
+_Last generated: 2026-07-21T03:57:55.188183+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-07-21T00:12:28.968794+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **1944**
+- Code LOC (py/ts/tsx): **1961**
 - Code files: **82**
-- By status: contract-only=6, enforced=1, partial=5, stub=8
+- By status: contract-only=6, enforced=2, partial=4, stub=8
 
 ## Status legend
 
@@ -30,8 +30,8 @@ _Last generated: 2026-07-21T00:12:28.968794+00:00_
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 744 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
+| `operations-ledger` | packages/operations-ledger | enforced | 364 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
-| `operations-ledger` | packages/operations-ledger | partial | 347 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only SqlLedger (SQLAlchemy Core over the existing migration schema). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `workspace-api` | apps/workspace-api | partial | 682 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections. Hosts two CVF golden verticals: event confirmation and post-freeze correction. |
 | `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
@@ -64,6 +64,18 @@ _Last generated: 2026-07-21T00:12:28.968794+00:00_
 - **Metrics:** 744 LOC across 13 code file(s)
 - **Next step:** Wire ai-gateway/ai-providers to call data_scope/budget/termination when an AI mode is enabled.
 
+### `operations-ledger` — enforced
+
+- **Path:** `packages/operations-ledger` (package)
+- **Purpose:** Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend.
+- **CVF controls:** evidence, audit, freeze
+- **Enforcement:** ledger.py defines the Protocol; sql_ledger.py implements append-only INSERT for corrections/audit and maps tables.py to migration 001. tables.py uses SQLAlchemy generic Uuid + JSON.with_variant(JSONB, 'postgresql') so one schema definition serves both backends. Selected at runtime by workspace-api ledger_factory via DATABASE_URL. Verified end-to-end (real file-based round-trip across connection close/reopen) against SQLite; PostgreSQL round-trip not yet run (no Docker daemon in this environment) — same code path, not yet exercised live.
+- **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
+- **Depends on:** `shared-kernel`
+- **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`
+- **Metrics:** 364 LOC across 4 code file(s)
+- **Next step:** Run the same integration suite against a real PostgreSQL instance (docker compose up postgres) once available, to confirm parity with the SQLite-verified path; wire messages persistence.
+
 ### `integration-edge` — partial
 
 - **Path:** `apps/integration-edge` (app)
@@ -75,18 +87,6 @@ _Last generated: 2026-07-21T00:12:28.968794+00:00_
 - **Tests:** `tests/security/test_hmac.py`
 - **Metrics:** 60 LOC across 14 code file(s)
 - **Next step:** Implement raw_payload, quarantine, rate_limit, routing, outbound modules (currently stub).
-
-### `operations-ledger` — partial
-
-- **Path:** `packages/operations-ledger` (package)
-- **Purpose:** Source-of-truth persistence. Defines the Ledger Protocol and an append-only SqlLedger (SQLAlchemy Core over the existing migration schema). InMemoryLedger (in workspace-api) is the offline/test backend.
-- **CVF controls:** evidence, audit, freeze
-- **Enforcement:** ledger.py defines the Protocol; sql_ledger.py implements append-only INSERT for corrections/audit and maps tables.py to migration 001. Selected at runtime by workspace-api ledger_factory via DATABASE_URL. Structural conformance is tested; live PostgreSQL round-trip is not yet covered.
-- **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
-- **Depends on:** `shared-kernel`
-- **Tests:** `tests/cvf/test_ledger_protocol.py`
-- **Metrics:** 347 LOC across 4 code file(s)
-- **Next step:** Add a DB-backed integration suite (docker compose postgres) to exercise SqlLedger round-trips; wire messages persistence.
 
 ### `workspace-api` — partial
 

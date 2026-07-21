@@ -1,15 +1,19 @@
-"""SqlLedger — append-only PostgreSQL persistence implementing the Ledger Protocol.
+"""SqlLedger — append-only, dual-backend SQL persistence implementing the Ledger Protocol.
 
 Design notes:
 * SQLAlchemy Core over the existing migration schema; the SQL migration stays
-  the single schema authority.
+  the single schema authority (PostgreSQL is the schema of record).
+* Dual-backend: ``tables.py`` uses SQLAlchemy's generic ``Uuid``/``JSON``
+  types with a PostgreSQL variant, so the SAME table definitions work against
+  SQLite (zero-setup dev/eval) or PostgreSQL (production) — pick by
+  ``DATABASE_URL`` only, no code or schema change.
 * Corrections are append-only: only INSERT, never UPDATE/DELETE. This is the
   durable form of "post-freeze changes go through a correction record and are
   never silently overwritten".
 * Domain model classes are injected via ``models`` so this package does not
   import the application layer (dependency points one way: app -> ledger).
-* ``psycopg`` is imported lazily by the engine only when a real connection is
-  opened, so importing this module never requires the driver to be installed.
+* ``psycopg``/other DB drivers are only required when actually connecting to
+  that backend; importing this module never requires them.
 """
 
 from __future__ import annotations

@@ -46,8 +46,13 @@ lifecycle/freeze rõ ràng.
 - [x] JSON Schemas (`packages/workspace-contracts`, contract test pass).
 - [x] CVF risk/approval/evidence models (enforced trong cvf-runtime).
 - [x] Ledger Protocol + append-only SqlLedger (`operations-ledger`).
-- [ ] **P1-A:** DB-backed integration test cho SqlLedger (round-trip Postgres
-      thật) → đưa `operations-ledger` từ `partial` lên `enforced`.
+- [x] **P1-A':** SqlLedger dual-backend (SQLite dev/eval + PostgreSQL prod, cùng
+      schema qua `Uuid`/`JSON.with_variant(JSONB)`) + integration test round-trip
+      thật trên SQLite (create/reconnect/read, append-only corrections, audit
+      persist, freeze persist) → `operations-ledger` `partial` → `enforced`.
+      **Còn treo:** chạy cùng suite trên PostgreSQL thật (môi trường này không
+      có Docker daemon khả dụng) — xem `next_step` của module trong
+      `MODULE_REGISTRY.json`.
 - [ ] **P1-B:** Tách domain models ra `operations-domain` (hiện nằm inline trong
       workspace-api) → `operations-domain` stub→partial.
 
@@ -128,11 +133,12 @@ owner review approve.
 
 ## Bước kế tiếp duy nhất (khớp session state)
 
-Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`. Thứ tự đề
-xuất theo dependency: **P1-A** (SqlLedger Postgres round-trip) trước, vì ledger
-là nền của mọi phase sau; rồi **P2-A** (nhân bản chain sang domain còn lại) để
-Phase 2 tiến. Không mở Phase 4 (AI) trước khi Phase 2 core + Phase 3 Refinery
-đạt gate.
+Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`. **P1-A'**
+xong (SqlLedger dual-backend, verified trên SQLite). Bước kế tiếp: **P2-A**
+(nhân bản CVF chain sang tasks/customer-requests/incidents/handovers) để Phase
+2 tiến. Postgres round-trip thật (phần còn treo của P1-A) chạy khi có Docker
+khả dụng — không chặn P2-A vì code path giống nhau. Không mở Phase 4 (AI)
+trước khi Phase 2 core + Phase 3 Refinery đạt gate.
 
 ## Cách dùng roadmap này
 

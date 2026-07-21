@@ -2,6 +2,14 @@
 
 Core (not ORM) keeps the ledger a thin, explicit mapping over the SQL schema
 that already exists, so the migration remains the single schema authority.
+
+Dual-backend by design: ``Uuid`` is SQLAlchemy's generic UUID type - it renders
+as native ``uuid`` on PostgreSQL and as CHAR(32) on SQLite, so the same table
+definition works against both without a hand-written branch. ``JSON_TYPE``
+does the same for JSONB (native on PostgreSQL, plain JSON text elsewhere via
+``with_variant``). This lets the workspace ship with a zero-setup SQLite
+backend for evaluation/dev and switch to PostgreSQL for production by changing
+only ``DATABASE_URL`` - no schema or code change.
 """
 
 from __future__ import annotations
@@ -11,20 +19,25 @@ from sqlalchemy import (
     Column,
     DateTime,
     Integer,
+    JSON,
     MetaData,
     String,
     Table,
     Text,
+    Uuid,
     func,
 )
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import JSONB
 
 metadata = MetaData()
+
+# Generic JSON column: native JSONB on PostgreSQL, JSON text elsewhere (SQLite).
+JSON_TYPE = JSON().with_variant(JSONB(), "postgresql")
 
 shifts = Table(
     "shifts",
     metadata,
-    Column("shift_id", UUID(as_uuid=True), primary_key=True),
+    Column("shift_id", Uuid, primary_key=True),
     Column("name", Text, nullable=False),
     Column("starts_at", DateTime(timezone=True), nullable=False),
     Column("ends_at", DateTime(timezone=True), nullable=False),
@@ -36,8 +49,8 @@ shifts = Table(
 operational_events = Table(
     "operational_events",
     metadata,
-    Column("event_id", UUID(as_uuid=True), primary_key=True),
-    Column("shift_id", UUID(as_uuid=True), nullable=False),
+    Column("event_id", Uuid, primary_key=True),
+    Column("shift_id", Uuid, nullable=False),
     Column("event_type", Text, nullable=False),
     Column("title", Text, nullable=False),
     Column("description", Text),
@@ -53,15 +66,15 @@ operational_events = Table(
 corrections = Table(
     "corrections",
     metadata,
-    Column("correction_id", UUID(as_uuid=True), primary_key=True),
+    Column("correction_id", Uuid, primary_key=True),
     Column("record_type", Text, nullable=False),
-    Column("record_id", UUID(as_uuid=True), nullable=False),
+    Column("record_id", Uuid, nullable=False),
     Column("previous_version", Integer, nullable=False),
     Column("new_version", Integer, nullable=False),
     Column("reason", Text, nullable=False),
     Column("requested_by", Text, nullable=False),
-    Column("before_data", JSONB, nullable=False),
-    Column("after_data", JSONB, nullable=False),
+    Column("before_data", JSON_TYPE, nullable=False),
+    Column("after_data", JSON_TYPE, nullable=False),
     Column("created_at", DateTime(timezone=True), server_default=func.now()),
     CheckConstraint("new_version > previous_version", name="corrections_version_check"),
 )
@@ -69,11 +82,11 @@ corrections = Table(
 audit_records = Table(
     "audit_records",
     metadata,
-    Column("audit_id", UUID(as_uuid=True), primary_key=True),
+    Column("audit_id", Uuid, primary_key=True),
     Column("actor_id", Text),
     Column("action", Text, nullable=False),
     Column("target_type", Text, nullable=False),
     Column("target_id", Text, nullable=False),
-    Column("metadata", JSONB, nullable=False, server_default="{}"),
+    Column("metadata", JSON_TYPE, nullable=False, server_default="{}"),
     Column("occurred_at", DateTime(timezone=True), server_default=func.now()),
 )

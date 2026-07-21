@@ -21,19 +21,23 @@ vững, và có catalog + session governance.
 - **Golden verticals:** Event→confirm và Event→correct (post-freeze) trong
   `workspace-api`, cùng dùng chung các gate cvf-runtime.
 - **Persistence:** `operations-ledger` có `Ledger` Protocol + `SqlLedger`
-  append-only; `InMemoryLedger` cho test/offline. Audit + correction ghi qua
-  ledger. **Chưa** test round-trip trên Postgres thật.
+  append-only, **dual-backend** (SQLite dev/eval + PostgreSQL prod, cùng schema
+  qua `Uuid`/`JSON.with_variant(JSONB)`); `InMemoryLedger` cho test/offline.
+  Audit + correction ghi qua ledger. **Verified round-trip thật trên SQLite**
+  (`tests/integration/test_sql_ledger_sqlite.py`); Postgres cùng code path
+  nhưng chưa chạy live (môi trường này không có Docker daemon).
 - **Catalog:** `docs/catalog/MODULE_REGISTRY.json` là machine SoT; `MODULE_CATALOG.md`
-  sinh tự động; cổng chống drift trong `make validate`.
-- **Tests:** 47 passed.
+  sinh tự động; cổng chống drift trong `make validate` (catalog + session +
+  file-size).
+- **Tests:** 51 passed.
 
 ## Next allowed move
 
 Nguồn thứ tự là [`docs/implementation/EXECUTION_ROADMAP.md`](../docs/implementation/EXECUTION_ROADMAP.md)
-— 5 phase + P0, mỗi phase có exit gate. Bước kế tiếp theo dependency: **P1-A**
-(SqlLedger Postgres round-trip test → operations-ledger partial→enforced), rồi
-**P2-A** (nhân bản CVF chain sang tasks/customer-requests/incidents/handovers).
-Không mở Phase 4 (AI) trước khi Phase 2 core + Phase 3 Refinery đạt gate.
+— 5 phase + P0, mỗi phase có exit gate. **P1-A' xong.** Bước kế tiếp: **P2-A**
+(nhân bản CVF chain sang tasks/customer-requests/incidents/handovers). Postgres
+round-trip thật chạy khi có Docker khả dụng, không chặn P2-A. Không mở Phase 4
+(AI) trước khi Phase 2 core + Phase 3 Refinery đạt gate.
 
 ## Không được làm (không có xác nhận mới)
 
