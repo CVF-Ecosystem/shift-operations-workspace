@@ -20,7 +20,7 @@ from __future__ import annotations
 
 from uuid import UUID
 
-from sqlalchemy import create_engine, insert, select, update
+from sqlalchemy import create_engine, event, insert, select, update
 from sqlalchemy.engine import Engine
 
 from operations_ledger.tables import (
@@ -31,11 +31,35 @@ from operations_ledger.tables import (
 )
 
 
+def make_engine(database_url: str, **kwargs) -> Engine:
+    """Create an Engine with the backend correctly configured.
+
+    Always use this instead of ``create_engine`` for the ledger. On SQLite it
+    registers a connect-time PRAGMA so foreign keys are ENFORCED (SQLite has
+    them OFF by default). The listener is attached before any connection is
+    pooled, so every connection — including the first — honours it. Without
+    this, SQLite would silently ignore the FK constraints that PostgreSQL
+    enforces, and the two backends would diverge on referential integrity.
+    """
+    engine = create_engine(database_url, future=True, **kwargs)
+    if engine.dialect.name == "sqlite":
+
+        @event.listens_for(engine, "connect")
+        def _set_sqlite_pragma(dbapi_connection, _record):  # noqa: ANN001
+            cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA foreign_keys=ON")
+            cursor.close()
+
+    return engine
+
+
 class SqlLedger:
     def __init__(self, database_url: str, models, engine: Engine | None = None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
+        # If an engine is injected (tests), it must have been built with
+        # make_engine() so SQLite FK enforcement is active.
         self.models = models
-        self.engine = engine or create_engine(database_url, future=True)
+        self.engine = engine or make_engine(database_url)
 
     # --- shifts ---
     def create_shift(self, shift):

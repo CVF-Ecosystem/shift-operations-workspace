@@ -46,6 +46,29 @@ dev/eval không cần setup, PostgreSQL cho production), verify thật trên SQL
   trường không có Docker daemon. Ghi rõ trong `blocked_work` của session state
   để không ai tuyên bố "production-verified" khi chưa đúng.
 
+## P1-A2 (tiếp theo, cùng phiên): schema integrity hardening
+
+Rà lại phần database (theo yêu cầu operator "xử lý tốt, không để rắc rối về
+sau") phát hiện 2 vấn đề thật:
+
+1. `tables.py` **lệch** với migration `001_foundation.sql`: thiếu FK
+   (`event.shift_id → shifts`) và CHECK (time-window). Migration là schema
+   authority nhưng SQLAlchemy backend không enforce cùng ràng buộc.
+2. SQLite **tắt foreign-key mặc định** — FK định nghĩa trong tables.py bị bỏ
+   qua trên SQLite (Postgres thì enforce) → hai backend hành xử khác nhau.
+
+Đã sửa:
+- Thêm FK + CHECK vào `tables.py` khớp migration.
+- `make_engine()` (factory mới) bật `PRAGMA foreign_keys=ON` cho SQLite ngay
+  lúc tạo engine (trước khi pool giữ connection), dùng nhất quán ở mọi nơi.
+- `tests/integration/test_sql_ledger_integrity.py`: chứng minh FK chặn event
+  với shift_id ma, CHECK chặn time-window đảo — ở tầng DB, không phải app.
+- `tests/integration/test_schema_parity.py`: cổng chống lệch tương lai (FK/CHECK
+  trong migration phải có trong tables.py); có test âm xác nhận cổng chặn thật.
+
+Verify: **58 passed**, validate PASS. SQLite và PostgreSQL giờ enforce integrity
+giống nhau.
+
 ## Next allowed move
 
 **P2-A** — nhân bản CVF chain (identity/permission/risk/approval/evidence/audit)

@@ -24,10 +24,10 @@
   ],
   "verification_snapshot": {
     "as_of": "2026-07-21",
-    "pytest": "51 passed",
+    "pytest": "58 passed",
     "make_validate": "PASS (catalog + session-state + file-size checks)",
     "cvf_controls_enforced": "12/12 (cost+termination AI-gated)",
     "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8",
-    "operations_ledger": "enforced - dual-backend (SQLite verified via tests/integration/test_sql_ledger_sqlite.py; PostgreSQL same code path, not yet run live)"
+    "operations_ledger": "enforced - dual-backend with matching FK/CHECK integrity (SQLite FK enforcement turned on via make_engine; schema-parity test guards tables.py vs migration). SQLite verified end-to-end incl. FK/CHECK rejection; PostgreSQL same code path, not yet run live (no Docker)."
   }
 }

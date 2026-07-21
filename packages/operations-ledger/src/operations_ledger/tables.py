@@ -18,6 +18,7 @@ from sqlalchemy import (
     CheckConstraint,
     Column,
     DateTime,
+    ForeignKey,
     Integer,
     JSON,
     MetaData,
@@ -44,13 +45,16 @@ shifts = Table(
     Column("status", String, nullable=False, server_default="OPEN"),
     Column("version", Integer, nullable=False, server_default="1"),
     Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    # Matches migration 001_foundation.sql: CHECK (ends_at > starts_at)
+    CheckConstraint("ends_at > starts_at", name="shifts_window_check"),
 )
 
 operational_events = Table(
     "operational_events",
     metadata,
     Column("event_id", Uuid, primary_key=True),
-    Column("shift_id", Uuid, nullable=False),
+    # Matches migration: shift_id uuid NOT NULL REFERENCES shifts(shift_id)
+    Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=False),
     Column("event_type", Text, nullable=False),
     Column("title", Text, nullable=False),
     Column("description", Text),
@@ -61,6 +65,11 @@ operational_events = Table(
     Column("owner_id", Text),
     Column("version", Integer, nullable=False, server_default="1"),
     Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    # Matches migration: CHECK (ends_at IS NULL OR starts_at IS NULL OR ends_at >= starts_at)
+    CheckConstraint(
+        "ends_at IS NULL OR starts_at IS NULL OR ends_at >= starts_at",
+        name="operational_events_window_check",
+    ),
 )
 
 corrections = Table(

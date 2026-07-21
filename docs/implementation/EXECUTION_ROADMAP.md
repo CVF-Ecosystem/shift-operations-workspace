@@ -53,6 +53,12 @@ lifecycle/freeze rõ ràng.
       **Còn treo:** chạy cùng suite trên PostgreSQL thật (môi trường này không
       có Docker daemon khả dụng) — xem `next_step` của module trong
       `MODULE_REGISTRY.json`.
+- [x] **P1-A2:** Schema integrity hardening — phát hiện `tables.py` lệch với
+      migration (thiếu FK/CHECK) và SQLite tắt FK mặc định. Thêm FK
+      (event→shifts) + CHECK (time-window) khớp migration; `make_engine()` bật
+      `PRAGMA foreign_keys=ON` cho SQLite; test chứng minh FK/CHECK chặn thật
+      trên DB; parity test chống lệch `tables.py`↔migration tương lai (có test
+      âm). Giữ SQLite và PostgreSQL enforce integrity giống nhau.
 - [ ] **P1-B:** Tách domain models ra `operations-domain` (hiện nằm inline trong
       workspace-api) → `operations-domain` stub→partial.
 

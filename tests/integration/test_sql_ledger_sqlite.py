@@ -17,10 +17,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
-from sqlalchemy import create_engine
 
 from cvf_runtime.audit import AuditRecord
-from operations_ledger.sql_ledger import SqlLedger
+from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
 from workspace_api.domain import models as domain_models
@@ -33,7 +32,7 @@ def db_path(tmp_path: Path) -> Path:
 
 
 def _open_ledger(db_path: Path) -> SqlLedger:
-    engine = create_engine(f"sqlite:///{db_path}", future=True)
+    engine = make_engine(f"sqlite:///{db_path}")
     metadata.create_all(engine)
     return SqlLedger(str(db_path), models=domain_models, engine=engine)
 
@@ -55,7 +54,7 @@ def test_shift_and_event_survive_reconnect(db_path: Path):
     ledger.engine.dispose()  # close the connection entirely
 
     # Second connection (simulates process restart): read back.
-    reopened = SqlLedger(str(db_path), models=domain_models, engine=create_engine(f"sqlite:///{db_path}", future=True))
+    reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
     fetched_shift = reopened.get_shift(shift.shift_id)
     fetched_event = reopened.get_event(event.event_id)
 
@@ -90,7 +89,7 @@ def test_correction_is_append_only_and_persists(db_path: Path):
     ledger.add_correction(correction)
     ledger.engine.dispose()
 
-    reopened = SqlLedger(str(db_path), models=domain_models, engine=create_engine(f"sqlite:///{db_path}", future=True))
+    reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
     stored = reopened.corrections_for(event.event_id)
     assert len(stored) == 1
     assert stored[0].reason == "Corrected downtime window"
@@ -127,7 +126,7 @@ def test_audit_record_persists_across_reconnect(db_path: Path):
     ledger.append_audit(record)
     ledger.engine.dispose()
 
-    reopened = SqlLedger(str(db_path), models=domain_models, engine=create_engine(f"sqlite:///{db_path}", future=True))
+    reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
     entries = reopened.audit_entries_for("11111111-1111-1111-1111-111111111111")
     assert len(entries) == 1
     assert entries[0]["action"] == "event.confirm"
@@ -143,7 +142,7 @@ def test_freeze_shift_persists(db_path: Path):
     ledger.freeze_shift(shift.shift_id)
     ledger.engine.dispose()
 
-    reopened = SqlLedger(str(db_path), models=domain_models, engine=create_engine(f"sqlite:///{db_path}", future=True))
+    reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
     fetched = reopened.get_shift(shift.shift_id)
     assert str(fetched.status) == "FROZEN"
     assert fetched.version == 2
