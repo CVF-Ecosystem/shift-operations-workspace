@@ -1,0 +1,16 @@
+:root { font-family: Inter, system-ui, sans-serif; color: #111827; background: #f3f4f6; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.shell { min-height: 100vh; max-width: 980px; margin: auto; background: white; display: grid; grid-template-rows: auto auto 1fr auto; }
+header { padding: 16px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; gap: 12px; }
+header div { display: grid; gap: 4px; }
+header span, header small { color: #6b7280; }
+.toolbar { display: flex; gap: 8px; padding: 12px; overflow-x: auto; border-bottom: 1px solid #e5e7eb; }
+button { border: 0; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+.toolbar button { white-space: nowrap; background: #eef2ff; }
+.feed { padding: 16px; overflow-y: auto; }
+.feed article { padding: 12px; margin-bottom: 8px; background: #f9fafb; border-radius: 10px; }
+footer { padding: 12px; border-top: 1px solid #e5e7eb; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+input { padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; }
+footer button { background: #111827; color: white; }
+@media (max-width: 640px) { .shell { min-height: 100dvh; } header { align-items: flex-start; } }

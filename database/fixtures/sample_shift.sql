@@ -1,0 +1,1 @@
+-- See examples/sample-shift for canonical sample data.

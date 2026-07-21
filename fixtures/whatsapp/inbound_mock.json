@@ -1,0 +1,24 @@
+{
+  "mock": true,
+  "provider": "whatsapp",
+  "entry": [
+    {
+      "changes": [
+        {
+          "value": {
+            "messages": [
+              {
+                "id": "wa-msg-1",
+                "from": "84000000000",
+                "type": "text",
+                "text": {
+                  "body": "Ưu tiên 8 container lạnh"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

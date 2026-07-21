@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "task.schema",
+  "type": "object",
+  "required": [
+    "task_id",
+    "shift_id",
+    "title",
+    "status",
+    "owner_id"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "shift_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    }
+  }
+}

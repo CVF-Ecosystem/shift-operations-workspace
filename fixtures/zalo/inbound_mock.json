@@ -1,0 +1,12 @@
+{
+  "mock": true,
+  "provider": "zalo",
+  "event_name": "user_send_text",
+  "sender": {
+    "id": "zalo-user-1"
+  },
+  "message": {
+    "msg_id": "z-msg-1",
+    "text": "Ưu tiên 8 container lạnh"
+  }
+}

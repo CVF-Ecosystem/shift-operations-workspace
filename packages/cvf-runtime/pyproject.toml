@@ -1,0 +1,6 @@
+[project]
+name = "cvf-runtime"
+version = "0.1.0"
+description = "Runtime enforcement of the CVF application profile (self-contained in-workspace)"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.9", "PyYAML>=6.0"]

@@ -1,0 +1,7 @@
+terminate_when:
+  - timeout_exceeded
+  - token_limit_exceeded
+  - three_consecutive_failures
+  - schema_validation_repeatedly_fails
+  - kill_switch_active
+preserve_evidence: true

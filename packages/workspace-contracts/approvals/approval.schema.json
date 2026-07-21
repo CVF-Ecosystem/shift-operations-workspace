@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "approval.schema",
+  "type": "object",
+  "required": [
+    "approval_id",
+    "record_type",
+    "record_id",
+    "decision",
+    "actor_id"
+  ],
+  "properties": {
+    "approval_id": {
+      "type": "string"
+    },
+    "record_type": {
+      "type": "string"
+    },
+    "record_id": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "actor_id": {
+      "type": "string"
+    }
+  }
+}

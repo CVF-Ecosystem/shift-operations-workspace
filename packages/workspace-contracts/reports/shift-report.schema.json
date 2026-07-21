@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "shift-report.schema",
+  "type": "object",
+  "required": [
+    "report_id",
+    "shift_id",
+    "version",
+    "status",
+    "sections"
+  ],
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "shift_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "sections": {
+      "type": "array"
+    }
+  }
+}

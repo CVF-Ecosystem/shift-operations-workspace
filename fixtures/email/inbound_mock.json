@@ -1,0 +1,6 @@
+{
+  "mock": true,
+  "from": "customer@example.com",
+  "subject": "Yêu cầu ưu tiên container",
+  "body": "Nhờ ưu tiên 8 container lạnh."
+}

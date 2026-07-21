@@ -1,0 +1,8 @@
+default_mode: NO_AI
+provider_neutral: true
+external_transfer_default: deny
+allow_cloud_when:
+  - data_classification in [PUBLIC, INTERNAL]
+  - pii_redacted == true
+  - budget_available == true
+subscription_connector: official_mechanism_only

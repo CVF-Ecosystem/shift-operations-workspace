@@ -1,0 +1,8 @@
+input:
+  required: [source_id, raw_text, source_type, received_at]
+output:
+  required: [normalized_text, terminology_matches, duplicate_status, redactions, classifications, conflicts, context_candidates, source_link]
+constraints:
+  preserve_source: true
+  invent_missing_values: false
+  external_transfer: policy_controlled

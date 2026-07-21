@@ -1,0 +1,31 @@
+{
+  "message_id": "11111111-1111-4111-8111-111111111111",
+  "provider": "internal-pwa",
+  "provider_message_id": null,
+  "direction": "internal",
+  "conversation_type": "operations",
+  "conversation_id": "ops-room-1",
+  "sender": {
+    "external_id": "EMP-001",
+    "display_name": "Nguyễn Văn A",
+    "mapped_user_id": "usr-001"
+  },
+  "content": {
+    "type": "text",
+    "text": "QC03 dừng lúc 23:40 do lỗi sensor, đã báo kỹ thuật.",
+    "attachments": []
+  },
+  "context": {
+    "workspace_id": "terminal-ops",
+    "shift_id": "shift-night",
+    "vessel_id": "vessel-abc",
+    "voyage_id": "voy-123",
+    "customer_id": null
+  },
+  "source_timestamp": "2026-07-21T23:40:00+07:00",
+  "received_timestamp": "2026-07-21T23:40:02+07:00",
+  "verification": {
+    "signature_verified": true,
+    "duplicate": false
+  }
+}

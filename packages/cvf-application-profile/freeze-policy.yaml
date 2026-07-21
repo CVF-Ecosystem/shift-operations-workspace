@@ -1,0 +1,6 @@
+freeze_requires:
+  - shift_closed
+  - report_approved
+  - open_handover_items_linked
+post_freeze_mutation: correction_record_only
+silent_overwrite: prohibited

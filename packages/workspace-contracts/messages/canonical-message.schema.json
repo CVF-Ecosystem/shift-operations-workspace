@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiftops.local/contracts/canonical-message.schema.json",
+  "title": "Canonical Message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "message_id",
+    "provider",
+    "direction",
+    "sender",
+    "content",
+    "source_timestamp",
+    "received_timestamp",
+    "verification"
+  ],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider_message_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "direction": {
+      "enum": [
+        "inbound",
+        "outbound",
+        "internal"
+      ]
+    },
+    "conversation_type": {
+      "enum": [
+        "operations",
+        "customer",
+        "incident",
+        "handover"
+      ]
+    },
+    "conversation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sender": {
+      "type": "object",
+      "required": [
+        "external_id",
+        "display_name"
+      ],
+      "properties": {
+        "external_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapped_user_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "image",
+            "voice",
+            "file",
+            "system"
+          ]
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "$ref": "canonical-attachment.schema.json"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "workspace_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shift_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vessel_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "voyage_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "customer_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "received_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "signature_verified",
+        "duplicate"
+      ],
+      "properties": {
+        "signature_verified": {
+          "type": "boolean"
+        },
+        "duplicate": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

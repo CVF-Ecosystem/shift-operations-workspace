@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event Correction",
+  "type": "object",
+  "required": [
+    "correction_id",
+    "event_id",
+    "reason",
+    "requested_by",
+    "previous_version",
+    "new_version"
+  ],
+  "properties": {
+    "correction_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requested_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "previous_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "new_version": {
+      "type": "integer",
+      "minimum": 2
+    }
+  }
+}

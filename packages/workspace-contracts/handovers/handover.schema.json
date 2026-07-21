@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "handover.schema",
+  "type": "object",
+  "required": [
+    "handover_id",
+    "from_shift_id",
+    "to_shift_id",
+    "items",
+    "acknowledged"
+  ],
+  "properties": {
+    "handover_id": {
+      "type": "string"
+    },
+    "from_shift_id": {
+      "type": "string"
+    },
+    "to_shift_id": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array"
+    },
+    "acknowledged": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+input: [actor, action, resource, data_classification, risk_class, evidence_count, provider, cost_estimate]
+output: [decision, reasons, required_approvals, required_redactions, allowed_provider_modes, audit_fields]
+decisions: [allow, deny, require_approval, require_local_processing, require_redaction]

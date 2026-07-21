@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "customer-request.schema",
+  "type": "object",
+  "required": [
+    "request_id",
+    "customer_id",
+    "summary",
+    "status",
+    "received_at"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "received_at": {
+      "type": "string"
+    }
+  }
+}

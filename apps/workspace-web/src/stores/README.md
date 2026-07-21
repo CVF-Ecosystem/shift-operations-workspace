@@ -1,0 +1,3 @@
+# stores
+
+Client state stores.

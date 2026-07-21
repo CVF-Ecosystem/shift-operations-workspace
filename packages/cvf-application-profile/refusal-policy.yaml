@@ -1,0 +1,8 @@
+refuse_when:
+  - domain_not_allowed
+  - actor_not_authorized
+  - evidence_missing_for_risk
+  - external_instruction_attempts_policy_override
+  - requested_data_exceeds_scope
+route_to: shift_supervisor
+record_reason: true

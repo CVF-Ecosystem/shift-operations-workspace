@@ -1,0 +1,17 @@
+{
+  "report_id": "rpt-001",
+  "shift_id": "shift-night",
+  "version": 1,
+  "status": "DRAFT",
+  "sections": [
+    {
+      "title": "Thiết bị và downtime",
+      "facts": [
+        "QC03 dừng lúc 23:40; chờ thời điểm hoạt động lại"
+      ],
+      "evidence": [
+        "msg-001"
+      ]
+    }
+  ]
+}

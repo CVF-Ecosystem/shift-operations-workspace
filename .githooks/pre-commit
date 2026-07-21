@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Pre-commit gate for shift-operations-workspace.
+#
+# Not active until you enable it once with:
+#     git config core.hooksPath .githooks
+#
+# It keeps the module catalog honest and the tests green before any commit.
+# Mirrors the CVF-root discipline: a structural source of truth may not drift.
+
+set -euo pipefail
+
+# Resolve the Python interpreter (prefer the project venv if present).
+if [ -x ".venv/bin/python" ]; then
+  PY=".venv/bin/python"
+elif [ -x ".venv/Scripts/python.exe" ]; then
+  PY=".venv/Scripts/python.exe"
+else
+  PY="python"
+fi
+
+echo "[pre-commit] module catalog --check"
+"$PY" scripts/generate_catalog.py --check
+
+echo "[pre-commit] session state check"
+"$PY" scripts/check_session_state.py
+
+echo "[pre-commit] file size guard"
+"$PY" scripts/check_file_size.py
+
+echo "[pre-commit] pytest"
+"$PY" -m pytest -q
+
+echo "[pre-commit] OK"

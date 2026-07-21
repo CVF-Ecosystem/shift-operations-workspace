@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "incident.schema",
+  "type": "object",
+  "required": [
+    "incident_id",
+    "shift_id",
+    "risk_class",
+    "summary",
+    "status"
+  ],
+  "properties": {
+    "incident_id": {
+      "type": "string"
+    },
+    "shift_id": {
+      "type": "string"
+    },
+    "risk_class": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

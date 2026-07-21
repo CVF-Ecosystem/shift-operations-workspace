@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Channel Capability",
+  "type": "object",
+  "required": [
+    "receive",
+    "send",
+    "attachments",
+    "delivery_status"
+  ],
+  "properties": {
+    "receive": {
+      "type": "boolean"
+    },
+    "send": {
+      "type": "boolean"
+    },
+    "attachments": {
+      "type": "boolean"
+    },
+    "delivery_status": {
+      "type": "boolean"
+    },
+    "groups": {
+      "type": "boolean"
+    },
+    "templates": {
+      "type": "boolean"
+    }
+  }
+}

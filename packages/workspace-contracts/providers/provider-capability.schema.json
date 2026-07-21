@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Provider Capability",
+  "type": "object",
+  "required": [
+    "capability",
+    "supported"
+  ],
+  "properties": {
+    "capability": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supported": {
+      "type": "boolean"
+    },
+    "constraints": {
+      "type": "object"
+    }
+  }
+}

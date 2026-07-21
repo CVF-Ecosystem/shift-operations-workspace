@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Provider Health",
+  "type": "object",
+  "required": [
+    "provider_id",
+    "status",
+    "checked_at"
+  ],
+  "properties": {
+    "provider_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "CONNECTED",
+        "DEGRADED",
+        "RATE_LIMITED",
+        "TOKEN_EXPIRED",
+        "PERMISSION_REVOKED",
+        "DISCONNECTED"
+      ]
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "details": {
+      "type": "object"
+    }
+  }
+}

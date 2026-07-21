@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: workspace
+      POSTGRES_USER: workspace
+      POSTGRES_PASSWORD: workspace
+    ports: ["5432:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address :9001
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["minio_data:/data"]
+
+  workspace-api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.api
+    env_file: .env
+    depends_on: [postgres, redis, minio]
+    ports: ["8000:8000"]
+
+  integration-edge:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.edge
+    env_file: .env
+    depends_on: [redis]
+    ports: ["8100:8100"]
+
+  workspace-worker:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.worker
+    env_file: .env
+    depends_on: [postgres, redis, minio]
+
+  workspace-web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.web
+    depends_on: [workspace-api]
+    ports: ["5173:80"]
+
+volumes:
+  postgres_data:
+  minio_data:

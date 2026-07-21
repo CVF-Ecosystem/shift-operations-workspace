@@ -1,0 +1,28 @@
+{
+  "source_id": "msg-001",
+  "raw_text": "qc3 stop hồi 11h40, sensơ lỗi, tech đang xuống",
+  "normalized_text": "QC03 dừng lúc 23:40 do lỗi sensor. Bộ phận kỹ thuật đang xử lý.",
+  "terminology_matches": [
+    {
+      "raw": "qc3",
+      "canonical": "QC03"
+    },
+    {
+      "raw": "tech",
+      "canonical": "technical"
+    }
+  ],
+  "duplicate_status": "unique",
+  "redactions": [],
+  "classifications": [
+    "equipment_downtime"
+  ],
+  "conflicts": [],
+  "context_candidates": {
+    "equipment": "QC03",
+    "time": "23:40",
+    "cause": "sensor_error",
+    "department": "technical"
+  },
+  "source_link": "msg-001"
+}

@@ -1,0 +1,8 @@
+classifications: [PUBLIC, INTERNAL, CONFIDENTIAL, RESTRICTED]
+raw_message_retention_days: 365
+quarantine_retention_days: 30
+external_ai:
+  PUBLIC: allow
+  INTERNAL: allow_after_minimization
+  CONFIDENTIAL: local_or_enterprise_only
+  RESTRICTED: local_only

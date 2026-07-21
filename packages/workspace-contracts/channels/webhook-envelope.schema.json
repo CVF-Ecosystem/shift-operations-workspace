@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Webhook Envelope",
+  "type": "object",
+  "required": [
+    "provider",
+    "received_at",
+    "headers",
+    "raw_body_sha256"
+  ],
+  "properties": {
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "headers": {
+      "type": "object"
+    },
+    "raw_body_sha256": {
+      "type": "string"
+    },
+    "signature_verified": {
+      "type": "boolean"
+    }
+  }
+}

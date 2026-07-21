@@ -1,0 +1,7 @@
+application_id: shift-operations-workspace
+mission: Run shift operations safely with traceable evidence and controlled AI assistance.
+control_mode: outer_loop
+source_of_truth: operations_ledger
+interfaces: [mobile_pwa, desktop_web, customer_portal]
+capabilities: [rules, local_llm, cloud_llm, channels, speech, ocr, reporting]
+required_controls: [identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze]

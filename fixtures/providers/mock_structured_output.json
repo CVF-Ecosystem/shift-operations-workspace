@@ -1,0 +1,15 @@
+{
+  "provider_id": "mock-provider",
+  "model_id": "deterministic-v1",
+  "output": {
+    "event_type": "equipment_downtime",
+    "equipment": "QC03",
+    "start_time": "23:40",
+    "cause": "sensor_error"
+  },
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_usd": 0
+  }
+}

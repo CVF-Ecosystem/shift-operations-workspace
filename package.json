@@ -1,0 +1,11 @@
+{
+  "name": "shift-operations-workspace",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev:web": "pnpm --filter workspace-web dev",
+    "build:web": "pnpm --filter workspace-web build",
+    "test": "python -m pytest",
+    "tree": "python scripts/maintenance/generate_tree.py"
+  }
+}

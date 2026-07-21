@@ -1,0 +1,9 @@
+[project]
+name = "operations-ledger"
+version = "0.1.0"
+description = "Append-only source-of-truth persistence (Ledger Protocol + SqlLedger)"
+requires-python = ">=3.12"
+dependencies = ["sqlalchemy>=2.0", "pydantic>=2.9"]
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3.2"]

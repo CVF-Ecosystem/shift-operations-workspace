@@ -1,0 +1,9 @@
+allowed_domains:
+  - shift_operation
+  - vessel_operation
+  - yard_operation
+  - equipment_incident
+  - customer_request
+  - shift_handover
+  - end_shift_reporting
+out_of_scope_behavior: refuse_and_route

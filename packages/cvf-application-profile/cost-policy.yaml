@@ -1,0 +1,6 @@
+default_daily_budget_usd: 5
+default_monthly_budget_usd: 100
+per_request_token_limit: 8000
+retry_limit: 2
+on_budget_exceeded: fallback_to_rules
+kill_switch_enabled: true

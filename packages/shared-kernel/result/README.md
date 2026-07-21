@@ -1,0 +1,3 @@
+# Result
+
+Module boundary `packages/shared-kernel/result`. Implementation phải tuân contracts, CVF policies và dependency direction đã khóa.

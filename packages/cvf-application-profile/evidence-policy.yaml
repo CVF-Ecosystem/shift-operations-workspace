@@ -1,0 +1,8 @@
+minimum:
+  R0: 0
+  R1: 0
+  R2: 1
+  R3: 1
+  R4: 2
+accepted_types: [message, image, file, voice_transcript, system_record, approval_receipt]
+prohibit_unlinked_official_fact: true

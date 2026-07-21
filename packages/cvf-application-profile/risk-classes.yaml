@@ -1,0 +1,5 @@
+R0: {approval: none, evidence: optional, outbound: false}
+R1: {approval: sender_or_role, evidence: recommended, outbound: controlled}
+R2: {approval: shift_supervisor, evidence: required, outbound: controlled}
+R3: {approval: dual, evidence: mandatory, outbound: blocked_until_approved}
+R4: {approval: escalation_board, evidence: mandatory, outbound: blocked_until_approved}

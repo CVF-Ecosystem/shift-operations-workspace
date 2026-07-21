@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Provider",
+  "type": "object",
+  "required": [
+    "provider_id",
+    "connection_type",
+    "capabilities",
+    "data_policy",
+    "limits"
+  ],
+  "properties": {
+    "provider_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "connection_type": {
+      "enum": [
+        "none",
+        "rules",
+        "openai_compatible",
+        "non_compatible",
+        "local",
+        "enterprise",
+        "subscription"
+      ]
+    },
+    "capabilities": {
+      "type": "object"
+    },
+    "data_policy": {
+      "type": "object"
+    },
+    "limits": {
+      "type": "object"
+    }
+  }
+}
