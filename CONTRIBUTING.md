@@ -38,6 +38,10 @@ next allowed move, blocked work* — trong handoff hoặc trong phản hồi.
    `python scripts/generate_catalog.py --write`.
 4. Chạy cổng: `python scripts/testing/validate_repository.py` (gồm catalog +
    session-state + file-size check) và `python -m pytest -q` phải pass.
+5. **Commit ngay khi một tranche (roadmap item, vd P1-A) hoàn tất và cổng
+   pass — không gộp nhiều tranche vào một commit.** Push lên
+   `origin main` ngay sau mỗi commit để giữ vết. Message nêu rõ mã tranche
+   (vd `P1-A: ...`) và kết quả kiểm chứng.
 
 **File size:** trước khi thêm code/test/prose vào file gần ngưỡng, xem
 [`docs/reference/FILE_SIZE_GUARD.md`](docs/reference/FILE_SIZE_GUARD.md). Vượt

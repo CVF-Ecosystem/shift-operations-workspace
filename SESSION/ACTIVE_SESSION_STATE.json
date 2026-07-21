@@ -15,10 +15,12 @@
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
   "next_allowed_move": "Follow EXECUTION_ROADMAP.md in order. Next item by dependency: P1-A — DB-backed integration test for SqlLedger (Postgres round-trip) to move operations-ledger partial->enforced. Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
+  "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P1-A) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
     "Claiming SqlLedger is production-verified without a real PostgreSQL round-trip test.",
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
-    "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md)."
+    "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md).",
+    "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
     "as_of": "2026-07-21",
