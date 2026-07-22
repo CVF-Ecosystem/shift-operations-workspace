@@ -92,7 +92,11 @@ class CorrectionService:
         if event.state == DataState.CONFIRMED:
             event.state = DataState.CORRECTED
         event.version = new_version
-        self.ledger.put_event(event)
+        # allow_when_frozen=True: a correction record is the one permitted
+        # post-freeze mutation path (freeze-policy.yaml:
+        # post_freeze_mutation = correction_record_only). Every other write
+        # path defaults to blocking a frozen shift.
+        self.ledger.put_event(event, allow_when_frozen=True)
 
         correction = Correction(
             record_type="OperationalEvent",

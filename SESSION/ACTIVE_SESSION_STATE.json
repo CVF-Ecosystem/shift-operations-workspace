@@ -3,19 +3,19 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "corrective_fix_before_new_domains",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX1.md",
   "last_updated": "2026-07-22",
   "required_reads": [
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX1.md",
     "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_CATALOG.md",
     "docs/cvf/CVF_CONTROL_MAPPING.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "A second independent review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md) found the previous 'P2-A (Task) done' claim, and the 12/12-enforced / golden-vertical claims before it, were overbroad. P-FIX-0 (narrowing doc claims) is done. Next: P-FIX-1 - make freeze a real cross-record invariant (freeze_shift currently has no identity/permission/prerequisite check, and mutations on a frozen shift's children are not blocked in SqlLedger). Follow EXECUTION_ROADMAP.md P-FIX tranche in order (P-FIX-1 through P-FIX-5). Do NOT open P2-A remaining domains, P2-B, P2-C, or any new phase until the full P-FIX tranche is done and end-to-end tests (not just unit tests calling the gate directly) confirm each fix.",
+  "next_allowed_move": "P-FIX-0 and P-FIX-1 are done. Freeze is now a real cross-record invariant: ShiftService.freeze requires identity/permission/shift_closed (close_shift added to the Ledger Protocol) and an explicit audited override for report_approved/open_handover_items_linked (no model for those yet). Both InMemoryLedger and SqlLedger now block add_event/put_event/add_task/put_task when the parent shift is FROZEN; CorrectionService uses allow_when_frozen=True as the one permitted post-freeze mutation path. Verified end-to-end (12 new tests, parametrized over both backends, plus an HTTP probe confirming the old 200-FROZEN-unconditionally bypass now returns 409). Next: P-FIX-2 - make mutation+audit atomic (currently state-change commits before audit-append in a separate operation; a failure-injection probe should show audit loss without rollback). Follow EXECUTION_ROADMAP.md P-FIX tranche in order. Do NOT open P2-A remaining domains, P2-B, P2-C, or any new phase until the full P-FIX tranche (through P-FIX-5) is done.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P-FIX-1) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
     "Reusing the labels 'enforced', '12/12', or 'golden vertical' without the callable/load-bearing/not-verified-server-side distinction from docs/cvf/CVF_CONTROL_MAPPING.md (2026-07-22 correction).",
@@ -24,15 +24,17 @@
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
     "Trusting caller-supplied approval/approver identity as verified authorization (Critical finding: approval quorum shape is checked but approver identity/authority is not).",
     "Treating audit as guaranteed for a mutation that succeeded (audit is not currently atomic with mutation - see P-FIX-2).",
+    "Claiming freeze is enforced for report_approved/open_handover_items_linked - those two prerequisites have no model yet and are only satisfied via an explicit, audited override, not a real check.",
     "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md).",
     "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
     "as_of": "2026-07-22",
-    "pytest": "65 passed (verify by rerunning `python -m pytest -q`, do not trust this number without rerunning)",
+    "pytest": "77 passed (verify by rerunning `python -m pytest -q`, do not trust this number without rerunning)",
     "make_validate": "PASS (catalog + session-state + file-size checks) - catalog check is structural only, does not catch metric/Markdown drift (see P-FIX-5)",
     "cvf_controls_callable": "12/12 (see docs/cvf/CVF_CONTROL_MAPPING.md for which are load-bearing vs. callable-only vs. not-verified-server-side)",
-    "known_critical_defects": "freeze bypassable (pre- and post-freeze, both backends inconsistent); SqlLedger drops OperationalEvent.evidence; PostgreSQL Task insert will fail (migration missing version column); approval trusts caller-asserted identity; audit not atomic with mutation",
+    "p_fix_1_done": "freeze is now load-bearing end-to-end (both backends); see docs/cvf/CVF_CONTROL_MAPPING.md freeze row",
+    "known_remaining_defects": "SqlLedger drops OperationalEvent.evidence (P-FIX-3); PostgreSQL Task insert will fail, migration missing version column (P-FIX-4); approval trusts caller-asserted identity (P-FIX-3); audit not atomic with mutation (P-FIX-2)",
     "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8 (per generate_catalog.py --check structural validation; not independently re-verified for metric freshness)",
     "second_independent_review": "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md - read before trusting any 'enforced' claim in this repo"
   }

@@ -36,14 +36,18 @@ tiếp gate).
       `SESSION/SESSION_MEMORY.md`, roadmap này — dùng đúng phân biệt
       callable/load-bearing/not-verified-server-side thay vì "enforced" gộp
       chung.
-- [ ] **P-FIX-1 (Critical #1):** Freeze thành bất biến xuyên-record thật.
-      `freeze_shift` phải kiểm identity/permission + prerequisite
-      (`shift_closed`, `report_approved`, handover linked) trước khi cho freeze.
-      Sau khi frozen: `EventService`/`TaskService`/`CorrectionService` phải kiểm
-      shift cha trước mọi mutation; `SqlLedger.add_event/put_event/add_task/
-      put_task` phải kiểm shift status giống `InMemoryLedger` (hiện hai backend
-      hành xử khác nhau). Test: API + service + cả hai ledger, dùng shift cha
-      đã frozen làm fixture.
+- [x] **P-FIX-1 (Critical #1):** Freeze thành bất biến xuyên-record thật.
+      `ShiftService.freeze` (mới) enforce identity/permission + `shift_closed`
+      thật (`close_shift` thêm vào Ledger Protocol/cả 2 backend); `report_approved`/
+      `open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override
+      tường minh bắt buộc kèm lý do, ghi 2 audit record riêng (freeze +
+      override) — không giả vờ đã kiểm. Sau khi frozen: `InMemoryLedger`/
+      `SqlLedger` chặn `add_event/put_event/add_task/put_task` khi shift cha
+      FROZEN; `CorrectionService` dùng `allow_when_frozen=True` (đường mutation
+      hợp lệ duy nhất sau freeze). HTTP probe xác nhận: trước fix
+      `POST /shifts/{id}/freeze` trả `200 FROZEN` vô điều kiện; sau fix trả
+      `409` cho tới khi close + override. Test: `tests/cvf/test_freeze_invariant.py`
+      (12 test, tham số hoá cả `InMemoryLedger` và `SqlLedger`).
 - [ ] **P-FIX-2 (High #5):** Mutation + audit atomic. Gộp state-change +
       correction-insert + audit-append vào một unit-of-work mỗi ledger
       (transaction chung cho SqlLedger; cùng nguyên tắc cho InMemoryLedger).

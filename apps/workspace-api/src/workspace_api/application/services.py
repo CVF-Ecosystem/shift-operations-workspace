@@ -49,7 +49,13 @@ class EventService:
         # permission: may this principal confirm events at all?
         require_action(principal, "event.confirm")
 
-        # state: is CONFIRMED even reachable from here? (also blocks frozen)
+        # state: is CONFIRMED even reachable from event's own data-state?
+        # NOTE: this only checks the event's own state, NOT the parent shift.
+        # The parent-shift-frozen check happens at self.ledger.put_event()
+        # below (both InMemoryLedger and SqlLedger reject a mutation whose
+        # shift is FROZEN) - see EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md
+        # Critical Finding #1, which found this comment previously claimed a
+        # guarantee this line does not provide.
         assert_transition(event.state, DataState.CONFIRMED)
 
         # evidence: enough evidence links for this risk class?

@@ -27,6 +27,16 @@ class InMemoryLedger:
     def list_shifts(self) -> Iterable[Shift]:
         return list(self.shifts.values())
 
+    def close_shift(self, shift_id: UUID) -> Shift:
+        with self._lock:
+            shift = self.shifts[shift_id]
+            if shift.status == ShiftStatus.FROZEN:
+                raise ValueError("Cannot close a frozen shift")
+            shift.status = ShiftStatus.CLOSED
+            shift.version += 1
+            self.shifts[shift_id] = shift
+            return shift
+
     def freeze_shift(self, shift_id: UUID) -> Shift:
         with self._lock:
             shift = self.shifts[shift_id]
@@ -37,44 +47,51 @@ class InMemoryLedger:
             self.shifts[shift_id] = shift
             return shift
 
-    def add_message(self, message: Message) -> Message:
-        shift = self.get_shift(message.shift_id)
+    def _assert_shift_not_frozen(self, shift_id: UUID, what: str) -> None:
+        # Post-freeze, the ONLY permitted change is a correction record
+        # (freeze-policy.yaml: post_freeze_mutation = correction_record_only).
+        # Every direct mutation path must be blocked here, not just at "create".
+        shift = self.get_shift(shift_id)
         if shift.status == ShiftStatus.FROZEN:
-            raise ValueError("Cannot add message to a frozen shift")
+            raise ValueError(f"Cannot {what}: shift is frozen")
+
+    def add_message(self, message: Message) -> Message:
+        self._assert_shift_not_frozen(message.shift_id, "add message to a frozen shift")
         self.messages[message.message_id] = message
         return message
 
     def add_event(self, event: OperationalEvent) -> OperationalEvent:
-        shift = self.get_shift(event.shift_id)
-        if shift.status == ShiftStatus.FROZEN:
-            raise ValueError("Cannot add event to a frozen shift")
+        self._assert_shift_not_frozen(event.shift_id, "add event to a frozen shift")
         self.events[event.event_id] = event
         return event
 
     def get_event(self, event_id: UUID) -> OperationalEvent:
         return self.events[event_id]
 
-    def put_event(self, event: OperationalEvent) -> OperationalEvent:
+    def put_event(self, event: OperationalEvent, *, allow_when_frozen: bool = False) -> OperationalEvent:
+        if not allow_when_frozen:
+            self._assert_shift_not_frozen(event.shift_id, "modify event in a frozen shift")
         self.events[event.event_id] = event
         return event
 
     def add_task(self, task: Task) -> Task:
-        shift = self.get_shift(task.shift_id)
-        if shift.status == ShiftStatus.FROZEN:
-            raise ValueError("Cannot add task to a frozen shift")
+        self._assert_shift_not_frozen(task.shift_id, "add task to a frozen shift")
         self.tasks[task.task_id] = task
         return task
 
     def get_task(self, task_id: UUID) -> Task:
         return self.tasks[task_id]
 
-    def put_task(self, task: Task) -> Task:
+    def put_task(self, task: Task, *, allow_when_frozen: bool = False) -> Task:
+        if not allow_when_frozen:
+            self._assert_shift_not_frozen(task.shift_id, "modify task in a frozen shift")
         self.tasks[task.task_id] = task
         return task
 
     def add_correction(self, correction: Correction) -> Correction:
-        # Corrections are append-only: a correction record is the permitted way
-        # to change confirmed/frozen data and must never be overwritten.
+        # Corrections are append-only and are explicitly ALLOWED post-freeze:
+        # a correction record is the permitted way to change confirmed/frozen
+        # data and must never be overwritten. No shift-frozen guard here.
         with self._lock:
             if correction.correction_id in self.corrections:
                 raise ValueError("Correction already recorded")

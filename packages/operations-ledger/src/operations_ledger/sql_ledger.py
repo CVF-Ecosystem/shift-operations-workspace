@@ -83,6 +83,37 @@ class SqlLedger:
             rows = conn.execute(select(shifts)).mappings().all()
         return [self.models.Shift(**dict(r)) for r in rows]
 
+    def close_shift(self, shift_id: UUID):
+        Status = self.models.ShiftStatus
+        with self.engine.begin() as conn:
+            row = conn.execute(
+                select(shifts).where(shifts.c.shift_id == shift_id)
+            ).mappings().first()
+            if row is None:
+                raise KeyError(shift_id)
+            if row["status"] == Status.FROZEN.value:
+                raise ValueError("Cannot close a frozen shift")
+            conn.execute(
+                update(shifts)
+                .where(shifts.c.shift_id == shift_id)
+                .values(status=Status.CLOSED.value, version=row["version"] + 1)
+            )
+            row = conn.execute(
+                select(shifts).where(shifts.c.shift_id == shift_id)
+            ).mappings().first()
+        return self.models.Shift(**dict(row))
+
+    def _assert_shift_not_frozen(self, conn, shift_id: UUID, what: str) -> None:
+        # Post-freeze, the ONLY permitted change is a correction record.
+        # Every direct mutation path must check this, not just "create".
+        row = conn.execute(
+            select(shifts.c.status).where(shifts.c.shift_id == shift_id)
+        ).mappings().first()
+        if row is None:
+            raise KeyError(shift_id)
+        if row["status"] == self.models.ShiftStatus.FROZEN.value:
+            raise ValueError(f"Cannot {what}: shift is frozen")
+
     def freeze_shift(self, shift_id: UUID):
         Status = self.models.ShiftStatus
         with self.engine.begin() as conn:
@@ -110,6 +141,7 @@ class SqlLedger:
     # --- events ---
     def add_event(self, event):
         with self.engine.begin() as conn:
+            self._assert_shift_not_frozen(conn, event.shift_id, "add event to a frozen shift")
             conn.execute(insert(operational_events).values(**_rows.event_row(event)))
         return event
 
@@ -124,8 +156,10 @@ class SqlLedger:
             raise KeyError(event_id)
         return _rows.row_to_event(self.models, row)
 
-    def put_event(self, event):
+    def put_event(self, event, *, allow_when_frozen: bool = False):
         with self.engine.begin() as conn:
+            if not allow_when_frozen:
+                self._assert_shift_not_frozen(conn, event.shift_id, "modify event in a frozen shift")
             conn.execute(
                 update(operational_events)
                 .where(operational_events.c.event_id == event.event_id)
@@ -136,6 +170,7 @@ class SqlLedger:
     # --- tasks ---
     def add_task(self, task):
         with self.engine.begin() as conn:
+            self._assert_shift_not_frozen(conn, task.shift_id, "add task to a frozen shift")
             conn.execute(insert(tasks).values(**_rows.task_row(task)))
         return task
 
@@ -148,8 +183,10 @@ class SqlLedger:
             raise KeyError(task_id)
         return _rows.row_to_task(self.models, row)
 
-    def put_task(self, task):
+    def put_task(self, task, *, allow_when_frozen: bool = False):
         with self.engine.begin() as conn:
+            if not allow_when_frozen:
+                self._assert_shift_not_frozen(conn, task.shift_id, "modify task in a frozen shift")
             conn.execute(
                 update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task))
             )
