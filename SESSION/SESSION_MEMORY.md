@@ -36,24 +36,35 @@ cả High Finding đã sửa").
 
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
+Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
+(2026-07-22, trước P-FIX-1..6) tìm ra các lỗi nghiêm trọng hơn — freeze bypass,
+evidence mất trên SqlLedger, PostgreSQL Task.version thiếu cột — nhưng những
+lỗi đó **đã sửa** ở P-FIX-1/P-FIX-3/P-FIX-4; xem
+`docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md` cho snapshot lịch
+sử, không phải trạng thái hiện tại.
+
 - **CVF controls:** 12/12 có hàm gate + unit test ("callable"). **Không phải
   12/12 "load-bearing"** — xem bảng chi tiết ở
-  `docs/cvf/CVF_CONTROL_MAPPING.md` (đã viết lại 2026-07-22 theo đúng phân
-  biệt callable/load-bearing/not-verified-server-side).
-- **Ba service tái dùng đúng gate** (Event/Correction/Task đều gọi cùng hàm
-  `cvf_runtime`, không fork) — điểm này Codex xác nhận đúng. Nhưng gọi chúng là
-  "golden vertical durable end-to-end" là sai: xem Critical Finding #1, #2 và
-  High Finding #3, #4 trong bản review 07-22.
+  `docs/cvf/CVF_CONTROL_MAPPING.md` (đã viết lại 2026-07-22, cập nhật lần nữa
+  ở P-FIX-6 closure-cleanup để thêm dòng `shift.close`).
+- **Bốn service tái dùng đúng gate** (Event/Correction/Task/Shift đều gọi cùng
+  hàm `cvf_runtime`, không fork). Tránh nhãn "golden vertical durable
+  end-to-end" không giới hạn — xem "Golden verticals — phạm vi chính xác" trong
+  `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại theo từng domain (Event/Task
+  vẫn có gap qua SqlLedger/HTTP; Shift là domain có bằng chứng end-to-end mạnh
+  nhất tính đến P-FIX-6).
 - **Persistence:** `operations-ledger` dual-backend (SQLite/PostgreSQL qua
-  `Ledger` Protocol). SQLite verified cho scalar field, nhưng **đánh rơi
-  evidence** (event) — Critical #2. PostgreSQL **sẽ crash thật** khi insert
-  Task vì migration 002 thiếu cột `version` mà runtime luôn ghi — High #3.
+  `Ledger` Protocol). Evidence persist đúng qua cả 2 backend (P-FIX-3);
+  migration Task.version đã có cột và schema-parity test đã siết (P-FIX-4,
+  P-FIX-6 closure-cleanup thêm PK/FK hai chiều + type-family + CHECK
+  expression). **Vẫn NOT LIVE VERIFIED**: chưa từng chạy migration + round-trip
+  thật trên PostgreSQL (không có Docker trong môi trường này) — pre-ship gate.
 - **Catalog/session/file-size guard:** file-size và session-state check là
-  **cổng thật** (probe âm xác nhận). Catalog `--check` là **cổng nông** — chỉ
-  validate cấu trúc registry, không phát hiện metric/Markdown bị lệch (Medium
-  #6). Không dùng nó làm bằng chứng "catalog luôn tươi".
+  **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
+  metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
+  nông).
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
-  file khác — đây chính là spec-drift Codex nêu ở Medium #7.
+  file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
 ## Next allowed move
 

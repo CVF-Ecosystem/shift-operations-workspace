@@ -173,11 +173,15 @@ def test_check_expressions_match_where_comparable():
 
 def test_status_check_columns_referenced():
     """tasks.status (and the other text-status columns) use a column-level
-    CHECK (status IN (...)) rather than a table-level CHECK. Confirm every
-    allowed-value token in the migration's IN (...) list also appears in
-    tables.py's CheckConstraint for that table - a real (if partial)
-    comparison rather than pure existence-only, without needing a full SQL
-    expression parser for the IN-list form."""
+    CHECK (status IN (...)) rather than a table-level CHECK. Two-directional
+    comparison of the allowed-value sets - a real (if partial) comparison
+    rather than pure existence-only, without needing a full SQL expression
+    parser for the IN-list form. The migration-has-a-value-code-lacks
+    direction was the original P-FIX-6 check; the reverse (code allows a
+    status value the migration's CHECK would reject) is equally a drift bug -
+    a value the runtime accepts in SQLite-based tests would raise a CHECK
+    violation against a migration-created PostgreSQL database - and was added
+    in this closure-cleanup pass."""
     sql = migration_text()
     block = table_block(sql, "tasks")
     m = re.search(r"status\s+text[^,]*CHECK\s*\(status IN \(([^)]+)\)\)", block, re.IGNORECASE)
@@ -189,8 +193,16 @@ def test_status_check_columns_referenced():
     code_text = " ".join(str(c.sqltext) for c in code_checks)
     code_values = set(re.findall(r"'([A-Z_]+)'", code_text))
 
-    missing = migration_values - code_values
-    assert not missing, (
-        f"tasks: migration status CHECK allows {sorted(missing)} that "
+    missing_from_code = migration_values - code_values
+    assert not missing_from_code, (
+        f"tasks: migration status CHECK allows {sorted(missing_from_code)} that "
         f"tables.py's CheckConstraint text does not mention"
+    )
+    missing_from_migration = code_values - migration_values
+    assert not missing_from_migration, (
+        f"tasks: tables.py's CheckConstraint mentions "
+        f"{sorted(missing_from_migration)} that the migration's status CHECK "
+        f"does not allow - a value the runtime accepts against SQLite would "
+        f"raise a CHECK violation against a migration-created PostgreSQL "
+        f"database"
     )

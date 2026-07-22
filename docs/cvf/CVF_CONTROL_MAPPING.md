@@ -38,12 +38,19 @@ phạm vi P-FIX-6 chỉ là shift-close.
 
 ## Golden verticals — phạm vi chính xác
 
-Ba service (`EventService`, `CorrectionService`, `TaskService`) **đều import và
-gọi cùng các hàm `cvf_runtime`** — không có bản sao logic permission/evidence/
-approval nào bị fork. Đây là phần đã xác nhận đúng.
+**2026-07-22 P-FIX-6 closure-cleanup:** mục này trước đó chỉ liệt kê 3 service
+(`EventService`, `CorrectionService`, `TaskService`) — đã lỗi thời từ khi
+P-FIX-6 thêm `ShiftService.close` làm governed action thứ tư. Cập nhật lại:
 
-Nhưng gọi là "golden vertical durable/end-to-end" là **quá rộng**. Chính xác
-hơn:
+Bốn service (`EventService`, `CorrectionService`, `TaskService`,
+`ShiftService`) **đều import và gọi cùng các hàm `cvf_runtime`** — không có
+bản sao logic permission/evidence/approval nào bị fork. Đây là phần đã xác
+nhận đúng.
+
+Nhưng gọi bất kỳ đường nào trong số này là "golden vertical durable/end-to-end"
+không có giới hạn vẫn là **quá rộng** (đây chính là nhãn Codex gắn cờ ở review
+2026-07-22 — xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`).
+Chính xác hơn, theo domain:
 
 1. **Operational Event → confirm** — `EventService.confirm`. Load-bearing trên
    `InMemoryLedger`. **Trên `SqlLedger`: gãy cho risk R2+** vì
@@ -58,10 +65,18 @@ hơn:
    `TaskInput`/`api/tasks/router.py` không có field evidence, nên request thật
    luôn gửi evidence rỗng — task R2+ tạo qua API sẽ bị `evidence` gate từ chối
    dù client gửi kèm evidence (Pydantic bỏ field lạ).
+4. **Shift → close / freeze** — `ShiftService.close`/`ShiftService.freeze`
+   (P-FIX-6, P-FIX-1). Load-bearing trên cả 2 backend, có test end-to-end qua
+   HTTP (`tests/cvf/test_shift_close_governance.py`,
+   `tests/cvf/test_freeze_invariant.py`). **Còn hạn chế:** freeze's
+   `report_approved`/`open_handover_items_linked` không có model thật, chỉ
+   override tường minh có audit; identity vẫn header-based không xác thực,
+   giống mọi domain khác trong bảng này.
 
-**Không domain nào trong 3 cái trên là "durable end-to-end qua HTTP + SqlLedger
-+ evidence" tại thời điểm 2026-07-22.** Sẽ cập nhật khi các fix trong roadmap
-(P-FIX-1 → P-FIX-4) hoàn tất và có test end-to-end xác nhận.
+**Không domain nào trong 4 cái trên là "durable end-to-end qua HTTP + SqlLedger
++ evidence + xác thực identity thật" không giới hạn.** Dòng `shift.close` là
+domain có phạm vi hẹp nhất và có bằng chứng end-to-end mạnh nhất tính đến
+2026-07-22, nhưng vẫn thừa hưởng giới hạn identity/approval chung của cả repo.
 
 ## Bảng ánh xạ
 

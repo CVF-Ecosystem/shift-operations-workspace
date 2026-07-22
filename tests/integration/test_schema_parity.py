@@ -214,6 +214,12 @@ def test_primary_key_matches():
 
 
 def test_foreign_keys_match_migration():
+    """Two-directional: a migration FK missing from tables.py silently drops a
+    referential-integrity guarantee the runtime relies on (original P-FIX-6
+    check); a tables.py FK the migration does NOT declare would make SQLite
+    (which we run in dev/test) enforce a constraint PostgreSQL never will,
+    passing tests locally while behaving differently in production - this
+    second direction was missing until this closure-cleanup pass."""
     sql = migration_text()
     for table, tbl_obj in MAPPED.items():
         block = table_block(sql, table)
@@ -230,10 +236,16 @@ def test_foreign_keys_match_migration():
             for col in tbl_obj.columns
             for fk in col.foreign_keys
         }
-        missing = migration_refs - code_refs
-        assert not missing, (
-            f"{table}: migration has FK -> {missing} but tables.py does not "
-            f"map a matching (table, column) foreign key"
+        missing_from_code = migration_refs - code_refs
+        assert not missing_from_code, (
+            f"{table}: migration has FK -> {missing_from_code} but tables.py "
+            f"does not map a matching (table, column) foreign key"
+        )
+        missing_from_migration = code_refs - migration_refs
+        assert not missing_from_migration, (
+            f"{table}: tables.py declares FK -> {missing_from_migration} that "
+            f"the migration does not - SQLite would enforce a constraint "
+            f"PostgreSQL never will, diverging between dev/test and production"
         )
         # database/migrations/*.sql does not use ON DELETE/ON UPDATE anywhere
         # (verified by grep across both migration files) - no behavior to
