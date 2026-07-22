@@ -1,0 +1,36 @@
+{
+  "cvfCorePath": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\.Controlled-Vibe-Framework-CVF",
+  "cvfCoreCommit": "f05e3dc",
+  "workspaceRoot": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace",
+  "workspaceRulesPath": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\WORKSPACE_RULES.md",
+  "projectPath": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\shift-operations-workspace",
+  "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
+  "liveGovernanceEvidenceRequired": true,
+  "mockAllowedOnlyForUi": true,
+  "requiredDocs": [
+    ".cvf/manifest.json",
+    ".cvf/policy.json",
+    "../WORKSPACE_RULES.md",
+    "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md",
+    "CVF_SESSION_MEMORY.md",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "docs/INDEX.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "IMPLEMENTATION_STATUS.json"
+  ],
+  "bootstrapDate": "2026-07-22",
+  "enforcementVersion": "2.0",
+  "bootstrapScript": "manual-reconciliation-per-Project-Bootstrap-Continuity-Contract",
+  "bootstrapMode": "BACKFILL_ONTO_EXISTING_PROJECT",
+  "note": "This project pre-dates the CVF Project Bootstrap Continuity Contract and already had a mature, project-owned continuity system under SESSION/ (not CVF_SESSION/) with its own 5-phase business roadmap in docs/implementation/. This manifest was added via targeted backfill, not scripted bootstrap, to avoid overwriting existing artifacts. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md and CVF_SESSION_MEMORY.md for the canonical-path mapping.",
+  "canonicalContinuityPaths": {
+    "sessionMemory": "SESSION/SESSION_MEMORY.md",
+    "activeState": "SESSION/ACTIVE_SESSION_STATE.json",
+    "handoffsDir": "SESSION/handoffs/",
+    "businessRoadmap": "docs/implementation/EXECUTION_ROADMAP.md",
+    "reviewsFamily": "docs/decisions/"
+  },
+  "knowledgePath": "knowledge/"
+}

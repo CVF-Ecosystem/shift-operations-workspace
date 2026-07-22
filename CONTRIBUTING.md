@@ -53,6 +53,19 @@ hard limit thì tách module/file, **không** nén prose để lọt guard; file
 Mọi thay đổi đi theo INTAKE → DESIGN → SPEC → WORK ORDER → BUILD → REVIEW →
 FREEZE. Pull request phải nêu phase, acceptance gate và risk class liên quan.
 
+Chuỗi 7 bước này là **control chain** (cách một đơn vị việc đi qua các cổng),
+khác với 5-phase roadmap nghiệp vụ ở
+[`docs/implementation/EXECUTION_ROADMAP.md`](docs/implementation/EXECUTION_ROADMAP.md)
+(cái gì đang được xây và theo thứ tự nào). Không gộp hai khái niệm.
+
+## Role Contract
+
+Vai trò (role) được định nghĩa đầy đủ, trung lập provider, trong
+[`AGENTS.md`](AGENTS.md) — không lặp lại danh sách role ở đây. Một agent có
+thể giữ nhiều role nhưng phải ghi nhận rõ mỗi lần chuyển role trước khi hành
+động ở vai mới. Với thay đổi high-risk hoặc governance-significant, REVIEWER
+phải độc lập với IMPLEMENTATION_WORKER.
+
 ## Architecture discipline
 
 Không đổi tên module, di chuyển contract hoặc thêm provider-specific business
