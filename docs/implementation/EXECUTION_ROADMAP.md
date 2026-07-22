@@ -204,11 +204,35 @@ lifecycle/freeze rõ ràng.
       `PRAGMA foreign_keys=ON` cho SQLite; test chứng minh FK/CHECK chặn thật
       trên DB; parity test chống lệch `tables.py`↔migration tương lai (có test
       âm). Giữ SQLite và PostgreSQL enforce integrity giống nhau.
-- [ ] **P1-B:** Tách domain models ra `operations-domain` (hiện nằm inline trong
-      workspace-api) → `operations-domain` stub→partial.
+- [x] **P1-B (2026-07-23, FREEZE / CLOSED_BOUNDED):** Tách domain models ra
+      `operations-domain`. 12 operational types (`DataState`, `RiskClass`,
+      `ShiftStatus`, `TaskStatus`, `CustomerRequestStatus`, `EvidenceRef`,
+      `Shift`, `Message`, `OperationalEvent`, `Correction`, `Task`,
+      `CustomerRequest`) và 3 lifecycle guard (`assert_transition`,
+      `assert_task_transition`, `assert_customer_request_transition`) giờ có
+      **một canonical definition duy nhất** trong `operations_domain.models` /
+      `operations_domain.lifecycle`; `workspace_api.domain.models`/`.lifecycle`
+      thành **compatibility shim** re-export đúng object (identity `is`, không
+      phải `==`, chứng minh bằng test theo từng module pair). `User` **không**
+      di chuyển — thuộc auth boundary, nhà canonical vẫn là app, quyết định
+      dời thuộc lane reconciliation `known-principals.yaml` ↔ `users`. Package
+      là sink (chỉ stdlib + pydantic), không import ngược `workspace_api`/
+      `operations_ledger`/`cvf_runtime`. `SqlLedger(models=…)` seam **không**
+      refactor (`packages/operations-ledger/**` zero-line diff). `operations-domain`
+      **stub → partial** (KHÔNG enforced: incidents/handovers/reports/approvals/
+      audit vẫn chưa có model; blueprint subdirectory vẫn README-only). Control
+      chain đầy đủ có gate trong commit graph: C1 `3e3df42` (ADR+SPEC+
+      WORK_ORDER), C2 `1e56a72` (pre-BUILD continuity), C2b `ab75abb`
+      (authorization amendment cho catalog-gate conflict phát hiện trong BUILD),
+      C3 `f68cf63` (BUILD, 42 path, independent REVIEW_PASS AC-01…AC-18). Full
+      suite 292 passed (221 baseline + 71 mới). Chi tiết:
+      `docs/decisions/ADR_2026-07-23_P1B_OPERATIONS_DOMAIN_EXTRACTION.md`.
 
 **Exit gate:** shift record đầy đủ tạo/confirm/freeze được, có test; SqlLedger
-round-trip Postgres pass; contract test pass.
+round-trip Postgres pass; contract test pass. **CHƯA ĐẠT:** tất cả item `[x]`
+không có nghĩa exit gate đã đạt — **SqlLedger round-trip trên PostgreSQL thật
+chưa từng chạy** trong môi trường này (không có Docker), vẫn là pre-ship gate.
+Đóng P1-B (2026-07-23) là đóng một roadmap item, không phải đóng Phase 1.
 
 ---
 
@@ -342,15 +366,23 @@ bản chain, không tuyên bố "P2-A đã đóng" chung chung.
 load-bearing và governance-approved. **Chính xác về phạm vi:** P2-B KHÔNG đụng tới
 `known-principals.yaml` — reconciliation registry approver đó với bảng
 `users` mới vẫn là việc mở, chưa có tranche nào nhận; không tuyên bố "High
-Finding #4 đã sửa". Bước kế tiếp hợp lệ là mở lại một trong P2-A (còn lại:
-incidents/handovers, cần migration mới trước), reconciliation
-known-principals.yaml ↔ `users`, hoặc P2-C (frontend UI, giữ boundary
-backend-only).
+Finding #4 đã sửa".
+**2026-07-23 (P1-B):** đã FREEZE / CLOSED_BOUNDED — tách domain models/lifecycle
+guards ra `operations-domain` (chi tiết ở mục P1-B trong Phase 1). Operator đã
+xác nhận thứ tự lane hiện hành; **không còn là lựa chọn ba lane tự do**:
+1. **P1-B** — HOÀN TẤT (FREEZE 2026-07-23).
+2. **known-principals.yaml ↔ authenticated users** (High Finding #4) — **lane
+   kế tiếp**, bắt đầu ở một INTAKE mới.
+3. **P2-A còn lại** — incidents/handovers (cần migration mới trước).
+4. **P2-C** — frontend UI (giữ boundary backend-only).
+Không nhảy cóc thứ tự và không bắt đầu bất kỳ lane nào từ loose chat
+instruction — mỗi lane cần INTAKE và authorization artifacts riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
 governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
-(P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B).
+(P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B),
+tách operations-domain (P1-B).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, known-principals
 chỉ là registry check (KHÔNG được P2-B thay thế), PostgreSQL round-trip thật

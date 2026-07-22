@@ -1,137 +1,130 @@
-# Agent Handoff — 2026-07-23 (P1-B Operations-Domain Extraction — PRE-BUILD)
+# Agent Handoff — 2026-07-23 (P1-B Operations-Domain Extraction — FREEZE)
 
 ## Disposition
 
 - Tranche: `P1B-OPERATIONS-DOMAIN-EXTRACTION`
-- Control-chain phase: `WORK_ORDER` **approved** — standing immediately before
-  `BUILD`
+- Control-chain phase: `FREEZE`
 - Risk: R2 (import-boundary refactor across every governed vertical)
-- Status: **BUILD HAS NOT STARTED. No source, test, catalog, roadmap or status
-  file has been touched by this tranche.**
+- Result: **`CLOSED_BOUNDED`**
 - Live provider evidence: **not required and not produced** — this tranche
   asserts no AI/agent-governance claim (SPEC §8)
 
-This handoff records gate **G4** of the approved WORK_ORDER: the pre-BUILD
-continuity acknowledgment. It is a checkpoint record, not a completion record.
+The tranche ran the full control chain in order, with every gate recorded in the
+commit graph: INTAKE → DESIGN → operator-confirmed lane → SPEC → operator-approved
+WORK_ORDER → pre-BUILD continuity → BUILD (paused for an authorization amendment,
+then resumed) → independent REVIEW → FREEZE.
 
-## Operator lane decision — the drift is resolved
+## What this tranche did
 
-The `CVF-CORE-PIN-2026-07-23` FREEZE recorded an open continuity drift and
-deliberately refused to resolve it: `CONTRIBUTING.md:21` rules that the next
-unchecked roadmap item is taken in order, `EXECUTION_ROADMAP.md:207` shows that
-item is **P1-B**, while the recorded lane list offered only P2-A remaining,
-`known-principals.yaml` ↔ users, and P2-C — with P1-B absent. No agent was
-permitted to choose.
+The twelve operational types (`DataState`, `RiskClass`, `ShiftStatus`,
+`TaskStatus`, `CustomerRequestStatus`, `EvidenceRef`, `Shift`, `Message`,
+`OperationalEvent`, `Correction`, `Task`, `CustomerRequest`) and the three
+lifecycle guards (`assert_transition`, `assert_task_transition`,
+`assert_customer_request_transition`) now have a **single canonical definition**
+in `packages/operations-domain/src/operations_domain/` (`models.py`,
+`lifecycle.py`), moved verbatim out of `workspace-api`.
 
-**The operator has now resolved it**, confirming this order:
+`workspace_api.domain.models` and `workspace_api.domain.lifecycle` are now
+**compatibility shims** that re-export those same objects with proven object
+identity (`is`, not `==`, asserted per module pair), not redefinitions. All
+moved-type imports were repointed to `operations_domain` (32 import lines
+changed); the documented `User` imports, the `SqlLedger` shim-namespace imports,
+and the shim-identity test's imports intentionally remain. The package imports
+only the standard library and `pydantic` — it is a dependency **sink** that
+never imports `workspace_api`, `operations_ledger`, `cvf_runtime`, `fastapi` or
+`sqlalchemy`, enforced by a repository-scoped import-isolation
+subprocess.
 
-| # | Lane | State |
-|---|---|---|
-| 1 | **P1-B — operations-domain extraction** | **OPEN — the only lane authorized** |
-| 2 | `known-principals.yaml` ↔ authenticated users (High Finding #4) | not opened |
-| 3 | P2-A remaining — incidents / handovers | not opened |
-| 4 | P2-C — frontend | not opened |
+`operations-domain` moved **`stub` → `partial`** (never `enforced`).
 
-Lanes 2–4 must not be implemented, scoped, or started. The drift no longer
-needs agent-side handling: it was resolved by the authority that owned it.
-
-## Gate status
-
-| Gate | Requirement | State |
-|---|---|---|
-| **G1** | Independent review of the authorization artifacts | **PASS** — two review rounds; `REVIEW_CHANGES_REQUIRED` findings F1–F4, then F5–F6, all repaired in the artifacts before approval |
-| **G2** | Authorization artifacts committed separately, zero implementation files | **PASS** — commit `3e3df420bceca97d8047927a2098ea726d427aa8`, exactly 3 files, 1436 insertions, no source/test file |
-| **G3** | Operator approves the WORK_ORDER | **PASS** — approved **intact**, no amendment, at `3e3df42` |
-| **G4** | Continuity records the operator's lane choice before BUILD | **IN PROGRESS — this commit (C2)** |
-| **G5** | Role transition to IMPLEMENTATION_WORKER stated | not yet — occurs after C2 is committed |
-| **G6** | Clean start re-verified at the moment BUILD begins | not yet |
-
-## Authorization artifacts (committed at C1 `3e3df42`)
-
-- `docs/decisions/ADR_2026-07-23_P1B_OPERATIONS_DOMAIN_EXTRACTION.md` — DESIGN
-- `docs/specs/P1B_OPERATIONS_DOMAIN_EXTRACTION_SPEC.md` — testable requirements
-  R1–R8 and acceptance criteria AC-01…AC-18
-- `docs/work_orders/P1B_OPERATIONS_DOMAIN_EXTRACTION_WORK_ORDER.md` — the
-  approved bounded changed set, prohibited paths, stop conditions, commit plan
-
-That C1 commit contains **no implementation file**, which is the commit-graph
-proof that DESIGN → SPEC → WORK_ORDER preceded BUILD — the same structure
-`CVF-CORE-PIN-2026-07-23` used at `76e7360`, and the structure whose absence
-made `cd36b27` an unauthorized build candidate.
-
-## Verified state at the time of writing
+## Verified facts
 
 | Fact | Value |
 |---|---|
-| `HEAD` == `origin/main` | `3e3df420bceca97d8047927a2098ea726d427aa8` |
-| Branch / worktree | `main`, clean before C2 |
-| Workspace doctor | `RESULT: PASS (24/24 checks passed)` |
-| Test baseline | **221 passed** (run at `ed3d944`; re-verified at G6 before BUILD) |
+| C1 — authorization artifacts (ADR + SPEC + WORK_ORDER, no implementation) | `3e3df420bceca97d8047927a2098ea726d427aa8` |
+| C2 — pre-BUILD continuity (operator lane acknowledgment) | `1e56a72e2259f142fd26cc3035e81814f2856d35` |
+| C2b — authorization amendment (ADR addendum + SPEC/WO amendment 1, no implementation) | `ab75abb854607694740c0558d00a5d4a4cb99dfd` |
+| C3 — BUILD, 42 paths, independent REVIEW_PASS AC-01…AC-18 | `f68cf634f67984d64562dd8bfd0962ef01eb91fe` |
+| C4 — this FREEZE closure (roadmap + status + continuity) | committed separately, no catalog/source/test path |
+| Full suite | **292 passed** (221 baseline + 71 new), 0 failed, 0 errors |
+| `packages/operations-ledger/` diff | **empty** (zero-line) |
+| Workspace doctor | `PASS (24/24)` |
 
-## What BUILD (C3) will do, once authorized
+Each authorization/amendment commit contains **zero implementation files**,
+which is the commit-graph proof that DESIGN/SPEC/WORK_ORDER (and the mid-tranche
+amendment) preceded the BUILD they authorize.
 
-Create `packages/operations-domain/src/operations_domain/` as the single
-canonical home of twelve operational models and three lifecycle guards; leave
-`workspace_api.domain.models` / `.lifecycle` as re-export shims with asserted
-object identity; repoint 43 import statements across 30 files. `User` does
-**not** move — it belongs to the authentication boundary and its relocation is
-lane 2's decision. `packages/operations-ledger/**` must show a **zero-line
-diff**: the `SqlLedger(models=...)` injection seam is deliberately not
-refactored.
+## The catalog-gate conflict, and why it matters
 
-Authoritative scope is the WORK_ORDER's allowlist (43 paths), not this summary.
+During BUILD, `generate_catalog.py --check` (hardened by P-FIX-5 to recompute
+metrics from source) failed because C3 necessarily changed LOC/file counts, and
+`validate_repository.py` calls that same check. With `docs/catalog/**`
+prohibited in C3, AC-12 (zero failures) and AC-13 (validators PASS) were
+**jointly unsatisfiable** — an authorization defect, not an implementation one.
 
-## Role route
+The IMPLEMENTATION_WORKER **stopped** rather than regenerate a prohibited path
+or weaken the drift test, and reported. The authorization was amended through
+DESIGN → SPEC → WORK_ORDER (**C2b**) to move the two catalog files from C4 into
+C3 before BUILD resumed. This is the control chain catching an authorization
+defect instead of absorbing it silently into a BUILD commit — the failure mode
+`cd36b27` recorded.
 
-```
-ORCHESTRATOR -> SPEC_AUTHOR -> WORK_ORDER_AUTHOR        (Claude, C1 artifacts)
-  -> independent REVIEWER x2                             (Codex, F1-F6)
-  -> OPERATOR APPROVAL (G3)                              (intact, 3e3df42)
-  -> SESSION_SYNC_STEWARD                                (Claude, this C2)
-  -> IMPLEMENTATION_WORKER                               (Claude, C3 - AFTER C2 commits)
-  -> independent REVIEWER / COMMIT_STEWARD               (Codex)
-```
+## Review evidence (re-run by the independent reviewer, not trusted from report)
 
-- **Next role after C2 is committed: Claude → IMPLEMENTATION_WORKER**, stated
-  explicitly before the first source edit (G5).
-- **Codex holds independent REVIEWER and COMMIT_STEWARD** throughout, as R2
-  requires. Codex is authorized to clear the remaining reviewer/steward gates
-  without re-asking the operator, provided scope does not change and no stop
-  condition is hit.
-- Claude does not stage, commit, amend, push, or create branches at any point.
+- Targeted three new test files: **71 passed**
+- `tests/integration` + `tests/cvf`: **210 passed**
+- Full suite: **292 passed**, 0 failed, 0 errors
+- `validate_repository.py`, `generate_catalog.py --check`,
+  `check_session_state.py`, `check_file_size.py`: PASS
+- Workspace doctor: 24/24
+- `git diff --check`: clean · `packages/operations-ledger/`: zero-line diff
+- **AC-18 rollback rehearsal**: ran in a temporary worktree outside the primary
+  workspace; after reverting C3 the C3 paths matched `C3_PARENT` `ab75abb`,
+  C1/C2/C2b remained intact, the suite returned to the **221 passed** baseline,
+  and the temporary worktree was cleaned up — PASS.
 
-## Claim boundary — unchanged by this tranche
+## Verified boundary — what this tranche did NOT do
 
-This handoff changes **no** prior disposition and asserts **no** new capability:
+- **`User` did not move.** It belongs to the authentication boundary; its
+  canonical home stays `workspace_api.domain.models`, which is now both a shim
+  (for the operational types) and the canonical home of `User`. Its relocation
+  is owned by lane 2 (`known-principals.yaml` ↔ users), not this tranche.
+- **The `SqlLedger(models=...)` seam and the `Ledger` Protocol were not
+  refactored** — `packages/operations-ledger/**` has a zero-line diff.
+- No API contract, response schema, OpenAPI output, database schema, migration,
+  lifecycle semantics, enum value, or CVF gate behaviour changed (all compared
+  as canonical bytes).
+- No change to authentication, approval, or `known-principals.yaml`.
+- `operations-domain` is **`partial`, not `enforced`**: incidents, handovers,
+  reports, approvals and audit still have no operational model or runtime, and
+  the per-domain blueprint subdirectories are still README-only.
+- **No AI/agent-governance claim** — no provider call was made or required.
 
-- **P2-B** remains frozen exactly as at `4e15ea4`. `identity` is load-bearing
-  and governance-approved **within its receipt boundary only**; still no
-  refresh tokens, revocation, self-service registration, password reset, login
-  rate-limiting, or real admin provisioning.
+## Claims preserved from earlier tranches
+
+- **P2-B** remains frozen at `4e15ea4`; `identity` load-bearing within its
+  receipt boundary only. **P2-B disposition unchanged.**
 - **`CVF-CORE-PIN-2026-07-23`** remains `FREEZE / CLOSED_BOUNDED`; core and pin
-  stay at `6ce1cf0`. It is not AI-governance evidence.
+  at `6ce1cf0`. **Disposition unchanged.**
 - **High Finding #4 remains OPEN.** `known-principals.yaml` is still a registry
-  check, not authentication, and is not reconciled with the `users` table. This
-  tranche does not touch it.
-- **P1-B is NOT complete.** It is authorized and about to start.
-- **Phase 1 exit gate is NOT met.** Ticking a roadmap item is not a phase gate.
-- **PostgreSQL round-trip has never been run live** in this environment and
-  remains a pre-ship limitation.
-- `cd36b27` remains untouched historical evidence — no rewrite, squash, amend,
-  rebase, or force-push by this tranche.
-- No provider call was made and no secret was read; none is required, because
-  no AI-governance claim is asserted.
+  check, not reconciled with the `users` table. Not touched by P1-B. Do not say
+  "all findings fixed".
+- **Phase 1 exit gate is NOT met.** Ticking P1-B closes a roadmap item, not the
+  phase. The **PostgreSQL live round-trip has never run** (no Docker) and
+  remains a pre-ship gate.
+- `cd36b27` remains untouched historical evidence.
 
 ## Next governed move
 
-1. Codex reviews and commits **C2** (this handoff plus the three continuity
-   files) as COMMIT_STEWARD.
-2. Claude states the transition to IMPLEMENTATION_WORKER (G5), re-verifies the
-   clean start (G6), and executes **C3** strictly inside the WORK_ORDER
-   allowlist.
-3. Codex independently reviews C3 by re-running every AC — not by trusting
-   reported numbers — and commits it.
-4. **C4** (catalog, roadmap, status, continuity closure) only at FREEZE, only
-   from observed source truth, only if explicitly authorized.
+Return to **INTAKE** for lane 2 of the operator's confirmed four-lane order:
 
-Do not begin BUILD from a loose chat instruction, and do not open lanes 2–4.
+1. ~~P1-B operations-domain extraction~~ — **DONE (this tranche)**
+2. **`known-principals.yaml` ↔ authenticated users reconciliation** (High
+   Finding #4) — **the next lane**
+3. P2-A remaining — incidents / handovers (each needs a new governed migration
+   first)
+4. P2-C — frontend
+
+Lane 2 is only **named** here as the next move. Do not DESIGN, SPEC, WORK_ORDER,
+or BUILD it in this closure. Do not begin it from a loose chat instruction; it
+starts at a fresh INTAKE.
