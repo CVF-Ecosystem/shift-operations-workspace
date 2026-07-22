@@ -4,7 +4,7 @@ Status: RECONCILIATION_ONTO_EXISTING_PROJECT — this is not a greenfield
 bootstrap. This project already had a mature, actively maintained continuity
 system before this record was created; see "Preservation Decisions" below.
 
-Current disposition: `REVIEWER_ACCEPTED_PENDING_COMMIT` (see
+Current disposition: `COMMITTED_REVIEW_PASS` at `acc5d09` (see
 `SESSION/ACTIVE_SESSION_STATE.json` for the canonical checkpoint). A first
 independent review already ran and returned `REVIEW_CHANGES_REQUIRED`; the
 findings from that review were repaired, and the second independent review
@@ -119,8 +119,8 @@ Run the workspace doctor to verify enforcement artifacts:
 - [ ] Team/operator acknowledgment recorded
 
 ## 8. Approval
-- Result: REVIEWER ACCEPTED, PENDING SEPARATE COMMIT (bootstrap-continuity batch;
-  disposition `REVIEWER_ACCEPTED_PENDING_COMMIT` — see
+- Result: COMMITTED REVIEW PASS (bootstrap-continuity batch;
+  disposition `COMMITTED_REVIEW_PASS` at `acc5d09` — see
   `SESSION/ACTIVE_SESSION_STATE.json` for the canonical checkpoint)
 - Approved By: Codex independent reviewer
 - Approval Date: 2026-07-22

@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (customer_request committed; bootstrap commit pending)_
+_Last updated: 2026-07-22 (customer_request and bootstrap committed separately)_
 
 ## Where the project is
 
@@ -84,31 +84,30 @@ sử, không phải trạng thái hiện tại.
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
   file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
-## Hai batch đang chờ disposition (2026-07-22 — checkpoint hiện tại)
+## Hai batch đã hoàn tất (2026-07-22)
 
-**KHÔNG mở P2-A(còn lại)/P2-B/P2-C ngay bây giờ.** Batch customer_request đã
-commit riêng; batch bootstrap-continuity đang chờ commit, xem đầy đủ ở handoff
-`AGENT_HANDOFF_2026-07-22_TWO_PENDING_BATCHES.md`:
+Batch customer_request và bootstrap-continuity đã review và commit riêng. Xem
+active handoff `AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md`; handoff
+`AGENT_HANDOFF_2026-07-22_TWO_PENDING_BATCHES.md` giữ lại lịch sử checkpoint:
 
-1. **customer_request repair** — `COMMITTED_REVIEW_PASS` tại `0429c4a`. Review độc
+1. **customer_request repair** — `COMMITTED_REVIEW_PASS` tại `0429c4a`.
    lập đã PASS (35/35 test mục tiêu, 149/149 toàn bộ suite, validate_repository
    PASS, catalog PASS, session-state PASS). Đã xong, đã review và **đã
    commit riêng**. Không sửa lại code này trừ khi có regression mới được chứng
    minh.
-2. **bootstrap-continuity** — `REVIEWER_ACCEPTED_PENDING_COMMIT`. Review
+2. **bootstrap-continuity** — `COMMITTED_REVIEW_PASS` tại `acc5d09`. Review
    độc lập lần 1 trả `REVIEW_CHANGES_REQUIRED` (5 finding: token
    `{{CVF_CORE_PATH}}` chưa resolve, `CVF_SESSION_MEMORY.md` khai sai là
    không có `CVF_SESSION/`, bootstrap log mâu thuẫn với worktree thật,
    continuity không phản ánh 2 batch đang treo, mirror không có drift-check
    xác định). Review độc lập lần 2 đã sửa và xác nhận lại checker bằng probe
-   âm; batch đang chờ commit riêng và session sync.
+   âm; batch đã commit riêng.
 
 ## Next allowed move
 
-Theo đúng thứ tự: (1) commit riêng batch bootstrap-continuity đã được reviewer
-chấp nhận; (2) session sync ghi nhận hai SHA; (3) chỉ sau khi continuity xác
-nhận cả 2 đã commit mới được mở P2-A (còn lại — incidents/handovers, cần
-migration mới trước), P2-B (authentication thật), hoặc P2-C (frontend UI).
+Operator chọn đúng một lane mới và bắt đầu tại INTAKE: P2-A (còn lại —
+incidents/handovers, cần migration mới trước), P2-B (authentication thật),
+hoặc P2-C (frontend UI).
 Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
