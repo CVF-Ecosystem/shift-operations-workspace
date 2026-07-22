@@ -53,6 +53,7 @@ import re
 
 from operations_ledger.tables import (
     corrections,
+    customer_requests,
     metadata,
     operational_events,
     shifts,
@@ -67,11 +68,18 @@ from _schema_parity_parsing import (
 )
 
 # Tables tables.py currently maps -> their SQLAlchemy Table object.
+# NOTE: "messages" is intentionally NOT in MAPPED even though tables.py now
+# has a messages Table object - that Table exists only so
+# customer_requests.source_message_id's foreign key can resolve against this
+# MetaData (see tables.py's docstring on it); SqlLedger.add_message still
+# raises NotImplementedError, so there is no persistence behavior to parity
+# -check yet. Add it here when message persistence is actually implemented.
 MAPPED = {
     "shifts": shifts,
     "operational_events": operational_events,
     "corrections": corrections,
     "tasks": tasks,
+    "customer_requests": customer_requests,
 }
 
 
@@ -132,6 +140,11 @@ _ALWAYS_EXPLICITLY_SUPPLIED_PK = {
     ("operational_events", "event_id"),
     ("corrections", "correction_id"),
     ("tasks", "task_id"),
+    # Verified by reading customer_request_row() in
+    # packages/operations-ledger/src/operations_ledger/_rows.py: request_id
+    # is always included in the row dict, sourced from
+    # CustomerRequest.request_id (Pydantic Field(default_factory=uuid4)).
+    ("customer_requests", "request_id"),
 }
 
 

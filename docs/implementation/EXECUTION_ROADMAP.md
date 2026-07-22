@@ -226,8 +226,21 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       permission/domain_lock/risk/evidence/approval/audit; transition qua
       permission + task-status lifecycle + audit), router `/tasks`, tests
       (vertical + SQLite persistence). Tái dùng gate cvf-runtime, không fork.
-- [ ] **P2-A (còn lại):** Nhân bản tiếp sang customer requests, incidents,
-      handovers cùng khuôn mẫu.
+- [x] **P2-A (customer requests):** Nhân bản CVF chain sang customer_request
+      domain (P2-A-CUSTOMER-REQUEST, 2026-07-22) — `CustomerRequest` model +
+      `CustomerRequestStatus` lifecycle (NEW→ACKNOWLEDGED→IN_PROGRESS→
+      WAITING/RESOLVED→CLOSED terminal; WAITING không nhảy thẳng CLOSED — phải
+      qua RESOLVED trước), bảng `customer_requests` map vào `tables.py`
+      (`shift_id` NULLABLE khác `tasks`, FK thứ hai tới `messages.message_id`,
+      CHECK status khớp migration 002 — parity test xác nhận 2 chiều), ledger
+      methods (Protocol/InMemory/Sql), `CustomerRequestService` (create qua
+      identity/permission/domain_lock/audit — KHÔNG có risk/evidence/approval
+      vì migration không có cột đó; transition qua permission + lifecycle +
+      audit), router `/customer-requests`, 18 test (vertical + HTTP + atomic
+      rollback cả 2 backend + frozen-shift invariant khi có `shift_id`).
+- [ ] **P2-A (còn lại):** incidents, handovers — CHƯA có bảng migration nào
+      cho 2 domain này (khác customer_request đã có sẵn migration 002); cần
+      migration mới trước khi nhân bản chain, rủi ro/phạm vi lớn hơn.
 - [ ] **P2-B:** Authentication thật (thay header-based principal bằng
       JWT/session) — nâng identity control.
 - [ ] **P2-C:** Frontend UI cho các vertical đã có backend (bắt đầu Events/
@@ -294,18 +307,25 @@ owner review approve.
 Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 **2026-07-22 (P-FIX-6, đóng thật):** tranche P-FIX (P-FIX-0 → P-FIX-6) đã
 đóng bounded — 5 tranche triển khai P-FIX-1 tới P-FIX-5, cộng tranche chuẩn bị
-P-FIX-0; 7 commit P-FIX tính cả P-FIX-6. Bước kế tiếp hợp lệ là mở lại một
-trong P2-A (domain còn lại: customer requests/incidents/handovers, cùng khuôn
-`TaskService`/`ShiftService`), P2-B (authentication thật, nên thay thế
-known-principals.yaml), hoặc P2-C (frontend UI, giữ boundary backend-only).
+P-FIX-0; 7 commit P-FIX tính cả P-FIX-6.
+**2026-07-22 (P2-A-CUSTOMER-REQUEST):** đã nhân bản CVF chain sang domain
+`customer_request` (chi tiết ở mục P2-A phía trên). **Chính xác về phạm vi:**
+P2-A (customer_request) đã xong; P2-A (incidents, handovers) VẪN còn mở —
+2 domain này chưa có bảng migration nào, cần migration mới trước khi nhân
+bản chain, không tuyên bố "P2-A đã đóng" chung chung. Bước kế tiếp hợp lệ là
+mở lại một trong P2-A (còn lại: incidents/handovers, cần migration mới
+trước), P2-B (authentication thật, nên thay thế known-principals.yaml), hoặc
+P2-C (frontend UI, giữ boundary backend-only).
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
-governed shift.close (P-FIX-6). **Còn treo, không được tuyên bố đã sửa:**
+governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
+(P2-A-CUSTOMER-REQUEST). **Còn treo, không được tuyên bố đã sửa:**
 identity chưa xác thực thật, data_scope/cost/termination chưa có runtime
 caller, refusal routing/recording chưa implement, known-principals chỉ là
-registry check, PostgreSQL round-trip thật chưa chạy trong môi trường này —
-xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
+registry check, PostgreSQL round-trip thật chưa chạy trong môi trường này,
+incidents/handovers (P2-A còn lại) chưa có migration — xem `blocked_work`
+trong `ACTIVE_SESSION_STATE.json`.
 
 ## Cách dùng roadmap này
 

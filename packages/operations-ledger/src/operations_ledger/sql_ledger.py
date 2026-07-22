@@ -35,6 +35,7 @@ from operations_ledger import _evidence, _rows
 from operations_ledger.tables import (
     audit_records,
     corrections,
+    customer_requests,
     operational_events,
     shifts,
     tasks,
@@ -241,6 +242,47 @@ class SqlLedger:
                 update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task))
             )
         return task
+
+    # --- customer requests ---
+    # shift_id is nullable on this table: a request not tied to any shift has
+    # no frozen-shift invariant to check, so the guard only runs when a
+    # shift_id is actually present (mirrors the reasoning in
+    # InMemoryLedger.add_customer_request).
+    def add_customer_request(self, request, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            if request.shift_id is not None:
+                self._assert_shift_not_frozen(
+                    c, request.shift_id, "add customer request to a frozen shift"
+                )
+            c.execute(insert(customer_requests).values(**_rows.customer_request_row(request)))
+        return request
+
+    def get_customer_request(self, request_id: UUID, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
+                select(customer_requests).where(
+                    customer_requests.c.request_id == request_id
+                )
+            ).mappings().first()
+            if row is None:
+                raise KeyError(request_id)
+        return _rows.row_to_customer_request(self.models, row)
+
+    def put_customer_request(self, request, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            if request.shift_id is not None:
+                self._assert_shift_not_frozen(
+                    c, request.shift_id, "modify customer request in a frozen shift"
+                )
+            c.execute(
+                update(customer_requests)
+                .where(customer_requests.c.request_id == request.request_id)
+                .values(**_rows.customer_request_row(request))
+            )
+        return request
 
     # --- corrections (append-only) ---
     def add_correction(self, correction, *, unit=None):

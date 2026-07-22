@@ -85,6 +85,36 @@ def row_to_task(models, row, *, evidence=None):
     )
 
 
+def customer_request_row(request) -> dict:
+    return {
+        "request_id": request.request_id,
+        "customer_id": request.customer_id,
+        "shift_id": request.shift_id,
+        "summary": request.summary,
+        "details": request.details,
+        "status": str(request.status),
+        "source_message_id": request.source_message_id,
+        "received_at": request.received_at,
+        "promised_at": request.promised_at,
+        "owner_id": request.owner_id,
+    }
+
+
+def row_to_customer_request(models, row):
+    return models.CustomerRequest(
+        request_id=row["request_id"],
+        customer_id=row["customer_id"],
+        shift_id=row["shift_id"],
+        summary=row["summary"],
+        details=row["details"],
+        status=row["status"],
+        source_message_id=row["source_message_id"],
+        received_at=row["received_at"],
+        promised_at=row["promised_at"],
+        owner_id=row["owner_id"],
+    )
+
+
 def evidence_link_row(evidence_ref, *, record_type: str, record_id) -> dict:
     return {
         "evidence_link_id": evidence_ref.evidence_id,

@@ -110,3 +110,30 @@ class Task(BaseModel):
     evidence: list[EvidenceRef] = Field(default_factory=list)
     version: int = 1
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class CustomerRequestStatus(StrEnum):
+    NEW = "NEW"
+    ACKNOWLEDGED = "ACKNOWLEDGED"
+    IN_PROGRESS = "IN_PROGRESS"
+    WAITING = "WAITING"
+    RESOLVED = "RESOLVED"
+    CLOSED = "CLOSED"
+
+
+class CustomerRequest(BaseModel):
+    # Mirrors database/migrations/002_tasks_customers_reports.sql exactly: no
+    # version/risk_class/state/evidence columns on this table (unlike
+    # Task/OperationalEvent) - this is a simpler record type by design, not an
+    # omission. Do not add those fields without first adding the matching
+    # migration columns (the schema-parity test enforces exact column match).
+    request_id: UUID = Field(default_factory=uuid4)
+    customer_id: str
+    shift_id: UUID | None = None
+    summary: str
+    details: str | None = None
+    status: CustomerRequestStatus = CustomerRequestStatus.NEW
+    source_message_id: UUID | None = None
+    received_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    promised_at: datetime | None = None
+    owner_id: str | None = None

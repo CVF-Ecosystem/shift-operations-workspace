@@ -72,6 +72,26 @@ operational_events = Table(
     ),
 )
 
+# Mirrors migration 001_foundation.sql (messages table). Minimal mapping: no
+# add_message/get_message SqlLedger methods exist yet (add_message still
+# raises NotImplementedError - message persistence is a separate vertical),
+# but customer_requests.source_message_id REFERENCES messages(message_id), so
+# this Table object must exist for that foreign key to resolve against this
+# MetaData (SQLAlchemy raises NoReferencedTableError otherwise, which breaks
+# every metadata.create_all(engine) call across the test suite).
+messages = Table(
+    "messages",
+    metadata,
+    Column("message_id", Uuid, primary_key=True),
+    Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=False),
+    Column("source", Text, nullable=False),
+    Column("sender_id", Text, nullable=False),
+    Column("text_content", Text),
+    Column("state", String, nullable=False, server_default="RAW"),
+    Column("raw_payload", JSON_TYPE),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+)
+
 corrections = Table(
     "corrections",
     metadata,
@@ -130,5 +150,28 @@ tasks = Table(
     CheckConstraint(
         "status IN ('OPEN','IN_PROGRESS','BLOCKED','DONE','CARRY_OVER','CANCELLED')",
         name="tasks_status_check",
+    ),
+)
+
+# Mirrors migration 002_tasks_customers_reports.sql (customer_requests table).
+# Unlike tasks, shift_id here is NULLABLE (a customer request can exist
+# without being tied to a specific shift) and there is no version/risk/state
+# column - this table is intentionally simpler than tasks/operational_events.
+customer_requests = Table(
+    "customer_requests",
+    metadata,
+    Column("request_id", Uuid, primary_key=True),
+    Column("customer_id", Text, nullable=False),
+    Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=True),
+    Column("summary", Text, nullable=False),
+    Column("details", Text),
+    Column("status", Text, nullable=False),
+    Column("source_message_id", Uuid, ForeignKey("messages.message_id"), nullable=True),
+    Column("received_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    Column("promised_at", DateTime(timezone=True)),
+    Column("owner_id", Text),
+    CheckConstraint(
+        "status IN ('NEW','ACKNOWLEDGED','IN_PROGRESS','WAITING','RESOLVED','CLOSED')",
+        name="customer_requests_status_check",
     ),
 )

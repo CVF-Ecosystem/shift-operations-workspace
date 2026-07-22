@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (P-FIX-6)_
+_Last updated: 2026-07-22 (P2-A-CUSTOMER-REQUEST)_
 
 ## Where the project is
 
@@ -34,6 +34,20 @@ drift bên dưới. Trạng thái đúng bây giờ là **`P-FIX CLOSED_BOUNDED`
 "Không được làm" bên dưới cho danh sách giới hạn vẫn còn treo (KHÔNG phải "tất
 cả High Finding đã sửa").
 
+**2026-07-22 (P2-A-CUSTOMER-REQUEST):** với P-FIX đã đóng bounded, operator
+mở lại Phase 2 roadmap, chỉ định P2-A: nhân bản CVF chain sang domain thứ năm
+— `customer_request`. Đã nhân bản đúng khuôn `TaskService`/`ShiftService`:
+`CustomerRequest` model + `CustomerRequestStatus` lifecycle, bảng
+`customer_requests` map vào `tables.py` (khớp migration 002 hai chiều qua
+schema-parity test), `add/get/put_customer_request` trên cả Protocol/
+InMemoryLedger/SqlLedger, `CustomerRequestService` (create: identity→
+permission→domain_lock→persist(frozen-shift check chỉ khi có shift_id)→audit;
+transition: identity→permission→lifecycle guard→persist→audit), router
+`/customer-requests`, 18 test mới. **Chính xác về phạm vi:** P2-A
+(customer_request) đã xong; P2-A (incidents, handovers) VẪN còn mở — 2 domain
+đó chưa có bảng migration, cần migration mới trước. Không tuyên bố "P2-A đã
+đóng" chung chung.
+
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
 Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
@@ -47,13 +61,16 @@ sử, không phải trạng thái hiện tại.
   12/12 "load-bearing"** — xem bảng chi tiết ở
   `docs/cvf/CVF_CONTROL_MAPPING.md` (đã viết lại 2026-07-22, cập nhật lần nữa
   ở P-FIX-6 closure-cleanup để thêm dòng `shift.close`).
-- **Bốn service tái dùng đúng gate** (Event/Correction/Task/Shift đều gọi cùng
-  hàm `cvf_runtime`, không fork). Tránh nhãn "golden vertical durable
-  end-to-end" không giới hạn — xem "Golden verticals — phạm vi chính xác" trong
-  `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại theo từng domain. Evidence qua
-  SqlLedger/HTTP (Event/Task) đã sửa ở P-FIX-3, không còn là gap; giới hạn còn
-  lại chung là identity header-based và approval không xác thực approver độc
-  lập. Shift là domain có ít giới hạn riêng nhất tính đến P-FIX-6.
+- **Năm service tái dùng đúng gate** (Event/Correction/Task/Shift/
+  CustomerRequest đều gọi cùng hàm `cvf_runtime`, không fork). Tránh nhãn
+  "golden vertical durable end-to-end" không giới hạn — xem "Golden verticals
+  — phạm vi chính xác" trong `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại
+  theo từng domain. Evidence qua SqlLedger/HTTP (Event/Task) đã sửa ở P-FIX-3,
+  không còn là gap; giới hạn còn lại chung là identity header-based và
+  approval không xác thực approver độc lập (Event/Correction). Shift và
+  CustomerRequest là các domain có ít giới hạn riêng nhất tính đến
+  2026-07-22 (CustomerRequest không có approval/evidence chain vì migration
+  không có cột đó).
 - **Persistence:** `operations-ledger` dual-backend (SQLite/PostgreSQL qua
   `Ledger` Protocol). Evidence persist đúng qua cả 2 backend (P-FIX-3);
   migration Task.version đã có cột và schema-parity test đã siết (P-FIX-4,
@@ -69,20 +86,20 @@ sử, không phải trạng thái hiện tại.
 
 ## Next allowed move
 
-Tranche **P-FIX** (P-FIX-0 → P-FIX-6) đã đóng — **5 tranche triển khai
-P-FIX-1 tới P-FIX-5, cộng tranche chuẩn bị P-FIX-0; 6 commit trước P-FIX-6,
-7 commit P-FIX sau P-FIX-6.** P2-A (domain còn lại)/P2-B/P2-C chỉ mở lại
-**sau khi** toàn bộ closure surface (roadmap, control mapping, implementation
-status, catalog, session memory, active session state, handoff) đã đồng bộ
-đúng trạng thái P-FIX-6 — xem `next_allowed_move` trong
+Tranche **P-FIX** (P-FIX-0 → P-FIX-6) đã đóng bounded, và **P2-A
+(customer_request)** đã xong (2026-07-22, tranche P2-A-CUSTOMER-REQUEST — xem
+handoff `AGENT_HANDOFF_2026-07-22_P2A_CUSTOMER_REQUEST.md`). Bước kế tiếp hợp
+lệ: P2-A (còn lại — incidents/handovers, cần migration mới trước), P2-B
+(authentication thật, nên thay thế known-principals.yaml), hoặc P2-C
+(frontend UI, giữ boundary backend-only). Xem `next_allowed_move` trong
 `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
 
 Xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`. Cốt lõi: không dùng lại
 nhãn "enforced"/"12/12"/"golden vertical"/"tất cả High Finding đã sửa" không
-giới hạn; không thêm domain mới (P2-A tiếp) trước khi mọi closure surface của
-P-FIX-6 đồng bộ xong; không tạo file điểm-vào theo provider — front door là
-`CONTRIBUTING.md`, trung lập; không tin tuyên bố "CLOSED" của bất kỳ agent nào
-(kể cả chính agent viết ra nó) mà không tự chạy lại probe/test — đây chính là
-bài học P-FIX-6.
+giới hạn; không tuyên bố "P2-A đã đóng" chung chung — chỉ customer_request
+xong, incidents/handovers vẫn mở và cần migration mới; không tạo file
+điểm-vào theo provider — front door là `CONTRIBUTING.md`, trung lập; không
+tin tuyên bố "CLOSED"/"đã xong" của bất kỳ agent nào (kể cả chính agent viết
+ra nó) mà không tự chạy lại probe/test — đây chính là bài học P-FIX-6.

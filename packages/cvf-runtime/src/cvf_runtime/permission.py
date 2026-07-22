@@ -41,6 +41,12 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # independent review that rejected the P-FIX-5 closure claim over this gap.
     "shift.close": "operator",
     "shift.freeze": "shift_supervisor",
+    # customer_request.create/transition are routine operator actions, same
+    # bar as task.create/task.transition - a customer request is not a
+    # risk-classed/durable-commitment record (no risk_class column in the
+    # migration), so it does not need the higher supervisor bar.
+    "customer_request.create": "operator",
+    "customer_request.transition": "operator",
 }
 
 

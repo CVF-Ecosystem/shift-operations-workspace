@@ -42,10 +42,14 @@ phạm vi P-FIX-6 chỉ là shift-close.
 (`EventService`, `CorrectionService`, `TaskService`) — đã lỗi thời từ khi
 P-FIX-6 thêm `ShiftService.close` làm governed action thứ tư. Cập nhật lại:
 
-Bốn service (`EventService`, `CorrectionService`, `TaskService`,
-`ShiftService`) **đều import và gọi cùng các hàm `cvf_runtime`** — không có
-bản sao logic permission/evidence/approval nào bị fork. Đây là phần đã xác
-nhận đúng.
+**2026-07-22 P2-A-CUSTOMER-REQUEST:** thêm `CustomerRequestService` làm
+service thứ năm — nhân bản đúng khuôn `TaskService`/`ShiftService` sang domain
+`customer_request`. Xem mục 5 bên dưới.
+
+Năm service (`EventService`, `CorrectionService`, `TaskService`,
+`ShiftService`, `CustomerRequestService`) **đều import và gọi cùng các hàm
+`cvf_runtime`** — không có bản sao logic permission/evidence/approval nào bị
+fork. Đây là phần đã xác nhận đúng.
 
 Nhưng gọi bất kỳ đường nào trong số này là "golden vertical durable/end-to-end"
 không có giới hạn vẫn là **quá rộng** (đây chính là nhãn Codex gắn cờ ở review
@@ -76,15 +80,31 @@ Chính xác hơn, theo domain:
    `report_approved`/`open_handover_items_linked` không có model thật, chỉ
    override tường minh có audit; identity vẫn header-based không xác thực,
    giống mọi domain khác trong bảng này.
+5. **Customer Request → create / transition** — `CustomerRequestService`
+   (P2-A-CUSTOMER-REQUEST, 2026-07-22). Chain đúng ở tầng service và qua HTTP
+   (`tests/cvf/test_customer_request_vertical.py`, 18 test: service-level +
+   HTTP-level create, 401/403, domain-lock, lifecycle transitions hợp lệ/không
+   hợp lệ, rollback atomic trên cả 2 backend, tạo có/không `shift_id`, tạo bị
+   từ chối khi shift cha đã `FROZEN`). Bảng `customer_requests` khớp migration
+   002 CHÍNH XÁC theo parity test hai chiều (FK/CHECK/nullability/PK/type
+   family). **Khác Task có chủ đích:** migration không có cột
+   `version`/`risk`/`state`/evidence cho bảng này, nên `create` KHÔNG có gate
+   risk/evidence/approval — không phải thiếu sót, mà khớp đúng schema đơn giản
+   hơn của domain này. `domain_lock` giờ được exercise ở một domain thứ hai
+   ngoài `create_event` (xem dòng `domain_lock` trong bảng dưới). **Còn hạn
+   chế:** giống mọi domain khác — identity vẫn header-based không xác thực.
 
-**Không domain nào trong 4 cái trên là "durable end-to-end qua HTTP + SqlLedger
+**Không domain nào trong 5 cái trên là "durable end-to-end qua HTTP + SqlLedger
 + evidence + xác thực identity thật" không giới hạn.** Evidence persistence
 (SqlLedger) và evidence qua HTTP (TaskInput) đã sửa ở P-FIX-3 — không còn là
-giới hạn của Event/Task. Giới hạn còn lại chung cho cả 4 domain là identity
+giới hạn của Event/Task. Giới hạn còn lại chung cho cả 5 domain là identity
 header-based (không xác thực) và, với Event/Correction, approval không xác
-thực approver độc lập ngoài registry known-principals. `shift.close` là domain
-có ít giới hạn riêng nhất tính đến 2026-07-22, nhưng vẫn thừa hưởng giới hạn
-identity/approval chung của cả repo.
+thực approver độc lập ngoài registry known-principals. `shift.close` và
+`customer_request` là các domain có ít giới hạn riêng nhất tính đến
+2026-07-22 (customer_request không có approval/evidence chain để mang giới
+hạn "không xác thực approver" ngay từ đầu — domain này đơn giản là không yêu
+cầu approval theo migration schema), nhưng vẫn thừa hưởng giới hạn identity
+chung của cả repo.
 
 ## Bảng ánh xạ
 
@@ -92,7 +112,7 @@ identity/approval chung của cả repo.
 |---|---|---|---|
 | identity | **not verified server-side** | `dependencies.py · get_principal` đọc header `X-User-Id`/`X-User-Role` | Không xác thực — bất kỳ caller nào tự đặt header là thành principal đó. |
 | permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action, nhưng phụ thuộc identity chưa xác thực ở trên. |
-| domain_lock | callable, load-bearing tại `create_event` | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` | Chỉ gắn ở `create_event`; chưa gắn `create_task` hay các domain khác. |
+| domain_lock | callable, load-bearing tại `create_event` và `create_customer_request` (2026-07-22, P2-A) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). |
 | data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
 | risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |
 | approval | **load-bearing, known-principal checked (P-FIX-3, 2026-07-22)** | `cvf_runtime/approval.py · assert_approval_satisfied` + `CvfProfile.known_role_for` (`known-principals.yaml`) | Sửa High Finding #4.1: trước đây approver_id/role do caller tự khai trong cùng request được chấp nhận vô điều kiện (HTTP probe: 2 approver bịa hoàn toàn confirm được R3, trả 200). Giờ mỗi seat quorum phải khớp một principal trong `known-principals.yaml` với role đăng ký đủ thẩm quyền — caller không còn bịa id hay tự nâng role. **Còn hạn chế:** đây KHÔNG phải xác thực thật (không chữ ký/token/session) — chỉ là registry chặn bịa hoàn toàn, tạm thời cho tới khi P2-B (auth thật) triển khai. Test: `tests/cvf/test_approval_known_principals.py` (4 test) + HTTP probe xác nhận 409 thay vì 200. |
@@ -103,6 +123,7 @@ identity/approval chung của cả repo.
 | termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
 | freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
 | shift.close | **load-bearing (P-FIX-6, 2026-07-22)** | `ShiftService.close` (identity/permission `shift.close` role tối thiểu `operator` + state-check chặn close một shift đã `FROZEN`) → `Ledger.transaction()` bọc `close_shift` + `append_audit` atomic, cùng khuôn `freeze`/`TaskService` | Sửa gap review độc lập thứ hai tìm ra 2026-07-22: `POST /shifts/{shift_id}/close` trước đây gọi thẳng `ledger.close_shift(shift_id)` từ router — không `get_principal`, không `require_action`, không audit; probe xác nhận `anonymous_close=200`, `audit_count=0`. Vì freeze chỉ kiểm `shift.status == CLOSED`, close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze. Test: `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403 role thấp, 200 + audit cho principal hợp lệ, rollback atomic khi audit fail trên cả 2 backend, chặn close shift đã FROZEN, chuỗi đầy đủ create→close có governance→freeze qua cả service lẫn HTTP). **Không** đụng tới approval/known-principals (High Finding #4) — ngoài phạm vi tranche này. |
+| customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, domain-lock, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN). **Còn hạn chế:** giống mọi domain khác — identity vẫn header-based không xác thực. |
 
 ## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 

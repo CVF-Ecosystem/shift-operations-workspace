@@ -6,7 +6,15 @@ from threading import RLock
 from uuid import UUID
 from cvf_runtime.audit import AuditLog
 
-from workspace_api.domain.models import Shift, Message, OperationalEvent, ShiftStatus, Correction, Task
+from workspace_api.domain.models import (
+    Correction,
+    CustomerRequest,
+    Message,
+    OperationalEvent,
+    Shift,
+    ShiftStatus,
+    Task,
+)
 
 class InMemoryLedger:
     def __init__(self):
@@ -16,6 +24,7 @@ class InMemoryLedger:
         self.events: dict[UUID, OperationalEvent] = {}
         self.corrections: dict[UUID, Correction] = {}
         self.tasks: dict[UUID, Task] = {}
+        self.customer_requests: dict[UUID, CustomerRequest] = {}
         self._audit = AuditLog()
 
     @contextmanager
@@ -41,6 +50,7 @@ class InMemoryLedger:
                     self.events,
                     self.corrections,
                     self.tasks,
+                    self.customer_requests,
                     self._audit.all(),
                 )
             )
@@ -53,6 +63,7 @@ class InMemoryLedger:
                     self.events,
                     self.corrections,
                     self.tasks,
+                    self.customer_requests,
                     entries,
                 ) = snapshot
                 self._audit = AuditLog()
@@ -140,6 +151,29 @@ class InMemoryLedger:
             self._assert_shift_not_frozen(task.shift_id, "modify task in a frozen shift")
         self.tasks[task.task_id] = task
         return task
+
+    def add_customer_request(self, request: CustomerRequest, *, unit=None) -> CustomerRequest:
+        # shift_id is nullable on CustomerRequest (unlike Task.shift_id): a
+        # request not tied to any shift has no frozen-shift invariant to
+        # check, so only guard when a shift_id is actually present.
+        if request.shift_id is not None:
+            self._assert_shift_not_frozen(
+                request.shift_id, "add customer request to a frozen shift"
+            )
+        self.customer_requests[request.request_id] = request
+        return request
+
+    def get_customer_request(self, request_id: UUID, *, unit=None) -> CustomerRequest:
+        # Copy, not the live reference — see get_shift() for why.
+        return self.customer_requests[request_id].model_copy()
+
+    def put_customer_request(self, request: CustomerRequest, *, unit=None) -> CustomerRequest:
+        if request.shift_id is not None:
+            self._assert_shift_not_frozen(
+                request.shift_id, "modify customer request in a frozen shift"
+            )
+        self.customer_requests[request.request_id] = request
+        return request
 
     def add_correction(self, correction: Correction, *, unit=None) -> Correction:
         # Corrections are append-only and are explicitly ALLOWED post-freeze:
