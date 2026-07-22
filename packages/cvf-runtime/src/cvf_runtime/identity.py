@@ -3,11 +3,10 @@
 CVF control: ``identity``. Every governed action must run as a known
 :class:`Principal` (a user id plus a role), not an anonymous string field.
 
-This is a header-based principal, not full authentication: it establishes the
-identity boundary and role so the permission, approval, and audit gates have
-something real to enforce against. Replacing the header source with verified
-JWT/session auth is a separate, larger vertical and does not change any gate
-downstream of :class:`Principal`.
+The workspace API constructs this principal only after verifying a signed JWT
+bearer token. This module remains provider-neutral: it defines the shared
+principal and role vocabulary consumed by permission, approval, and audit
+gates, while token issuance and verification live in ``workspace_api.auth``.
 """
 
 from __future__ import annotations

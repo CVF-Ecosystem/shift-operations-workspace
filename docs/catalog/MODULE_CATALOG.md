@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T17:44:08.652794+00:00_
+_Last generated: 2026-07-22T17:55:55.724946+00:00_
 
 ## How to use this catalog
 
@@ -13,7 +13,7 @@ _Last generated: 2026-07-22T17:44:08.652794+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **3763**
+- Code LOC (py/ts/tsx): **3762**
 - Code files: **95**
 - By status: contract-only=6, enforced=2, partial=5, stub=7
 
@@ -29,7 +29,7 @@ _Last generated: 2026-07-22T17:44:08.652794+00:00_
 
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
-| `cvf-runtime` | packages/cvf-runtime | enforced | 799 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
+| `cvf-runtime` | packages/cvf-runtime | enforced | 798 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 873 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
@@ -61,7 +61,7 @@ _Last generated: 2026-07-22T17:44:08.652794+00:00_
 - **Contract:** packages/cvf-application-profile/*.yaml
 - **Depends on:** `cvf-application-profile`
 - **Tests:** `tests/cvf/test_gates_unit.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_remaining_controls.py`, `tests/cvf/test_approval_known_principals.py`
-- **Metrics:** 799 LOC across 13 code file(s)
+- **Metrics:** 798 LOC across 13 code file(s)
 - **Next step:** Wire ai-gateway/ai-providers to call data_scope/budget/termination when an AI mode is enabled. P2-B (2026-07-22) implemented real authentication for the identity control (see workspace-api's entry) but deliberately did NOT touch known-principals.yaml's approver registry - that reconciliation (High Finding #4, approval-fabrication) remains a separate, still-open follow-up.
 
 ### `operations-ledger` — enforced
@@ -110,7 +110,7 @@ _Last generated: 2026-07-22T17:44:08.652794+00:00_
 - **Depends on:** `cvf-runtime`, `operations-ledger`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`
 - **Metrics:** 1818 LOC across 48 code file(s)
-- **Next step:** P2-B (real authentication) done. Next: replicate the chain to the remaining P2-A domains (incidents, handovers - neither has a migration table yet, so each needs a new migration first), or reconcile known-principals.yaml with the users table, or P2-C (frontend UI).
+- **Next step:** P2-B real authentication reached FREEZE on 2026-07-23 after corrective REVIEW_PASS and live Alibaba evidence PASS (docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md). Next: replicate the chain to the remaining P2-A domains (incidents, handovers - neither has a migration table yet, so each needs a new migration first), reconcile known-principals.yaml with the users table, or start P2-C (frontend UI).
 
 ### `workspace-web` — partial
 

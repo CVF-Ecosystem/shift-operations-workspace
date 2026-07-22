@@ -38,6 +38,14 @@ tự đăng ký, đặt lại mật khẩu, rate-limit đăng nhập, và — qu
 quorum approval R3/R4). High Finding #4 (approval fabrication) vẫn còn
 nguyên, xem mục `approval` bên dưới.
 
+**2026-07-23 governance closure:** corrective tranche
+`P2B-AUTHENTICATION-REPAIR` đã đi đủ INTAKE → DESIGN → SPEC → WORK_ORDER →
+BUILD → REVIEW → FREEZE. Review độc lập trả `REVIEW_PASS`; live evidence thật
+qua Alibaba (`qwen3.7-max`, HTTP 200) xác nhận identity gate chấp nhận JWT hợp
+lệ, từ chối token giả mạo, rồi mới cho phép provider call. Receipt:
+`docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`. Claim này chỉ áp dụng
+cho `identity`; approval/known-principals High Finding #4 vẫn mở.
+
 ## Trạng thái (2 mức — không gộp lại thành "enforced")
 
 - **callable** — hàm gate tồn tại trong `cvf_runtime`, có unit test gọi trực
@@ -146,8 +154,8 @@ không yêu cầu approval theo migration schema).
 
 | CVF control | Trạng thái | Enforce ở đâu (file · symbol) | Giới hạn đã biết |
 |---|---|---|---|
-| identity | **load-bearing (P2-B, 2026-07-22)** | `dependencies.py · get_principal` giải mã/xác thực JWT bearer token qua `workspace_api/auth/tokens.py::decode_access_token` (HS256, `JWT_SECRET_KEY` bắt buộc); `POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/password (bcrypt) so với bảng `users` mới | Sửa: caller không còn tự đặt header để thành principal — role luôn tới từ claim đã ký, không phải field caller tự khai. **Còn hạn chế:** không refresh token/revocation (access token TTL cố định, mặc định 60 phút); cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật; KHÔNG đụng tới `known-principals.yaml` — approval quorum (High Finding #4) vẫn tách biệt, xem mục `approval`. Test: `tests/cvf/test_auth_tokens.py` (8 test: round-trip, tamper, expiry, wrong-secret, `alg=none`, role ngoài `KNOWN_ROLES`), `tests/cvf/test_auth_login.py` (4 test), cộng probe hồi quy `tests/cvf/test_shift_close_governance.py::test_old_header_impersonation_no_longer_grants_any_identity` (claim `authorized_executive` qua header cũ, không có bearer token → vẫn 401). |
-| permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action, nhưng phụ thuộc identity chưa xác thực ở trên. |
+| identity | **load-bearing, governance-approved (P2-B closure, 2026-07-23)** | `dependencies.py · get_principal` giải mã/xác thực JWT bearer token qua `workspace_api/auth/tokens.py::decode_access_token` (HS256, `JWT_SECRET_KEY` bắt buộc); `POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/password (bcrypt) so với bảng `users` mới | Caller không còn tự đặt header để thành principal — role luôn tới từ claim đã ký. Corrective tranche đã `REVIEW_PASS` và live Alibaba evidence PASS; xem receipt nêu trên. **Còn hạn chế:** không refresh token/revocation (access token TTL cố định, mặc định 60 phút); cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật; KHÔNG đụng tới `known-principals.yaml` — approval quorum (High Finding #4) vẫn tách biệt. Test: `tests/cvf/test_auth_tokens.py` (8 test), `tests/cvf/test_auth_login.py` (5 test), `tests/cvf/test_auth_config_secret_validation.py`, và probe hồi quy `tests/cvf/test_shift_close_governance.py::test_old_header_impersonation_no_longer_grants_any_identity`. |
+| permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action; principal đầu vào được xác thực qua JWT bởi shared `get_principal` dependency. Approval identity/quorum vẫn là control riêng với giới hạn `known-principals.yaml` nêu bên dưới. |
 | domain_lock | callable, load-bearing tại `create_event` và `create_customer_request`, kiểm cả positive lẫn negative (2026-07-22, P2-A + repair) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). Test âm thật: `tests/cvf/test_customer_request_repair.py::test_customer_request_denied_when_domain_lock_excludes_it` xây `CvfProfile` loại `customer_request` khỏi `allowed_domains`, xác nhận `CvfDenied(control="domain_lock")` và không có customer_request/audit nào được ghi — trước bản sửa này (independent review thứ ba, 2026-07-22) chỉ có test happy-path, không có test âm. |
 | data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
 | risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |

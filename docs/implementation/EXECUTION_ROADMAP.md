@@ -335,9 +335,11 @@ P-FIX-0; 7 commit P-FIX tính cả P-FIX-6.
 P2-A (customer_request) đã xong; P2-A (incidents, handovers) VẪN còn mở —
 2 domain này chưa có bảng migration nào, cần migration mới trước khi nhân
 bản chain, không tuyên bố "P2-A đã đóng" chung chung.
-**2026-07-22 (P2-B):** đã triển khai authentication thật (chi tiết ở mục P2-B
-phía trên và `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`).
-`identity` giờ load-bearing. **Chính xác về phạm vi:** P2-B KHÔNG đụng tới
+**2026-07-23 (P2-B):** đã FREEZE authentication thật sau corrective tranche
+`P2B-AUTHENTICATION-REPAIR` (đủ WORK_ORDER trước BUILD, hai vòng review,
+`REVIEW_PASS`, và live Alibaba evidence HTTP 200; receipt tại
+`docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`). `identity` giờ
+load-bearing và governance-approved. **Chính xác về phạm vi:** P2-B KHÔNG đụng tới
 `known-principals.yaml` — reconciliation registry approver đó với bảng
 `users` mới vẫn là việc mở, chưa có tranche nào nhận; không tuyên bố "High
 Finding #4 đã sửa". Bước kế tiếp hợp lệ là mở lại một trong P2-A (còn lại:

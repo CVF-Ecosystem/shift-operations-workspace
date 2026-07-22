@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-23 (P2-B corrective tranche: REVIEW_PASS, READY_FOR_LIVE_EVIDENCE)_
+_Last updated: 2026-07-23 (P2-B corrective tranche: FREEZE after live evidence PASS)_
 
 ## Where the project is
 
@@ -92,12 +92,14 @@ mâu thuẫn, `redact_url` lộ mật khẩu chứa `@`, evidence receipt tuyên
 gọi thật" ngay cả khi request chưa từng chạm server, mật khẩu quá dài bị
 echo ngược vào body 422, SPEC ghi sai loại exception). Commit repair
 (`10e57e1`) sửa cả 8. Review độc lập lần 2 xác nhận lại toàn bộ bằng probe
-riêng, không tìm thấy lỗi mới → **REVIEW_PASS** (2026-07-23). Cổng cuối cùng
-trước FREEZE là live Alibaba evidence (WORK_ORDER §11) — hiện chưa có vì
-thiếu `ALIBABA_API_KEY` và tranche `PROVIDER-ALIBABA-LIVE-CONFIG` song song
-chưa commit; script trả đúng `READY_FOR_LIVE_EVIDENCE` (exit 2), không giả
-vờ pass. **Không được ghi FREEZE/DONE/"identity load-bearing"** cho tới khi
-có live evidence PASS thật.
+riêng, không tìm thấy lỗi mới → **REVIEW_PASS** (2026-07-23). Provider config
+được commit riêng. Live attempt đầu ghi đúng FAIL/401 và phát hiện endpoint
+nội địa không khớp credential region; repair `bf7c328` chuyển sang endpoint
+quốc tế có cấu hình. Rerun PASS: JWT hợp lệ được phép, token giả bị từ chối,
+rồi Alibaba `qwen3.7-max` trả HTTP 200 với token mong đợi. Receipt sanitized:
+`docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`. Tranche đạt
+**FREEZE**; `identity` load-bearing/governance-approved trong phạm vi này.
+High Finding #4 về approval/known-principals vẫn mở.
 
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
@@ -134,10 +136,9 @@ sử, không phải trạng thái hiện tại.
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
   nông).
 - **Identity:** code hiện tại dùng JWT bearer token thay header, đã qua
-  BUILD + REPAIR + **REVIEW_PASS** (2 vòng review độc lập, 2026-07-23). Vẫn
-  **KHÔNG được ghi là "load-bearing" theo nghĩa đã governance-approved** —
-  cổng cuối cùng còn thiếu là live Alibaba governance evidence (WORK_ORDER
-  §11), hiện `READY_FOR_LIVE_EVIDENCE`, chưa PASS. Giới hạn khác của
+  BUILD + REPAIR + **REVIEW_PASS** và live Alibaba evidence PASS (HTTP 200,
+  2026-07-23), nên corrective tranche đạt **FREEZE**. Identity load-bearing
+  và governance-approved trong claim boundary của receipt. Giới hạn khác của
   Event/Correction: approval không xác thực approver độc lập (registry
   known-principals, ngoài phạm vi cả P2-B lẫn tranche corrective này).
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
@@ -173,15 +174,13 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đang mở, hiện REVIEW_PASS /
-READY_FOR_LIVE_EVIDENCE.** Không mở P2-A/P2-C/known-principals-reconciliation
-cho tới khi tranche corrective này tới FREEZE. Bước kế tiếp: khi operator đặt
-`ALIBABA_API_KEY` (hoặc `DASHSCOPE_API_KEY`) vào environment VÀ tranche
-`PROVIDER-ALIBABA-LIVE-CONFIG` song song đã commit, chạy lại
-`scripts/run_identity_live_governance_evidence.py`; nếu PASS, chuyển sang
-FREEZE (đồng bộ docs/catalog theo WORK_ORDER §1, rồi commit+push). Không tự
-tạo/giả lập key hay kết quả live call.
-Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
+**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đã FREEZE** sau independent
+REVIEW_PASS và live Alibaba evidence PASS. Bước kế tiếp phải bắt đầu một
+control chain mới từ INTAKE cho đúng một lane: P2-A incidents/handovers (cần
+migration riêng), reconciliation `known-principals.yaml` ↔ users (High
+Finding #4), hoặc P2-C frontend. Xem `next_allowed_move` trong
+`ACTIVE_SESSION_STATE.json` cho câu chính xác; không bắt đầu BUILD từ loose
+chat instruction.
 
 ## Không được làm (không có xác nhận mới)
 
@@ -198,11 +197,8 @@ viết ra nó) mà không tự chạy lại probe/test — đây chính là bài
 không coi `CVF_SESSION/ACTIVE_SESSION_STATE.json` là nguồn canonical — nó chỉ
 là compatibility mirror, `python scripts/check_session_state.py` xác nhận
 không lệch trước khi kết thúc phiên có sửa 1 trong 2 file state.
-**Mới (P2B-AUTHENTICATION-REPAIR, 2026-07-22):** không rewrite/squash/
-force-push `cd36b27`; không tuyên bố P2-B/`cd36b27` DONE hay identity
-load-bearing đã approved; không nhảy DESIGN/SPEC/WORK_ORDER cho tranche
-corrective; không tự BUILD trước khi operator phê chuẩn WORK_ORDER; không
-coi review bằng `TestClient`/mock là live governance evidence cho tuyên bố
-identity load-bearing — cần live Alibaba API call thật; không ghi
-REVIEW_PASS/FREEZE/DONE trước khi có live evidence PASS — chỉ được ghi
-READY_FOR_LIVE_EVIDENCE.
+**P2B-AUTHENTICATION-REPAIR (FREEZE 2026-07-23):** không rewrite/squash/
+force-push `cd36b27`; không viết lại lịch sử rằng chính commit đó đã được
+authorize. Governance approval thuộc corrective chain hoàn chỉnh và receipt
+Alibaba thật. Không mở rộng claim sang approval/known-principals, PostgreSQL,
+refresh/revocation, admin provisioning hay AI gateway.
