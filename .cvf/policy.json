@@ -16,5 +16,5 @@
     "Act outside the workspace isolation boundary",
     "Ignore CVF policy constraints"
   ],
-  "cvfCoreRef": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\.Controlled-Vibe-Framework-CVF"
+  "cvfCoreRef": "../.Controlled-Vibe-Framework-CVF"
 }

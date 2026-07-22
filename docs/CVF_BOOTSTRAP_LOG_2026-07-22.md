@@ -4,24 +4,24 @@ Status: RECONCILIATION_ONTO_EXISTING_PROJECT — this is not a greenfield
 bootstrap. This project already had a mature, actively maintained continuity
 system before this record was created; see "Preservation Decisions" below.
 
-Current disposition: `COMMITTED_REVIEW_PASS` at `acc5d09` (see
-`SESSION/ACTIVE_SESSION_STATE.json` for the canonical checkpoint). A first
-independent review already ran and returned `REVIEW_CHANGES_REQUIRED`; the
-findings from that review were repaired, and the second independent review
-accepted the bounded batch after reviewer-owned drift-check hardening.
+Original bootstrap disposition: `COMMITTED_REVIEW_PASS` at `acc5d09` (see
+`SESSION/ACTIVE_SESSION_STATE.json` for the canonical checkpoint). Portable
+clone continuity was subsequently verified on 2026-07-22 against public CVF
+core `4c0c31777e34ba1e16277a02eb88aad25206bbe0`.
 
 ## 1. Record Metadata
 - Record ID: BOOTSTRAP-20260722-shift-operations-workspace
 - Date: 2026-07-22
 - Prepared By: REVIEWER/AUDITOR -> REPAIR_WORKER (role transition recorded per AGENTS.md role contract); a second REPAIR_WORKER pass repaired findings from an independent review of the first pass
 - Reviewed By: an independent review completed on the first bootstrap-continuity pass and returned REVIEW_CHANGES_REQUIRED (five findings, repaired in this revision). A further independent review of this repaired revision is required before commit.
-- CVF Core Commit: c7c5d33 (local public-sync continuity-rehydration commit)
+- CVF Core Commit: 4c0c317 (public portable-clone continuity commit)
 
 ## 2. Workspace Topology
-- Workspace Root: D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace
-- Workspace Rules: D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\WORKSPACE_RULES.md
-- CVF Core Path: D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\.Controlled-Vibe-Framework-CVF
-- Project Path: D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\shift-operations-workspace
+- Workspace Layout: SIBLING_HIDDEN_CORE
+- Workspace Rules: `../WORKSPACE_RULES.md`
+- CVF Core Path: `../.Controlled-Vibe-Framework-CVF`
+- Project Path: `.`
+- Local absolute binding: `.cvf/local-binding.json` (git-ignored and generated per machine)
 
 ## 3. Isolation Validation
 - [x] CVF core and downstream project are sibling folders
@@ -101,21 +101,16 @@ canonical continuity chain.
 
 ## 7. Post-Reconciliation Checks
 
-Run the workspace doctor to verify enforcement artifacts:
-  powershell -ExecutionPolicy Bypass -File "D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\.Controlled-Vibe-Framework-CVF\scripts\check_cvf_workspace_agent_enforcement.ps1" -ProjectPath "D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\shift-operations-workspace"
+Run `scripts/initialize_cvf_clone.ps1` on a fresh clone; it resolves the
+portable manifest, creates local binding, pins the hidden core, and invokes
+the workspace doctor without a machine-specific command path.
 
-- [x] Workspace doctor: **FAIL, 22/23 checks passed.** The single failing
-      check is "CVF public core matches origin/main":
-      `DIVERGED_OR_UNRELATED_HISTORY. Local: c7c5d33ee8499d107e7cd5934c7b779b47e0c604
-      / origin/main: 9f39111cd97b87ded14c06e01055a4d703d218e6.` This is an
-      **external publication/reconciliation dependency** of the hidden CVF
-      core clone against its own public remote — it is not caused by, and
-      cannot be fixed by, any edit to this project's files. Per this task's
-      mandate, the hidden core must not be modified, reset, or force-pushed
-      to resolve it. Do not mark the doctor PASS while this condition stands;
-      it requires a separate, operator-authorized core-reconciliation action
-      (`scripts/update_cvf_workspace_public_core.ps1`), not a project-file
-      edit.
+- [x] Workspace doctor: **PASS, 24/24 checks passed.** The project initializer
+      resolved the sibling core, fast-forwarded it safely to the manifest pin,
+      verified that pin against public `origin/main`, wrote the ignored local
+      binding, and emitted `FRESH_CLONE_CONTINUITY_PASS`.
+- [x] Full project regression suite: **156 passed**.
+- [x] Session-state and file-size guards: **PASS**.
 - [ ] Team/operator acknowledgment recorded
 
 ## 8. Approval
