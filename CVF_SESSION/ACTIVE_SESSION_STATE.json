@@ -6,7 +6,7 @@
   "currentMode": "cvf_enforcement_buildout",
   "activePhase": "INTAKE",
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PORTABLE_CLONE.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "ORCHESTRATOR",

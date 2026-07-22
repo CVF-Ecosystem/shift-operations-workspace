@@ -3,9 +3,10 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PORTABLE_CLONE.md",
   "last_updated": "2026-07-22",
   "required_reads": [
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PORTABLE_CLONE.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md",
@@ -23,7 +24,6 @@
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
     "Treating CVF_SESSION/ACTIVE_SESSION_STATE.json as a canonical or independent source of truth - it is a compatibility mirror only, required by scripts/check_cvf_workspace_agent_enforcement.ps1's literal path check; SESSION/ACTIVE_SESSION_STATE.json is the sole canonical active state. Run python scripts/check_session_state.py (verify_mirror_drift) before finishing any session that edits either file.",
-    "Claiming the CVF workspace enforcement doctor passed - it currently reports FAIL, 21/22 (hidden CVF core diverged from origin/main, an external publication dependency this project cannot fix by editing its own files).",
     "Reusing the labels 'enforced', '12/12', or 'golden vertical' without the callable/load-bearing/not-verified-server-side distinction from docs/cvf/CVF_CONTROL_MAPPING.md (2026-07-22 correction) - this distinction is now permanent practice, not just a P-FIX-era caveat.",
     "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test run against a migration-created schema (the known static defect - missing tasks.version column - is fixed, but this has never been run against a live PostgreSQL instance; no Docker daemon is available in this environment). Live verification is a pre-ship gate, not required for ordinary SQLite-based development.",
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
@@ -48,7 +48,8 @@
     "p2a_customer_request": "DONE (2026-07-22, tranche P2-A-CUSTOMER-REQUEST). CustomerRequestService is the fifth service replicating the same cvf-runtime gate chain (identity/permission/domain_lock/audit for create - no risk/evidence/approval, since customer_requests has no risk_class/evidence column in the migration; identity/permission/lifecycle/audit for transition). customer_requests table verified two-directionally against the migration by the schema-parity suite. P2-A (incidents, handovers) remains OPEN - neither has a migration table yet.",
     "known_remaining_defects": "identity is header-based, not authenticated (P2-B); data minimization is advisory only; data_scope/cost/termination have no runtime caller yet (AI-gated); refusal routing/recording per refusal-policy.yaml not implemented; known-principals is a registry check, not real authentication; PostgreSQL round-trip never run live (no Docker in this environment); P2-A incidents/handovers have no migration table yet.",
     "second_independent_review": "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md - read before trusting any 'enforced' or 'CLOSED' claim in this repo; its recommended fix order (freeze -> atomic audit -> evidence/approval -> migration/parity -> catalog) is fixed, plus the shift.close governance gap it also implied (freeze's shift_closed check trusts close_shift) is now closed by P-FIX-6.",
-    "third_review_reminder": "A prior handoff (AGENT_HANDOFF_2026-07-22_PFIX5.md) claimed the P-FIX tranche fully closed and was wrong. Do not repeat that pattern: verify with a fresh probe/test run before restating any closure claim, even one recorded in this file."
+    "third_review_reminder": "A prior handoff (AGENT_HANDOFF_2026-07-22_PFIX5.md) claimed the P-FIX tranche fully closed and was wrong. Do not repeat that pattern: verify with a fresh probe/test run before restating any closure claim, even one recorded in this file.",
+    "portable_clone_continuity": "VERIFIED on 2026-07-22 from GitHub project head 3aa8b680618e9ba31891c7eb0f1d11a5ed6caa79 with public CVF core pin c1076dc4be9ef9058b7c4e7b96def59c26aab148. Fresh clone initializer returned workspace doctor 24/24, FRESH_CLONE_CONTINUITY_PASS, active handoff exists, and ignored local binding."
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
@@ -57,7 +58,7 @@
     "activePhaseNote": "Both formerly pending batches are reviewed and committed separately; the next lane has not yet been selected or designed.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PORTABLE_CLONE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly - same single active handoff, just under the contract's camelCase field name. There is exactly one active handoff for this project.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,

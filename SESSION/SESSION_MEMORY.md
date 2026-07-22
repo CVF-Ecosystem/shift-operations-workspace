@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (customer_request and bootstrap committed separately)_
+_Last updated: 2026-07-22 (portable clone continuity verified)_
 
 ## Where the project is
 
@@ -102,6 +102,15 @@ active handoff `AGENT_HANDOFF_2026-07-22_POST_BOOTSTRAP.md`; handoff
    continuity không phản ánh 2 batch đang treo, mirror không có drift-check
    xác định). Review độc lập lần 2 đã sửa và xác nhận lại checker bằng probe
    âm; batch đã commit riêng.
+
+## Portable clone continuity (2026-07-22)
+
+Project dùng manifest schema 2.0 với repository URL, commit pin và đường dẫn
+tương đối. `scripts/initialize_cvf_clone.ps1` tự dựng/kiểm tra CVF core sibling,
+tạo `.cvf/local-binding.json` bị Git ignore và chạy doctor. Fresh clone thật từ
+GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
+`c1076dc4be9ef9058b7c4e7b96def59c26aab148`. Active handoff hiện tại là
+`AGENT_HANDOFF_2026-07-22_PORTABLE_CLONE.md`.
 
 ## Next allowed move
 
