@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS tasks (
   due_at timestamptz,
   risk risk_class NOT NULL DEFAULT 'R1',
   state data_state NOT NULL DEFAULT 'CONFIRMED',
+  version integer NOT NULL DEFAULT 1,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 

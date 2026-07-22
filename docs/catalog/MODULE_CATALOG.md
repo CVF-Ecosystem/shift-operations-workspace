@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T03:01:18.307698+00:00_
+_Last generated: 2026-07-22T03:07:22.310322+00:00_
 
 ## How to use this catalog
 
@@ -69,12 +69,12 @@ _Last generated: 2026-07-22T03:01:18.307698+00:00_
 - **Path:** `packages/operations-ledger` (package)
 - **Purpose:** Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend.
 - **CVF controls:** evidence, audit, freeze
-- **Enforcement:** ledger.py defines the Protocol (now including transaction() unit-of-work); sql_ledger.py implements append-only INSERT for corrections/audit and maps tables.py to migration 001; every mutating method accepts an optional unit= connection so callers can chain writes into one real SQL transaction (P-FIX-2). tables.py uses SQLAlchemy generic Uuid + JSON.with_variant(JSONB, 'postgresql') so one schema definition serves both backends, WITH matching FK (event/message -> shifts) and CHECK (time-window, version) constraints from the migration. make_engine() turns ON SQLite foreign-key enforcement (off by default) so SQLite and PostgreSQL enforce the same integrity. A schema-parity test guards tables.py against drifting from the migration. Selected at runtime by workspace-api ledger_factory via DATABASE_URL. Verified end-to-end against SQLite (round-trip across reconnect, FK/CHECK rejection, append-only, atomic rollback on audit failure); PostgreSQL round-trip not yet run live (no Docker daemon here) - same code path.
+- **Enforcement:** ledger.py defines the Protocol (including transaction() unit-of-work); sql_ledger.py implements append-only INSERT for corrections/audit and maps tables.py to migrations 001+002; every mutating method accepts an optional unit= connection so callers can chain writes into one real SQL transaction (P-FIX-2). tables.py uses SQLAlchemy generic Uuid + JSON.with_variant(JSONB, 'postgresql') so one schema definition serves both backends, WITH matching FK/CHECK/column-set/nullability verified against the migration (P-FIX-4: tightened test_schema_parity.py compares exact column names and nullability, not just table/FK-table presence; negative-tested by reproducing the tasks.version-missing bug). evidence_links table (P-FIX-3) persists OperationalEvent/Task evidence, written once at creation. make_engine() turns ON SQLite foreign-key enforcement (off by default) so SQLite and PostgreSQL enforce the same integrity. Selected at runtime by workspace-api ledger_factory via DATABASE_URL. Verified end-to-end against SQLite (round-trip across reconnect, FK/CHECK rejection, append-only, atomic rollback on audit failure, evidence round-trip). PostgreSQL round-trip has NEVER been run live in this environment (no Docker daemon) - the known static schema defect is fixed, but this is not the same as a verified live run.
 - **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_evidence_persistence.py`
 - **Metrics:** 669 LOC across 6 code file(s)
-- **Next step:** Run the same integration + integrity suite against a real PostgreSQL instance (docker compose up postgres) once available; map remaining migration tables (messages, approvals, tasks, ...) into tables.py as tranches need them.
+- **Next step:** Run the same integration + integrity + evidence + parity suite against a real PostgreSQL instance (docker compose up postgres) once available - this is a pre-ship gate, not required for ordinary SQLite-based development. Map remaining migration tables (messages, customer_requests, reports) into tables.py as tranches need them.
 
 ### `integration-edge` — partial
 

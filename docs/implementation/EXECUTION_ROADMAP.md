@@ -75,12 +75,24 @@ tiếp gate).
       (4), `test_approval_known_principals.py` (4), cộng 2 HTTP probe reproduce
       đúng kịch bản Codex (evidence event R2 qua SqlLedger, approver bịa cho
       R3) — cả hai giờ trả kết quả đúng thay vì sai như review ghi nhận.
-- [ ] **P-FIX-4 (High #3):** Thêm cột `version` vào migration
-      `002_tasks_customers_reports.sql` cho bảng `tasks` (khớp những gì runtime
-      luôn ghi). Siết `test_schema_parity.py`: so sánh cột/type/nullable/
-      default/PK/FK source-target/CHECK expression thật, không chỉ "tên bảng
-      tồn tại" hay "có ít nhất 1 CheckConstraint nào đó". Test SqlLedger trên
-      schema do chính migration tạo (không chỉ `metadata.create_all`).
+- [x] **P-FIX-4 (High #3):** Thêm cột `version integer NOT NULL DEFAULT 1`
+      vào bảng `tasks` trong migration `002_tasks_customers_reports.sql` (khớp
+      những gì `tables.py`/runtime luôn ghi — trước đây thiếu, PostgreSQL thật
+      sẽ crash khi insert Task). Siết `test_schema_parity.py`: parser cột từ
+      migration (tên, nullable — PK ngầm định NOT NULL, has_default), so
+      **đúng bộ tên cột** với `tables.py` (`test_column_sets_match_exactly`) +
+      so nullable từng cột (`test_column_nullability_matches`); phát hiện phụ
+      trong lúc siết: 4 cột `created_at`/`occurred_at` trong `tables.py` thiếu
+      `nullable=False` dù migration khai `NOT NULL` — đã sửa. **Test âm xác
+      nhận cổng có tác dụng:** xoá `version` khỏi migration để tái tạo đúng
+      bug cũ → `test_column_sets_match_exactly` fail đúng thông báo; khôi phục
+      → pass lại. **Giới hạn ghi rõ:** chạy migration thật lên SQLite không
+      khả thi (cú pháp Postgres-only: `CREATE EXTENSION`, custom ENUM,
+      `gen_random_uuid()`, `jsonb` — đã thử, lỗi syntax ngay); không có
+      Postgres trong môi trường này để test round-trip thật. Parity ở mức
+      text-parsing cột là cách mạnh nhất khả dụng; xác minh migration-thật vẫn
+      là pre-ship gate khi có Docker (xem "Database operating model" trong
+      bản review Codex).
 - [ ] **P-FIX-5 (Medium #6, #7):** `generate_catalog.py --check` phải recompute
       metrics trong bộ nhớ, so với registry, render Markdown trong bộ nhớ và
       so byte-for-byte với `MODULE_CATALOG.md` — hiện chỉ validate cấu trúc.

@@ -44,7 +44,7 @@ shifts = Table(
     Column("ends_at", DateTime(timezone=True), nullable=False),
     Column("status", String, nullable=False, server_default="OPEN"),
     Column("version", Integer, nullable=False, server_default="1"),
-    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     # Matches migration 001_foundation.sql: CHECK (ends_at > starts_at)
     CheckConstraint("ends_at > starts_at", name="shifts_window_check"),
 )
@@ -64,7 +64,7 @@ operational_events = Table(
     Column("ends_at", DateTime(timezone=True)),
     Column("owner_id", Text),
     Column("version", Integer, nullable=False, server_default="1"),
-    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     # Matches migration: CHECK (ends_at IS NULL OR starts_at IS NULL OR ends_at >= starts_at)
     CheckConstraint(
         "ends_at IS NULL OR starts_at IS NULL OR ends_at >= starts_at",
@@ -84,7 +84,7 @@ corrections = Table(
     Column("requested_by", Text, nullable=False),
     Column("before_data", JSON_TYPE, nullable=False),
     Column("after_data", JSON_TYPE, nullable=False),
-    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     CheckConstraint("new_version > previous_version", name="corrections_version_check"),
 )
 
@@ -97,7 +97,7 @@ evidence_links = Table(
     Column("source_type", Text, nullable=False),
     Column("source_id", Text, nullable=False),
     Column("sha256", Text),
-    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
 )
 
 audit_records = Table(
@@ -109,7 +109,7 @@ audit_records = Table(
     Column("target_type", Text, nullable=False),
     Column("target_id", Text, nullable=False),
     Column("metadata", JSON_TYPE, nullable=False, server_default="{}"),
-    Column("occurred_at", DateTime(timezone=True), server_default=func.now()),
+    Column("occurred_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
 )
 
 # Mirrors migration 002_tasks_customers_reports.sql (tasks table).
@@ -126,7 +126,7 @@ tasks = Table(
     Column("risk", String, nullable=False, server_default="R1"),
     Column("state", String, nullable=False, server_default="CONFIRMED"),
     Column("version", Integer, nullable=False, server_default="1"),
-    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     CheckConstraint(
         "status IN ('OPEN','IN_PROGRESS','BLOCKED','DONE','CARRY_OVER','CANCELLED')",
         name="tasks_status_check",
