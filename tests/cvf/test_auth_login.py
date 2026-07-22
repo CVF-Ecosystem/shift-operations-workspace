@@ -121,3 +121,128 @@ def test_unknown_username_still_runs_password_verification():
             assert called_hash == auth_router.DUMMY_PASSWORD_HASH
     finally:
         _clear_overrides()
+
+
+# --- T2: password byte-length boundary (P2B-AUTHENTICATION-REPAIR) ----------
+#
+# Reproduced directly during DESIGN, before this fix: a 73-byte password
+# returned an uncaught HTTP 500 for BOTH an existing username and an unknown
+# one, because bcrypt 5.0.0 raises ValueError above 72 bytes and nothing
+# caught it. AC-6..AC-10 of docs/specs/P2B_AUTHENTICATION_REPAIR_SPEC.md.
+
+_OVER_LIMIT_ASCII = "a" * 73
+# 25 x 3-byte characters = 75 UTF-8 bytes in only 25 characters: over the
+# byte limit while well under 72 *characters*. This is why the check must
+# measure bytes - a character-count check would wrongly accept this and
+# still crash bcrypt.
+_OVER_LIMIT_MULTIBYTE = "日" * 25
+
+
+def test_password_at_exactly_72_bytes_still_logs_in():
+    """AC-6 boundary guard: the limit must reject only what bcrypt cannot
+    handle. Exactly 72 bytes is bcrypt's maximum accepted input, so it must
+    still work - this repair must not narrow the legitimate path."""
+    password = "a" * 72
+    assert len(password.encode("utf-8")) == 72
+    ledger = _ledger_with_user(password=password)
+    client = _client_for(ledger)
+    try:
+        resp = client.post("/auth/login", json={"username": "op1", "password": password})
+        assert resp.status_code == 200, resp.text
+        assert decode_access_token(resp.json()["access_token"]).user_id == "op1"
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_ascii_password_existing_username_is_422_not_500():
+    """AC-7."""
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        resp = client.post(
+            "/auth/login", json={"username": "op1", "password": _OVER_LIMIT_ASCII}
+        )
+        assert resp.status_code == 422, resp.text
+        assert resp.status_code != 500
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_ascii_password_unknown_username_is_422_not_500():
+    """AC-8. The unknown-username path also reached bcrypt (via
+    DUMMY_PASSWORD_HASH), so it crashed too before this fix."""
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        resp = client.post(
+            "/auth/login", json={"username": "no-such-user", "password": _OVER_LIMIT_ASCII}
+        )
+        assert resp.status_code == 422, resp.text
+        assert resp.status_code != 500
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_multibyte_password_is_422_not_500():
+    """AC-9: fewer than 72 characters but more than 72 UTF-8 bytes."""
+    assert len(_OVER_LIMIT_MULTIBYTE) < 72
+    assert len(_OVER_LIMIT_MULTIBYTE.encode("utf-8")) > 72
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        resp = client.post(
+            "/auth/login", json={"username": "op1", "password": _OVER_LIMIT_MULTIBYTE}
+        )
+        assert resp.status_code == 422, resp.text
+        assert resp.status_code != 500
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_rejection_is_identical_for_existing_and_unknown_username():
+    """AC-10 / SI-4: the length rejection must not become a NEW username
+    -enumeration oracle. Status and error shape must be indistinguishable
+    between an existing and a non-existent username."""
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        existing = client.post(
+            "/auth/login", json={"username": "op1", "password": _OVER_LIMIT_ASCII}
+        )
+        unknown = client.post(
+            "/auth/login", json={"username": "no-such-user", "password": _OVER_LIMIT_ASCII}
+        )
+        assert existing.status_code == unknown.status_code == 422
+
+        # The 422 body is FastAPI's validation-error envelope. It reports the
+        # offending FIELD, never anything about the username's existence -
+        # compare the full structure, which must be byte-identical here.
+        assert existing.json() == unknown.json(), (
+            "an over-length password must produce an identical response "
+            "whether or not the username exists"
+        )
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_password_never_reaches_bcrypt_or_the_ledger():
+    """SI-4 mechanism proof: rejection happens at the request-validation
+    boundary, so neither the ledger lookup nor bcrypt runs at all. Proving
+    the mechanism (not just the status code) is what shows the uniformity
+    is structural rather than incidental."""
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        with patch.object(
+            auth_router, "verify_password", wraps=auth_router.verify_password
+        ) as spy:
+            resp = client.post(
+                "/auth/login", json={"username": "op1", "password": _OVER_LIMIT_ASCII}
+            )
+            assert resp.status_code == 422
+            assert spy.call_count == 0, (
+                "an over-length password must be rejected before any bcrypt "
+                "call - that call is exactly what raised the uncaught 500"
+            )
+    finally:
+        _clear_overrides()
