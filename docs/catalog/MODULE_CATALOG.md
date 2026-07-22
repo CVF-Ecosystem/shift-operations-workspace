@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T03:07:22.310322+00:00_
+_Last generated: 2026-07-22T03:14:18.468035+00:00_
 
 ## How to use this catalog
 

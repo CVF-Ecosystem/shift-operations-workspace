@@ -93,15 +93,32 @@ tiếp gate).
       text-parsing cột là cách mạnh nhất khả dụng; xác minh migration-thật vẫn
       là pre-ship gate khi có Docker (xem "Database operating model" trong
       bản review Codex).
-- [ ] **P-FIX-5 (Medium #6, #7):** `generate_catalog.py --check` phải recompute
-      metrics trong bộ nhớ, so với registry, render Markdown trong bộ nhớ và
-      so byte-for-byte với `MODULE_CATALOG.md` — hiện chỉ validate cấu trúc.
-      Thêm test âm cho metric drift + Markdown drift. Rà lại mọi front door
-      một lượt cuối để không còn số liệu/tuyên bố mâu thuẫn nhau.
+- [x] **P-FIX-5 (Medium #6, #7):** `generate_catalog.py --check` giờ
+      recompute metrics trong bộ nhớ (pin `generated_at` về giá trị đã lưu để
+      so sánh đúng số liệu, không phải đồng hồ), so với registry hiện tại;
+      render Markdown trong bộ nhớ, so byte-for-byte với `MODULE_CATALOG.md`
+      trên đĩa. Test âm (`tests/integration/test_catalog_drift_detection.py`,
+      5 test) tái tạo đúng 2 probe Codex đã làm (`code_loc=999999`, hand-edit
+      Markdown) — cả hai giờ fail đúng thay vì PASS sai như trước; cộng test
+      round-trip `--write` → `--check` không bao giờ tự chặn workflow bình
+      thường. Rà front door: `IMPLEMENTATION_STATUS.json` viết lại — bỏ số
+      test cứng (đã lỗi thời ở P-FIX-3/4), bỏ danh sách "known bypass" cũ
+      (freeze/audit/evidence/approval đã sửa ở P-FIX-1/2/3), chỉ còn danh sách
+      "still not load-bearing" đúng thực tế (identity, refusal, data_scope/
+      cost/termination).
 
-**Exit gate P-FIX:** mọi Critical/High trong bản review 07-22 có test end-to-end
-chứng minh đã sửa (không phải unit test gọi thẳng gate); `pytest` pass; docs
-không còn tuyên bố nào bị bản review đó phủ nhận.
+**Exit gate P-FIX: ĐẠT.** Toàn bộ Critical (2) và High (3) trong bản review
+07-22 có test end-to-end chứng minh đã sửa (không chỉ unit test gọi thẳng
+gate) — freeze cross-record (P-FIX-1), audit atomic (P-FIX-2), evidence
+persist + approval known-principal (P-FIX-3), migration Task.version +
+parity siết chặt (P-FIX-4). Cả 2 Medium (catalog check, front-door drift)
+cũng đã sửa (P-FIX-0, P-FIX-5). `pytest` pass (102 tại thời điểm đóng tranche
+— chạy lại để xác nhận số hiện tại). Docs không còn tuyên bố nào bị bản review
+đó phủ nhận, theo đúng phân biệt callable/load-bearing/not-verified-server-side
+trong `docs/cvf/CVF_CONTROL_MAPPING.md`.
+
+**Có thể mở lại:** P2-A (domain còn lại), P2-B, P2-C theo `next_allowed_move`
+trong `SESSION/ACTIVE_SESSION_STATE.json`.
 
 ---
 
