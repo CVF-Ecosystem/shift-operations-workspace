@@ -8,12 +8,15 @@ handoff records the operator-initiated correction of that claim.
 
 - **Mode:** cvf_enforcement_buildout
 - **Tranche:** P2B-AUTHENTICATION-REPAIR — corrective control-chain tranche
-- **Control-chain phase:** INTAKE (this handoff)
+- **Control-chain phase:** REVIEW complete, REVIEW_PASS recorded; blocked
+  before FREEZE on live Alibaba governance evidence (see Update below)
 - **Risk:** R2 — changes the authentication/security boundary and the
   `identity` CVF control
 - **Startup ack:** mode=cvf_enforcement_buildout; active handoff=this file;
-  next allowed move=DESIGN (corrective ADR); parked checkpoint=none; active
-  role=ORCHESTRATOR
+  next allowed move=run `scripts/run_identity_live_governance_evidence.py`
+  once `ALIBABA_API_KEY` is available and the parallel Alibaba tranche is
+  committed, then FREEZE on PASS; parked checkpoint=waiting on that external
+  dependency; active role=ORCHESTRATOR
 
 ## Why this tranche exists
 
@@ -141,12 +144,73 @@ PASS**, both per WORK_ORDER §11.
 Role transition recorded: WORK_ORDER_AUTHOR → COMMIT_STEWARD (to commit
 authorization artifacts) → IMPLEMENTATION_WORKER (to begin BUILD).
 
+## Update — BUILD, REPAIR, and REVIEW_PASS (2026-07-23)
+
+BUILD (commit `2c397f7`) implemented exactly WORK_ORDER §1's authorized
+changed set: T1 (`Settings.jwt_secret_key` fails closed via a plain
+`__init__` override — not a pydantic validator, because those wrap
+exceptions into a `ValidationError` that echoes the rejected value
+regardless of message, SI-2), T2 (`LoginInput.password` rejected above 72
+UTF-8 bytes before any ledger/bcrypt call), T3
+(`scripts/apply_migrations.py` + a static idempotency-guard test — with a
+correction to the DESIGN ADR's own claim: `CREATE TYPE ... AS ENUM` in
+`001_foundation.sql` has no `IF NOT EXISTS` form, so the runner tolerates
+`duplicate_object`/etc. SQLSTATEs rather than assuming the SQL fully
+self-guards), and `scripts/run_identity_live_governance_evidence.py` (binds
+the real identity gate to one real Alibaba call, so the evidence is about
+*this* control, not a generic provider canary).
+
+An independent REVIEWER (fresh agent context) found 8 real defects: a
+denylist checked after the length rule, making it unreachable dead code;
+self-contradictory docstrings left over from an earlier iteration of the
+T1 fix; `redact_url` only redacting up to the *first* `@`, leaking the rest
+of a password containing one; the evidence receipt's "Claim boundary"
+claiming a real provider call happened even when the request never reached
+the server; the T2 length check (a pydantic `field_validator`) causing
+FastAPI to echo the over-long password back into the 422 response body;
+and the SPEC specifying a pydantic `ValidationError` where the (correct,
+SI-2-driven) implementation used a custom exception instead. Verdict:
+**REVIEW_CHANGES_REQUIRED**.
+
+REPAIR (commit `10e57e1`) fixed all 8: denylist now checked before length;
+docstrings rewritten to agree with each other and the code; `redact_url`
+now matches greedily to the *last* `@`; the receipt now tracks whether the
+call actually reached the provider and words the claim accordingly (PASS /
+reached-but-error / never-reached); the T2 check moved to a manual
+`HTTPException` raised as the first statement in the route handler (fixed
+`{"detail": ...}` body, no echo, same before-any-lookup timing guarantee);
+the SPEC amended (§4.1, §4.2, new SI-6) to describe what was actually built.
+This same commit also corrected its own predecessor's claim that the red
+catalog gate was "not from this commit" — independently recomputed:
+workspace-api's +108 LOC delta *is* this tranche's own code; only the
+`ai-providers` +102 LOC/+1 file is the separate, uncommitted
+`PROVIDER-ALIBABA-LIVE-CONFIG` tranche's.
+
+A second independent REVIEWER re-verified all 8 fixes with fresh probes
+(not by re-reading the first repair's own tests) and found no new defects.
+Verdict: **REVIEW_PASS** (2026-07-23).
+
+Live evidence (`scripts/run_identity_live_governance_evidence.py`) was then
+run: the in-process identity-gate checks both pass, but no
+`ALIBABA_API_KEY`/`DASHSCOPE_API_KEY` is set and the sibling Alibaba
+tranche has not yet committed. The script correctly exits 2 and prints
+`READY_FOR_LIVE_EVIDENCE` — no receipt was written, no pass was fabricated.
+**This tranche cannot reach FREEZE by itself**; the remaining dependency
+belongs to the operator (supplying the key) and to the separate, already
+-authorized Alibaba tranche (committing its infrastructure).
+
 ## Next allowed move
 
-BUILD — implement exactly WORK_ORDER §1's authorized changed set (T1-T3
-code fixes, their tests, and the live-evidence script), per SPEC. Then
-independent REVIEW, then live Alibaba evidence, then — only if both pass —
-FREEZE.
+Once `ALIBABA_API_KEY` (or `DASHSCOPE_API_KEY`) is set in the environment
+and the sibling `PROVIDER-ALIBABA-LIVE-CONFIG` tranche has committed, run
+`python scripts/run_identity_live_governance_evidence.py`. On a PASS
+receipt, transition to CLOSER and complete FREEZE: sync
+`docs/cvf/CVF_CONTROL_MAPPING.md`, `docs/catalog/MODULE_REGISTRY.json`
+(+regenerate `MODULE_CATALOG.md`), `docs/implementation/EXECUTION_ROADMAP.md`,
+`IMPLEMENTATION_STATUS.json`, and the session files per WORK_ORDER §1's
+post-REVIEW_PASS list, then commit and push. On failure, keep the tranche
+at its current disposition and record the failure plainly — do not
+reframe it.
 
 ## Blocked
 

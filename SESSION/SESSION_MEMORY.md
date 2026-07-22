@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (P2-B corrective tranche opened — INTAKE)_
+_Last updated: 2026-07-23 (P2-B corrective tranche: REVIEW_PASS, READY_FOR_LIVE_EVIDENCE)_
 
 ## Where the project is
 
@@ -81,6 +81,24 @@ Tranche corrective này giờ chạy lại đúng INTAKE → DESIGN → SPEC →
 → BUILD → REVIEW → FREEZE, có cổng phê chuẩn operator trước BUILD. Chi
 tiết: `SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2B_AUTHENTICATION_REPAIR_INTAKE.md`.
 
+**2026-07-23 (P2B-AUTHENTICATION-REPAIR — BUILD, REPAIR, REVIEW_PASS):**
+operator phê chuẩn WORK_ORDER nguyên vẹn. BUILD (`2c397f7`) sửa T1 (JWT
+secret fail-closed ≥32 byte UTF-8 + denylist), T2 (password >72 byte UTF-8
+→ 422 thay vì 500 không bắt được), T3 (migration idempotency guard +
+`scripts/apply_migrations.py`), cộng script live-evidence gắn identity gate
+với 1 lời gọi Alibaba thật. Review độc lập lần 1 trả **REVIEW_CHANGES_REQUIRED**
+— tìm 8 finding thật (denylist chết vì thứ tự kiểm tra sai, docstring tự
+mâu thuẫn, `redact_url` lộ mật khẩu chứa `@`, evidence receipt tuyên bố "đã
+gọi thật" ngay cả khi request chưa từng chạm server, mật khẩu quá dài bị
+echo ngược vào body 422, SPEC ghi sai loại exception). Commit repair
+(`10e57e1`) sửa cả 8. Review độc lập lần 2 xác nhận lại toàn bộ bằng probe
+riêng, không tìm thấy lỗi mới → **REVIEW_PASS** (2026-07-23). Cổng cuối cùng
+trước FREEZE là live Alibaba evidence (WORK_ORDER §11) — hiện chưa có vì
+thiếu `ALIBABA_API_KEY` và tranche `PROVIDER-ALIBABA-LIVE-CONFIG` song song
+chưa commit; script trả đúng `READY_FOR_LIVE_EVIDENCE` (exit 2), không giả
+vờ pass. **Không được ghi FREEZE/DONE/"identity load-bearing"** cho tới khi
+có live evidence PASS thật.
+
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
 Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
@@ -115,15 +133,13 @@ sử, không phải trạng thái hiện tại.
   **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
   nông).
-- **Identity:** code hiện tại (`cd36b27`) dùng JWT bearer token thay header —
-  về mặt kỹ thuật không còn header-trusting. Nhưng **KHÔNG được ghi là
-  "load-bearing" theo nghĩa đã governance-approved** — `cd36b27` là
-  REVIEW_CHANGES_REQUIRED / UNAUTHORIZED BUILD CANDIDATE (thiếu DESIGN/SPEC/
-  WORK_ORDER trước BUILD, thiếu live governance evidence thật) cho tới khi
-  tranche corrective `P2B-AUTHENTICATION-REPAIR` qua REVIEW + live evidence.
-  Giới hạn khác của Event/Correction: approval không xác thực approver độc
-  lập (registry known-principals, ngoài phạm vi cả P2-B lẫn tranche corrective
-  này).
+- **Identity:** code hiện tại dùng JWT bearer token thay header, đã qua
+  BUILD + REPAIR + **REVIEW_PASS** (2 vòng review độc lập, 2026-07-23). Vẫn
+  **KHÔNG được ghi là "load-bearing" theo nghĩa đã governance-approved** —
+  cổng cuối cùng còn thiếu là live Alibaba governance evidence (WORK_ORDER
+  §11), hiện `READY_FOR_LIVE_EVIDENCE`, chưa PASS. Giới hạn khác của
+  Event/Correction: approval không xác thực approver độc lập (registry
+  known-principals, ngoài phạm vi cả P2-B lẫn tranche corrective này).
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
   file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
@@ -157,12 +173,14 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đang mở, hiện ở INTAKE.**
-Không mở P2-A/P2-C/known-principals-reconciliation cho tới khi tranche
-corrective này tới FREEZE. Bước kế tiếp: DESIGN — viết
-`docs/decisions/ADR_2026-07-22_P2B_AUTHENTICATION_REPAIR.md`, đánh giá độc
-lập implementation hiện có (không mặc định `cd36b27` là đúng), rồi ghi role
-transition sang SPEC_AUTHOR trước khi viết SPEC.
+**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đang mở, hiện REVIEW_PASS /
+READY_FOR_LIVE_EVIDENCE.** Không mở P2-A/P2-C/known-principals-reconciliation
+cho tới khi tranche corrective này tới FREEZE. Bước kế tiếp: khi operator đặt
+`ALIBABA_API_KEY` (hoặc `DASHSCOPE_API_KEY`) vào environment VÀ tranche
+`PROVIDER-ALIBABA-LIVE-CONFIG` song song đã commit, chạy lại
+`scripts/run_identity_live_governance_evidence.py`; nếu PASS, chuyển sang
+FREEZE (đồng bộ docs/catalog theo WORK_ORDER §1, rồi commit+push). Không tự
+tạo/giả lập key hay kết quả live call.
 Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
