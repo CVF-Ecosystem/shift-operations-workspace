@@ -15,7 +15,7 @@ accepted the bounded batch after reviewer-owned drift-check hardening.
 - Date: 2026-07-22
 - Prepared By: REVIEWER/AUDITOR -> REPAIR_WORKER (role transition recorded per AGENTS.md role contract); a second REPAIR_WORKER pass repaired findings from an independent review of the first pass
 - Reviewed By: an independent review completed on the first bootstrap-continuity pass and returned REVIEW_CHANGES_REQUIRED (five findings, repaired in this revision). A further independent review of this repaired revision is required before commit.
-- CVF Core Commit: f05e3dc (expected f05e3dcd2, confirmed matching short-hash)
+- CVF Core Commit: c7c5d33 (local public-sync continuity-rehydration commit)
 
 ## 2. Workspace Topology
 - Workspace Root: D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace
@@ -104,9 +104,9 @@ canonical continuity chain.
 Run the workspace doctor to verify enforcement artifacts:
   powershell -ExecutionPolicy Bypass -File "D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\.Controlled-Vibe-Framework-CVF\scripts\check_cvf_workspace_agent_enforcement.ps1" -ProjectPath "D:\UNG DUNG AI\TOOL AI 2026\CVF-Workspace\shift-operations-workspace"
 
-- [x] Workspace doctor: **FAIL, 21/22 checks passed.** The single failing
+- [x] Workspace doctor: **FAIL, 22/23 checks passed.** The single failing
       check is "CVF public core matches origin/main":
-      `DIVERGED_OR_UNRELATED_HISTORY. Local: f05e3dcd2fb9c82be6f886d0798ca6e87dfcfc7f
+      `DIVERGED_OR_UNRELATED_HISTORY. Local: c7c5d33ee8499d107e7cd5934c7b779b47e0c604
       / origin/main: 9f39111cd97b87ded14c06e01055a4d703d218e6.` This is an
       **external publication/reconciliation dependency** of the hidden CVF
       core clone against its own public remote — it is not caused by, and

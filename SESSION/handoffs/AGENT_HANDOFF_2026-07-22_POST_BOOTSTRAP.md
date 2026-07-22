@@ -20,8 +20,8 @@ Status: ACTIVE
 - Session-state verification: PASS
 - Diff hygiene: PASS
 
-The workspace doctor remains bounded at 21/22 because hidden CVF core commit
-`f05e3dcd2` does not match public `origin/main` commit `9f39111cd`. This is an
+The workspace doctor remains bounded at 22/23 because hidden CVF core commit
+`c7c5d33ee` does not match public `origin/main` commit `9f39111cd`. This is an
 external publication/reconciliation dependency and is not a downstream
 project defect. Do not claim doctor PASS until that dependency is resolved.
 
