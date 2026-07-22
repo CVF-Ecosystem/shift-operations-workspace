@@ -83,11 +83,29 @@ def test_31_byte_secret_is_rejected_one_byte_under_the_line():
         "change-me",
         "secret",
         "password",
+        "your-secret-key",
+        "your-secret-key-here",
+        "supersecret",
+        "test-secret",
+        "dev-secret",
     ],
 )
 def test_known_placeholder_values_are_rejected(placeholder):
     with pytest.raises(InsecureJwtSecretError):
         _settings(placeholder)
+
+
+def test_placeholder_rejection_fires_for_the_placeholder_reason_not_length():
+    """Independent review (2026-07-22): every denylist entry is shorter
+    than the 32-byte minimum, so checking length first made the denylist
+    unreachable dead code - a placeholder was always rejected as "too
+    short", never actually matched against the denylist. This asserts the
+    denylist check itself fires (by message content), which only holds
+    true because the denylist is now checked BEFORE the length rule."""
+    with pytest.raises(InsecureJwtSecretError) as exc_info:
+        _settings("changeme")
+    assert "placeholder" in str(exc_info.value)
+    assert "byte" not in str(exc_info.value)
 
 
 def test_env_example_placeholder_is_rejected():

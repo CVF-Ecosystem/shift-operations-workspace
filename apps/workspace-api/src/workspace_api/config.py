@@ -1,10 +1,24 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+_MIN_JWT_SECRET_BYTES = 32
+
 # P2B-AUTHENTICATION-REPAIR (T1): exact-match known example/placeholder
-# values that must never be accepted as a real signing secret, even though
-# they satisfy a bare length check. Deliberately does not include this
-# repo's own conftest.py test secret - the two must never collide, or the
-# test suite would fail to boot (see SPEC SI-5).
+# values that must never be accepted as a real signing secret. Checked
+# BEFORE the length rule - independent review found that checking length
+# first made this set unreachable dead code, since every entry is shorter
+# than the 32-byte minimum and so was always rejected by length instead.
+# Order matters for the error message to be accurate, and so that a
+# placeholder long enough to pass the length rule is still refused.
+#
+# Deliberately does NOT include this repo's own conftest.py test secret -
+# the two must never collide, or the test suite would fail to boot (SI-5).
+#
+# KNOWN LIMITATION, deliberately not solved here: an exact-match denylist
+# cannot catch every weak secret. A long-but-guessable value (e.g. a short
+# word repeated to 32+ bytes) still passes. Length remains the primary bar;
+# real entropy scoring was considered during DESIGN and rejected as
+# disproportionate for an internal HS256 signing secret. Do not read this
+# denylist as a general secret-strength guarantee.
 _JWT_SECRET_DENYLIST = frozenset(
     {
         "replace-me-with-a-real-secret",
@@ -12,6 +26,11 @@ _JWT_SECRET_DENYLIST = frozenset(
         "change-me",
         "secret",
         "password",
+        "your-secret-key",
+        "your-secret-key-here",
+        "supersecret",
+        "test-secret",
+        "dev-secret",
     }
 )
 
@@ -19,13 +38,18 @@ _JWT_SECRET_DENYLIST = frozenset(
 class InsecureJwtSecretError(ValueError):
     """Raised when JWT_SECRET_KEY fails the minimum security policy.
 
-    Deliberately NOT surfaced through a pydantic field_validator: pydantic's
-    ValidationError always echoes the rejected input value in its string
-    representation (`input_value=...`), regardless of what message the
-    validator raises - reproduced directly while writing this fix. Raising
-    this plain exception from model_post_init (which runs after validation,
-    outside pydantic-core's error-collection machinery) keeps the message
-    exactly what this module writes, with no value echo (SI-2)."""
+    Deliberately NOT surfaced through pydantic's own validation machinery.
+    Both a ``field_validator`` and ``model_post_init`` run inside
+    pydantic-core's validation call, so whatever they raise is wrapped in a
+    ``ValidationError`` whose string form echoes the rejected input
+    (``input_value=...``) regardless of the message - which would leak the
+    very secret this check exists to protect (SI-2). Reproduced directly
+    while implementing this fix.
+
+    The check therefore runs in ``Settings.__init__`` AFTER
+    ``super().__init__()`` returns - plain Python, outside pydantic's
+    error-collection - so this exception's message is exactly what this
+    module writes, with no value echo."""
 
 
 class Settings(BaseSettings):
@@ -51,27 +75,33 @@ class Settings(BaseSettings):
 
         A one-character or placeholder secret previously passed silently -
         reproduced directly during DESIGN: Settings(jwt_secret_key="x")
-        signed a valid authorized_executive token that decoded successfully
-        with the guessed one-character key.
+        signed a valid authorized_executive token that decoded
+        successfully with the guessed one-character key.
 
-        The strength check runs here, AFTER super().__init__() returns,
-        rather than in a field_validator or model_post_init - both of those
-        run inside pydantic-core's validation call and get wrapped into a
-        ValidationError whose default string representation echoes the
-        rejected input value (`input_value=...`) regardless of the message
-        raised, which SI-2 forbids. Reproduced directly while implementing
-        this fix. Running the check here, in plain Python after
-        construction has already completed, means InsecureJwtSecretError's
-        message is exactly what this module writes - no value echo.
+        See InsecureJwtSecretError's docstring for why this runs here in
+        plain Python rather than through a pydantic validator.
+
+        KNOWN LIMITATION (independent review, 2026-07-22): this guards the
+        constructor path only - which covers env vars, .env files, and
+        direct construction, i.e. every way a deployment actually supplies
+        the setting. It does NOT stop in-process code from bypassing it via
+        ``Settings.model_construct(...)`` or by assigning
+        ``settings.jwt_secret_key`` after import (tokens.py reads the value
+        dynamically per call). Both require arbitrary code execution inside
+        the process, which is a strictly larger compromise than a weak
+        secret, so this is accepted rather than defended against here.
         """
         super().__init__(**kwargs)
         value = self.jwt_secret_key
         if not value or not value.strip():
             raise InsecureJwtSecretError("JWT_SECRET_KEY must not be blank")
-        if len(value.encode("utf-8")) < 32:
-            raise InsecureJwtSecretError("JWT_SECRET_KEY must be at least 32 UTF-8 bytes")
+        # Denylist BEFORE length: see _JWT_SECRET_DENYLIST on why order matters.
         if value in _JWT_SECRET_DENYLIST:
             raise InsecureJwtSecretError("JWT_SECRET_KEY must not be a known placeholder value")
+        if len(value.encode("utf-8")) < _MIN_JWT_SECRET_BYTES:
+            raise InsecureJwtSecretError(
+                f"JWT_SECRET_KEY must be at least {_MIN_JWT_SECRET_BYTES} UTF-8 bytes"
+            )
 
     @property
     def is_development(self) -> bool:

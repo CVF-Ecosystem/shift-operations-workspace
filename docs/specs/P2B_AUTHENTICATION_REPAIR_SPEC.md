@@ -98,6 +98,15 @@ This tranche does not:
   test-only secret (`conftest.py`'s `"test-only-secret-do-not-use-in-production"`)
   — the denylist and the test fixture must not collide, or the test suite
   itself would fail to boot.
+- SI-6 (added during BUILD, independent review 2026-07-22): T1's
+  fail-closed check guards the `Settings` constructor path only — every way
+  a real deployment supplies the secret (env var, `.env` file, direct
+  construction). It does NOT and is not required to stop in-process code
+  with the ability to execute arbitrary Python from bypassing it via
+  `Settings.model_construct(...)` or by mutating `settings.jwt_secret_key`
+  after import — both require a strictly larger compromise (arbitrary code
+  execution inside the process) than a weak secret alone. Documented as an
+  accepted limitation in `config.py`, not silently left untested.
 
 ## 4. API / configuration contracts
 
@@ -107,24 +116,52 @@ This tranche does not:
 Input: JWT_SECRET_KEY environment variable (str)
 Validation, in order:
   1. Reject if empty or whitespace-only.
-  2. Reject if len(value.encode("utf-8")) < 32.
-  3. Reject if value is exactly one of the denylist entries (exact match,
-     case-sensitive): {"replace-me-with-a-real-secret", "changeme",
-     "change-me", "secret", "password"}.
-Failure mode: raise at Settings construction (pydantic ValidationError),
-before the app can serve any request. Error message must not include the
-rejected value.
+  2. Reject if value is exactly one of the denylist entries (exact match,
+     case-sensitive) — checked BEFORE the length rule, not after: every
+     denylist entry is shorter than 32 bytes, so checking length first
+     would make the denylist unreachable dead code (an independent review
+     finding, repaired during BUILD).
+  3. Reject if len(value.encode("utf-8")) < 32.
+Failure mode: raise at Settings construction, before the app can serve any
+request. Error message must not include the rejected value.
 ```
+
+**Amended during BUILD (independent review, 2026-07-22):** the failure mode
+is `InsecureJwtSecretError`, a plain exception raised from
+`Settings.__init__` after `super().__init__()` returns — NOT a pydantic
+`ValidationError` as this line originally specified. Reproduced directly:
+a `field_validator` or `model_post_init` raising inside pydantic-core's
+validation call gets wrapped into a `ValidationError` whose string form
+always echoes the rejected input value (`input_value=...`), which directly
+violates this section's own "must not include the rejected value"
+requirement and SI-2. The exception TYPE was an implementation-detail
+assumption made while writing this SPEC, not a deliberate requirement; the
+no-leakage requirement is the actual intent and takes priority where the
+two conflict.
 
 ### 4.2 `LoginInput.password` (auth/router.py)
 
 ```
 Input: JSON body field "password" (str)
 Validation: reject if len(password.encode("utf-8")) > 72.
-Failure mode: HTTP 422 (FastAPI/Pydantic request-validation error), before
-the route handler body runs — i.e. before ledger lookup or any bcrypt call.
+Failure mode: HTTP 422, checked as the first statement in the route
+handler body — before the ledger lookup or any bcrypt call.
 Applies identically whether "username" identifies an existing user or not.
+Response body: {"detail": "<fixed message>"} — never includes the
+submitted password.
 ```
+
+**Amended during BUILD (independent review, 2026-07-22):** originally
+implemented as a pydantic `field_validator`, which does reject before the
+handler runs, but FastAPI's default request-validation-error body echoes
+the rejected value in an `"input"` field — meaning the caller's own
+over-length password would appear in the 422 response body (F8). Moved to
+a manual check as the first statement inside `login()`, raising
+`HTTPException(422, detail=...)` with a fixed message. This still runs
+before any username-specific branching (ledger lookup, `verify_password`),
+so AC-10/SI-4's identical-response requirement is unaffected — the fixed
+`{"detail": ...}` body contains even less variable content than the
+original request-validation envelope did.
 
 ## 5. Migration / upgrade contract
 

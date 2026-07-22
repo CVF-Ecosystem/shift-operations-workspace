@@ -224,3 +224,15 @@ def test_database_url_password_is_redacted():
 def test_redaction_leaves_credential_free_urls_readable():
     url = "postgresql+psycopg://localhost:5432/workspace"
     assert redact_url(url) == url
+
+
+def test_password_containing_at_sign_is_fully_redacted():
+    """Independent review (2026-07-22): the original regex matched only up
+    to the FIRST '@', so a password containing a literal '@' (e.g.
+    "s3cr3tP@ss") left everything after that first '@' - including the rest
+    of the actual password - exposed in the "redacted" output."""
+    url = "postgresql+psycopg://user:s3cr3tP@ss@db.example.com/ops"
+    redacted = redact_url(url)
+    assert "s3cr3tP" not in redacted
+    assert "@ss" not in redacted
+    assert redacted == "postgresql+psycopg://<redacted>@db.example.com/ops"

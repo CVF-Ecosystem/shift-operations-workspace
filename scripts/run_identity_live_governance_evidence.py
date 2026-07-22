@@ -155,17 +155,26 @@ def call_alibaba(model: str, key_env_name: str) -> dict:
             payload = json.loads(response.read().decode("utf-8"))
             status = response.status
     except urllib.error.HTTPError as exc:
-        # Body may carry a provider error message; it must not carry the key.
+        # An HTTPError means the request DID reach the provider and got a
+        # real (if unwelcome) HTTP response - reached_server=True. Body may
+        # carry a provider error message; it must not carry the key.
         detail = exc.read().decode("utf-8", errors="replace")[:300]
         return {
             "outcome": "FAIL",
+            "reached_server": True,
             "http_status": exc.code,
             "error": detail,
             "started_at": started.isoformat(),
         }
-    except Exception as exc:  # noqa: BLE001 - network/DNS/timeout
+    except Exception as exc:  # noqa: BLE001 - DNS/connection/timeout
+        # No HTTP response of any kind was received - the call never
+        # reached the provider at all. Independent review (2026-07-22):
+        # the receipt previously claimed "a real provider call was made"
+        # even in this case, which is false - nothing was exchanged with
+        # Alibaba. reached_server=False lets write_receipt say so honestly.
         return {
             "outcome": "FAIL",
+            "reached_server": False,
             "http_status": None,
             "error": f"{type(exc).__name__}: {exc}",
             "started_at": started.isoformat(),
@@ -179,6 +188,7 @@ def call_alibaba(model: str, key_env_name: str) -> dict:
 
     return {
         "outcome": "PASS" if EXPECTED_TOKEN in content else "FAIL",
+        "reached_server": True,
         "http_status": status,
         "response_excerpt": content.strip()[:200],
         "started_at": started.isoformat(),
@@ -206,6 +216,7 @@ def write_receipt(identity_results: list[dict], provider_result: dict, model: st
     for result in identity_results:
         lines.append(f"| {result['case']} | {result['outcome']} | {result['detail']} |")
 
+    reached_server = provider_result.get("reached_server", False)
     lines += [
         "",
         "## 2. Real provider call",
@@ -214,6 +225,7 @@ def write_receipt(identity_results: list[dict], provider_result: dict, model: st
         "gate is what authorized this call.",
         "",
         f"- Outcome: **{provider_result['outcome']}**",
+        f"- Reached the provider (got any HTTP response): **{reached_server}**",
         f"- HTTP status: {provider_result.get('http_status')}",
         f"- Started at: {provider_result.get('started_at')}",
     ]
@@ -222,15 +234,39 @@ def write_receipt(identity_results: list[dict], provider_result: dict, model: st
     if "error" in provider_result:
         lines.append(f"- Error: `{provider_result['error']}`")
 
+    # Independent review (2026-07-22): this section previously stated flatly
+    # that "a real provider call was made", even when the call never reached
+    # the provider at all (e.g. a connection reset) - a failure reframed as
+    # evidence, exactly what WORK_ORDER Section 5.4 forbids. The wording now
+    # depends on what actually happened.
+    if provider_result["outcome"] == "PASS":
+        call_claim = (
+            "a real (non-mock) provider call was made and returned the "
+            "expected response under that gate"
+        )
+    elif reached_server:
+        call_claim = (
+            "a real (non-mock) network round trip reached the provider "
+            "under that gate, but the provider returned an error "
+            "(see HTTP status/error above) - this is NOT a passing result"
+        )
+    else:
+        call_claim = (
+            "an attempt was made to call the provider under that gate, but "
+            "it did NOT reach the provider at all (see error above) - no "
+            "call actually landed, and this is NOT evidence of a working "
+            "provider integration"
+        )
+
     lines += [
         "",
         "## Claim boundary",
         "",
         "This receipt evidences that the `identity` control admits a validly",
-        "signed principal and refuses a forged token, and that a real (non-mock)",
-        "provider call was made under that gate. It does NOT evidence approval",
-        "quorum (High Finding #4), PostgreSQL production verification, or any",
-        "AI-gateway capability - all explicitly out of scope for this tranche.",
+        f"signed principal and refuses a forged token, and that {call_claim}.",
+        "It does NOT evidence approval quorum (High Finding #4), PostgreSQL",
+        "production verification, or any AI-gateway capability - all",
+        "explicitly out of scope for this tranche.",
         "",
     ]
     RECEIPT_PATH.write_text("\n".join(lines), encoding="utf-8")

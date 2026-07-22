@@ -214,13 +214,37 @@ def test_over_limit_rejection_is_identical_for_existing_and_unknown_username():
         )
         assert existing.status_code == unknown.status_code == 422
 
-        # The 422 body is FastAPI's validation-error envelope. It reports the
-        # offending FIELD, never anything about the username's existence -
-        # compare the full structure, which must be byte-identical here.
+        # The 422 body is a flat {"detail": "..."} (see F8 note below) that
+        # never mentions the username - compare the full structure, which
+        # must be byte-identical here.
         assert existing.json() == unknown.json(), (
             "an over-length password must produce an identical response "
             "whether or not the username exists"
         )
+    finally:
+        _clear_overrides()
+
+
+def test_over_limit_password_is_not_echoed_in_the_response():
+    """F8 (independent review, 2026-07-22): a pydantic field_validator's
+    rejection is rendered by FastAPI's default request-validation-error
+    body, which echoes the offending value back in an "input" field - so
+    the caller's own over-length password would appear in the 422 response
+    body, and from there in any access log or error tracker that captures
+    response bodies. The check now runs as a plain HTTPException in the
+    route body instead, which has no such field. Assert the submitted
+    password value does not appear anywhere in the response."""
+    ledger = _ledger_with_user()
+    client = _client_for(ledger)
+    try:
+        resp = client.post(
+            "/auth/login", json={"username": "op1", "password": _OVER_LIMIT_ASCII}
+        )
+        assert resp.status_code == 422
+        assert _OVER_LIMIT_ASCII not in resp.text
+        assert resp.json() == {
+            "detail": "password must not exceed 72 UTF-8 bytes"
+        }
     finally:
         _clear_overrides()
 

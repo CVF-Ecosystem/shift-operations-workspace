@@ -94,8 +94,16 @@ _ALREADY_EXISTS_SQLSTATES = {
 
 
 def redact_url(url: str) -> str:
-    """Show driver and host/database, never credentials."""
-    return re.sub(r"//[^@/]*@", "//<redacted>@", url)
+    """Show driver and host/database, never credentials.
+
+    Matches up to the LAST '@' before the first '/' after the scheme, not
+    the first - independent review found that a password itself containing
+    an unencoded '@' (e.g. "user:s3cr3tP@ss@host/db") left everything after
+    the first '@' exposed ("...redacted...@ss@host/db"). Greedy `[^/]*`
+    backtracks to the last '@' in the authority segment, so the whole
+    userinfo portion (however many '@' it contains) is redacted.
+    """
+    return re.sub(r"//[^/]*@", "//<redacted>@", url)
 
 
 def split_statements(sql: str) -> list[str]:
