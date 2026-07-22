@@ -122,6 +122,9 @@ class InMemoryLedger:
         self.messages[message.message_id] = message
         return message
 
+    def message_exists(self, message_id: UUID, *, unit=None) -> bool:
+        return message_id in self.messages
+
     def add_event(self, event: OperationalEvent, *, unit=None) -> OperationalEvent:
         self._assert_shift_not_frozen(event.shift_id, "add event to a frozen shift")
         self.events[event.event_id] = event
@@ -160,8 +163,15 @@ class InMemoryLedger:
             self._assert_shift_not_frozen(
                 request.shift_id, "add customer request to a frozen shift"
             )
-        self.customer_requests[request.request_id] = request
-        return request
+        # Store and return COPIES, not the caller's live object — see
+        # get_shift() for why. Independent review (2026-07-22) found that
+        # add/get/put_customer_request were the one entity family that kept
+        # the caller-owned object itself: `created = svc.create(...)` followed
+        # by `created.status = CLOSED` silently rewrote persisted state with
+        # no permission/lifecycle/transaction/audit involved at all.
+        stored = request.model_copy()
+        self.customer_requests[request.request_id] = stored
+        return stored.model_copy()
 
     def get_customer_request(self, request_id: UUID, *, unit=None) -> CustomerRequest:
         # Copy, not the live reference — see get_shift() for why.
@@ -172,8 +182,9 @@ class InMemoryLedger:
             self._assert_shift_not_frozen(
                 request.shift_id, "modify customer request in a frozen shift"
             )
-        self.customer_requests[request.request_id] = request
-        return request
+        stored = request.model_copy()
+        self.customer_requests[request.request_id] = stored
+        return stored.model_copy()
 
     def add_correction(self, correction: Correction, *, unit=None) -> Correction:
         # Corrections are append-only and are explicitly ALLOWED post-freeze:

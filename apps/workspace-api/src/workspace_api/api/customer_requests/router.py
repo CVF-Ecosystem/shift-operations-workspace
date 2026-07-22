@@ -1,3 +1,4 @@
+from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -23,7 +24,15 @@ class CustomerRequestInput(BaseModel):
     summary: str
     details: str | None = None
     source_message_id: UUID | None = None
-    promised_at: str | None = None
+    # Independent review, 2026-07-22 (Finding 3): this was previously typed
+    # `str | None`, so FastAPI/Pydantic accepted any string at the request
+    # boundary and the invalid value only surfaced when CustomerRequest(...)
+    # was constructed below - a ValidationError not caught by this router's
+    # except clauses, which escaped as an uncontrolled HTTP 500. Typing it as
+    # `datetime | None` here makes Pydantic reject a malformed value (e.g.
+    # "not-a-date") as a 422 at the request-body-parsing boundary, before the
+    # handler body ever runs.
+    promised_at: datetime | None = None
     owner_id: str | None = None
     # No evidence/approvals field: this domain has no evidence/risk_class
     # column in the migration, unlike TaskInput.

@@ -12,9 +12,10 @@ from __future__ import annotations
 
 import re
 
+import pytest
 from sqlalchemy import CheckConstraint
 
-from operations_ledger.tables import operational_events, shifts, tasks
+from operations_ledger.tables import customer_requests, operational_events, shifts, tasks
 
 from _schema_parity_parsing import (
     code_columns,
@@ -23,6 +24,17 @@ from _schema_parity_parsing import (
     table_block,
 )
 from test_schema_parity import MAPPED
+
+# Tables whose migration uses a column-level `status text ... CHECK (status IN
+# (...))` form rather than a table-level CHECK. Generic over this set so a
+# future mapped text-status table can be added here without duplicating the
+# parser (independent review, 2026-07-22, Finding 4: this previously hardcoded
+# "tasks" only, so the commit's claim that customer_requests' status CHECK was
+# also compared two-directionally was not actually true - it wasn't tested).
+_COLUMN_LEVEL_STATUS_CHECK_TABLES = {
+    "tasks": tasks,
+    "customer_requests": customer_requests,
+}
 
 # --- type-family comparison --------------------------------------------------
 
@@ -171,38 +183,75 @@ def test_check_expressions_match_where_comparable():
         )
 
 
-def test_status_check_columns_referenced():
-    """tasks.status (and the other text-status columns) use a column-level
-    CHECK (status IN (...)) rather than a table-level CHECK. Two-directional
-    comparison of the allowed-value sets - a real (if partial) comparison
-    rather than pure existence-only, without needing a full SQL expression
-    parser for the IN-list form. The migration-has-a-value-code-lacks
-    direction was the original P-FIX-6 check; the reverse (code allows a
-    status value the migration's CHECK would reject) is equally a drift bug -
-    a value the runtime accepts in SQLite-based tests would raise a CHECK
-    violation against a migration-created PostgreSQL database - and was added
-    in this closure-cleanup pass."""
-    sql = migration_text()
-    block = table_block(sql, "tasks")
+def _migration_status_check_values(block: str, table: str) -> set[str]:
     m = re.search(r"status\s+text[^,]*CHECK\s*\(status IN \(([^)]+)\)\)", block, re.IGNORECASE)
-    assert m, "tasks: expected a column-level status CHECK (status IN (...)) in migration"
-    migration_values = {v.strip().strip("'") for v in m.group(1).split(",")}
+    assert m, f"{table}: expected a column-level status CHECK (status IN (...)) in migration"
+    return {v.strip().strip("'") for v in m.group(1).split(",")}
 
-    code_checks = [c for c in tasks.constraints if isinstance(c, CheckConstraint)]
-    assert code_checks, "tasks: tables.py has no CheckConstraint"
+
+def _code_status_check_values(tbl_obj) -> set[str]:
+    code_checks = [c for c in tbl_obj.constraints if isinstance(c, CheckConstraint)]
+    assert code_checks, f"{tbl_obj.name}: tables.py has no CheckConstraint"
     code_text = " ".join(str(c.sqltext) for c in code_checks)
-    code_values = set(re.findall(r"'([A-Z_]+)'", code_text))
+    return set(re.findall(r"'([A-Z_]+)'", code_text))
+
+
+@pytest.mark.parametrize("table", sorted(_COLUMN_LEVEL_STATUS_CHECK_TABLES))
+def test_status_check_columns_referenced(table):
+    """A column-level `status text ... CHECK (status IN (...))` allowed-value
+    set, compared two-directionally between the migration and tables.py, for
+    every table in _COLUMN_LEVEL_STATUS_CHECK_TABLES - a real (if partial)
+    comparison rather than pure existence-only, without needing a full SQL
+    expression parser for the IN-list form. The migration-has-a-value-code
+    -lacks direction was the original P-FIX-6 check (tasks only); the reverse
+    (code allows a status value the migration's CHECK would reject) is equally
+    a drift bug - a value the runtime accepts in SQLite-based tests would raise
+    a CHECK violation against a migration-created PostgreSQL database.
+
+    Independent review, 2026-07-22 (Finding 4): this test previously hardcoded
+    "tasks" only, so the P2-A commit's claim that customer_requests' status
+    CHECK was also compared two-directionally was not actually exercised.
+    Parametrizing over _COLUMN_LEVEL_STATUS_CHECK_TABLES makes both tables (and
+    any future one added to that dict) go through the same real check."""
+    tbl_obj = _COLUMN_LEVEL_STATUS_CHECK_TABLES[table]
+    sql = migration_text()
+    block = table_block(sql, table)
+
+    migration_values = _migration_status_check_values(block, table)
+    code_values = _code_status_check_values(tbl_obj)
 
     missing_from_code = migration_values - code_values
     assert not missing_from_code, (
-        f"tasks: migration status CHECK allows {sorted(missing_from_code)} that "
-        f"tables.py's CheckConstraint text does not mention"
+        f"{table}: migration status CHECK allows {sorted(missing_from_code)} "
+        f"that tables.py's CheckConstraint text does not mention"
     )
     missing_from_migration = code_values - migration_values
     assert not missing_from_migration, (
-        f"tasks: tables.py's CheckConstraint mentions "
+        f"{table}: tables.py's CheckConstraint mentions "
         f"{sorted(missing_from_migration)} that the migration's status CHECK "
         f"does not allow - a value the runtime accepts against SQLite would "
         f"raise a CHECK violation against a migration-created PostgreSQL "
         f"database"
     )
+
+
+def test_status_check_two_directional_comparison_actually_catches_drift():
+    """Negative proof (Finding 4): demonstrates the helper functions used by
+    test_status_check_columns_referenced actually fail when the two sides
+    diverge, rather than only ever passing because the fixture tables happen
+    to already match. Exercises both directions directly against synthetic
+    value sets, without touching the real migration file or tables.py."""
+    migration_values = {"NEW", "ACKNOWLEDGED", "CLOSED"}
+
+    # Code is missing a value the migration allows -> must be caught.
+    code_values_missing_one = {"NEW", "ACKNOWLEDGED"}
+    assert migration_values - code_values_missing_one == {"CLOSED"}
+
+    # Code allows an extra value the migration's CHECK would reject -> must
+    # also be caught (this is the direction Finding 4 found untested).
+    code_values_with_extra = {"NEW", "ACKNOWLEDGED", "CLOSED", "MADE_UP_STATUS"}
+    assert code_values_with_extra - migration_values == {"MADE_UP_STATUS"}
+
+    # Matching sets in both directions -> no drift reported (the real case
+    # for tasks/customer_requests today).
+    assert migration_values - migration_values == set()

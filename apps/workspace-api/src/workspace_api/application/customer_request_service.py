@@ -20,6 +20,7 @@ from uuid import UUID
 
 from cvf_runtime.audit import AuditRecord
 from cvf_runtime.domain_lock import assert_domain_allowed
+from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 from cvf_runtime.permission import require_action
 from cvf_runtime.policy_loader import CvfProfile, load_profile
@@ -50,6 +51,22 @@ class CustomerRequestService:
     ) -> CustomerRequest:
         require_action(principal, "customer_request.create")
         assert_domain_allowed(self.profile, _CUSTOMER_REQUEST_DOMAIN)
+
+        # Independent review, 2026-07-22 (Finding 2): source_message_id has a
+        # real FK to messages in the migration, but message persistence isn't
+        # implemented, so InMemoryLedger previously accepted ANY value (no
+        # check) while SqlLedger/SQLite raised an uncaught IntegrityError from
+        # the FK - a backend divergence that could surface as an HTTP 500.
+        # Validate existence up front, before either backend ever attempts the
+        # insert, so both raise the SAME controlled error.
+        if request.source_message_id is not None and not self.ledger.message_exists(
+            request.source_message_id
+        ):
+            raise CvfDenied(
+                control="reference",
+                reason=f"source_message_id {request.source_message_id} does not reference an existing message",
+                http_status=404,
+            )
 
         # Unit-of-work: customer-request insert + audit append commit or roll
         # back together (P-FIX-2 / High Finding #5 pattern). The frozen-shift

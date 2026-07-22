@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T07:29:55.328488+00:00_
+_Last generated: 2026-07-22T09:19:40.766292+00:00_
 
 ## How to use this catalog
 
@@ -13,7 +13,7 @@ _Last generated: 2026-07-22T07:29:55.328488+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **3247**
+- Code LOC (py/ts/tsx): **3303**
 - Code files: **90**
 - By status: contract-only=6, enforced=2, partial=4, stub=8
 
@@ -30,9 +30,9 @@ _Last generated: 2026-07-22T07:29:55.328488+00:00_
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 799 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
-| `operations-ledger` | packages/operations-ledger | enforced | 791 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `operations-ledger` | packages/operations-ledger | enforced | 810 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
-| `workspace-api` | apps/workspace-api | partial | 1486 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
+| `workspace-api` | apps/workspace-api | partial | 1523 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
 | `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -73,7 +73,7 @@ _Last generated: 2026-07-22T07:29:55.328488+00:00_
 - **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_evidence_persistence.py`, `tests/cvf/test_customer_request_vertical.py`
-- **Metrics:** 791 LOC across 6 code file(s)
+- **Metrics:** 810 LOC across 6 code file(s)
 - **Next step:** Run the same integration + integrity + evidence + parity suite against a real PostgreSQL instance (docker compose up postgres) once available - this is a pre-ship gate, not required for ordinary SQLite-based development. Map remaining migration tables (messages persistence, reports) into tables.py/SqlLedger as tranches need them.
 
 ### `integration-edge` — partial
@@ -97,7 +97,7 @@ _Last generated: 2026-07-22T07:29:55.328488+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_evidence_persistence.py`
-- **Metrics:** 1486 LOC across 44 code file(s)
+- **Metrics:** 1523 LOC across 44 code file(s)
 - **Next step:** P2-A (customer_request) done. Next: replicate the chain to the remaining P2-A domains (incidents, handovers - neither has a migration table yet, so each needs a new migration first), or P2-B (real authentication - should replace known-principals.yaml), or P2-C (frontend UI).
 
 ### `workspace-web` — partial

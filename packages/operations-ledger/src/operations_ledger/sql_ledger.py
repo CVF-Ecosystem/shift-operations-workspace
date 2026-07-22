@@ -36,6 +36,7 @@ from operations_ledger.tables import (
     audit_records,
     corrections,
     customer_requests,
+    messages,
     operational_events,
     shifts,
     tasks,
@@ -170,6 +171,14 @@ class SqlLedger:
     # --- messages (raw evidence preserved elsewhere; minimal here) ---
     def add_message(self, message, *, unit=None):
         raise NotImplementedError("message persistence not yet wired to SQL")
+
+    def message_exists(self, message_id: UUID, *, unit=None) -> bool:
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
+                select(messages.c.message_id).where(messages.c.message_id == message_id)
+            ).first()
+        return row is not None
 
     # --- events ---
     def add_event(self, event, *, unit=None):

@@ -37,6 +37,16 @@ class Ledger(Protocol):
 
     # --- messages ---
     def add_message(self, message, *, unit: Any = None): ...
+    # Narrow reference-validation seam (independent review, 2026-07-22,
+    # Finding 2): message persistence itself is not implemented yet, but
+    # customer_requests.source_message_id has a real FK to messages in the
+    # migration. Before this method existed, InMemoryLedger silently accepted
+    # ANY source_message_id (no check at all) while SqlLedger/SQLite raised an
+    # uncaught IntegrityError from the FK - a real divergence that could
+    # surface as an uncontrolled HTTP 500. This method lets a caller check
+    # existence up front and raise the SAME controlled error on both backends
+    # without implementing the full messages vertical.
+    def message_exists(self, message_id: UUID, *, unit: Any = None) -> bool: ...
 
     # --- events ---
     def add_event(self, event, *, unit: Any = None): ...

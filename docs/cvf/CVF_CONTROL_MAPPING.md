@@ -81,18 +81,38 @@ Chính xác hơn, theo domain:
    override tường minh có audit; identity vẫn header-based không xác thực,
    giống mọi domain khác trong bảng này.
 5. **Customer Request → create / transition** — `CustomerRequestService`
-   (P2-A-CUSTOMER-REQUEST, 2026-07-22). Chain đúng ở tầng service và qua HTTP
-   (`tests/cvf/test_customer_request_vertical.py`, 18 test: service-level +
-   HTTP-level create, 401/403, domain-lock, lifecycle transitions hợp lệ/không
-   hợp lệ, rollback atomic trên cả 2 backend, tạo có/không `shift_id`, tạo bị
-   từ chối khi shift cha đã `FROZEN`). Bảng `customer_requests` khớp migration
+   (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review,
+   2026-07-22). Chain đúng ở tầng service và qua HTTP. Test:
+   `tests/cvf/test_customer_request_vertical.py` (18 test: service-level +
+   HTTP-level create, 401/403, lifecycle transitions hợp lệ/không hợp lệ,
+   rollback atomic trên cả 2 backend, tạo có/không `shift_id`, tạo bị từ chối
+   khi shift cha đã `FROZEN`) + `tests/cvf/test_customer_request_repair.py`
+   (11 test, thêm sau review độc lập thứ ba: alias-bypass rollback InMemory,
+   `source_message_id` hợp lệ/không tồn tại trên cả 2 backend + HTTP không
+   còn 500, `promised_at` sai định dạng trả 422 không phải 500, **domain_lock
+   negative-profile test thật** — profile loại `customer_request` khỏi
+   `allowed_domains` phải bị `CvfDenied(control="domain_lock")`, không có
+   customer_request/audit nào được ghi). Trước bản sửa này, tuyên bố
+   "domain_lock được exercise" ở `test_customer_request_vertical.py` chỉ đúng
+   theo nghĩa happy-path (test dùng profile mặc định luôn cho phép
+   `customer_request`) — không có test âm chứng minh việc bị từ chối khi
+   domain không được phép; giờ có. Bảng `customer_requests` khớp migration
    002 CHÍNH XÁC theo parity test hai chiều (FK/CHECK/nullability/PK/type
-   family). **Khác Task có chủ đích:** migration không có cột
+   family/status-CHECK-values — status-CHECK giờ parametrized qua cả
+   `tasks` và `customer_requests`, không còn hardcode `tasks` như bản gốc
+   tuyên bố nhầm). **Khác Task có chủ đích:** migration không có cột
    `version`/`risk`/`state`/evidence cho bảng này, nên `create` KHÔNG có gate
    risk/evidence/approval — không phải thiếu sót, mà khớp đúng schema đơn giản
-   hơn của domain này. `domain_lock` giờ được exercise ở một domain thứ hai
-   ngoài `create_event` (xem dòng `domain_lock` trong bảng dưới). **Còn hạn
-   chế:** giống mọi domain khác — identity vẫn header-based không xác thực.
+   hơn của domain này. `domain_lock` giờ được exercise (cả positive và
+   negative) ở một domain thứ hai ngoài `create_event` (xem dòng `domain_lock`
+   trong bảng dưới). `source_message_id` (FK tới `messages.message_id`) giờ
+   được validate qua `Ledger.message_exists()` trước khi persist trên cả 2
+   backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán
+   thay vì một backend chấp nhận vô điều kiện còn backend kia rò
+   `IntegrityError` thành HTTP 500. **Còn hạn chế:** giống mọi domain khác —
+   identity vẫn header-based không xác thực; `messages` vẫn chưa có
+   persistence vertical thật (`SqlLedger.add_message` vẫn `NotImplementedError`
+   — `message_exists` chỉ là existence-check tối thiểu, không phải write path).
 
 **Không domain nào trong 5 cái trên là "durable end-to-end qua HTTP + SqlLedger
 + evidence + xác thực identity thật" không giới hạn.** Evidence persistence
@@ -112,7 +132,7 @@ chung của cả repo.
 |---|---|---|---|
 | identity | **not verified server-side** | `dependencies.py · get_principal` đọc header `X-User-Id`/`X-User-Role` | Không xác thực — bất kỳ caller nào tự đặt header là thành principal đó. |
 | permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action, nhưng phụ thuộc identity chưa xác thực ở trên. |
-| domain_lock | callable, load-bearing tại `create_event` và `create_customer_request` (2026-07-22, P2-A) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). |
+| domain_lock | callable, load-bearing tại `create_event` và `create_customer_request`, kiểm cả positive lẫn negative (2026-07-22, P2-A + repair) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). Test âm thật: `tests/cvf/test_customer_request_repair.py::test_customer_request_denied_when_domain_lock_excludes_it` xây `CvfProfile` loại `customer_request` khỏi `allowed_domains`, xác nhận `CvfDenied(control="domain_lock")` và không có customer_request/audit nào được ghi — trước bản sửa này (independent review thứ ba, 2026-07-22) chỉ có test happy-path, không có test âm. |
 | data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
 | risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |
 | approval | **load-bearing, known-principal checked (P-FIX-3, 2026-07-22)** | `cvf_runtime/approval.py · assert_approval_satisfied` + `CvfProfile.known_role_for` (`known-principals.yaml`) | Sửa High Finding #4.1: trước đây approver_id/role do caller tự khai trong cùng request được chấp nhận vô điều kiện (HTTP probe: 2 approver bịa hoàn toàn confirm được R3, trả 200). Giờ mỗi seat quorum phải khớp một principal trong `known-principals.yaml` với role đăng ký đủ thẩm quyền — caller không còn bịa id hay tự nâng role. **Còn hạn chế:** đây KHÔNG phải xác thực thật (không chữ ký/token/session) — chỉ là registry chặn bịa hoàn toàn, tạm thời cho tới khi P2-B (auth thật) triển khai. Test: `tests/cvf/test_approval_known_principals.py` (4 test) + HTTP probe xác nhận 409 thay vì 200. |
@@ -123,7 +143,7 @@ chung của cả repo.
 | termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
 | freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
 | shift.close | **load-bearing (P-FIX-6, 2026-07-22)** | `ShiftService.close` (identity/permission `shift.close` role tối thiểu `operator` + state-check chặn close một shift đã `FROZEN`) → `Ledger.transaction()` bọc `close_shift` + `append_audit` atomic, cùng khuôn `freeze`/`TaskService` | Sửa gap review độc lập thứ hai tìm ra 2026-07-22: `POST /shifts/{shift_id}/close` trước đây gọi thẳng `ledger.close_shift(shift_id)` từ router — không `get_principal`, không `require_action`, không audit; probe xác nhận `anonymous_close=200`, `audit_count=0`. Vì freeze chỉ kiểm `shift.status == CLOSED`, close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze. Test: `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403 role thấp, 200 + audit cho principal hợp lệ, rollback atomic khi audit fail trên cả 2 backend, chặn close shift đã FROZEN, chuỗi đầy đủ create→close có governance→freeze qua cả service lẫn HTTP). **Không** đụng tới approval/known-principals (High Finding #4) — ngoài phạm vi tranche này. |
-| customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, domain-lock, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN). **Còn hạn chế:** giống mọi domain khác — identity vẫn header-based không xác thực. |
+| customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → `source_message_id` existence check qua `Ledger.message_exists()` khi được cung cấp → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN) + `tests/cvf/test_customer_request_repair.py` (11 test: InMemory alias-bypass, `source_message_id` hợp lệ/không tồn tại trên cả 2 backend + HTTP không còn 500, `promised_at` sai định dạng trả 422, domain_lock negative-profile thật). **Sửa sau independent review 2026-07-22:** InMemoryLedger từng lưu/trả về CHÍNH object mutable của caller cho `add/get/put_customer_request` — `created.status = CLOSED` có thể âm thầm đổi state đã lưu, không qua permission/lifecycle/transaction/audit; giờ trả bản `model_copy()` giống mọi entity khác. `source_message_id` từng được kiểm không nhất quán: InMemory chấp nhận vô điều kiện, SqlLedger/SQLite raise `IntegrityError` từ FK không được bắt, có thể lộ ra HTTP 500; giờ validate qua `message_exists()` trước khi persist trên cả 2 backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán. Router's `promised_at` từng khai `str | None`, giá trị sai định dạng chỉ fail khi construct `CustomerRequest(...)` trong route (ValidationError không được router bắt) → lộ HTTP 500; giờ khai `datetime | None` trên `CustomerRequestInput` để Pydantic reject ở request-boundary, trả 422. **Còn hạn chế:** giống mọi domain khác — identity vẫn header-based không xác thực; `messages` vẫn chưa có persistence vertical thật. |
 
 ## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 
