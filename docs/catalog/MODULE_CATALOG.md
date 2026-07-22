@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T15:19:11.628629+00:00_
+_Last generated: 2026-07-22T17:44:08.652794+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **3553**
-- Code files: **94**
-- By status: contract-only=6, enforced=2, partial=4, stub=8
+- Code LOC (py/ts/tsx): **3763**
+- Code files: **95**
+- By status: contract-only=6, enforced=2, partial=5, stub=7
 
 ## Status legend
 
@@ -31,8 +31,9 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 799 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 873 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
-| `workspace-api` | apps/workspace-api | partial | 1710 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
+| `workspace-api` | apps/workspace-api | partial | 1818 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
 | `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -41,7 +42,6 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
 | `refinery-bridge` | packages/refinery-bridge | contract-only | 0 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `workspace-contracts` | packages/workspace-contracts | contract-only | 0 | — | Canonical JSON Schemas that form the stable boundary between core, providers, channels, Refinery and CVF. |
-| `ai-providers` | packages/ai-providers | stub | 0 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. |
 | `channel-adapters` | packages/channel-adapters | stub | 0 | — | Concrete adapters for internal PWA, customer portal, generic webhook, Zalo, WhatsApp, email, SMS, and mocks. |
 | `conversation-routing` | packages/conversation-routing | stub | 0 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
 | `identity-mapping` | packages/identity-mapping | stub | 0 | identity | Map external identities to internal users/customer contacts with human confirmation. |
@@ -76,6 +76,18 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 - **Metrics:** 873 LOC across 6 code file(s)
 - **Next step:** Run the same integration + integrity + evidence + parity suite against a real PostgreSQL instance (docker compose up postgres) once available - this is a pre-ship gate, not required for ordinary SQLite-based development. Map remaining migration tables (messages persistence, reports) into tables.py/SqlLedger as tranches need them.
 
+### `ai-providers` — partial
+
+- **Path:** `packages/ai-providers` (package)
+- **Purpose:** Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs.
+- **CVF controls:** provider_authorization
+- **Enforcement:** Alibaba live-run configuration excludes disabled, exhausted, and expiration-day models, then selects deterministically by explicit priority, nearest expiration, remaining quota, and model code. This is provider configuration only: it does not implement the Phase 4 AI gateway or make AI-specific controls load-bearing.
+- **Contract:** packages/ai-gateway/contracts/provider_interface.py
+- **Depends on:** `ai-gateway`
+- **Tests:** `tests/unit/test_alibaba_model_selector.py`
+- **Metrics:** 102 LOC across 1 code file(s)
+- **Next step:** Keep the Alibaba quota snapshot current; integrate provider adapters through the Phase 4 AI gateway later. Implement NO_AI + RULES_ONLY + mock providers before production AI routing.
+
 ### `integration-edge` — partial
 
 - **Path:** `apps/integration-edge` (app)
@@ -97,7 +109,7 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`
-- **Metrics:** 1710 LOC across 48 code file(s)
+- **Metrics:** 1818 LOC across 48 code file(s)
 - **Next step:** P2-B (real authentication) done. Next: replicate the chain to the remaining P2-A domains (incidents, handovers - neither has a migration table yet, so each needs a new migration first), or reconcile known-principals.yaml with the users table, or P2-C (frontend UI).
 
 ### `workspace-web` — partial
@@ -195,18 +207,6 @@ _Last generated: 2026-07-22T15:19:11.628629+00:00_
 - **Tests:** `tests/contract/test_contract_files.py`
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Keep schemas authoritative as domains are implemented.
-
-### `ai-providers` — stub
-
-- **Path:** `packages/ai-providers` (package)
-- **Purpose:** Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers.
-- **CVF controls:** provider_authorization
-- **Enforcement:** None yet.
-- **Contract:** packages/ai-gateway/contracts/provider_interface.py
-- **Depends on:** `ai-gateway`
-- **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
-- **Next step:** Implement NO_AI + RULES_ONLY + mock providers first.
 
 ### `channel-adapters` — stub
 

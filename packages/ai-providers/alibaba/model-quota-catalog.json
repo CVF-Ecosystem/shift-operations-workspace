@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "provider": "alibaba_dashscope",
+  "snapshot_date": "2026-07-22",
+  "quota_unit": "tokens",
+  "expiration_policy": "Treat expires_on as ineligible on that calendar date to avoid end-of-day timezone ambiguity.",
+  "selection_policy": "Lowest priority number first, then earliest expiration, then highest remaining quota, then model code.",
+  "models": [
+    {
+      "model": "deepseek-v4-flash",
+      "remaining": 987097,
+      "total": 1000000,
+      "expires_on": "2026-07-23",
+      "enabled": true,
+      "priority": 10
+    },
+    {
+      "model": "qwen3.5-plus-2026-04-20",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-07-22",
+      "enabled": true,
+      "priority": 15
+    },
+    {
+      "model": "qwen3.7-max",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-08-19",
+      "enabled": true,
+      "priority": 20
+    },
+    {
+      "model": "qwen3.7-max-2026-05-17",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-08-23",
+      "enabled": true,
+      "priority": 30
+    },
+    {
+      "model": "qwen3.7-max-preview",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-08-23",
+      "enabled": true,
+      "priority": 31
+    },
+    {
+      "model": "glm-5.1",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-08-25",
+      "enabled": true,
+      "priority": 40
+    },
+    {
+      "model": "qwen3.7-plus",
+      "remaining": 989246,
+      "total": 1000000,
+      "expires_on": "2026-08-31",
+      "enabled": true,
+      "priority": 50
+    },
+    {
+      "model": "qwen3.7-max-2026-06-08",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-09-07",
+      "enabled": true,
+      "priority": 60
+    },
+    {
+      "model": "glm-5.2",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-09-23",
+      "enabled": true,
+      "priority": 70
+    },
+    {
+      "model": "kimi-k2.7-code",
+      "remaining": 1000000,
+      "total": 1000000,
+      "expires_on": "2026-09-23",
+      "enabled": true,
+      "priority": 80
+    }
+  ]
+}
