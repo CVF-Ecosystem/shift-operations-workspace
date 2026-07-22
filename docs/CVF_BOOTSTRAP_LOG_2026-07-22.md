@@ -7,7 +7,7 @@ system before this record was created; see "Preservation Decisions" below.
 Original bootstrap disposition: `COMMITTED_REVIEW_PASS` at `acc5d09` (see
 `SESSION/ACTIVE_SESSION_STATE.json` for the canonical checkpoint). Portable
 clone continuity was subsequently verified on 2026-07-22 against public CVF
-core `4c0c31777e34ba1e16277a02eb88aad25206bbe0`.
+core `c1076dc4be9ef9058b7c4e7b96def59c26aab148`.
 
 ## 1. Record Metadata
 - Record ID: BOOTSTRAP-20260722-shift-operations-workspace
