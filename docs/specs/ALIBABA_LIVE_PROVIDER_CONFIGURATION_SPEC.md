@@ -1,6 +1,6 @@
 # Alibaba Live Provider Configuration Specification
 
-Tranche: `PROVIDER-ALIBABA-LIVE-CONFIG`  
+Tranche: `PROVIDER-ALIBABA-LIVE-CONFIG`
 Risk: R2
 
 ## Intended behavior
