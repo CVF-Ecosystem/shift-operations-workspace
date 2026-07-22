@@ -20,10 +20,20 @@
 - Business/delivery roadmap (five-phase model, distinct from the AGENTS.md
   seven-step control chain): [`docs/implementation/EXECUTION_ROADMAP.md`](implementation/EXECUTION_ROADMAP.md)
   and [`docs/implementation/IMPLEMENTATION_PHASES.md`](implementation/IMPLEMENTATION_PHASES.md)
-- Specifications (new family, stub — not yet populated as a discrete
-  per-tranche artifact; spec content currently lives inline in handoffs and
-  the roadmap): [`docs/specs/`](specs/)
-- Work orders (new family, stub — same status as specs above): [`docs/work_orders/`](work_orders/)
+- Specifications — populated with discrete per-tranche artifacts
+  (`P2B_AUTHENTICATION_REPAIR_SPEC.md`,
+  `ALIBABA_LIVE_PROVIDER_CONFIGURATION_SPEC.md`, `CVF_CORE_PIN_SPEC.md`):
+  [`docs/specs/`](specs/). These are **per-tranche** governance specifications
+  — testable requirements, acceptance criteria and claim boundaries for one
+  bounded unit of work — not a complete specification of the system. Tranches
+  predating this family still carry their spec content inline in handoffs and
+  the roadmap.
+- Work orders — populated alongside the specs above
+  (`P2B_AUTHENTICATION_REPAIR_WORK_ORDER.md`,
+  `ALIBABA_LIVE_PROVIDER_CONFIGURATION_WORK_ORDER.md`,
+  `CVF_CORE_PIN_WORK_ORDER.md`): [`docs/work_orders/`](work_orders/). Each
+  authorizes one bounded changed set with its roles, required evidence, stop
+  conditions and commit ownership; the same per-tranche scope caveat applies.
 - CVF control mapping: [`docs/cvf/CVF_CONTROL_MAPPING.md`](cvf/CVF_CONTROL_MAPPING.md)
 - Architecture / boundary rules: [`docs/architecture/FRONTEND_BACKEND_BOUNDARY.md`](architecture/FRONTEND_BACKEND_BOUNDARY.md)
 - File size guard: [`docs/reference/FILE_SIZE_GUARD.md`](reference/FILE_SIZE_GUARD.md)

@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-23 (P2-B corrective tranche: FREEZE after live evidence PASS)_
+_Last updated: 2026-07-23 (CVF-CORE-PIN: FREEZE / CLOSED_BOUNDED)_
 
 ## Where the project is
 
@@ -101,6 +101,48 @@ rồi Alibaba `qwen3.7-max` trả HTTP 200 với token mong đợi. Receipt sani
 **FREEZE**; `identity` load-bearing/governance-approved trong phạm vi này.
 High Finding #4 về approval/known-principals vẫn mở.
 
+**2026-07-23 (CVF-CORE-PIN-2026-07-23 — FREEZE / CLOSED_BOUNDED):** workspace
+doctor đang FAIL 23/24 với `CVF public core matches origin/main →
+BEHIND_PUBLIC_REMOTE` — hidden core ở `c1076dc` trong khi public `origin/main`
+đã sang `6ce1cf0`. Vì `AGENTS.md` bắt doctor phải PASS trước material work,
+mọi tranche sau sẽ khởi đầu từ một cổng hỏng. Tranche này chạy đủ chain
+INTAKE → DESIGN → SPEC → WORK_ORDER → BUILD → REVIEW → FREEZE, mỗi cổng nằm
+ngay trong commit graph: authorization artifacts `76e7360` (chỉ ADR/SPEC/
+WORK_ORDER, không file implementation), BUILD + independent REVIEW_PASS
+`da9a122` (**đúng 1 file, 1 dòng**: `.cvf/manifest.json`), FREEZE
+authorization addendum `18d67d3`. Hidden core được đồng bộ bằng chính
+reconciler chuẩn của framework (`update_cvf_workspace_public_core.ps1`, chỉ
+`-WorkspaceRoot`), sau đó core HEAD = core `origin/main` = manifest
+`cvfCoreCommit` = `6ce1cf0`; doctor trở lại **24/24** +
+`FRESH_CLONE_CONTINUITY_PASS`. Delta upstream chỉ là 1 commit tài liệu CVF
+core (`ARCHITECTURE.md`, `PROVIDERS.md`, `README.md`,
+`CVF_PROVIDER_LANE_READINESS_MATRIX.md`) — không script, không template.
+**P2-B FREEZE là commit RIÊNG `4e15ea4`**; `da9a122` và `4e15ea4` không chung
+một path nào — đó là bằng chứng trực tiếp hai tranche không bị gộp.
+**Giới hạn:** tranche này chỉ chứng minh core khớp public `origin/main` và pin
+khớp core, cộng 24/24 artifact enforcement cục bộ. Nó **không** là live
+governance evidence về hành vi AI, không đổi disposition P2-B, không đóng
+High Finding #4. Chi tiết:
+`SESSION/handoffs/AGENT_HANDOFF_2026-07-23_CVF_CORE_PIN_FREEZE.md`.
+
+## Continuity drift đang mở — ghi nhận, KHÔNG tự giải quyết
+
+Hai bề mặt governed đang mâu thuẫn về việc lane nào là kế tiếp:
+
+- `CONTRIBUTING.md:21` ra quy tắc thứ tự: **lấy item `[ ]` kế tiếp theo thứ
+  tự**.
+- `docs/implementation/EXECUTION_ROADMAP.md:207` cho thấy item `[ ]` đầu tiên
+  là **P1-B** (tách domain models ra `operations-domain`).
+- `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` (trước lần cập nhật
+  này) chỉ đưa ra P2-A (còn lại: incidents/handovers), reconciliation
+  `known-principals.yaml` ↔ `users` (High Finding #4), và P2-C — **P1-B vắng
+  mặt**.
+
+Áp dụng quy tắc đúng chữ thì chọn **P1-B**; danh sách lane đã ghi lại không
+có P1-B. Không agent nào được tự chọn, xếp hạng, reprioritize, sửa roadmap,
+hay tuyên bố một bên có thẩm quyền hơn bên kia. Đây là quyết định của
+operator. Bước kế tiếp hợp lệ là **INTAKE để operator xác nhận lane**.
+
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
 Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
@@ -174,13 +216,19 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đã FREEZE** sau independent
-REVIEW_PASS và live Alibaba evidence PASS. Bước kế tiếp phải bắt đầu một
-control chain mới từ INTAKE cho đúng một lane: P2-A incidents/handovers (cần
-migration riêng), reconciliation `known-principals.yaml` ↔ users (High
-Finding #4), hoặc P2-C frontend. Xem `next_allowed_move` trong
-`ACTIVE_SESSION_STATE.json` cho câu chính xác; không bắt đầu BUILD từ loose
-chat instruction.
+**`P2B-AUTHENTICATION-REPAIR` đã FREEZE** (`4e15ea4`) sau independent
+REVIEW_PASS và live Alibaba evidence PASS. **`CVF-CORE-PIN-2026-07-23` đã
+FREEZE / CLOSED_BOUNDED** (`76e7360` → `da9a122` → `18d67d3`, core/pin
+`6ce1cf0`, doctor 24/24) — hai tranche được commit riêng, không gộp.
+
+Bước kế tiếp phải bắt đầu một control chain mới từ **INTAKE để operator xác
+nhận đúng một lane**, vì continuity drift ở trên chưa được giải quyết. Lane
+ứng viên là hợp của cả hai bề mặt: **P1-B** (tách domain models — cái mà quy
+tắc thứ tự chọn), P2-A còn lại (incidents/handovers, cần migration riêng),
+reconciliation `known-principals.yaml` ↔ `users` (High Finding #4), hoặc P2-C
+frontend. Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu
+chính xác; không bắt đầu BUILD từ loose chat instruction và không tự chọn
+lane thay operator.
 
 ## Không được làm (không có xác nhận mới)
 
@@ -202,3 +250,10 @@ force-push `cd36b27`; không viết lại lịch sử rằng chính commit đó 
 authorize. Governance approval thuộc corrective chain hoàn chỉnh và receipt
 Alibaba thật. Không mở rộng claim sang approval/known-principals, PostgreSQL,
 refresh/revocation, admin provisioning hay AI gateway.
+**CVF-CORE-PIN (FREEZE 2026-07-23):** không tuyên bố tranche core-pin chứng
+minh hành vi governance của AI — nó chỉ đồng bộ một delta tài liệu của core và
+một manifest pin; doctor 24/24 chỉ chứng minh artifact enforcement cục bộ và
+public-core freshness, không thay live provider evidence. Không tự chọn/xếp
+hạng lane để "giải quyết" continuity drift P1-B ↔ danh sách ba lane; không sửa
+`EXECUTION_ROADMAP.md` để làm nó khớp. Không sửa lại `.cvf/manifest.json` —
+pin đã commit tại `da9a122`.
