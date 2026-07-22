@@ -86,3 +86,27 @@ class Correction(BaseModel):
     previous_version: int
     new_version: int
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class TaskStatus(StrEnum):
+    OPEN = "OPEN"
+    IN_PROGRESS = "IN_PROGRESS"
+    BLOCKED = "BLOCKED"
+    DONE = "DONE"
+    CARRY_OVER = "CARRY_OVER"
+    CANCELLED = "CANCELLED"
+
+
+class Task(BaseModel):
+    task_id: UUID = Field(default_factory=uuid4)
+    shift_id: UUID
+    title: str
+    description: str | None = None
+    status: TaskStatus = TaskStatus.OPEN
+    owner_id: str | None = None
+    due_at: datetime | None = None
+    risk_class: RiskClass = RiskClass.R1
+    state: DataState = DataState.CONFIRMED
+    evidence: list[EvidenceRef] = Field(default_factory=list)
+    version: int = 1
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

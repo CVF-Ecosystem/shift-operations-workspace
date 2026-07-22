@@ -74,8 +74,15 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
 - [x] Events: create + confirm chain (golden vertical #1).
 - [x] Corrections: post-freeze correction (golden vertical #2).
 - [x] Audit ghi bền vững qua ledger.
-- [ ] **P2-A:** Nhân bản CVF chain sang các domain còn lại: tasks, customer
-      requests, incidents, handovers (mỗi cái 1 router + service dùng chung gate).
+- [x] **P2-A (Task):** Nhân bản CVF chain sang Task domain — Task model +
+      TaskStatus lifecycle, bảng `tasks` map vào tables.py (FK+CHECK khớp
+      migration 002, parity test mở rộng), ledger methods (Protocol/InMemory/Sql,
+      `_rows.py` tách ra để giữ file-size), `TaskService` (create qua
+      permission/domain_lock/risk/evidence/approval/audit; transition qua
+      permission + task-status lifecycle + audit), router `/tasks`, tests
+      (vertical + SQLite persistence). Tái dùng gate cvf-runtime, không fork.
+- [ ] **P2-A (còn lại):** Nhân bản tiếp sang customer requests, incidents,
+      handovers cùng khuôn mẫu.
 - [ ] **P2-B:** Authentication thật (thay header-based principal bằng
       JWT/session) — nâng identity control.
 - [ ] **P2-C:** Frontend UI cho các vertical đã có backend (bắt đầu Events/

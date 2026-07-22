@@ -22,21 +22,26 @@ from operations_ledger.tables import (
     metadata,
     operational_events,
     shifts,
+    tasks,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-MIGRATION = REPO_ROOT / "database" / "migrations" / "001_foundation.sql"
+MIGRATIONS_DIR = REPO_ROOT / "database" / "migrations"
 
 # Tables tables.py currently maps -> their SQLAlchemy Table object.
 MAPPED = {
     "shifts": shifts,
     "operational_events": operational_events,
     "corrections": corrections,
+    "tasks": tasks,
 }
 
 
 def _migration_text() -> str:
-    return MIGRATION.read_text(encoding="utf-8")
+    # Concatenate all migration files so a mapped table can live in any of them.
+    return "\n".join(
+        p.read_text(encoding="utf-8") for p in sorted(MIGRATIONS_DIR.glob("*.sql"))
+    )
 
 
 def _table_block(sql: str, table: str) -> str:

@@ -23,7 +23,14 @@ from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import Correction, OperationalEvent, RiskClass, Shift
+from workspace_api.domain.models import (
+    Correction,
+    OperationalEvent,
+    RiskClass,
+    Shift,
+    Task,
+    TaskStatus,
+)
 
 
 @pytest.fixture()
@@ -145,4 +152,23 @@ def test_freeze_shift_persists(db_path: Path):
     reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
     fetched = reopened.get_shift(shift.shift_id)
     assert str(fetched.status) == "FROZEN"
+    assert fetched.version == 2
+
+
+def test_task_persists_and_transitions(db_path: Path):
+    now = datetime.now(timezone.utc)
+    shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
+    task = Task(shift_id=shift.shift_id, title="Inspect crane")
+    ledger = _open_ledger(db_path)
+    ledger.create_shift(shift)
+    ledger.add_task(task)
+    task.status = TaskStatus.IN_PROGRESS
+    task.version = 2
+    ledger.put_task(task)
+    ledger.engine.dispose()
+
+    reopened = SqlLedger(str(db_path), models=domain_models, engine=make_engine(f"sqlite:///{db_path}"))
+    fetched = reopened.get_task(task.task_id)
+    assert fetched.title == "Inspect crane"
+    assert str(fetched.status) == "IN_PROGRESS"
     assert fetched.version == 2

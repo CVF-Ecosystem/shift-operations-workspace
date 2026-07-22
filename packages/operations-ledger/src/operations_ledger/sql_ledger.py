@@ -23,11 +23,13 @@ from uuid import UUID
 from sqlalchemy import create_engine, event, insert, select, update
 from sqlalchemy.engine import Engine
 
+from operations_ledger import _rows
 from operations_ledger.tables import (
     audit_records,
     corrections,
     operational_events,
     shifts,
+    tasks,
 )
 
 
@@ -64,7 +66,7 @@ class SqlLedger:
     # --- shifts ---
     def create_shift(self, shift):
         with self.engine.begin() as conn:
-            conn.execute(insert(shifts).values(**_shift_row(shift)))
+            conn.execute(insert(shifts).values(**_rows.shift_row(shift)))
         return shift
 
     def get_shift(self, shift_id: UUID):
@@ -108,7 +110,7 @@ class SqlLedger:
     # --- events ---
     def add_event(self, event):
         with self.engine.begin() as conn:
-            conn.execute(insert(operational_events).values(**_event_row(event)))
+            conn.execute(insert(operational_events).values(**_rows.event_row(event)))
         return event
 
     def get_event(self, event_id: UUID):
@@ -120,21 +122,43 @@ class SqlLedger:
             ).mappings().first()
         if row is None:
             raise KeyError(event_id)
-        return _row_to_event(self.models, row)
+        return _rows.row_to_event(self.models, row)
 
     def put_event(self, event):
         with self.engine.begin() as conn:
             conn.execute(
                 update(operational_events)
                 .where(operational_events.c.event_id == event.event_id)
-                .values(**_event_row(event))
+                .values(**_rows.event_row(event))
             )
         return event
+
+    # --- tasks ---
+    def add_task(self, task):
+        with self.engine.begin() as conn:
+            conn.execute(insert(tasks).values(**_rows.task_row(task)))
+        return task
+
+    def get_task(self, task_id: UUID):
+        with self.engine.connect() as conn:
+            row = conn.execute(
+                select(tasks).where(tasks.c.task_id == task_id)
+            ).mappings().first()
+        if row is None:
+            raise KeyError(task_id)
+        return _rows.row_to_task(self.models, row)
+
+    def put_task(self, task):
+        with self.engine.begin() as conn:
+            conn.execute(
+                update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task))
+            )
+        return task
 
     # --- corrections (append-only) ---
     def add_correction(self, correction):
         with self.engine.begin() as conn:
-            conn.execute(insert(corrections).values(**_correction_row(correction)))
+            conn.execute(insert(corrections).values(**_rows.correction_row(correction)))
         return correction
 
     def corrections_for(self, record_id: UUID) -> list:
@@ -142,7 +166,7 @@ class SqlLedger:
             rows = conn.execute(
                 select(corrections).where(corrections.c.record_id == record_id)
             ).mappings().all()
-        return [_row_to_correction(self.models, r) for r in rows]
+        return [_rows.row_to_correction(self.models, r) for r in rows]
 
     # --- audit (append-only) ---
     def audit_entries_for(self, record_id: str) -> list:
@@ -170,74 +194,3 @@ class SqlLedger:
                     occurred_at=record.at,
                 )
             )
-
-
-def _shift_row(shift) -> dict:
-    return {
-        "shift_id": shift.shift_id,
-        "name": shift.name,
-        "starts_at": shift.starts_at,
-        "ends_at": shift.ends_at,
-        "status": str(shift.status),
-        "version": shift.version,
-        "created_at": shift.created_at,
-    }
-
-
-def _event_row(event) -> dict:
-    return {
-        "event_id": event.event_id,
-        "shift_id": event.shift_id,
-        "event_type": event.event_type,
-        "title": event.title,
-        "description": event.description,
-        "risk": str(event.risk_class),
-        "state": str(event.state),
-        "starts_at": event.starts_at,
-        "ends_at": event.ends_at,
-        "owner_id": event.owner_id,
-        "version": event.version,
-    }
-
-
-def _row_to_event(models, row):
-    return models.OperationalEvent(
-        event_id=row["event_id"],
-        shift_id=row["shift_id"],
-        event_type=row["event_type"],
-        title=row["title"],
-        description=row["description"],
-        risk_class=row["risk"],
-        state=row["state"],
-        starts_at=row["starts_at"],
-        ends_at=row["ends_at"],
-        owner_id=row["owner_id"],
-        version=row["version"],
-    )
-
-
-def _correction_row(correction) -> dict:
-    return {
-        "correction_id": correction.correction_id,
-        "record_type": correction.record_type,
-        "record_id": correction.record_id,
-        "previous_version": correction.previous_version,
-        "new_version": correction.new_version,
-        "reason": correction.reason,
-        "requested_by": correction.requested_by,
-        "before_data": {"version": correction.previous_version},
-        "after_data": {"version": correction.new_version},
-    }
-
-
-def _row_to_correction(models, row):
-    return models.Correction(
-        correction_id=row["correction_id"],
-        record_type=row["record_type"],
-        record_id=row["record_id"],
-        reason=row["reason"],
-        requested_by=row["requested_by"],
-        previous_version=row["previous_version"],
-        new_version=row["new_version"],
-        created_at=row["created_at"],
-    )

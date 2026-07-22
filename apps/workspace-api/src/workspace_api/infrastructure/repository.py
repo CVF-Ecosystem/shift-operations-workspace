@@ -4,7 +4,7 @@ from threading import RLock
 from uuid import UUID
 from cvf_runtime.audit import AuditLog
 
-from workspace_api.domain.models import Shift, Message, OperationalEvent, ShiftStatus, Correction
+from workspace_api.domain.models import Shift, Message, OperationalEvent, ShiftStatus, Correction, Task
 
 class InMemoryLedger:
     def __init__(self):
@@ -13,6 +13,7 @@ class InMemoryLedger:
         self.messages: dict[UUID, Message] = {}
         self.events: dict[UUID, OperationalEvent] = {}
         self.corrections: dict[UUID, Correction] = {}
+        self.tasks: dict[UUID, Task] = {}
         self._audit = AuditLog()
 
     def create_shift(self, shift: Shift) -> Shift:
@@ -56,6 +57,20 @@ class InMemoryLedger:
     def put_event(self, event: OperationalEvent) -> OperationalEvent:
         self.events[event.event_id] = event
         return event
+
+    def add_task(self, task: Task) -> Task:
+        shift = self.get_shift(task.shift_id)
+        if shift.status == ShiftStatus.FROZEN:
+            raise ValueError("Cannot add task to a frozen shift")
+        self.tasks[task.task_id] = task
+        return task
+
+    def get_task(self, task_id: UUID) -> Task:
+        return self.tasks[task_id]
+
+    def put_task(self, task: Task) -> Task:
+        self.tasks[task.task_id] = task
+        return task
 
     def add_correction(self, correction: Correction) -> Correction:
         # Corrections are append-only: a correction record is the permitted way

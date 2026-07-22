@@ -29,6 +29,8 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     "event.create": "operator",
     "event.confirm": "shift_supervisor",
     "event.correct": "shift_supervisor",
+    "task.create": "operator",
+    "task.transition": "operator",
     "shift.freeze": "shift_supervisor",
 }
 

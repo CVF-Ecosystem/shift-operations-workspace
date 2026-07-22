@@ -99,3 +99,24 @@ audit_records = Table(
     Column("metadata", JSON_TYPE, nullable=False, server_default="{}"),
     Column("occurred_at", DateTime(timezone=True), server_default=func.now()),
 )
+
+# Mirrors migration 002_tasks_customers_reports.sql (tasks table).
+tasks = Table(
+    "tasks",
+    metadata,
+    Column("task_id", Uuid, primary_key=True),
+    Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=False),
+    Column("title", Text, nullable=False),
+    Column("description", Text),
+    Column("status", Text, nullable=False),
+    Column("owner_id", Text),
+    Column("due_at", DateTime(timezone=True)),
+    Column("risk", String, nullable=False, server_default="R1"),
+    Column("state", String, nullable=False, server_default="CONFIRMED"),
+    Column("version", Integer, nullable=False, server_default="1"),
+    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+    CheckConstraint(
+        "status IN ('OPEN','IN_PROGRESS','BLOCKED','DONE','CARRY_OVER','CANCELLED')",
+        name="tasks_status_check",
+    ),
+)

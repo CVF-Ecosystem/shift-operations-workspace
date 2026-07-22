@@ -3,18 +3,18 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-21_P1A.md",
-  "last_updated": "2026-07-21",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2A.md",
+  "last_updated": "2026-07-22",
   "required_reads": [
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-07-21_P1A.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2A.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_CATALOG.md",
     "docs/cvf/CVF_CONTROL_MAPPING.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P1-A' done (SqlLedger dual-backend, SQLite-verified). Follow EXECUTION_ROADMAP.md in order. Next item: P2-A — replicate the CVF chain (identity/permission/risk/approval/evidence/audit) to another domain (tasks, customer-requests, incidents, or handovers), reusing cvf-runtime gates the same way EventService/CorrectionService do. Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
+  "next_allowed_move": "P2-A (Task) done — CVF chain replicated to Task domain (create + status transition), reusing cvf-runtime gates; tasks table mapped with FK/CHECK; SQLite persistence verified. Follow EXECUTION_ROADMAP.md: continue P2-A remaining domains (customer requests, incidents, handovers) using the same pattern as TaskService, OR P2-C (frontend UI for existing verticals). Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P1-A) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
     "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test (SQLite round-trip IS verified; Postgres is the same code path but not yet run live - Docker daemon unavailable in this environment).",
@@ -23,10 +23,11 @@
     "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
-    "as_of": "2026-07-21",
-    "pytest": "58 passed",
+    "as_of": "2026-07-22",
+    "pytest": "65 passed",
     "make_validate": "PASS (catalog + session-state + file-size checks)",
     "cvf_controls_enforced": "12/12 (cost+termination AI-gated)",
+    "golden_verticals": "3 (event confirm, post-freeze correction, task create/transition)",
     "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8",
     "operations_ledger": "enforced - dual-backend with matching FK/CHECK integrity (SQLite FK enforcement turned on via make_engine; schema-parity test guards tables.py vs migration). SQLite verified end-to-end incl. FK/CHECK rejection; PostgreSQL same code path, not yet run live (no Docker)."
   }
