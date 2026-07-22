@@ -4,7 +4,7 @@
 
 **Status:** FROZEN BASELINE
 **Freeze level:** Architecture, ownership boundary, core workflow, provider contracts
-**Implementation status:** Chưa bắt đầu build
+**Implementation status:** Đang build (Phase 1-2 in progress). Trạng thái chi tiết, kiểm chứng được: `docs/catalog/MODULE_CATALOG.md` + `docs/implementation/EXECUTION_ROADMAP.md`. Baseline kiến trúc dưới đây vẫn giữ nguyên/frozen; chỉ dòng trạng thái này được cập nhật để không nói sai sự thật.
 **Change policy:** Cho phép điều chỉnh có kiểm soát trong quá trình thực hiện
 
 ---

@@ -21,6 +21,58 @@ tầng chung không thuộc phase nghiệp vụ nào.
 
 ---
 
+## P-FIX — Corrective tranche (BẮT BUỘC, chặn mọi phase/domain mới) — 🔴 IN PROGRESS
+
+**2026-07-22:** review độc lập thứ hai
+([`EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`](../decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md))
+chứng minh bằng probe chạy thật rằng nhiều tuyên bố "enforced"/"golden
+vertical"/"12/12" trong P0-P2 đã **over-claim**. Không mở P2-A (domain còn
+lại), P2-B, P2-C, hay bất kỳ phase mới nào cho tới khi toàn bộ P-FIX-0 →
+P-FIX-5 xong và có test end-to-end xác nhận (không chỉ unit test gọi trực
+tiếp gate).
+
+- [x] **P-FIX-0:** Nắn lại tuyên bố sai trong `docs/cvf/CVF_CONTROL_MAPPING.md`,
+      `IMPLEMENTATION_STATUS.json`, `ARCHITECTURE.md` (dòng trạng thái),
+      `SESSION/SESSION_MEMORY.md`, roadmap này — dùng đúng phân biệt
+      callable/load-bearing/not-verified-server-side thay vì "enforced" gộp
+      chung.
+- [ ] **P-FIX-1 (Critical #1):** Freeze thành bất biến xuyên-record thật.
+      `freeze_shift` phải kiểm identity/permission + prerequisite
+      (`shift_closed`, `report_approved`, handover linked) trước khi cho freeze.
+      Sau khi frozen: `EventService`/`TaskService`/`CorrectionService` phải kiểm
+      shift cha trước mọi mutation; `SqlLedger.add_event/put_event/add_task/
+      put_task` phải kiểm shift status giống `InMemoryLedger` (hiện hai backend
+      hành xử khác nhau). Test: API + service + cả hai ledger, dùng shift cha
+      đã frozen làm fixture.
+- [ ] **P-FIX-2 (High #5):** Mutation + audit atomic. Gộp state-change +
+      correction-insert + audit-append vào một unit-of-work mỗi ledger
+      (transaction chung cho SqlLedger; cùng nguyên tắc cho InMemoryLedger).
+      Test: failure-injection khiến audit raise — mutation phải rollback, không
+      được đứng ở trạng thái "confirmed nhưng không audit".
+- [ ] **P-FIX-3 (Critical #2, High #4.1):** Lưu evidence qua SqlLedger (map
+      `evidence_links`, đọc lại đúng) + thêm field evidence vào `TaskInput`/
+      router; xác thực approval server-side (không chấp nhận approver_id/role
+      do caller tự khai trong cùng request — cần nguồn xác thực độc lập, ít
+      nhất một registry role đã biết, tối thiểu chặn approver trùng với
+      identity chưa xác thực). P2-B (auth thật) có thể cần đi cùng bước này.
+- [ ] **P-FIX-4 (High #3):** Thêm cột `version` vào migration
+      `002_tasks_customers_reports.sql` cho bảng `tasks` (khớp những gì runtime
+      luôn ghi). Siết `test_schema_parity.py`: so sánh cột/type/nullable/
+      default/PK/FK source-target/CHECK expression thật, không chỉ "tên bảng
+      tồn tại" hay "có ít nhất 1 CheckConstraint nào đó". Test SqlLedger trên
+      schema do chính migration tạo (không chỉ `metadata.create_all`).
+- [ ] **P-FIX-5 (Medium #6, #7):** `generate_catalog.py --check` phải recompute
+      metrics trong bộ nhớ, so với registry, render Markdown trong bộ nhớ và
+      so byte-for-byte với `MODULE_CATALOG.md` — hiện chỉ validate cấu trúc.
+      Thêm test âm cho metric drift + Markdown drift. Rà lại mọi front door
+      một lượt cuối để không còn số liệu/tuyên bố mâu thuẫn nhau.
+
+**Exit gate P-FIX:** mọi Critical/High trong bản review 07-22 có test end-to-end
+chứng minh đã sửa (không phải unit test gọi thẳng gate); `pytest` pass; docs
+không còn tuyên bố nào bị bản review đó phủ nhận.
+
+---
+
 ## P0 — Governance foundation (ngang, phục vụ mọi phase) — ✅ DONE
 
 Không thuộc 5 phase nghiệp vụ; là hạ tầng để mọi phase kiểm chứng được.
@@ -146,12 +198,14 @@ owner review approve.
 
 ## Bước kế tiếp duy nhất (khớp session state)
 
-Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`. **P1-A'**
-xong (SqlLedger dual-backend, verified trên SQLite). Bước kế tiếp: **P2-A**
-(nhân bản CVF chain sang tasks/customer-requests/incidents/handovers) để Phase
-2 tiến. Postgres round-trip thật (phần còn treo của P1-A) chạy khi có Docker
-khả dụng — không chặn P2-A vì code path giống nhau. Không mở Phase 4 (AI)
-trước khi Phase 2 core + Phase 3 Refinery đạt gate.
+Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`. **2026-07-22:**
+review độc lập Codex tìm ra P2-A (Task) và các vertical trước đó over-claim
+("golden vertical durable" không đúng qua HTTP+SqlLedger; freeze bypass được).
+Bước kế tiếp bắt buộc là **P-FIX-1** (freeze thành bất biến thật), rồi
+P-FIX-2 → P-FIX-5 theo thứ tự. **Không** mở P2-A (customer requests/incidents/
+handovers) hay bất kỳ phase mới nào cho tới khi P-FIX xong. Xem tiền đề
+"PostgreSQL same code path" đã bị bác bỏ (migration Task thiếu cột `version`)
+— sửa ở P-FIX-4 trước khi nói lại câu đó.
 
 ## Cách dùng roadmap này
 

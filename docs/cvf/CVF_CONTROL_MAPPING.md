@@ -4,69 +4,91 @@
 `packages/cvf-application-profile/profile.yaml`) tới **điểm thực thi bằng code**,
 kèm trạng thái thật.
 
-Trạng thái:
+**2026-07-22 correction:** một review độc lập (Codex,
+`docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`) chứng minh bằng
+probe chạy thật rằng nhãn "enforced" trước đây trong file này đã bị dùng quá
+rộng — nó chỉ đúng cho "có hàm gate + unit test", không có nghĩa "chặn được vi
+phạm trong request path thật, không bypass được". Bảng dưới đây dùng lại đúng 2
+mức đó, tách bạch.
 
-- **enforced** — có code chạy tại runtime + có test chặn khi vi phạm.
+## Trạng thái (2 mức — không gộp lại thành "enforced")
+
+- **callable** — hàm gate tồn tại trong `cvf_runtime`, có unit test gọi trực
+  tiếp và test đó pass. **Không** đảm bảo request path thật (router → service →
+  ledger) gọi tới nó đúng lúc, đúng cách, không có đường vòng.
+- **load-bearing** — đã xác nhận (bằng test end-to-end qua router/service, hoặc
+  probe runtime) rằng vi phạm **thực sự bị chặn** trong luồng thật, ở cả hai
+  backend (InMemory và Sql) khi có backend đó tham gia.
 - **profile-only** — policy đã có trong YAML nhưng chưa có code đọc/enforce.
-- **planned** — chưa có cả policy lẫn code.
+- **not verified server-side** — có gate, nhưng gate tin dữ liệu do caller tự
+  cung cấp trong cùng request (vd định danh qua header, approver tự khai) thay
+  vì xác thực độc lập.
 
-Golden verticals hiện có (đều dùng chung các gate `cvf-runtime`, không fork):
+## Golden verticals — phạm vi chính xác
 
-1. **Operational Event → confirm** — `EventService.confirm`
-2. **Operational Event → correct** (post-freeze correction record) — `CorrectionService.correct_event`
+Ba service (`EventService`, `CorrectionService`, `TaskService`) **đều import và
+gọi cùng các hàm `cvf_runtime`** — không có bản sao logic permission/evidence/
+approval nào bị fork. Đây là phần đã xác nhận đúng.
 
-Các domain khác (Message, Task, Customer Request, Incident, Report) sẽ nhân bản
-đúng chuỗi này.
+Nhưng gọi là "golden vertical durable/end-to-end" là **quá rộng**. Chính xác
+hơn:
+
+1. **Operational Event → confirm** — `EventService.confirm`. Load-bearing trên
+   `InMemoryLedger`. **Trên `SqlLedger`: gãy cho risk R2+** vì
+   `operations_ledger/_rows.py` không map cột `evidence` — event mất evidence
+   khi đọc lại, nên `assert_evidence_sufficient` từ chối một event đã có đủ
+   evidence lúc ghi. Xem Critical Finding #2 trong bản review Codex.
+2. **Operational Event → correct** — `CorrectionService.correct_event`.
+   Load-bearing về mặt state transition; nhưng approval quorum trong bước này
+   **không xác thực approver** (xem mục approval bên dưới).
+3. **Task → create / transition** — `TaskService`. Chain đúng ở tầng service
+   (test trực tiếp construct `Task` kèm evidence, pass). **Qua HTTP thì gãy**:
+   `TaskInput`/`api/tasks/router.py` không có field evidence, nên request thật
+   luôn gửi evidence rỗng — task R2+ tạo qua API sẽ bị `evidence` gate từ chối
+   dù client gửi kèm evidence (Pydantic bỏ field lạ).
+
+**Không domain nào trong 3 cái trên là "durable end-to-end qua HTTP + SqlLedger
++ evidence" tại thời điểm 2026-07-22.** Sẽ cập nhật khi các fix trong roadmap
+(P-FIX-1 → P-FIX-4) hoàn tất và có test end-to-end xác nhận.
 
 ## Bảng ánh xạ
 
-| CVF control | Trạng thái | Enforce ở đâu (file · symbol) | Policy nguồn | Test |
-|---|---|---|---|---|
-| identity | enforced | `dependencies.py · get_principal` → `cvf_runtime/identity.py · Principal` | — (header `X-User-Id`/`X-User-Role`) | `tests/cvf/test_gates_unit.py` (identity) |
-| permission | enforced | `cvf_runtime/permission.py · require_action`; gọi tại `events/router.py` và `application/services.py` | `_ACTION_MIN_ROLE` (code) | `test_permission_*`, `test_operator_confirm_denied_by_permission` |
-| domain_lock | enforced | `cvf_runtime/domain_lock.py · assert_event_type_in_scope`; gọi tại `events/router.py · create_event` | `cvf-application-profile/domain-lock.yaml` | `test_domain_lock_*` |
-| data_scope | enforced | `cvf_runtime/data_scope.py · assert_placement_allowed` (external_ai rule) | `cvf-application-profile/data-policy.yaml` | `test_restricted_local_only`, `test_confidential_blocks_external` |
-| risk | enforced | `cvf_runtime/risk.py · requirement_for` | `risk-classes.yaml`, `approval-policy.yaml`, `evidence-policy.yaml` | `test_requirement_reads_profile` |
-| approval | enforced | `cvf_runtime/approval.py · assert_approval_satisfied` | `approval-policy.yaml` | `test_r3_*`, `test_r4_escalation_board_roles` |
-| evidence | enforced | `cvf_runtime/evidence.py · assert_evidence_sufficient` | `evidence-policy.yaml` | `test_evidence_*`, `test_r2_denied_when_evidence_missing` |
-| audit | enforced | `cvf_runtime/audit.py · AuditLog.record`; ghi tại `EventService.confirm` và `CorrectionService.correct_event` | — (append-only) | `test_r3_full_chain_confirms_and_audits`, `test_confirmed_event_corrected_with_record_and_audit` |
-| cost | enforced (AI-gated) | `cvf_runtime/budget.py · assert_within_budget` (token limit + daily/monthly cap) | `cvf-application-profile/cost-policy.yaml` | `test_token_overflow_denied`, `test_daily_cap_falls_back_to_rules` |
-| refusal | enforced | `cvf_runtime/errors.py · CvfDenied` → HTTP map tại `events/router.py` | `cvf-application-profile/refusal-policy.yaml` | mọi test `CvfDenied` |
-| termination | enforced (AI-gated) | `cvf_runtime/termination.py · should_terminate` / `assert_not_terminated` (timeout, token limit, repeated failures, kill switch) | `cvf-application-profile/termination-policy.yaml` | `test_timeout_terminates`, `test_kill_switch_terminates` |
-| freeze | enforced | `domain/lifecycle.py · assert_transition` (FROZEN không có transition ra); `repository.py` chặn ghi vào shift FROZEN; `CorrectionService` chỉ cho correct record CONFIRMED/CORRECTED/FROZEN và không silent-overwrite record FROZEN | `cvf-application-profile/freeze-policy.yaml` | `test_confirm_blocked_on_frozen_shift`, `test_frozen_event_not_silently_overwritten`, `tests/integration/test_freeze.py` |
+| CVF control | Trạng thái | Enforce ở đâu (file · symbol) | Giới hạn đã biết |
+|---|---|---|---|
+| identity | **not verified server-side** | `dependencies.py · get_principal` đọc header `X-User-Id`/`X-User-Role` | Không xác thực — bất kỳ caller nào tự đặt header là thành principal đó. |
+| permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action, nhưng phụ thuộc identity chưa xác thực ở trên. |
+| domain_lock | callable, load-bearing tại `create_event` | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` | Chỉ gắn ở `create_event`; chưa gắn `create_task` hay các domain khác. |
+| data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
+| risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |
+| approval | callable, **not verified server-side** | `cvf_runtime/approval.py · assert_approval_satisfied` | Kiểm đúng *hình dạng* quorum (đủ role, đủ người, không tự duyệt), nhưng approver_id/role do caller gửi trong cùng request — không xác thực approver có thật hay có thẩm quyền đó không. |
+| evidence | callable, **gãy trên SqlLedger cho event** | `cvf_runtime/evidence.py · assert_evidence_sufficient` | Xem mục Event ở trên — evidence không được SqlLedger persist. |
+| audit | callable, **không atomic với mutation** | `cvf_runtime/audit.py` qua `Ledger.append_audit` | Mutation commit trước, audit ghi sau, trong transaction riêng. Nếu audit fail, mutation đã xác nhận vẫn đứng mà không có audit record. |
+| cost | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/budget.py · assert_within_budget` | Không nơi nào trong request path gọi hàm này; sẽ load-bearing khi ai-gateway wire tới. |
+| refusal | callable một phần | `cvf_runtime/errors.py · CvfDenied` → HTTP map | `CvfDenied` chỉ là exception container; refusal-policy.yaml yêu cầu route tới supervisor + ghi lý do — **chưa implement**, không route, không ghi audit riêng cho refusal. |
+| termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
+| freeze | callable, **KHÔNG load-bearing — có thể bypass** | `domain/lifecycle.py`, `repository.py` | `freeze_shift` không kiểm identity/permission/report/handover trước khi freeze. Sau khi shift frozen: `EventService`/`TaskService` không kiểm shift status của record cha; `SqlLedger.add_event/put_event/add_task/put_task` không kiểm shift status (InMemoryLedger có kiểm cho *tạo mới* — hai backend hành xử khác nhau). Xem Critical Finding #1. |
 
-## Thứ tự chain trong `EventService.confirm`
+## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 
 ```text
-identity        (dependency: get_principal)
+identity        (dependency: get_principal — KHÔNG xác thực, xem bảng trên)
    ↓
 permission      (require_action "event.confirm")
    ↓
-freeze/state    (assert_transition: PROPOSED → CONFIRMED)
+freeze/state    (assert_transition: PROPOSED → CONFIRMED — KHÔNG kiểm shift cha)
    ↓
-evidence        (assert_evidence_sufficient)
+evidence        (assert_evidence_sufficient — gãy trên SqlLedger)
    ↓
-approval        (assert_approval_satisfied: quorum + distinct principals)
+approval        (assert_approval_satisfied — KHÔNG xác thực approver)
    ↓
 [mutation]      (state = CONFIRMED, version += 1)
    ↓
-audit           (append-only AuditRecord: who/action/before→after/chain)
+audit           (KHÔNG atomic với bước mutation ở trên)
 ```
 
-## Trạng thái: 12/12 control đã có gate + test
+## Việc cần làm trước khi dùng lại nhãn "enforced"/"12/12"
 
-Tất cả `required_controls` giờ có code enforce trong `cvf_runtime` và test chặn
-khi vi phạm. `cost` và `termination` được đánh dấu **AI-gated**: logic chạy và
-test được ngay, nhưng chỉ thành load-bearing khi một AI mode ngoài `NO_AI` được
-bật (ở `NO_AI` không có provider call nào để giới hạn/ngắt).
-
-## Khoảng trống còn lại (chiều sâu / vận hành thật)
-
-- **Persistence**: audit + correction ghi qua `Ledger.append_audit` /
-  `add_correction`. `SqlLedger` (Postgres append-only) đã có nhưng mới test
-  structural conformance, **chưa** test round-trip trên DB thật (cần
-  `docker compose up postgres`).
-- **AI wiring**: `data_scope`, `budget`, `termination` gate đã sẵn nhưng chưa có
-  `ai-gateway`/`ai-providers` gọi chúng (còn contract-only/stub).
-- **Identity**: header-based principal, chưa phải xác thực JWT/session. Nâng cấp
-  nguồn identity không đổi các gate phía sau `Principal`.
+Xem `docs/implementation/EXECUTION_ROADMAP.md` các tranche `P-FIX-*`. Tóm tắt:
+sửa freeze thành bất biến xuyên-record thật, gộp mutation+audit atomic, lưu
+evidence qua SqlLedger + xác thực approval server-side, sửa migration Task và
+siết parity test, sửa catalog `--check` và đồng bộ toàn bộ front door.

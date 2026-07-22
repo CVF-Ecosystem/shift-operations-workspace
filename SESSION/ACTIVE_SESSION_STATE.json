@@ -2,33 +2,38 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2A.md",
+  "mode": "corrective_fix_before_new_domains",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX.md",
   "last_updated": "2026-07-22",
   "required_reads": [
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2A.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX.md",
+    "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_CATALOG.md",
     "docs/cvf/CVF_CONTROL_MAPPING.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P2-A (Task) done — CVF chain replicated to Task domain (create + status transition), reusing cvf-runtime gates; tasks table mapped with FK/CHECK; SQLite persistence verified. Follow EXECUTION_ROADMAP.md: continue P2-A remaining domains (customer requests, incidents, handovers) using the same pattern as TaskService, OR P2-C (frontend UI for existing verticals). Do NOT open Phase 4 (AI) before Phase 2 core + Phase 3 Refinery gates pass.",
-  "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P1-A) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
+  "next_allowed_move": "A second independent review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md) found the previous 'P2-A (Task) done' claim, and the 12/12-enforced / golden-vertical claims before it, were overbroad. P-FIX-0 (narrowing doc claims) is done. Next: P-FIX-1 - make freeze a real cross-record invariant (freeze_shift currently has no identity/permission/prerequisite check, and mutations on a frozen shift's children are not blocked in SqlLedger). Follow EXECUTION_ROADMAP.md P-FIX tranche in order (P-FIX-1 through P-FIX-5). Do NOT open P2-A remaining domains, P2-B, P2-C, or any new phase until the full P-FIX tranche is done and end-to-end tests (not just unit tests calling the gate directly) confirm each fix.",
+  "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P-FIX-1) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
-    "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test (SQLite round-trip IS verified; Postgres is the same code path but not yet run live - Docker daemon unavailable in this environment).",
+    "Reusing the labels 'enforced', '12/12', or 'golden vertical' without the callable/load-bearing/not-verified-server-side distinction from docs/cvf/CVF_CONTROL_MAPPING.md (2026-07-22 correction).",
+    "Opening any new roadmap domain or phase (P2-A remaining domains, P2-B, P2-C, Phase 3/4/5 work) before the P-FIX tranche (P-FIX-1 through P-FIX-5) is complete.",
+    "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test run against a migration-created schema (a static defect - missing tasks.version column - was found by the 2026-07-22 review; PostgreSQL is NOT confirmed to be 'the same code path' until P-FIX-4 fixes this and it is verified live).",
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
+    "Trusting caller-supplied approval/approver identity as verified authorization (Critical finding: approval quorum shape is checked but approver identity/authority is not).",
+    "Treating audit as guaranteed for a mutation that succeeded (audit is not currently atomic with mutation - see P-FIX-2).",
     "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md).",
     "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
     "as_of": "2026-07-22",
-    "pytest": "65 passed",
-    "make_validate": "PASS (catalog + session-state + file-size checks)",
-    "cvf_controls_enforced": "12/12 (cost+termination AI-gated)",
-    "golden_verticals": "3 (event confirm, post-freeze correction, task create/transition)",
-    "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8",
-    "operations_ledger": "enforced - dual-backend with matching FK/CHECK integrity (SQLite FK enforcement turned on via make_engine; schema-parity test guards tables.py vs migration). SQLite verified end-to-end incl. FK/CHECK rejection; PostgreSQL same code path, not yet run live (no Docker)."
+    "pytest": "65 passed (verify by rerunning `python -m pytest -q`, do not trust this number without rerunning)",
+    "make_validate": "PASS (catalog + session-state + file-size checks) - catalog check is structural only, does not catch metric/Markdown drift (see P-FIX-5)",
+    "cvf_controls_callable": "12/12 (see docs/cvf/CVF_CONTROL_MAPPING.md for which are load-bearing vs. callable-only vs. not-verified-server-side)",
+    "known_critical_defects": "freeze bypassable (pre- and post-freeze, both backends inconsistent); SqlLedger drops OperationalEvent.evidence; PostgreSQL Task insert will fail (migration missing version column); approval trusts caller-asserted identity; audit not atomic with mutation",
+    "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8 (per generate_catalog.py --check structural validation; not independently re-verified for metric freshness)",
+    "second_independent_review": "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md - read before trusting any 'enforced' claim in this repo"
   }
 }
