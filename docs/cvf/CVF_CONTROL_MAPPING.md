@@ -53,18 +53,22 @@ không có giới hạn vẫn là **quá rộng** (đây chính là nhãn Codex 
 Chính xác hơn, theo domain:
 
 1. **Operational Event → confirm** — `EventService.confirm`. Load-bearing trên
-   `InMemoryLedger`. **Trên `SqlLedger`: gãy cho risk R2+** vì
-   `operations_ledger/_rows.py` không map cột `evidence` — event mất evidence
-   khi đọc lại, nên `assert_evidence_sufficient` từ chối một event đã có đủ
-   evidence lúc ghi. Xem Critical Finding #2 trong bản review Codex.
+   cả 2 backend: `operations_ledger/_rows.py` map cột `evidence` qua bảng
+   `evidence_links` (P-FIX-3, 2026-07-22) — event ghi evidence rồi đọc lại
+   không còn mất, `assert_evidence_sufficient` không còn từ chối sai một event
+   đã có đủ evidence lúc ghi. (Critical Finding #2 trong bản review Codex gốc
+   — đã sửa; xem mục `evidence` trong bảng dưới cho test xác nhận.) **Còn hạn
+   chế:** approval quorum trong bước confirm **không xác thực approver độc
+   lập** ngoài registry known-principals (xem mục approval bên dưới).
 2. **Operational Event → correct** — `CorrectionService.correct_event`.
    Load-bearing về mặt state transition; nhưng approval quorum trong bước này
    **không xác thực approver** (xem mục approval bên dưới).
 3. **Task → create / transition** — `TaskService`. Chain đúng ở tầng service
-   (test trực tiếp construct `Task` kèm evidence, pass). **Qua HTTP thì gãy**:
-   `TaskInput`/`api/tasks/router.py` không có field evidence, nên request thật
-   luôn gửi evidence rỗng — task R2+ tạo qua API sẽ bị `evidence` gate từ chối
-   dù client gửi kèm evidence (Pydantic bỏ field lạ).
+   (test trực tiếp construct `Task` kèm evidence, pass). **Qua HTTP cũng đã
+   sửa** (P-FIX-3, 2026-07-22): `TaskInput`/`api/tasks/router.py` giờ có field
+   `evidence` (`list[EvidenceRef] = []`) và truyền qua service — request thật
+   không còn tự động rỗng evidence, task R2+ tạo qua API với evidence hợp lệ
+   không còn bị `evidence` gate từ chối sai.
 4. **Shift → close / freeze** — `ShiftService.close`/`ShiftService.freeze`
    (P-FIX-6, P-FIX-1). Load-bearing trên cả 2 backend, có test end-to-end qua
    HTTP (`tests/cvf/test_shift_close_governance.py`,
@@ -74,9 +78,13 @@ Chính xác hơn, theo domain:
    giống mọi domain khác trong bảng này.
 
 **Không domain nào trong 4 cái trên là "durable end-to-end qua HTTP + SqlLedger
-+ evidence + xác thực identity thật" không giới hạn.** Dòng `shift.close` là
-domain có phạm vi hẹp nhất và có bằng chứng end-to-end mạnh nhất tính đến
-2026-07-22, nhưng vẫn thừa hưởng giới hạn identity/approval chung của cả repo.
++ evidence + xác thực identity thật" không giới hạn.** Evidence persistence
+(SqlLedger) và evidence qua HTTP (TaskInput) đã sửa ở P-FIX-3 — không còn là
+giới hạn của Event/Task. Giới hạn còn lại chung cho cả 4 domain là identity
+header-based (không xác thực) và, với Event/Correction, approval không xác
+thực approver độc lập ngoài registry known-principals. `shift.close` là domain
+có ít giới hạn riêng nhất tính đến 2026-07-22, nhưng vẫn thừa hưởng giới hạn
+identity/approval chung của cả repo.
 
 ## Bảng ánh xạ
 

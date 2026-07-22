@@ -50,9 +50,10 @@ sử, không phải trạng thái hiện tại.
 - **Bốn service tái dùng đúng gate** (Event/Correction/Task/Shift đều gọi cùng
   hàm `cvf_runtime`, không fork). Tránh nhãn "golden vertical durable
   end-to-end" không giới hạn — xem "Golden verticals — phạm vi chính xác" trong
-  `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại theo từng domain (Event/Task
-  vẫn có gap qua SqlLedger/HTTP; Shift là domain có bằng chứng end-to-end mạnh
-  nhất tính đến P-FIX-6).
+  `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại theo từng domain. Evidence qua
+  SqlLedger/HTTP (Event/Task) đã sửa ở P-FIX-3, không còn là gap; giới hạn còn
+  lại chung là identity header-based và approval không xác thực approver độc
+  lập. Shift là domain có ít giới hạn riêng nhất tính đến P-FIX-6.
 - **Persistence:** `operations-ledger` dual-backend (SQLite/PostgreSQL qua
   `Ledger` Protocol). Evidence persist đúng qua cả 2 backend (P-FIX-3);
   migration Task.version đã có cột và schema-parity test đã siết (P-FIX-4,
