@@ -1,0 +1,6 @@
+[project]
+name = "operations-domain"
+version = "0.1.0"
+description = "Canonical domain language and invariants for the shift operations workspace"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.9"]

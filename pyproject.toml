@@ -28,7 +28,8 @@ pythonpath = [
   "apps/workspace-worker/src",
   "apps/integration-edge/src",
   "packages/cvf-runtime/src",
-  "packages/operations-ledger/src"
+  "packages/operations-ledger/src",
+  "packages/operations-domain/src"
 ]
 testpaths = ["tests", "apps"]
 

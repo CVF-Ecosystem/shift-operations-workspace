@@ -6,7 +6,7 @@ from threading import RLock
 from uuid import UUID
 from cvf_runtime.audit import AuditLog
 
-from workspace_api.domain.models import (
+from operations_domain.models import (
     Correction,
     CustomerRequest,
     Message,
@@ -14,8 +14,14 @@ from workspace_api.domain.models import (
     Shift,
     ShiftStatus,
     Task,
-    User,
 )
+
+# Documented exception E2 (SPEC R5.2): User did NOT move to operations-domain.
+# It belongs to the authentication boundary and its canonical home stays in the
+# application package until the known-principals.yaml <-> users reconciliation
+# tranche decides otherwise. This is the only model still imported from
+# workspace_api.domain.models here.
+from workspace_api.domain.models import User
 
 class InMemoryLedger:
     def __init__(self):

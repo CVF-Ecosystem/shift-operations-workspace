@@ -11,7 +11,7 @@ from cvf_runtime.identity import Principal
 
 from workspace_api.application.correction_service import CorrectionService
 from workspace_api.dependencies import get_audit_log, get_ledger, get_principal
-from workspace_api.domain.models import Correction
+from operations_domain.models import Correction
 
 router = APIRouter(prefix="/corrections", tags=["corrections"])
 

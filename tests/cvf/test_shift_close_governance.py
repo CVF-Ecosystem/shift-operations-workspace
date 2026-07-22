@@ -28,7 +28,7 @@ from operations_ledger.tables import metadata
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import Shift, ShiftStatus
+from operations_domain.models import Shift, ShiftStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 

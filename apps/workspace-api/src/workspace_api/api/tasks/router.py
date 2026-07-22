@@ -10,7 +10,7 @@ from operations_ledger import Ledger
 
 from workspace_api.application.task_service import TaskService
 from workspace_api.dependencies import get_ledger, get_principal
-from workspace_api.domain.models import EvidenceRef, RiskClass, Task, TaskStatus
+from operations_domain.models import EvidenceRef, RiskClass, Task, TaskStatus
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 

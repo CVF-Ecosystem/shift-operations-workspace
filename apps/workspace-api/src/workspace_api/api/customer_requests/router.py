@@ -10,7 +10,7 @@ from operations_ledger import Ledger
 
 from workspace_api.application.customer_request_service import CustomerRequestService
 from workspace_api.dependencies import get_ledger, get_principal
-from workspace_api.domain.models import CustomerRequest, CustomerRequestStatus
+from operations_domain.models import CustomerRequest, CustomerRequestStatus
 
 # Two-word path: no existing router in this repo maps a multi-word resource,
 # so hyphen is chosen as the more common REST convention (matches how

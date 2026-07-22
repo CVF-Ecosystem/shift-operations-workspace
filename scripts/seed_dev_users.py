@@ -28,6 +28,7 @@ for rel in (
     "apps/workspace-api/src",
     "packages/cvf-runtime/src",
     "packages/operations-ledger/src",
+    "packages/operations-domain/src",
 ):
     sys.path.insert(0, str(REPO_ROOT / rel))
 

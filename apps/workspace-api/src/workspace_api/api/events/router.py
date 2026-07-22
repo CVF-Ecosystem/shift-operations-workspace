@@ -15,7 +15,7 @@ from workspace_api.application.services import EventService
 from operations_ledger import Ledger
 
 from workspace_api.dependencies import get_audit_log, get_ledger, get_principal
-from workspace_api.domain.models import EvidenceRef, OperationalEvent, RiskClass
+from operations_domain.models import EvidenceRef, OperationalEvent, RiskClass
 
 router = APIRouter(prefix="/events", tags=["events"])
 

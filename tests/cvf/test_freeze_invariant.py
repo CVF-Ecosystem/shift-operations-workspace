@@ -24,7 +24,7 @@ from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import (
+from operations_domain.models import (
     DataState,
     OperationalEvent,
     RiskClass,
@@ -165,7 +165,7 @@ def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
         override_reason="test",
     )
 
-    from workspace_api.domain.models import TaskStatus
+    from operations_domain.models import TaskStatus
 
     with pytest.raises(ValueError, match="frozen"):
         TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)

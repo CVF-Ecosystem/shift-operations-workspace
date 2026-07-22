@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from workspace_api.domain.models import Shift, Message
+from operations_domain.models import Shift, Message
 from workspace_api.infrastructure.repository import InMemoryLedger
 
 def test_frozen_shift_rejects_new_messages():

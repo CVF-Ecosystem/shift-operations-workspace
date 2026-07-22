@@ -55,6 +55,7 @@ for _rel in (
     "apps/workspace-api/src",
     "packages/cvf-runtime/src",
     "packages/operations-ledger/src",
+    "packages/operations-domain/src",
     "packages/ai-providers/alibaba",
 ):
     sys.path.insert(0, str(REPO_ROOT / _rel))

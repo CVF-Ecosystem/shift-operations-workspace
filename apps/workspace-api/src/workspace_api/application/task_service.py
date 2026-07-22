@@ -22,8 +22,8 @@ from cvf_runtime.permission import require_action
 from cvf_runtime.policy_loader import CvfProfile, load_profile
 from operations_ledger import Ledger
 
-from workspace_api.domain.lifecycle import assert_task_transition
-from workspace_api.domain.models import Task, TaskStatus
+from operations_domain.lifecycle import assert_task_transition
+from operations_domain.models import Task, TaskStatus
 
 _CREATE_CHAIN = ["identity", "permission", "domain_lock", "risk", "evidence", "approval", "audit"]
 _TRANSITION_CHAIN = ["identity", "permission", "freeze", "audit"]

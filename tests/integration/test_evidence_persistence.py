@@ -21,7 +21,7 @@ from operations_ledger.tables import metadata
 
 from workspace_api.application.services import EventService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import EvidenceRef, OperationalEvent, RiskClass, Shift
+from operations_domain.models import EvidenceRef, OperationalEvent, RiskClass, Shift
 
 
 def _open_ledger(db_path: Path) -> SqlLedger:

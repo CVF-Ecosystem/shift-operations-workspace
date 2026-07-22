@@ -22,7 +22,7 @@ from workspace_api.application.customer_request_service import CustomerRequestSe
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import CustomerRequest, CustomerRequestStatus, Shift
+from operations_domain.models import CustomerRequest, CustomerRequestStatus, Shift
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 

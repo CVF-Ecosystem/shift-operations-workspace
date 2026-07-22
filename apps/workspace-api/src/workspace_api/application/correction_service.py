@@ -22,7 +22,7 @@ from cvf_runtime.permission import require_action
 from cvf_runtime.policy_loader import CvfProfile, load_profile
 from operations_ledger import Ledger
 
-from workspace_api.domain.models import Correction, DataState, OperationalEvent
+from operations_domain.models import Correction, DataState, OperationalEvent
 
 _CONTROL_CHAIN = ["identity", "permission", "freeze", "approval", "audit"]
 

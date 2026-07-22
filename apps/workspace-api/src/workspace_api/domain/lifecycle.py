@@ -1,60 +1,25 @@
-from .models import CustomerRequestStatus, DataState, TaskStatus
+"""Compatibility shim for the lifecycle guards.
 
-_ALLOWED: dict[DataState, set[DataState]] = {
-    DataState.RAW: {DataState.NORMALIZED, DataState.REJECTED},
-    DataState.NORMALIZED: {DataState.PROPOSED, DataState.REJECTED},
-    DataState.PROPOSED: {DataState.CONFIRMED, DataState.REJECTED},
-    DataState.CONFIRMED: {DataState.CORRECTED, DataState.FROZEN},
-    DataState.CORRECTED: {DataState.FROZEN},
-    DataState.REJECTED: set(),
-    DataState.FROZEN: set(),
-}
+The canonical definitions live in `operations_domain.lifecycle`, which owns the
+three transition tables (tranche P1B-OPERATIONS-DOMAIN-EXTRACTION). These names
+are re-exported here so existing callers keep working; `from X import Y` binds
+the SAME function object, so
+`workspace_api.domain.lifecycle.assert_transition is
+operations_domain.lifecycle.assert_transition`.
 
-def assert_transition(current: DataState, target: DataState) -> None:
-    if target not in _ALLOWED[current]:
-        raise ValueError(f"Invalid data-state transition: {current} -> {target}")
+Do not re-declare these functions here, and do not copy a transition table back
+into this module. New code should import from `operations_domain.lifecycle`
+directly.
+"""
 
+from operations_domain.lifecycle import (  # noqa: F401  (re-exported for compatibility)
+    assert_customer_request_transition,
+    assert_task_transition,
+    assert_transition,
+)
 
-# Task status lifecycle (separate from the RAW..FROZEN data-state machine).
-_ALLOWED_TASK: dict[TaskStatus, set[TaskStatus]] = {
-    TaskStatus.OPEN: {TaskStatus.IN_PROGRESS, TaskStatus.BLOCKED, TaskStatus.CANCELLED, TaskStatus.CARRY_OVER},
-    TaskStatus.IN_PROGRESS: {TaskStatus.BLOCKED, TaskStatus.DONE, TaskStatus.CANCELLED, TaskStatus.CARRY_OVER},
-    TaskStatus.BLOCKED: {TaskStatus.IN_PROGRESS, TaskStatus.CANCELLED, TaskStatus.CARRY_OVER},
-    TaskStatus.CARRY_OVER: {TaskStatus.OPEN, TaskStatus.IN_PROGRESS, TaskStatus.CANCELLED},
-    TaskStatus.DONE: set(),
-    TaskStatus.CANCELLED: set(),
-}
-
-
-def assert_task_transition(current: TaskStatus, target: TaskStatus) -> None:
-    if target not in _ALLOWED_TASK[current]:
-        raise ValueError(f"Invalid task-status transition: {current} -> {target}")
-
-
-# Customer-request status lifecycle (fourth domain vertical, P2-A). NEW is the
-# only entry state (matches CustomerRequestStatus default). WAITING cannot go
-# directly to CLOSED: a request that is waiting (e.g. on the customer or a
-# third party) must first be marked RESOLVED so there is an explicit record
-# that the underlying issue was actually addressed, not just abandoned while
-# waiting. CLOSED is terminal (closing is the final administrative step after
-# resolution, matching Task's DONE/CANCELLED terminal pattern).
-_ALLOWED_CUSTOMER_REQUEST: dict[CustomerRequestStatus, set[CustomerRequestStatus]] = {
-    CustomerRequestStatus.NEW: {CustomerRequestStatus.ACKNOWLEDGED},
-    CustomerRequestStatus.ACKNOWLEDGED: {CustomerRequestStatus.IN_PROGRESS},
-    CustomerRequestStatus.IN_PROGRESS: {
-        CustomerRequestStatus.WAITING,
-        CustomerRequestStatus.RESOLVED,
-    },
-    CustomerRequestStatus.WAITING: {CustomerRequestStatus.IN_PROGRESS},
-    CustomerRequestStatus.RESOLVED: {CustomerRequestStatus.CLOSED},
-    CustomerRequestStatus.CLOSED: set(),
-}
-
-
-def assert_customer_request_transition(
-    current: CustomerRequestStatus, target: CustomerRequestStatus
-) -> None:
-    if target not in _ALLOWED_CUSTOMER_REQUEST[current]:
-        raise ValueError(
-            f"Invalid customer-request-status transition: {current} -> {target}"
-        )
+__all__ = [
+    "assert_customer_request_transition",
+    "assert_task_transition",
+    "assert_transition",
+]

@@ -15,7 +15,7 @@ from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 
 from workspace_api.application.correction_service import CorrectionService
-from workspace_api.domain.models import (
+from operations_domain.models import (
     DataState,
     EvidenceRef,
     OperationalEvent,

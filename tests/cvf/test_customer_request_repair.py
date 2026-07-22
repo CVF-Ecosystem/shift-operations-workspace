@@ -32,8 +32,8 @@ from operations_ledger.sql_ledger import SqlLedger
 from operations_ledger.tables import messages
 
 from workspace_api.application.customer_request_service import CustomerRequestService
-from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import CustomerRequestStatus
+from operations_domain import models as domain_models
+from operations_domain.models import CustomerRequestStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 
 from test_customer_request_vertical import (

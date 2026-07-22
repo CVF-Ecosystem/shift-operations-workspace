@@ -26,8 +26,8 @@ from cvf_runtime.permission import require_action
 from cvf_runtime.policy_loader import CvfProfile, load_profile
 from operations_ledger import Ledger
 
-from workspace_api.domain.lifecycle import assert_customer_request_transition
-from workspace_api.domain.models import CustomerRequest, CustomerRequestStatus
+from operations_domain.lifecycle import assert_customer_request_transition
+from operations_domain.models import CustomerRequest, CustomerRequestStatus
 
 # No "risk"/"evidence"/"approval" in either chain: customer_requests has no
 # risk_class/evidence column in the migration, so those gates do not apply to

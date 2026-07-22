@@ -1,5 +1,5 @@
-from workspace_api.domain.lifecycle import assert_transition
-from workspace_api.domain.models import DataState
+from operations_domain.lifecycle import assert_transition
+from operations_domain.models import DataState
 
 def test_valid_transition():
     assert_transition(DataState.RAW, DataState.NORMALIZED)

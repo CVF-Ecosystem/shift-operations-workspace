@@ -29,7 +29,7 @@ from cvf_runtime.identity import Principal
 from cvf_runtime.permission import require_action
 from operations_ledger import Ledger
 
-from workspace_api.domain.models import Shift, ShiftStatus
+from operations_domain.models import Shift, ShiftStatus
 
 _FREEZE_CHAIN = ["identity", "permission", "freeze", "audit"]
 _CLOSE_CHAIN = ["identity", "permission", "close", "audit"]

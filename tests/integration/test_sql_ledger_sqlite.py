@@ -23,7 +23,7 @@ from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import (
+from operations_domain.models import (
     Correction,
     OperationalEvent,
     RiskClass,

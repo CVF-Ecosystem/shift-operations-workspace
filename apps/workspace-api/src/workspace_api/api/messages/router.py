@@ -3,7 +3,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from workspace_api.dependencies import get_ledger
-from workspace_api.domain.models import Message
+from operations_domain.models import Message
 
 router = APIRouter(prefix="/messages", tags=["messages"])
 class MessageInput(BaseModel):

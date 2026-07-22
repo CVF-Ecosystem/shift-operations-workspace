@@ -26,7 +26,7 @@ from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import (
+from operations_domain.models import (
     DataState,
     OperationalEvent,
     RiskClass,

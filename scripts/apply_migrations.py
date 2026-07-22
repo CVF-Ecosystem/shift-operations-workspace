@@ -80,7 +80,11 @@ MIGRATIONS_DIR = REPO_ROOT / "database" / "migrations"
 # Same standalone-script bootstrap scripts/seed_dev_users.py already uses:
 # this file is run directly (not via pytest, which supplies these roots from
 # pyproject.toml), so the package source dirs must be added explicitly.
-for _rel in ("packages/operations-ledger/src", "packages/cvf-runtime/src"):
+for _rel in (
+    "packages/operations-ledger/src",
+    "packages/cvf-runtime/src",
+    "packages/operations-domain/src",
+):
     sys.path.insert(0, str(REPO_ROOT / _rel))
 
 # PostgreSQL SQLSTATEs meaning "the thing you asked me to create is already
