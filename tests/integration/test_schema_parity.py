@@ -24,14 +24,32 @@ EXECUTION_ROADMAP.md P-FIX-4/P1-A). Column-level text parsing is therefore the
 strongest check available without a live PostgreSQL instance; a live
 migration-vs-tables.py verification remains the pre-ship gate once Docker is
 available (see the database operating model in the Codex review).
+
+2026-07-22 P-FIX-6 correction: after the P-FIX-5 closure claim was rejected by
+a second independent review, this guard was widened per EXECUTION_ROADMAP.md
+P-FIX-6 / task 5. This file now covers: table existence, exact column-name
+match, nullability, primary key, foreign key (table+column), and default
+compatibility (has_default now distinguishes client-side vs. server-side
+defaults instead of collapsing both into one bool). Type-family and CHECK
+-expression comparisons live in the sibling module
+test_schema_parity_types_and_checks.py - split out purely to respect the
+file-size guard (GC-023 style hard limit), not a behavior change; both modules
+share parsing helpers from _schema_parity_parsing.py.
+
+STILL NOT LIVE VERIFIED: everything here is static text-parsing of the
+migration SQL compared against SQLAlchemy Table objects in memory. No
+migration has ever been run against a live PostgreSQL instance in this
+environment (no Docker daemon available) and this test module does not claim
+otherwise. A live PostgreSQL round-trip (create schema from migration,
+insert/read through SqlLedger, diff live pg_catalog against tables.py) remains
+a PRE-SHIP GATE, run separately when Docker is available - not required for
+ordinary SQLite-based development, and not something this test suite performs
+or should be read as having performed.
 """
 
 from __future__ import annotations
 
 import re
-from pathlib import Path
-
-from sqlalchemy import CheckConstraint
 
 from operations_ledger.tables import (
     corrections,
@@ -41,8 +59,12 @@ from operations_ledger.tables import (
     tasks,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-MIGRATIONS_DIR = REPO_ROOT / "database" / "migrations"
+from _schema_parity_parsing import (
+    code_columns,
+    migration_columns,
+    migration_text,
+    table_block,
+)
 
 # Tables tables.py currently maps -> their SQLAlchemy Table object.
 MAPPED = {
@@ -53,89 +75,8 @@ MAPPED = {
 }
 
 
-def _migration_text() -> str:
-    # Concatenate all migration files so a mapped table can live in any of them.
-    return "\n".join(
-        p.read_text(encoding="utf-8") for p in sorted(MIGRATIONS_DIR.glob("*.sql"))
-    )
-
-
-def _table_block(sql: str, table: str) -> str:
-    """Return the CREATE TABLE (...) body for one table."""
-    m = re.search(
-        rf"CREATE TABLE IF NOT EXISTS {table}\s*\((.*?)\);",
-        sql,
-        re.DOTALL | re.IGNORECASE,
-    )
-    assert m, f"table {table} not found in migration"
-    return m.group(1)
-
-
-def _split_column_lines(block: str) -> list[str]:
-    """Split a CREATE TABLE body into one logical line per column/constraint,
-    respecting parentheses (e.g. CHECK (...) may itself contain commas)."""
-    lines: list[str] = []
-    depth = 0
-    current: list[str] = []
-    for ch in block:
-        if ch == "(":
-            depth += 1
-        elif ch == ")":
-            depth -= 1
-        if ch == "," and depth == 0:
-            lines.append("".join(current).strip())
-            current = []
-        else:
-            current.append(ch)
-    tail = "".join(current).strip()
-    if tail:
-        lines.append(tail)
-    return [ln for ln in lines if ln]
-
-
-# Table-level constraint keywords that are NOT column definitions.
-_CONSTRAINT_KEYWORDS = ("CHECK", "PRIMARY KEY", "FOREIGN KEY", "UNIQUE", "CONSTRAINT")
-
-
-def _migration_columns(block: str) -> dict[str, dict]:
-    """Parse column name -> {nullable, has_default} from a CREATE TABLE body.
-
-    This is a text parser for a small, known SQL dialect (our own migrations),
-    not a general SQL parser - it is deliberately strict about the patterns
-    our migrations actually use.
-    """
-    columns: dict[str, dict] = {}
-    for line in _split_column_lines(block):
-        stripped = line.strip()
-        upper = stripped.upper()
-        if any(upper.startswith(kw) for kw in _CONSTRAINT_KEYWORDS):
-            continue
-        m = re.match(r"(\w+)\s+", stripped)
-        if not m:
-            continue
-        name = m.group(1)
-        # A PRIMARY KEY column is implicitly NOT NULL in SQL even when the
-        # migration doesn't spell out "NOT NULL" (Postgres enforces this
-        # regardless of whether it's written).
-        is_pk = "PRIMARY KEY" in upper
-        nullable = not is_pk and "NOT NULL" not in upper
-        has_default = "DEFAULT" in upper
-        columns[name] = {"nullable": nullable, "has_default": has_default}
-    return columns
-
-
-def _code_columns(tbl_obj) -> dict[str, dict]:
-    return {
-        col.name: {
-            "nullable": bool(col.nullable),
-            "has_default": col.server_default is not None or col.default is not None,
-        }
-        for col in tbl_obj.columns
-    }
-
-
 def test_mapped_tables_exist_in_migration():
-    sql = _migration_text()
+    sql = migration_text()
     for table in MAPPED:
         assert f"CREATE TABLE IF NOT EXISTS {table}" in sql, table
 
@@ -143,11 +84,11 @@ def test_mapped_tables_exist_in_migration():
 def test_column_sets_match_exactly():
     """The Codex-found bug: tasks.version existed in tables.py but not in the
     migration. This asserts the two column NAME sets are identical."""
-    sql = _migration_text()
+    sql = migration_text()
     for table, tbl_obj in MAPPED.items():
-        block = _table_block(sql, table)
-        migration_cols = set(_migration_columns(block))
-        code_cols = set(_code_columns(tbl_obj))
+        block = table_block(sql, table)
+        migration_cols = set(migration_columns(block))
+        code_cols = set(code_columns(tbl_obj))
         code_only = code_cols - migration_cols
         migration_only = migration_cols - code_cols
         assert not code_only, (
@@ -162,11 +103,11 @@ def test_column_sets_match_exactly():
 
 
 def test_column_nullability_matches():
-    sql = _migration_text()
+    sql = migration_text()
     for table, tbl_obj in MAPPED.items():
-        block = _table_block(sql, table)
-        migration_cols = _migration_columns(block)
-        code_cols = _code_columns(tbl_obj)
+        block = table_block(sql, table)
+        migration_cols = migration_columns(block)
+        code_cols = code_columns(tbl_obj)
         for name in migration_cols.keys() & code_cols.keys():
             assert migration_cols[name]["nullable"] == code_cols[name]["nullable"], (
                 f"{table}.{name}: nullable mismatch - migration says "
@@ -175,34 +116,131 @@ def test_column_nullability_matches():
             )
 
 
-def test_foreign_keys_match_migration():
-    sql = _migration_text()
+# Primary-key UUID columns: the migration declares DEFAULT gen_random_uuid()
+# as a safety net, but every INSERT this runtime issues supplies the value
+# explicitly (Pydantic model_id fields use `Field(default_factory=uuid4)`,
+# and _rows.py always includes the id in the row dict - verified by reading
+# shift_row()/event_row()/task_row()/correction_row() in
+# packages/operations-ledger/src/operations_ledger/_rows.py). That is a THIRD
+# category beyond client-side-default/server-side-default: "always explicitly
+# supplied by the row-builder before every INSERT", which SQLAlchemy has no
+# `default=`/`server_default=` marker for because it isn't a SQLAlchemy-level
+# default at all. Column-name allowlist, not a blanket PK exemption, so a
+# newly added PK column without this same guarantee still gets checked.
+_ALWAYS_EXPLICITLY_SUPPLIED_PK = {
+    ("shifts", "shift_id"),
+    ("operational_events", "event_id"),
+    ("corrections", "correction_id"),
+    ("tasks", "task_id"),
+}
+
+
+def test_column_defaults_compatible():
+    """P-FIX-6: has_default was parsed for both sides but never compared.
+
+    Compatibility rule (see _schema_parity_parsing.code_columns docstring):
+    only require the migration's DEFAULT clause to line up with a SQLAlchemy
+    server_default. A client-side-only default (col.default is not None,
+    server_default is None) is fine whether or not the migration has a
+    DEFAULT, because the app always supplies the value on INSERT and never
+    relies on the database filling it in. Primary-key id columns get a third
+    allowance - see _ALWAYS_EXPLICITLY_SUPPLIED_PK above.
+    """
+    sql = migration_text()
     for table, tbl_obj in MAPPED.items():
-        block = _table_block(sql, table)
-        # Referenced tables named in the migration's REFERENCES clauses.
-        migration_refs = set(re.findall(r"REFERENCES\s+(\w+)\s*\(", block))
+        block = table_block(sql, table)
+        migration_cols = migration_columns(block)
+        code_cols = code_columns(tbl_obj)
+        for name in migration_cols.keys() & code_cols.keys():
+            migration_has_default = migration_cols[name]["has_default"]
+            code_has_server_default = code_cols[name]["has_default"]
+            if code_has_server_default:
+                assert migration_has_default, (
+                    f"{table}.{name}: tables.py declares server_default= but "
+                    f"the migration has no DEFAULT clause - a bare INSERT "
+                    f"omitting this column would fail against a "
+                    f"migration-created PostgreSQL database"
+                )
+            elif migration_has_default and not code_cols[name]["client_default"]:
+                if (table, name) in _ALWAYS_EXPLICITLY_SUPPLIED_PK:
+                    continue
+                # Migration promises a DEFAULT that neither server_default=
+                # nor a client-side default= backs up, and this column isn't
+                # on the verified always-supplied-by-row-builder allowlist.
+                # Not necessarily a bug (the runtime may still always supply
+                # it), but worth flagging loudly rather than silently
+                # ignoring - this is the same class of silent-drift Codex
+                # found. If this is legitimately safe, verify it the same way
+                # _ALWAYS_EXPLICITLY_SUPPLIED_PK was verified (read the row
+                # builder) and add it there with a comment, rather than
+                # weakening this branch.
+                assert False, (
+                    f"{table}.{name}: migration has DEFAULT but tables.py has "
+                    f"neither server_default= nor a client-side default= - "
+                    f"verify the runtime always supplies this column"
+                )
+
+
+def _migration_primary_key(block: str) -> set[str]:
+    """Parse PRIMARY KEY column(s) from a CREATE TABLE body.
+
+    Every mapped table in this repo's migrations uses the inline
+    `col_name TYPE PRIMARY KEY` form (checked against database/migrations/*.sql
+    directly - none use the table-level `PRIMARY KEY (col1, col2)` form), so
+    only that form is parsed. If a future migration adds a table-level
+    PRIMARY KEY, this function should be extended rather than silently
+    returning an incomplete set.
+    """
+    inline_pk = {
+        name for name, meta in migration_columns(block).items() if meta["is_pk"]
+    }
+    table_level = re.search(r"PRIMARY KEY\s*\(([^)]+)\)", block, re.IGNORECASE)
+    if table_level:
+        table_level_cols = {c.strip() for c in table_level.group(1).split(",")}
+        return inline_pk | table_level_cols
+    return inline_pk
+
+
+def test_primary_key_matches():
+    sql = migration_text()
+    for table, tbl_obj in MAPPED.items():
+        block = table_block(sql, table)
+        migration_pk = _migration_primary_key(block)
+        code_pk = set(tbl_obj.primary_key.columns.keys())
+        assert migration_pk == code_pk, (
+            f"{table}: primary key mismatch - migration says {sorted(migration_pk)}, "
+            f"tables.py says {sorted(code_pk)}"
+        )
+
+
+def test_foreign_keys_match_migration():
+    sql = migration_text()
+    for table, tbl_obj in MAPPED.items():
+        block = table_block(sql, table)
+        # Referenced table+column pairs named in the migration's REFERENCES
+        # clauses, e.g. "shift_id uuid NOT NULL REFERENCES shifts(shift_id)".
+        migration_refs = {
+            (ref_table, ref_col)
+            for ref_table, ref_col in re.findall(
+                r"REFERENCES\s+(\w+)\s*\(\s*(\w+)\s*\)", block
+            )
+        }
         code_refs = {
-            fk.column.table.name
+            (fk.column.table.name, fk.column.name)
             for col in tbl_obj.columns
             for fk in col.foreign_keys
         }
         missing = migration_refs - code_refs
         assert not missing, (
-            f"{table}: migration has FK -> {missing} but tables.py does not"
+            f"{table}: migration has FK -> {missing} but tables.py does not "
+            f"map a matching (table, column) foreign key"
         )
-
-
-def test_window_checks_present_where_migration_has_them():
-    sql = _migration_text()
-    # Tables whose migration block contains a CHECK must have >=1 CheckConstraint
-    # in tables.py (we match on presence, not exact text, since dialects render
-    # differently).
-    for table, tbl_obj in MAPPED.items():
-        block = _table_block(sql, table)
-        if "CHECK" in block.upper():
-            code_checks = [
-                c for c in tbl_obj.constraints if isinstance(c, CheckConstraint)
-            ]
-            assert code_checks, (
-                f"{table}: migration has a CHECK constraint but tables.py has none"
-            )
+        # database/migrations/*.sql does not use ON DELETE/ON UPDATE anywhere
+        # (verified by grep across both migration files) - no behavior to
+        # compare here. If a future migration adds one, extend this test
+        # rather than assuming FK-target parity is the whole story.
+        assert "ON DELETE" not in block.upper() and "ON UPDATE" not in block.upper(), (
+            f"{table}: migration now uses ON DELETE/ON UPDATE - extend "
+            f"test_foreign_keys_match_migration to compare that behavior "
+            f"against tables.py, this was not needed when the check was written"
+        )

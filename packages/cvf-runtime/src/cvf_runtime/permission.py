@@ -31,6 +31,15 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     "event.correct": "shift_supervisor",
     "task.create": "operator",
     "task.transition": "operator",
+    # shift.close is the routine, reversible-in-intent action an operator takes
+    # at the end of a shift (mirrors event.create/task.create/task.transition,
+    # all "operator"). shift.freeze is the durable, effectively irreversible
+    # legal-hold action (post-freeze mutation is correction-only) and stays at
+    # the higher "shift_supervisor" bar. P-FIX-6 (2026-07-22): shift.close was
+    # previously not a governed action at all (no permission check existed) -
+    # see docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md, the second
+    # independent review that rejected the P-FIX-5 closure claim over this gap.
+    "shift.close": "operator",
     "shift.freeze": "shift_supervisor",
 }
 

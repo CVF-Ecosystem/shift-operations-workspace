@@ -11,6 +11,18 @@ rộng — nó chỉ đúng cho "có hàm gate + unit test", không có nghĩa "
 phạm trong request path thật, không bypass được". Bảng dưới đây dùng lại đúng 2
 mức đó, tách bạch.
 
+**2026-07-22 P-FIX-6 correction:** một review độc lập **thứ hai** bác bỏ tuyên
+bố đóng tranche P-FIX-5. `POST /shifts/{shift_id}/close` vẫn gọi thẳng
+`ledger.close_shift()` từ router — không identity, không permission, không
+audit (probe: `create=200`, `anonymous_close=200`, `status=CLOSED`,
+`audit_count=0`). Vì `ShiftService.freeze` chỉ kiểm
+`shift.status == ShiftStatus.CLOSED`, close vô danh này âm thầm thỏa mãn điều
+kiện tiên quyết `shift_closed` của freeze — đúng loại bypass CVF được thiết kế
+để chặn. P-FIX-6 thêm `shift.close` làm governed action thật (xem dòng
+`freeze`/`shift.close` trong bảng dưới); đây KHÔNG đụng tới approval/High
+Finding #4 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`) —
+phạm vi P-FIX-6 chỉ là shift-close.
+
 ## Trạng thái (2 mức — không gộp lại thành "enforced")
 
 - **callable** — hàm gate tồn tại trong `cvf_runtime`, có unit test gọi trực
@@ -66,7 +78,8 @@ hơn:
 | cost | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/budget.py · assert_within_budget` | Không nơi nào trong request path gọi hàm này; sẽ load-bearing khi ai-gateway wire tới. |
 | refusal | callable một phần | `cvf_runtime/errors.py · CvfDenied` → HTTP map | `CvfDenied` chỉ là exception container; refusal-policy.yaml yêu cầu route tới supervisor + ghi lý do — **chưa implement**, không route, không ghi audit riêng cho refusal. |
 | termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
-| freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. |
+| freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
+| shift.close | **load-bearing (P-FIX-6, 2026-07-22)** | `ShiftService.close` (identity/permission `shift.close` role tối thiểu `operator` + state-check chặn close một shift đã `FROZEN`) → `Ledger.transaction()` bọc `close_shift` + `append_audit` atomic, cùng khuôn `freeze`/`TaskService` | Sửa gap review độc lập thứ hai tìm ra 2026-07-22: `POST /shifts/{shift_id}/close` trước đây gọi thẳng `ledger.close_shift(shift_id)` từ router — không `get_principal`, không `require_action`, không audit; probe xác nhận `anonymous_close=200`, `audit_count=0`. Vì freeze chỉ kiểm `shift.status == CLOSED`, close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze. Test: `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403 role thấp, 200 + audit cho principal hợp lệ, rollback atomic khi audit fail trên cả 2 backend, chặn close shift đã FROZEN, chuỗi đầy đủ create→close có governance→freeze qua cả service lẫn HTTP). **Không** đụng tới approval/known-principals (High Finding #4) — ngoài phạm vi tranche này. |
 
 ## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 
@@ -91,4 +104,16 @@ audit           (KHÔNG atomic với bước mutation ở trên)
 Xem `docs/implementation/EXECUTION_ROADMAP.md` các tranche `P-FIX-*`. Tóm tắt:
 sửa freeze thành bất biến xuyên-record thật, gộp mutation+audit atomic, lưu
 evidence qua SqlLedger + xác thực approval server-side, sửa migration Task và
-siết parity test, sửa catalog `--check` và đồng bộ toàn bộ front door.
+siết parity test, sửa catalog `--check` và đồng bộ toàn bộ front door, và
+(P-FIX-6) đóng gap `shift.close` vô danh không qua governance.
+
+**Trạng thái sau P-FIX-6:** `P-FIX CLOSED_BOUNDED` — bounded nghĩa là: mọi gap
+Critical/High mà 2 review độc lập tìm ra tới nay đã có test end-to-end xác
+nhận, nhưng KHÔNG có nghĩa "tất cả High Finding đã sửa xong". High Finding #4
+còn nguyên các giới hạn chưa sửa (liệt kê trong
+`SESSION/ACTIVE_SESSION_STATE.json` `blocked_work` và
+`IMPLEMENTATION_STATUS.json`): identity vẫn header-based chưa xác thực thật;
+data minimization chỉ mang tính khuyến nghị; `data_scope`/`cost`/`termination`
+chưa có runtime caller; refusal routing/recording chưa implement;
+known-principals chỉ là registry check, không phải xác thực thật. Không viết
+"tất cả High Finding đã sửa" ở bất kỳ đâu.

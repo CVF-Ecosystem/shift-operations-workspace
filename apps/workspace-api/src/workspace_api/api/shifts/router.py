@@ -31,14 +31,20 @@ def list_shifts(ledger: Ledger = Depends(get_ledger)):
 @router.post("/{shift_id}/close", response_model=Shift)
 def close_shift(
     shift_id: UUID,
+    principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
+    # P-FIX-6: previously called ledger.close_shift(shift_id) directly with no
+    # identity/permission/audit at all (second independent review, 2026-07-22:
+    # anonymous close -> 200 CLOSED, audit_count=0). Governed through
+    # ShiftService.close the same way freeze_shift is governed through
+    # ShiftService.freeze.
     try:
-        return ledger.close_shift(shift_id)
+        return ShiftService(ledger).close(shift_id, principal)
+    except CvfDenied as exc:
+        raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Shift not found") from exc
-    except ValueError as exc:
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
 
 @router.post("/{shift_id}/freeze", response_model=Shift)
 def freeze_shift(

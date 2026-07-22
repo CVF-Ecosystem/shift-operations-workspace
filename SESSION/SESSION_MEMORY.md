@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22_
+_Last updated: 2026-07-22 (P-FIX-6)_
 
 ## Where the project is
 
@@ -18,6 +18,21 @@ Freeze bypass được, evidence mất trên SqlLedger, approval là tự khai, 
 không atomic, migration Task thiếu cột `version`. Đây là bằng chứng đúng thứ
 CVF được thiết kế để bắt: không một agent nào (kể cả agent đã build) được tin
 tuyệt đối lời tự khai của chính nó.
+
+**2026-07-22 (P-FIX-6):** một agent tuyên bố tranche P-FIX **CLOSED** sau
+P-FIX-5. Một review độc lập **thứ hai** bác bỏ tuyên bố đó: `POST
+/shifts/{shift_id}/close` vẫn gọi thẳng `ledger.close_shift()` từ router —
+không identity, không permission, không audit (probe: `create=200`,
+`anonymous_close=200`, `status=CLOSED`, `audit_count=0`). Vì
+`ShiftService.freeze` chỉ kiểm `shift.status == ShiftStatus.CLOSED`, close vô
+danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze — đúng loại
+bypass CVF được thiết kế để bắt, xảy ra ngay trong chính tranche tuyên bố đã
+sửa hết các bypass đó. Bài học lặp lại: front-door "CLOSED" là tuyên bố của
+agent, không phải bằng chứng — luôn verify bằng probe/test thật trước khi tin.
+P-FIX-6 thêm `shift.close` làm governed action thật và sửa toàn bộ front-door
+drift bên dưới. Trạng thái đúng bây giờ là **`P-FIX CLOSED_BOUNDED`** — xem
+"Không được làm" bên dưới cho danh sách giới hạn vẫn còn treo (KHÔNG phải "tất
+cả High Finding đã sửa").
 
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
@@ -42,18 +57,20 @@ tuyệt đối lời tự khai của chính nó.
 
 ## Next allowed move
 
-Nguồn thứ tự là [`docs/implementation/EXECUTION_ROADMAP.md`](../docs/implementation/EXECUTION_ROADMAP.md),
-tranche **P-FIX-0 → P-FIX-5** (sửa lỗi Codex tìm ra), **trước** khi mở lại P2-A
-domain mới hay bất kỳ phase mới nào. Thứ tự: (0) nắn tuyên bố sai trong docs —
-**đang làm, file này là một phần của nó**; (1) freeze thành bất biến thật; (2)
-mutation+audit atomic; (3) evidence persist + approval xác thực server-side;
-(4) migration Task.version + parity test siết chặt; (5) catalog `--check`
-thật + đồng bộ mọi front door.
+Tranche **P-FIX** (P-FIX-0 → P-FIX-6) đã đóng — **5 tranche triển khai
+P-FIX-1 tới P-FIX-5, cộng tranche chuẩn bị P-FIX-0; 6 commit trước P-FIX-6,
+7 commit P-FIX sau P-FIX-6.** P2-A (domain còn lại)/P2-B/P2-C chỉ mở lại
+**sau khi** toàn bộ closure surface (roadmap, control mapping, implementation
+status, catalog, session memory, active session state, handoff) đã đồng bộ
+đúng trạng thái P-FIX-6 — xem `next_allowed_move` trong
+`ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
 
 Xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`. Cốt lõi: không dùng lại
-nhãn "enforced"/"12/12"/"golden vertical" không giới hạn cho tới khi P-FIX-1
-đến P-FIX-4 xong và có test end-to-end xác nhận; không thêm domain mới (P2-A
-tiếp) trước khi P-FIX-0 xong; không tạo file điểm-vào theo provider — front
-door là `CONTRIBUTING.md`, trung lập.
+nhãn "enforced"/"12/12"/"golden vertical"/"tất cả High Finding đã sửa" không
+giới hạn; không thêm domain mới (P2-A tiếp) trước khi mọi closure surface của
+P-FIX-6 đồng bộ xong; không tạo file điểm-vào theo provider — front door là
+`CONTRIBUTING.md`, trung lập; không tin tuyên bố "CLOSED" của bất kỳ agent nào
+(kể cả chính agent viết ra nó) mà không tự chạy lại probe/test — đây chính là
+bài học P-FIX-6.

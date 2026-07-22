@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-22T03:14:18.468035+00:00_
+_Last generated: 2026-07-22T03:52:51.961098+00:00_
 
 ## How to use this catalog
 
@@ -13,7 +13,7 @@ _Last generated: 2026-07-22T03:14:18.468035+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **2785**
+- Code LOC (py/ts/tsx): **2847**
 - Code files: **87**
 - By status: contract-only=6, enforced=2, partial=4, stub=8
 
@@ -29,10 +29,10 @@ _Last generated: 2026-07-22T03:14:18.468035+00:00_
 
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
-| `cvf-runtime` | packages/cvf-runtime | enforced | 784 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
+| `cvf-runtime` | packages/cvf-runtime | enforced | 793 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 669 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
-| `workspace-api` | apps/workspace-api | partial | 1161 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks. Hosts three CVF golden verticals: event confirmation, post-freeze correction, and task create/transition. |
+| `workspace-api` | apps/workspace-api | partial | 1214 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks. Hosts three CVF golden verticals: event confirmation, post-freeze correction, and task create/transition. |
 | `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -61,7 +61,7 @@ _Last generated: 2026-07-22T03:14:18.468035+00:00_
 - **Contract:** packages/cvf-application-profile/*.yaml
 - **Depends on:** `cvf-application-profile`
 - **Tests:** `tests/cvf/test_gates_unit.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_remaining_controls.py`, `tests/cvf/test_approval_known_principals.py`
-- **Metrics:** 784 LOC across 13 code file(s)
+- **Metrics:** 793 LOC across 13 code file(s)
 - **Next step:** Wire ai-gateway/ai-providers to call data_scope/budget/termination when an AI mode is enabled. Replace known-principals.yaml registry check with real authentication when P2-B is implemented.
 
 ### `operations-ledger` — enforced
@@ -93,12 +93,12 @@ _Last generated: 2026-07-22T03:14:18.468035+00:00_
 - **Path:** `apps/workspace-api` (app)
 - **Purpose:** FastAPI backend: shifts, messages, operational events, corrections, tasks. Hosts three CVF golden verticals: event confirmation, post-freeze correction, and task create/transition.
 - **CVF controls:** identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze
-- **Enforcement:** events/router.py + services.py run the confirm chain; corrections/router.py + correction_service.py run the correction chain; tasks/router.py + task_service.py run task create/transition; shifts/router.py + shift_service.py run close/freeze (freeze requires identity/permission/shift_closed + an explicit audited override for the two prerequisites with no model yet). All reuse cvf-runtime gates and depend on the operations-ledger Ledger Protocol (backend via DATABASE_URL). domain/lifecycle.py enforces data-state and task-status transitions. 2026-07-22 (P-FIX-1): both InMemoryLedger and SqlLedger now block add_event/put_event/add_task/put_task when the parent shift is FROZEN (previously only InMemoryLedger blocked new records, and SqlLedger blocked nothing); CorrectionService uses allow_when_frozen=True as the sole permitted post-freeze mutation path.
+- **Enforcement:** events/router.py + services.py run the confirm chain; corrections/router.py + correction_service.py run the correction chain; tasks/router.py + task_service.py run task create/transition; shifts/router.py + shift_service.py run close/freeze (close requires identity/permission `shift.close` (min role operator) + a state-check rejecting close of an already-FROZEN shift; freeze requires identity/permission/shift_closed + an explicit audited override for the two prerequisites with no model yet). All reuse cvf-runtime gates and depend on the operations-ledger Ledger Protocol (backend via DATABASE_URL). domain/lifecycle.py enforces data-state and task-status transitions. 2026-07-22 (P-FIX-1): both InMemoryLedger and SqlLedger now block add_event/put_event/add_task/put_task when the parent shift is FROZEN (previously only InMemoryLedger blocked new records, and SqlLedger blocked nothing); CorrectionService uses allow_when_frozen=True as the sole permitted post-freeze mutation path. 2026-07-22 (P-FIX-6): shifts/router.py close_shift previously called ledger.close_shift() directly with no identity/permission/audit at all (a second independent review's probe: anonymous close -> 200 CLOSED, audit_count=0, which could silently satisfy freeze's shift_closed prerequisite); now routed through ShiftService.close, same identity -> permission -> state-check -> transaction(mutate+audit) shape as freeze.
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`
-- **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/integration/test_evidence_persistence.py`
-- **Metrics:** 1161 LOC across 41 code file(s)
-- **Next step:** P-FIX-4: add the missing tasks.version column to migration 002 and tighten schema-parity checking. Only after the full P-FIX tranche: replicate the chain to remaining domains (customer requests, incidents, handovers).
+- **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/integration/test_evidence_persistence.py`
+- **Metrics:** 1214 LOC across 41 code file(s)
+- **Next step:** P-FIX tranche closed bounded (P-FIX-0 through P-FIX-6). Next: replicate the chain to remaining domains (customer requests, incidents, handovers) per P2-A, or P2-B (real authentication - should replace known-principals.yaml), or P2-C (frontend UI).
 
 ### `workspace-web` — partial
 

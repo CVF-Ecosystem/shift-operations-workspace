@@ -21,7 +21,7 @@ tầng chung không thuộc phase nghiệp vụ nào.
 
 ---
 
-## P-FIX — Corrective tranche (BẮT BUỘC, chặn mọi phase/domain mới) — 🔴 IN PROGRESS
+## P-FIX — Corrective tranche (BẮT BUỘC, chặn mọi phase/domain mới) — 🟢 CLOSED_BOUNDED
 
 **2026-07-22:** review độc lập thứ hai
 ([`EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`](../decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md))
@@ -30,6 +30,11 @@ vertical"/"12/12" trong P0-P2 đã **over-claim**. Không mở P2-A (domain còn
 lại), P2-B, P2-C, hay bất kỳ phase mới nào cho tới khi toàn bộ P-FIX-0 →
 P-FIX-5 xong và có test end-to-end xác nhận (không chỉ unit test gọi trực
 tiếp gate).
+
+**2026-07-22 P-FIX-6 (đóng thật):** sau khi P-FIX-5 tuyên bố tranche này
+`CLOSED`, một review độc lập **thứ hai** bác bỏ tuyên bố đó — xem chi tiết ở
+mục P-FIX-6 bên dưới. Tranche chỉ thật sự đóng (bounded) sau khi P-FIX-6 sửa
+gap đó và đồng bộ lại toàn bộ front door.
 
 - [x] **P-FIX-0:** Nắn lại tuyên bố sai trong `docs/cvf/CVF_CONTROL_MAPPING.md`,
       `IMPLEMENTATION_STATUS.json`, `ARCHITECTURE.md` (dòng trạng thái),
@@ -107,18 +112,57 @@ tiếp gate).
       "still not load-bearing" đúng thực tế (identity, refusal, data_scope/
       cost/termination).
 
-**Exit gate P-FIX: ĐẠT.** Toàn bộ Critical (2) và High (3) trong bản review
-07-22 có test end-to-end chứng minh đã sửa (không chỉ unit test gọi thẳng
-gate) — freeze cross-record (P-FIX-1), audit atomic (P-FIX-2), evidence
-persist + approval known-principal (P-FIX-3), migration Task.version +
-parity siết chặt (P-FIX-4). Cả 2 Medium (catalog check, front-door drift)
-cũng đã sửa (P-FIX-0, P-FIX-5). `pytest` pass (102 tại thời điểm đóng tranche
-— chạy lại để xác nhận số hiện tại). Docs không còn tuyên bố nào bị bản review
-đó phủ nhận, theo đúng phân biệt callable/load-bearing/not-verified-server-side
-trong `docs/cvf/CVF_CONTROL_MAPPING.md`.
+- [x] **P-FIX-6 (gap tìm bởi review độc lập thứ hai, sau khi P-FIX-5 tuyên bố
+      CLOSED):** `POST /shifts/{shift_id}/close` vẫn gọi thẳng
+      `ledger.close_shift(shift_id)` từ router — không `get_principal`, không
+      `require_action`, không audit (probe: `create=200`,
+      `anonymous_close=200`, `status=CLOSED`, `audit_count=0`). Vì
+      `ShiftService.freeze` chỉ kiểm `shift.status == ShiftStatus.CLOSED`,
+      close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của
+      freeze. Sửa: thêm `shift.close` vào `_ACTION_MIN_ROLE`
+      (`packages/cvf-runtime/src/cvf_runtime/permission.py`, min role
+      `operator` — cùng bậc với `event.create`/`task.create`/`task.transition`,
+      thấp hơn `shift.freeze` (`shift_supervisor`) vì close là hành động vận
+      hành thường quy, còn freeze mới là hành động durable/khó đảo ngược);
+      `ShiftService.close` mới (theo đúng khuôn `freeze`: identity →
+      permission → state-check → `transaction()` bọc `close_shift` +
+      `append_audit` atomic); router gọi qua `ShiftService.close`, không còn
+      gọi `ledger.close_shift` trực tiếp. Test:
+      `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403
+      role thấp, 200 + audit hợp lệ, rollback atomic khi audit fail trên cả 2
+      backend InMemory/SQLite thật, chặn close shift đã FROZEN, chuỗi đầy đủ
+      create→governed-close→freeze qua cả service lẫn HTTP). Đồng thời rà lại
+      toàn bộ front door (roadmap này, `CVF_CONTROL_MAPPING.md`,
+      `IMPLEMENTATION_STATUS.json`, `MODULE_REGISTRY.json`,
+      `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json`) —
+      không còn tuyên bố "P-FIX CLOSED" không giới hạn hay "tất cả High
+      Finding đã sửa" ở bất kỳ đâu. **Không** đụng tới approval/known-principals
+      (High Finding #4) — ngoài phạm vi tranche này.
+
+**Exit gate P-FIX: ĐẠT — CLOSED_BOUNDED (không phải "tất cả finding đã sửa
+xong vĩnh viễn").** Toàn bộ Critical (2) và High (3) trong bản review 07-22 có
+test end-to-end chứng minh đã sửa (không chỉ unit test gọi thẳng gate) —
+freeze cross-record (P-FIX-1), audit atomic (P-FIX-2), evidence persist +
+approval known-principal (P-FIX-3), migration Task.version + parity siết chặt
+(P-FIX-4). Cả 2 Medium (catalog check, front-door drift) cũng đã sửa (P-FIX-0,
+P-FIX-5). P-FIX-6 sửa nốt gap governed-close mà review độc lập **thứ hai** tìm
+ra ngay sau khi P-FIX-5 tuyên bố đóng — bằng chứng sống rằng "đã đóng tranche"
+tự nó không phải là bằng chứng, phải verify lại bằng probe/test thật.
+`pytest` pass — chạy `python -m pytest -q` để lấy số hiện tại, không chép số
+cũ. Tổng cộng: **5 tranche triển khai P-FIX-1 tới P-FIX-5, cộng tranche chuẩn
+bị P-FIX-0; 6 commit P-FIX trước P-FIX-6, 7 commit P-FIX sau khi P-FIX-6
+commit.** Docs không còn tuyên bố "tất cả High Finding đã sửa" — High Finding
+#4 còn nguyên các giới hạn liệt kê trong `IMPLEMENTATION_STATUS.json`
+(`known_remaining_defects`) và `ACTIVE_SESSION_STATE.json` (`blocked_work`):
+identity vẫn header-based; data minimization chỉ khuyến nghị;
+data_scope/cost/termination chưa có runtime caller; refusal routing/recording
+chưa implement; known-principals chỉ là registry check, không phải xác thực
+thật.
 
 **Có thể mở lại:** P2-A (domain còn lại), P2-B, P2-C theo `next_allowed_move`
-trong `SESSION/ACTIVE_SESSION_STATE.json`.
+trong `SESSION/ACTIVE_SESSION_STATE.json` — chỉ sau khi mọi closure surface
+của P-FIX-6 đã đồng bộ (điều kiện này tự nó đã thỏa mãn khi bạn đọc dòng này
+trong bản đã commit).
 
 ---
 
@@ -247,14 +291,21 @@ owner review approve.
 
 ## Bước kế tiếp duy nhất (khớp session state)
 
-Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`. **2026-07-22:**
-review độc lập Codex tìm ra P2-A (Task) và các vertical trước đó over-claim
-("golden vertical durable" không đúng qua HTTP+SqlLedger; freeze bypass được).
-Bước kế tiếp bắt buộc là **P-FIX-1** (freeze thành bất biến thật), rồi
-P-FIX-2 → P-FIX-5 theo thứ tự. **Không** mở P2-A (customer requests/incidents/
-handovers) hay bất kỳ phase mới nào cho tới khi P-FIX xong. Xem tiền đề
-"PostgreSQL same code path" đã bị bác bỏ (migration Task thiếu cột `version`)
-— sửa ở P-FIX-4 trước khi nói lại câu đó.
+Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
+**2026-07-22 (P-FIX-6, đóng thật):** tranche P-FIX (P-FIX-0 → P-FIX-6) đã
+đóng bounded — 5 tranche triển khai P-FIX-1 tới P-FIX-5, cộng tranche chuẩn bị
+P-FIX-0; 7 commit P-FIX tính cả P-FIX-6. Bước kế tiếp hợp lệ là mở lại một
+trong P2-A (domain còn lại: customer requests/incidents/handovers, cùng khuôn
+`TaskService`/`ShiftService`), P2-B (authentication thật, nên thay thế
+known-principals.yaml), hoặc P2-C (frontend UI, giữ boundary backend-only).
+**Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
+(P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
+Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
+governed shift.close (P-FIX-6). **Còn treo, không được tuyên bố đã sửa:**
+identity chưa xác thực thật, data_scope/cost/termination chưa có runtime
+caller, refusal routing/recording chưa implement, known-principals chỉ là
+registry check, PostgreSQL round-trip thật chưa chạy trong môi trường này —
+xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
 
 ## Cách dùng roadmap này
 
