@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (P2-B real authentication)_
+_Last updated: 2026-07-22 (P2-B corrective tranche opened — INTAKE)_
 
 ## Where the project is
 
@@ -62,6 +62,25 @@ rate-limit đăng nhập. Cấp user chỉ qua `scripts/seed_dev_users.py` (dev/
 Chi tiết: `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`,
 `SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2B_AUTHENTICATION.md`.
 
+**2026-07-22 (P2B-AUTHENTICATION-REPAIR — INTAKE, corrective tranche):**
+operator xác định commit `cd36b27` (tranche P2-B ở trên) là **UNAUTHORIZED
+BUILD CANDIDATE** — build, review, và closure đều nằm trong cùng một commit,
+không có DESIGN được ghi nhận, không có SPEC rời rạc/testable, không có
+WORK_ORDER được operator phê chuẩn trước BUILD, không ghi role transition.
+ADR viết trong `cd36b27` là design rationale, **không thay thế** SPEC hay
+WORK_ORDER. Review độc lập trước đó chỉ dùng `TestClient`/probe cục bộ —
+không đáp ứng Mandatory Governance Proof (`AGENTS.md`) cho tuyên bố "CVF
+identity is load-bearing", vốn đòi hỏi live provider API call thật.
+**`cd36b27` KHÔNG bị revert/rewrite/squash/force-push** — giữ nguyên làm
+historical evidence; chỉ governance disposition của nó bị hạ xuống
+**REVIEW_CHANGES_REQUIRED — UNAUTHORIZED BUILD CANDIDATE**. Review kỹ thuật
+tiếp theo cũng tìm thấy 4 finding kỹ thuật thật (T1-T4: JWT secret không
+fail-closed đủ mạnh, password dài gây HTTP 500 trên bcrypt 5, migration 003
+không tự nâng cấp Postgres volume hiện hữu, documentation/continuity drift).
+Tranche corrective này giờ chạy lại đúng INTAKE → DESIGN → SPEC → WORK_ORDER
+→ BUILD → REVIEW → FREEZE, có cổng phê chuẩn operator trước BUILD. Chi
+tiết: `SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2B_AUTHENTICATION_REPAIR_INTAKE.md`.
+
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
 Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
@@ -96,10 +115,15 @@ sử, không phải trạng thái hiện tại.
   **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
   nông).
-- **Identity:** load-bearing (P2-B, 2026-07-22) — JWT bearer token thật thay
-  header. Không còn là giới hạn chung của 5 domain; giới hạn còn lại của
-  Event/Correction là approval không xác thực approver độc lập (registry
-  known-principals, KHÔNG được P2-B thay thế).
+- **Identity:** code hiện tại (`cd36b27`) dùng JWT bearer token thay header —
+  về mặt kỹ thuật không còn header-trusting. Nhưng **KHÔNG được ghi là
+  "load-bearing" theo nghĩa đã governance-approved** — `cd36b27` là
+  REVIEW_CHANGES_REQUIRED / UNAUTHORIZED BUILD CANDIDATE (thiếu DESIGN/SPEC/
+  WORK_ORDER trước BUILD, thiếu live governance evidence thật) cho tới khi
+  tranche corrective `P2B-AUTHENTICATION-REPAIR` qua REVIEW + live evidence.
+  Giới hạn khác của Event/Correction: approval không xác thực approver độc
+  lập (registry known-principals, ngoài phạm vi cả P2-B lẫn tranche corrective
+  này).
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
   file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
@@ -133,10 +157,12 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-Operator chọn đúng một lane mới và bắt đầu tại INTAKE: P2-A (còn lại —
-incidents/handovers, cần migration mới trước), reconcile
-`known-principals.yaml` với bảng `users` mới (High Finding #4 vẫn mở), hoặc
-P2-C (frontend UI).
+**Corrective tranche `P2B-AUTHENTICATION-REPAIR` đang mở, hiện ở INTAKE.**
+Không mở P2-A/P2-C/known-principals-reconciliation cho tới khi tranche
+corrective này tới FREEZE. Bước kế tiếp: DESIGN — viết
+`docs/decisions/ADR_2026-07-22_P2B_AUTHENTICATION_REPAIR.md`, đánh giá độc
+lập implementation hiện có (không mặc định `cd36b27` là đúng), rồi ghi role
+transition sang SPEC_AUTHOR trước khi viết SPEC.
 Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
@@ -154,3 +180,11 @@ viết ra nó) mà không tự chạy lại probe/test — đây chính là bài
 không coi `CVF_SESSION/ACTIVE_SESSION_STATE.json` là nguồn canonical — nó chỉ
 là compatibility mirror, `python scripts/check_session_state.py` xác nhận
 không lệch trước khi kết thúc phiên có sửa 1 trong 2 file state.
+**Mới (P2B-AUTHENTICATION-REPAIR, 2026-07-22):** không rewrite/squash/
+force-push `cd36b27`; không tuyên bố P2-B/`cd36b27` DONE hay identity
+load-bearing đã approved; không nhảy DESIGN/SPEC/WORK_ORDER cho tranche
+corrective; không tự BUILD trước khi operator phê chuẩn WORK_ORDER; không
+coi review bằng `TestClient`/mock là live governance evidence cho tuyên bố
+identity load-bearing — cần live Alibaba API call thật; không ghi
+REVIEW_PASS/FREEZE/DONE trước khi có live evidence PASS — chỉ được ghi
+READY_FOR_LIVE_EVIDENCE.
