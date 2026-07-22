@@ -61,7 +61,8 @@ for _rel in (
 
 RECEIPT_PATH = REPO_ROOT / "docs" / "decisions" / "P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md"
 KEY_ENV_NAMES = ("ALIBABA_API_KEY", "DASHSCOPE_API_KEY")
-ENDPOINT = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+BASE_URL_ENV_NAMES = ("ALIBABA_BASE_URL", "DASHSCOPE_BASE_URL")
+DEFAULT_BASE_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
 PROMPT = "Reply with exactly this token and nothing else: CVF_IDENTITY_EVIDENCE_OK"
 EXPECTED_TOKEN = "CVF_IDENTITY_EVIDENCE_OK"
 
@@ -72,6 +73,22 @@ def _key_present() -> tuple[bool, str | None]:
         if os.environ.get(name, "").strip():
             return True, name
     return False, None
+
+
+def _endpoint() -> str:
+    """Resolve the regional OpenAI-compatible endpoint from non-secret config."""
+    base_url = next(
+        (
+            os.environ[name].strip()
+            for name in BASE_URL_ENV_NAMES
+            if os.environ.get(name, "").strip()
+        ),
+        DEFAULT_BASE_URL,
+    )
+    base_url = base_url.rstrip("/")
+    if base_url.endswith("/chat/completions"):
+        return base_url
+    return f"{base_url}/chat/completions"
 
 
 def check_identity_gate() -> list[dict]:
@@ -130,7 +147,7 @@ def check_identity_gate() -> list[dict]:
     return results
 
 
-def call_alibaba(model: str, key_env_name: str) -> dict:
+def call_alibaba(model: str, key_env_name: str, endpoint: str) -> dict:
     """One real, minimal provider call. Returns a sanitized result dict."""
     api_key = os.environ[key_env_name]
     body = json.dumps(
@@ -141,7 +158,7 @@ def call_alibaba(model: str, key_env_name: str) -> dict:
         }
     ).encode("utf-8")
     request = urllib.request.Request(
-        ENDPOINT,
+        endpoint,
         data=body,
         headers={
             "Authorization": f"Bearer {api_key}",
@@ -195,7 +212,9 @@ def call_alibaba(model: str, key_env_name: str) -> dict:
     }
 
 
-def write_receipt(identity_results: list[dict], provider_result: dict, model: str) -> None:
+def write_receipt(
+    identity_results: list[dict], provider_result: dict, model: str, endpoint: str
+) -> None:
     lines = [
         "# P2-B identity control - live governance evidence receipt",
         "",
@@ -206,7 +225,7 @@ def write_receipt(identity_results: list[dict], provider_result: dict, model: st
         f"- Generated at: {datetime.now(timezone.utc).isoformat()}",
         "- Provider: Alibaba DashScope (OpenAI-compatible endpoint)",
         f"- Model: {model}",
-        f"- Endpoint: {ENDPOINT}",
+        f"- Endpoint: {endpoint}",
         "",
         "## 1. Identity gate (in-process, real code path)",
         "",
@@ -322,10 +341,11 @@ def main() -> int:
         return 2
 
     print(f"== calling provider (model={model}) ==")
-    provider_result = call_alibaba(model, key_env_name)
+    endpoint = _endpoint()
+    provider_result = call_alibaba(model, key_env_name, endpoint)
     print(f"  outcome: {provider_result['outcome']} (http {provider_result.get('http_status')})")
 
-    write_receipt(identity_results, provider_result, model)
+    write_receipt(identity_results, provider_result, model, endpoint)
     print(f"receipt written: {RECEIPT_PATH.relative_to(REPO_ROOT)}")
 
     if provider_result["outcome"] != "PASS":
