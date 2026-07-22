@@ -12,6 +12,11 @@ class Settings(BaseSettings):
     # non-dev deployment that forgets to set it fails closed (no origins) rather
     # than open.
     cors_allowed_origins: str = ""
+    # No default (P2-B): the app must refuse to start without a real secret
+    # rather than repeat the WEBHOOK_SHARED_SECRET "replace-me" fallback
+    # mistake the EA review flagged. Signs/verifies JWT access tokens.
+    jwt_secret_key: str
+    jwt_access_token_ttl_minutes: int = 60
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property

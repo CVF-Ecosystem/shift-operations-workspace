@@ -58,6 +58,7 @@ from operations_ledger.tables import (
     operational_events,
     shifts,
     tasks,
+    users,
 )
 
 from _schema_parity_parsing import (
@@ -80,6 +81,8 @@ MAPPED = {
     "corrections": corrections,
     "tasks": tasks,
     "customer_requests": customer_requests,
+    # P2-B: real authentication (2026-07-22). See database/migrations/003_users.sql.
+    "users": users,
 }
 
 

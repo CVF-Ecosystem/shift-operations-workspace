@@ -32,6 +32,8 @@ from workspace_api.domain.models import Shift, ShiftStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
+from _auth_test_helpers import auth_headers
+
 
 def _operator():
     return Principal(user_id="op1", role="operator")
@@ -89,7 +91,7 @@ def test_insufficient_role_close_is_rejected():
     try:
         resp = client.post(
             f"/shifts/{shift.shift_id}/close",
-            headers={"X-User-Id": "v1", "X-User-Role": "viewer"},
+            headers=auth_headers("v1", "viewer"),
         )
         assert resp.status_code == 403, resp.text
 
@@ -106,7 +108,7 @@ def test_valid_operator_close_succeeds_over_http():
     try:
         resp = client.post(
             f"/shifts/{shift.shift_id}/close",
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 200, resp.text
         assert resp.json()["status"] == "CLOSED"
@@ -241,7 +243,7 @@ def test_full_sequence_create_governed_close_then_freeze_over_http():
     try:
         close_resp = client.post(
             f"/shifts/{shift.shift_id}/close",
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert close_resp.status_code == 200, close_resp.text
         assert close_resp.json()["status"] == "CLOSED"
@@ -252,7 +254,7 @@ def test_full_sequence_create_governed_close_then_freeze_over_http():
                 "override_unimplemented_prerequisites": True,
                 "override_reason": "Report/handover model not implemented yet (P2-D/P5-A)",
             },
-            headers={"X-User-Id": "sup1", "X-User-Role": "shift_supervisor"},
+            headers=auth_headers("sup1", "shift_supervisor"),
         )
         assert freeze_resp.status_code == 200, freeze_resp.text
         assert freeze_resp.json()["status"] == "FROZEN"
@@ -280,8 +282,32 @@ def test_anonymous_close_no_longer_bypasses_freeze_prerequisite():
                 "override_unimplemented_prerequisites": True,
                 "override_reason": "test",
             },
-            headers={"X-User-Id": "sup1", "X-User-Role": "shift_supervisor"},
+            headers=auth_headers("sup1", "shift_supervisor"),
         )
         assert freeze_resp.status_code == 409, freeze_resp.text
+    finally:
+        _clear_overrides()
+
+
+def test_old_header_impersonation_no_longer_grants_any_identity():
+    """P2-B regression proof: the original vulnerability class was that
+    setting X-User-Id/X-User-Role headers alone was trusted as identity, with
+    no verification at all. Confirms that claiming even the highest role
+    (authorized_executive) via those headers, with no Authorization bearer
+    token, is refused (401) exactly like an anonymous request - the headers
+    now carry no authority whatsoever."""
+    ledger = InMemoryLedger()
+    shift = _new_shift(ledger)
+    client = _client_for(ledger)
+    try:
+        resp = client.post(
+            f"/shifts/{shift.shift_id}/close",
+            headers={"X-User-Id": "op1", "X-User-Role": "authorized_executive"},
+        )
+        assert resp.status_code == 401, resp.text
+
+        fetched = ledger.get_shift(shift.shift_id)
+        assert fetched.status == ShiftStatus.OPEN
+        assert ledger.audit_entries_for(str(shift.shift_id)) == []
     finally:
         _clear_overrides()

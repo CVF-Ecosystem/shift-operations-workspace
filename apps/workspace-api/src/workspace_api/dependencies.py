@@ -1,12 +1,15 @@
 """Request-scoped dependencies, including the CVF identity boundary."""
 
-from fastapi import Header, HTTPException
-from pydantic import ValidationError
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from cvf_runtime.audit import audit_log
 from cvf_runtime.identity import Principal
 
+from workspace_api.auth.tokens import TokenError, decode_access_token
 from workspace_api.infrastructure.ledger_factory import build_ledger
+
+_bearer_scheme = HTTPBearer(auto_error=False)
 
 
 def get_ledger():
@@ -18,15 +21,21 @@ def get_audit_log():
 
 
 def get_principal(
-    x_user_id: str = Header(default=""),
-    x_user_role: str = Header(default=""),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
 ) -> Principal:
-    """Resolve the calling :class:`Principal` from request headers.
+    """Resolve the calling :class:`Principal` from a verified JWT bearer token.
 
-    Header-based identity boundary: no anonymous governed action is allowed.
-    A missing or invalid identity is refused (401), not defaulted.
+    P2-B (2026-07-22): replaces the previous header-trusting implementation,
+    which built a Principal directly from client-supplied X-User-Id/
+    X-User-Role headers with no verification at all (see
+    docs/cvf/CVF_CONTROL_MAPPING.md's identity row before this change). A
+    missing, malformed, expired, or mis-signed token is refused (401), not
+    defaulted - and role always comes from the verified token, never from a
+    client-supplied field.
     """
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Missing bearer token")
     try:
-        return Principal(user_id=x_user_id, role=x_user_role)
-    except ValidationError as exc:
-        raise HTTPException(status_code=401, detail=f"Invalid identity: {exc.errors()[0]['msg']}") from exc
+        return decode_access_token(credentials.credentials)
+    except TokenError as exc:
+        raise HTTPException(status_code=401, detail=f"Invalid token: {exc}") from exc

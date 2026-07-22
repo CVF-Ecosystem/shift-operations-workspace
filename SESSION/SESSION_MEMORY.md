@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-22 (portable clone continuity verified)_
+_Last updated: 2026-07-22 (P2-B real authentication)_
 
 ## Where the project is
 
@@ -48,6 +48,20 @@ transition: identity→permission→lifecycle guard→persist→audit), router
 đó chưa có bảng migration, cần migration mới trước. Không tuyên bố "P2-A đã
 đóng" chung chung.
 
+**2026-07-22 (P2-B):** operator chọn P2-B (authentication thật) trong 3 lane
+hợp lệ. `dependencies.py · get_principal` không còn đọc `X-User-Id`/
+`X-User-Role` — giờ yêu cầu JWT bearer token đã ký hợp lệ
+(`workspace_api/auth/tokens.py`, `JWT_SECRET_KEY` bắt buộc không default),
+xây `Principal` chỉ từ claim đã xác thực chữ ký. `POST /auth/login` cấp token
+sau khi kiểm username/mật khẩu (bcrypt) so với bảng `users` mới. Mọi router
+giữ nguyên `Depends(get_principal)`. `identity` chuyển từ "not verified
+server-side" sang "load-bearing". **Cố ý KHÔNG đụng tới:**
+`known-principals.yaml` (registry approver riêng cho quorum R3/R4 — High
+Finding #4 vẫn mở), refresh token/revocation, tự đăng ký, đặt lại mật khẩu,
+rate-limit đăng nhập. Cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test).
+Chi tiết: `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`,
+`SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2B_AUTHENTICATION.md`.
+
 ## Trạng thái hiện tại (verify bằng lệnh, không tin số liệu trong file)
 
 Bốn bullet dưới đây mô tả tình trạng **sau P-FIX-6**. Bản review Codex gốc
@@ -66,8 +80,9 @@ sử, không phải trạng thái hiện tại.
   "golden vertical durable end-to-end" không giới hạn — xem "Golden verticals
   — phạm vi chính xác" trong `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại
   theo từng domain. Evidence qua SqlLedger/HTTP (Event/Task) đã sửa ở P-FIX-3,
-  không còn là gap; giới hạn còn lại chung là identity header-based và
-  approval không xác thực approver độc lập (Event/Correction). Shift và
+  không còn là gap; identity không còn là giới hạn chung (P2-B, 2026-07-22) —
+  giới hạn còn lại là approval không xác thực approver độc lập (Event/
+  Correction). Shift và
   CustomerRequest là các domain có ít giới hạn riêng nhất tính đến
   2026-07-22 (CustomerRequest không có approval/evidence chain vì migration
   không có cột đó).
@@ -81,6 +96,10 @@ sử, không phải trạng thái hiện tại.
   **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
   nông).
+- **Identity:** load-bearing (P2-B, 2026-07-22) — JWT bearer token thật thay
+  header. Không còn là giới hạn chung của 5 domain; giới hạn còn lại của
+  Event/Correction là approval không xác thực approver độc lập (registry
+  known-principals, KHÔNG được P2-B thay thế).
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
   file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
@@ -115,8 +134,9 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 ## Next allowed move
 
 Operator chọn đúng một lane mới và bắt đầu tại INTAKE: P2-A (còn lại —
-incidents/handovers, cần migration mới trước), P2-B (authentication thật),
-hoặc P2-C (frontend UI).
+incidents/handovers, cần migration mới trước), reconcile
+`known-principals.yaml` với bảng `users` mới (High Finding #4 vẫn mở), hoặc
+P2-C (frontend UI).
 Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 
 ## Không được làm (không có xác nhận mới)
@@ -124,12 +144,13 @@ Xem `next_allowed_move` trong `ACTIVE_SESSION_STATE.json` cho câu chính xác.
 Xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`. Cốt lõi: không dùng lại
 nhãn "enforced"/"12/12"/"golden vertical"/"tất cả High Finding đã sửa" không
 giới hạn; không tuyên bố "P2-A đã đóng" chung chung — chỉ customer_request
-xong, incidents/handovers vẫn mở và cần migration mới; không tạo file
-điểm-vào theo provider — front door là `CONTRIBUTING.md`, trung lập; không
-tin tuyên bố "CLOSED"/"đã xong" của bất kỳ agent nào (kể cả chính agent viết
-ra nó) mà không tự chạy lại probe/test — đây chính là bài học P-FIX-6; không
-commit gộp 2 batch đang treo ở trên vào 1 commit; không mở P2-A(còn
-lại)/P2-B/P2-C trước khi cả 2 batch được commit; không coi
-`CVF_SESSION/ACTIVE_SESSION_STATE.json` là nguồn canonical — nó chỉ là
-compatibility mirror, `python scripts/check_session_state.py` xác nhận không
-lệch trước khi kết thúc phiên có sửa 1 trong 2 file state.
+xong, incidents/handovers vẫn mở và cần migration mới; không tuyên bố "High
+Finding #4 đã sửa" — P2-B chỉ sửa identity, KHÔNG đụng known-principals.yaml/
+approval; không tuyên bố P2-B có refresh token/revocation hay admin
+user-provisioning thật (chỉ có `scripts/seed_dev_users.py`, dev/test); không
+tạo file điểm-vào theo provider — front door là `CONTRIBUTING.md`, trung lập;
+không tin tuyên bố "CLOSED"/"đã xong" của bất kỳ agent nào (kể cả chính agent
+viết ra nó) mà không tự chạy lại probe/test — đây chính là bài học P-FIX-6;
+không coi `CVF_SESSION/ACTIVE_SESSION_STATE.json` là nguồn canonical — nó chỉ
+là compatibility mirror, `python scripts/check_session_state.py` xác nhận
+không lệch trước khi kết thúc phiên có sửa 1 trong 2 file state.

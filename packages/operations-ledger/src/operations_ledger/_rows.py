@@ -115,6 +115,27 @@ def row_to_customer_request(models, row):
     )
 
 
+def user_row(user) -> dict:
+    return {
+        "user_id": user.user_id,
+        "username": user.username,
+        "password_hash": user.password_hash,
+        "role": user.role,
+        "is_active": user.is_active,
+    }
+
+
+def row_to_user(models, row):
+    return models.User(
+        user_id=row["user_id"],
+        username=row["username"],
+        password_hash=row["password_hash"],
+        role=row["role"],
+        is_active=row["is_active"],
+        created_at=row["created_at"],
+    )
+
+
 def evidence_link_row(evidence_ref, *, record_type: str, record_id) -> dict:
     return {
         "evidence_link_id": evidence_ref.evidence_id,

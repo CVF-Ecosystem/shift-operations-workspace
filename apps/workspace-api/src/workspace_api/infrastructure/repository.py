@@ -14,6 +14,7 @@ from workspace_api.domain.models import (
     Shift,
     ShiftStatus,
     Task,
+    User,
 )
 
 class InMemoryLedger:
@@ -25,6 +26,7 @@ class InMemoryLedger:
         self.corrections: dict[UUID, Correction] = {}
         self.tasks: dict[UUID, Task] = {}
         self.customer_requests: dict[UUID, CustomerRequest] = {}
+        self.users: dict[str, User] = {}
         self._audit = AuditLog()
 
     @contextmanager
@@ -51,6 +53,7 @@ class InMemoryLedger:
                     self.corrections,
                     self.tasks,
                     self.customer_requests,
+                    self.users,
                     self._audit.all(),
                 )
             )
@@ -64,6 +67,7 @@ class InMemoryLedger:
                     self.corrections,
                     self.tasks,
                     self.customer_requests,
+                    self.users,
                     entries,
                 ) = snapshot
                 self._audit = AuditLog()
@@ -185,6 +189,21 @@ class InMemoryLedger:
         stored = request.model_copy()
         self.customer_requests[request.request_id] = stored
         return stored.model_copy()
+
+    def add_user(self, user: User, *, unit=None) -> User:
+        with self._lock:
+            if any(u.username == user.username for u in self.users.values()):
+                raise ValueError(f"username already registered: {user.username!r}")
+            stored = user.model_copy()
+            self.users[user.user_id] = stored
+            return stored.model_copy()
+
+    def get_user_by_username(self, username: str, *, unit=None) -> User | None:
+        with self._lock:
+            for user in self.users.values():
+                if user.username == username:
+                    return user.model_copy()
+        return None
 
     def add_correction(self, correction: Correction, *, unit=None) -> Correction:
         # Corrections are append-only and are explicitly ALLOWED post-freeze:

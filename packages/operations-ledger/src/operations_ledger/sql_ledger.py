@@ -40,6 +40,7 @@ from operations_ledger.tables import (
     operational_events,
     shifts,
     tasks,
+    users,
 )
 
 _EVENT_RECORD_TYPE = "OperationalEvent"
@@ -292,6 +293,23 @@ class SqlLedger:
                 .values(**_rows.customer_request_row(request))
             )
         return request
+
+    # --- users (P2-B: real authentication) ---
+    def add_user(self, user, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            c.execute(insert(users).values(**_rows.user_row(user)))
+        return user
+
+    def get_user_by_username(self, username: str, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
+                select(users).where(users.c.username == username)
+            ).mappings().first()
+        if row is None:
+            return None
+        return _rows.row_to_user(self.models, row)
 
     # --- corrections (append-only) ---
     def add_correction(self, correction, *, unit=None):

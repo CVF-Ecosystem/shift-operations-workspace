@@ -26,6 +26,8 @@ from workspace_api.domain.models import CustomerRequest, CustomerRequestStatus, 
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
+from _auth_test_helpers import auth_headers
+
 
 def _sql_ledger(tmp_path, name="customer_requests.sqlite3"):
     db = tmp_path / name
@@ -137,7 +139,7 @@ def test_http_create_round_trip():
         resp = client.post(
             "/customer-requests",
             json={"customer_id": "cust-9", "summary": "Late delivery"},
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 200, resp.text
         body = resp.json()
@@ -169,7 +171,7 @@ def test_http_insufficient_role_create_is_403():
         resp = client.post(
             "/customer-requests",
             json={"customer_id": "cust-9", "summary": "Late delivery"},
-            headers={"X-User-Id": "v1", "X-User-Role": "viewer"},
+            headers=auth_headers("v1", "viewer"),
         )
         assert resp.status_code == 403, resp.text
     finally:

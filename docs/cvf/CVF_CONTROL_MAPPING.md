@@ -23,6 +23,21 @@ kiện tiên quyết `shift_closed` của freeze — đúng loại bypass CVF đ
 Finding #4 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`) —
 phạm vi P-FIX-6 chỉ là shift-close.
 
+**2026-07-22 P2-B correction (real authentication):** `identity` chuyển từ
+**not verified server-side** sang **load-bearing**. `dependencies.py ·
+get_principal` không còn đọc `X-User-Id`/`X-User-Role` trực tiếp — giờ yêu
+cầu một JWT bearer token đã ký hợp lệ (`workspace_api/auth/tokens.py`,
+HS256, ký bằng `JWT_SECRET_KEY` bắt buộc, không có default nên app fail-closed
+lúc khởi động nếu thiếu) và chỉ dựng `Principal` từ claim `sub`/`role` đã xác
+thực chữ ký — không còn từ bất kỳ field nào caller tự khai trực tiếp.
+`POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm
+username/password so với bảng `users` mới (mật khẩu hash bằng bcrypt). **Cố ý
+NGOÀI phạm vi tranche này, không tuyên bố đã sửa:** refresh token/revocation,
+tự đăng ký, đặt lại mật khẩu, rate-limit đăng nhập, và — quan trọng nhất —
+**không đụng tới `known-principals.yaml`** (registry approver riêng dùng cho
+quorum approval R3/R4). High Finding #4 (approval fabrication) vẫn còn
+nguyên, xem mục `approval` bên dưới.
+
 ## Trạng thái (2 mức — không gộp lại thành "enforced")
 
 - **callable** — hàm gate tồn tại trong `cvf_runtime`, có unit test gọi trực
@@ -78,8 +93,9 @@ Chính xác hơn, theo domain:
    HTTP (`tests/cvf/test_shift_close_governance.py`,
    `tests/cvf/test_freeze_invariant.py`). **Còn hạn chế:** freeze's
    `report_approved`/`open_handover_items_linked` không có model thật, chỉ
-   override tường minh có audit; identity vẫn header-based không xác thực,
-   giống mọi domain khác trong bảng này.
+   override tường minh có audit. identity giờ xác thực thật qua JWT (P2-B,
+   2026-07-22) — không còn là giới hạn ở domain này hay bất kỳ domain nào khác
+   trong bảng.
 5. **Customer Request → create / transition** — `CustomerRequestService`
    (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review,
    2026-07-22). Chain đúng ở tầng service và qua HTTP. Test:
@@ -109,33 +125,33 @@ Chính xác hơn, theo domain:
    được validate qua `Ledger.message_exists()` trước khi persist trên cả 2
    backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán
    thay vì một backend chấp nhận vô điều kiện còn backend kia rò
-   `IntegrityError` thành HTTP 500. **Còn hạn chế:** giống mọi domain khác —
-   identity vẫn header-based không xác thực; `messages` vẫn chưa có
+   `IntegrityError` thành HTTP 500. **Còn hạn chế:** `messages` vẫn chưa có
    persistence vertical thật (`SqlLedger.add_message` vẫn `NotImplementedError`
-   — `message_exists` chỉ là existence-check tối thiểu, không phải write path).
+   — `message_exists` chỉ là existence-check tối thiểu, không phải write
+   path). identity không còn là giới hạn riêng ở đây (P2-B, 2026-07-22).
 
 **Không domain nào trong 5 cái trên là "durable end-to-end qua HTTP + SqlLedger
-+ evidence + xác thực identity thật" không giới hạn.** Evidence persistence
-(SqlLedger) và evidence qua HTTP (TaskInput) đã sửa ở P-FIX-3 — không còn là
-giới hạn của Event/Task. Giới hạn còn lại chung cho cả 5 domain là identity
-header-based (không xác thực) và, với Event/Correction, approval không xác
-thực approver độc lập ngoài registry known-principals. `shift.close` và
-`customer_request` là các domain có ít giới hạn riêng nhất tính đến
-2026-07-22 (customer_request không có approval/evidence chain để mang giới
-hạn "không xác thực approver" ngay từ đầu — domain này đơn giản là không yêu
-cầu approval theo migration schema), nhưng vẫn thừa hưởng giới hạn identity
-chung của cả repo.
++ evidence + xác thực identity thật" không giới hạn** — ngoại trừ identity, mà
+P2-B (2026-07-22) đã sửa thật cho cả 5 domain (xem mục `identity` ở trên).
+Evidence persistence (SqlLedger) và evidence qua HTTP (TaskInput) đã sửa ở
+P-FIX-3 — không còn là giới hạn của Event/Task. Giới hạn còn lại chung cho
+Event/Correction là approval không xác thực approver độc lập ngoài registry
+known-principals — P2-B KHÔNG đụng tới registry đó, xem mục `approval`.
+`shift.close` và `customer_request` là các domain có ít giới hạn riêng nhất
+tính đến 2026-07-22 (customer_request không có approval/evidence chain để
+mang giới hạn "không xác thực approver" ngay từ đầu — domain này đơn giản là
+không yêu cầu approval theo migration schema).
 
 ## Bảng ánh xạ
 
 | CVF control | Trạng thái | Enforce ở đâu (file · symbol) | Giới hạn đã biết |
 |---|---|---|---|
-| identity | **not verified server-side** | `dependencies.py · get_principal` đọc header `X-User-Id`/`X-User-Role` | Không xác thực — bất kỳ caller nào tự đặt header là thành principal đó. |
+| identity | **load-bearing (P2-B, 2026-07-22)** | `dependencies.py · get_principal` giải mã/xác thực JWT bearer token qua `workspace_api/auth/tokens.py::decode_access_token` (HS256, `JWT_SECRET_KEY` bắt buộc); `POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/password (bcrypt) so với bảng `users` mới | Sửa: caller không còn tự đặt header để thành principal — role luôn tới từ claim đã ký, không phải field caller tự khai. **Còn hạn chế:** không refresh token/revocation (access token TTL cố định, mặc định 60 phút); cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật; KHÔNG đụng tới `known-principals.yaml` — approval quorum (High Finding #4) vẫn tách biệt, xem mục `approval`. Test: `tests/cvf/test_auth_tokens.py` (8 test: round-trip, tamper, expiry, wrong-secret, `alg=none`, role ngoài `KNOWN_ROLES`), `tests/cvf/test_auth_login.py` (4 test), cộng probe hồi quy `tests/cvf/test_shift_close_governance.py::test_old_header_impersonation_no_longer_grants_any_identity` (claim `authorized_executive` qua header cũ, không có bearer token → vẫn 401). |
 | permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action, nhưng phụ thuộc identity chưa xác thực ở trên. |
 | domain_lock | callable, load-bearing tại `create_event` và `create_customer_request`, kiểm cả positive lẫn negative (2026-07-22, P2-A + repair) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). Test âm thật: `tests/cvf/test_customer_request_repair.py::test_customer_request_denied_when_domain_lock_excludes_it` xây `CvfProfile` loại `customer_request` khỏi `allowed_domains`, xác nhận `CvfDenied(control="domain_lock")` và không có customer_request/audit nào được ghi — trước bản sửa này (independent review thứ ba, 2026-07-22) chỉ có test happy-path, không có test âm. |
 | data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
 | risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |
-| approval | **load-bearing, known-principal checked (P-FIX-3, 2026-07-22)** | `cvf_runtime/approval.py · assert_approval_satisfied` + `CvfProfile.known_role_for` (`known-principals.yaml`) | Sửa High Finding #4.1: trước đây approver_id/role do caller tự khai trong cùng request được chấp nhận vô điều kiện (HTTP probe: 2 approver bịa hoàn toàn confirm được R3, trả 200). Giờ mỗi seat quorum phải khớp một principal trong `known-principals.yaml` với role đăng ký đủ thẩm quyền — caller không còn bịa id hay tự nâng role. **Còn hạn chế:** đây KHÔNG phải xác thực thật (không chữ ký/token/session) — chỉ là registry chặn bịa hoàn toàn, tạm thời cho tới khi P2-B (auth thật) triển khai. Test: `tests/cvf/test_approval_known_principals.py` (4 test) + HTTP probe xác nhận 409 thay vì 200. |
+| approval | **load-bearing, known-principal checked (P-FIX-3, 2026-07-22)** | `cvf_runtime/approval.py · assert_approval_satisfied` + `CvfProfile.known_role_for` (`known-principals.yaml`) | Sửa High Finding #4.1: trước đây approver_id/role do caller tự khai trong cùng request được chấp nhận vô điều kiện (HTTP probe: 2 approver bịa hoàn toàn confirm được R3, trả 200). Giờ mỗi seat quorum phải khớp một principal trong `known-principals.yaml` với role đăng ký đủ thẩm quyền — caller không còn bịa id hay tự nâng role. **Còn hạn chế:** đây KHÔNG phải xác thực thật (không chữ ký/token/session) — chỉ là registry chặn bịa hoàn toàn. P2-B (2026-07-22) triển khai auth thật cho `identity` (xem mục đó) nhưng **cố ý không đụng tới `known-principals.yaml`** — registry approver này vẫn tách biệt khỏi bảng `users` mới, chưa được thay bằng auth thật. Reconciliation này vẫn còn mở, chưa có tranche nào nhận. Test: `tests/cvf/test_approval_known_principals.py` (4 test) + HTTP probe xác nhận 409 thay vì 200. |
 | evidence | **load-bearing trên cả 2 backend (P-FIX-3, 2026-07-22)** | `cvf_runtime/evidence.py · assert_evidence_sufficient`; persistence qua `operations_ledger._evidence` (bảng `evidence_links`, map trong `tables.py`) | Sửa Critical Finding #2: trước đây `SqlLedger` không map cột evidence — event R2+ ghi evidence xong đọc lại còn 0, `confirm` bị evidence gate từ chối chính event đã có đủ evidence. Task cũng gãy tương tự qua HTTP (`TaskInput` thiếu field evidence). Cả 2 đã sửa: evidence ghi 1 lần lúc tạo (bảng riêng, giống `corrections`), đọc lại đúng; `TaskInput`/router thêm field `evidence`. Test: `tests/integration/test_evidence_persistence.py` (4 test, reproduce đúng kịch bản probe cũ của Codex) + HTTP probe xác nhận R3 task với evidence qua API trả 200. |
 | audit | **load-bearing, atomic với mutation (P-FIX-2, 2026-07-22)** | `Ledger.transaction()` (unit-of-work) qua `Ledger.append_audit(record, unit=unit)` | Sửa High Finding #5: trước đây mutation commit trước, audit ghi sau trong transaction riêng — audit fail thì mutation vẫn đứng không audit. Giờ `EventService.confirm`, `CorrectionService.correct_event`, `TaskService.create_task`/`transition`, `ShiftService.freeze` đều bọc state-change + audit-append trong `transaction()`; `SqlLedger` dùng transaction SQL thật, `InMemoryLedger` snapshot/rollback (deep copy). Test: `tests/cvf/test_atomic_mutation_audit.py` (10 test, failure-injection trên `append_audit`, cả 2 backend, cả 4 service). Phát hiện phụ trong lúc sửa: `InMemoryLedger.get_event/get_task/get_shift` trước đây trả về reference sống, không phải bản sao — service mutate object trước khi vào transaction đã làm rollback vô nghĩa; đã sửa trả `model_copy()`. |
 | cost | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/budget.py · assert_within_budget` | Không nơi nào trong request path gọi hàm này; sẽ load-bearing khi ai-gateway wire tới. |
@@ -143,12 +159,19 @@ chung của cả repo.
 | termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
 | freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
 | shift.close | **load-bearing (P-FIX-6, 2026-07-22)** | `ShiftService.close` (identity/permission `shift.close` role tối thiểu `operator` + state-check chặn close một shift đã `FROZEN`) → `Ledger.transaction()` bọc `close_shift` + `append_audit` atomic, cùng khuôn `freeze`/`TaskService` | Sửa gap review độc lập thứ hai tìm ra 2026-07-22: `POST /shifts/{shift_id}/close` trước đây gọi thẳng `ledger.close_shift(shift_id)` từ router — không `get_principal`, không `require_action`, không audit; probe xác nhận `anonymous_close=200`, `audit_count=0`. Vì freeze chỉ kiểm `shift.status == CLOSED`, close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze. Test: `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403 role thấp, 200 + audit cho principal hợp lệ, rollback atomic khi audit fail trên cả 2 backend, chặn close shift đã FROZEN, chuỗi đầy đủ create→close có governance→freeze qua cả service lẫn HTTP). **Không** đụng tới approval/known-principals (High Finding #4) — ngoài phạm vi tranche này. |
-| customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → `source_message_id` existence check qua `Ledger.message_exists()` khi được cung cấp → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN) + `tests/cvf/test_customer_request_repair.py` (11 test: InMemory alias-bypass, `source_message_id` hợp lệ/không tồn tại trên cả 2 backend + HTTP không còn 500, `promised_at` sai định dạng trả 422, domain_lock negative-profile thật). **Sửa sau independent review 2026-07-22:** InMemoryLedger từng lưu/trả về CHÍNH object mutable của caller cho `add/get/put_customer_request` — `created.status = CLOSED` có thể âm thầm đổi state đã lưu, không qua permission/lifecycle/transaction/audit; giờ trả bản `model_copy()` giống mọi entity khác. `source_message_id` từng được kiểm không nhất quán: InMemory chấp nhận vô điều kiện, SqlLedger/SQLite raise `IntegrityError` từ FK không được bắt, có thể lộ ra HTTP 500; giờ validate qua `message_exists()` trước khi persist trên cả 2 backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán. Router's `promised_at` từng khai `str | None`, giá trị sai định dạng chỉ fail khi construct `CustomerRequest(...)` trong route (ValidationError không được router bắt) → lộ HTTP 500; giờ khai `datetime | None` trên `CustomerRequestInput` để Pydantic reject ở request-boundary, trả 422. **Còn hạn chế:** giống mọi domain khác — identity vẫn header-based không xác thực; `messages` vẫn chưa có persistence vertical thật. |
+| customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → `source_message_id` existence check qua `Ledger.message_exists()` khi được cung cấp → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN) + `tests/cvf/test_customer_request_repair.py` (11 test: InMemory alias-bypass, `source_message_id` hợp lệ/không tồn tại trên cả 2 backend + HTTP không còn 500, `promised_at` sai định dạng trả 422, domain_lock negative-profile thật). **Sửa sau independent review 2026-07-22:** InMemoryLedger từng lưu/trả về CHÍNH object mutable của caller cho `add/get/put_customer_request` — `created.status = CLOSED` có thể âm thầm đổi state đã lưu, không qua permission/lifecycle/transaction/audit; giờ trả bản `model_copy()` giống mọi entity khác. `source_message_id` từng được kiểm không nhất quán: InMemory chấp nhận vô điều kiện, SqlLedger/SQLite raise `IntegrityError` từ FK không được bắt, có thể lộ ra HTTP 500; giờ validate qua `message_exists()` trước khi persist trên cả 2 backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán. Router's `promised_at` từng khai `str | None`, giá trị sai định dạng chỉ fail khi construct `CustomerRequest(...)` trong route (ValidationError không được router bắt) → lộ HTTP 500; giờ khai `datetime | None` trên `CustomerRequestInput` để Pydantic reject ở request-boundary, trả 422. **Còn hạn chế:** `messages` vẫn chưa có persistence vertical thật; identity không còn là giới hạn ở đây (P2-B, 2026-07-22). |
 
 ## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 
+**Lưu ý:** sơ đồ dưới đây là snapshot lịch sử từ trước các tranche P-FIX; chỉ
+dòng `identity` được cập nhật ở đây (P2-B, 2026-07-22). Các dòng khác
+(freeze/state, evidence, audit) mô tả trạng thái TRƯỚC P-FIX-1/2/3 và đã lỗi
+thời — trạng thái đúng hiện tại nằm ở "Golden verticals — phạm vi chính xác"
+phía trên, không phải sơ đồ này.
+
 ```text
-identity        (dependency: get_principal — KHÔNG xác thực, xem bảng trên)
+identity        (dependency: get_principal — xác thực thật qua JWT bearer
+                 token, P2-B 2026-07-22; xem bảng trên)
    ↓
 permission      (require_action "event.confirm")
    ↓
@@ -176,8 +199,10 @@ Critical/High mà 2 review độc lập tìm ra tới nay đã có test end-to-e
 nhận, nhưng KHÔNG có nghĩa "tất cả High Finding đã sửa xong". High Finding #4
 còn nguyên các giới hạn chưa sửa (liệt kê trong
 `SESSION/ACTIVE_SESSION_STATE.json` `blocked_work` và
-`IMPLEMENTATION_STATUS.json`): identity vẫn header-based chưa xác thực thật;
-data minimization chỉ mang tính khuyến nghị; `data_scope`/`cost`/`termination`
-chưa có runtime caller; refusal routing/recording chưa implement;
-known-principals chỉ là registry check, không phải xác thực thật. Không viết
+`IMPLEMENTATION_STATUS.json`). **2026-07-22 (P2-B):** identity đã chuyển từ
+header-based sang xác thực thật qua JWT — không còn ở danh sách này. Vẫn còn
+mở: data minimization chỉ mang tính khuyến nghị; `data_scope`/`cost`/
+`termination` chưa có runtime caller; refusal routing/recording chưa
+implement; known-principals chỉ là registry check, KHÔNG được P2-B thay thế
+(reconciliation với bảng `users` mới vẫn chưa có tranche nào nhận). Không viết
 "tất cả High Finding đã sửa" ở bất kỳ đâu.

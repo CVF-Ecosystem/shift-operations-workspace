@@ -241,8 +241,30 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
 - [ ] **P2-A (còn lại):** incidents, handovers — CHƯA có bảng migration nào
       cho 2 domain này (khác customer_request đã có sẵn migration 002); cần
       migration mới trước khi nhân bản chain, rủi ro/phạm vi lớn hơn.
-- [ ] **P2-B:** Authentication thật (thay header-based principal bằng
-      JWT/session) — nâng identity control.
+- [x] **P2-B (2026-07-22):** Authentication thật — JWT bearer token thay
+      header-based principal. `dependencies.py · get_principal` không còn đọc
+      `X-User-Id`/`X-User-Role` trực tiếp; giờ yêu cầu bearer token đã ký hợp
+      lệ (`workspace_api/auth/tokens.py`, HS256, `JWT_SECRET_KEY` bắt buộc
+      không default → fail-closed lúc khởi động). `POST /auth/login`
+      (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/mật
+      khẩu (bcrypt, `workspace_api/auth/passwords.py`) so với bảng `users`
+      mới (`database/migrations/003_users.sql`, `add_user`/
+      `get_user_by_username` trên cả 2 backend ledger). Mọi router giữ
+      nguyên `principal: Principal = Depends(get_principal)` — chỉ thân hàm
+      `get_principal` đổi. `identity` chuyển từ "not verified server-side"
+      sang "load-bearing" (`docs/cvf/CVF_CONTROL_MAPPING.md`). Test:
+      `tests/cvf/test_auth_tokens.py` (8, gồm tamper/expiry/wrong-secret/
+      `alg=none`/role lạ), `tests/cvf/test_auth_login.py` (4, gồm cùng thông
+      báo lỗi cho sai mật khẩu/username lạ để tránh username enumeration),
+      probe hồi quy xác nhận claim `authorized_executive` qua header cũ
+      (không kèm bearer) vẫn 401, `tests/integration/test_schema_parity_users.py`
+      (role CHECK khớp `KNOWN_ROLES` hai chiều). **Cố ý ngoài phạm vi, ghi rõ
+      chứ không lặng lẽ bỏ qua:** refresh token/revocation, tự đăng ký, đặt
+      lại mật khẩu, rate-limit đăng nhập, và reconciliation với
+      `known-principals.yaml` (registry approver riêng cho quorum R3/R4 —
+      High Finding #4 KHÔNG được tranche này sửa). Cấp user chỉ qua
+      `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật.
+      ADR: `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`.
 - [ ] **P2-C:** Frontend UI cho các vertical đã có backend (bắt đầu Events/
       Open Work), tuân thủ boundary: FE gọi API, không tự enforce.
 - [ ] **P2-D:** PWA offline queue + realtime.
@@ -312,20 +334,27 @@ P-FIX-0; 7 commit P-FIX tính cả P-FIX-6.
 `customer_request` (chi tiết ở mục P2-A phía trên). **Chính xác về phạm vi:**
 P2-A (customer_request) đã xong; P2-A (incidents, handovers) VẪN còn mở —
 2 domain này chưa có bảng migration nào, cần migration mới trước khi nhân
-bản chain, không tuyên bố "P2-A đã đóng" chung chung. Bước kế tiếp hợp lệ là
-mở lại một trong P2-A (còn lại: incidents/handovers, cần migration mới
-trước), P2-B (authentication thật, nên thay thế known-principals.yaml), hoặc
-P2-C (frontend UI, giữ boundary backend-only).
+bản chain, không tuyên bố "P2-A đã đóng" chung chung.
+**2026-07-22 (P2-B):** đã triển khai authentication thật (chi tiết ở mục P2-B
+phía trên và `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`).
+`identity` giờ load-bearing. **Chính xác về phạm vi:** P2-B KHÔNG đụng tới
+`known-principals.yaml` — reconciliation registry approver đó với bảng
+`users` mới vẫn là việc mở, chưa có tranche nào nhận; không tuyên bố "High
+Finding #4 đã sửa". Bước kế tiếp hợp lệ là mở lại một trong P2-A (còn lại:
+incidents/handovers, cần migration mới trước), reconciliation
+known-principals.yaml ↔ `users`, hoặc P2-C (frontend UI, giữ boundary
+backend-only).
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
 governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
-(P2-A-CUSTOMER-REQUEST). **Còn treo, không được tuyên bố đã sửa:**
-identity chưa xác thực thật, data_scope/cost/termination chưa có runtime
-caller, refusal routing/recording chưa implement, known-principals chỉ là
-registry check, PostgreSQL round-trip thật chưa chạy trong môi trường này,
-incidents/handovers (P2-A còn lại) chưa có migration — xem `blocked_work`
-trong `ACTIVE_SESSION_STATE.json`.
+(P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B).
+**Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
+có runtime caller, refusal routing/recording chưa implement, known-principals
+chỉ là registry check (KHÔNG được P2-B thay thế), PostgreSQL round-trip thật
+chưa chạy trong môi trường này, incidents/handovers (P2-A còn lại) chưa có
+migration, P2-B chưa có refresh token/revocation hay admin flow cấp user thật
+— xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
 
 ## Cách dùng roadmap này
 

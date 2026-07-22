@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from workspace_api.auth.router import router as auth_router
 from workspace_api.api.health.router import router as health_router
 from workspace_api.api.shifts.router import router as shifts_router
 from workspace_api.api.messages.router import router as messages_router
@@ -18,6 +19,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(auth_router)
 app.include_router(health_router)
 app.include_router(shifts_router)
 app.include_router(messages_router)

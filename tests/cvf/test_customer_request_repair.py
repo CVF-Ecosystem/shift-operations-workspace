@@ -46,6 +46,8 @@ from test_customer_request_vertical import (
     _sql_ledger,
 )
 
+from _auth_test_helpers import auth_headers
+
 
 # --- Finding 1: InMemory must not return a caller-owned mutable alias --------
 
@@ -180,7 +182,7 @@ def test_http_create_with_nonexistent_source_message_id_is_controlled_not_500():
                 "summary": "Late delivery",
                 "source_message_id": str(uuid4()),
             },
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 404, resp.text
         assert resp.status_code != 500
@@ -202,7 +204,7 @@ def test_http_create_with_valid_promised_at_succeeds():
                 "summary": "Late delivery",
                 "promised_at": "2026-08-01T10:00:00Z",
             },
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 200, resp.text
         assert resp.json()["promised_at"] is not None
@@ -221,7 +223,7 @@ def test_http_create_with_malformed_promised_at_is_422_not_500():
                 "summary": "Late delivery",
                 "promised_at": "not-a-date",
             },
-            headers={"X-User-Id": "op1", "X-User-Role": "operator"},
+            headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 422, resp.text
         assert resp.status_code != 500

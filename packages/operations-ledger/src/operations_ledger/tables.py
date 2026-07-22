@@ -15,6 +15,7 @@ only ``DATABASE_URL`` - no schema or code change.
 from __future__ import annotations
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     Column,
     DateTime,
@@ -173,5 +174,24 @@ customer_requests = Table(
     CheckConstraint(
         "status IN ('NEW','ACKNOWLEDGED','IN_PROGRESS','WAITING','RESOLVED','CLOSED')",
         name="customer_requests_status_check",
+    ),
+)
+
+# Mirrors migration 003_users.sql (P2-B: real authentication). user_id is a
+# free-form text PRIMARY KEY (not uuid) so it can reuse the same ids already
+# used in known-principals.yaml (e.g. "op1", "sup1") - those two registries
+# are independent, but sharing ids keeps dev/test fixtures legible.
+users = Table(
+    "users",
+    metadata,
+    Column("user_id", Text, primary_key=True),
+    Column("username", Text, nullable=False, unique=True),
+    Column("password_hash", Text, nullable=False),
+    Column("role", Text, nullable=False),
+    Column("is_active", Boolean, nullable=False, server_default="true"),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    CheckConstraint(
+        "role IN ('operator','shift_supervisor','responsible_manager','authorized_executive','viewer')",
+        name="users_role_check",
     ),
 )

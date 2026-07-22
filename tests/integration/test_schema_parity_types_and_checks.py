@@ -52,6 +52,8 @@ _MIGRATION_TYPE_FAMILY = {
     "shift_status": "TEXT",
     "data_state": "TEXT",
     "risk_class": "TEXT",
+    # P2-B (2026-07-22): users.is_active is the first mapped boolean column.
+    "boolean": "BOOLEAN",
 }
 
 
@@ -71,6 +73,8 @@ def _code_type_family(sqlalchemy_type) -> str:
         return "TIMESTAMP"
     if type_name in ("JSON",):
         return "JSON"
+    if type_name in ("Boolean",):
+        return "BOOLEAN"
     return f"UNKNOWN:{type_name}"
 
 

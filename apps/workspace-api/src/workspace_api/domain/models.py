@@ -137,3 +137,16 @@ class CustomerRequest(BaseModel):
     received_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     promised_at: datetime | None = None
     owner_id: str | None = None
+
+
+class User(BaseModel):
+    # Mirrors database/migrations/003_users.sql (P2-B: real authentication).
+    # user_id is free-form text (not a UUID) to reuse the same ids already
+    # used in known-principals.yaml, e.g. "op1"/"sup1" - that registry and
+    # this table are independent stores, sharing ids only for legibility.
+    user_id: str
+    username: str
+    password_hash: str
+    role: str
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
