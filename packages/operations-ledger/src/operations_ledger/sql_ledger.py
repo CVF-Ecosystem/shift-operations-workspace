@@ -14,14 +14,22 @@ Design notes:
   import the application layer (dependency points one way: app -> ledger).
 * ``psycopg``/other DB drivers are only required when actually connecting to
   that backend; importing this module never requires them.
+* Unit-of-work (P-FIX-2): ``transaction()`` yields a live SQLAlchemy
+  ``Connection`` with an open transaction. Pass it as ``unit=`` to chain
+  multiple writes (state change, correction insert, audit append) into one
+  commit/rollback. Fixes EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md High
+  Finding #5: previously every method opened and committed its own
+  transaction, so a failure in the audit step left the mutation committed
+  with no audit record.
 """
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 from uuid import UUID
 
 from sqlalchemy import create_engine, event, insert, select, update
-from sqlalchemy.engine import Engine
+from sqlalchemy.engine import Connection, Engine
 
 from operations_ledger import _rows
 from operations_ledger.tables import (
@@ -63,15 +71,34 @@ class SqlLedger:
         self.models = models
         self.engine = engine or make_engine(database_url)
 
-    # --- shifts ---
-    def create_shift(self, shift):
+    @contextmanager
+    def transaction(self):
+        """Unit-of-work: yields a Connection with one open transaction.
+
+        Pass the yielded value as ``unit=`` to chain writes atomically. The
+        transaction commits when the block exits normally and rolls back if
+        any exception propagates — including one raised by an audit write.
+        """
         with self.engine.begin() as conn:
-            conn.execute(insert(shifts).values(**_rows.shift_row(shift)))
+            yield conn
+
+    def _conn(self, unit) -> tuple[Connection, bool]:
+        """Return (connection, owns_transaction). Opens one if unit is None."""
+        if unit is not None:
+            return unit, False
+        return self.engine.begin(), True
+
+    # --- shifts ---
+    def create_shift(self, shift, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            c.execute(insert(shifts).values(**_rows.shift_row(shift)))
         return shift
 
-    def get_shift(self, shift_id: UUID):
-        with self.engine.connect() as conn:
-            row = conn.execute(
+    def get_shift(self, shift_id: UUID, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
                 select(shifts).where(shifts.c.shift_id == shift_id)
             ).mappings().first()
         if row is None:
@@ -83,22 +110,23 @@ class SqlLedger:
             rows = conn.execute(select(shifts)).mappings().all()
         return [self.models.Shift(**dict(r)) for r in rows]
 
-    def close_shift(self, shift_id: UUID):
+    def close_shift(self, shift_id: UUID, *, unit=None):
         Status = self.models.ShiftStatus
-        with self.engine.begin() as conn:
-            row = conn.execute(
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
                 select(shifts).where(shifts.c.shift_id == shift_id)
             ).mappings().first()
             if row is None:
                 raise KeyError(shift_id)
             if row["status"] == Status.FROZEN.value:
                 raise ValueError("Cannot close a frozen shift")
-            conn.execute(
+            c.execute(
                 update(shifts)
                 .where(shifts.c.shift_id == shift_id)
                 .values(status=Status.CLOSED.value, version=row["version"] + 1)
             )
-            row = conn.execute(
+            row = c.execute(
                 select(shifts).where(shifts.c.shift_id == shift_id)
             ).mappings().first()
         return self.models.Shift(**dict(row))
@@ -114,40 +142,43 @@ class SqlLedger:
         if row["status"] == self.models.ShiftStatus.FROZEN.value:
             raise ValueError(f"Cannot {what}: shift is frozen")
 
-    def freeze_shift(self, shift_id: UUID):
+    def freeze_shift(self, shift_id: UUID, *, unit=None):
         Status = self.models.ShiftStatus
-        with self.engine.begin() as conn:
-            row = conn.execute(
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
                 select(shifts).where(shifts.c.shift_id == shift_id)
             ).mappings().first()
             if row is None:
                 raise KeyError(shift_id)
-            if row["status"] == Status.FROZEN:
+            if row["status"] == Status.FROZEN.value:
                 return self.models.Shift(**dict(row))
-            conn.execute(
+            c.execute(
                 update(shifts)
                 .where(shifts.c.shift_id == shift_id)
                 .values(status=Status.FROZEN.value, version=row["version"] + 1)
             )
-            row = conn.execute(
+            row = c.execute(
                 select(shifts).where(shifts.c.shift_id == shift_id)
             ).mappings().first()
         return self.models.Shift(**dict(row))
 
     # --- messages (raw evidence preserved elsewhere; minimal here) ---
-    def add_message(self, message):
+    def add_message(self, message, *, unit=None):
         raise NotImplementedError("message persistence not yet wired to SQL")
 
     # --- events ---
-    def add_event(self, event):
-        with self.engine.begin() as conn:
-            self._assert_shift_not_frozen(conn, event.shift_id, "add event to a frozen shift")
-            conn.execute(insert(operational_events).values(**_rows.event_row(event)))
+    def add_event(self, event, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            self._assert_shift_not_frozen(c, event.shift_id, "add event to a frozen shift")
+            c.execute(insert(operational_events).values(**_rows.event_row(event)))
         return event
 
-    def get_event(self, event_id: UUID):
-        with self.engine.connect() as conn:
-            row = conn.execute(
+    def get_event(self, event_id: UUID, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
                 select(operational_events).where(
                     operational_events.c.event_id == event_id
                 )
@@ -156,11 +187,12 @@ class SqlLedger:
             raise KeyError(event_id)
         return _rows.row_to_event(self.models, row)
 
-    def put_event(self, event, *, allow_when_frozen: bool = False):
-        with self.engine.begin() as conn:
+    def put_event(self, event, *, allow_when_frozen: bool = False, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
             if not allow_when_frozen:
-                self._assert_shift_not_frozen(conn, event.shift_id, "modify event in a frozen shift")
-            conn.execute(
+                self._assert_shift_not_frozen(c, event.shift_id, "modify event in a frozen shift")
+            c.execute(
                 update(operational_events)
                 .where(operational_events.c.event_id == event.event_id)
                 .values(**_rows.event_row(event))
@@ -168,34 +200,38 @@ class SqlLedger:
         return event
 
     # --- tasks ---
-    def add_task(self, task):
-        with self.engine.begin() as conn:
-            self._assert_shift_not_frozen(conn, task.shift_id, "add task to a frozen shift")
-            conn.execute(insert(tasks).values(**_rows.task_row(task)))
+    def add_task(self, task, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            self._assert_shift_not_frozen(c, task.shift_id, "add task to a frozen shift")
+            c.execute(insert(tasks).values(**_rows.task_row(task)))
         return task
 
-    def get_task(self, task_id: UUID):
-        with self.engine.connect() as conn:
-            row = conn.execute(
+    def get_task(self, task_id: UUID, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            row = c.execute(
                 select(tasks).where(tasks.c.task_id == task_id)
             ).mappings().first()
         if row is None:
             raise KeyError(task_id)
         return _rows.row_to_task(self.models, row)
 
-    def put_task(self, task, *, allow_when_frozen: bool = False):
-        with self.engine.begin() as conn:
+    def put_task(self, task, *, allow_when_frozen: bool = False, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
             if not allow_when_frozen:
-                self._assert_shift_not_frozen(conn, task.shift_id, "modify task in a frozen shift")
-            conn.execute(
+                self._assert_shift_not_frozen(c, task.shift_id, "modify task in a frozen shift")
+            c.execute(
                 update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task))
             )
         return task
 
     # --- corrections (append-only) ---
-    def add_correction(self, correction):
-        with self.engine.begin() as conn:
-            conn.execute(insert(corrections).values(**_rows.correction_row(correction)))
+    def add_correction(self, correction, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            c.execute(insert(corrections).values(**_rows.correction_row(correction)))
         return correction
 
     def corrections_for(self, record_id: UUID) -> list:
@@ -213,9 +249,10 @@ class SqlLedger:
             ).mappings().all()
         return [dict(r) for r in rows]
 
-    def append_audit(self, record) -> None:
-        with self.engine.begin() as conn:
-            conn.execute(
+    def append_audit(self, record, *, unit=None) -> None:
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            c.execute(
                 insert(audit_records).values(
                     audit_id=record.audit_id,
                     actor_id=record.actor_id,
@@ -231,3 +268,11 @@ class SqlLedger:
                     occurred_at=record.at,
                 )
             )
+
+
+@contextmanager
+def _noop_cm(conn: Connection):
+    """Wrap an already-open connection so it can be used in a ``with`` block
+    without closing/committing it (the owning ``transaction()`` block does
+    that)."""
+    yield conn

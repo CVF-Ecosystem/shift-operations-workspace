@@ -48,11 +48,19 @@ tiếp gate).
       `POST /shifts/{id}/freeze` trả `200 FROZEN` vô điều kiện; sau fix trả
       `409` cho tới khi close + override. Test: `tests/cvf/test_freeze_invariant.py`
       (12 test, tham số hoá cả `InMemoryLedger` và `SqlLedger`).
-- [ ] **P-FIX-2 (High #5):** Mutation + audit atomic. Gộp state-change +
-      correction-insert + audit-append vào một unit-of-work mỗi ledger
-      (transaction chung cho SqlLedger; cùng nguyên tắc cho InMemoryLedger).
-      Test: failure-injection khiến audit raise — mutation phải rollback, không
-      được đứng ở trạng thái "confirmed nhưng không audit".
+- [x] **P-FIX-2 (High #5):** Mutation + audit atomic. `Ledger.transaction()`
+      (unit-of-work) thêm vào Protocol + cả 2 backend: `SqlLedger` dùng
+      transaction SQL thật (mọi mutation method nhận `unit=` connection tùy
+      chọn); `InMemoryLedger` snapshot/rollback bằng `copy.deepcopy`. Cả 4
+      service (`EventService.confirm`, `CorrectionService.correct_event`,
+      `TaskService.create_task`/`transition`, `ShiftService.freeze`) giờ bọc
+      state-change + audit-append (+ correction-insert) trong một
+      `transaction()`. Test: `tests/cvf/test_atomic_mutation_audit.py` (10
+      test, failure-injection `append_audit` raise, cả 2 backend × 4 service).
+      **Bug thật tìm thấy trong lúc viết test:** `InMemoryLedger.get_event/
+      get_task/get_shift` trả reference sống thay vì bản sao — service mutate
+      object trước khi vào transaction khiến rollback vô nghĩa; sửa bằng
+      `model_copy()`.
 - [ ] **P-FIX-3 (Critical #2, High #4.1):** Lưu evidence qua SqlLedger (map
       `evidence_links`, đọc lại đúng) + thêm field evidence vào `TaskInput`/
       router; xác thực approval server-side (không chấp nhận approver_id/role

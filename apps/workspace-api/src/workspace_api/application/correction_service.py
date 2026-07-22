@@ -92,11 +92,6 @@ class CorrectionService:
         if event.state == DataState.CONFIRMED:
             event.state = DataState.CORRECTED
         event.version = new_version
-        # allow_when_frozen=True: a correction record is the one permitted
-        # post-freeze mutation path (freeze-policy.yaml:
-        # post_freeze_mutation = correction_record_only). Every other write
-        # path defaults to blocking a frozen shift.
-        self.ledger.put_event(event, allow_when_frozen=True)
 
         correction = Correction(
             record_type="OperationalEvent",
@@ -106,18 +101,27 @@ class CorrectionService:
             previous_version=previous_version,
             new_version=new_version,
         )
-        self.ledger.add_correction(correction)
 
-        self.ledger.append_audit(
-            AuditRecord(
-                actor_id=principal.user_id,
-                actor_role=principal.role,
-                action="event.correct",
-                record_type="OperationalEvent",
-                record_id=str(event_id),
-                control_chain=_CONTROL_CHAIN,
-                before_state=before_state,
-                after_state=str(event.state),
+        # Unit-of-work: event update + correction insert + audit append
+        # commit or roll back together (P-FIX-2 / High Finding #5).
+        with self.ledger.transaction() as unit:
+            # allow_when_frozen=True: a correction record is the one permitted
+            # post-freeze mutation path (freeze-policy.yaml:
+            # post_freeze_mutation = correction_record_only). Every other write
+            # path defaults to blocking a frozen shift.
+            self.ledger.put_event(event, allow_when_frozen=True, unit=unit)
+            self.ledger.add_correction(correction, unit=unit)
+            self.ledger.append_audit(
+                AuditRecord(
+                    actor_id=principal.user_id,
+                    actor_role=principal.role,
+                    action="event.correct",
+                    record_type="OperationalEvent",
+                    record_id=str(event_id),
+                    control_chain=_CONTROL_CHAIN,
+                    before_state=before_state,
+                    after_state=str(event.state),
+                ),
+                unit=unit,
             )
-        )
         return correction

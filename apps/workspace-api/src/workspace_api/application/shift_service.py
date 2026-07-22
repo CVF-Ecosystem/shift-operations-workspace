@@ -77,30 +77,35 @@ class ShiftService:
                 http_status=422,
             )
 
-        frozen = self.ledger.freeze_shift(shift_id)
+        # Unit-of-work: the freeze itself and both audit records (freeze +
+        # override) commit or roll back together (P-FIX-2 / High Finding #5).
+        with self.ledger.transaction() as unit:
+            frozen = self.ledger.freeze_shift(shift_id, unit=unit)
 
-        self.ledger.append_audit(
-            AuditRecord(
-                actor_id=principal.user_id,
-                actor_role=principal.role,
-                action="shift.freeze",
-                record_type="Shift",
-                record_id=str(shift_id),
-                control_chain=_FREEZE_CHAIN,
-                before_state=str(ShiftStatus.CLOSED),
-                after_state=str(frozen.status),
+            self.ledger.append_audit(
+                AuditRecord(
+                    actor_id=principal.user_id,
+                    actor_role=principal.role,
+                    action="shift.freeze",
+                    record_type="Shift",
+                    record_id=str(shift_id),
+                    control_chain=_FREEZE_CHAIN,
+                    before_state=str(ShiftStatus.CLOSED),
+                    after_state=str(frozen.status),
+                ),
+                unit=unit,
             )
-        )
-        self.ledger.append_audit(
-            AuditRecord(
-                actor_id=principal.user_id,
-                actor_role=principal.role,
-                action="shift.freeze_override_unimplemented_prerequisites",
-                record_type="Shift",
-                record_id=str(shift_id),
-                control_chain=_FREEZE_CHAIN,
-                before_state=None,
-                after_state=f"report_approved,open_handover_items_linked not checked: {override_reason.strip()}",
+            self.ledger.append_audit(
+                AuditRecord(
+                    actor_id=principal.user_id,
+                    actor_role=principal.role,
+                    action="shift.freeze_override_unimplemented_prerequisites",
+                    record_type="Shift",
+                    record_id=str(shift_id),
+                    control_chain=_FREEZE_CHAIN,
+                    before_state=None,
+                    after_state=f"report_approved,open_handover_items_linked not checked: {override_reason.strip()}",
+                ),
+                unit=unit,
             )
-        )
         return frozen

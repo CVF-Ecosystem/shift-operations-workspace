@@ -76,20 +76,23 @@ class EventService:
         before = str(event.state)
         event.state = DataState.CONFIRMED
         event.version += 1
-        self.ledger.put_event(event)
 
-        # audit: append-only record of the confirmed mutation, written durably
-        # through the ledger (survives restart when a SqlLedger backs it).
-        self.ledger.append_audit(
-            AuditRecord(
-                actor_id=principal.user_id,
-                actor_role=principal.role,
-                action="event.confirm",
-                record_type="OperationalEvent",
-                record_id=str(event_id),
-                control_chain=_CONTROL_CHAIN,
-                before_state=before,
-                after_state=str(event.state),
+        # Unit-of-work: state change + audit append commit or roll back
+        # together. Fixes High Finding #5 (audit was a separate, best-effort
+        # step after mutation had already committed).
+        with self.ledger.transaction() as unit:
+            self.ledger.put_event(event, unit=unit)
+            self.ledger.append_audit(
+                AuditRecord(
+                    actor_id=principal.user_id,
+                    actor_role=principal.role,
+                    action="event.confirm",
+                    record_type="OperationalEvent",
+                    record_id=str(event_id),
+                    control_chain=_CONTROL_CHAIN,
+                    before_state=before,
+                    after_state=str(event.state),
+                ),
+                unit=unit,
             )
-        )
         return event

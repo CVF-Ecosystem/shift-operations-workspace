@@ -63,8 +63,14 @@ class TaskService:
             approvals=approvals,
         )
 
-        stored = self.ledger.add_task(task)
-        self._audit(principal, "task.create", stored.task_id, _CREATE_CHAIN, None, str(stored.status))
+        # Unit-of-work: task insert + audit append commit or roll back
+        # together (P-FIX-2 / High Finding #5).
+        with self.ledger.transaction() as unit:
+            stored = self.ledger.add_task(task, unit=unit)
+            self._audit(
+                principal, "task.create", stored.task_id, _CREATE_CHAIN,
+                None, str(stored.status), unit=unit,
+            )
         return stored
 
     def transition(
@@ -82,12 +88,16 @@ class TaskService:
         before = str(task.status)
         task.status = target_status
         task.version += 1
-        self.ledger.put_task(task)
 
-        self._audit(principal, "task.transition", task_id, _TRANSITION_CHAIN, before, str(task.status))
+        with self.ledger.transaction() as unit:
+            self.ledger.put_task(task, unit=unit)
+            self._audit(
+                principal, "task.transition", task_id, _TRANSITION_CHAIN,
+                before, str(task.status), unit=unit,
+            )
         return task
 
-    def _audit(self, principal, action, record_id, chain, before, after) -> None:
+    def _audit(self, principal, action, record_id, chain, before, after, *, unit=None) -> None:
         self.ledger.append_audit(
             AuditRecord(
                 actor_id=principal.user_id,
@@ -98,5 +108,6 @@ class TaskService:
                 control_chain=chain,
                 before_state=before,
                 after_state=after,
-            )
+            ),
+            unit=unit,
         )

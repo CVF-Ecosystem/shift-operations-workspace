@@ -3,19 +3,19 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "corrective_fix_before_new_domains",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX1.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX2.md",
   "last_updated": "2026-07-22",
   "required_reads": [
     "SESSION/ACTIVE_SESSION_STATE.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX1.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_PFIX2.md",
     "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_CATALOG.md",
     "docs/cvf/CVF_CONTROL_MAPPING.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P-FIX-0 and P-FIX-1 are done. Freeze is now a real cross-record invariant: ShiftService.freeze requires identity/permission/shift_closed (close_shift added to the Ledger Protocol) and an explicit audited override for report_approved/open_handover_items_linked (no model for those yet). Both InMemoryLedger and SqlLedger now block add_event/put_event/add_task/put_task when the parent shift is FROZEN; CorrectionService uses allow_when_frozen=True as the one permitted post-freeze mutation path. Verified end-to-end (12 new tests, parametrized over both backends, plus an HTTP probe confirming the old 200-FROZEN-unconditionally bypass now returns 409). Next: P-FIX-2 - make mutation+audit atomic (currently state-change commits before audit-append in a separate operation; a failure-injection probe should show audit loss without rollback). Follow EXECUTION_ROADMAP.md P-FIX tranche in order. Do NOT open P2-A remaining domains, P2-B, P2-C, or any new phase until the full P-FIX tranche (through P-FIX-5) is done.",
+  "next_allowed_move": "P-FIX-0, P-FIX-1, and P-FIX-2 are done. Mutation+audit is now atomic: Ledger.transaction() (unit-of-work) is on the Protocol and both backends - SqlLedger uses a real SQL transaction (mutating methods accept an optional unit= connection), InMemoryLedger simulates one via deepcopy snapshot/rollback. EventService.confirm, CorrectionService.correct_event, TaskService.create_task/transition, and ShiftService.freeze all wrap their state-change + audit-append (+ correction-insert) in one transaction(). Verified with 10 failure-injection tests (append_audit raises -> mutation must not survive) across both backends and all 4 services. A real bug was found and fixed while adding these tests: InMemoryLedger.get_event/get_task/get_shift returned a live reference instead of a copy, so a service mutating the object before entering transaction() made rollback meaningless - fixed with model_copy(). Next: P-FIX-3 - persist evidence through SqlLedger (map evidence_links, currently silently dropped for events) + add an evidence field to TaskInput/router + verify approval identity server-side instead of trusting caller-asserted approver_id/role. Follow EXECUTION_ROADMAP.md P-FIX tranche in order. Do NOT open P2-A remaining domains, P2-B, P2-C, or any new phase until the full P-FIX tranche (through P-FIX-5) is done.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche (e.g. P-FIX-1) is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result.",
   "blocked_work": [
     "Reusing the labels 'enforced', '12/12', or 'golden vertical' without the callable/load-bearing/not-verified-server-side distinction from docs/cvf/CVF_CONTROL_MAPPING.md (2026-07-22 correction).",
@@ -23,18 +23,19 @@
     "Claiming SqlLedger is production-verified on PostgreSQL without an actual PostgreSQL round-trip test run against a migration-created schema (a static defect - missing tasks.version column - was found by the 2026-07-22 review; PostgreSQL is NOT confirmed to be 'the same code path' until P-FIX-4 fixes this and it is verified live).",
     "Claiming cost/termination are load-bearing before an AI mode beyond NO_AI is wired.",
     "Trusting caller-supplied approval/approver identity as verified authorization (Critical finding: approval quorum shape is checked but approver identity/authority is not).",
-    "Treating audit as guaranteed for a mutation that succeeded (audit is not currently atomic with mutation - see P-FIX-2).",
     "Claiming freeze is enforced for report_approved/open_handover_items_linked - those two prerequisites have no model yet and are only satisfied via an explicit, audited override, not a real check.",
+    "Trusting InMemoryLedger.get_event/get_task/get_shift to return a live reference in any NEW code - they now return model_copy(); do not reintroduce direct dict access that bypasses transaction() semantics.",
     "Adding provider-named entrypoint files (CLAUDE.md as content, etc.) - front door must stay provider-neutral (CONTRIBUTING.md).",
     "Batching more than one roadmap tranche into a single commit."
   ],
   "verification_snapshot": {
     "as_of": "2026-07-22",
-    "pytest": "77 passed (verify by rerunning `python -m pytest -q`, do not trust this number without rerunning)",
+    "pytest": "87 passed (verify by rerunning `python -m pytest -q`, do not trust this number without rerunning)",
     "make_validate": "PASS (catalog + session-state + file-size checks) - catalog check is structural only, does not catch metric/Markdown drift (see P-FIX-5)",
     "cvf_controls_callable": "12/12 (see docs/cvf/CVF_CONTROL_MAPPING.md for which are load-bearing vs. callable-only vs. not-verified-server-side)",
     "p_fix_1_done": "freeze is now load-bearing end-to-end (both backends); see docs/cvf/CVF_CONTROL_MAPPING.md freeze row",
-    "known_remaining_defects": "SqlLedger drops OperationalEvent.evidence (P-FIX-3); PostgreSQL Task insert will fail, migration missing version column (P-FIX-4); approval trusts caller-asserted identity (P-FIX-3); audit not atomic with mutation (P-FIX-2)",
+    "p_fix_2_done": "mutation+audit is now atomic in both backends for all 4 services; see docs/cvf/CVF_CONTROL_MAPPING.md audit row",
+    "known_remaining_defects": "SqlLedger drops OperationalEvent.evidence (P-FIX-3); PostgreSQL Task insert will fail, migration missing version column (P-FIX-4); approval trusts caller-asserted identity (P-FIX-3)",
     "modules_by_status": "enforced=2, partial=4, contract-only=6, stub=8 (per generate_catalog.py --check structural validation; not independently re-verified for metric freshness)",
     "second_independent_review": "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md - read before trusting any 'enforced' claim in this repo"
   }
