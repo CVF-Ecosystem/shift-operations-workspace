@@ -31,7 +31,7 @@ from uuid import UUID
 from sqlalchemy import create_engine, event, insert, select, update
 from sqlalchemy.engine import Connection, Engine
 
-from operations_ledger import _rows
+from operations_ledger import _evidence, _rows
 from operations_ledger.tables import (
     audit_records,
     corrections,
@@ -39,6 +39,9 @@ from operations_ledger.tables import (
     shifts,
     tasks,
 )
+
+_EVENT_RECORD_TYPE = "OperationalEvent"
+_TASK_RECORD_TYPE = "Task"
 
 
 def make_engine(database_url: str, **kwargs) -> Engine:
@@ -173,6 +176,9 @@ class SqlLedger:
         with (conn if owns else _noop_cm(conn)) as c:
             self._assert_shift_not_frozen(c, event.shift_id, "add event to a frozen shift")
             c.execute(insert(operational_events).values(**_rows.event_row(event)))
+            _evidence.insert_evidence(
+                c, event.evidence, record_type=_EVENT_RECORD_TYPE, record_id=event.event_id
+            )
         return event
 
     def get_event(self, event_id: UUID, *, unit=None):
@@ -183,9 +189,12 @@ class SqlLedger:
                     operational_events.c.event_id == event_id
                 )
             ).mappings().first()
-        if row is None:
-            raise KeyError(event_id)
-        return _rows.row_to_event(self.models, row)
+            if row is None:
+                raise KeyError(event_id)
+            evidence = _evidence.evidence_for(
+                c, self.models, record_type=_EVENT_RECORD_TYPE, record_id=event_id
+            )
+        return _rows.row_to_event(self.models, row, evidence=evidence)
 
     def put_event(self, event, *, allow_when_frozen: bool = False, unit=None):
         conn, owns = self._conn(unit)
@@ -205,6 +214,9 @@ class SqlLedger:
         with (conn if owns else _noop_cm(conn)) as c:
             self._assert_shift_not_frozen(c, task.shift_id, "add task to a frozen shift")
             c.execute(insert(tasks).values(**_rows.task_row(task)))
+            _evidence.insert_evidence(
+                c, task.evidence, record_type=_TASK_RECORD_TYPE, record_id=task.task_id
+            )
         return task
 
     def get_task(self, task_id: UUID, *, unit=None):
@@ -213,9 +225,12 @@ class SqlLedger:
             row = c.execute(
                 select(tasks).where(tasks.c.task_id == task_id)
             ).mappings().first()
-        if row is None:
-            raise KeyError(task_id)
-        return _rows.row_to_task(self.models, row)
+            if row is None:
+                raise KeyError(task_id)
+            evidence = _evidence.evidence_for(
+                c, self.models, record_type=_TASK_RECORD_TYPE, record_id=task_id
+            )
+        return _rows.row_to_task(self.models, row, evidence=evidence)
 
     def put_task(self, task, *, allow_when_frozen: bool = False, unit=None):
         conn, owns = self._conn(unit)

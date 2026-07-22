@@ -10,7 +10,7 @@ from operations_ledger import Ledger
 
 from workspace_api.application.task_service import TaskService
 from workspace_api.dependencies import get_ledger, get_principal
-from workspace_api.domain.models import RiskClass, Task, TaskStatus
+from workspace_api.domain.models import EvidenceRef, RiskClass, Task, TaskStatus
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
@@ -21,6 +21,11 @@ class TaskInput(BaseModel):
     description: str | None = None
     owner_id: str | None = None
     risk_class: RiskClass = RiskClass.R1
+    # Previously missing: an R2+ task submitted with evidence over HTTP was
+    # silently accepted by Pydantic (extra field ignored) and the service saw
+    # zero evidence, always refusing (EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md
+    # High Finding #4.1 / Critical Finding #2's Task half).
+    evidence: list[EvidenceRef] = []
     approvals: list[Approval] = []
 
 
@@ -40,6 +45,7 @@ def create_task(
         description=payload.description,
         owner_id=payload.owner_id,
         risk_class=payload.risk_class,
+        evidence=payload.evidence,
     )
     try:
         return TaskService(ledger).create_task(task, principal, payload.approvals)

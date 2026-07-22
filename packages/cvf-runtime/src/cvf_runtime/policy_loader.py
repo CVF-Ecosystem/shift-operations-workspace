@@ -30,6 +30,7 @@ _PROFILE_FILES: dict[str, str] = {
     "data": "data-policy.yaml",
     "cost": "cost-policy.yaml",
     "termination": "termination-policy.yaml",
+    "known_principals": "known-principals.yaml",
 }
 
 
@@ -53,10 +54,21 @@ class CvfProfile:
     data: dict[str, Any]
     cost: dict[str, Any]
     termination: dict[str, Any]
+    known_principals: dict[str, Any]
 
     @property
     def required_controls(self) -> list[str]:
         return list(self.profile.get("required_controls", []))
+
+    def known_role_for(self, principal_id: str) -> str | None:
+        """Role registered for a known principal id, or None if unknown.
+
+        Interim measure (P-FIX-3) before real authentication (P2-B): this is
+        NOT a signature/token check, only a lookup against a governed list of
+        known ids. It prevents an approver identity from being invented
+        outright in a request body.
+        """
+        return self.known_principals.get("principals", {}).get(principal_id)
 
 
 def _read_yaml(path: Path, logical_name: str) -> dict[str, Any]:

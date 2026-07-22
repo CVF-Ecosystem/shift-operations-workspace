@@ -115,13 +115,15 @@ def test_r3_same_person_cannot_fill_two_seats(profile):
 
 
 def test_r3_two_distinct_authorized_approvers_pass(profile):
+    # sup2/mgr1 must be registered in known-principals.yaml for this to pass -
+    # this is the P-FIX-3 known-principal check, not just quorum shape.
     assert_approval_satisfied(
         profile=profile,
         risk_class="R3",
         confirmer=_confirmer(),
         approvals=[
-            Approval(approver_id="a1", role="shift_supervisor"),
-            Approval(approver_id="a2", role="responsible_manager"),
+            Approval(approver_id="sup2", role="shift_supervisor"),
+            Approval(approver_id="mgr1", role="responsible_manager"),
         ],
     )
 
@@ -133,14 +135,14 @@ def test_r4_escalation_board_roles(profile):
             profile=profile,
             risk_class="R4",
             confirmer=_confirmer(),
-            approvals=[Approval(approver_id="a1", role="responsible_manager")],
+            approvals=[Approval(approver_id="mgr1", role="responsible_manager")],
         )
     assert_approval_satisfied(
         profile=profile,
         risk_class="R4",
         confirmer=_confirmer(),
         approvals=[
-            Approval(approver_id="a1", role="responsible_manager"),
-            Approval(approver_id="a2", role="authorized_executive"),
+            Approval(approver_id="mgr1", role="responsible_manager"),
+            Approval(approver_id="exec1", role="authorized_executive"),
         ],
     )

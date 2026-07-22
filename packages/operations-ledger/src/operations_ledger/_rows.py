@@ -37,7 +37,7 @@ def event_row(event) -> dict:
     }
 
 
-def row_to_event(models, row):
+def row_to_event(models, row, *, evidence=None):
     return models.OperationalEvent(
         event_id=row["event_id"],
         shift_id=row["shift_id"],
@@ -50,6 +50,7 @@ def row_to_event(models, row):
         ends_at=row["ends_at"],
         owner_id=row["owner_id"],
         version=row["version"],
+        evidence=evidence or [],
     )
 
 
@@ -68,7 +69,7 @@ def task_row(task) -> dict:
     }
 
 
-def row_to_task(models, row):
+def row_to_task(models, row, *, evidence=None):
     return models.Task(
         task_id=row["task_id"],
         shift_id=row["shift_id"],
@@ -80,6 +81,27 @@ def row_to_task(models, row):
         risk_class=row["risk"],
         state=row["state"],
         version=row["version"],
+        evidence=evidence or [],
+    )
+
+
+def evidence_link_row(evidence_ref, *, record_type: str, record_id) -> dict:
+    return {
+        "evidence_link_id": evidence_ref.evidence_id,
+        "record_type": record_type,
+        "record_id": record_id,
+        "source_type": evidence_ref.source_type,
+        "source_id": evidence_ref.source_id,
+        "sha256": evidence_ref.sha256,
+    }
+
+
+def row_to_evidence_ref(models, row):
+    return models.EvidenceRef(
+        evidence_id=row["evidence_link_id"],
+        source_type=row["source_type"],
+        source_id=row["source_id"],
+        sha256=row["sha256"],
     )
 
 

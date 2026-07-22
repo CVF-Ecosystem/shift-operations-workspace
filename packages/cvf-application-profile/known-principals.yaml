@@ -1,0 +1,18 @@
+# Known-principal registry (P-FIX-3, interim measure before real auth/P2-B).
+#
+# assert_approval_satisfied only accepts an approval whose approver_id is
+# listed here AND whose declared role matches the role recorded for that
+# principal. This closes the most direct bypass Codex found: a caller could
+# previously submit ANY approver_id/role string in the request body and it
+# would satisfy the quorum shape. This is NOT full authentication - there is
+# no signature, token, or session tied to these entries. It only prevents an
+# approver identity from being invented outright. Replace with a real
+# identity/authorization source when P2-B (authentication) is implemented.
+principals:
+  sup1: shift_supervisor
+  sup2: shift_supervisor
+  sup3: shift_supervisor
+  mgr1: responsible_manager
+  mgr2: responsible_manager
+  exec1: authorized_executive
+  op1: operator

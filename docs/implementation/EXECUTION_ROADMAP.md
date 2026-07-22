@@ -61,12 +61,20 @@ tiếp gate).
       get_task/get_shift` trả reference sống thay vì bản sao — service mutate
       object trước khi vào transaction khiến rollback vô nghĩa; sửa bằng
       `model_copy()`.
-- [ ] **P-FIX-3 (Critical #2, High #4.1):** Lưu evidence qua SqlLedger (map
-      `evidence_links`, đọc lại đúng) + thêm field evidence vào `TaskInput`/
-      router; xác thực approval server-side (không chấp nhận approver_id/role
-      do caller tự khai trong cùng request — cần nguồn xác thực độc lập, ít
-      nhất một registry role đã biết, tối thiểu chặn approver trùng với
-      identity chưa xác thực). P2-B (auth thật) có thể cần đi cùng bước này.
+- [x] **P-FIX-3 (Critical #2, High #4.1):** Lưu evidence qua SqlLedger — bảng
+      `evidence_links` map vào `tables.py`, ghi 1 lần lúc tạo record
+      (`_evidence.py` helper dùng chung event/task), đọc lại đúng; `TaskInput`/
+      router thêm field `evidence` (trước đây Pydantic bỏ field lạ, request
+      HTTP luôn gửi evidence rỗng). Xác thực approval server-side: thêm
+      `known-principals.yaml` (registry principal đã biết + role thật) +
+      `CvfProfile.known_role_for`; `assert_approval_satisfied` chỉ chấp nhận
+      seat quorum từ approver có trong registry với role đủ thẩm quyền —
+      không còn bịa id hay tự nâng role. **Ghi rõ giới hạn:** đây không phải
+      xác thực thật (không chữ ký/token/session), chỉ chặn bịa hoàn toàn; thay
+      bằng auth thật khi P2-B triển khai. Test: `test_evidence_persistence.py`
+      (4), `test_approval_known_principals.py` (4), cộng 2 HTTP probe reproduce
+      đúng kịch bản Codex (evidence event R2 qua SqlLedger, approver bịa cho
+      R3) — cả hai giờ trả kết quả đúng thay vì sai như review ghi nhận.
 - [ ] **P-FIX-4 (High #3):** Thêm cột `version` vào migration
       `002_tasks_customers_reports.sql` cho bảng `tasks` (khớp những gì runtime
       luôn ghi). Siết `test_schema_parity.py`: so sánh cột/type/nullable/

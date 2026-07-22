@@ -88,6 +88,18 @@ corrections = Table(
     CheckConstraint("new_version > previous_version", name="corrections_version_check"),
 )
 
+evidence_links = Table(
+    "evidence_links",
+    metadata,
+    Column("evidence_link_id", Uuid, primary_key=True),
+    Column("record_type", Text, nullable=False),
+    Column("record_id", Uuid, nullable=False),
+    Column("source_type", Text, nullable=False),
+    Column("source_id", Text, nullable=False),
+    Column("sha256", Text),
+    Column("created_at", DateTime(timezone=True), server_default=func.now()),
+)
+
 audit_records = Table(
     "audit_records",
     metadata,
