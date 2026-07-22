@@ -4,9 +4,11 @@
 - Tranche: `CVF-CORE-PIN-2026-07-23`
 - Control-chain phase at authoring time: `SPEC`
 - Risk: **R2**
-- Status: **APPROVED** — independent authorization-artifact REVIEW passed on
-  2026-07-23. BUILD may begin only after the authorization commit hash is
-  supplied to IMPLEMENTATION_WORKER. Not implemented.
+- Status: **BUILD COMPLETE AND COMMITTED (`da9a122`); §9 FREEZE ADDENDUM
+  PROPOSED** — §1-§8 were approved on 2026-07-23, implemented, independently
+  reviewed, and committed. §9 (added 2026-07-23) authorizes the continuity
+  work that §1.2 deliberately deferred until the P2-B FREEZE batch was
+  committed; it is **not yet reviewed and not yet implemented**.
 - Design: `docs/decisions/ADR_2026-07-23_CVF_CORE_PIN.md`
 - Work order: `docs/work_orders/CVF_CORE_PIN_WORK_ORDER.md`
 
@@ -270,3 +272,236 @@ and MUST NOT be described as establishing:
 - that the four upstream documentation changes were reviewed for content
   correctness — they are accepted as the public core's own state, not
   audited by this project.
+
+---
+
+# §9 — FREEZE Addendum (added 2026-07-23)
+
+- Addendum status: **REVIEW_PASS — AUTHORIZED_AFTER_ADDENDUM_COMMIT**.
+  Independently reviewed on 2026-07-23. Continuity work remains prohibited
+  until the addendum authorization commit hash is supplied.
+
+§1.2 placed continuity synchronization out of scope for BUILD, because the
+same continuity files were held by the uncommitted P2-B FREEZE batch. That
+batch is now committed (`4e15ea4`), so the deferral condition has expired.
+This addendum authorizes **only** that deferred continuity work. It opens no
+feature tranche, changes no §1-§8 requirement, and revises no claim already
+established by `da9a122`.
+
+## 9.1 Verified preconditions (captured read-only 2026-07-23)
+
+| # | Property | Verified value |
+|---|---|---|
+| C-14 | Authorization-artifacts commit | `76e73606d9f7d4a5e4203816d18bd20101860532` — 3 files (ADR, SPEC, WORK_ORDER), 0 implementation files |
+| C-15 | BUILD / REVIEW_PASS core-pin commit | `da9a1223bb9940769c38c1dbbea3b64c9898175a` — `.cvf/manifest.json` only, 1 insertion / 1 deletion |
+| C-16 | P2-B FREEZE commit, separate | `4e15ea4260817a07e4db11543fc8ffa0aff7f4f1` — 11 files, none of them `.cvf/manifest.json` |
+| C-17 | Commit order | `76e7360` → `da9a122` → `4e15ea4`, each an ancestor of `HEAD`; AC-19 therefore already satisfied |
+| C-18 | Hidden core HEAD / `origin/main` / manifest `cvfCoreCommit` | all three = `6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2` |
+| C-19 | Hidden core worktree | clean |
+| C-20 | Project worktree | clean (`git status --porcelain` empty) |
+| C-21 | Workspace doctor | `RESULT: PASS (24/24 checks passed)` |
+| C-22 | Active handoff | still points at the P2-B FREEZE handoff — no core-pin closing handoff exists yet |
+| C-23 | `docs/INDEX.md` lines 23-26 | still describe `docs/specs/` and `docs/work_orders/` as "stub — not yet populated", which is now false |
+
+## 9.2 Authorized changed set — exactly six paths
+
+- **F-1** `SESSION/SESSION_MEMORY.md` (edit)
+- **F-2** `SESSION/ACTIVE_SESSION_STATE.json` (edit)
+- **F-3** `CVF_SESSION/ACTIVE_SESSION_STATE.json` (edit — compatibility mirror)
+- **F-4** `IMPLEMENTATION_STATUS.json` (edit)
+- **F-5** `docs/INDEX.md` (edit)
+- **F-6** `SESSION/handoffs/AGENT_HANDOFF_2026-07-23_CVF_CORE_PIN_FREEZE.md` (new)
+
+Nothing else. Explicitly **not** authorized: application source, tests,
+migrations, schema, `docs/catalog/MODULE_REGISTRY.json`,
+`docs/catalog/MODULE_CATALOG.md`, `docs/implementation/EXECUTION_ROADMAP.md`,
+`docs/cvf/CVF_CONTROL_MAPPING.md`, any `packages/ai-providers/**` or other
+provider file, and **`.cvf/manifest.json`** — the manifest pin is already
+committed at `da9a122` and MUST NOT be touched again by this addendum.
+
+## 9.3 Content requirements
+
+### 9.3.1 Disposition
+
+- **R-33** — The core-pin tranche MUST be recorded as
+  `FREEZE` / `CLOSED_BOUNDED`. Not `CLOSED`, not `DONE`.
+
+### 9.3.2 Facts that MUST appear, exactly and verifiably
+
+- **R-34** — Authorization-artifacts commit `76e7360`.
+- **R-35** — BUILD / REVIEW_PASS core-pin commit `da9a122`.
+- **R-36** — Core and manifest pin `6ce1cf0`
+  (`6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2`).
+- **R-37** — Workspace doctor `24/24`.
+- **R-38** — P2-B FREEZE recorded as a **separate** commit `4e15ea4`, with the
+  fact that the two tranches were never batched stated plainly.
+
+Each of R-34..R-38 must be checkable against `git log` / the doctor, not
+asserted from memory.
+
+### 9.3.3 Continuity pointers
+
+- **R-39** — `active_handoff` (F-2) and `activeHandoff`
+  (F-2's `cvf_bootstrap_continuity_contract` block, and F-3) MUST point at
+  F-6, the new core-pin closing handoff.
+- **R-40** — F-6 MUST exist, and MUST record: tranche id, disposition
+  (R-33), the R-34..R-38 facts, the verified boundary, the drift in §9.3.6,
+  and the next governed move (R-47).
+- **R-41** — F-2's `required_reads` MUST include F-6. The superseded P2-B
+  FREEZE handoff MUST remain listed and MUST NOT be deleted from
+  `SESSION/handoffs/` — superseded handoffs are retained history.
+- **R-42** — F-3 MUST stay a pointer mirror only. Its `canonicalSource` MUST
+  remain `SESSION/ACTIVE_SESSION_STATE.json`, and it MUST NOT gain
+  independent long-form content. F-2 and F-3 MUST agree such that
+  `scripts/check_session_state.py` passes.
+
+### 9.3.4 Status file
+
+- **R-43** — F-4 MUST record the core-pin tranche closure (R-33..R-38) as a
+  governance/tooling event.
+- **R-44** — F-4 MUST NOT change any roadmap feature status. Specifically,
+  `status`, the `cvf_enforcement` findings blocks, `p2a_customer_request`,
+  and `p2b_authentication` dispositions MUST retain their present meaning. No
+  roadmap item may be marked done, opened, reordered, or reprioritized.
+
+### 9.3.5 Index correction
+
+- **R-45** — F-5 MUST stop describing `docs/specs/` and `docs/work_orders/`
+  as "stub — not yet populated". Both families are now populated by real
+  per-tranche artifacts (`P2B_AUTHENTICATION_REPAIR_*`,
+  `ALIBABA_LIVE_PROVIDER_CONFIGURATION_*`, `CVF_CORE_PIN_*`). The replacement
+  wording MUST describe actual current contents and MUST NOT overstate them
+  (they are per-tranche governance artifacts, not a complete specification of
+  the system).
+
+### 9.3.6 Continuity drift that MUST be recorded, not resolved
+
+A real, verified disagreement exists between the roadmap-ordering rule and
+the recorded next move:
+
+- `CONTRIBUTING.md` line 21 states the ordering rule: take the next `[ ]`
+  item in order (`lấy item [ ] kế tiếp theo thứ tự`).
+- The first `[ ]` item in `docs/implementation/EXECUTION_ROADMAP.md` is line
+  207, **P1-B** (extracting domain models into `operations-domain`).
+- `SESSION/ACTIVE_SESSION_STATE.json`'s `next_allowed_move` offers only
+  P2-A (remaining incidents/handovers), `known-principals.yaml` ↔ users
+  (High Finding #4), and P2-C — **P1-B is absent from that list.**
+
+Therefore:
+
+- **R-46** — F-1, F-2, and F-6 MUST record this drift explicitly, citing both
+  sides (the ordering rule and the three-lane list) and naming P1-B as the
+  item the rule would select.
+- **R-47** — The recorded next allowed move after core-pin FREEZE MUST be
+  **INTAKE for an operator-confirmed lane**. No agent may resolve this drift
+  by choosing a lane, by reprioritizing the roadmap, by editing the roadmap,
+  or by declaring the rule or the list authoritative over the other. The
+  drift MUST be presented to the operator as an open question to decide.
+- **R-48** — Resolving the drift is explicitly OUT of scope for this
+  addendum. Recording it accurately is the deliverable.
+
+### 9.3.7 Claim boundaries that MUST be preserved
+
+- **R-49** — Nothing written under this addendum may claim the core-pin
+  tranche demonstrates, verifies, or evidences AI/agent governance behavior.
+  It synchronized a documentation-only core delta and a manifest pin; the
+  doctor proves local enforcement artifacts and public-core freshness only.
+- **R-50** — No provider API call may be made, and no secret may be read,
+  printed, logged, or persisted. `AGENTS.md` Mandatory Governance Proof is
+  not triggered because no AI-governance claim is made.
+- **R-51** — All P2-B bounded claims MUST be preserved verbatim in meaning:
+  identity is load-bearing and governance-approved **within the receipt
+  boundary only**; no refresh tokens, revocation, self-service registration,
+  password reset, login rate-limiting, or real admin provisioning exist;
+  PostgreSQL has never been round-trip verified live.
+- **R-52** — High Finding #4 MUST remain recorded as **OPEN**.
+  `known-principals.yaml` is still a registry check, not authentication, and
+  was not reconciled with the `users` table.
+- **R-53** — `cd36b27` MUST remain described as the original unauthorized
+  build candidate, retained unrewritten as historical evidence.
+
+## 9.4 Required checks
+
+All MUST be run and MUST pass, with real output captured:
+
+- **R-54** — `python -m pytest -q`
+- **R-55** — `python scripts/testing/validate_repository.py`
+- **R-56** — `python scripts/check_session_state.py`
+- **R-57** — `python scripts/generate_catalog.py --check`
+- **R-58** — Workspace doctor via
+  `powershell -ExecutionPolicy Bypass -File scripts/initialize_cvf_clone.ps1`
+  → `24/24` and `FRESH_CLONE_CONTINUITY_PASS`
+- **R-59** — JSON parse of every JSON file in the changed set
+  (`SESSION/ACTIVE_SESSION_STATE.json`,
+  `CVF_SESSION/ACTIVE_SESSION_STATE.json`, `IMPLEMENTATION_STATUS.json`)
+- **R-60** — Exact changed-set review: `git status --porcelain` shows the six
+  §9.2 paths and nothing else
+- **R-61** — Secret scan over the full changed set — clean
+
+R-57 is a containment check as much as a validation: the catalog is **not**
+in the authorized changed set, so `--check` must pass without any
+regeneration. If it reports drift, the changed set escaped its boundary.
+
+## 9.5 Evidence contract
+
+- **E-15** — Pre-change `git status --porcelain` proving a clean start.
+- **E-16** — Commit-order verification for `76e7360`, `da9a122`, `4e15ea4`,
+  plus `git show --stat` for `da9a122` and `4e15ea4` proving the two tranches
+  were committed separately.
+- **E-17** — Core/manifest/`origin/main` triple-equality at `6ce1cf0` and a
+  clean core worktree.
+- **E-18** — Output of R-54..R-59.
+- **E-19** — Post-change `git status --porcelain` plus `git diff --stat`
+  proving R-60.
+- **E-20** — Secret-scan output (R-61).
+- **E-21** — The drift citation (R-46) reproduced from the real files:
+  `CONTRIBUTING.md:21`, `EXECUTION_ROADMAP.md:207`, and the
+  `next_allowed_move` text.
+
+Evidence MUST be real command output. Paraphrase is not evidence.
+
+## 9.6 Acceptance criteria
+
+| AC | Statement | Verifies |
+|---|---|---|
+| AC-20 | Changed set is exactly the six §9.2 paths; nothing else added, modified, or deleted | §9.2, R-60 |
+| AC-21 | `.cvf/manifest.json` is untouched by this addendum | §9.2 |
+| AC-22 | Disposition recorded as `FREEZE` / `CLOSED_BOUNDED` | R-33 |
+| AC-23 | `76e7360`, `da9a122`, `6ce1cf0`, doctor 24/24, and separate P2-B commit `4e15ea4` all recorded and independently checkable | R-34..R-38 |
+| AC-24 | Active handoff (canonical and mirror) points at the new core-pin closing handoff, which exists and is complete | R-39, R-40, R-41 |
+| AC-25 | Mirror stays a pointer only; `check_session_state.py` PASS | R-42, R-56 |
+| AC-26 | `IMPLEMENTATION_STATUS.json` records closure without altering any roadmap feature status | R-43, R-44 |
+| AC-27 | `docs/INDEX.md` no longer calls specs/work_orders stubs, and does not overstate them | R-45 |
+| AC-28 | Drift recorded in memory, active state, and handoff, citing both sides and naming P1-B | R-46 |
+| AC-29 | Next allowed move is INTAKE for an operator-confirmed lane; no lane chosen, no roadmap reprioritized | R-47, R-48 |
+| AC-30 | No AI-governance claim; no provider call; no secret touched | R-49, R-50, R-61 |
+| AC-31 | P2-B bounded claims preserved; High Finding #4 still OPEN; `cd36b27` still the unauthorized build candidate | R-51, R-52, R-53 |
+| AC-32 | All of R-54..R-59 pass with captured output | §9.4 |
+| AC-33 | Catalog `--check` passes with no regeneration, proving the changed set stayed inside its boundary | R-57 |
+| AC-34 | FREEZE changes left uncommitted for independent review | §9.7 |
+| AC-35 | FREEZE commit is separate; no amend, rebase, or force-push | §9.7 |
+
+## 9.7 Commit discipline for this addendum
+
+1. This addendum (the SPEC §9 and WORK_ORDER §13 edits) is reviewed and
+   committed **before** any continuity change, as its own authorization
+   commit.
+2. The continuity FREEZE work begins only after that authorization commit
+   hash is supplied.
+3. The continuity changes are left **uncommitted** for independent review.
+4. The FREEZE commit is **separate** from `76e7360`, `da9a122`, and
+   `4e15ea4`. No amend, rebase, or force-push. `cd36b27` is never rewritten.
+5. Staging is explicit per-path only. `git add -A` and `git add .` remain
+   prohibited.
+
+## 9.8 Non-claims of this addendum
+
+Completing §9 records closure of a tooling/governance tranche and repairs
+continuity accuracy. It does **not**:
+
+- advance, close, open, or reorder any roadmap feature item;
+- resolve the P1-B / three-lane ordering drift;
+- alter the P2-B FREEZE disposition or its live-evidence receipt;
+- close High Finding #4;
+- establish any AI-governance behavior claim;
+- re-open or re-verify `da9a122`, whose REVIEW_PASS already stands.
