@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-23 (P1B-OPERATIONS-DOMAIN-EXTRACTION: FREEZE / CLOSED_BOUNDED)_
+_Last updated: 2026-07-24 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24: authorization repaired round 1, pending independent re-review)_
 
 ## Where the project is
 
@@ -154,6 +154,69 @@ authorization defect thay vì nuốt lặng vào BUILD commit. Full suite 292 pa
 `C3_PARENT ab75abb` và baseline 221, cleanup PASS. Chi tiết:
 `SESSION/handoffs/AGENT_HANDOFF_2026-07-23_P1B_OPERATIONS_DOMAIN_EXTRACTION.md`.
 
+**2026-07-24 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24 — WORK_ORDER,
+authorization authored):** `CVF-Operations-Workspace` (một repo Git độc lập
+khác, cùng chủ sở hữu) đã author và push `XR1-O-C1`: một portable
+relationship contract (`ADR-OW-006`/`OW-XR1-SPEC-001`/`OW-XR1-WO-001`, commit
+`74170650bd7f2732bc2eec985e5b891df6d45897`, continuity sau push
+`3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a`) đặt tên repo này là
+`PROFILE_SOURCE` và chính nó là `PRIMARY_PLATFORM`, cộng một công cụ
+`scan`/`apply` tương lai (Operations-side, chỉ đọc repo này, không bao giờ
+ghi). `XR1-O-C2` bên Operations bị chặn tới khi repo này đóng xong
+`XR1-S-C1` → `XR1-S-C3`. Tranche này mở authorization đó:
+`ADR-2026-07-24-XR1S-RECIPROCAL-WORKSPACE-LINK`,
+`SPEC-XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`,
+`WO-XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`. Quyết định: relationship
+identity (`workspaceId cvf-operations-workspace`, vai trò
+`PROFILE_SOURCE`/`PRIMARY_PLATFORM`, direction
+`SHIFT_TO_OPERATIONS_GOVERNED_INTAKE`); một descriptor phía Shift tương lai
+chỉ 5 trường, **cố ý KHÔNG có `sourcePin`** (Operations là bên tiêu thụ, chỉ
+Operations mới có quyền tuyên bố commit Shift nào đã được chấp nhận — Shift
+tuyên bố hộ là một lỗi phạm trù); tách bắt buộc `XR1-S-C2a` (sửa 1 dòng
+`.cvf/manifest.json`, `6ce1cf0` → `27137db4`, đúng khuôn
+`CVF-CORE-PIN-2026-07-23`) và `XR1-S-C2b`
+(`.cvf/workspace-link.json` + 1 test descriptor), **không bao giờ gộp**; 10
+yêu cầu test descriptor; BUILD gate cho từng commit tương lai; và claim
+boundary chỉ chứng minh relationship identity + role separation + core-pin
+repair — **không** chứng minh Operations đã import/chấp nhận commit Shift
+nào, không chứng minh công cụ refresh tồn tại, không đóng High Finding #4,
+không hoàn thành `P2B-APPROVER-IDENTITY-RECONCILIATION`. Đã verify: Shift
+HEAD=origin/main=`f98f29e145fa002be070e9d44520d20f0f82dcb3`, worktree sạch
+trừ file assessment untracked (sha256 `168ea2c7a67a...`, không đổi),
+workspace doctor `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` (dòng
+core/manifest `[FAIL]` warn-only vì drift `6ce1cf0`/`27137db4`, cộng 1
+`[WARN]` không liên quan về catalog kit chưa có), full suite `292 passed`.
+**`P2B-APPROVER-IDENTITY-RECONCILIATION` (lane 2, WORK_ORDER `DRAFT — NOT
+APPROVED. BUILD IS NOT AUTHORIZED.`, committed tại HEAD hiện tại
+`f98f29e145fa002be070e9d44520d20f0f82dcb3`) là PARKED bởi tranche này —
+KHÔNG sửa, KHÔNG resume, KHÔNG supersede, KHÔNG cancel, KHÔNG BUILD** — hệt
+như cách `CVF-CORE-PIN-2026-07-23` từng được chèn vào mà không đụng tới thứ
+tự lane. Không BUILD, không tạo `.cvf/workspace-link.json`, không sửa
+`.cvf/manifest.json`, không gọi provider, không đọc secret. Chi tiết:
+`SESSION/handoffs/AGENT_HANDOFF_2026-07-24_XR1S_RECIPROCAL_WORKSPACE_LINK.md`.
+
+**2026-07-24 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24 — REPAIR ROUND 1):**
+Codex review độc lập trả `REVIEW_FAIL` với 3 finding, đã sửa hết không có
+waiver. **`XR1S-R1` IMPOSSIBLE_FULL_DOCTOR_PASS** — yêu cầu doctor `PASS`
+hoàn toàn sạch là bất khả thi vì repo này vốn đã có warning
+`LEGACY_PROJECT: governed downstream catalog kit not present`; sửa: dòng
+core/manifest phải thành `[PASS]`, không được có `[FAIL]`/`[WARN]` mới,
+kết quả tổng thể được phép vẫn là `PASS WITH NOTE` chỉ khi note còn lại
+đúng là warning có sẵn đó. **`XR1S-R2` DETERMINISTIC_CATALOG_GATE_CONFLICT**
+— `XR1-S-C2b` giờ có thêm trần (ceiling, không phải yêu cầu bắt buộc) cho
+`docs/catalog/MODULE_REGISTRY.json`/`docs/catalog/MODULE_CATALOG.md`, chỉ
+đụng tới nếu `generate_catalog.py --check` báo drift thật do 2 file bắt
+buộc gây ra, và chỉ qua generator canonical (`--write`), không bao giờ
+sửa tay. **`XR1S-R3` UNNECESSARY_RECONCILER_SIDE_EFFECT** — core CVF ẩn đã
+sạch và đúng commit đích rồi, nên `XR1-S-C2a` giờ chỉ verify-only (không
+chạy reconciler, không tạo `_cvf-core-backups/`); nếu core drift lúc BUILD
+thì dừng lại xin review độc lập thay vì tự sửa. Mọi quyết định trước giữ
+nguyên: `XR1-S-C2a`/`XR1-S-C2b` vẫn tách commit; descriptor Shift vẫn đúng
+5 trường, không `sourcePin`; `P2B-APPROVER-IDENTITY-RECONCILIATION` vẫn
+PARKED. Sửa đúng 8 path trong trần vòng này; không path thứ 9; không
+BUILD/stage/commit/push. Trạng thái:
+`XR1S_AUTHORIZATION_REPAIRED_PENDING_INDEPENDENT_RE_REVIEW`.
+
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 
 Hai bề mặt governed từng mâu thuẫn về lane kế tiếp:
@@ -244,7 +307,21 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-**`P1B-OPERATIONS-DOMAIN-EXTRACTION` đã FREEZE / CLOSED_BOUNDED** (C1 `3e3df42`
+**`XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24` là tranche active hiện tại**
+(2026-07-24): authorization (ADR + SPEC + WORK_ORDER) đã repaired vòng 1
+(`XR1S-R1`/`R2`/`R3`, sửa hết không waiver), đang chờ Codex độc lập
+re-review (`XR1S_AUTHORIZATION_REPAIRED_PENDING_INDEPENDENT_RE_REVIEW`).
+Chỉ sau REVIEW_PASS mới được stage/commit/rehearse/push `XR1-S-C1`; sau đó
+`XR1-S-C2a` và `XR1-S-C2b` mỗi cái cần authorization BUILD riêng. Tranche
+này **trực giao với thứ tự lane** — không sửa, không xếp lại, không hủy lane
+2 (`P2B-APPROVER-IDENTITY-RECONCILIATION`, WORK_ORDER đã draft tại HEAD
+`f98f29e145fa002be070e9d44520d20f0f82dcb3`, vẫn `DRAFT — NOT APPROVED. BUILD
+IS NOT AUTHORIZED.`, PARKED bởi tranche này). Xem mục "2026-07-24" ở trên và
+`SESSION/handoffs/AGENT_HANDOFF_2026-07-24_XR1S_RECIPROCAL_WORKSPACE_LINK.md`
+cho chi tiết đầy đủ.
+
+**Giữ nguyên làm hồ sơ, không lặp lại:** `P1B-OPERATIONS-DOMAIN-EXTRACTION`
+**đã FREEZE / CLOSED_BOUNDED** (C1 `3e3df42`
 → C2 `1e56a72` → C2b `ab75abb` → C3 `f68cf63` → C4 closure) — mỗi gate commit
 riêng, không gộp.
 
