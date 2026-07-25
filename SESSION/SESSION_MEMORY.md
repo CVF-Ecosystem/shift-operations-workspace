@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-24 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24: authorization repaired round 1, pending independent re-review)_
+_Last updated: 2026-07-25 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24: continuity repair round 1 — active-handoff drift, stale full-doctor-PASS text and sync-date drift fixed; XR1-S-C1 REVIEW_PASS'd/pushed 2026-07-24 at 75adf51; XR1-S-C2a remains the sole next governed move)_
 
 ## Where the project is
 
@@ -217,6 +217,52 @@ PARKED. Sửa đúng 8 path trong trần vòng này; không path thứ 9; không
 BUILD/stage/commit/push. Trạng thái:
 `XR1S_AUTHORIZATION_REPAIRED_PENDING_INDEPENDENT_RE_REVIEW`.
 
+**2026-07-25 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24 — XR1-S-C1
+REVIEW_PASS + PUSHED (2026-07-24), post-push continuity sync,
+SESSION_SYNC_STEWARD):**
+Codex re-review độc lập xác nhận `XR1S-R1`/`R2`/`R3` đã sửa hết không
+waiver, trả `REVIEW_PASS`. `XR1-S-C1` đã được stage/commit/rehearse/push
+bởi Codex tại `75adf51132edc4fad08618faf8dcb5b16e8f5435`; HEAD ==
+origin/main == commit đó. Rehearsal trên direct-sibling worktree PASS:
+full suite `292 passed`, `check_session_state.py` PASS,
+`generate_catalog.py --check` PASS, `check_file_size.py` PASS,
+`testing/validate_repository.py` PASS. Doctor vẫn `RESULT: PASS WITH NOTE
+(24 passed, 1 warning(s))` — mismatch `.cvf/manifest.json`
+(`6ce1cf0`)/core thật (`27137db4`) vẫn đúng là tiền đề đã authorize cho
+`XR1-S-C2a`; warning legacy catalog-kit vẫn bounded, không đổi.
+`P2B-APPROVER-IDENTITY-RECONCILIATION` vẫn PARKED, không đụng. Không
+provider call, không đọc secret. Trạng thái:
+`XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`. Bước kế tiếp: chỉ `XR1-S-C2a`
+(verify-only, không chạy reconciler); `XR1-S-C2b` chưa được phép bắt đầu
+tới khi `XR1-S-C2a` tự đóng chu kỳ riêng của nó.
+
+**2026-07-25 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24 — CONTINUITY REPAIR
+ROUND 1, CONTINUITY_REPAIR_WORKER):** Codex review độc lập của post-push
+sync trả `REVIEW_FAIL` — semantic continuity drift, 3 finding, sửa hết
+không waiver. **`XR1S-SYNC-R1` ACTIVE_HANDOFF_DRIFT** — active handoff
+(`AGENT_HANDOFF_2026-07-24_XR1S_RECIPROCAL_WORKSPACE_LINK.md`) vẫn còn nói
+"đang chờ review", "`XR1-S-C1` chưa commit", "Codex sẽ review `XR1-S-C1`
+kế tiếp" — cả ba đều sai; đã sửa disposition, verified facts, role route,
+next governed move cho khớp thực tế (REVIEW_PASS + pushed tại `75adf51`,
+rehearsal PASS, doctor `PASS WITH NOTE`, status
+`XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`, bước kế tiếp chỉ `XR1-S-C2a`).
+**`XR1S-SYNC-R2` STALE_FULL_DOCTOR_PASS_TEXT** — mọi câu hiện hành (không
+phải mô tả lịch sử) vẫn đòi "doctor full PASS" đã sửa lại đúng gate đã
+repaired: dòng core/manifest phải `[PASS]`, không `[FAIL]`/`[WARN]` mới,
+`PASS WITH NOTE` chỉ được phép với đúng warning legacy catalog-kit có sẵn.
+**`XR1S-SYNC-R3` UPDATE_DATE_DRIFT** — sync trước đó thực ra diễn ra
+`2026-07-25`, không phải `2026-07-24`; đã sửa `last_updated`/`updatedAt`
+(canonical + mirror), dòng "Last updated" ở đây, và nhãn ngày trong các
+sync receipt, trong khi giữ nguyên ngày lịch sử (authoring, repair round 1,
+`XR1-S-C1` push đều vẫn `2026-07-24`) và giữ nguyên tranche id
+`XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`. Sửa đúng 5 path trong trần cho
+phép (2 file state, `SESSION_MEMORY.md` này, `IMPLEMENTATION_STATUS.json`,
+active handoff); không path thứ 6; không sửa ADR/SPEC/WORK_ORDER; không sửa
+`.cvf/manifest.json`; không tạo `.cvf/workspace-link.json`; không BUILD
+`XR1-S-C2a`/`C2b`; không stage/commit/push; không provider call; không đọc
+secret. Trạng thái vẫn `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`; bước kế tiếp
+vẫn chỉ `XR1-S-C2a`.
+
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 
 Hai bề mặt governed từng mâu thuẫn về lane kế tiếp:
@@ -308,11 +354,13 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 ## Next allowed move
 
 **`XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24` là tranche active hiện tại**
-(2026-07-24): authorization (ADR + SPEC + WORK_ORDER) đã repaired vòng 1
-(`XR1S-R1`/`R2`/`R3`, sửa hết không waiver), đang chờ Codex độc lập
-re-review (`XR1S_AUTHORIZATION_REPAIRED_PENDING_INDEPENDENT_RE_REVIEW`).
-Chỉ sau REVIEW_PASS mới được stage/commit/rehearse/push `XR1-S-C1`; sau đó
-`XR1-S-C2a` và `XR1-S-C2b` mỗi cái cần authorization BUILD riêng. Tranche
+(2026-07-24): `XR1-S-C1` đã REVIEW_PASS và đã commit/push tại
+`75adf51132edc4fad08618faf8dcb5b16e8f5435` (HEAD == origin/main). Rehearsal
+PASS đầy đủ (292 test, session-state, catalog, file-size, validator);
+doctor vẫn `PASS WITH NOTE (24 passed, 1 warning(s))`. Trạng thái:
+`XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`. Bước kế tiếp CHỈ là `XR1-S-C2a`
+(sửa `.cvf/manifest.json` một dòng, verify-only, không chạy reconciler);
+`XR1-S-C2b` CHƯA được phép bắt đầu. Tranche
 này **trực giao với thứ tự lane** — không sửa, không xếp lại, không hủy lane
 2 (`P2B-APPROVER-IDENTITY-RECONCILIATION`, WORK_ORDER đã draft tại HEAD
 `f98f29e145fa002be070e9d44520d20f0f82dcb3`, vẫn `DRAFT — NOT APPROVED. BUILD

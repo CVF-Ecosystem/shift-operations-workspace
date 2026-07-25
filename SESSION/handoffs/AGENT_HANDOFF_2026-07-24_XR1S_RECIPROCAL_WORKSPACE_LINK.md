@@ -3,19 +3,28 @@
 ## Disposition
 
 - Tranche: `XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD` (authorized for `XR1-S-C2a`; not started)
 - Risk: R2 (governance-core pin + new tracked cross-repository descriptor)
-- Result: **REPAIRED — pending independent XR1-S authorization re-review.**
-  No BUILD has occurred. Status:
-  `XR1S_AUTHORIZATION_REPAIRED_PENDING_INDEPENDENT_RE_REVIEW`.
+- Result: **`XR1-S-C1` received independent Codex REVIEW_PASS and was
+  committed and pushed on 2026-07-24 at
+  `75adf51132edc4fad08618faf8dcb5b16e8f5435` (`HEAD == origin/main` at that
+  commit). No BUILD has occurred yet.** Status:
+  `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`. This section was itself corrected
+  by continuity repair round 1 (2026-07-25, `CONTINUITY_REPAIR_WORKER`) —
+  see "Post-push sync and continuity repair — 2026-07-25" below; it
+  previously and incorrectly still read "pending independent review" after
+  `XR1-S-C1` had already been reviewed and pushed.
 - Live provider evidence: **not required and not produced** — this tranche
   makes no AI/agent governance behavior claim.
 
-Role route this round: `ORCHESTRATOR -> SPEC_AUTHOR -> WORK_ORDER_AUTHOR`
-then `REPAIR_WORKER` (Claude, provider-neutral role contract). Does not
-self-grant REVIEW_PASS, does not stage/commit/push, does not call a
-provider, reads no secret, runs no real Shift `scan`/`apply`, and does not
-modify `CVF-Operations-Workspace` or the CVF core repository.
+Role route: `ORCHESTRATOR -> SPEC_AUTHOR -> WORK_ORDER_AUTHOR -> REPAIR_WORKER`
+(Claude, authored and repaired this package) `-> REVIEWER -> COMMIT_STEWARD`
+(Codex, REVIEW_PASS'd, then staged/committed/rehearsed/pushed `XR1-S-C1`)
+`-> SESSION_SYNC_STEWARD -> REVIEWER -> CONTINUITY_REPAIR_WORKER` (Claude,
+recorded and then repaired the post-push continuity sync, 2026-07-25).
+Claude does not self-grant REVIEW_PASS, does not stage/commit/push, does
+not call a provider, reads no secret, runs no real Shift `scan`/`apply`,
+and does not modify `CVF-Operations-Workspace` or the CVF core repository.
 
 ## Repair round 1 — 2026-07-24
 
@@ -59,6 +68,73 @@ RECONCILIATION` remains parked. Repaired exactly the eight paths this
 round's ceiling permits; no ninth path; no BUILD, stage, commit, or push
 occurred; the Operations repository, `.cvf/manifest.json`, and the
 untracked assessment file were not touched.
+
+## Post-push sync and continuity repair — 2026-07-25
+
+Independent Codex re-review confirmed `XR1S-R1`/`XR1S-R2`/`XR1S-R3` (above)
+each closed without waiver and returned **REVIEW_PASS**. `XR1-S-C1` was
+staged, committed, rehearsed, and pushed by Codex (`COMMIT_STEWARD`) on
+**2026-07-24** at `75adf51132edc4fad08618faf8dcb5b16e8f5435`; `HEAD ==
+origin/main` at that exact commit. Direct-sibling-worktree rehearsal
+**PASSED**: full suite `292 passed`, `python scripts/check_session_state.py`
+PASS, `python scripts/generate_catalog.py --check` PASS,
+`python scripts/check_file_size.py` PASS,
+`python scripts/testing/validate_repository.py` PASS. Workspace doctor
+remained `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` — the
+`.cvf/manifest.json` `cvfCoreCommit` (`6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2`)
+versus the local/public CVF core's actual `HEAD`
+(`27137db4d9aa2aea931ddd2507185d5c24943080`) mismatch remains exactly the
+authorized `XR1-S-C2a` prerequisite, untouched by `XR1-S-C1`; the
+pre-existing `LEGACY_PROJECT: governed downstream catalog kit not present`
+warning remains the sole bounded warning. `P2B-APPROVER-IDENTITY-
+RECONCILIATION` remains **PARKED**, untouched. No provider call was made
+and no secret was read.
+
+A first post-push continuity sync (`SESSION_SYNC_STEWARD`) recorded the
+above in the four state/status/memory files on 2026-07-25, but left this
+handoff itself untouched (it was not yet part of that sync's authorized
+ceiling) — so it continued to read "pending independent review", "`XR1-S-C1`
+not committed", and "Codex reviews `XR1-S-C1` next", all now false.
+Independent Codex review of that sync returned `REVIEW_FAIL` — semantic
+continuity drift — with three findings, all repaired without waiver in
+**this continuity repair round 1** (2026-07-25, `CONTINUITY_REPAIR_WORKER`,
+exactly five authorized paths):
+
+- **`XR1S-SYNC-R1` `ACTIVE_HANDOFF_DRIFT` (repaired).** This handoff's
+  disposition, verified facts, role route, and next governed move (above
+  and below) are corrected to record `XR1S-R1`/`R2`/`R3` closed without
+  waiver, `XR1-S-C1` REVIEW_PASS and pushed, `HEAD == origin/main` at that
+  commit, the rehearsal/doctor results above, status
+  `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`, next move `XR1-S-C2a` only,
+  `XR1-S-C2b` not yet authorized, and the control-chain position
+  (`BUILD` authorized for `XR1-S-C2a`, not started).
+- **`XR1S-SYNC-R2` `STALE_FULL_DOCTOR_PASS_TEXT` (repaired).** Every
+  *current* (non-historical) statement across the five continuity paths
+  still requiring "doctor full PASS after `C2a`" or "full PASS once both
+  land" is corrected to the gate `XR1S-R1` actually repaired: the
+  core/manifest row must reach `[PASS]`; no new `[FAIL]`/`[WARN]`; overall
+  `PASS WITH NOTE` allowed only for the exact pre-existing legacy
+  catalog-kit warning. This handoff's own item 5 (below) already used the
+  repaired wording; `IMPLEMENTATION_STATUS.json`'s `what_was_authored` and
+  `SESSION/ACTIVE_SESSION_STATE.json`'s
+  `verification_snapshot.xr1s_reciprocal_workspace_link` leading
+  disposition did not, and are now corrected.
+- **`XR1S-SYNC-R3` `UPDATE_DATE_DRIFT` (repaired).** The post-push sync and
+  this continuity repair both actually occurred on **2026-07-25**, not
+  2026-07-24. Canonical `last_updated`/`updatedAt`, the mirror's
+  `updatedAt`, `SESSION_MEMORY.md`'s last-updated line, and the sync
+  receipt date labels are corrected to `2026-07-25`. Historical tranche
+  dates — authoring (2026-07-24), repair round 1 (2026-07-24), and
+  `XR1-S-C1`'s actual push (2026-07-24) — are unchanged, as is the tranche
+  identifier `XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`.
+
+Repaired exactly the five paths this round's ceiling permits
+(`SESSION/ACTIVE_SESSION_STATE.json`, `CVF_SESSION/ACTIVE_SESSION_STATE.json`,
+`SESSION/SESSION_MEMORY.md`, `IMPLEMENTATION_STATUS.json`, and this
+handoff); no sixth path; no ADR/SPEC/WORK_ORDER edit; no
+`.cvf/manifest.json` edit; no `.cvf/workspace-link.json` created; no BUILD
+of `XR1-S-C2a`/`XR1-S-C2b`; no stage/commit/push; no provider call; no
+secret read.
 
 ## What this tranche did
 
@@ -132,31 +208,56 @@ or advancing the lane sequence.
 | Operations `IMPLEMENTATION_STATUS.json` `overallStatus` | `XR1_O_C1_PUSHED_WAITING_SHIFT_AUTHORIZATION` |
 | `P2B-APPROVER-IDENTITY-RECONCILIATION` | `DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.` — untouched, PARKED |
 
+The table above is the authoring-time (2026-07-24) snapshot; it is
+superseded for current repository state by the post-push facts below.
+
+## Post-push verified facts (2026-07-25)
+
+| Fact | Value |
+|---|---|
+| `XR1-S-C1` disposition | independent Codex REVIEW_PASS; `XR1S-R1`/`XR1S-R2`/`XR1S-R3` closed without waiver |
+| `XR1-S-C1` commit | `75adf51132edc4fad08618faf8dcb5b16e8f5435`, pushed 2026-07-24 |
+| Shift HEAD / `origin/main` | `75adf51132edc4fad08618faf8dcb5b16e8f5435` (equal, at that commit) |
+| Rehearsal | PASS — `292 passed`; `check_session_state.py`, `generate_catalog.py --check`, `check_file_size.py`, `testing/validate_repository.py` all PASS |
+| Workspace doctor | `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` — unchanged from authoring time |
+| Manifest/core mismatch | Unchanged (`6ce1cf0` vs actual `27137db4`) — remains exactly the authorized `XR1-S-C2a` prerequisite |
+| Legacy catalog-kit warning | Remains the sole bounded warning; no new warning/failure |
+| Status | `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD` |
+| Control-chain position | `BUILD` authorized for `XR1-S-C2a`; not started |
+| `XR1-S-C2b` | Not authorized to begin |
+| `P2B-APPROVER-IDENTITY-RECONCILIATION` | Still `DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.`, PARKED |
+| Provider call / secret read | None, at any point in this tranche to date |
+
 ## What this tranche did NOT do
 
 - Did not create `.cvf/workspace-link.json` (authorized shape only,
-  §2.2 of the ADR; built at a future `XR1-S-C2b`).
-- Did not touch `.cvf/manifest.json` (the `6ce1cf0`/`27137db4` drift is
-  recorded as the `XR1-S-C2a` prerequisite, not permission to edit it now).
+  §2.2 of the ADR; built at a future `XR1-S-C2b`, which is not yet
+  authorized to begin).
+- Did not touch `.cvf/manifest.json` (the `6ce1cf0`/`27137db4` drift
+  remains exactly the authorized `XR1-S-C2a` prerequisite, not yet acted
+  on).
 - Did not touch `docs/INDEX.md`, `docs/catalog/**`,
   `docs/implementation/EXECUTION_ROADMAP.md`, `docs/cvf/CVF_CONTROL_MAPPING.md`,
   `.gitignore`, or `AGENTS.md`.
 - Did not touch any `P2B_APPROVER_IDENTITY_RECONCILIATION*` artifact.
 - Did not write to `CVF-Operations-Workspace` or the CVF core repository.
-- Did not call a provider, read a secret, or run a real Shift `scan`/`apply`.
-- Did not stage, commit, or push any file.
+- Did not call a provider, read a secret, or run a real Shift `scan`/`apply`,
+  at authoring time, at repair time, at post-push sync time, or during this
+  continuity repair.
+- Claude did not stage, commit, or push any file at any point.
+  `XR1-S-C1` itself **was** staged, committed, rehearsed, and pushed — by
+  Codex (`COMMIT_STEWARD`), on 2026-07-24, at
+  `75adf51132edc4fad08618faf8dcb5b16e8f5435` — not by Claude.
 
 ## Next governed move
 
-Codex acts as independent REVIEWER performing a second, re-repair review of
-`ADR-2026-07-24-XR1S-RECIPROCAL-WORKSPACE-LINK`,
-`SPEC-XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`, and
-`WO-XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24` as repaired — including
-independently re-verifying both repositories' pins/remotes, the assessment
-file's hash, the doctor result, and the 292-test baseline, and confirming
-`XR1S-R1`, `XR1S-R2`, and `XR1S-R3` are each closed without waiver, rather
-than trusting this package's restatement of them. Only after REVIEW_PASS
-may `XR1-S-C1` be staged, committed, rehearsed, and pushed by Codex
-(COMMIT_STEWARD). Once pushed, `XR1-S-C2a` and `XR1-S-C2b` each require
-their own separate future authorization-to-BUILD confirmation before
-`IMPLEMENTATION_WORKER` begins either.
+`XR1-S-C2a` only — the verify-only, one-line `.cvf/manifest.json`
+core-pin repair (`6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2` ->
+`27137db4d9aa2aea931ddd2507185d5c24943080`; no reconciler run; ADR §2.3.1)
+— is the sole next governed BUILD action. `XR1-S-C2b` **must not begin**
+until `XR1-S-C2a`'s own full cycle (BUILD -> REVIEW -> commit -> push)
+independently closes; the two remain separate commits, never combined or
+reordered. `IMPLEMENTATION_WORKER` may begin `XR1-S-C2a` only once
+explicitly assigned that role for this specific BUILD; this handoff alone
+is not that assignment. `P2B-APPROVER-IDENTITY-RECONCILIATION` remains
+PARKED and untouched throughout.
