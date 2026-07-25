@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-25 (XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24: continuity repair round 1 — active-handoff drift, stale full-doctor-PASS text and sync-date drift fixed; XR1-S-C1 REVIEW_PASS'd/pushed 2026-07-24 at 75adf51; XR1-S-C2a remains the sole next governed move)_
+_Last updated: 2026-07-25 (XR1-S-C2a REVIEW_PASS, committed/rehearsed/pushed at ee73d98; operator-authorized five-path post-push sync; XR1-S-C2b is the next governed BUILD and has not started)_
 
 ## Where the project is
 
@@ -262,6 +262,21 @@ active handoff); không path thứ 6; không sửa ADR/SPEC/WORK_ORDER; không s
 `XR1-S-C2a`/`C2b`; không stage/commit/push; không provider call; không đọc
 secret. Trạng thái vẫn `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`; bước kế tiếp
 vẫn chỉ `XR1-S-C2a`.
+
+**2026-07-25 (XR1-S-C2a — REVIEW_PASS / PUSHED, post-push sync):**
+Build verify-only sửa đúng một dòng `cvfCoreCommit` trong
+`.cvf/manifest.json` từ `6ce1cf0` sang `27137db4`; hidden core không đổi,
+không chạy reconciler, không có backup entry mới. Independent review trả
+`REVIEW_PASS`. Codex `COMMIT_STEWARD` commit/push riêng tại
+`ee73d98d359680a1cb390212b7c22386eabff678`; direct-sibling rehearsal PASS:
+`292 passed`, repository validator/session-state/catalog/file-size/JSON đều
+PASS; doctor `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))`, core/manifest
+row `[PASS]`, warning duy nhất là legacy catalog-kit đã bounded. Operator sau
+đó phê chuẩn mở rộng `XR1-S-C2a-SYNC` từ bốn state files sang đúng năm
+continuity paths bằng cách thêm active handoff, tránh tái tạo
+`BLOCKED_CONTINUITY_DRIFT`. Không provider call, không đọc secret; assessment
+untracked giữ nguyên. `XR1-S-C2b` là bước BUILD kế tiếp, chưa bắt đầu;
+`P2B-APPROVER-IDENTITY-RECONCILIATION` tiếp tục PARKED.
 
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 

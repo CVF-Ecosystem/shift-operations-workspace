@@ -251,13 +251,33 @@ superseded for current repository state by the post-push facts below.
 
 ## Next governed move
 
-`XR1-S-C2a` only — the verify-only, one-line `.cvf/manifest.json`
-core-pin repair (`6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2` ->
-`27137db4d9aa2aea931ddd2507185d5c24943080`; no reconciler run; ADR §2.3.1)
-— is the sole next governed BUILD action. `XR1-S-C2b` **must not begin**
-until `XR1-S-C2a`'s own full cycle (BUILD -> REVIEW -> commit -> push)
-independently closes; the two remain separate commits, never combined or
-reordered. `IMPLEMENTATION_WORKER` may begin `XR1-S-C2a` only once
-explicitly assigned that role for this specific BUILD; this handoff alone
-is not that assignment. `P2B-APPROVER-IDENTITY-RECONCILIATION` remains
-PARKED and untouched throughout.
+`XR1-S-C2b` only — author the five-field reciprocal descriptor and its
+integration test within WORK_ORDER §5.2's bounded conditional catalog
+ceiling. `XR1-S-C2a` independently closed BUILD -> REVIEW -> commit ->
+rehearsal -> push at `ee73d98d359680a1cb390212b7c22386eabff678`; it must
+not be combined with or rewritten by C2b. `P2B-APPROVER-IDENTITY-
+RECONCILIATION` remains PARKED and untouched throughout.
+
+## XR1-S-C2a post-push receipt — 2026-07-25
+
+- Independent disposition: `REVIEW_PASS`.
+- Commit/push: `ee73d98d359680a1cb390212b7c22386eabff678`;
+  Shift `HEAD == origin/main == public refs/heads/main`.
+- Changed set: exactly `.cvf/manifest.json`, one line
+  (`6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2` ->
+  `27137db4d9aa2aea931ddd2507185d5c24943080`); all other manifest fields
+  byte-semantically unchanged.
+- Hidden core: clean; public remote identity correct; `HEAD == origin/main
+  == public main == 27137db4d9aa2aea931ddd2507185d5c24943080`; no
+  reconciler run and no new `_cvf-core-backups/` entry.
+- Direct-sibling rehearsal: `292 passed`; repository validator,
+  session-state, catalog, file-size, JSON parse and diff checks PASS.
+- Doctor: `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))`; the
+  core/manifest row is `[PASS]` and the sole warning is the pre-existing
+  bounded legacy catalog-kit note.
+- Operator authorization amendment: after C2a push, the operator explicitly
+  approved adding this active handoff as the fifth C2a-SYNC path, alongside
+  the four state/status files already named by WORK_ORDER §5.3, to prevent
+  `BLOCKED_CONTINUITY_DRIFT`.
+- No provider call or secret read. The untracked assessment remains
+  unchanged and uncommitted.
