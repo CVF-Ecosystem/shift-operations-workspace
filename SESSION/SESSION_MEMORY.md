@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (PostgreSQL live round-trip FREEZE/CLOSED_BOUNDED; Phase 1 exit gate DONE; C3 REVIEW_PASS pushed)_
+_Last updated: 2026-07-26 (P2-A incident vertical WORK_ORDER REVIEW_PASS; C1 pushed; C2 pre-BUILD continuity)_
 
 ## Where the project is
 
@@ -489,6 +489,16 @@ trong boundary disposable-local PostgreSQL, không phải production readiness.
 
 **Next governed move:** fresh INTAKE cho P2-A incidents/handovers; phải thiết
 kế migration có governance trước BUILD. P2-C vẫn đứng sau P2-A.
+
+`P2A-INCIDENT-VERTICAL-2026-07-26` đã tách incidents khỏi handovers để giữ
+boundary nhỏ và không trộn freeze semantic. C1
+`893b5c3bc4d031f5618cef3be3a35ad919e7ae1a` chứa ADR/SPEC/WORK_ORDER,
+đã independent `REVIEW_PASS`; `INC-AUTH-F1/F2` đóng không waiver. C3 ceiling
+đúng 37 path, buộc table/SqlLedger/InMemory delegation qua ba incident module
+riêng và mọi Python <=300. BUILD phải có PostgreSQL 16 thật và provider call
+thật chỉ sau một R2 acknowledgement đi qua bearer JWT + durable approval;
+refusal zero call. Sau C2 push, Claude chạy G6, BUILD, không stage/commit/push,
+dừng tại `READY_FOR_INDEPENDENT_INCIDENT_BUILD_REVIEW`.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);

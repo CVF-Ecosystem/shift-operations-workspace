@@ -1,0 +1,82 @@
+# Agent Handoff — P2-A Incident Vertical
+
+## Disposition
+
+- Tranche: `P2A-INCIDENT-VERTICAL-2026-07-26`
+- Control-chain phase: approved `WORK_ORDER`, before BUILD
+- Roadmap target: P2-A incidents only
+- Risk: R2
+- Implementation worker: Claude
+- Independent reviewer / commit steward / closer: Codex
+- Status: `AUTHORIZED_PENDING_G6_BUILD`
+
+## Split boundary
+
+This tranche implements incidents only. Handovers remain a separate successor
+because they also change the `open_handover_items_linked` freeze prerequisite.
+No handover/report/freeze implementation is authorized here.
+
+## Authorization
+
+- C1: `893b5c3bc4d031f5618cef3be3a35ad919e7ae1a`
+- ADR:
+  `docs/decisions/ADR_2026-07-26_P2A_INCIDENT_VERTICAL.md`
+- SPEC: `docs/specs/P2A_INCIDENT_VERTICAL_SPEC.md`
+- Work Order:
+  `docs/work_orders/P2A_INCIDENT_VERTICAL_WORK_ORDER.md`
+- Independent disposition: `REVIEW_PASS`
+- Findings closed without waiver:
+  - `INC-AUTH-F1 OVERBROAD_GUARD_TEST_PATHS`
+  - `INC-AUTH-F2 LIVE_TEST_SPLIT_CONFLICT`
+
+## BUILD contract
+
+The C3 ceiling is exactly 37 paths in Work Order section 3. No 38th path is
+conditional. Near-limit host files receive wiring only:
+
+- `_incident_tables.py` owns Table construction;
+- `_incident_store.py` owns SqlLedger incident methods;
+- `_incident_repository.py` owns InMemoryLedger incident methods;
+- all Python files remain <= 300 lines;
+- debt baseline and exception registry are read-only.
+
+Incident reporting is immediate and audited. Risk/evidence/authenticated
+durable approval applies to the protected acknowledgement action against the
+already-persisted Incident. Caller-supplied approver identity/receipts remain
+prohibited.
+
+## Mandatory evidence
+
+- full non-live suite and repository gates;
+- disposable PostgreSQL 16 migration 001-005 round-trip;
+- exact Docker cleanup;
+- real provider response bound to a successful JWT-authenticated R2 incident
+  acknowledgement;
+- refusal paths make zero provider calls, success makes exactly one;
+- sanitized live/build receipts;
+- protected handover/report/freeze zero diff;
+- rollback rehearsal is reviewer-owned after BUILD.
+
+No mock provider result can close the governance claim. Missing provider
+credentials or a provider failure is a truthful STOP, not permission to
+downgrade evidence.
+
+## G6 and return
+
+After C2 is pushed, Claude must rehydrate this handoff plus ADR/SPEC/WORK_ORDER,
+declare `IMPLEMENTATION_WORKER`, run every Work Order section 2 precondition,
+and implement only the approved set.
+
+Claude performs no stage/commit/push and stops at:
+
+`READY_FOR_INDEPENDENT_INCIDENT_BUILD_REVIEW`
+
+Any stop-condition defect is reported without repair until Codex reviews and
+authorizes the next move.
+
+## Claim boundary
+
+Potential closure proves one governed incident vertical on InMemoryLedger,
+SQLite and disposable local PostgreSQL 16, with real provider-bound governance
+evidence. It does not implement handovers/reports/UI or prove production/
+managed-PostgreSQL/provider invocation from a production API endpoint.

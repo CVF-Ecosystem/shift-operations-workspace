@@ -3,9 +3,13 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_POSTGRESQL_LIVE_ROUNDTRIP.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
   "last_updated": "2026-07-26",
   "required_reads": [
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
+    "docs/decisions/ADR_2026-07-26_P2A_INCIDENT_VERTICAL.md",
+    "docs/specs/P2A_INCIDENT_VERTICAL_SPEC.md",
+    "docs/work_orders/P2A_INCIDENT_VERTICAL_WORK_ORDER.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_POSTGRESQL_LIVE_ROUNDTRIP.md",
     "docs/decisions/ADR_2026-07-26_POSTGRESQL_LIVE_ROUNDTRIP.md",
     "docs/specs/POSTGRESQL_LIVE_ROUNDTRIP_SPEC.md",
@@ -40,7 +44,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26 reached FREEZE / CLOSED_BOUNDED. C3 68cb86eccaa4e542afd1193173efb02b5df4c4b3 is independently REVIEW_PASS and pushed. Findings PG-REV-F1 through PG-REV-F7 closed without waiver. Fresh independent evidence: disposable local PostgreSQL 16 live 36 passed; migrations 17/0 then 14/3; Phase 1 shift-lifecycle/contract subset 100 passed; full non-live suite 427 passed/36 skipped/1 warning; validators and doctor PASS WITH NOTE 24/1 bounded legacy warning; AC-19 revert rehearsal restored the 405-pass parent baseline and removed its temporary worktree. Phase 1 exit gate is DONE within this bounded local evidence claim. NEXT MOVE: fresh INTAKE for P2-A incidents/handovers, including a governed migration design before implementation; P2-C remains after P2-A.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2A-INCIDENT-VERTICAL-2026-07-26 at approved WORK_ORDER. Incidents and handovers were split; this tranche is incidents only. C1 893b5c3bc4d031f5618cef3be3a35ad919e7ae1a is REVIEW_PASS/pushed; INC-AUTH-F1/F2 closed without waiver. NEXT MOVE: after this C2 push, Claude rehydrates the new handoff plus ADR/SPEC/WORK_ORDER, declares IMPLEMENTATION_WORKER, runs G6 and builds exactly the 37-path ceiling. PostgreSQL 16 and real provider-bound JWT incident acknowledgement evidence are mandatory. No handover/report/freeze semantic change, no stage/commit/push. Stop at READY_FOR_INDEPENDENT_INCIDENT_BUILD_REVIEW.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -145,16 +149,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "P1-POSTGRESQL-LIVE-ROUNDTRIP is CLOSED_BOUNDED after independent REVIEW_PASS, C3 push, combined AC-20 evidence and AC-19 rollback rehearsal. Phase 1 is DONE within the recorded local PostgreSQL claim.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "P2A-INCIDENT-VERTICAL authorization is REVIEW_PASS and C1 is pushed. BUILD begins only after this C2 continuity push and fresh G6.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_POSTGRESQL_LIVE_ROUNDTRIP.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. Split-guard, P2B and XR1-S handoffs remain closed history.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. PostgreSQL-live, split-guard, P2B and XR1-S handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "CLOSER",
-    "activeRoleNote": "Codex independently reviewed the repair chain, ran the live and exit gates, committed/pushed C3 as COMMIT_STEWARD, and synchronizes the bounded FREEZE closure. The next tranche starts with a fresh role declaration.",
+    "activeRole": "IMPLEMENTATION_WORKER",
+    "activeRoleNote": "Claude becomes IMPLEMENTATION_WORKER only after C2 is pushed and fresh G6 passes. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-26"
   }

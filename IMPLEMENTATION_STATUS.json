@@ -73,6 +73,14 @@
     "claim_boundary": "Proves disposable local PostgreSQL 16 migration-created-schema/SqlLedger behavior and the combined Phase 1 gate only. It does not prove production deployment, load, concurrency, backup/restore, HA, network security or managed-PostgreSQL parity. No AI-governance claim and no provider call.",
     "next_governed_move": "Fresh INTAKE for P2-A incidents/handovers with a governed migration design before BUILD; P2-C remains after P2-A."
   },
+  "p2a_incident_vertical": {
+    "governance_disposition": "WORK_ORDER APPROVED / BUILD PENDING (2026-07-26).",
+    "authorization_commit": "893b5c3bc4d031f5618cef3be3a35ad919e7ae1a - ADR, SPEC and WORK_ORDER only; independent REVIEW_PASS.",
+    "scope": "Incidents only. Handovers are a separate successor because they change the open_handover_items_linked freeze prerequisite. Incident report is immediate identity/permission/domain-lock/audit persistence; protected acknowledgement enforces stored risk, evidence and authenticated durable approval.",
+    "authorization_review": "INC-AUTH-F1 overbroad guard-test paths and INC-AUTH-F2 PostgreSQL live-test split conflict closed without waiver. Exact C3 ceiling is 37 paths with mandatory incident table/store/repository modules and Python <=300.",
+    "required_evidence": "Full non-live suite; disposable PostgreSQL 16 migration 001-005 round-trip; exact cleanup; real provider call only after JWT-authenticated R2 acknowledgement, with refusal zero-call proof; sanitized receipts; independent rollback rehearsal.",
+    "next_governed_move": "After C2 push, Claude declares IMPLEMENTATION_WORKER, runs G6 and executes the approved 37-path BUILD; no stage/commit/push."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",
