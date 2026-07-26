@@ -3,14 +3,13 @@
 ## Disposition
 
 - Tranche: `XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`
-- Control-chain phase: `REVIEW` / pre-`FREEZE` (authorized next move:
-  `XR1-S-C3` independent review receipt and FREEZE continuity)
+- Control-chain phase: `FREEZE`
 - Risk: R2 (governance-core pin + new tracked cross-repository descriptor)
-- Result: **`XR1-S-C2b` received REVIEW_PASS and was committed/pushed at
-  `c125becdbd72c527f2e8a910122671f704bb3cc0` (`HEAD == origin/main`).**
-  Status: `XR1S_C2B_PUSHED_SYNCING_READY_FOR_C3_FREEZE`. This section was
-  corrected by the 2026-07-26 continuity sync because canonical continuity
-  still said "C2b has not started" after Git history already contained C2b.
+- Result: **`FREEZE / CLOSED_BOUNDED` at `XR1-S-C3` after independent
+  `REVIEW_PASS` on AC-1 through AC-23.** C2a and C2b remain separate,
+  independently reviewed and pushed commits. Operations' `XR1-O-C2`
+  dependency is unblocked, without asserting Operations authorization,
+  import, acceptance, or execution.
 - Live provider evidence: **not required and not produced** — this tranche
   makes no AI/agent governance behavior claim.
 
@@ -248,14 +247,45 @@ superseded for current repository state by the post-push facts below.
 
 ## Next governed move
 
-`XR1-S-C3` only — independent review receipt and FREEZE continuity for the
-XR1S reciprocal workspace-link tranche. `XR1-S-C2a` independently closed at
-`ee73d98d359680a1cb390212b7c22386eabff678`; `XR1-S-C2b` independently closed
-BUILD -> REVIEW -> commit -> push at
-`c125becdbd72c527f2e8a910122671f704bb3cc0`. C2a and C2b remain separate and
-must not be combined, rewritten, or used to claim tranche FREEZE by
-themselves. `P2B-APPROVER-IDENTITY-RECONCILIATION` remains PARKED and
-untouched. Operations `XR1-O-C2` remains blocked until `XR1-S-C3` closes.
+Independently review the existing `P2B-APPROVER-IDENTITY-RECONCILIATION`
+ADR/SPEC/WORK_ORDER and record an explicit authorization disposition before
+any BUILD. XR1-S no longer parks that lane, but its historical WORK_ORDER
+still reads `DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.` Operations
+`XR1-O-C2` is no longer blocked by Shift authorization; Operations exclusively
+owns whether and when to authorize or execute it.
+
+## XR1-S-C3 independent review receipt / FREEZE — 2026-07-26
+
+- Disposition: **`REVIEW_PASS` on AC-1 through AC-23; `FREEZE /
+  CLOSED_BOUNDED`.**
+- Reviewed chain: C1 `75adf51132edc4fad08618faf8dcb5b16e8f5435`;
+  C2a `ee73d98d359680a1cb390212b7c22386eabff678`; C2a-SYNC `1020d24`;
+  C2b `c125becdbd72c527f2e8a910122671f704bb3cc0`; C2b-SYNC
+  `71cebac7f0ae4f0e888d495a080fbd135bcbacb7`.
+- Commit separation: C2a changed exactly `.cvf/manifest.json`, one line;
+  C2b changed exactly `.cvf/workspace-link.json` and
+  `tests/integration/test_xr1s_workspace_link_descriptor.py`; their sync
+  commits were continuity-only.
+- Descriptor evidence: exact authorized five-field shape and values;
+  complementary `PROFILE_SOURCE`/`PRIMARY_PLATFORM`; no `sourcePin`,
+  `pinUpdatePolicy`, consumer-acceptance field, local path, host, username,
+  or placeholder. Operations compatibility test passed read-only.
+- Fresh checks: focused descriptor suite `14 passed`; full suite `306
+  passed`; repository validator, session-state, catalog, file-size, JSON
+  parse, secret scan and diff check PASS.
+- Doctor: `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))`; core/manifest
+  row PASS and the sole warning is the bounded legacy catalog-kit note.
+- Operations commits `74170650bd7f2732bc2eec985e5b891df6d45897` and
+  `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` exist on Operations
+  `origin/main` in the required order.
+- Assessment file SHA-256 remains
+  `168ea2c7a67a31bae50c9e4dbe78c2273a692f3a82a1074585e1bdb89b70fde2`;
+  it remains untracked and is not part of C3.
+- Claim boundary: no claim that Operations imported or accepted a Shift
+  commit; no claim that scan/apply tooling exists or ran; no runtime or
+  production-readiness claim; High Finding #4 remains open.
+- No provider call, secret read, source/test/catalog/roadmap edit, Operations
+  write, or CVF-core write occurred in C3.
 
 ## XR1-S-C2a post-push receipt — 2026-07-25
 
