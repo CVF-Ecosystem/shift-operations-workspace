@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (XR1-S-C3 independent REVIEW_PASS; XR1S reciprocal workspace-link tranche FREEZE / CLOSED_BOUNDED; P2B approver-identity authorization review is next, with BUILD still gated)_
+_Last updated: 2026-07-26 (P2B approver-identity C1b REVIEW_PASS/pushed; amended WORK_ORDER explicitly approved; C2 pre-BUILD continuity in progress; BUILD awaits C2 push + fresh G6)_
 
 ## Where the project is
 
@@ -310,6 +310,25 @@ authorization/execution. No provider call or secret read occurred. The next
 governed move is independent review of the existing
 `P2B-APPROVER-IDENTITY-RECONCILIATION` ADR/SPEC/WORK_ORDER; its BUILD remains
 unauthorized until an explicit review disposition is recorded.
+
+**2026-07-26 (P2B-APPROVER-IDENTITY-RECONCILIATION — authorization
+REVIEW_PASS / approved, C2 pre-BUILD):** Independent review first returned
+`REVIEW_CHANGES_REQUIRED` on F9–F13: order-dependent quorum matching, stale
+baseline, impossible absolutely-clean-worktree gate, doctor-note drift, and an
+already-existing C1. Claude repaired only the three authorization artifacts.
+Re-review returned `REVIEW_PASS`; C1b
+`d3bb1ccce340d2a102064d57cee6136147ee5c0d` contains exactly those three files,
+passed direct-sibling rehearsal (`306 passed`, validators/session/catalog/
+file-size/diff PASS, doctor `PASS WITH NOTE` with the sole bounded warning),
+and was pushed. G1c on the pushed commit is `REVIEW_PASS`. Under the authority
+delegated by the operator on 2026-07-26, Codex explicitly approves the amended
+WORK_ORDER intact: G3 PASS. This C2 changes continuity only; BUILD has not
+started. After C2 push, Claude must declare `IMPLEMENTATION_WORKER`, run G6
+fresh at post-C2 HEAD, record the resulting suite count as the BUILD baseline,
+and implement only the 39-path C3 ceiling. AC-16 requires one real Alibaba call
+after genuine quorum and zero calls for every refusal, with a sanitized
+receipt. Claude does not stage/commit/push and stops at
+`READY_FOR_INDEPENDENT_BUILD_REVIEW`.
 
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 
