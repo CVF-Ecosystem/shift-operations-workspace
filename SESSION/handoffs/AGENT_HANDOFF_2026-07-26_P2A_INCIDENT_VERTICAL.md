@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-INCIDENT-VERTICAL-2026-07-26`
-- Control-chain phase: approved `WORK_ORDER`, before BUILD
+- Control-chain phase: `REVIEW_CHANGES_REQUIRED`, repair authorized
 - Roadmap target: P2-A incidents only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `AUTHORIZED_PENDING_G6_BUILD`
+- Status: `AUTHORIZED_PENDING_REPAIR_G6`
 
 ## Split boundary
 
@@ -80,3 +80,33 @@ Potential closure proves one governed incident vertical on InMemoryLedger,
 SQLite and disposable local PostgreSQL 16, with real provider-bound governance
 evidence. It does not implement handovers/reports/UI or prove production/
 managed-PostgreSQL/provider invocation from a production API endpoint.
+
+## Independent BUILD review and Amendment 1
+
+The first independent review reproduced the full-suite stop
+(`483 passed, 43 skipped, 1 failed`) and returned
+`REVIEW_CHANGES_REQUIRED`. Findings:
+
+- `INC-REV-F1 OPENAPI_GOLDEN_AUTHORIZATION_GAP`
+- `INC-REV-F2 LEDGER_PARITY_DIVERGENCE`
+- `INC-REV-F3 SQL_LIST_EVIDENCE_LOSS`
+- `INC-REV-F4 VERSION_INVARIANT_ABSENT`
+- `INC-REV-F5 LIVE_EVIDENCE_SANITIZATION_GAP`
+
+Independent probes confirmed InMemory duplicate overwrite, SQL list evidence
+loss (`get=1`, `list=0`) and acceptance of `version=0`. No PostgreSQL or
+provider rerun was performed after the static/full-suite stop.
+
+Authorization Amendment 1 is committed and pushed at
+`e1856fc7a05c4967bf633fd656bda85ec94089e6`. It adds exactly:
+
+- `tests/unit/test_p2b_openapi_contract.py`
+- `scripts/_incident_live_evidence_support.py`
+
+Final C3 ceiling is exactly 39 paths; no 40th path is conditional. Claude
+transitions to `REPAIR_WORKER`, rehydrates the amended ADR/SPEC/WORK_ORDER,
+runs fresh G6, repairs F1-F5 without waiver, reruns non-live gates before
+fresh PostgreSQL/provider evidence, performs no stage/commit/push, and stops
+at:
+
+`READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_REVIEW`

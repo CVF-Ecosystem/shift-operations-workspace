@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A incident vertical WORK_ORDER REVIEW_PASS; C1 pushed; C2 pre-BUILD continuity)_
+_Last updated: 2026-07-26 (P2-A incident BUILD review changes required; Amendment 1 pushed; repair continuity)_
 
 ## Where the project is
 
@@ -499,6 +499,17 @@ riêng và mọi Python <=300. BUILD phải có PostgreSQL 16 thật và provide
 thật chỉ sau một R2 acknowledgement đi qua bearer JWT + durable approval;
 refusal zero call. Sau C2 push, Claude chạy G6, BUILD, không stage/commit/push,
 dừng tại `READY_FOR_INDEPENDENT_INCIDENT_BUILD_REVIEW`.
+
+Independent BUILD review sau đó trả `REVIEW_CHANGES_REQUIRED`: full suite
+`483 passed/43 skipped/1 failed`; tìm `INC-REV-F1..F5` gồm OpenAPI golden
+ngoài ceiling, ledger duplicate/missing-put/order parity, SQL list làm mất
+evidence, thiếu `version >= 1`, và live-runner sanitization chưa chống dữ liệu
+provider/endpoint mang secret. Amendment 1 `e1856fc7a05c4967bf633fd656bda85ec94089e6`
+thêm đúng 2 path (repository-wide OpenAPI golden và một support module tách
+sanitization/provider/receipt), đưa final C3 ceiling lên đúng 39. Claude là
+`REPAIR_WORKER`, không stage/commit/push; phải sạch non-live trước khi chạy
+lại PostgreSQL/provider thật và dừng tại
+`READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_REVIEW`.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
