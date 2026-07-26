@@ -30,11 +30,14 @@ a second independent review, this guard was widened per EXECUTION_ROADMAP.md
 P-FIX-6 / task 5. This file now covers: table existence, exact column-name
 match, nullability, primary key, foreign key (table+column), and default
 compatibility (has_default now distinguishes client-side vs. server-side
-defaults instead of collapsing both into one bool). Type-family and CHECK
--expression comparisons live in the sibling module
-test_schema_parity_types_and_checks.py - split out purely to respect the
-file-size guard (GC-023 style hard limit), not a behavior change; both modules
-share parsing helpers from _schema_parity_parsing.py.
+defaults instead of collapsing both into one bool) across every mapped table.
+Type-family and CHECK-expression comparisons live in the sibling module
+test_schema_parity_types_and_checks.py; the users-table role CHECK lives in
+test_schema_parity_users.py. The approval_receipts-specific UNIQUE constraint
+check was further split into test_schema_parity_approval_receipts.py
+(CVF-FILE-SPLIT-GUARD-HARDENING) purely to respect the file-size guard (GC-023
+style hard limit), not a behavior change; every module shares parsing helpers
+from _schema_parity_parsing.py.
 
 STILL NOT LIVE VERIFIED: everything here is static text-parsing of the
 migration SQL compared against SQLAlchemy Table objects in memory. No
@@ -50,8 +53,6 @@ or should be read as having performed.
 from __future__ import annotations
 
 import re
-
-from sqlalchemy import UniqueConstraint
 
 from operations_ledger.tables import (
     approval_receipts,
@@ -286,31 +287,3 @@ def test_foreign_keys_match_migration():
             f"test_foreign_keys_match_migration to compare that behavior "
             f"against tables.py, this was not needed when the check was written"
         )
-
-
-def test_approval_receipts_unique_constraint_matches_migration():
-    """P2B-APPROVER-IDENTITY-RECONCILIATION, AC-13: the receipt idempotency
-    key (SPEC R2.4/R8.1) must exist identically on both sides - a migration
-    UNIQUE the tables.py UniqueConstraint doesn't mirror would let SQLite
-    accept a duplicate receipt row a real PostgreSQL database would reject."""
-    sql = migration_text()
-    block = table_block(sql, "approval_receipts")
-    migration_unique = re.search(
-        r"UNIQUE\s*\(([^)]+)\)", block, re.IGNORECASE
-    )
-    assert migration_unique, "approval_receipts: expected a table-level UNIQUE in the migration"
-    migration_cols = {c.strip() for c in migration_unique.group(1).split(",")}
-
-    code_unique_constraints = [
-        c for c in approval_receipts.constraints if isinstance(c, UniqueConstraint)
-    ]
-    assert code_unique_constraints, "approval_receipts: tables.py has no UniqueConstraint"
-    code_cols = {col.name for col in code_unique_constraints[0].columns}
-
-    assert migration_cols == code_cols, (
-        f"approval_receipts: UNIQUE column set mismatch - migration has "
-        f"{sorted(migration_cols)}, tables.py has {sorted(code_cols)}"
-    )
-    assert migration_cols == {
-        "record_type", "record_id", "action", "target_version", "approver_id",
-    }
