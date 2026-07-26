@@ -1,8 +1,8 @@
 # ADR — CVF File-Split Guard Hardening
 
-Status: ACCEPTED — INDEPENDENT AUTHORIZATION REVIEW PASS  
-Tranche: `CVF-FILE-SPLIT-GUARD-HARDENING-2026-07-26`  
-Risk: R2  
+Status: ACCEPTED — INDEPENDENT AUTHORIZATION REVIEW PASS
+Tranche: `CVF-FILE-SPLIT-GUARD-HARDENING-2026-07-26`
+Risk: R2
 Owner boundary: repository tooling and behavior-preserving file extraction
 
 ## 1. Context

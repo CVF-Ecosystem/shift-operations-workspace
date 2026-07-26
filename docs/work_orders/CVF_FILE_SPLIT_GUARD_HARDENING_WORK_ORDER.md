@@ -1,9 +1,9 @@
 # Work Order — CVF File-Split Guard Hardening
 
-Status: APPROVED — BUILD AWAITS C1/C2 PUSH AND FRESH G6  
-Work Order ID: `CVF-FSG-WO-001`  
-Risk: R2  
-Implementation worker: Claude  
+Status: APPROVED — BUILD AWAITS C1/C2 PUSH AND FRESH G6
+Work Order ID: `CVF-FSG-WO-001`
+Risk: R2
+Implementation worker: Claude
 Independent reviewer / commit steward: Codex
 
 ## 1. Objective
