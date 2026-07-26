@@ -262,9 +262,21 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       vì migration không có cột đó; transition qua permission + lifecycle +
       audit), router `/customer-requests`, 18 test (vertical + HTTP + atomic
       rollback cả 2 backend + frozen-shift invariant khi có `shift_id`).
-- [ ] **P2-A (còn lại):** incidents, handovers — CHƯA có bảng migration nào
-      cho 2 domain này (khác customer_request đã có sẵn migration 002); cần
-      migration mới trước khi nhân bản chain, rủi ro/phạm vi lớn hơn.
+- [x] **P2-A (incidents, 2026-07-26, CLOSED_BOUNDED):** migration 005 +
+      canonical `Incident`/`IncidentStatus`, lifecycle, native PostgreSQL
+      risk enum parity, evidence persistence, ledger parity, governed
+      report/acknowledge/transition services and five API operations.
+      Acknowledgement reuses authenticated durable scope-bound approval
+      receipts; no caller-supplied approval. C3 `eac28f9` changed exactly 39
+      authorized paths and received independent REVIEW_PASS after
+      `INC-REV-F1..F6` closed without waiver. Evidence: full non-live 511,
+      PostgreSQL 16 live 44 with exact cleanup, real provider HTTP 200 and
+      AC-18 parent baseline 427. Boundary: local/disposable evidence only;
+      handovers/reports/freeze semantics were not changed.
+- [ ] **P2-A (còn lại — handovers):** chưa có migration/model/runtime. Đây là
+      successor tranche riêng vì nó còn thay thế prerequisite
+      `open_handover_items_linked`; cần fresh INTAKE → DESIGN → SPEC →
+      WORK_ORDER trước BUILD.
 - [x] **P2-B (2026-07-22):** Authentication thật — JWT bearer token thay
       header-based principal. `dependencies.py · get_principal` không còn đọc
       `X-User-Id`/`X-User-Role` trực tiếp; giờ yêu cầu bearer token đã ký hợp
@@ -368,9 +380,8 @@ Xem `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 P-FIX-0; 7 commit P-FIX tính cả P-FIX-6.
 **2026-07-22 (P2-A-CUSTOMER-REQUEST):** đã nhân bản CVF chain sang domain
 `customer_request` (chi tiết ở mục P2-A phía trên). **Chính xác về phạm vi:**
-P2-A (customer_request) đã xong; P2-A (incidents, handovers) VẪN còn mở —
-2 domain này chưa có bảng migration nào, cần migration mới trước khi nhân
-bản chain, không tuyên bố "P2-A đã đóng" chung chung.
+P2-A (customer_request) và incidents đã xong bounded; handovers VẪN còn mở,
+chưa có migration/model/runtime. Không tuyên bố "P2-A đã đóng" chung chung.
 **2026-07-23 (P2-B):** đã FREEZE authentication thật sau corrective tranche
 `P2B-AUTHENTICATION-REPAIR` (đủ WORK_ORDER trước BUILD, hai vòng review,
 `REVIEW_PASS`, và live Alibaba evidence HTTP 200; receipt tại
@@ -391,9 +402,8 @@ Guard 36 pass, full suite 405 pass/1 warning, AC-24 revert rehearsal PASS.
 Tranche này không đổi trạng thái roadmap/module và tại thời điểm đó chưa đóng
 Phase 1; PostgreSQL-live tranche kế tiếp đã đóng gate vào 2026-07-26.
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho P2-A còn lại
-(incidents/handovers, cần migration mới và DESIGN/SPEC/WORK_ORDER riêng).
-P2-C đứng sau P2-A.
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho P2-A handovers, cần migration
+mới và DESIGN/SPEC/WORK_ORDER riêng. P2-C đứng sau handovers.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
@@ -403,11 +413,12 @@ tách operations-domain (P1-B), authenticated scope-bound approval receipts
 (P2B approver-identity reconciliation), repository-enforced file-split guard
 (CVF-FILE-SPLIT-GUARD-HARDENING), PostgreSQL migration-created-schema live
 round-trip và Phase 1 exit gate
-(P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26).
+(P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical
+(P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, PostgreSQL mới
 được chứng minh trong disposable local PostgreSQL 16 chứ chưa production/
-managed deployment, incidents/handovers (P2-A còn lại) chưa có migration,
+managed deployment, handovers (P2-A còn lại) chưa có migration/model/runtime,
 P2-B chưa có refresh token/revocation hay admin flow cấp user thật
 — xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
 

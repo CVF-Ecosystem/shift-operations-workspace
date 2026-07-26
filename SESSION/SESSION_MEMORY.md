@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A incident BUILD review changes required; Amendment 1 pushed; repair continuity)_
+_Last updated: 2026-07-26 (P2-A incident vertical FREEZE/CLOSED_BOUNDED at C3 eac28f9; handovers next)_
 
 ## Where the project is
 
@@ -520,6 +520,19 @@ khi credential đó khác API key. Đây là F5/R15-A chưa sửa hết, không 
 thứ 40. Claude chỉ được sửa support module, runner test và hai receipt, rồi
 dừng tại `READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_RE_REVIEW`; rollback
 rehearsal/closure được hoãn tới khi F6 sạch.
+
+**2026-07-26 (P2A-INCIDENT-VERTICAL — FREEZE / CLOSED_BOUNDED):** F6 đã sửa
+structural bằng cách loại URL userinfo/query/fragment trước Request/transport
+và sanitize failure output; adversarial reviewer probe không còn leak. C3
+`eac28f9edcff0ff8e85e14cb8764b603c917fe6b` chứa đúng 39 authorized paths,
+independent `REVIEW_PASS`; `INC-REV-F1..F6` đóng không waiver. Evidence:
+F5/F6 17 pass; full 511 pass/44 skip/1 warning; PostgreSQL 16 live 44,
+migration 18/0 rồi 15/3, cleanup sạch; provider thật `qwen3.7-max` HTTP 200,
+5 refusal zero-call và đúng 1 call sau authenticated R2 acknowledgement;
+AC-18 parent `eb45971` đạt 427 pass/36 skip và mọi gate. **Boundary:** chỉ
+incidents đã đóng; handovers/report/freeze semantic chưa được tranche này
+đụng tới. Bước kế tiếp duy nhất là fresh INTAKE cho handovers, không kế thừa
+BUILD authority.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);

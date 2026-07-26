@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-INCIDENT-VERTICAL-2026-07-26`
-- Control-chain phase: `REVIEW_CHANGES_REQUIRED`, repair authorized
+- Control-chain phase: `FREEZE`
 - Roadmap target: P2-A incidents only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `AUTHORIZED_PENDING_REPAIR_G6`
+- Status: `CLOSED_BOUNDED`
 
 ## Split boundary
 
@@ -147,3 +147,25 @@ Run non-live gates before replacing the live receipt with a fresh real call.
 No 40th path, stage, commit, push or self-approval. Stop at:
 
 `READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_RE_REVIEW`
+
+## FREEZE closure
+
+- C3 BUILD/REVIEW commit:
+  `eac28f9edcff0ff8e85e14cb8764b603c917fe6b`
+- Final changed set: exactly 39 authorized paths.
+- Independent disposition: `REVIEW_PASS`.
+- Findings closed without waiver: `INC-REV-F1` through `INC-REV-F6`.
+- Focused F5/F6: 17 passed.
+- Full non-live: 511 passed, 44 skipped, 1 pre-existing warning.
+- PostgreSQL 16: 44 live tests passed; migrations 18/0 then 15/3; exact
+  container and captured-volume cleanup.
+- Fresh provider evidence: five refusal cases at observed zero calls, genuine
+  authenticated R2 acknowledgement, exactly one `qwen3.7-max` call, HTTP 200.
+- AC-18: C3 parent
+  `eb4597169dee176c62284c198ae375cbfc3511a8` restored 427 passed/36 skipped
+  and all repository gates, then the exact 39-path candidate was restored
+  with no stash/worktree residue.
+
+Closure proves the incident vertical only. Handovers remain open as the next
+P2-A tranche and require fresh INTAKE → DESIGN → SPEC → WORK_ORDER before
+BUILD. The existing handover/report/freeze semantics were not changed.
