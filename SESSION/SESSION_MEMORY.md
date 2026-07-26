@@ -4,22 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A handover HOV-AUTH-F4 closed; C2b pushed; C2c repair continuity)_
+_Last updated: 2026-07-26 (P2-A handover independent review F5-F8; Amendment 2/C2e)_
 
 ## Where the project is
 
-**2026-07-26 (P2-A HANDOVER — mid-BUILD authorization stop):** Claude stopped
-without repair when four legacy freeze tests required two paths outside the
-exact 39-path Work Order. Codex independently reproduced the full-suite
-checkpoint (`7 failed, 545 passed, 44 skipped, 1 warning`) and separated three
-unfinished authorized catalog/OpenAPI failures from four failures in
-`test_atomic_mutation_audit.py` and `test_customer_request_vertical.py`.
-`HOV-AUTH-F4 LEGACY_FREEZE_TEST_SCOPE_OMISSION` was repaired at the
-authorization layer, not hidden in BUILD: C2b `78d17b0` contains exactly the
-ADR/SPEC/Work Order amendment. C3 is now exactly 41 paths; the two added test
-paths may only establish a genuine reviewed/acknowledged handover while
-preserving their original rollback/frozen-parent claims. No production
-compatibility bypass and no 42nd path are authorized.
+**2026-07-26 (P2-A HANDOVER — review):** after HOV-AUTH-F4/C2b `78d17b0`,
+independent review returned F5-F8 (debt rehash, continuity 607/600, ledger
+parity/immutability, receipt drift). Amendment 2/C2d `cbf053f` authorizes an
+exact 44-path split/parity repair; C2e restores the continuity guard.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên

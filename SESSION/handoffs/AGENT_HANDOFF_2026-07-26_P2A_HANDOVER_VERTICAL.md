@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-HANDOVER-VERTICAL-2026-07-26`
-- Control-chain phase: `BUILD` — stopped, independently amended, repair authorized
+- Control-chain phase: `REVIEW` returned changes; Amendment 2 repair authorized
 - Roadmap target: P2-A handovers only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `AUTHORIZED_REPAIR_PENDING_C2C_PUSH`
+- Status: `AUTHORIZED_REPAIR_PENDING_C2E_PUSH`
 
 ## Prior closure
 
@@ -53,10 +53,39 @@ The exact C3 ceiling is now 41 paths: the original 39 plus those two test
 paths. No 42nd path is conditional. A production compatibility bypass is
 prohibited.
 
+### Independent BUILD review — Amendment 2
+
+Codex independently reran the amended focused suite (`60 passed`) and full
+suite (`567 passed, 53 skipped, 1 warning`), verified catalog/session/diff,
+and returned `REVIEW_CHANGES_REQUIRED`:
+
+- `HOV-REV-F5 DEBT_RATCHET_BYPASS`;
+- `HOV-REV-F6 CONTINUITY_GATE_RED`;
+- `HOV-REV-F7 LEDGER_PARITY_AND_IMMUTABILITY_GAP`;
+- `HOV-REV-F8 BUILD_RECEIPT_DRIFT`.
+
+Fresh probes proved InMemory accepts duplicate items and missing shift FKs,
+while SqlLedger leaks/mislabels integrity errors; immutable snapshot puts are
+not backend-identical. File-size/validator also fail on reviewer-owned
+`SESSION_MEMORY` 607/600. PostgreSQL/provider re-review stopped on the
+production defect.
+
+C2d `cbf053fa9314e3ec63bd78fc3df8c3e014d2fdc7` independently approves:
+
+- `docs/decisions/ADR_2026-07-26_P2A_HANDOVER_REVIEW_REPAIR_ADDENDUM.md`;
+- `docs/specs/P2A_HANDOVER_VERTICAL_SPEC_AMENDMENT_2.md`;
+- `docs/work_orders/P2A_HANDOVER_VERTICAL_WORK_ORDER_AMENDMENT_2.md`.
+
+C3 is now exactly 44 paths, adding the shared customer fixture module,
+customer transition module and dedicated handover ledger-parity module. The
+customer debt entry must be removed, never rehashed. No 45th path is
+conditional. Codex owns the C2e continuity compaction separately.
+
 ## Exact BUILD boundary
 
-The final C3 ceiling is exactly 41 paths: Work Order section 3's 39 plus
-Amendment 1's two legacy freeze tests. No 42nd path is conditional.
+The final C3 ceiling is exactly 44 paths: Work Order section 3's 39,
+Amendment 1's two legacy freeze tests and Amendment 2's three split/parity
+test paths. No 45th path is conditional.
 
 Key invariants:
 
@@ -89,14 +118,13 @@ Key invariants:
 
 ## G6 and return
 
-After the C2c continuity push, Claude rehydrates this handoff, the parent
-ADR/SPEC/WORK_ORDER and all three Amendment 1 artifacts; declares
-`REPAIR_WORKER`; confirms C2b/C2c at `origin/main`; then repairs and completes
-exactly the 41-path ceiling.
+After the C2e continuity push, Claude rehydrates this handoff, the parent
+authorization and Amendments 1-2; declares `REPAIR_WORKER`; confirms C2d/C2e
+at `origin/main`; then repairs and completes exactly the 44-path ceiling.
 
 Claude performs no stage/commit/push and stops at:
 
-`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_REVIEW`
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_REVIEW`
 
 Any stop-condition defect is reported without repair until Codex reviews and
 authorizes the next move.
