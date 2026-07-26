@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-HANDOVER-VERTICAL-2026-07-26`
-- Control-chain phase: approved `WORK_ORDER`, before BUILD
+- Control-chain phase: `BUILD` — stopped, independently amended, repair authorized
 - Roadmap target: P2-A handovers only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `AUTHORIZED_PENDING_G6_BUILD`
+- Status: `AUTHORIZED_REPAIR_PENDING_C2C_PUSH`
 
 ## Prior closure
 
@@ -32,10 +32,31 @@ Do not reopen or batch incident work into this tranche.
   - `HOV-AUTH-F2 DESTINATION_AUTHORITY_OVERCLAIM`
   - `HOV-AUTH-F3 FREEZE_DESTINATION_DRIFT`
 
+### Mid-BUILD authorization amendment
+
+The worker correctly stopped without repair when the full suite exposed two
+legacy freeze-test paths outside the 39-path ceiling. Codex independently
+reproduced `7 failed, 545 passed, 44 skipped, 1 warning`: three unfinished
+authorized catalog/OpenAPI failures plus four failures in:
+
+- `tests/cvf/test_atomic_mutation_audit.py`;
+- `tests/cvf/test_customer_request_vertical.py`.
+
+`HOV-AUTH-F4 — LEGACY_FREEZE_TEST_SCOPE_OMISSION` is closed without waiver by
+C2b `78d17b06d771b6e5e3abc1a27d867bc21f4b3641`:
+
+- `docs/decisions/ADR_2026-07-26_P2A_HANDOVER_LEGACY_FREEZE_TEST_ADDENDUM.md`;
+- `docs/specs/P2A_HANDOVER_VERTICAL_SPEC_AMENDMENT_1.md`;
+- `docs/work_orders/P2A_HANDOVER_VERTICAL_WORK_ORDER_AMENDMENT_1.md`.
+
+The exact C3 ceiling is now 41 paths: the original 39 plus those two test
+paths. No 42nd path is conditional. A production compatibility bypass is
+prohibited.
+
 ## Exact BUILD boundary
 
-The final C3 ceiling is exactly 39 paths in Work Order section 3. No 40th
-path is conditional.
+The final C3 ceiling is exactly 41 paths: Work Order section 3's 39 plus
+Amendment 1's two legacy freeze tests. No 42nd path is conditional.
 
 Key invariants:
 
@@ -68,13 +89,14 @@ Key invariants:
 
 ## G6 and return
 
-After this C2 push, Claude rehydrates this handoff plus ADR/SPEC/WORK_ORDER,
-declares `IMPLEMENTATION_WORKER`, runs every Work Order section 2
-precondition, then implements exactly the 39 paths.
+After the C2c continuity push, Claude rehydrates this handoff, the parent
+ADR/SPEC/WORK_ORDER and all three Amendment 1 artifacts; declares
+`REPAIR_WORKER`; confirms C2b/C2c at `origin/main`; then repairs and completes
+exactly the 41-path ceiling.
 
 Claude performs no stage/commit/push and stops at:
 
-`READY_FOR_INDEPENDENT_HANDOVER_BUILD_REVIEW`
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_REVIEW`
 
 Any stop-condition defect is reported without repair until Codex reviews and
 authorizes the next move.

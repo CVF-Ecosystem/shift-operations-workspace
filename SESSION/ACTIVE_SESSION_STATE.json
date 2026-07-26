@@ -10,6 +10,9 @@
     "docs/decisions/ADR_2026-07-26_P2A_HANDOVER_VERTICAL.md",
     "docs/specs/P2A_HANDOVER_VERTICAL_SPEC.md",
     "docs/work_orders/P2A_HANDOVER_VERTICAL_WORK_ORDER.md",
+    "docs/decisions/ADR_2026-07-26_P2A_HANDOVER_LEGACY_FREEZE_TEST_ADDENDUM.md",
+    "docs/specs/P2A_HANDOVER_VERTICAL_SPEC_AMENDMENT_1.md",
+    "docs/work_orders/P2A_HANDOVER_VERTICAL_WORK_ORDER_AMENDMENT_1.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
     "docs/decisions/ADR_2026-07-26_P2A_INCIDENT_VERTICAL.md",
     "docs/specs/P2A_INCIDENT_VERTICAL_SPEC.md",
@@ -48,7 +51,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 at approved WORK_ORDER. C1 2134cd88b06db1ee30394e6f65513d0472b8bf40 is REVIEW_PASS/pushed; HOV-AUTH-F1/F2/F3 closed without waiver. NEXT MOVE: after this C2 push, Claude rehydrates the handoff plus ADR/SPEC/WORK_ORDER, declares IMPLEMENTATION_WORKER, runs G6 and builds exactly the 39-path ceiling. Server-derived open-work snapshot, distinct authenticated receiver, real non-bypassable handover freeze prerequisite, PostgreSQL 16 and real provider evidence are mandatory. No report/UI/event-resolution/assignment expansion, no stage/commit/push. Stop at READY_FOR_INDEPENDENT_HANDOVER_BUILD_REVIEW.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 in BUILD repair. The worker correctly STOPPED without repair on HOV-AUTH-F4. Codex independently reproduced the defect; C2b 78d17b06d771b6e5e3abc1a27d867bc21f4b3641 amended DESIGN/SPEC/WORK_ORDER and raised the exact C3 ceiling from 39 to 41 by adding only tests/cvf/test_atomic_mutation_audit.py and tests/cvf/test_customer_request_vertical.py. NEXT MOVE: after this C2c push, Claude rehydrates parent plus Amendment 1, declares REPAIR_WORKER, repairs the two bounded legacy setups, finishes all original requirements, PostgreSQL 16 and real provider evidence, and stops at READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_REVIEW. No production bypass, no 42nd path, no stage/commit/push.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -154,16 +157,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "P2A-HANDOVER-VERTICAL authorization is REVIEW_PASS and C1 is pushed. BUILD begins only after this C2 continuity push and fresh G6.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "BUILD stopped correctly on HOV-AUTH-F4. C2b 78d17b0 independently amended the exact ceiling to 41 paths. Repair resumes only after this C2c continuity push.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. Incident, PostgreSQL-live, split-guard, P2B and XR1-S handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "IMPLEMENTATION_WORKER",
-    "activeRoleNote": "Claude becomes IMPLEMENTATION_WORKER only after this C2 is pushed and fresh G6 passes. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
+    "activeRole": "REPAIR_WORKER",
+    "activeRoleNote": "Claude becomes REPAIR_WORKER only after this C2c is pushed and fresh rehydration confirms the parent plus Amendment 1. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-26"
   }

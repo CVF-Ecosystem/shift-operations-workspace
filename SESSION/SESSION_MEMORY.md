@@ -4,9 +4,22 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A handover WORK_ORDER REVIEW_PASS; C1 pushed; C2 pre-BUILD continuity)_
+_Last updated: 2026-07-26 (P2-A handover HOV-AUTH-F4 closed; C2b pushed; C2c repair continuity)_
 
 ## Where the project is
+
+**2026-07-26 (P2-A HANDOVER — mid-BUILD authorization stop):** Claude stopped
+without repair when four legacy freeze tests required two paths outside the
+exact 39-path Work Order. Codex independently reproduced the full-suite
+checkpoint (`7 failed, 545 passed, 44 skipped, 1 warning`) and separated three
+unfinished authorized catalog/OpenAPI failures from four failures in
+`test_atomic_mutation_audit.py` and `test_customer_request_vertical.py`.
+`HOV-AUTH-F4 LEGACY_FREEZE_TEST_SCOPE_OMISSION` was repaired at the
+authorization layer, not hidden in BUILD: C2b `78d17b0` contains exactly the
+ADR/SPEC/Work Order amendment. C3 is now exactly 41 paths; the two added test
+paths may only establish a genuine reviewed/acknowledged handover while
+preserving their original rollback/frozen-parent claims. No production
+compatibility bypass and no 42nd path are authorized.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
