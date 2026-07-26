@@ -10,6 +10,7 @@ from operations_domain.models import (
     ApprovalReceipt,
     Correction,
     CustomerRequest,
+    Incident,
     Message,
     OperationalEvent,
     Shift,
@@ -26,8 +27,9 @@ from operations_domain.models import (
 # still imported from workspace_api.domain.models here.
 from workspace_api.domain.models import User
 from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
+from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
 
-class InMemoryLedger(_ApprovalStoreMixin):
+class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin):
     def __init__(self):
         self._lock = RLock()
         self.shifts: dict[UUID, Shift] = {}
@@ -36,6 +38,7 @@ class InMemoryLedger(_ApprovalStoreMixin):
         self.corrections: dict[UUID, Correction] = {}
         self.tasks: dict[UUID, Task] = {}
         self.customer_requests: dict[UUID, CustomerRequest] = {}
+        self.incidents: dict[UUID, Incident] = {}
         self.users: dict[str, User] = {}
         self.approval_receipts: dict[UUID, ApprovalReceipt] = {}
         self.task_creation_intents: dict[UUID, TaskCreationIntent] = {}
@@ -65,6 +68,7 @@ class InMemoryLedger(_ApprovalStoreMixin):
                     self.corrections,
                     self.tasks,
                     self.customer_requests,
+                    self.incidents,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
@@ -81,6 +85,7 @@ class InMemoryLedger(_ApprovalStoreMixin):
                     self.corrections,
                     self.tasks,
                     self.customer_requests,
+                    self.incidents,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,

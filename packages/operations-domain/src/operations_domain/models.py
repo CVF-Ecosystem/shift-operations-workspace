@@ -186,6 +186,36 @@ class ApprovalReceipt(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+class IncidentStatus(StrEnum):
+    REPORTED = "REPORTED"
+    ACKNOWLEDGED = "ACKNOWLEDGED"
+    MITIGATING = "MITIGATING"
+    RESOLVED = "RESOLVED"
+    CLOSED = "CLOSED"
+
+
+class Incident(BaseModel):
+    # Mirrors database/migrations/005_incidents.sql. Report is immediate
+    # (identity -> permission -> domain_lock -> persist -> audit); the
+    # protected decision is the separate incident.acknowledge action, which
+    # binds a durable approval receipt to (record_id=incident_id,
+    # target_version=version) - the same receipt architecture Task/
+    # OperationalEvent already use, not a second creation-intent mechanism.
+    incident_id: UUID = Field(default_factory=uuid4)
+    shift_id: UUID
+    risk_class: RiskClass = RiskClass.R1
+    summary: str
+    description: str | None = None
+    status: IncidentStatus = IncidentStatus.REPORTED
+    owner_id: str | None = None
+    evidence: list[EvidenceRef] = Field(default_factory=list)
+    # INC-REV-F4: version >= 1, matching migration 005's CHECK exactly - a
+    # canonical-model invariant, not just a database-side one, so a
+    # constructed-in-Python Incident can never violate it either.
+    version: int = Field(default=1, ge=1)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 class TaskCreationIntent(BaseModel):
     """A durable, approver-visible target for `task.create` approvals.
 

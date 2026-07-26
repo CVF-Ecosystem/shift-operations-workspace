@@ -38,6 +38,8 @@ MOVED_TYPES = [
     "CustomerRequestStatus",
     "DataState",
     "EvidenceRef",
+    "Incident",
+    "IncidentStatus",
     "Message",
     "OperationalEvent",
     "RiskClass",
@@ -48,6 +50,7 @@ MOVED_TYPES = [
 ]
 MOVED_FUNCTIONS = [
     "assert_customer_request_transition",
+    "assert_incident_transition",
     "assert_task_transition",
     "assert_transition",
 ]

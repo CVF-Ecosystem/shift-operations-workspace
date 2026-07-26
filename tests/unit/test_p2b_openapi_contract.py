@@ -1,13 +1,24 @@
 """OpenAPI contract parity for the P2B-APPROVER-IDENTITY-RECONCILIATION
-endpoints (SPEC AC-09 OpenAPI half, F14/F17).
+endpoints (SPEC AC-09 OpenAPI half, F14/F17), plus the reviewed incident
+vertical delta (INC-REV-F1/R10-A).
 
 Split out of test_operations_domain_serialization.py
 (CVF-FILE-SPLIT-GUARD-HARDENING) to keep that module under the hard line
 limit; not a behavior change. `canonical()`/`_sha()` are the same trivial
 byte-canonicalization helpers defined there - duplicated here rather than
 cross-imported between test modules, per the same `SPEC section 4.4`
-"byte-identical" definition. `GOLDEN_OPENAPI_SHA` is the exact same digest
-value captured at the pre-BUILD commit, only relocated.
+"byte-identical" definition.
+
+INC-REV-F1: wiring the five authorized incident endpoints (P2A-INCIDENT-
+VERTICAL) necessarily changes this repository-wide document, but a golden
+digest cannot simply be refreshed on faith - Amendment 1 (ADR section 6,
+SPEC R10-A) requires PROVING the delta is exactly the five incident
+operations and their reachable canonical schemas before the digest moves.
+`test_openapi_delta_is_exactly_the_five_incident_operations` does that proof
+mechanically: it removes exactly the known incident paths/schemas from the
+current document and re-hashes the remainder against `PRE_INCIDENT_OPENAPI_SHA`
+(the original golden value, captured before this tranche existed) - a blind
+digest refresh, or any additional undisclosed change, could not pass it.
 """
 
 from __future__ import annotations
@@ -30,15 +41,53 @@ def _sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-GOLDEN_OPENAPI_SHA = "c2af8708e4579a8d1204dd12c1b75c304e5e16b831ef3ba54e0859a0beb9851b"
+# The value at the pre-P2A-INCIDENT-VERTICAL commit - never itself edited by
+# this repair, only compared against (see the delta-proof test below).
+PRE_INCIDENT_OPENAPI_SHA = "c2af8708e4579a8d1204dd12c1b75c304e5e16b831ef3ba54e0859a0beb9851b"
+# The reviewed post-incident value: PRE_INCIDENT_OPENAPI_SHA plus exactly the
+# five incident operations and their reachable schemas (proven below).
+GOLDEN_OPENAPI_SHA = "497e827e11cb194daedd26dd456a985ca63893212e60534e42662e1850adaf96"
+
+_INCIDENT_PATHS = {
+    "/incidents",
+    "/incidents/{incident_id}",
+    "/incidents/{incident_id}/acknowledge",
+    "/incidents/{incident_id}/transition",
+}
+_INCIDENT_SCHEMAS = {
+    "AcknowledgeInput",
+    "Incident",
+    "IncidentInput",
+    "IncidentStatus",
+    "workspace_api__api__incidents__router__TransitionInput",
+}
 
 
 def test_openapi_document_is_unchanged_from_the_pre_build_capture():
-    """AC-09: the generated contract did not move."""
+    """AC-09: the generated contract did not move beyond the reviewed
+    incident delta proven by the next test."""
     from workspace_api.main import app
 
     actual = canonical(app.openapi())
     assert _sha(actual) == GOLDEN_OPENAPI_SHA, actual.decode("utf-8")[:4000]
+
+
+def test_openapi_delta_is_exactly_the_five_incident_operations():
+    """INC-REV-F1/R10-A: mechanical proof, not an assertion of trust."""
+    from workspace_api.main import app
+
+    doc = app.openapi()
+    assert _INCIDENT_PATHS <= doc["paths"].keys()
+    assert _INCIDENT_SCHEMAS <= doc["components"]["schemas"].keys()
+
+    reduced = json.loads(json.dumps(doc))
+    for path in _INCIDENT_PATHS:
+        del reduced["paths"][path]
+    for schema in _INCIDENT_SCHEMAS:
+        del reduced["components"]["schemas"][schema]
+
+    actual = canonical(reduced)
+    assert _sha(actual) == PRE_INCIDENT_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 
 def test_openapi_new_endpoints_and_schemas_exact_contract():

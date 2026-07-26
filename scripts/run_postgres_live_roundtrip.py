@@ -204,11 +204,20 @@ def apply_migrations_twice(database_url: str) -> list[dict]:
     return summaries
 
 
+# P2A-INCIDENT-VERTICAL (INC-AUTH-F2): the incident live module is coherent
+# but separate (test_sql_ledger_postgres_live.py is already at the file-size
+# ceiling), so both run inside the same disposable container/migration pass.
+LIVE_SUITE_TARGETS = (
+    "tests/integration/test_sql_ledger_postgres_live.py",
+    "tests/integration/test_incident_postgres_live.py",
+)
+
+
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:
     env = os.environ.copy()
     env[LIVE_URL_ENV] = database_url
     return _run(
-        [sys.executable, "-m", "pytest", "-v", "tests/integration/test_sql_ledger_postgres_live.py"],
+        [sys.executable, "-m", "pytest", "-v", *LIVE_SUITE_TARGETS],
         cwd=str(REPO_ROOT), env=env,
     )
 

@@ -10,7 +10,7 @@ the inverted dependency this tranche exists to remove.
 does not redefine them.
 """
 
-from .models import CustomerRequestStatus, DataState, TaskStatus
+from .models import CustomerRequestStatus, DataState, IncidentStatus, TaskStatus
 
 _ALLOWED: dict[DataState, set[DataState]] = {
     DataState.RAW: {DataState.NORMALIZED, DataState.REJECTED},
@@ -70,3 +70,24 @@ def assert_customer_request_transition(
         raise ValueError(
             f"Invalid customer-request-status transition: {current} -> {target}"
         )
+
+
+# Incident status lifecycle (fifth domain vertical, P2-A). This is the FULL
+# graph, including REPORTED -> ACKNOWLEDGED: the restriction that ONLY the
+# dedicated acknowledgement action (not the generic incident.transition
+# action) may perform that specific move is enforced by IncidentService, not
+# here (SPEC R2/R9) - the same separation TaskService uses between
+# create_task/create_creation_intent and the plain lifecycle guard. CLOSED is
+# terminal; ACKNOWLEDGED may skip MITIGATING and go straight to RESOLVED.
+_ALLOWED_INCIDENT: dict[IncidentStatus, set[IncidentStatus]] = {
+    IncidentStatus.REPORTED: {IncidentStatus.ACKNOWLEDGED},
+    IncidentStatus.ACKNOWLEDGED: {IncidentStatus.MITIGATING, IncidentStatus.RESOLVED},
+    IncidentStatus.MITIGATING: {IncidentStatus.RESOLVED},
+    IncidentStatus.RESOLVED: {IncidentStatus.CLOSED},
+    IncidentStatus.CLOSED: set(),
+}
+
+
+def assert_incident_transition(current: IncidentStatus, target: IncidentStatus) -> None:
+    if target not in _ALLOWED_INCIDENT[current]:
+        raise ValueError(f"Invalid incident-status transition: {current} -> {target}")

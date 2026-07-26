@@ -17,13 +17,15 @@
       "type": "string"
     },
     "risk_class": {
-      "type": "string"
+      "type": "string",
+      "enum": ["R0", "R1", "R2", "R3", "R4"]
     },
     "summary": {
       "type": "string"
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": ["REPORTED", "ACKNOWLEDGED", "MITIGATING", "RESOLVED", "CLOSED"]
     }
   }
 }

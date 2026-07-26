@@ -19,10 +19,12 @@ from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
 from workspace_api.application import approval_service
+from workspace_api.application.incident_service import IncidentService
 from workspace_api.application.services import EventService
 from workspace_api.domain import models as domain_models
 from workspace_api.domain.models import User
-from operations_domain.models import EvidenceRef, OperationalEvent, RiskClass, Shift
+from workspace_api.infrastructure.repository import InMemoryLedger
+from operations_domain.models import EvidenceRef, Incident, OperationalEvent, RiskClass, Shift
 
 
 def _open_ledger(db_path: Path) -> SqlLedger:
@@ -133,3 +135,78 @@ def test_multiple_evidence_links_all_persist(tmp_path):
     fetched = ledger.get_event(event.event_id)
     assert len(fetched.evidence) == 2
     assert {e.source_id for e in fetched.evidence} == {"m1", "photo1"}
+
+
+def test_incident_evidence_round_trips_through_sql_ledger(tmp_path):
+    """Incident (fifth vertical, P2-A) must not drop evidence, same guard as
+    OperationalEvent/Task above."""
+    db = tmp_path / "incident_evidence.sqlite3"
+    ledger = _open_ledger(db)
+    now = datetime.now(timezone.utc)
+    shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
+    ledger.create_shift(shift)
+
+    incident = Incident(
+        shift_id=shift.shift_id,
+        risk_class=RiskClass.R2,
+        summary="Crane 3 stopped",
+        evidence=[EvidenceRef(source_type="message", source_id="m1", sha256="abc123")],
+    )
+    ledger.add_incident(incident)
+    ledger.engine.dispose()
+
+    reopened = SqlLedger(str(db), models=domain_models, engine=make_engine(f"sqlite:///{db}"))
+    fetched = reopened.get_incident(incident.incident_id)
+    assert len(fetched.evidence) == 1, "incident evidence must not be dropped on read-back"
+    assert fetched.evidence[0].source_id == "m1"
+
+
+def test_r2_incident_acknowledge_succeeds_on_sql_ledger_with_evidence():
+    """Reproduces the same probe shape as the R2 event.confirm case above,
+    for incident.acknowledge (SPEC R8): must PASS with sufficient evidence and
+    a genuine, distinct-approver receipt."""
+    ledger = InMemoryLedger()
+    now = datetime.now(timezone.utc)
+    shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
+    ledger.create_shift(shift)
+
+    incident = Incident(
+        shift_id=shift.shift_id,
+        risk_class=RiskClass.R2,
+        summary="Crane 3 stopped",
+        evidence=[EvidenceRef(source_type="message", source_id="m1")],
+    )
+    ledger.add_incident(incident)
+
+    supervisor = Principal(user_id="inc-sup1", role="shift_supervisor")
+    ledger.add_user(
+        User(user_id="inc-sup2", username="inc-sup2", password_hash="x", role="shift_supervisor", is_active=True)
+    )
+    approval_service.create_approval_receipt(
+        ledger,
+        Principal(user_id="inc-sup2", role="shift_supervisor"),
+        record_type="Incident",
+        action="incident.acknowledge",
+        record_id=incident.incident_id,
+    )
+    acknowledged = IncidentService(ledger).acknowledge(incident.incident_id, supervisor)
+    assert acknowledged.status.value == "ACKNOWLEDGED"
+
+
+def test_incident_without_evidence_still_refused():
+    """Guards against over-correcting: R2 with NO evidence must still deny
+    incident.acknowledge."""
+    from cvf_runtime.errors import CvfDenied
+
+    ledger = InMemoryLedger()
+    now = datetime.now(timezone.utc)
+    shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
+    ledger.create_shift(shift)
+
+    incident = Incident(shift_id=shift.shift_id, risk_class=RiskClass.R2, summary="No evidence provided")
+    ledger.add_incident(incident)
+
+    supervisor = Principal(user_id="inc-sup1", role="shift_supervisor")
+    with pytest.raises(CvfDenied) as exc:
+        IncidentService(ledger).acknowledge(incident.incident_id, supervisor)
+    assert exc.value.control == "evidence"

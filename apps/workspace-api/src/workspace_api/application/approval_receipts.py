@@ -27,6 +27,10 @@ _VALID_RECORD_ACTION_PAIRS = {
     ("OperationalEvent", "event.confirm"),
     ("OperationalEvent", "event.correct"),
     ("Task", "task.create"),
+    # P2A-INCIDENT-VERTICAL: incident.acknowledge reuses the same
+    # already-persisted-target receipt shape as event.confirm - no second
+    # creation-intent mechanism (ADR section 2.2).
+    ("Incident", "incident.acknowledge"),
 }
 
 
@@ -114,6 +118,16 @@ def create_approval_receipt(
             except KeyError as exc:
                 raise CvfDenied(
                     control="approval", reason="target event not found", http_status=404
+                ) from exc
+            risk_class = str(record.risk_class)
+            target_version = record.version
+            payload_digest = None
+        elif record_type == "Incident":
+            try:
+                record = ledger.get_incident(record_id, unit=unit)
+            except KeyError as exc:
+                raise CvfDenied(
+                    control="approval", reason="target incident not found", http_status=404
                 ) from exc
             risk_class = str(record.risk_class)
             target_version = record.version

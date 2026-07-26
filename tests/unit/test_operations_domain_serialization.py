@@ -80,6 +80,14 @@ def _instances() -> dict[str, object]:
             request_id=U[6], customer_id="c1", shift_id=U[1], summary="s", details="d",
             source_message_id=U[2], received_at=T0, promised_at=T1, owner_id="op1",
         ),
+        # P2A-INCIDENT-VERTICAL: fifth vertical, no pre-BUILD capture exists -
+        # these are the first-ever golden hashes for this model, computed the
+        # same way as every sibling entry (fixed UUID/timestamp instance).
+        "Incident": m.Incident(
+            incident_id=U[7], shift_id=U[1], risk_class="R2", summary="s", description="d",
+            status="ACKNOWLEDGED", owner_id="op1", version=2, created_at=T0,
+            evidence=[m.EvidenceRef(**_EV)],
+        ),
     }
 
 
@@ -94,6 +102,7 @@ GOLDEN_SCHEMA_SHA = {
     "OperationalEvent": "47272b4c40fb86c2f0c27299f3d1e2b3d777445ce05ce7264bb6f86a7840a933",
     "Shift": "6b00c69f748e5be42f29af962b021cc6f4a291ba24827c7c52bdc494632a2c89",
     "Task": "f15a3836ba25603149df752e093f5c945587f3b84dd96ae67e4cbf7ba8d02570",
+    "Incident": "870a4fffd7126803193ae10ff34ed21e818d111331eca6bb9d95c5b0f7300b31",
 }
 GOLDEN_DUMP_SHA = {
     "Correction": "d2634a1a5f4e3dd2946d4497353b5ad17605965d251f1c07e78e21a32f664a0f",
@@ -103,6 +112,7 @@ GOLDEN_DUMP_SHA = {
     "OperationalEvent": "76d75ba5297061924c28e9aa0716969ec7369ede984e416342d9cd5d359a318b",
     "Shift": "221971ba1df5f1b457a162fb062e92077177ee69961a3a6654e0972a0d54665d",
     "Task": "fa5bb0e8ead5c440b7d05f305bb676437865bcde4a3ae82a243bf137b097e51c",
+    "Incident": "a5991a2ac0dde9df86d53a285c1b01bfcefb60374ac9ae2d35f7bb6bec0ce6fb",
 }
 GOLDEN_DUMP_JSON_SHA = {
     "Correction": "bc2a0ad969b8977732a567fe3bdbbf01803c29a67e03b65d01388ca5c6ae751a",
@@ -112,6 +122,7 @@ GOLDEN_DUMP_JSON_SHA = {
     "OperationalEvent": "ff43cecec1cf62ce2df2332859d6b473dc4e99c517a2ebc8c3f5a0a2c1f31312",
     "Shift": "7fca25e5ec702fa73bbc4bdc9efdd0d9a638ea7add0f04f094dd8edd74fa5bd5",
     "Task": "bc1dec30719b51fec14ccf01c8ef2f6a40cee494e36966f70c23f8677b22f181",
+    "Incident": "2355198bb46b6cb560c8533aeb4c5f7b5b8366efa1f2757587d847a347605688",
 }
 GOLDEN_ENUMS = {
     "CustomerRequestStatus": [
@@ -131,6 +142,10 @@ GOLDEN_ENUMS = {
     "TaskStatus": [
         ("OPEN", "OPEN"), ("IN_PROGRESS", "IN_PROGRESS"), ("BLOCKED", "BLOCKED"),
         ("DONE", "DONE"), ("CARRY_OVER", "CARRY_OVER"), ("CANCELLED", "CANCELLED"),
+    ],
+    "IncidentStatus": [
+        ("REPORTED", "REPORTED"), ("ACKNOWLEDGED", "ACKNOWLEDGED"), ("MITIGATING", "MITIGATING"),
+        ("RESOLVED", "RESOLVED"), ("CLOSED", "CLOSED"),
     ],
 }
 
@@ -230,6 +245,20 @@ def test_customer_request_transition_matrix_unchanged():
     assert len(allowed) + len(denied) == len(m.CustomerRequestStatus) ** 2
 
 
+def test_incident_transition_matrix():
+    """AC-02: full REPORTED..CLOSED graph, including REPORTED -> ACKNOWLEDGED
+    (the lifecycle guard allows it; IncidentService.transition separately
+    refuses it for the generic action - SPEC R2/R9)."""
+    allowed, denied = _matrix(m.IncidentStatus, lc.assert_incident_transition)
+    assert allowed == {
+        ("REPORTED", "ACKNOWLEDGED"),
+        ("ACKNOWLEDGED", "MITIGATING"), ("ACKNOWLEDGED", "RESOLVED"),
+        ("MITIGATING", "RESOLVED"),
+        ("RESOLVED", "CLOSED"),
+    }
+    assert len(allowed) + len(denied) == len(m.IncidentStatus) ** 2
+
+
 def test_transition_error_messages_unchanged():
     with pytest.raises(ValueError, match=r"^Invalid data-state transition: RAW -> CONFIRMED$"):
         lc.assert_transition(m.DataState.RAW, m.DataState.CONFIRMED)
@@ -241,6 +270,17 @@ def test_transition_error_messages_unchanged():
         lc.assert_customer_request_transition(
             m.CustomerRequestStatus.WAITING, m.CustomerRequestStatus.CLOSED
         )
+
+
+# --- INC-REV-F4: version >= 1 invariant (canonical model) -------------------
+def test_incident_model_rejects_version_below_one():
+    with pytest.raises(ValueError):
+        m.Incident(shift_id=U[1], summary="s", version=0)
+
+
+def test_incident_model_accepts_version_one_and_above():
+    assert m.Incident(shift_id=U[1], summary="s", version=1).version == 1
+    assert m.Incident(shift_id=U[1], summary="s", version=7).version == 7
 
 
 # --- AC-09 (OpenAPI half) and F14/F17 exact-contract assertions moved to

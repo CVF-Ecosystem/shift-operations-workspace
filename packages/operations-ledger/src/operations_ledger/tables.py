@@ -44,6 +44,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 from sqlalchemy.dialects.postgresql import JSONB
 
+from operations_ledger._incident_tables import build_incidents_table
+
 metadata = MetaData()
 
 # Generic JSON column: native JSONB on PostgreSQL, JSON text elsewhere (SQLite).
@@ -276,3 +278,8 @@ approval_receipts = Table(
         name="approval_receipts_scope_approver_unique",
     ),
 )
+
+# Mirrors migration 005_incidents.sql (fifth vertical, P2-A). Table builder
+# lives in _incident_tables.py (SPEC R11): this host module only wires the
+# shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
+incidents = build_incidents_table(metadata, shifts, RISK_CLASS_TYPE)

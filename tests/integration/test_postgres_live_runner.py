@@ -52,6 +52,16 @@ def test_free_loopback_port_is_actually_bindable():
         s.bind(("127.0.0.1", port))  # raises if not truly free
 
 
+def test_live_suite_targets_pin_both_coherent_modules():
+    """P2A-INCIDENT-VERTICAL (INC-AUTH-F2): the runner must execute exactly
+    the existing PostgreSQL live module plus the new split incident module -
+    not a broader glob, and not a silent drop of either."""
+    assert runner.LIVE_SUITE_TARGETS == (
+        "tests/integration/test_sql_ledger_postgres_live.py",
+        "tests/integration/test_incident_postgres_live.py",
+    )
+
+
 def test_parse_migration_counts_extracts_applied_and_skipped():
     output = "001_foundation.sql: ok\ndone - 12 statement(s) applied, 3 already present\n"
     assert runner.parse_migration_counts(output) == (12, 3)

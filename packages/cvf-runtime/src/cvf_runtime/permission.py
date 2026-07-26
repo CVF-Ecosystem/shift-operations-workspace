@@ -47,6 +47,14 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # migration), so it does not need the higher supervisor bar.
     "customer_request.create": "operator",
     "customer_request.transition": "operator",
+    # Incident (fifth vertical, P2-A): reporting is a routine operator action
+    # (mirrors event.create/task.create), acknowledgement is the protected R2+
+    # decision that requires the same supervisor bar as event.confirm, and
+    # post-acknowledgement transition is a routine operator action again
+    # (mirrors task.transition).
+    "incident.report": "operator",
+    "incident.acknowledge": "shift_supervisor",
+    "incident.transition": "operator",
 }
 
 
