@@ -8,7 +8,7 @@
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `REVIEW_CHANGES_REQUIRED_F9_F10`
+- Status: `REVIEW_CHANGES_REQUIRED_F11_F12`
 
 ## Prior closure
 
@@ -109,6 +109,41 @@ F9/F10 fit the existing `_handover_repository.py`, `_handover_store.py`,
 no Amendment 3 and no 45th path are authorized. PostgreSQL/provider re-review
 stops until F9 is repaired.
 
+### Independent re-re-re-review — F11/F12
+
+Codex rehydrated continuity on 2026-07-27 and independently checked the F9/F10
+repair:
+
+- exact 44-path set, authorization cleanliness, assessment hash and 0 staged:
+  PASS;
+- dedicated parity suite: 35 passed;
+- F10 collection scope: PASS — root collected 659, tests-only collected 655,
+  and the exact four root-only nodes are
+  `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`;
+- PostgreSQL/provider/full exit gates: not rerun after the new defect stop.
+
+Review still returns changes:
+
+- `HOV-REV-F11 MULTISET_COLLAPSE_IMMUTABILITY`: `_items_key` returns a set and
+  `_evidence_key` returns a frozenset. Both discard multiplicity. Independent
+  probes proved both InMemoryLedger and SqlLedger accept an identical duplicate
+  item and an identical duplicate evidence entry through `put_handover`.
+  Stored data remains unchanged, but R22 requires every snapshot/evidence
+  mutation to be rejected, not silently accepted.
+- `HOV-REV-F12 BUILD_RECEIPT_WORKTREE_DRIFT`: current Git truth is 24 modified
+  tracked paths plus 20 new BUILD paths = exact 44, plus the separately
+  preserved assessment = 45 status entries and 21 untracked paths. The BUILD
+  receipt incorrectly says only the assessment was untracked at the fresh
+  repair checkpoint and later uses `23 modified + 20 new + 1 assessment` while
+  calling the result 44 non-assessment paths.
+
+F11/F12 fit the existing `_handover_repository.py`, `_handover_store.py`,
+`test_handover_ledger_parity.py` and BUILD-receipt paths. Comparison must remain
+order-independent but become multiplicity-sensitive. Tests must cover identical
+duplicate item and evidence mutations on both backends and every Python file
+must remain <=300. Exact C3 remains 44; no Amendment 3 and no 45th path are
+authorized.
+
 ## Exact BUILD boundary
 
 The final C3 ceiling is exactly 44 paths: Work Order section 3's 39,
@@ -146,13 +181,13 @@ Key invariants:
 
 ## G6 and return
 
-After the F9/F10 continuity push, Claude rehydrates this handoff, the parent
-authorization and Amendments 1-2; declares `REPAIR_WORKER`; repairs only F9
-and F10 inside the existing 44 paths, then reruns all gates.
+After the F11/F12 continuity push, Claude rehydrates this handoff, the parent
+authorization and Amendments 1-2; declares `REPAIR_WORKER`; repairs only F11
+and F12 inside the existing 44 paths, then reruns all gates.
 
 Claude performs no stage/commit/push and stops at:
 
-`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_REVIEW`
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_REVIEW`
 
 Any stop-condition defect is reported without repair until Codex reviews and
 authorizes the next move.

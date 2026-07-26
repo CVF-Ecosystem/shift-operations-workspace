@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A handover re-review F9/F10; exact 44 unchanged)_
+_Last updated: 2026-07-27 (P2-A handover re-review F11/F12; exact 44 unchanged)_
 
 ## Where the project is
 
-**2026-07-26 (P2-A HANDOVER — review):** F5-F7 repaired under exact 44 paths,
-but re-review found F9 partial snapshot comparison (item/evidence/created_at
-mutations accepted). F10 corrects reviewer error: root pytest `588` vs
-tests-only `584` is discovery scope, not prior worker receipt drift.
+**2026-07-27 (P2-A HANDOVER — review):** F9 field coverage repaired, but
+re-review found F11 multiset collapse: identical duplicate item/evidence
+mutations still pass. F12 corrects the BUILD receipt's untracked/count claims.
+F10 is verified: root collection has exactly four app-local tests more.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên

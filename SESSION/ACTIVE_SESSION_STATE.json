@@ -4,7 +4,7 @@
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
-  "last_updated": "2026-07-26",
+  "last_updated": "2026-07-27",
   "required_reads": [
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
     "docs/decisions/ADR_2026-07-26_P2A_HANDOVER_VERTICAL.md",
@@ -54,7 +54,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 in BUILD repair after independent re-review. F5-F7 repair is verified, but HOV-REV-F9 proves item/evidence/created_at snapshot mutations still pass because comparison is partial. HOV-REV-F10 corrects reviewer error: root pytest and tests-only pytest differ by four app-local tests; the prior 571/567 difference was discovery scope, not worker receipt drift. NEXT MOVE: after this continuity push, Claude rehydrates parent plus Amendments 1-2, declares REPAIR_WORKER, repairs F9/F10 only inside the unchanged exact 44 paths, reruns non-live/PostgreSQL/provider and all gates, and stops at READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_REVIEW. No Amendment 3, no 45th path, no stage/commit/push.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 remains in BUILD repair after independent re-re-re-review. HOV-REV-F10 is independently verified: root collection has exactly four app-local lifecycle tests more than tests-only collection. HOV-REV-F11 proves the F9 comparator still collapses multiplicity because item/evidence collections use set/frozenset; both backends accept an identical duplicate item and identical duplicate evidence through put_handover instead of failing closed. HOV-REV-F12 proves BUILD receipt worktree drift: current truth is 24 modified tracked plus 20 new BUILD paths = exact 44, plus the separately preserved assessment = 45 status entries/21 untracked; the receipt's only-assessment-untracked and 23+20 arithmetic claims are false. NEXT MOVE: after this continuity push, Claude rehydrates parent plus Amendments 1-2 and the active handoff, declares REPAIR_WORKER, repairs F11/F12 only inside the unchanged exact 44 paths, preserves order independence while making comparison multiplicity-sensitive, adds cross-backend identical-duplicate probes while keeping every Python file <=300, corrects the BUILD receipt, reruns all non-live/PostgreSQL/provider/repository gates, and stops at READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_REVIEW. No Amendment 3, no 45th path, no stage/commit/push.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -161,7 +161,7 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "BUILD",
-    "activePhaseNote": "Re-review verified F5-F7 but returned F9 partial snapshot immutability and F10 reviewer command-scope correction. Exact ceiling remains 44 paths.",
+    "activePhaseNote": "Re-re-re-review verified F10 but returned F11 multiset-collapse immutability and F12 BUILD-receipt worktree drift. Exact ceiling remains 44 paths.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
@@ -169,8 +169,8 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "REPAIR_WORKER",
-    "activeRoleNote": "Claude becomes REPAIR_WORKER only after the F9/F10 continuity push and fresh rehydration. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
+    "activeRoleNote": "Claude becomes REPAIR_WORKER only after the F11/F12 continuity push and fresh rehydration. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
-    "updatedAt": "2026-07-26"
+    "updatedAt": "2026-07-27"
   }
 }
