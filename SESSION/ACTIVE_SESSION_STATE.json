@@ -54,7 +54,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 in BUILD repair after independent REVIEW_CHANGES_REQUIRED. HOV-REV-F5 through F8 are accepted without waiver. C2d cbf053fa9314e3ec63bd78fc3df8c3e014d2fdc7 authorizes exactly 44 C3 paths: customer-request test split below 300 with debt entry removal, controlled duplicate/FK behavior and immutable snapshot parity on both ledgers, dedicated parity tests and truthful receipts. NEXT MOVE: after this C2e push, Claude rehydrates parent plus Amendments 1-2, declares REPAIR_WORKER, repairs F5/F7/F8, reruns every non-live/PostgreSQL/provider gate, and stops at READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_REVIEW. F6 is reviewer-owned and repaired in C2e. No debt rehash, no raw integrity leak, no 45th path, no stage/commit/push.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2A-HANDOVER-VERTICAL-2026-07-26 in BUILD repair after independent re-review. F5-F7 repair is verified, but HOV-REV-F9 proves item/evidence/created_at snapshot mutations still pass because comparison is partial. HOV-REV-F10 corrects reviewer error: root pytest and tests-only pytest differ by four app-local tests; the prior 571/567 difference was discovery scope, not worker receipt drift. NEXT MOVE: after this continuity push, Claude rehydrates parent plus Amendments 1-2, declares REPAIR_WORKER, repairs F9/F10 only inside the unchanged exact 44 paths, reruns non-live/PostgreSQL/provider and all gates, and stops at READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_REVIEW. No Amendment 3, no 45th path, no stage/commit/push.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -161,7 +161,7 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "BUILD",
-    "activePhaseNote": "Independent review returned HOV-REV-F5 through F8. C2d cbf053f amended the exact ceiling to 44 paths. Repair resumes only after this C2e continuity push.",
+    "activePhaseNote": "Re-review verified F5-F7 but returned F9 partial snapshot immutability and F10 reviewer command-scope correction. Exact ceiling remains 44 paths.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
@@ -169,7 +169,7 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "REPAIR_WORKER",
-    "activeRoleNote": "Claude becomes REPAIR_WORKER only after this C2e is pushed and fresh rehydration confirms the parent plus Amendments 1-2. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
+    "activeRoleNote": "Claude becomes REPAIR_WORKER only after the F9/F10 continuity push and fresh rehydration. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-26"
   }

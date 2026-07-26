@@ -8,7 +8,7 @@
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `AUTHORIZED_REPAIR_PENDING_C2E_PUSH`
+- Status: `REVIEW_CHANGES_REQUIRED_F9_F10`
 
 ## Prior closure
 
@@ -81,6 +81,34 @@ customer transition module and dedicated handover ledger-parity module. The
 customer debt entry must be removed, never rehashed. No 45th path is
 conditional. Codex owns the C2e continuity compaction separately.
 
+### Independent re-review — F9/F10
+
+Amendment 2 repair was re-reviewed from source:
+
+- exact 44-path set: PASS;
+- customer-request split/debt removal: PASS;
+- dedicated parity suite: 17 passed;
+- customer split suite: 29 passed;
+- root full suite: 588 passed/53 skipped/1 warning;
+- tests-only suite: 584 passed/53 skipped/1 warning;
+- catalog/session/file-size/validator/diff: PASS.
+
+Review still returns changes:
+
+- `HOV-REV-F9 PARTIAL_SNAPSHOT_COMPARATOR`: both backends accept item
+  `summary`, `evidence` and aggregate `created_at` mutations because the
+  comparator only covers `(record_type, record_id, digest)`. R22 requires
+  every item/snapshot/evidence field immutable.
+- `HOV-REV-F10 REVIEW_COMMAND_SCOPE_MISCLASSIFICATION`: the earlier F8
+  diagnosis was reviewer error. `571` root versus `567` tests-only came from
+  four app-local tests discovered only by root pytest, not receipt drift.
+  Receipts/continuity must correct the history and label command scope.
+
+F9/F10 fit the existing `_handover_repository.py`, `_handover_store.py`,
+`test_handover_ledger_parity.py` and build-receipt paths. Exact C3 remains 44;
+no Amendment 3 and no 45th path are authorized. PostgreSQL/provider re-review
+stops until F9 is repaired.
+
 ## Exact BUILD boundary
 
 The final C3 ceiling is exactly 44 paths: Work Order section 3's 39,
@@ -118,9 +146,9 @@ Key invariants:
 
 ## G6 and return
 
-After the C2e continuity push, Claude rehydrates this handoff, the parent
-authorization and Amendments 1-2; declares `REPAIR_WORKER`; confirms C2d/C2e
-at `origin/main`; then repairs and completes exactly the 44-path ceiling.
+After the F9/F10 continuity push, Claude rehydrates this handoff, the parent
+authorization and Amendments 1-2; declares `REPAIR_WORKER`; repairs only F9
+and F10 inside the existing 44 paths, then reruns all gates.
 
 Claude performs no stage/commit/push and stops at:
 

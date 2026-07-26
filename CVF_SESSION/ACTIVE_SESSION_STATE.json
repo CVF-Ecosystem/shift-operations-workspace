@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2A-HANDOVER-VERTICAL independent review returned HOV-REV-F5 through F8. C2d cbf053f authorizes exact 44-path repair; reviewer-owned continuity/file-size repair is in this C2e.",
+  "syncReceipt": "P2A-HANDOVER-VERTICAL re-review verified F5-F7 but returned F9 partial snapshot immutability and F10 reviewer command-scope correction. Exact C3 remains 44 paths.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "REPAIR_WORKER",
   "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
