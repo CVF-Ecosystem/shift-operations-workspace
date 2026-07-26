@@ -3,18 +3,24 @@
 Proves the chain holds together at the service layer: permission, evidence,
 approval, state transition, audit write, and freeze — for the Operational
 Event domain.
+
+P2B-APPROVER-IDENTITY-RECONCILIATION: a satisfied quorum is now proved with
+authenticated approval receipts (``approval_service.create_approval_receipt``
+under each approver's own ``Principal``), not caller-supplied
+``Approval(...)`` objects.
 """
 
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from cvf_runtime.approval import Approval
 from cvf_runtime.audit import AuditLog
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 
+from workspace_api.application import approval_service
 from workspace_api.application.services import EventService
+from workspace_api.domain.models import User
 from operations_domain.models import (
     DataState,
     EvidenceRef,
@@ -49,28 +55,41 @@ def _add_event(ledger, shift, *, risk, evidence_count):
     return ledger.add_event(event)
 
 
+def _approve_confirm(ledger, event, approver_id, role):
+    ledger.add_user(
+        User(user_id=approver_id, username=approver_id, password_hash="x", role=role, is_active=True)
+    )
+    approval_service.create_approval_receipt(
+        ledger,
+        Principal(user_id=approver_id, role=role),
+        record_type="OperationalEvent",
+        action="event.confirm",
+        record_id=event.event_id,
+    )
+
+
 def test_r3_full_chain_confirms_and_audits():
     ledger, shift = _fresh_ledger()
     audit = AuditLog()
     event = _add_event(ledger, shift, risk=RiskClass.R3, evidence_count=1)
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
+    _approve_confirm(ledger, event, "sup2", "shift_supervisor")
+    _approve_confirm(ledger, event, "mgr1", "responsible_manager")
 
-    confirmed = EventService(ledger, audit).confirm(
-        event.event_id,
-        supervisor,
-        approvals=[
-            Approval(approver_id="sup2", role="shift_supervisor"),
-            Approval(approver_id="mgr1", role="responsible_manager"),
-        ],
-    )
+    confirmed = EventService(ledger, audit).confirm(event.event_id, supervisor)
 
     assert confirmed.state == DataState.CONFIRMED
+    # Both the two receipt creations (AC-19: each atomically audited as
+    # "approval.create") and the confirm itself append audit entries scoped
+    # to this event id - isolate the confirm's own entry.
     entries = ledger.audit_entries_for(str(event.event_id))
-    assert len(entries) == 1
-    assert entries[0].actor_id == "sup1"
-    assert entries[0].action == "event.confirm"
-    assert entries[0].before_state == "PROPOSED"
-    assert entries[0].after_state == "CONFIRMED"
+    confirm_entries = [e for e in entries if e.action == "event.confirm"]
+    assert len(confirm_entries) == 1
+    assert confirm_entries[0].actor_id == "sup1"
+    assert confirm_entries[0].before_state == "PROPOSED"
+    assert confirm_entries[0].after_state == "CONFIRMED"
+    receipt_entries = [e for e in entries if e.action == "approval.create"]
+    assert len(receipt_entries) == 2
 
 
 def test_operator_confirm_denied_by_permission():
@@ -80,7 +99,7 @@ def test_operator_confirm_denied_by_permission():
     operator = Principal(user_id="op1", role="operator")
 
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, audit).confirm(event.event_id, operator, approvals=[])
+        EventService(ledger, audit).confirm(event.event_id, operator)
     assert exc.value.control == "permission"
     # Nothing confirmed, nothing audited.
     assert ledger.events[event.event_id].state == DataState.PROPOSED
@@ -94,11 +113,7 @@ def test_r2_denied_when_evidence_missing():
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
 
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, audit).confirm(
-            event.event_id,
-            supervisor,
-            approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
-        )
+        EventService(ledger, audit).confirm(event.event_id, supervisor)
     assert exc.value.control == "evidence"
 
 
@@ -107,13 +122,10 @@ def test_r3_denied_when_quorum_not_met():
     audit = AuditLog()
     event = _add_event(ledger, shift, risk=RiskClass.R3, evidence_count=1)
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
+    _approve_confirm(ledger, event, "sup2", "shift_supervisor")
 
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, audit).confirm(
-            event.event_id,
-            supervisor,
-            approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
-        )
+        EventService(ledger, audit).confirm(event.event_id, supervisor)
     assert exc.value.control == "approval"
 
 
@@ -123,9 +135,9 @@ def test_confirm_blocked_on_frozen_shift():
     event = _add_event(ledger, shift, risk=RiskClass.R1, evidence_count=0)
     # Freeze the event's state path by first confirming then freezing.
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
-    EventService(ledger, audit).confirm(event.event_id, supervisor, approvals=[])
+    EventService(ledger, audit).confirm(event.event_id, supervisor)
     # Move to FROZEN directly to simulate a frozen record.
     ledger.events[event.event_id].state = DataState.FROZEN
 
     with pytest.raises((CvfDenied, ValueError)):
-        EventService(ledger, audit).confirm(event.event_id, supervisor, approvals=[])
+        EventService(ledger, audit).confirm(event.event_id, supervisor)

@@ -3,18 +3,25 @@
 Proves the SAME cvf-runtime gates enforce a second domain, plus the
 correction-specific rules: only official facts are correctable, a reason is
 mandatory, the record's risk quorum applies, and corrections are append-only.
+
+P2B-APPROVER-IDENTITY-RECONCILIATION: approvals are no longer caller-supplied
+``Approval(...)`` objects - a quorum is met only by authenticated approval
+receipts, created here via ``approval_service.create_approval_receipt`` under
+each approver's own ``Principal`` (mirroring what ``POST /approvals`` does),
+scoped to the event's CURRENT version.
 """
 
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from cvf_runtime.approval import Approval
 from cvf_runtime.audit import AuditLog
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 
+from workspace_api.application import approval_service
 from workspace_api.application.correction_service import CorrectionService
+from workspace_api.domain.models import User
 from operations_domain.models import (
     DataState,
     EvidenceRef,
@@ -46,14 +53,29 @@ def _supervisor():
     return Principal(user_id="sup1", role="shift_supervisor")
 
 
+def _approve_correction(ledger, event, approver_id, role):
+    """Authenticate as ``approver_id`` and create a receipt scoped to the
+    event's CURRENT version, exactly what POST /approvals does."""
+    ledger.add_user(
+        User(user_id=approver_id, username=approver_id, password_hash="x", role=role, is_active=True)
+    )
+    approval_service.create_approval_receipt(
+        ledger,
+        Principal(user_id=approver_id, role=role),
+        record_type="OperationalEvent",
+        action="event.correct",
+        record_id=event.event_id,
+    )
+
+
 def test_confirmed_event_corrected_with_record_and_audit():
     ledger, event = _ledger_with_event(state=DataState.CONFIRMED, risk=RiskClass.R2)
+    _approve_correction(ledger, event, "sup2", "shift_supervisor")
     audit = AuditLog()
     correction = CorrectionService(ledger, audit).correct_event(
         event.event_id,
         _supervisor(),
         reason="Downtime end time was mistyped",
-        approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
     )
     assert correction.previous_version == 1
     assert correction.new_version == 2
@@ -70,12 +92,12 @@ def test_confirmed_event_corrected_with_record_and_audit():
 
 def test_frozen_event_not_silently_overwritten():
     ledger, event = _ledger_with_event(state=DataState.FROZEN, risk=RiskClass.R2)
+    _approve_correction(ledger, event, "sup2", "shift_supervisor")
     audit = AuditLog()
     correction = CorrectionService(ledger, audit).correct_event(
         event.event_id,
         _supervisor(),
         reason="Regulatory reclassification after review",
-        approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
     )
     # Frozen record stays FROZEN (no silent overwrite); correction records the change.
     assert ledger.events[event.event_id].state == DataState.FROZEN
@@ -87,19 +109,19 @@ def test_proposed_event_cannot_be_corrected():
     ledger, event = _ledger_with_event(state=DataState.PROPOSED)
     with pytest.raises(CvfDenied) as exc:
         CorrectionService(ledger, AuditLog()).correct_event(
-            event.event_id, _supervisor(), reason="x", approvals=[]
+            event.event_id, _supervisor(), reason="x"
         )
     assert exc.value.control == "freeze"
 
 
 def test_correction_requires_reason():
     ledger, event = _ledger_with_event(state=DataState.CONFIRMED)
+    _approve_correction(ledger, event, "sup2", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
         CorrectionService(ledger, AuditLog()).correct_event(
             event.event_id,
             _supervisor(),
             reason="   ",
-            approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
         )
     assert exc.value.control == "audit"
 
@@ -109,18 +131,19 @@ def test_operator_cannot_correct():
     operator = Principal(user_id="op1", role="operator")
     with pytest.raises(CvfDenied) as exc:
         CorrectionService(ledger, AuditLog()).correct_event(
-            event.event_id, operator, reason="x", approvals=[]
+            event.event_id, operator, reason="x"
         )
     assert exc.value.control == "permission"
 
 
 def test_r3_correction_needs_dual_quorum():
     ledger, event = _ledger_with_event(state=DataState.CONFIRMED, risk=RiskClass.R3)
+    # Only one seat filled (shift_supervisor); responsible_manager is missing.
+    _approve_correction(ledger, event, "sup2", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
         CorrectionService(ledger, AuditLog()).correct_event(
             event.event_id,
             _supervisor(),
             reason="Reclassify severity",
-            approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
         )
     assert exc.value.control == "approval"

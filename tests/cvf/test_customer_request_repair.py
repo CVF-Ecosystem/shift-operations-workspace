@@ -250,7 +250,6 @@ def test_customer_request_denied_when_domain_lock_excludes_it():
         data=real_profile.data,
         cost=real_profile.cost,
         termination=real_profile.termination,
-        known_principals=real_profile.known_principals,
     )
 
     ledger = InMemoryLedger()

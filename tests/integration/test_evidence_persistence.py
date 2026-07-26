@@ -13,14 +13,15 @@ from pathlib import Path
 
 import pytest
 
-from cvf_runtime.approval import Approval
 from cvf_runtime.audit import AuditLog
 from cvf_runtime.identity import Principal
 from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
+from workspace_api.application import approval_service
 from workspace_api.application.services import EventService
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import User
 from operations_domain.models import EvidenceRef, OperationalEvent, RiskClass, Shift
 
 
@@ -72,11 +73,17 @@ def test_r2_event_confirm_succeeds_on_sql_ledger_with_evidence(tmp_path):
     ledger.add_event(event)
 
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
-    confirmed = EventService(ledger, AuditLog()).confirm(
-        event.event_id,
-        supervisor,
-        approvals=[Approval(approver_id="sup2", role="shift_supervisor")],
+    ledger.add_user(
+        User(user_id="sup2", username="sup2", password_hash="x", role="shift_supervisor", is_active=True)
     )
+    approval_service.create_approval_receipt(
+        ledger,
+        Principal(user_id="sup2", role="shift_supervisor"),
+        record_type="OperationalEvent",
+        action="event.confirm",
+        record_id=event.event_id,
+    )
+    confirmed = EventService(ledger, AuditLog()).confirm(event.event_id, supervisor)
     assert confirmed.state.value == "CONFIRMED"
 
 
@@ -100,7 +107,7 @@ def test_event_without_evidence_still_refused_on_sql_ledger(tmp_path):
 
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, AuditLog()).confirm(event.event_id, supervisor, approvals=[])
+        EventService(ledger, AuditLog()).confirm(event.event_id, supervisor)
     assert exc.value.control == "evidence"
 
 

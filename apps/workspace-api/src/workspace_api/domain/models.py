@@ -21,9 +21,11 @@ Do not "clean it up" into one without reading both.
    that is a decision, not an oversight. It mirrors
    `database/migrations/003_users.sql` (P2-B authentication), its `role` values
    are constrained by `cvf_runtime.identity.KNOWN_ROLES`, and no operations
-   vertical references it - it belongs to the authentication boundary. Where it
-   finally lives is owned by the `known-principals.yaml` <-> `users`
-   reconciliation tranche (High Finding #4), not by a mechanical move here.
+   vertical references it - it belongs to the authentication boundary. The
+   `known-principals.yaml` <-> `users` reconciliation (High Finding #4,
+   P2B-APPROVER-IDENTITY-RECONCILIATION) decided `User` stays here: `users` is
+   now the single runtime approver authority and `known-principals.yaml` is
+   retired, but that does not relocate `User`.
 
 Because this module exposes both the operational types and `User`, it is also
 the namespace object passed as `SqlLedger(models=...)`: `operations_ledger`
@@ -37,6 +39,7 @@ from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
 from operations_domain.models import (  # noqa: F401  (re-exported for compatibility)
+    ApprovalReceipt,
     Correction,
     CustomerRequest,
     CustomerRequestStatus,
@@ -48,10 +51,12 @@ from operations_domain.models import (  # noqa: F401  (re-exported for compatibi
     Shift,
     ShiftStatus,
     Task,
+    TaskCreationIntent,
     TaskStatus,
 )
 
 __all__ = [
+    "ApprovalReceipt",
     "Correction",
     "CustomerRequest",
     "CustomerRequestStatus",
@@ -63,6 +68,7 @@ __all__ = [
     "Shift",
     "ShiftStatus",
     "Task",
+    "TaskCreationIntent",
     "TaskStatus",
     "User",
 ]

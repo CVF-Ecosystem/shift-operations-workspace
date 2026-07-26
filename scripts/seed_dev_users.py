@@ -6,10 +6,10 @@ intentionally weak. Production user provisioning is out of scope for this
 tranche and remains a follow-up - see the P2-B entry in
 docs/implementation/EXECUTION_ROADMAP.md.
 
-Reuses the same ids/roles already used in
-packages/cvf-application-profile/known-principals.yaml so dev/test fixtures
-stay legible across both registries - they remain independent stores; this
-script does not read or write that YAML file.
+Reuses the same ids/roles the retired known-principals.yaml registry used to
+list (P2B-APPROVER-IDENTITY-RECONCILIATION deleted that file: `users` is now
+the single runtime authority for approver identity/role/active-status).
+Legibility only - this script never read or wrote that YAML file.
 
 Requires JWT_SECRET_KEY (and, to persist across process runs, DATABASE_URL)
 to already be set in the environment, same as running the API itself.

@@ -1,27 +1,4 @@
-"""SqlLedger — append-only, dual-backend SQL persistence implementing the Ledger Protocol.
-
-Design notes:
-* SQLAlchemy Core over the existing migration schema; the SQL migration stays
-  the single schema authority (PostgreSQL is the schema of record).
-* Dual-backend: ``tables.py`` uses SQLAlchemy's generic ``Uuid``/``JSON``
-  types with a PostgreSQL variant, so the SAME table definitions work against
-  SQLite (zero-setup dev/eval) or PostgreSQL (production) — pick by
-  ``DATABASE_URL`` only, no code or schema change.
-* Corrections are append-only: only INSERT, never UPDATE/DELETE. This is the
-  durable form of "post-freeze changes go through a correction record and are
-  never silently overwritten".
-* Domain model classes are injected via ``models`` so this package does not
-  import the application layer (dependency points one way: app -> ledger).
-* ``psycopg``/other DB drivers are only required when actually connecting to
-  that backend; importing this module never requires them.
-* Unit-of-work (P-FIX-2): ``transaction()`` yields a live SQLAlchemy
-  ``Connection`` with an open transaction. Pass it as ``unit=`` to chain
-  multiple writes (state change, correction insert, audit append) into one
-  commit/rollback. Fixes EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md High
-  Finding #5: previously every method opened and committed its own
-  transaction, so a failure in the audit step left the mutation committed
-  with no audit record.
-"""
+"""SqlLedger — append-only, dual-backend SQL persistence implementing Ledger Protocol."""
 
 from __future__ import annotations
 
@@ -30,15 +7,18 @@ from uuid import UUID
 
 from sqlalchemy import create_engine, event, insert, select, update
 from sqlalchemy.engine import Connection, Engine
+from sqlalchemy.exc import IntegrityError
 
 from operations_ledger import _evidence, _rows
 from operations_ledger.tables import (
+    approval_receipts,
     audit_records,
     corrections,
     customer_requests,
     messages,
     operational_events,
     shifts,
+    task_creation_intents,
     tasks,
     users,
 )
@@ -94,6 +74,16 @@ class SqlLedger:
             return unit, False
         return self.engine.begin(), True
 
+    def _fetch_one(self, stmt, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            return c.execute(stmt).mappings().first()
+
+    def _fetch_all(self, stmt, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            return c.execute(stmt).mappings().all()
+
     # --- shifts ---
     def create_shift(self, shift, *, unit=None):
         conn, owns = self._conn(unit)
@@ -102,11 +92,7 @@ class SqlLedger:
         return shift
 
     def get_shift(self, shift_id: UUID, *, unit=None):
-        conn, owns = self._conn(unit)
-        with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(shifts).where(shifts.c.shift_id == shift_id)
-            ).mappings().first()
+        row = self._fetch_one(select(shifts).where(shifts.c.shift_id == shift_id), unit=unit)
         if row is None:
             raise KeyError(shift_id)
         return self.models.Shift(**dict(row))
@@ -120,26 +106,21 @@ class SqlLedger:
         Status = self.models.ShiftStatus
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(shifts).where(shifts.c.shift_id == shift_id)
-            ).mappings().first()
+            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
             if row is None:
                 raise KeyError(shift_id)
             if row["status"] == Status.FROZEN.value:
                 raise ValueError("Cannot close a frozen shift")
             c.execute(
-                update(shifts)
-                .where(shifts.c.shift_id == shift_id)
+                update(shifts).where(shifts.c.shift_id == shift_id)
                 .values(status=Status.CLOSED.value, version=row["version"] + 1)
             )
-            row = c.execute(
-                select(shifts).where(shifts.c.shift_id == shift_id)
-            ).mappings().first()
+            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
         return self.models.Shift(**dict(row))
 
     def _assert_shift_not_frozen(self, conn, shift_id: UUID, what: str) -> None:
-        # Post-freeze, the ONLY permitted change is a correction record.
-        # Every direct mutation path must check this, not just "create".
+        # Post-freeze, the ONLY permitted change is a correction record -
+        # every direct mutation path must check this, not just "create".
         row = conn.execute(
             select(shifts.c.status).where(shifts.c.shift_id == shift_id)
         ).mappings().first()
@@ -152,21 +133,16 @@ class SqlLedger:
         Status = self.models.ShiftStatus
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(shifts).where(shifts.c.shift_id == shift_id)
-            ).mappings().first()
+            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
             if row is None:
                 raise KeyError(shift_id)
             if row["status"] == Status.FROZEN.value:
                 return self.models.Shift(**dict(row))
             c.execute(
-                update(shifts)
-                .where(shifts.c.shift_id == shift_id)
+                update(shifts).where(shifts.c.shift_id == shift_id)
                 .values(status=Status.FROZEN.value, version=row["version"] + 1)
             )
-            row = c.execute(
-                select(shifts).where(shifts.c.shift_id == shift_id)
-            ).mappings().first()
+            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
         return self.models.Shift(**dict(row))
 
     # --- messages (raw evidence preserved elsewhere; minimal here) ---
@@ -196,9 +172,7 @@ class SqlLedger:
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
             row = c.execute(
-                select(operational_events).where(
-                    operational_events.c.event_id == event_id
-                )
+                select(operational_events).where(operational_events.c.event_id == event_id)
             ).mappings().first()
             if row is None:
                 raise KeyError(event_id)
@@ -224,7 +198,14 @@ class SqlLedger:
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
             self._assert_shift_not_frozen(c, task.shift_id, "add task to a frozen shift")
-            c.execute(insert(tasks).values(**_rows.task_row(task)))
+            # R9.6: task_id := intent_id on the consuming path, so a second
+            # POST /tasks against an already-consumed intent collides on this
+            # PK. Re-raised as the same ValueError shape InMemoryLedger uses
+            # so the application layer maps both backends identically.
+            try:
+                c.execute(insert(tasks).values(**_rows.task_row(task)))
+            except IntegrityError as exc:
+                raise ValueError(f"duplicate task_id: {task.task_id}") from exc
             _evidence.insert_evidence(
                 c, task.evidence, record_type=_TASK_RECORD_TYPE, record_id=task.task_id
             )
@@ -233,9 +214,7 @@ class SqlLedger:
     def get_task(self, task_id: UUID, *, unit=None):
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(tasks).where(tasks.c.task_id == task_id)
-            ).mappings().first()
+            row = c.execute(select(tasks).where(tasks.c.task_id == task_id)).mappings().first()
             if row is None:
                 raise KeyError(task_id)
             evidence = _evidence.evidence_for(
@@ -253,40 +232,30 @@ class SqlLedger:
             )
         return task
 
-    # --- customer requests ---
-    # shift_id is nullable on this table: a request not tied to any shift has
-    # no frozen-shift invariant to check, so the guard only runs when a
-    # shift_id is actually present (mirrors the reasoning in
-    # InMemoryLedger.add_customer_request).
+    # --- customer requests: shift_id is nullable, so the frozen-shift guard
+    # only runs when one is actually present (mirrors InMemoryLedger). ---
     def add_customer_request(self, request, *, unit=None):
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
             if request.shift_id is not None:
-                self._assert_shift_not_frozen(
-                    c, request.shift_id, "add customer request to a frozen shift"
-                )
+                self._assert_shift_not_frozen(c, request.shift_id, "add customer request to a frozen shift")
             c.execute(insert(customer_requests).values(**_rows.customer_request_row(request)))
         return request
 
     def get_customer_request(self, request_id: UUID, *, unit=None):
-        conn, owns = self._conn(unit)
-        with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(customer_requests).where(
-                    customer_requests.c.request_id == request_id
-                )
-            ).mappings().first()
-            if row is None:
-                raise KeyError(request_id)
+        row = self._fetch_one(
+            select(customer_requests).where(customer_requests.c.request_id == request_id),
+            unit=unit,
+        )
+        if row is None:
+            raise KeyError(request_id)
         return _rows.row_to_customer_request(self.models, row)
 
     def put_customer_request(self, request, *, unit=None):
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
             if request.shift_id is not None:
-                self._assert_shift_not_frozen(
-                    c, request.shift_id, "modify customer request in a frozen shift"
-                )
+                self._assert_shift_not_frozen(c, request.shift_id, "modify customer request in a frozen shift")
             c.execute(
                 update(customer_requests)
                 .where(customer_requests.c.request_id == request.request_id)
@@ -302,14 +271,77 @@ class SqlLedger:
         return user
 
     def get_user_by_username(self, username: str, *, unit=None):
+        row = self._fetch_one(select(users).where(users.c.username == username), unit=unit)
+        return _rows.row_to_user(self.models, row) if row is not None else None
+
+    def get_user_by_id(self, user_id: str, *, unit=None):
+        row = self._fetch_one(select(users).where(users.c.user_id == user_id), unit=unit)
+        return _rows.row_to_user(self.models, row) if row is not None else None
+
+    # --- approval receipts / task creation intents ---
+    def add_approval_receipt(self, receipt, *, unit=None):
         conn, owns = self._conn(unit)
         with (conn if owns else _noop_cm(conn)) as c:
-            row = c.execute(
-                select(users).where(users.c.username == username)
-            ).mappings().first()
+            c.execute(insert(approval_receipts).values(**_rows.approval_receipt_row(receipt)))
+        return receipt
+
+    def list_approval_receipts_for(
+        self,
+        *,
+        record_type,
+        record_id,
+        action,
+        target_version,
+        risk_class,
+        payload_digest,
+        unit=None,
+    ):
+        clauses = [
+            approval_receipts.c.record_type == record_type,
+            approval_receipts.c.record_id == record_id,
+            approval_receipts.c.action == action,
+            approval_receipts.c.target_version == target_version,
+            approval_receipts.c.risk_class == risk_class,
+            approval_receipts.c.payload_digest == payload_digest,
+        ]
+        rows = self._fetch_all(
+            select(approval_receipts).where(*clauses),
+            unit=unit,
+        )
+        return [_rows.row_to_approval_receipt(self.models, r) for r in rows]
+
+
+    def get_approval_receipt(
+        self, *, record_type, record_id, action, target_version, approver_id, unit=None
+    ):
+        row = self._fetch_one(
+            select(approval_receipts).where(
+                approval_receipts.c.record_type == record_type,
+                approval_receipts.c.record_id == record_id,
+                approval_receipts.c.action == action,
+                approval_receipts.c.target_version == target_version,
+                approval_receipts.c.approver_id == approver_id,
+            ),
+            unit=unit,
+        )
+        return _rows.row_to_approval_receipt(self.models, row) if row is not None else None
+
+    def add_task_creation_intent(self, intent, *, unit=None):
+        conn, owns = self._conn(unit)
+        with (conn if owns else _noop_cm(conn)) as c:
+            c.execute(
+                insert(task_creation_intents).values(**_rows.task_creation_intent_row(intent))
+            )
+        return intent
+
+    def get_task_creation_intent(self, intent_id, *, unit=None):
+        row = self._fetch_one(
+            select(task_creation_intents).where(task_creation_intents.c.intent_id == intent_id),
+            unit=unit,
+        )
         if row is None:
-            return None
-        return _rows.row_to_user(self.models, row)
+            raise KeyError(intent_id)
+        return _rows.row_to_task_creation_intent(self.models, row)
 
     # --- corrections (append-only) ---
     def add_correction(self, correction, *, unit=None):
@@ -356,7 +388,6 @@ class SqlLedger:
 
 @contextmanager
 def _noop_cm(conn: Connection):
-    """Wrap an already-open connection so it can be used in a ``with`` block
-    without closing/committing it (the owning ``transaction()`` block does
-    that)."""
+    """Wrap an already-open connection for use in a ``with`` block without
+    closing/committing it (the owning ``transaction()`` block does that)."""
     yield conn

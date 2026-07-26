@@ -6,13 +6,20 @@
 
 Every refusal is a :class:`CvfDenied` naming the control that refused, so the
 API layer maps it to the right HTTP status and the audit log records intent.
-This replaces the previous symbolic guard (a bare non-empty ``approver_id``
-string) called out in the EA independent review.
+
+2026-07-26 (P2B-APPROVER-IDENTITY-RECONCILIATION): the caller-supplied
+``approvals`` list is retired (it was High Finding #4 - approver identity
+asserted by the confirmer, not the approver). The server now auto-collects
+persisted, authenticated approval receipts matching the event's current scope
+(SPEC R5.1) and evaluates them through a fresh, server-owned authority
+resolver (SPEC R3.1). The whole read-decide-write path runs inside one
+``transaction()`` so the resolver's reads are evaluated against the same
+consistent state the mutation commits against.
 """
 
 from uuid import UUID
 
-from cvf_runtime.approval import Approval, assert_approval_satisfied
+from cvf_runtime.approval import assert_approval_satisfied
 from cvf_runtime.audit import AuditLog, AuditRecord
 from cvf_runtime.evidence import assert_evidence_sufficient
 from cvf_runtime.identity import Principal
@@ -22,8 +29,11 @@ from operations_ledger import Ledger
 
 from operations_domain.lifecycle import assert_transition
 from operations_domain.models import DataState, OperationalEvent
+from workspace_api.application import approval_service
 
 _CONTROL_CHAIN = ["identity", "permission", "risk", "evidence", "approval", "audit"]
+_RECORD_TYPE = "OperationalEvent"
+_ACTION = "event.confirm"
 
 
 class EventService:
@@ -37,50 +47,56 @@ class EventService:
         self.audit = audit
         self.profile = profile or load_profile()
 
-    def confirm(
-        self,
-        event_id: UUID,
-        principal: Principal,
-        approvals: list[Approval],
-    ) -> OperationalEvent:
-        event = self.ledger.get_event(event_id)
-        risk_class = str(event.risk_class)
-
-        # permission: may this principal confirm events at all?
-        require_action(principal, "event.confirm")
-
-        # state: is CONFIRMED even reachable from event's own data-state?
-        # NOTE: this only checks the event's own state, NOT the parent shift.
-        # The parent-shift-frozen check happens at self.ledger.put_event()
-        # below (both InMemoryLedger and SqlLedger reject a mutation whose
-        # shift is FROZEN) - see EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md
-        # Critical Finding #1, which found this comment previously claimed a
-        # guarantee this line does not provide.
-        assert_transition(event.state, DataState.CONFIRMED)
-
-        # evidence: enough evidence links for this risk class?
-        assert_evidence_sufficient(
-            profile=self.profile,
-            risk_class=risk_class,
-            evidence_count=len(event.evidence),
-        )
-
-        # approval: is the required quorum met by distinct, authorized principals?
-        assert_approval_satisfied(
-            profile=self.profile,
-            risk_class=risk_class,
-            confirmer=principal,
-            approvals=approvals,
-        )
-
-        before = str(event.state)
-        event.state = DataState.CONFIRMED
-        event.version += 1
-
-        # Unit-of-work: state change + audit append commit or roll back
-        # together. Fixes High Finding #5 (audit was a separate, best-effort
-        # step after mutation had already committed).
+    def confirm(self, event_id: UUID, principal: Principal) -> OperationalEvent:
         with self.ledger.transaction() as unit:
+            event = self.ledger.get_event(event_id, unit=unit)
+            risk_class = str(event.risk_class)
+
+            # permission: may this principal confirm events at all?
+            require_action(principal, "event.confirm")
+
+            # state: is CONFIRMED even reachable from event's own data-state?
+            # NOTE: this only checks the event's own state, NOT the parent
+            # shift. The parent-shift-frozen check happens at put_event()
+            # below (both ledger backends reject a mutation whose shift is
+            # FROZEN).
+            assert_transition(event.state, DataState.CONFIRMED)
+
+            # evidence: enough evidence links for this risk class?
+            assert_evidence_sufficient(
+                profile=self.profile,
+                risk_class=risk_class,
+                evidence_count=len(event.evidence),
+            )
+
+            # approval: server-collected receipts matching the event's
+            # CURRENT scope, evaluated by a fresh authority resolver -
+            # never a caller-supplied approval list (High Finding #4).
+            receipts = approval_service.collect_receipts_for(
+                self.ledger,
+                record_type=_RECORD_TYPE,
+                record_id=event_id,
+                action=_ACTION,
+                target_version=event.version,
+                risk_class=risk_class,
+                payload_digest=None,
+                unit=unit,
+            )
+            authority_for = approval_service.authority_for_factory(self.ledger, unit=unit)
+            assert_approval_satisfied(
+                profile=self.profile,
+                risk_class=risk_class,
+                confirmer=principal,
+                receipts=receipts,
+                authority_for=authority_for,
+            )
+
+            before = str(event.state)
+            event.state = DataState.CONFIRMED
+            event.version += 1
+
+            # Unit-of-work: state change + audit append commit or roll back
+            # together.
             self.ledger.put_event(event, unit=unit)
             self.ledger.append_audit(
                 AuditRecord(

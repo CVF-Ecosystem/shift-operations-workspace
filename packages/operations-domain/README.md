@@ -25,8 +25,11 @@ khai báo lại hay kế thừa để "re-export" — sẽ tạo hai class khác
 `tests/unit/test_operations_domain_boundary.py`.
 
 **`User` KHÔNG nằm ở đây.** Nó mirror `database/migrations/003_users.sql`,
-thuộc auth boundary; nhà canonical vẫn là `workspace_api/domain/models.py` cho
-tới khi tranche reconciliation `known-principals.yaml` ↔ `users` quyết định.
+thuộc auth boundary; nhà canonical vẫn là `workspace_api/domain/models.py`.
+Tranche reconciliation `known-principals.yaml` ↔ `users`
+(P2B-APPROVER-IDENTITY-RECONCILIATION) đã quyết định: `users` là nguồn thẩm
+quyền approver duy nhất lúc runtime, `known-principals.yaml` đã bị xoá, và
+`User` vẫn không dời sang đây.
 
 ## Chưa làm
 

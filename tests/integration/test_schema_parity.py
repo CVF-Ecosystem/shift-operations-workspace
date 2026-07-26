@@ -51,12 +51,16 @@ from __future__ import annotations
 
 import re
 
+from sqlalchemy import UniqueConstraint
+
 from operations_ledger.tables import (
+    approval_receipts,
     corrections,
     customer_requests,
     metadata,
     operational_events,
     shifts,
+    task_creation_intents,
     tasks,
     users,
 )
@@ -83,6 +87,10 @@ MAPPED = {
     "customer_requests": customer_requests,
     # P2-B: real authentication (2026-07-22). See database/migrations/003_users.sql.
     "users": users,
+    # P2B-APPROVER-IDENTITY-RECONCILIATION. See
+    # database/migrations/004_approval_receipts.sql.
+    "task_creation_intents": task_creation_intents,
+    "approval_receipts": approval_receipts,
 }
 
 
@@ -148,6 +156,12 @@ _ALWAYS_EXPLICITLY_SUPPLIED_PK = {
     # is always included in the row dict, sourced from
     # CustomerRequest.request_id (Pydantic Field(default_factory=uuid4)).
     ("customer_requests", "request_id"),
+    # Verified by reading task_creation_intent_row()/approval_receipt_row()
+    # in packages/operations-ledger/src/operations_ledger/_rows.py:
+    # intent_id/receipt_id are always included in the row dict, sourced from
+    # Pydantic Field(default_factory=uuid4).
+    ("task_creation_intents", "intent_id"),
+    ("approval_receipts", "receipt_id"),
 }
 
 
@@ -272,3 +286,31 @@ def test_foreign_keys_match_migration():
             f"test_foreign_keys_match_migration to compare that behavior "
             f"against tables.py, this was not needed when the check was written"
         )
+
+
+def test_approval_receipts_unique_constraint_matches_migration():
+    """P2B-APPROVER-IDENTITY-RECONCILIATION, AC-13: the receipt idempotency
+    key (SPEC R2.4/R8.1) must exist identically on both sides - a migration
+    UNIQUE the tables.py UniqueConstraint doesn't mirror would let SQLite
+    accept a duplicate receipt row a real PostgreSQL database would reject."""
+    sql = migration_text()
+    block = table_block(sql, "approval_receipts")
+    migration_unique = re.search(
+        r"UNIQUE\s*\(([^)]+)\)", block, re.IGNORECASE
+    )
+    assert migration_unique, "approval_receipts: expected a table-level UNIQUE in the migration"
+    migration_cols = {c.strip() for c in migration_unique.group(1).split(",")}
+
+    code_unique_constraints = [
+        c for c in approval_receipts.constraints if isinstance(c, UniqueConstraint)
+    ]
+    assert code_unique_constraints, "approval_receipts: tables.py has no UniqueConstraint"
+    code_cols = {col.name for col in code_unique_constraints[0].columns}
+
+    assert migration_cols == code_cols, (
+        f"approval_receipts: UNIQUE column set mismatch - migration has "
+        f"{sorted(migration_cols)}, tables.py has {sorted(code_cols)}"
+    )
+    assert migration_cols == {
+        "record_type", "record_id", "action", "target_version", "approver_id",
+    }

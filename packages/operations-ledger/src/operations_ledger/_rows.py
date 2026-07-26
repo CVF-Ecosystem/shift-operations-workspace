@@ -170,6 +170,58 @@ def correction_row(correction) -> dict:
     }
 
 
+def approval_receipt_row(receipt) -> dict:
+    return {
+        "receipt_id": receipt.receipt_id,
+        "record_type": receipt.record_type,
+        "record_id": receipt.record_id,
+        "action": receipt.action,
+        "target_version": receipt.target_version,
+        "risk_class": str(receipt.risk_class),
+        "payload_digest": receipt.payload_digest,
+        "approver_id": receipt.approver_id,
+        "approver_role": receipt.approver_role,
+    }
+
+
+def row_to_approval_receipt(models, row):
+    return models.ApprovalReceipt(
+        receipt_id=row["receipt_id"],
+        record_type=row["record_type"],
+        record_id=row["record_id"],
+        action=row["action"],
+        target_version=row["target_version"],
+        risk_class=row["risk_class"],
+        payload_digest=row["payload_digest"],
+        approver_id=row["approver_id"],
+        approver_role=row["approver_role"],
+        created_at=row["created_at"],
+    )
+
+
+def task_creation_intent_row(intent) -> dict:
+    return {
+        "intent_id": intent.intent_id,
+        "shift_id": intent.shift_id,
+        "risk_class": str(intent.risk_class),
+        "payload_snapshot": intent.payload_snapshot,
+        "payload_digest": intent.payload_digest,
+        "created_by": intent.created_by,
+    }
+
+
+def row_to_task_creation_intent(models, row):
+    return models.TaskCreationIntent(
+        intent_id=row["intent_id"],
+        shift_id=row["shift_id"],
+        risk_class=row["risk_class"],
+        payload_snapshot=row["payload_snapshot"],
+        payload_digest=row["payload_digest"],
+        created_by=row["created_by"],
+        created_at=row["created_at"],
+    )
+
+
 def row_to_correction(models, row):
     return models.Correction(
         correction_id=row["correction_id"],

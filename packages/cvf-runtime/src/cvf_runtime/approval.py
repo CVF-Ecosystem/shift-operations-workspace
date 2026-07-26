@@ -1,30 +1,38 @@
 """Approval gate.
 
-CVF control: ``approval``. This replaces the symbolic check the first EA
-review flagged in ``application/services.py`` (``if risk in {R2,R3,R4} and not
-approver_id``), which only tested that a string was non-empty and never checked
-that the approver held the required authority or that a dual/escalation quorum
-was actually met.
+CVF control: ``approval``. This decides whether a risk class's required
+approval quorum is satisfied.
 
-Here an approval is a concrete record: who approved, in what role. The gate
-verifies that the set of approvals satisfies every role the risk class demands,
-that no single principal fills two required seats, and that a confirmer cannot
-self-approve when a quorum is required.
+2026-07-22 (P-FIX-3): the original gate accepted ANY caller-supplied
+``approver_id``/``role`` pair in the confirmer's own request body as
+fabricated authorization - only the quorum *shape* was checked, not the
+approver's actual identity/authority. An interim ``known-principals.yaml``
+registry check was added (High Finding #4.1).
 
-2026-07-22 correction (Codex independent review, High Finding #4.1): a second
-review proved this gate accepted ANY caller-supplied ``approver_id``/``role``
-pair in the same request as fabricated authorization - the quorum *shape* was
-checked but the approver's identity/authority was not. This module now cross-
-checks every approval against ``known-principals.yaml`` via
-``CvfProfile.known_role_for``: the approver_id must be a known principal AND
-its registered role must grant the authority the approval claims. This is an
-interim measure, not real authentication (no signature/token/session) - see
-P2-B in the roadmap for that.
+2026-07-26 (P2B-APPROVER-IDENTITY-RECONCILIATION, closing High Finding #4):
+the interim registry check is retired. Approver identity is no longer
+asserted by the confirmer - it is proved by the approver's own authenticated
+request, persisted as a durable, scope-bound receipt
+(``application/approval_service.py``). This gate now decides quorum
+satisfaction purely over ``receipts`` (structural minimum: ``approver_id``)
+and a server-owned ``authority_for`` resolver that re-derives each approver's
+CURRENT role fresh, every time - never trusting a receipt's own stored
+``approver_role``.
+
+2026-07-26 revision 2 (F9 fix): quorum satisfaction is now decided by a
+deterministic, order-invariant bipartite-matching search (ADR section 4.7 /
+SPEC R3.6) rather than a greedy left-to-right scan. A greedy scan let a
+higher-authority principal's receipt (processed first) claim a seat that only
+a lower-authority principal was left to fill, starving a later seat and
+producing a false deny that depended solely on receipt/role-declaration
+order - proven by an independent-review probe on an R3 quorum. The matching
+decision here depends only on the SET of required seats and the SET of
+qualifying receipts, never on the order either is supplied in.
 """
 
 from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import Callable, Protocol, Sequence, runtime_checkable
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
@@ -33,11 +41,19 @@ from cvf_runtime.policy_loader import CvfProfile
 from cvf_runtime.risk import requirement_for
 
 
-class Approval(BaseModel):
-    """A single approval seat filled by a principal acting in a role."""
+@runtime_checkable
+class ApprovalReceiptLike(Protocol):
+    """Structural minimum a receipt must expose for quorum evaluation.
+
+    cvf-runtime is a dependency sink (never imports operations_domain,
+    operations_ledger, or workspace_api - see policy_loader.py's module
+    docstring), so this is a Protocol rather than the real
+    ``operations_domain.models.ApprovalReceipt``. Only ``approver_id`` is
+    read here; a receipt's persisted ``approver_role`` is evidence only, not
+    current authority (see ``authority_for`` below).
+    """
 
     approver_id: str
-    role: str
 
 
 def assert_approval_satisfied(
@@ -45,41 +61,62 @@ def assert_approval_satisfied(
     profile: CvfProfile,
     risk_class: str,
     confirmer: Principal,
-    approvals: list[Approval],
+    receipts: Sequence[ApprovalReceiptLike],
+    authority_for: Callable[[str], str | None],
 ) -> None:
     """Raise :class:`CvfDenied` unless the approval quorum is met.
 
     Rules enforced:
-    * Every role listed in approval-policy.yaml for the risk class must be
-      filled by an approver with at least that role's authority.
-    * Distinct required roles must be filled by distinct principals (no one
-      person satisfies a two-person quorum).
-    * When any quorum is required, the confirmer cannot also be the sole
-      approver of a seat unless another principal fills the remaining seat(s).
+    * Every role the risk class requires must be filled by a receipt whose
+      approver's CURRENT authority (``authority_for``, resolved fresh - never
+      the receipt's stored ``approver_role``) meets that seat's bar.
+    * Distinct required seats must be filled by distinct approvers - no
+      single approver fills two seats.
+    * A required quorum is never satisfied by the confirmer alone (F15,
+      SPEC R3.4/R3.7): the confirmer is sorted to the END of the candidate
+      list so Kuhn's augmenting-path search prefers non-confirmer candidates
+      first. If the only full matching assigns every seat to the confirmer,
+      the quorum is denied without a second search pass.
+    * The result is a function of the SET of required roles and the SET of
+      qualifying receipts only - never of receipt or required-role order
+      (F9 fix, SPEC R3.6).
     """
     requirement = requirement_for(profile, risk_class)
     required_roles = requirement.required_roles
     if not required_roles:
         return  # R0/R1: no approval quorum required.
 
-    used_principals: set[str] = set()
-    for required_role in required_roles:
-        seat = _find_seat(profile, approvals, required_role, exclude=used_principals)
-        if seat is None:
-            raise CvfDenied(
-                control="approval",
-                reason=(
-                    f"{risk_class} requires approval by role {required_role!r} "
-                    f"from a distinct, known principal with that authority; "
-                    f"quorum not met"
-                ),
-                http_status=409,
-            )
-        used_principals.add(seat.approver_id)
+    # Sort confirmer to end so the augmenting-path search prefers non-confirmer
+    # candidates for every seat. Non-confirmer ids are sorted lexicographically
+    # first for deterministic traces; confirmer follows them.
+    distinct_ids = {receipt.approver_id for receipt in receipts}
+    candidate_ids = sorted(
+        distinct_ids - {confirmer.user_id}
+    ) + ([confirmer.user_id] if confirmer.user_id in distinct_ids else [])
+    current_role_by_id = {
+        approver_id: authority_for(approver_id) for approver_id in candidate_ids
+    }
 
-    # Self-approval guard: a required quorum cannot be satisfied entirely by the
-    # confirmer acting alone.
-    if used_principals == {confirmer.user_id}:
+    assignment = _max_bipartite_matching(
+        required_roles=required_roles,
+        candidate_ids=candidate_ids,
+        current_role_by_id=current_role_by_id,
+    )
+
+    if assignment is None or len(assignment) < len(required_roles):
+        raise CvfDenied(
+            control="approval",
+            reason=(
+                f"{risk_class} requires approval by roles {required_roles!r} "
+                f"from distinct, currently-authorized approvers; quorum not met"
+            ),
+            http_status=409,
+        )
+
+    # F15 (SPEC R3.4/R3.7): confirmer sorted last means if any non-confirmer
+    # candidate could have filled a seat, they were preferred. If the result
+    # still uses only the confirmer, no non-confirmer can satisfy the quorum.
+    if set(assignment.values()) == {confirmer.user_id}:
         raise CvfDenied(
             control="approval",
             reason=f"{risk_class} requires an approver other than the confirmer",
@@ -87,28 +124,54 @@ def assert_approval_satisfied(
         )
 
 
-def _find_seat(
-    profile: CvfProfile, approvals: list[Approval], required_role: str, exclude: set[str]
-) -> Approval | None:
-    """Find an unused, KNOWN approval whose role has authority for ``required_role``.
+def _max_bipartite_matching(
+    *,
+    required_roles: list[str],
+    candidate_ids: list[str],
+    current_role_by_id: dict[str, str | None],
+) -> dict[int, str] | None:
+    """Deterministic maximum bipartite matching (Kuhn's augmenting-path search).
 
-    An approval only counts if:
-    1. its approver_id is not already used for another seat in this quorum;
-    2. its approver_id is a known principal (registered in
-       known-principals.yaml) - a caller can no longer invent an id outright;
-    3. the registered role for that principal actually grants the claimed
-       authority (a caller can no longer claim a higher role than the
-       principal is registered for).
+    Seats are the LEFT side, addressed by their INDEX into ``required_roles``
+    (not by role name - a future risk class could require the same role for
+    two distinct seats). Candidates are the RIGHT side. An edge exists when a
+    candidate's fresh current role has authority for a seat's required role.
+
+    This asks only: does a matching exist that fills every seat with a
+    distinct candidate? - never "claim the first candidate that fits, in
+    scan order", which is the greedy behaviour that produced order-dependent
+    false denials (F9). Kuhn's algorithm is guaranteed to find a MAXIMUM
+    matching regardless of the order either side is iterated in, so whether a
+    full (size == len(required_roles)) matching exists is a property of the
+    two SETS involved, not of iteration order.
+
+    Returns a mapping ``{seat_index: approver_id}`` covering every seat, or
+    ``None``/a partial mapping if no full matching exists.
     """
-    for approval in approvals:
-        if approval.approver_id in exclude:
-            continue
-        registered_role = profile.known_role_for(approval.approver_id)
-        if registered_role is None:
-            continue  # unknown principal: cannot be used as an approver seat
-        if not has_authority(registered_role, required_role):
-            continue  # known, but not authorized enough for this seat
-        if not has_authority(approval.role, required_role):
-            continue  # declared role (even if honest) doesn't meet the bar
-        return approval
-    return None
+
+    def qualifies(seat_index: int, approver_id: str) -> bool:
+        current_role = current_role_by_id.get(approver_id)
+        if current_role is None:
+            return False
+        return has_authority(current_role, required_roles[seat_index])
+
+    # approver_id -> seat_index it is currently assigned to fill.
+    seat_for_candidate: dict[str, int] = {}
+
+    def try_assign(seat_index: int, seen: set[str]) -> bool:
+        for approver_id in candidate_ids:
+            if approver_id in seen or not qualifies(seat_index, approver_id):
+                continue
+            seen.add(approver_id)
+            current_seat = seat_for_candidate.get(approver_id)
+            if current_seat is None or try_assign(current_seat, seen):
+                seat_for_candidate[approver_id] = seat_index
+                return True
+        return False
+
+    for seat_index in range(len(required_roles)):
+        try_assign(seat_index, set())
+
+    if len(seat_for_candidate) < len(required_roles):
+        return None
+    return {seat_index: approver_id for approver_id, seat_index in seat_for_candidate.items()}

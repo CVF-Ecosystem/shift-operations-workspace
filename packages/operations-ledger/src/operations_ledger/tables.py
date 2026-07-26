@@ -26,6 +26,7 @@ from sqlalchemy import (
     String,
     Table,
     Text,
+    UniqueConstraint,
     Uuid,
     func,
 )
@@ -178,9 +179,12 @@ customer_requests = Table(
 )
 
 # Mirrors migration 003_users.sql (P2-B: real authentication). user_id is a
-# free-form text PRIMARY KEY (not uuid) so it can reuse the same ids already
-# used in known-principals.yaml (e.g. "op1", "sup1") - those two registries
-# are independent, but sharing ids keeps dev/test fixtures legible.
+# free-form text PRIMARY KEY (not uuid), reusing the same dev/test ids the
+# now-retired known-principals.yaml registry used to list (e.g. "op1",
+# "sup1") purely for fixture legibility. Since
+# P2B-APPROVER-IDENTITY-RECONCILIATION, this table is the single runtime
+# authority for approver identity/role/active-status (see approval_receipts
+# below) - known-principals.yaml no longer exists.
 users = Table(
     "users",
     metadata,
@@ -193,5 +197,45 @@ users = Table(
     CheckConstraint(
         "role IN ('operator','shift_supervisor','responsible_manager','authorized_executive','viewer')",
         name="users_role_check",
+    ),
+)
+
+# Mirrors migration 004_approval_receipts.sql (P2B-APPROVER-IDENTITY-RECONCILIATION).
+# The durable, approver-visible target `task.create` receipts bind to before
+# any Task exists - see ApprovalReceipt/TaskCreationIntent in
+# operations_domain.models and ADR section 4.4.
+task_creation_intents = Table(
+    "task_creation_intents",
+    metadata,
+    Column("intent_id", Uuid, primary_key=True),
+    Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=False),
+    Column("risk_class", String, nullable=False),
+    Column("payload_snapshot", JSON_TYPE, nullable=False),
+    Column("payload_digest", Text, nullable=False),
+    Column("created_by", Text, ForeignKey("users.user_id"), nullable=False),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+)
+
+# Mirrors migration 004_approval_receipts.sql. `payload_digest` is nullable:
+# NULL for event actions (event.confirm/event.correct), set only for
+# task.create (bound to a task_creation_intents row). The unique constraint
+# makes one approver's receipt for one target scope idempotent (SPEC R2.4)
+# and blocks double-counting one approver into two seats.
+approval_receipts = Table(
+    "approval_receipts",
+    metadata,
+    Column("receipt_id", Uuid, primary_key=True),
+    Column("record_type", Text, nullable=False),
+    Column("record_id", Uuid, nullable=False),
+    Column("action", Text, nullable=False),
+    Column("target_version", Integer, nullable=False),
+    Column("risk_class", String, nullable=False),
+    Column("payload_digest", Text),
+    Column("approver_id", Text, ForeignKey("users.user_id"), nullable=False),
+    Column("approver_role", Text, nullable=False),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    UniqueConstraint(
+        "record_type", "record_id", "action", "target_version", "approver_id",
+        name="approval_receipts_scope_approver_unique",
     ),
 )

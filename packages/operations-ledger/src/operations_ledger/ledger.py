@@ -72,6 +72,41 @@ class Ledger(Protocol):
     # --- users (P2-B: real authentication) ---
     def add_user(self, user, *, unit: Any = None): ...
     def get_user_by_username(self, username: str, *, unit: Any = None): ...
+    # P2B-APPROVER-IDENTITY-RECONCILIATION: fresh authority lookup by id.
+    # Never cached across requests - the whole point is that a demoted or
+    # deactivated user's authority is re-checked at receipt-creation and
+    # quorum-evaluation time, not trusted from a JWT claim issued earlier.
+    def get_user_by_id(self, user_id: str, *, unit: Any = None): ...
+
+    # --- approval receipts / task creation intents (P2B-APPROVER-IDENTITY-RECONCILIATION) ---
+    # Authenticated, scope-bound approval receipts replace caller-supplied
+    # Approval(...) objects (High Finding #4). Receipts are not single-use
+    # (ADR section 4.6): replay is defeated by scope binding, not a
+    # consumption flag, so there is no "consume" method here.
+    def add_approval_receipt(self, receipt, *, unit: Any = None): ...
+    def list_approval_receipts_for(
+        self,
+        *,
+        record_type: str,
+        record_id,
+        action: str,
+        target_version: int,
+        risk_class: str | None,
+        payload_digest: str | None,
+        unit: Any = None,
+    ) -> list: ...
+    def get_approval_receipt(
+        self,
+        *,
+        record_type: str,
+        record_id,
+        action: str,
+        target_version: int,
+        approver_id: str,
+        unit: Any = None,
+    ): ...
+    def add_task_creation_intent(self, intent, *, unit: Any = None): ...
+    def get_task_creation_intent(self, intent_id, *, unit: Any = None): ...
 
     # --- corrections (append-only) ---
     def add_correction(self, correction, *, unit: Any = None): ...

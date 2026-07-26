@@ -1,9 +1,8 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
-from cvf_runtime.approval import Approval
 from cvf_runtime.audit import AuditLog
 from cvf_runtime.domain_lock import assert_event_type_in_scope
 from cvf_runtime.errors import CvfDenied
@@ -30,7 +29,11 @@ class EventInput(BaseModel):
 
 
 class ConfirmInput(BaseModel):
-    approvals: list[Approval] = []
+    # P2B-APPROVER-IDENTITY-RECONCILIATION (R7.1): approvals are no longer
+    # caller-supplied - the server auto-collects authenticated receipts. This
+    # is now an empty body, and extra="forbid" turns a stray legacy
+    # `approvals` field into a 422 instead of a silently-ignored no-op.
+    model_config = ConfigDict(extra="forbid")
 
 
 @router.post("", response_model=OperationalEvent)
@@ -58,7 +61,7 @@ def confirm_event(
     audit: AuditLog = Depends(get_audit_log),
 ):
     try:
-        return EventService(ledger, audit).confirm(event_id, principal, payload.approvals)
+        return EventService(ledger, audit).confirm(event_id, principal)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:

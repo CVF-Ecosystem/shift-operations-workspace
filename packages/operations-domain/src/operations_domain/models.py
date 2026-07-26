@@ -14,8 +14,11 @@ standard library and pydantic. It must never import `workspace_api`,
 
 `User` deliberately does NOT live here. It mirrors migration 003 and belongs to
 the authentication boundary; its canonical home stays
-`workspace_api.domain.models` until the known-principals.yaml <-> users
-reconciliation tranche decides where it belongs.
+`workspace_api.domain.models`. The known-principals.yaml <-> users
+reconciliation (P2B-APPROVER-IDENTITY-RECONCILIATION) resolved this: `users`
+is now the single runtime authority for approver identity/role/active-status,
+`known-principals.yaml` is retired, and `User` still does not move here - that
+was a deliberate outcome of the reconciliation, not left undecided.
 """
 
 from __future__ import annotations
@@ -157,3 +160,47 @@ class CustomerRequest(BaseModel):
     received_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     promised_at: datetime | None = None
     owner_id: str | None = None
+
+
+class ApprovalReceipt(BaseModel):
+    """An authenticated, scope-bound approval (P2B-APPROVER-IDENTITY-RECONCILIATION).
+
+    Created by a request authenticated as the approver: ``approver_id`` and
+    ``approver_role`` are server-derived from the authenticated principal and
+    a fresh `users` lookup, never from a request payload. ``payload_digest``
+    is null for event actions and set only for ``task.create`` (bound to a
+    `TaskCreationIntent`). ``approver_role`` is evidence only - current
+    authority is always re-derived fresh at evaluation time, never trusted
+    from this stored value (see cvf_runtime.approval).
+    """
+
+    receipt_id: UUID = Field(default_factory=uuid4)
+    record_type: str
+    record_id: UUID
+    action: str
+    target_version: int
+    risk_class: str
+    payload_digest: str | None = None
+    approver_id: str
+    approver_role: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class TaskCreationIntent(BaseModel):
+    """A durable, approver-visible target for `task.create` approvals.
+
+    `Task.create` has no pre-existing record to bind a receipt to (unlike
+    event.confirm/event.correct, whose target already exists) - this intent is
+    the durable stand-in, created before any approval, with a server-computed
+    payload digest that `POST /tasks` later re-verifies bit-for-bit before
+    consuming it (defeats TOCTOU/payload substitution). Immutable: exactly one
+    version, `target_version` is always `1` when a receipt binds to it.
+    """
+
+    intent_id: UUID = Field(default_factory=uuid4)
+    shift_id: UUID
+    risk_class: str
+    payload_snapshot: dict
+    payload_digest: str
+    created_by: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

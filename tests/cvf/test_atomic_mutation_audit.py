@@ -83,7 +83,7 @@ def test_event_confirm_rolls_back_when_audit_fails_in_memory():
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), approvals=[])
+            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
 
     fetched = ledger.get_event(event.event_id)
     assert fetched.state == DataState.PROPOSED, "mutation must not survive a failed audit write"
@@ -101,7 +101,7 @@ def test_event_confirm_rolls_back_when_audit_fails_sql(tmp_path):
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), approvals=[])
+            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
 
     fetched = ledger.get_event(event.event_id)
     assert fetched.state == DataState.PROPOSED, "mutation must not survive a failed audit write"
@@ -120,7 +120,7 @@ def test_correction_rolls_back_when_audit_fails_in_memory():
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CorrectionService(ledger, AuditLog()).correct_event(
-                event.event_id, _supervisor(), reason="fix title", approvals=[]
+                event.event_id, _supervisor(), reason="fix title"
             )
 
     fetched = ledger.get_event(event.event_id)
@@ -141,7 +141,7 @@ def test_correction_rolls_back_when_audit_fails_sql(tmp_path):
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CorrectionService(ledger, AuditLog()).correct_event(
-                event.event_id, _supervisor(), reason="fix title", approvals=[]
+                event.event_id, _supervisor(), reason="fix title"
             )
 
     fetched = ledger.get_event(event.event_id)
@@ -157,7 +157,7 @@ def test_task_create_rolls_back_when_audit_fails_in_memory():
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            TaskService(ledger).create_task(task, _operator(), approvals=[])
+            TaskService(ledger).create_task(task, _operator())
 
     with pytest.raises(KeyError):
         ledger.get_task(task.task_id)
@@ -170,7 +170,7 @@ def test_task_create_rolls_back_when_audit_fails_sql(tmp_path):
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            TaskService(ledger).create_task(task, _operator(), approvals=[])
+            TaskService(ledger).create_task(task, _operator())
 
     with pytest.raises(KeyError):
         ledger.get_task(task.task_id)

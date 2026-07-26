@@ -141,7 +141,7 @@ def test_event_confirm_blocked_after_parent_shift_frozen(backend, tmp_path):
     )
 
     with pytest.raises(ValueError, match="frozen"):
-        EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), approvals=[])
+        EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
 
 
 @pytest.mark.parametrize("backend", ["in_memory", "sql"])
@@ -219,7 +219,7 @@ def test_correction_still_allowed_after_freeze_in_memory():
 
     # Correction is the one permitted post-freeze mutation path.
     correction = CorrectionService(ledger, AuditLog()).correct_event(
-        event.event_id, _supervisor(), reason="fix title", approvals=[]
+        event.event_id, _supervisor(), reason="fix title"
     )
     assert correction.new_version == event.version + 0 or correction.new_version >= 1
     fetched = ledger.get_event(event.event_id)
