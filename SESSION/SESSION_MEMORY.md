@@ -511,6 +511,16 @@ sanitization/provider/receipt), đưa final C3 ceiling lên đúng 39. Claude l�
 lại PostgreSQL/provider thật và dừng tại
 `READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_REVIEW`.
 
+Repair re-review xác nhận F1-F5 phần lớn đã đạt: focused 167, full non-live
+507/44 skip/1 warning, PostgreSQL live 44, migration 18/0 rồi 15/3, cleanup
+sạch và provider thật HTTP 200/đúng 1 call. Tuy nhiên security-negative probe
+tìm `INC-REV-F6 ENDPOINT_CREDENTIAL_FAILURE_LEAK`: transport exception chứa
+`req.full_url` vẫn làm lộ credential riêng trong URL userinfo/query/fragment
+khi credential đó khác API key. Đây là F5/R15-A chưa sửa hết, không cần path
+thứ 40. Claude chỉ được sửa support module, runner test và hai receipt, rồi
+dừng tại `READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_RE_REVIEW`; rollback
+rehearsal/closure được hoãn tới khi F6 sạch.
+
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
 `CVF-CORE-PIN-2026-07-23` FREEZE / CLOSED_BOUNDED (`76e7360` → `da9a122` →

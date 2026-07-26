@@ -44,7 +44,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2A-INCIDENT-VERTICAL-2026-07-26 at REVIEW_CHANGES_REQUIRED. Independent review reproduced full-suite failure and INC-REV-F1..F5. Authorization Amendment 1 e1856fc7a05c4967bf633fd656bda85ec94089e6 is REVIEW_PASS/pushed and adds exactly the repository-wide OpenAPI golden plus a split live-evidence support module; final C3 ceiling is 39. NEXT MOVE: after this repair-continuity push, Claude rehydrates handoff plus amended ADR/SPEC/WORK_ORDER, declares REPAIR_WORKER, runs G6, repairs exactly F1-F5, runs non-live gates before fresh PostgreSQL 16 and real provider evidence, makes no stage/commit/push, and stops at READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_REVIEW.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2A-INCIDENT-VERTICAL-2026-07-26 remains REVIEW_CHANGES_REQUIRED. Repair re-review independently passed exact 39 paths, focused 167, full non-live 507/44 skip/1 warning, repository gates, PostgreSQL live 44 with exact cleanup, and fresh provider HTTP 200/one call, but found INC-REV-F6 ENDPOINT_CREDENTIAL_FAILURE_LEAK: a transport exception containing req.full_url can leak URL-only userinfo/query/fragment credentials into returned error and failure receipt. NEXT MOVE: after this continuity push, Claude remains REPAIR_WORKER and repairs F6 only in the support module, runner test and two receipts; non-live gates precede fresh provider evidence; no 40th path/stage/commit/push; stop at READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_RE_REVIEW. Rollback rehearsal and closure remain deferred.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -150,7 +150,7 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "REVIEW",
-    "activePhaseNote": "P2A-INCIDENT-VERTICAL BUILD review is REVIEW_CHANGES_REQUIRED. Amendment 1 e1856fc is pushed; repair begins only after repair continuity is pushed and fresh G6 passes.",
+    "activePhaseNote": "P2A-INCIDENT-VERTICAL repair re-review remains REVIEW_CHANGES_REQUIRED on INC-REV-F6; exact in-ceiling repair begins only after this continuity push and fresh G6.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
@@ -158,7 +158,7 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "REPAIR_WORKER",
-    "activeRoleNote": "Claude becomes REPAIR_WORKER only after Amendment 1 and repair continuity are pushed and fresh G6 passes. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
+    "activeRoleNote": "Claude remains REPAIR_WORKER for exact INC-REV-F6 repair after this continuity push and fresh G6. Codex remains independent REVIEWER/COMMIT_STEWARD/CLOSER.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-26"
   }

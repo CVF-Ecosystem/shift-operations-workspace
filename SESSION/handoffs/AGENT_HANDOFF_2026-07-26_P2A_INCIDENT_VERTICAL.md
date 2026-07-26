@@ -110,3 +110,40 @@ fresh PostgreSQL/provider evidence, performs no stage/commit/push, and stops
 at:
 
 `READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_REVIEW`
+
+## Independent repair re-review — second disposition
+
+The independent repair re-review confirms:
+
+- exact 39-path ceiling, zero staged paths and protected zero diff;
+- focused non-live `167 passed`;
+- full non-live `507 passed, 44 skipped, 1 warning`;
+- repository gates and doctor PASS;
+- PostgreSQL 16 live `44 passed`, migrations 18/0 then 15/3, exact cleanup;
+- fresh real provider call PASS, HTTP 200, exactly one call after five
+  observed-zero-call refusal cases.
+
+Closure nevertheless stops on one independently reproduced security defect:
+
+- `INC-REV-F6 ENDPOINT_CREDENTIAL_FAILURE_LEAK`: when a transport exception
+  includes `req.full_url`, URL-only credential material in userinfo/query/
+  fragment survives `sanitize_secret_text` if it differs from the API key.
+  The returned error can then flow into a failure receipt. Independent probe:
+  `ENDPOINT_SENTINEL_LEAK=True`.
+
+This is incomplete repair of the already-authorized R15-A/F5 scope, not a new
+path requirement. Claude remains `REPAIR_WORKER` and may modify only:
+
+- `scripts/_incident_live_evidence_support.py`;
+- `tests/integration/test_incident_live_evidence_runner.py`;
+- `docs/decisions/P2A_INCIDENT_LIVE_EVIDENCE_RECEIPT.md`;
+- `docs/decisions/P2A_INCIDENT_BUILD_EVIDENCE_RECEIPT.md`.
+
+The repair must sanitize or safely reject URL userinfo/query/fragment before
+any request-construction or transport exception can escape; use an endpoint
+sentinel distinct from the API-key sentinel and force an exception containing
+the full raw URL. Prove absence from returned error, stdout/stderr and receipt.
+Run non-live gates before replacing the live receipt with a fresh real call.
+No 40th path, stage, commit, push or self-approval. Stop at:
+
+`READY_FOR_INDEPENDENT_INCIDENT_BUILD_RE_RE_REVIEW`

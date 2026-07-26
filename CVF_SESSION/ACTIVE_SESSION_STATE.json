@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_INCIDENT_VERTICAL.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2A-INCIDENT-VERTICAL REVIEW_CHANGES_REQUIRED. Amendment 1 e1856fc7a05c4967bf633fd656bda85ec94089e6 REVIEW_PASS/pushed; INC-REV-F1..F5 require bounded repair; exact final C3 ceiling 39 awaits this repair-continuity push and fresh G6.",
+  "syncReceipt": "P2A-INCIDENT-VERTICAL remains REVIEW_CHANGES_REQUIRED on INC-REV-F6 ENDPOINT_CREDENTIAL_FAILURE_LEAK after other re-review gates passed. Exact F6 repair stays inside the 39-path ceiling and awaits this continuity push plus fresh G6; rollback rehearsal and closure are deferred.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "REPAIR_WORKER",
   "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
