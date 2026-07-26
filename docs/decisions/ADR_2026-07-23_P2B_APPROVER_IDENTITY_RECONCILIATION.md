@@ -12,7 +12,13 @@
   approval of the WORK_ORDER. **No BUILD has been performed.**
 - Specification: `docs/specs/P2B_APPROVER_IDENTITY_RECONCILIATION_SPEC.md`
 - Work order: `docs/work_orders/P2B_APPROVER_IDENTITY_RECONCILIATION_WORK_ORDER.md`
-- Baseline commit: `848aebaf03af4efa16d04d7f0f02b6d9da0e564b`
+- Baseline commit (historical, authoring-time): `848aebaf03af4efa16d04d7f0f02b6d9da0e564b`
+  — `292 passed`, doctor `24/24`. Frozen record (§2); not the BUILD baseline.
+- Baseline commit (current authorization re-review, revision 2):
+  `58918c638ab34aa3fb2f7bf7de3a1ac44337b26a` — `306 passed`.
+- **BUILD baseline is neither of the above** — captured fresh at C2/G6,
+  immediately before BUILD (WORK_ORDER §7 G6); never hardcoded to `292` or
+  `306` (F10).
 
 ## 1. INTAKE — boundary and authority
 
@@ -25,7 +31,17 @@ tokens, revocation, admin provisioning, or a live PostgreSQL round-trip.
 
 ## 2. Verified current state (read-only, at `848aeba`, each by command)
 
-| Fact | Verified value |
+**Frozen historical snapshot from authoring time, not a standing claim about
+the repo today (F10/F11/F12).** At the current re-review baseline `58918c6`:
+worktree has **no tracked modification** and exactly one preserved untracked
+file, `ASSESSMENT_2026-07-23_OPERATIONS_WORKSPACE_REPOSITIONING.md` (SHA-256
+`168ea2c7…70fde2`, unedited) — not "dirty" for gate purposes (WORK_ORDER §7
+G6); doctor is `PASS WITH NOTE (24 passed, 1 warning(s))` (sole warning: the
+legacy downstream catalog kit) — not a silent `24/24`; suite is `306 passed`.
+None of this changes the decisions below; it is recorded only so a reader does
+not mistake the `848aeba` row for the present.
+
+| Fact | Verified value (at authoring time, `848aeba`) |
 |---|---|
 | `HEAD` == `origin/main` | `848aebaf03af4efa16d04d7f0f02b6d9da0e564b`, worktree clean |
 | Workspace doctor | `PASS (24/24)` |
@@ -93,7 +109,9 @@ Decomposed:
 - **D4 — Quorum rules preserved and now load-bearing.** Distinct-principal
   quorum and the self-approval guard are re-expressed over authenticated receipt
   approvers and stay enforced; a confirmer still cannot fill a required seat
-  alone.
+  alone. **Matching required seats to receipts is order-invariant** (§4.7): the
+  outcome depends only on the *set* of required roles and the *set* of receipts,
+  never on the order either is presented or iterated in.
 - **D5 — Durable + atomic.** Receipts persist through the Ledger; the governed
   mutation collects and verifies the matching receipts inside the same
   `transaction()` as the state change and audit append, with matching
@@ -313,6 +331,40 @@ by a generic "consumed" abstraction:
 Unused "extra" receipts (e.g. a third approval when only two seats are
 required) are simply never counted past quorum; pruning them is out of scope.
 
+### 4.7 Order-invariant quorum matching (F9 fix)
+
+**The problem, proven by probe.** A left-to-right / greedy matcher — walk
+required roles in a fixed order, claim the first qualifying receipt per seat —
+is **order-dependent**: a higher-authority principal can greedily consume a
+seat a lower-authority principal was the only one available to fill, starving
+a later seat the greedy pass never backtracks to release. The Codex probe
+reproduced this on an R3 quorum (`shift_supervisor` + `responsible_manager`,
+where a `responsible_manager` also qualifies for the `shift_supervisor` seat):
+`[shift_supervisor, responsible_manager]` → PASS, but
+`[responsible_manager, shift_supervisor]` → DENIED. Both orderings name the
+same two distinct, sufficiently-authorized principals filling the same two
+seats — the quorum is genuinely satisfied either way, so an order-dependent
+answer is a **false deny**: a correctness defect distinct from, but as serious
+as, the false-*accept* impersonation finding this ADR otherwise addresses,
+because it wrongly blocks a legitimately quorum-satisfied action.
+
+**Decision: quorum evaluation is a deterministic, order-invariant assignment
+problem, not a greedy scan.** Required seats and the receipts filling the
+target's current scope (post R3.1/R3.2 filtering: existing, active,
+sufficiently-authorized, distinct approvers) form a bipartite graph — an edge
+exists between a seat and a receipt iff that receipt's approver's current role
+qualifies for that seat. The gate asks only: **does a perfect matching exist
+that fills every required seat with a distinct approver?** — decided by a
+deterministic bipartite-matching/backtracking search over the always-small
+seat count (R0–R3 never require more than a handful), exploring all feasible
+assignments rather than committing greedily to the first candidate per seat.
+Same required-role set + same receipt set ⇒ same PASS/DENY outcome,
+**regardless of the order either is iterated, declared, or received in.** The
+self-approval guard and distinct-principal rule (D4) are evaluated over this
+same order-invariant structure, unchanged in substance — only *how* the
+seat-to-receipt assignment is computed changes, not what a satisfied quorum
+means.
+
 ## 5. Alternatives considered
 
 ### A — Look up the approver in the `users` table only (rejected)
@@ -348,6 +400,26 @@ over durable receipts. B already authenticates the approver via the existing
 P2-B JWT at receipt-creation time; C's *scope* discipline (D2) is the valuable
 part and is kept. Expiry, if wanted, is a receipt `created_at` + policy TTL
 check — recorded as an **open decision** (§9), not a blocker.
+
+### D — Greedy, order-dependent seat assignment (rejected)
+
+Walk required roles in a fixed (e.g. declaration) order; for each, claim the
+first unclaimed receipt whose approver currently qualifies. **Rejected:**
+proven order-dependent by the F9 probe (§4.7) — the same two genuinely
+qualifying, distinct approvers can PASS or DENIED depending only on
+presentation order, which is a false-deny defect, not merely an aesthetic one.
+Cheaper to implement than a real matching search, but wrong.
+
+### E — Deterministic bipartite matching / backtracking over required seats
+and qualifying receipts (**chosen**, §4.7)
+
+Model required seats and qualifying receipts as a bipartite graph; decide
+quorum by whether a perfect matching exists, searched deterministically and
+exhaustively over the (always small) seat count. **Chosen** because it is the
+only option whose PASS/DENY answer is a pure function of the two sets involved
+— independent of required-role order and receipt order — matching D4's actual
+intent ("a valid multi-party quorum was assembled") rather than an
+implementation artifact of scan order.
 
 ## 6. Source-of-truth ownership — retiring `known-principals.yaml`
 
@@ -476,6 +548,28 @@ Continuity/catalog/roadmap land in separate commits and revert independently.
 - **O6 (new, from F2) — RESOLVED:** receipts are not single-use; replay is
   defeated per-vertical by scope/version/digest/PK-uniqueness (§4.6), not by an
   explicit consumption state.
+- **O7 (new, from F9) — RESOLVED:** quorum seat-matching is a deterministic,
+  order-invariant assignment (bipartite matching/backtracking) over required
+  seats and qualifying receipts, not a greedy scan (§4.7). The outcome depends
+  only on the two sets involved, never on required-role or receipt order.
+
+### 9.1 Authorization-review revision 2 (2026-07-26) — F9–F13
+
+The current independent authorization re-review, run at baseline `58918c6`
+(`306 passed`), returned `REVIEW_CHANGES_REQUIRED` with five findings. All five
+are resolved in this revision:
+
+| Finding | Resolution |
+|---|---|
+| **F9** — Order-dependent quorum matching | §4.7 + O7: quorum matching is redefined as a deterministic, order-invariant bipartite-matching/backtracking decision over required seats and qualifying receipts, replacing the greedy scan the probe broke. New Alternative D (greedy, rejected) / E (matching, chosen) recorded in §5. |
+| **F10** — Stale prebuild baseline | Header + §2 now distinguish the historical authoring baseline (`848aeba`, `292 passed`) from the current authorization re-review baseline (`58918c6`, `306 passed`) from the BUILD baseline (captured fresh at C2/G6, never hardcoded to either number). |
+| **F11** — Impossible clean-worktree gate | §2 records the one preserved untracked file (`ASSESSMENT_2026-07-23_OPERATIONS_WORKSPACE_REPOSITIONING.md`, SHA-256 `168ea2c7…70fde2`) as compatible with a "no tracked modification" gate, not a stop condition; the precise gate is redefined in WORK_ORDER §7 G6. |
+| **F12** — Doctor-note drift | §2 restates the current doctor result honestly as `PASS WITH NOTE (24 passed, 1 warning(s))` — the sole warning being the legacy downstream catalog kit — rather than an unqualified `24/24`. |
+| **F13** — C1 already exists | §10 below records that C1 (`f98f29e`) is retained, untouched; this repair round is a separate authorization-amendment commit **C1b** (three files only), subject to its own independent re-review before C2/BUILD may proceed (WORK_ORDER §7). |
+
+Checkpoint state is otherwise unchanged: three uncommitted files (this repair
+round's edits), nothing staged, nothing built, no provider call, no secret
+read.
 
 ## 10. Compliance notes
 
@@ -487,3 +581,10 @@ Continuity/catalog/roadmap land in separate commits and revert independently.
 - Provider-neutral roles. No provider call and no secret read in this
   authorization phase.
 - `cd36b27` and all history remain untouched.
+- **C1 (`f98f29e145fa002be070e9d44520d20f0f82dcb3`) already carries the original
+  three authorization artifacts and is retained as-is** — not amended,
+  rewritten, or squashed. This repair round (F9–F13) is committed separately as
+  **C1b**, an authorization-amendment commit containing exactly the same three
+  files (ADR + SPEC + WORK_ORDER), owned by Codex as COMMIT_STEWARD, and itself
+  subject to independent re-review before C2/pre-BUILD continuity may land
+  (WORK_ORDER §7).

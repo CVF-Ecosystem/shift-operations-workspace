@@ -7,7 +7,11 @@
 - Status: **PROPOSED** — not approved, not built
 - Design: `docs/decisions/ADR_2026-07-23_P2B_APPROVER_IDENTITY_RECONCILIATION.md`
 - Work order: `docs/work_orders/P2B_APPROVER_IDENTITY_RECONCILIATION_WORK_ORDER.md`
-- Baseline commit: `848aebaf03af4efa16d04d7f0f02b6d9da0e564b`
+- Baseline commit (historical, authoring-time): `848aebaf03af4efa16d04d7f0f02b6d9da0e564b`
+  — `292 passed`. See Terminology (§3, "Baseline") and AC-14 for why this
+  number is not the BUILD target.
+- Baseline commit (current authorization re-review, revision 2):
+  `58918c638ab34aa3fb2f7bf7de3a1ac44337b26a` — `306 passed`.
 
 ## 1. Purpose and claim boundary
 
@@ -51,7 +55,7 @@ that production `Event`/`Task`/`Correction` actions call an AI provider (ADR
 | **Receipt** | A persisted `ApprovalReceipt` bound to `(record_type, record_id, action, target_version, risk_class, payload_digest, approver_id, approver_role)`. `payload_digest` is `NULL` except for `task.create`. |
 | **Target scope** | The tuple `(record_type, record_id, action, target_version, risk_class, payload_digest)` a receipt is bound to. |
 | **Creation intent** | A persisted `TaskCreationIntent` — the durable, approver-visible target `task.create` approvals bind to before any `Task` exists (R9). |
-| **Baseline** | The repo at `848aeba`: `292 passed`, doctor `24/24`. |
+| **Baseline** | Three distinct things, not one number (F10): the **historical authoring baseline** (`848aeba`: `292 passed`, doctor `24/24` — frozen record only); the **current authorization re-review baseline** (`58918c6`: `306 passed`); and the **BUILD baseline**, which MUST be captured fresh at C2/G6 immediately before BUILD from whatever `HEAD == origin/main` is at that moment. AC-14 is evaluated against the BUILD baseline, never a hardcoded `292` or `306`. |
 | **Production code** | `.py` under `apps/**`, `packages/**`, `scripts/**` (excludes `tests/**`). |
 
 ## 4. Functional requirements
@@ -148,6 +152,24 @@ filler of the required quorum; a required quorum is never satisfied by the
 confirmer alone.
 
 **R3.5** R0/R1 (no required roles) require no receipts, unchanged.
+
+**R3.6 — Order-invariant matching (F9 fix).** Quorum satisfaction is decided
+by whether a **perfect matching exists** between the risk class's required
+seats and the qualifying receipts (R3.2 filtered: existing, active,
+sufficiently-authorized, distinct approvers) — computed by a deterministic
+bipartite-matching/backtracking search over the (always small) required-seat
+count, never by a greedy left-to-right scan that commits to the first
+candidate per seat without revisiting. The result depends **only** on the set
+of required roles and the set of qualifying receipts — **never** on the order
+required roles are declared in the profile, nor on the order receipts were
+created, submitted, or iterated in. A principal whose role qualifies for more
+than one seat must not be assigned in a way that starves a seat only they (at
+that moment) could have filled while a lower-authority-required seat is filled
+by someone who could equally have filled the higher one — the search must
+consider the reassignment, not stop at the first feasible-looking greedy
+allocation. This does not change R3.3 (distinct-principal) or R3.4
+(self-approval guard); both are evaluated over the same order-invariant
+matching, not weakened or bypassed by it.
 
 ### R4 — Scope binding defeats replay
 
@@ -423,8 +445,8 @@ metadata + schema parity only).
 | **AC-11** | Replay defeated per-vertical (not a generic "consume") | Three separate cases, matching ADR §4.6 exactly: (a) a confirmed event's receipts do not satisfy a second confirm attempt (lifecycle guard `CONFIRMED -> CONFIRMED` already rejects it, independent of receipts); (b) a correction's receipts, scoped to the pre-correction version, do not satisfy a second correction at the new version; (c) a rolled-back failure (audit-append raises) leaves the target's version unchanged and the **same** receipts remain valid for a same-confirmer retry — both backends. No test asserts a "consumed" state/method, because none exists (O6). |
 | **AC-12** | `users` is single authority | `rg -l -g '*.py' -g '*.yaml' "known_principals\|known_role_for\|known-principals\.yaml" apps packages scripts tests` returns only comment-only matches (R6.3 files) and test files that were rewritten (R6.2) — no runtime code path; `known-principals.yaml` does not exist on disk. |
 | **AC-13** | Schema parity | `test_schema_parity*` covers `approval_receipts` and `task_creation_intents` two-directionally (columns, nullability, FK, unique, CHECK) (R8.1, R9.1). |
-| **AC-14** | Full regression not reduced | `python -m pytest -q` reports **≥ the committed baseline (292 at `848aeba`; re-verify at BUILD, do not hardcode a stale number)**, 0 failed, 0 errors. |
-| **AC-15** | Validators + guards + doctor | `validate_repository.py`, `generate_catalog.py --check`, `check_session_state.py`, `check_file_size.py` PASS; workspace doctor `24/24`. |
+| **AC-14** | Full regression not reduced | `python -m pytest -q` reports **≥ the BUILD baseline committed at C2/G6 immediately before BUILD** (F10 — neither `292` at `848aeba` nor `306` at `58918c6` may be hardcoded as the target; re-verify and quote the number from the run that produced it), 0 failed, 0 errors. |
+| **AC-15** | Validators + guards + doctor | `validate_repository.py`, `generate_catalog.py --check`, `check_session_state.py`, `check_file_size.py` PASS; workspace doctor reports **24 checks PASS** (including the core/manifest row), **0 FAIL**, and **no warning beyond** the single accepted `LEGACY_PROJECT: governed downstream catalog kit not present` note — i.e. `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` is the accepted outcome; an unqualified claim of "doctor clean" or "full PASS" when a note is present is not permitted (F12). |
 | **AC-16** | Live governance evidence | The runner refuses fabricated/wrong-role/inactive/self/insufficient/replay approvals **with 0 provider calls**; drives a genuine authenticated quorum through the real `POST /approvals` code path; makes **exactly 1** real Alibaba call after quorum is satisfied, returning the expected token; writes the sanitized receipt at `docs/decisions/P2B_APPROVER_IDENTITY_LIVE_EVIDENCE_RECEIPT.md` (§7 schema); network/quota/expiry/provider failure is recorded honestly as FAIL/BLOCKED, never PASS; the runner self-asserts its own call count (ADR §7 steps 1–8). |
 | **AC-17** | No secret leak | No API key, Authorization header, JWT, password, or raw secret appears in the receipt, logs, or the diff; secret scan over the changed set is clean. |
 | **AC-18** | TOCTOU / payload-substitution closed | Approve a `TaskCreationIntent`, then submit `POST /tasks` with a changed `title` (or `risk_class`, or `evidence`) referencing the same `intent_id`: refused 409, digest mismatch (R9.4). A second `POST /tasks` against an already-consumed `intent_id` with the *original* unchanged payload is refused 409 on the duplicate `task_id` (R9.6). An intent consumed by a principal other than its `created_by` is refused 409 (R9.4). |
@@ -432,6 +454,7 @@ metadata + schema parity only).
 | **AC-20** | Migration evidence is honest | `python scripts/apply_migrations.py --dry-run --only 004_approval_receipts.sql --database-url sqlite:///unused` proves discovery/statement-splitting only (exit 0, prints the statement count) and is never described as "the migration ran"; `approval_receipts` and `task_creation_intents` are verified via `operations_ledger.tables.metadata` + schema parity against SQLite, not via `apply_migrations.py`; no AC requires a real `DATABASE_URL`; PostgreSQL remains explicitly **NOT LIVE VERIFIED** (ADR §4.5). |
 | **AC-21** | Rollback | `git revert` of the BUILD commit on a temporary worktree/clone (never the primary workspace) restores C3-parent source/test behaviour and the baseline suite using a newly created ephemeral SQLite database; C1/C2 remain intact. No down migration or rollback of a real database schema/data is claimed. |
 | **AC-22** | Creation intent is visible and atomically audited | An authorized approver can read the immutable intent snapshot/digest; missing/inactive/insufficient users get the pinned 404/403 outcomes. Intent creation commits both intent and `task.creation_intent.create` audit, or neither on injected failure — both backends (R9.1). |
+| **AC-23** | Order-invariant quorum matching (F9 fix) | For an R3 quorum (`shift_supervisor` + `responsible_manager`, where a `responsible_manager` also qualifies for the `shift_supervisor` seat) and an R4 quorum: **every** permutation of a valid set of qualifying receipts is submitted/collected and **every permutation PASSes** (no permutation is denied) — reproducing and closing the exact probe in ADR §4.7 (`[shift_supervisor, responsible_manager]` vs `[responsible_manager, shift_supervisor]`, both must PASS). Additionally: a higher-authority principal's receipt appearing before a lower-authority principal's receipt must never cause a false deny; a single principal must still not be able to fill two required seats regardless of order (R3.3 unchanged); self-approval-only and genuinely insufficient quorums still fail regardless of order (R3.4/R3.2 unchanged) — both backends (R3.6). |
 
 ## 7. Live-evidence receipt — minimum schema
 
@@ -463,6 +486,12 @@ receipt's structure). Required fields:
 
 - A CVF vertical test covering AC-01…AC-11, AC-18, AC-19, AC-22 at service and HTTP
   level, both backends.
+- Order-invariant matching coverage (AC-23, F9): a permutation-based test over
+  R3 and R4 valid quorums, living inside the already-allowlisted
+  `tests/cvf/test_approver_identity_reconciliation.py` (service/HTTP level) and
+  `tests/cvf/test_gates_unit.py` (matching-algorithm unit level) — no new file
+  path is introduced for this coverage; it does not raise the WORK_ORDER's
+  39-path ceiling.
 - A schema-parity extension for `approval_receipts` and `task_creation_intents`
   (AC-13).
 - A rewrite of `test_approval_known_principals.py` into the authenticated model
@@ -480,7 +509,9 @@ receipt's structure). Required fields:
 ## 9. Evidence required at REVIEW
 
 The IMPLEMENTATION_WORKER produces and the independent REVIEWER re-runs:
-`git status --porcelain -uall` and `git diff --stat`; targeted new-test runs;
+`git status --porcelain -uall` (no tracked modification; at most the one
+preserved untracked file named in WORK_ORDER §7 G6, unedited — any other
+untracked/modified path is a stop condition, F11) and `git diff --stat`; targeted new-test runs;
 `pytest -q` tail (≥ baseline); all four validators + doctor; `git diff --check`;
 `git diff --stat -- database/` showing only `004_approval_receipts.sql`; the
 `--dry-run` migration-discovery output (AC-20, not a claim of execution); the
@@ -502,9 +533,29 @@ that any production endpoint calls a provider.
 
 ## 11. Definition of done
 
-R1…R9 satisfied; AC-01…AC-22 pass with recorded output including a real Alibaba
-receipt at the pinned path; changed set within the WORK_ORDER allowlist;
-independent REVIEWER confirms every AC by re-running; catalog/roadmap/continuity
-updated only at REVIEW/FREEZE from observed source truth; no claim beyond §1's
-boundary; High Finding #4 recorded as **closed within the stated boundary**, not
-"all findings fixed".
+R1…R9 (including R3.6, F9's order-invariant matching) satisfied; AC-01…AC-23
+pass with recorded output including a real Alibaba receipt at the pinned path,
+an honest doctor result (24 passed, 0 FAIL, no warning beyond the one accepted
+legacy-catalog-kit note — F12), and a full-suite count quoted against the
+BUILD baseline captured fresh at C2/G6 (F10, never a hardcoded `292`/`306`);
+changed set within the WORK_ORDER allowlist (39-path ceiling, not
+self-expanded); independent REVIEWER confirms every AC by re-running;
+catalog/roadmap/continuity updated only at REVIEW/FREEZE from observed source
+truth; no claim beyond §1's boundary; High Finding #4 recorded as **closed
+within the stated boundary**, not "all findings fixed".
+
+## 12. Authorization-review revision 2 (2026-07-26) — F9, F10, F12
+
+This SPEC's portion of the second independent authorization re-review
+(baseline `58918c6`, `306 passed`) returned `REVIEW_CHANGES_REQUIRED` on three
+findings addressed here (F11 and F13 are ADR/WORK_ORDER-only and carry no SPEC
+requirement change):
+
+| Finding | Resolution |
+|---|---|
+| **F9** — Order-dependent quorum matching | New **R3.6** requires a deterministic, order-invariant bipartite-matching/backtracking decision, replacing any greedy scan. New **AC-23** requires every permutation of a valid R3/R4 quorum's receipts to PASS, a high-authority-before-low-authority ordering to never false-deny, and R3.3/R3.4 to remain enforced unchanged. |
+| **F10** — Stale prebuild baseline | Header, §3 Terminology "Baseline", and **AC-14** now distinguish the historical authoring baseline (`848aeba`/292), the current authorization re-review baseline (`58918c6`/306), and the BUILD baseline (captured fresh at C2/G6) — AC-14 no longer implies a hardcoded target. |
+| **F12** — Doctor-note drift | **AC-15** and §11 now require the honest current doctor outcome — `PASS WITH NOTE (24 passed, 1 warning(s))`, the one warning being the legacy downstream catalog kit, 0 FAIL — rather than an unqualified `24/24`/"doctor clean" claim. |
+
+No other requirement, AC, or API contract in this SPEC changes as a result of
+this revision.
