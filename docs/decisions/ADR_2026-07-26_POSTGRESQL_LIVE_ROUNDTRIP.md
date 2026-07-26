@@ -1,6 +1,6 @@
 # ADR — PostgreSQL Live Round-Trip
 
-Status: ACCEPTED — INDEPENDENT AUTHORIZATION REVIEW PASS
+Status: ACCEPTED — AMENDMENT 1 INDEPENDENT REVIEW PASS
 Tranche: `P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26`
 Risk: R2
 Owner boundary: disposable local PostgreSQL evidence for the Phase 1 exit gate
@@ -121,3 +121,39 @@ Codex found and repaired without waiver:
 - `PG-AUTH-F3 LIVE_SCHEMA_SCOPE_OVERBROAD`.
 
 Disposition: `REVIEW_PASS` on 2026-07-26.
+
+## 10. Amendment 1 — native PostgreSQL ENUM repair
+
+The first real live run correctly stopped with
+`psycopg.errors.DatatypeMismatch`: migration-native enum columns were mapped
+as generic `String`, so psycopg bound explicit values as `VARCHAR`.
+Independent review reproduced `26 passed, 7 failed` and confirmed the same
+root cause.
+
+The repair decision is:
+
+1. keep `String` as the portable SQLite type;
+2. attach PostgreSQL variants using `postgresql.ENUM`, exact migration type
+   names/values and `create_type=False`;
+3. repair every mapped native-enum column, including the minimally mapped
+   `messages.state`, not only the first failing `shifts.status`;
+4. leave migrations and `SqlLedger` byte-identical;
+5. make static and live parity distinguish `ENUM:<type_name>` from text;
+6. scrub the generated URL and password from all failure stdout/stderr and
+   stored tails;
+7. clean up only a container proven to have been created by this runner, and
+   fail if container removal or anonymous-volume removal cannot be verified.
+
+Independent review also found:
+
+- `PG-REV-F2 FAILURE_OUTPUT_CREDENTIAL_LEAK`;
+- `PG-REV-F3 CLEANUP_OWNERSHIP_BUG`;
+- `PG-REV-F4 TYPE_PARITY_TEST_INCOMPLETE`;
+- `PG-REV-F5 RECEIPT_DRIFT`.
+
+All five review findings, including the production enum defect
+`PG-REV-F1`, are repair obligations. No waiver is granted.
+
+Alternative bind casts in every insert/update were rejected because they
+would duplicate schema knowledge throughout `SqlLedger`. Correct type mapping
+keeps the fix centralized at the existing metadata boundary.

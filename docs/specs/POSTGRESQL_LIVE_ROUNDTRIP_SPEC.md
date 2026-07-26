@@ -1,6 +1,6 @@
 # PostgreSQL Live Round-Trip Specification
 
-Status: APPROVED SPECIFICATION — BUILD AWAITS C1/C2 GATES
+Status: APPROVED — AMENDMENT 1 REPAIR AWAITS CONTINUITY ACKNOWLEDGMENT
 Spec ID: `P1-PG-LIVE-SPEC-001`
 Tranche: `P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26`
 
@@ -188,3 +188,75 @@ satisfy any live acceptance criterion.
 
 Independent disposition: `REVIEW_PASS` after `PG-AUTH-F1`,
 `PG-AUTH-F2` and `PG-AUTH-F3` were repaired without waiver.
+
+## 7. Amendment 1 repair requirements
+
+### R13 — dual-backend enum mapping
+
+Define the exact three migration enum types:
+
+- `data_state`: `RAW`, `NORMALIZED`, `PROPOSED`, `CONFIRMED`, `REJECTED`,
+  `CORRECTED`, `FROZEN`;
+- `risk_class`: `R0`, `R1`, `R2`, `R3`, `R4`;
+- `shift_status`: `OPEN`, `HANDOVER_PENDING`, `CLOSED`, `FROZEN`.
+
+Each affected column uses portable `String` with a PostgreSQL-native
+`ENUM(..., name=<migration name>, create_type=False)` variant. The variant
+must bind as the native enum on PostgreSQL and remain `String` on SQLite.
+`create_type=False` is mandatory because migrations own type creation.
+
+Affected columns are:
+
+- `shifts.status`;
+- `operational_events.risk`, `operational_events.state`;
+- `messages.state`;
+- `tasks.risk`, `tasks.state`;
+- `task_creation_intents.risk_class`;
+- `approval_receipts.risk_class`.
+
+### R14 — enum parity
+
+Static parity and live parity compare custom enum type name and exact ordered
+value set. They must fail if any affected column regresses to plain text,
+uses the wrong native enum, omits a value or allows an extra value.
+
+### R15 — failure-output sanitization
+
+Before printing or storing subprocess output, scrub both the exact generated
+database URL and generated password. Sanitization applies to pytest tracebacks,
+captured stdout/stderr, JSON summaries and `live_suite_tail`. Tests must inject
+a sentinel password and prove it appears nowhere in rendered output.
+
+### R16 — cleanup ownership
+
+Track whether `docker run` actually created the container. Cleanup must not run
+for a collision or failed creation. When created, capture its anonymous volume
+IDs, require successful `docker rm -f -v`, verify the container is absent and
+verify every captured anonymous volume is absent. Any uncertainty fails the
+run without targeting unrelated Docker objects.
+
+### R17 — receipt correction
+
+Correct the touched-path count, remove contradicted claims, record the
+independent failing reproduction, then replace failure disposition only after
+the repaired live suite and independent rerun both pass.
+
+## 8. Amendment 1 acceptance
+
+- **AC-21:** PostgreSQL compilation binds every R13 column as its named native
+  enum, never `VARCHAR`.
+- **AC-22:** SQLite compilation and the complete SQLite suite remain
+  compatible.
+- **AC-23:** static enum name/value parity has positive and negative proof.
+- **AC-24:** live enum name/value parity passes against migration-created
+  PostgreSQL.
+- **AC-25:** failure-path sentinel credential never appears in any output or
+  stored summary.
+- **AC-26:** simulated name collision and failed `docker run` never invoke
+  removal.
+- **AC-27:** successful cleanup verifies exact container and captured
+  anonymous-volume absence.
+- **AC-28:** all original AC-01 through AC-20 are rerun; no prior evidence is
+  substituted for a repaired live pass.
+
+Amendment 1 authorization disposition: `REVIEW_PASS`; no waiver.

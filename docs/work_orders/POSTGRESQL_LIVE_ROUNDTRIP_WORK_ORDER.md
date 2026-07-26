@@ -1,6 +1,6 @@
 # Work Order — PostgreSQL Live Round-Trip
 
-Status: APPROVED — BUILD AWAITS C1/C2 PUSH AND FRESH G6
+Status: APPROVED — AMENDMENT 1 REPAIR AWAITS C2B PUSH AND FRESH G6R
 Work Order ID: `P1-PG-LIVE-WO-001`
 Risk: R2
 Implementation worker: Claude
@@ -200,3 +200,80 @@ approves this Work Order intact on 2026-07-26.
 
 BUILD remains prohibited until Codex pushes C1 and C2 separately and directs
 Claude to run fresh G6 at the actual post-C2 HEAD.
+
+## 14. Amendment 1 — authorized repair
+
+Independent review disposition on the stopped BUILD:
+`REVIEW_CHANGES_REQUIRED`. Findings:
+
+1. `PG-REV-F1 NATIVE_ENUM_BIND_FAILURE`;
+2. `PG-REV-F2 FAILURE_OUTPUT_CREDENTIAL_LEAK`;
+3. `PG-REV-F3 CLEANUP_OWNERSHIP_BUG`;
+4. `PG-REV-F4 TYPE_PARITY_TEST_INCOMPLETE`;
+5. `PG-REV-F5 RECEIPT_DRIFT`.
+
+The stopped BUILD is evidence input, not a commit candidate. Claude may resume
+only as `REPAIR_WORKER` after this amendment and its continuity acknowledgment
+are committed/pushed separately.
+
+### 14.1 Repair changed-set ceiling
+
+Exactly these eight paths are authorized:
+
+1. `packages/operations-ledger/src/operations_ledger/tables.py`
+2. `tests/integration/test_schema_parity_types_and_checks.py`
+3. `scripts/run_postgres_live_roundtrip.py`
+4. `tests/integration/test_sql_ledger_postgres_live.py`
+5. `tests/integration/test_postgres_live_runner.py` — NEW
+6. `docs/decisions/POSTGRESQL_LIVE_ROUNDTRIP_EVIDENCE_RECEIPT.md`
+7. `docs/catalog/MODULE_REGISTRY.json` — bounded truth/metrics after live PASS
+8. `docs/catalog/MODULE_CATALOG.md` — generator output after registry update
+
+No ninth path is conditional.
+
+### 14.2 Still protected
+
+All migrations, `scripts/apply_migrations.py`, `docker-compose.yml`,
+`sql_ledger.py`, `_rows.py`, application source, CVF surfaces, authorization
+artifacts and continuity files remain byte-identical during repair BUILD.
+
+### 14.3 Repair order
+
+1. Split runner-only tests into the new coherent test module so every Python
+   file remains at or below 300 lines.
+2. Add failing static/native enum parity and negative tests.
+3. Implement the centralized three-type PostgreSQL enum variants.
+4. Repair failure-output sanitization and cleanup ownership/verification.
+5. Correct the receipt's stopped-run facts without claiming PASS.
+6. Run focused non-live and SQLite suites.
+7. Run a fresh disposable live PostgreSQL test; zero skips/failures/errors.
+8. Remove and verify exact container plus anonymous volumes.
+9. Run the full suite, Phase 1 exit-gate subset and all repository gates.
+10. Only after live PASS, update bounded catalog truth and regenerate catalog.
+11. Stop at `READY_FOR_INDEPENDENT_BUILD_RE_REVIEW`.
+
+### 14.4 G6R
+
+Before repair Claude must verify:
+
+- `HEAD == origin/main` at the post-C2b continuity commit;
+- no staged paths;
+- tracked modifications are only the three stopped-BUILD paths;
+- only the preserved assessment plus those three authorized new paths are
+  untracked;
+- assessment hash remains exact;
+- core/pin/doctor gates remain unchanged;
+- Docker daemon is responsive and has zero `cvf-pg-live-*` containers and no
+  residue volume from this tranche.
+
+Any mismatch stops repair.
+
+### 14.5 Authorization
+
+Codex independently reviewed this amendment, found the mapping, parity,
+redaction, cleanup and receipt requirements mutually consistent, and returns
+`REVIEW_PASS`.
+
+Under operator-delegated reviewer/approval authority, Codex approves Amendment
+1 intact on 2026-07-26. Repair remains prohibited until the amendment commit
+and C2b continuity acknowledgment are both pushed.
