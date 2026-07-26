@@ -441,20 +441,24 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-`CVF-FILE-SPLIT-GUARD-HARDENING-2026-07-26` là tranche active tại approved
-`WORK_ORDER`. C1 `ab9a019` và C1b `68b3162` đã push; authorization review đóng
-`FSG-AUTH-F1/F2` không waiver và trả `REVIEW_PASS`. Hard limit đích là Python
-300, TS/TSX/JS/JSX 200. Bảy file Python C3 trên 300 phải split; chỉ bốn path
-legacy được baseline bằng exact SHA-256/line count. C3 bị chặn ở đúng 24 path.
+`CVF-FILE-SPLIT-GUARD-HARDENING-2026-07-26` đã `FREEZE / CLOSED_BOUNDED`.
+C3 `46da20a79680d57bb56a168842720326e1df768f` đổi đúng 23 path được
+authorize và nhận independent `REVIEW_PASS`. Hai finding đầu
+`FSG-REV-F1/F2` được sửa không waiver trong đúng hai path repair. Guard 36
+pass; full suite 405 pass/1 warning; focused compatibility 146 pass; 47 P2B
+node được giữ nguyên. AC-24 revert rehearsal khôi phục đúng cây C2 parent và
+baseline thực tế 367 pass/1 warning, sau đó worktree tạm đã được xóa.
 
-Bước kế tiếp: sau khi C2 này push, Claude rehydrate handoff + ADR/SPEC/
-WORK_ORDER, declare `IMPLEMENTATION_WORKER`, chạy G6 fresh rồi mới BUILD.
-Claude không stage/commit/push; Codex review độc lập.
+Hard limit hiện được repository enforce: Python 300,
+TS/TSX/JS/JSX 200. Legacy debt bị khóa digest ở đúng bốn path đã authorize;
+file thứ năm, digest/line-count drift, thiếu registry và schema/container sai
+đều fail closed. Không có provider call, secret read hay PostgreSQL run; không
+đổi API/OpenAPI/schema/migration/CVF-control behavior.
 
-Sau khi tranche split-file guard đóng riêng, mở một tranche riêng cho
-PostgreSQL live round-trip trên schema tạo bởi migrations. Phase 1 vẫn mở tới
-khi gate đó được review PASS. P2-A incidents/handovers vẫn là business lane kế
-tiếp, nhưng đứng sau hai bước operator vừa chọn; P2-C vẫn sau P2-A.
+Bước kế tiếp duy nhất: fresh **INTAKE** cho tranche riêng chạy PostgreSQL live
+round-trip trên schema tạo bởi migrations. Phase 1 vẫn mở tới khi gate đó
+được review PASS. P2-A incidents/handovers vẫn là business lane kế tiếp sau
+PostgreSQL; P2-C vẫn sau P2-A.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);

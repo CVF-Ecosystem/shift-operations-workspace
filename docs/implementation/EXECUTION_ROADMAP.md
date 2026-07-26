@@ -382,23 +382,26 @@ Finding #4 đã sửa".
 `CLOSED_BOUNDED`; High Finding #4 đóng trong boundary authenticated durable
 scope-bound receipts, không phải tuyên bố "mọi finding đã sửa".
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho tranche riêng
-`CVF-FILE-SPLIT-GUARD-HARDENING`, nhằm biến nguyên tắc split file thành guard
-repository-enforced thay vì trông chờ agent nhớ. Không DESIGN/WORK_ORDER/BUILD
-tranche đó trong closure P2B.
+**2026-07-26 (CVF file-split guard hardening):** đã `FREEZE /
+CLOSED_BOUNDED`; C3 `46da20a` đổi đúng 23 path được authorize và nhận
+independent `REVIEW_PASS`. Python 300 và TS/TSX/JS/JSX 200 hiện là hard guard;
+legacy debt được khóa bằng exact path/SHA-256/line count ở đúng bốn path.
+Guard 36 pass, full suite 405 pass/1 warning, AC-24 revert rehearsal PASS.
+Tranche này không đổi trạng thái roadmap/module và không đóng Phase 1.
 
-Sau khi tranche guard đóng riêng, mở tranche riêng chạy PostgreSQL live
-round-trip trên schema do migrations tạo để xét exit gate Phase 1. P2-A còn
-lại (incidents/handovers, cần migration mới) vẫn là business lane kế tiếp sau
-hai bước operator chọn; P2-C đứng sau P2-A. Mỗi tranche phải chạy đủ control
-chain và authorization riêng.
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho tranche riêng chạy PostgreSQL
+live round-trip trên schema do migrations tạo để xét exit gate Phase 1. P2-A
+còn lại (incidents/handovers, cần migration mới) vẫn là business lane kế tiếp
+sau PostgreSQL; P2-C đứng sau P2-A. Mỗi tranche phải chạy đủ control chain và
+authorization riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
 governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
 (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B),
 tách operations-domain (P1-B), authenticated scope-bound approval receipts
-(P2B approver-identity reconciliation).
+(P2B approver-identity reconciliation), repository-enforced file-split guard
+(CVF-FILE-SPLIT-GUARD-HARDENING).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, PostgreSQL
 round-trip thật chưa chạy trong môi trường này, incidents/handovers (P2-A còn lại) chưa có
