@@ -8,7 +8,7 @@
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward: Codex
-- BUILD status: **NOT STARTED**
+- BUILD status: **STOPPED ON REVIEWED DEFECT; AMENDMENT 1 REPAIR AUTHORIZED**
 
 ## Authorization
 
@@ -86,3 +86,28 @@ gates under SPEC AC-20. Only their combined PASS permits Phase 1 `DONE`.
 
 No provider call is required or authorized; this tranche asserts database
 behavior, not AI/agent governance.
+
+## Amendment 1 repair acknowledgment
+
+- Stopped BUILD produced three authorized untracked paths: runner, live test
+  and failure receipt. Nothing was staged/committed/pushed.
+- Independent reviewer reproduced migrations `17/0` then `14/3` and live
+  result `26 passed, 7 failed`.
+- Findings `PG-REV-F1` through `PG-REV-F5` are accepted without waiver:
+  native enum bind failure, failure-output credential leak, cleanup ownership
+  bug, incomplete enum type parity and receipt drift.
+- Authorization Amendment 1:
+  `6d6df205f355cd34552e37f8a75584e6a17623e8`.
+- Repair ceiling is exactly eight paths in Work Order section 14.1.
+- Migrations, `apply_migrations.py`, Compose, `sql_ledger.py`, `_rows.py`,
+  application source, authorization and continuity remain read-only.
+- Docker cleanup after reviewer reproduction: zero container and zero volume.
+- Assessment hash remains exact.
+
+After this C2b continuity commit is pushed, Claude transitions to
+`REPAIR_WORKER`, runs G6R, repairs all five findings, executes a fresh real
+PostgreSQL run, and stops at:
+
+`READY_FOR_INDEPENDENT_BUILD_RE_REVIEW`
+
+Claude still may not stage, commit or push.

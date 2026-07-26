@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_POSTGRESQL_LIVE_ROUNDTRIP.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P1-POSTGRESQL-LIVE-ROUNDTRIP approved WORK_ORDER before BUILD. C1 668b7df pushed; PG-AUTH-F1/F2/F3 closed without waiver; REVIEW_PASS; exact C3 ceiling five paths. BUILD awaits C2 push, fresh G6 and a responsive Docker daemon; SQLite/mock substitution is prohibited.",
+  "syncReceipt": "P1-POSTGRESQL-LIVE-ROUNDTRIP initial BUILD STOP confirmed. PG-REV-F1..F5 accepted without waiver. Amendment 1 at 6d6df20 is REVIEW_PASS/approved with exact eight-path repair ceiling. REPAIR_WORKER awaits C2b push and fresh G6R; Phase 1 remains open.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "REVIEWER",
   "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",

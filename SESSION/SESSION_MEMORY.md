@@ -468,6 +468,19 @@ bằng SQLite/mock. Phase 1 chỉ được đóng sau live review độc lập v
 shift lifecycle + contract hiện hữu cùng pass. P2-A incidents/handovers vẫn là
 business lane tiếp theo; P2-C vẫn sau P2-A.
 
+Live BUILD sau đó đã chạy thật và dừng đúng stop condition. Independent review
+tái hiện migrations `17/0` rồi `14/3`, live `26 passed/7 failed`, xác nhận
+`PG-REV-F1` native PostgreSQL enum bind failure và tìm thêm
+`PG-REV-F2..F5`: failure output lộ credential tạm, cleanup có thể xóa
+name-collision không thuộc runner, type parity chưa phân biệt native enum, và
+receipt drift. Root non-live `410 passed/28 skipped/1 warning`; gates PASS;
+Docker zero residue; Phase 1 vẫn mở.
+
+Amendment 1 `6d6df205f355cd34552e37f8a75584e6a17623e8` đã
+`REVIEW_PASS`/approved, authorize đúng tám repair path. Sau C2b push, Claude
+declare `REPAIR_WORKER`, chạy G6R, sửa đủ F1..F5, chạy live PostgreSQL mới và
+dừng tại `READY_FOR_INDEPENDENT_BUILD_RE_REVIEW`; không stage/commit/push.
+
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
 `CVF-CORE-PIN-2026-07-23` FREEZE / CLOSED_BOUNDED (`76e7360` → `da9a122` →
