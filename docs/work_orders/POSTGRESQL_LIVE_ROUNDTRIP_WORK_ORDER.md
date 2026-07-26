@@ -258,7 +258,7 @@ Before repair Claude must verify:
 
 - `HEAD == origin/main` at the post-C2b continuity commit;
 - no staged paths;
-- tracked modifications are only the three stopped-BUILD paths;
+- zero tracked modifications;
 - only the preserved assessment plus those three authorized new paths are
   untracked;
 - assessment hash remains exact;
