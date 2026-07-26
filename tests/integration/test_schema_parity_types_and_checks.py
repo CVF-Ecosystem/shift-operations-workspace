@@ -1,11 +1,8 @@
-"""Schema parity guard, part 2: column type family and CHECK expression.
-
-Split out of test_schema_parity.py in P-FIX-6 (2026-07-22) purely to respect
-the file-size guard (GC-023 style, hard limit 400 lines for *.py) - not a
-behavior change. See test_schema_parity.py's module docstring for the full
-context (why text-parsing instead of a live PostgreSQL diff, what "NOT LIVE
-VERIFIED" means here). Both modules share parsing helpers from
-_schema_parity_parsing.py and operate on the same MAPPED table set.
+"""Schema parity guard, part 2: column type family, CHECK expression and
+native-enum parity. Split out of test_schema_parity.py in P-FIX-6 purely to
+respect the file-size guard - not a behavior change; see that module's
+docstring for the static-text-parsing rationale. Shares helpers from
+_schema_parity_parsing.py and the MAPPED table set.
 """
 
 from __future__ import annotations
@@ -13,9 +10,18 @@ from __future__ import annotations
 import re
 
 import pytest
-from sqlalchemy import CheckConstraint
+from sqlalchemy import CheckConstraint, String
+from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 
-from operations_ledger.tables import customer_requests, operational_events, shifts, tasks
+from operations_ledger.tables import (
+    approval_receipts,
+    customer_requests,
+    messages,
+    operational_events,
+    shifts,
+    task_creation_intents,
+    tasks,
+)
 
 from _schema_parity_parsing import (
     code_columns,
@@ -25,12 +31,10 @@ from _schema_parity_parsing import (
 )
 from test_schema_parity import MAPPED
 
-# Tables whose migration uses a column-level `status text ... CHECK (status IN
-# (...))` form rather than a table-level CHECK. Generic over this set so a
-# future mapped text-status table can be added here without duplicating the
-# parser (independent review, 2026-07-22, Finding 4: this previously hardcoded
-# "tasks" only, so the commit's claim that customer_requests' status CHECK was
-# also compared two-directionally was not actually true - it wasn't tested).
+# Tables whose migration uses a column-level `status text ... CHECK (status
+# IN (...))` form rather than a table-level CHECK. Generic over this set
+# (Finding 4, 2026-07-22) so a future mapped text-status table reuses the
+# same real two-directional comparison instead of a hardcoded single table.
 _COLUMN_LEVEL_STATUS_CHECK_TABLES = {
     "tasks": tasks,
     "customer_requests": customer_requests,
@@ -38,11 +42,11 @@ _COLUMN_LEVEL_STATUS_CHECK_TABLES = {
 
 # --- type-family comparison --------------------------------------------------
 
-# Minimal mapping for the types actually used in this repo's migrations (see
-# database/migrations/*.sql): uuid, text, integer, timestamptz, jsonb, plus
-# the three custom ENUMs (shift_status/data_state/risk_class), which tables.py
-# represents as plain String/Text so the same definition works dual-backend
-# (SQLAlchemy has no portable native-enum type across SQLite/PostgreSQL here).
+# Minimal mapping for the types actually used in this repo's migrations:
+# uuid, text, integer, timestamptz, jsonb, plus the three custom ENUMs. The
+# base/portable type for enum columns is still String (SQLite has no native
+# enum), classified TEXT here; the PostgreSQL-only ENUM variant (Amendment 1,
+# PG-REV-F1) is checked separately below - that's the live-relevant one.
 _MIGRATION_TYPE_FAMILY = {
     "uuid": "UUID",
     "text": "TEXT",
@@ -55,7 +59,6 @@ _MIGRATION_TYPE_FAMILY = {
     # P2-B (2026-07-22): users.is_active is the first mapped boolean column.
     "boolean": "BOOLEAN",
 }
-
 
 def _code_type_family(sqlalchemy_type) -> str:
     """Classify a SQLAlchemy column type into the same small vocabulary as
@@ -77,7 +80,6 @@ def _code_type_family(sqlalchemy_type) -> str:
         return "BOOLEAN"
     return f"UNKNOWN:{type_name}"
 
-
 def test_column_type_families_match():
     sql = migration_text()
     for table, tbl_obj in MAPPED.items():
@@ -98,9 +100,7 @@ def test_column_type_families_match():
                 f"{code_cols[name]['type']!r} ({code_family})"
             )
 
-
 # --- CHECK expression comparison ---------------------------------------------
-
 
 def _normalize_check_text(expr: str) -> str:
     """Normalize a CHECK expression for comparison: collapse whitespace,
@@ -113,7 +113,6 @@ def _normalize_check_text(expr: str) -> str:
     text = re.sub(r"\s+", " ", text)
     return text.upper()
 
-
 def _migration_check_expr(block: str) -> str | None:
     m = re.search(r"CHECK\s*\((.*)\)\s*$", block.strip(), re.DOTALL)
     if not m:
@@ -123,7 +122,6 @@ def _migration_check_expr(block: str) -> str | None:
         # test_status_check_columns_referenced below).
         m = re.search(r"^\s*CHECK\s*\((.*)\)\s*$", block, re.MULTILINE | re.DOTALL)
     return m.group(1) if m else None
-
 
 def test_window_checks_present_where_migration_has_them():
     sql = migration_text()
@@ -142,24 +140,15 @@ def test_window_checks_present_where_migration_has_them():
                 f"{table}: migration has a CHECK constraint but tables.py has none"
             )
 
-
 def test_check_expressions_match_where_comparable():
     """P-FIX-6: the old version only checked a CheckConstraint object EXISTS,
-    never that its expression matches. This attempts a real normalized-text
-    comparison for the two tables with a genuine table-level CHECK
-    (shifts.CHECK(ends_at > starts_at), operational_events' window check).
-
-    Fallback reasoning: SQLAlchemy re-renders a CheckConstraint's .sqltext via
-    str(), which can differ from the hand-written migration source in
-    whitespace/parenthesization even when semantically identical (confirmed by
-    running this comparison against both mapped checks below - exact
-    normalized-text equality holds for both today because both sides were
-    authored to match column-for-column). If a future check is added where
-    exact text does not match after normalization, do not weaken this to
-    "existence only" again - instead compare the set of column names and
-    comparison operators referenced (a looser but still meaningful
-    equivalence check), and document why exact text failed in a comment next
-    to the fallback.
+    never that its expression matches. Real normalized-text comparison for
+    the two tables with a genuine table-level CHECK (shifts window,
+    operational_events window); SQLAlchemy's re-rendered .sqltext can differ
+    in whitespace/parens even when semantically identical, so a token-set
+    fallback (column names + operators) backs up exact-text equality. If a
+    future check needs the fallback, do not weaken further to
+    existence-only - document why exact text failed instead.
     """
     sql = migration_text()
     tables_with_table_level_check = {"shifts": shifts, "operational_events": operational_events}
@@ -186,19 +175,16 @@ def test_check_expressions_match_where_comparable():
             f"migration={migration_expr!r} tables.py={code_expr!r}"
         )
 
-
 def _migration_status_check_values(block: str, table: str) -> set[str]:
     m = re.search(r"status\s+text[^,]*CHECK\s*\(status IN \(([^)]+)\)\)", block, re.IGNORECASE)
     assert m, f"{table}: expected a column-level status CHECK (status IN (...)) in migration"
     return {v.strip().strip("'") for v in m.group(1).split(",")}
-
 
 def _code_status_check_values(tbl_obj) -> set[str]:
     code_checks = [c for c in tbl_obj.constraints if isinstance(c, CheckConstraint)]
     assert code_checks, f"{tbl_obj.name}: tables.py has no CheckConstraint"
     code_text = " ".join(str(c.sqltext) for c in code_checks)
     return set(re.findall(r"'([A-Z_]+)'", code_text))
-
 
 @pytest.mark.parametrize("table", sorted(_COLUMN_LEVEL_STATUS_CHECK_TABLES))
 def test_status_check_columns_referenced(table):
@@ -238,7 +224,6 @@ def test_status_check_columns_referenced(table):
         f"database"
     )
 
-
 def test_status_check_two_directional_comparison_actually_catches_drift():
     """Negative proof (Finding 4): demonstrates the helper functions used by
     test_status_check_columns_referenced actually fail when the two sides
@@ -259,3 +244,53 @@ def test_status_check_two_directional_comparison_actually_catches_drift():
     # Matching sets in both directions -> no drift reported (the real case
     # for tasks/customer_requests today).
     assert migration_values - migration_values == set()
+
+# --- native PostgreSQL enum parity (Amendment 1, PG-REV-F1/F4) --------------
+# Every migration-native-enum column must carry a postgresql ENUM variant
+# whose name and exact ordered value list match migration 001's CREATE TYPE -
+# not just "some CheckConstraint exists" (that generic check stays above).
+
+_ENUM_COLUMNS = {
+    ("shifts", "status"): ("shift_status", shifts),
+    ("operational_events", "risk"): ("risk_class", operational_events),
+    ("operational_events", "state"): ("data_state", operational_events),
+    ("messages", "state"): ("data_state", messages),
+    ("tasks", "risk"): ("risk_class", tasks),
+    ("tasks", "state"): ("data_state", tasks),
+    ("task_creation_intents", "risk_class"): ("risk_class", task_creation_intents),
+    ("approval_receipts", "risk_class"): ("risk_class", approval_receipts),
+}
+
+def _migration_enum_values(sql: str, enum_name: str) -> list[str]:
+    m = re.search(rf"CREATE TYPE {enum_name} AS ENUM \(([^)]+)\)", sql, re.IGNORECASE)
+    assert m, f"expected CREATE TYPE {enum_name} AS ENUM in migration"
+    return [v.strip().strip("'") for v in m.group(1).split(",")]
+
+def _pg_enum_variant(tbl_obj, column_name: str):
+    mapping = getattr(tbl_obj.c[column_name].type, "_variant_mapping", None)
+    assert mapping and "postgresql" in mapping, f"{tbl_obj.name}.{column_name}: no postgresql ENUM variant - regressed to plain text?"
+    return mapping["postgresql"]
+
+@pytest.mark.parametrize("table_column", sorted(_ENUM_COLUMNS))
+def test_native_enum_type_name_and_value_parity(table_column):
+    table_name, column_name = table_column
+    enum_name, tbl_obj = _ENUM_COLUMNS[table_column]
+    pg_type = _pg_enum_variant(tbl_obj, column_name)
+    assert pg_type.name == enum_name, f"{table_name}.{column_name}: wrong enum name {pg_type.name!r}"
+    assert pg_type.create_type is False, f"{table_name}.{column_name}: create_type must be False"
+    expected = _migration_enum_values(migration_text(), enum_name)
+    assert list(pg_type.enums) == expected, f"{table_name}.{column_name}: migration={expected} tables.py={list(pg_type.enums)}"
+
+def test_native_enum_parity_check_actually_catches_regressions():
+    """Negative proof (AC-23): plain text / wrong name / missing / extra
+    value all fail, using synthetic types only - real files untouched."""
+    plain_text = String()
+    assert getattr(plain_text, "_variant_mapping", None) is None or "postgresql" not in plain_text._variant_mapping
+    real_values = _migration_enum_values(migration_text(), "shift_status")
+
+    def _variant(*values, name="shift_status"):
+        return String().with_variant(PostgresEnum(*values, name=name, create_type=False), "postgresql")._variant_mapping["postgresql"]
+
+    assert _variant("OPEN", "CLOSED", name="not_shift_status").name != "shift_status"
+    assert set(real_values) - set(_variant("OPEN", "CLOSED").enums)
+    assert set(_variant(*real_values, "MADE_UP_VALUE").enums) - set(real_values) == {"MADE_UP_VALUE"}

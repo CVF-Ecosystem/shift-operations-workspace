@@ -10,6 +10,17 @@ does the same for JSONB (native on PostgreSQL, plain JSON text elsewhere via
 ``with_variant``). This lets the workspace ship with a zero-setup SQLite
 backend for evaluation/dev and switch to PostgreSQL for production by changing
 only ``DATABASE_URL`` - no schema or code change.
+
+P1-POSTGRESQL-LIVE-ROUNDTRIP Amendment 1 (PG-REV-F1): the three migration
+``CREATE TYPE ... AS ENUM`` types (``data_state``, ``risk_class``,
+``shift_status``) are now mapped with the same ``with_variant`` pattern as
+``JSON_TYPE`` - portable ``String`` on SQLite, native ``postgresql.ENUM`` on
+PostgreSQL. A live round-trip against real PostgreSQL 16 previously failed
+with ``psycopg.errors.DatatypeMismatch`` because a bare ``String`` column
+binds an explicit ``::VARCHAR`` cast that PostgreSQL refuses to implicitly
+convert to a native enum type. ``create_type=False`` on every variant is
+mandatory: the migrations already ran ``CREATE TYPE``, so SQLAlchemy must
+never attempt to create (or drop) the type itself.
 """
 
 from __future__ import annotations
@@ -30,12 +41,38 @@ from sqlalchemy import (
     Uuid,
     func,
 )
+from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 from sqlalchemy.dialects.postgresql import JSONB
 
 metadata = MetaData()
 
 # Generic JSON column: native JSONB on PostgreSQL, JSON text elsewhere (SQLite).
 JSON_TYPE = JSON().with_variant(JSONB(), "postgresql")
+
+
+def _enum_type(pg_name: str, *values: str):
+    """Portable ``String`` (SQLite) with a native PostgreSQL ``ENUM`` variant
+    bound to the exact migration-owned type name. ``create_type=False``: the
+    migration's ``CREATE TYPE`` already created it; SQLAlchemy must never
+    attempt to (re)create or drop it."""
+    return String().with_variant(
+        PostgresEnum(*values, name=pg_name, create_type=False), "postgresql"
+    )
+
+
+# Exact name/value parity with database/migrations/001_foundation.sql and
+# operations_domain.models.{DataState,RiskClass,ShiftStatus}. Any drift here
+# must fail the static and live enum-parity tests, not silently diverge.
+DATA_STATE_ENUM_NAME = "data_state"
+DATA_STATE_VALUES = ("RAW", "NORMALIZED", "PROPOSED", "CONFIRMED", "REJECTED", "CORRECTED", "FROZEN")
+RISK_CLASS_ENUM_NAME = "risk_class"
+RISK_CLASS_VALUES = ("R0", "R1", "R2", "R3", "R4")
+SHIFT_STATUS_ENUM_NAME = "shift_status"
+SHIFT_STATUS_VALUES = ("OPEN", "HANDOVER_PENDING", "CLOSED", "FROZEN")
+
+DATA_STATE_TYPE = _enum_type(DATA_STATE_ENUM_NAME, *DATA_STATE_VALUES)
+RISK_CLASS_TYPE = _enum_type(RISK_CLASS_ENUM_NAME, *RISK_CLASS_VALUES)
+SHIFT_STATUS_TYPE = _enum_type(SHIFT_STATUS_ENUM_NAME, *SHIFT_STATUS_VALUES)
 
 shifts = Table(
     "shifts",
@@ -44,7 +81,7 @@ shifts = Table(
     Column("name", Text, nullable=False),
     Column("starts_at", DateTime(timezone=True), nullable=False),
     Column("ends_at", DateTime(timezone=True), nullable=False),
-    Column("status", String, nullable=False, server_default="OPEN"),
+    Column("status", SHIFT_STATUS_TYPE, nullable=False, server_default="OPEN"),
     Column("version", Integer, nullable=False, server_default="1"),
     Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     # Matches migration 001_foundation.sql: CHECK (ends_at > starts_at)
@@ -60,8 +97,8 @@ operational_events = Table(
     Column("event_type", Text, nullable=False),
     Column("title", Text, nullable=False),
     Column("description", Text),
-    Column("risk", String, nullable=False, server_default="R1"),
-    Column("state", String, nullable=False, server_default="PROPOSED"),
+    Column("risk", RISK_CLASS_TYPE, nullable=False, server_default="R1"),
+    Column("state", DATA_STATE_TYPE, nullable=False, server_default="PROPOSED"),
     Column("starts_at", DateTime(timezone=True)),
     Column("ends_at", DateTime(timezone=True)),
     Column("owner_id", Text),
@@ -89,7 +126,7 @@ messages = Table(
     Column("source", Text, nullable=False),
     Column("sender_id", Text, nullable=False),
     Column("text_content", Text),
-    Column("state", String, nullable=False, server_default="RAW"),
+    Column("state", DATA_STATE_TYPE, nullable=False, server_default="RAW"),
     Column("raw_payload", JSON_TYPE),
     Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
 )
@@ -145,8 +182,8 @@ tasks = Table(
     Column("status", Text, nullable=False),
     Column("owner_id", Text),
     Column("due_at", DateTime(timezone=True)),
-    Column("risk", String, nullable=False, server_default="R1"),
-    Column("state", String, nullable=False, server_default="CONFIRMED"),
+    Column("risk", RISK_CLASS_TYPE, nullable=False, server_default="R1"),
+    Column("state", DATA_STATE_TYPE, nullable=False, server_default="CONFIRMED"),
     Column("version", Integer, nullable=False, server_default="1"),
     Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     CheckConstraint(
@@ -209,7 +246,7 @@ task_creation_intents = Table(
     metadata,
     Column("intent_id", Uuid, primary_key=True),
     Column("shift_id", Uuid, ForeignKey("shifts.shift_id"), nullable=False),
-    Column("risk_class", String, nullable=False),
+    Column("risk_class", RISK_CLASS_TYPE, nullable=False),
     Column("payload_snapshot", JSON_TYPE, nullable=False),
     Column("payload_digest", Text, nullable=False),
     Column("created_by", Text, ForeignKey("users.user_id"), nullable=False),
@@ -229,7 +266,7 @@ approval_receipts = Table(
     Column("record_id", Uuid, nullable=False),
     Column("action", Text, nullable=False),
     Column("target_version", Integer, nullable=False),
-    Column("risk_class", String, nullable=False),
+    Column("risk_class", RISK_CLASS_TYPE, nullable=False),
     Column("payload_digest", Text),
     Column("approver_id", Text, ForeignKey("users.user_id"), nullable=False),
     Column("approver_role", Text, nullable=False),
