@@ -177,3 +177,42 @@ Independent authorization disposition: `REVIEW_PASS`. Under the operator's
 delegated reviewer/approval authority, Codex approves this ADR intact on
 2026-07-26. BUILD remains prohibited until the matching SPEC/WORK_ORDER C1
 and pre-BUILD continuity C2 are pushed.
+
+## 6. Authorization Amendment 1 — independent BUILD review
+
+Date: 2026-07-26
+
+The first independent BUILD review returns `REVIEW_CHANGES_REQUIRED`.
+Five findings close only through repair and independent re-review:
+
+- `INC-REV-F1 OPENAPI_GOLDEN_AUTHORIZATION_GAP`: the intended five-operation
+  incident API changes the repository-wide OpenAPI digest, but the existing
+  golden test was outside the original 37-path ceiling.
+- `INC-REV-F2 LEDGER_PARITY_DIVERGENCE`: InMemory duplicate add overwrites,
+  the SQL backend exposes a backend exception, missing put is not normalized,
+  and deterministic list ordering lacks an incident-id tie-break.
+- `INC-REV-F3 SQL_LIST_EVIDENCE_LOSS`: SQL get reconstructs evidence but SQL
+  list silently returns incidents without their evidence.
+- `INC-REV-F4 VERSION_INVARIANT_ABSENT`: `version >= 1` is stated by R4 but
+  enforced by neither the canonical model nor migration/metadata CHECK.
+- `INC-REV-F5 LIVE_EVIDENCE_SANITIZATION_GAP`: raw provider error/response
+  text and a configurable raw endpoint can reach the receipt; the existing
+  test passes only already-clean fixture data.
+
+The repair keeps the split-file decision. A new
+`scripts/_incident_live_evidence_support.py` owns provider HTTP,
+sanitization, safe endpoint description and receipt rendering; the runner
+remains a coherent orchestration facade. The existing repository-wide
+OpenAPI golden test may be updated only after proving the delta is exactly
+the authorized incident contract. No blind digest refresh is accepted.
+
+This amendment adds exactly two paths to the final C3 ceiling:
+
+1. `tests/unit/test_p2b_openapi_contract.py`
+2. `scripts/_incident_live_evidence_support.py`
+
+The final C3 changed set is therefore exactly 39 paths. No handover, report,
+freeze, auth/JWT, prior migration, CVF core or continuity implementation path
+is authorized. Codex independently approves this amendment under the
+operator-delegated reviewer/work-order authority. Repair remains prohibited
+until the matching SPEC and Work Order amendments are committed and pushed.

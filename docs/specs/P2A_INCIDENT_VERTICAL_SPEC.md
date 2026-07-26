@@ -226,3 +226,46 @@ a STOP condition requiring independent review before repair.
 Independent authorization disposition: `REVIEW_PASS`; requirements AC-01
 through AC-20 are approved without waiver on 2026-07-26. BUILD remains gated
 by the Work Order and C2 continuity push.
+
+## 8. Amendment 1 — repair requirements
+
+Status: APPROVED
+
+The original requirements remain intact and gain the following executable
+clarifications:
+
+- **R4-A:** `Incident.version` rejects values below 1. Migration 005 and the
+  SQLAlchemy incidents table carry equivalent named `version >= 1` CHECK
+  constraints. Positive and negative model, SQLite and live PostgreSQL tests
+  prove the invariant and schema-parity tests fail when either side drifts.
+- **R6-A:** both ledgers reject duplicate add with the same controlled
+  exception type/message and reject put of a missing incident with
+  `KeyError`. List reconstructs evidence on both backends and orders by
+  `(created_at, incident_id)` so equal timestamps are deterministic. Tests
+  exercise both backends rather than accepting a generic SQL exception.
+- **R10-A:** the repository-wide OpenAPI golden changes only for the five
+  authorized incident operations:
+  `POST /incidents`, `GET /incidents`,
+  `GET /incidents/{incident_id}`,
+  `POST /incidents/{incident_id}/acknowledge`, and
+  `POST /incidents/{incident_id}/transition`, plus their reachable canonical
+  schemas. The old golden path is authorized for this reviewed delta only.
+- **R15-A:** all provider-derived error/response strings are sanitized before
+  return, print or receipt rendering. The exact configured key, bearer/JWT
+  material, URL userinfo, query and fragment are removed. Receipts store only
+  a safe provider endpoint family/host description. Tests inject exact
+  sentinel secrets into an HTTP error body, exception text and endpoint and
+  prove absence from returned summaries, stdout/stderr and the receipt.
+- **R15-B:** provider-call accounting resets for each runner invocation and
+  records actual calls; refusal-path claims are not hard-coded substitutes
+  for an observed counter. A repair invalidates the prior live receipt as
+  closure evidence: fresh PostgreSQL and real-provider runs must replace it
+  before re-review can pass.
+
+The sanitization/provider/receipt implementation is split into
+`scripts/_incident_live_evidence_support.py`; the existing runner remains
+under 300 physical lines without compression. AC-01 through AC-20 remain the
+acceptance criteria, now evaluated with these clarifications.
+
+Independent amendment disposition: `REVIEW_PASS`. No waiver is granted for
+`INC-REV-F1` through `INC-REV-F5`.
