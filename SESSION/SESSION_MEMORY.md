@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2-A incident vertical FREEZE/CLOSED_BOUNDED at C3 eac28f9; handovers next)_
+_Last updated: 2026-07-26 (P2-A handover WORK_ORDER REVIEW_PASS; C1 pushed; C2 pre-BUILD continuity)_
 
 ## Where the project is
 
@@ -533,6 +533,19 @@ AC-18 parent `eb45971` đạt 427 pass/36 skip và mọi gate. **Boundary:** ch�
 incidents đã đóng; handovers/report/freeze semantic chưa được tranche này
 đụng tới. Bước kế tiếp duy nhất là fresh INTAKE cho handovers, không kế thừa
 BUILD authority.
+
+**2026-07-26 (P2A-HANDOVER-VERTICAL — WORK_ORDER):** C1
+`2134cd88b06db1ee30394e6f65513d0472b8bf40` chứa ADR/SPEC/WORK_ORDER,
+independent `REVIEW_PASS`; `HOV-AUTH-F1/F2/F3` đóng không waiver. Exact C3
+ceiling 39 path. Items bắt buộc được server derive từ open
+Task/CustomerRequest/Incident và bind canonical digest; OperationalEvent
+không bị giả phân loại open khi chưa có resolved semantic. Sender review và
+receiver acknowledgement phải khác authenticated supervisor; repo chưa có
+assignment registry nên không claim receiver thuộc ca đích. Freeze vẫn cần
+audited report override nhưng không thể override handover. BUILD phải split
+legacy shift-close test + gỡ đúng debt entry, PostgreSQL 16 thật và provider
+call thật. Sau C2 push, Claude chạy G6, không stage/commit/push và dừng tại
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_REVIEW`.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
