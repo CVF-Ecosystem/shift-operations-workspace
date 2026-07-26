@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2B approver-identity C3 independently REVIEW_PASS'd and pushed; FREEZE / CLOSED_BOUNDED; next fresh INTAKE is the separate split-file guard tranche)_
+_Last updated: 2026-07-26 (split-file guard Work Order independently REVIEW_PASS'd/approved; C1+C1b pushed; C2 pre-BUILD continuity)_
 
 ## Where the project is
 
@@ -441,11 +441,15 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-`P2B-APPROVER-IDENTITY-RECONCILIATION` đã **FREEZE / CLOSED_BOUNDED** tại C3
-`9376ddb`. Bước kế tiếp duy nhất là quay về **INTAKE** cho tranche riêng
-`CVF-FILE-SPLIT-GUARD-HARDENING`: thiết kế guard repository-enforced để ràng
-buộc split file, không trông chờ agent nhớ. Closure này không DESIGN,
-WORK_ORDER hay BUILD tranche đó.
+`CVF-FILE-SPLIT-GUARD-HARDENING-2026-07-26` là tranche active tại approved
+`WORK_ORDER`. C1 `ab9a019` và C1b `68b3162` đã push; authorization review đóng
+`FSG-AUTH-F1/F2` không waiver và trả `REVIEW_PASS`. Hard limit đích là Python
+300, TS/TSX/JS/JSX 200. Bảy file Python C3 trên 300 phải split; chỉ bốn path
+legacy được baseline bằng exact SHA-256/line count. C3 bị chặn ở đúng 24 path.
+
+Bước kế tiếp: sau khi C2 này push, Claude rehydrate handoff + ADR/SPEC/
+WORK_ORDER, declare `IMPLEMENTATION_WORKER`, chạy G6 fresh rồi mới BUILD.
+Claude không stage/commit/push; Codex review độc lập.
 
 Sau khi tranche split-file guard đóng riêng, mở một tranche riêng cho
 PostgreSQL live round-trip trên schema tạo bởi migrations. Phase 1 vẫn mở tới
@@ -463,9 +467,9 @@ không gộp.
 Xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`. Cốt lõi: không dùng lại
 nhãn "enforced"/"12/12"/"golden vertical"/"tất cả High Finding đã sửa" không
 giới hạn; không tuyên bố "P2-A đã đóng" chung chung — chỉ customer_request
-xong, incidents/handovers vẫn mở và cần migration mới; không tuyên bố "High
-Finding #4 đã sửa" — P2-B chỉ sửa identity, KHÔNG đụng known-principals.yaml/
-approval; không tuyên bố P2-B có refresh token/revocation hay admin
+xong, incidents/handovers vẫn mở và cần migration mới; High Finding #4 chỉ
+đóng trong bounded P2B receipt claim, không phải "mọi finding"; không tuyên bố
+P2-B có refresh token/revocation hay admin
 user-provisioning thật (chỉ có `scripts/seed_dev_users.py`, dev/test); không
 tạo file điểm-vào theo provider — front door là `CONTRIBUTING.md`, trung lập;
 không tin tuyên bố "CLOSED"/"đã xong" của bất kỳ agent nào (kể cả chính agent
@@ -495,7 +499,5 @@ operations-domain — nó thuộc auth boundary, thuộc quyền quyết định
 Không refactor seam `SqlLedger(models=…)` / Ledger Protocol — `operations-ledger`
 zero-line diff cố ý, siết Protocol là tranche riêng sau này. **Phase 1 exit gate
 CHƯA đạt** và PostgreSQL live round-trip vẫn CHƯA chạy (pre-ship gate) — tick
-một roadmap item không phải là phase gate. **High Finding #4 vẫn OPEN** —
-không nói "all findings fixed". Lane kế tiếp là reconciliation
-`known-principals.yaml` ↔ authenticated users tại một **INTAKE mới**; không mở
-lane đó (hay lane 3–4) từ loose chat instruction.
+một roadmap item không phải là phase gate. P2B approver reconciliation đã đóng
+bounded sau P1-B; không viết lại lịch sử P1-B thành đã sửa finding đó.
