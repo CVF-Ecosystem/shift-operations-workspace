@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (split-file guard Work Order independently REVIEW_PASS'd/approved; C1+C1b pushed; C2 pre-BUILD continuity)_
+_Last updated: 2026-07-26 (PostgreSQL live round-trip Work Order independently REVIEW_PASS'd/approved; C1 pushed; C2 pre-BUILD continuity)_
 
 ## Where the project is
 
@@ -455,10 +455,18 @@ file thứ năm, digest/line-count drift, thiếu registry và schema/container 
 đều fail closed. Không có provider call, secret read hay PostgreSQL run; không
 đổi API/OpenAPI/schema/migration/CVF-control behavior.
 
-Bước kế tiếp duy nhất: fresh **INTAKE** cho tranche riêng chạy PostgreSQL live
-round-trip trên schema tạo bởi migrations. Phase 1 vẫn mở tới khi gate đó
-được review PASS. P2-A incidents/handovers vẫn là business lane kế tiếp sau
-PostgreSQL; P2-C vẫn sau P2-A.
+`P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26` hiện là tranche active tại approved
+`WORK_ORDER`. C1 `668b7dfbb88a79c138191954f7e06e18b4a2fba6` đã push;
+`PG-AUTH-F1/F2/F3` đóng không waiver và re-review `REVIEW_PASS`. C3 bị chặn
+ở đúng năm path, production source/migrations/Compose/existing tests read-only.
+
+Bước kế tiếp: sau khi C2 push, Claude rehydrate handoff + ADR/SPEC/WORK_ORDER,
+declare `IMPLEMENTATION_WORKER` và chạy G6. Docker CLI/Compose đã cài nhưng
+daemon đang tắt tại authorization time; nếu vẫn tắt Claude phải dừng
+`BLOCKED_DOCKER_DAEMON_UNAVAILABLE`, không tự bật Docker Desktop và không thay
+bằng SQLite/mock. Phase 1 chỉ được đóng sau live review độc lập và các gate
+shift lifecycle + contract hiện hữu cùng pass. P2-A incidents/handovers vẫn là
+business lane tiếp theo; P2-C vẫn sau P2-A.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
