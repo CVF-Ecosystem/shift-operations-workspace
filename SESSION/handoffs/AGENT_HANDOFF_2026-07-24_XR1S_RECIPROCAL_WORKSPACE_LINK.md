@@ -3,17 +3,14 @@
 ## Disposition
 
 - Tranche: `XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24`
-- Control-chain phase: `BUILD` (authorized for `XR1-S-C2a`; not started)
+- Control-chain phase: `REVIEW` / pre-`FREEZE` (authorized next move:
+  `XR1-S-C3` independent review receipt and FREEZE continuity)
 - Risk: R2 (governance-core pin + new tracked cross-repository descriptor)
-- Result: **`XR1-S-C1` received independent Codex REVIEW_PASS and was
-  committed and pushed on 2026-07-24 at
-  `75adf51132edc4fad08618faf8dcb5b16e8f5435` (`HEAD == origin/main` at that
-  commit). No BUILD has occurred yet.** Status:
-  `XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`. This section was itself corrected
-  by continuity repair round 1 (2026-07-25, `CONTINUITY_REPAIR_WORKER`) —
-  see "Post-push sync and continuity repair — 2026-07-25" below; it
-  previously and incorrectly still read "pending independent review" after
-  `XR1-S-C1` had already been reviewed and pushed.
+- Result: **`XR1-S-C2b` received REVIEW_PASS and was committed/pushed at
+  `c125becdbd72c527f2e8a910122671f704bb3cc0` (`HEAD == origin/main`).**
+  Status: `XR1S_C2B_PUSHED_SYNCING_READY_FOR_C3_FREEZE`. This section was
+  corrected by the 2026-07-26 continuity sync because canonical continuity
+  still said "C2b has not started" after Git history already contained C2b.
 - Live provider evidence: **not required and not produced** — this tranche
   makes no AI/agent governance behavior claim.
 
@@ -251,12 +248,14 @@ superseded for current repository state by the post-push facts below.
 
 ## Next governed move
 
-`XR1-S-C2b` only — author the five-field reciprocal descriptor and its
-integration test within WORK_ORDER §5.2's bounded conditional catalog
-ceiling. `XR1-S-C2a` independently closed BUILD -> REVIEW -> commit ->
-rehearsal -> push at `ee73d98d359680a1cb390212b7c22386eabff678`; it must
-not be combined with or rewritten by C2b. `P2B-APPROVER-IDENTITY-
-RECONCILIATION` remains PARKED and untouched throughout.
+`XR1-S-C3` only — independent review receipt and FREEZE continuity for the
+XR1S reciprocal workspace-link tranche. `XR1-S-C2a` independently closed at
+`ee73d98d359680a1cb390212b7c22386eabff678`; `XR1-S-C2b` independently closed
+BUILD -> REVIEW -> commit -> push at
+`c125becdbd72c527f2e8a910122671f704bb3cc0`. C2a and C2b remain separate and
+must not be combined, rewritten, or used to claim tranche FREEZE by
+themselves. `P2B-APPROVER-IDENTITY-RECONCILIATION` remains PARKED and
+untouched. Operations `XR1-O-C2` remains blocked until `XR1-S-C3` closes.
 
 ## XR1-S-C2a post-push receipt — 2026-07-25
 
@@ -279,5 +278,30 @@ RECONCILIATION` remains PARKED and untouched throughout.
   approved adding this active handoff as the fifth C2a-SYNC path, alongside
   the four state/status files already named by WORK_ORDER §5.3, to prevent
   `BLOCKED_CONTINUITY_DRIFT`.
+- No provider call or secret read. The untracked assessment remains
+  unchanged and uncommitted.
+
+## XR1-S-C2b post-push receipt / continuity drift repair — 2026-07-26
+
+- Independent disposition: `REVIEW_PASS` (recorded in commit subject).
+- Commit/push: `c125becdbd72c527f2e8a910122671f704bb3cc0`; Shift
+  `HEAD == origin/main`.
+- Changed set: exactly `.cvf/workspace-link.json` and
+  `tests/integration/test_xr1s_workspace_link_descriptor.py`; no catalog path
+  changed because `python scripts/generate_catalog.py --check` stayed clean.
+- Descriptor: authorized reciprocal five-field shape; `thisRepo` is
+  `PROFILE_SOURCE`, `peerRepo` is `PRIMARY_PLATFORM`, direction is
+  `SHIFT_TO_OPERATIONS_GOVERNED_INTAKE`, no `sourcePin`, no
+  `pinUpdatePolicy`, no consumer-acceptance field, and no local path/host/user
+  placeholder.
+- Verification rerun for this sync: focused descriptor suite `14 passed`;
+  full suite `306 passed`; repository validator, session-state, catalog,
+  file-size, JSON parse, secret scan and doctor all PASS.
+- Doctor: `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))`; the sole
+  warning remains the pre-existing bounded legacy catalog-kit note.
+- Drift repaired: canonical state, mirror, session memory,
+  `IMPLEMENTATION_STATUS.json`, and this active handoff no longer say C2b is
+  unstarted. No ADR/SPEC/WORK_ORDER, source, test, catalog, roadmap, P2B,
+  Operations, or CVF-core path was modified by this sync.
 - No provider call or secret read. The untracked assessment remains
   unchanged and uncommitted.

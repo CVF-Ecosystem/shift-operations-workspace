@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-25 (XR1-S-C2a REVIEW_PASS, committed/rehearsed/pushed at ee73d98; operator-authorized five-path post-push sync; XR1-S-C2b is the next governed BUILD and has not started)_
+_Last updated: 2026-07-26 (XR1-S-C2b REVIEW_PASS, committed/pushed at c125bec; continuity drift repaired from stale C2b-not-started text; XR1-S-C3 review receipt/FREEZE continuity is next)_
 
 ## Where the project is
 
@@ -277,6 +277,22 @@ continuity paths bằng cách thêm active handoff, tránh tái tạo
 `BLOCKED_CONTINUITY_DRIFT`. Không provider call, không đọc secret; assessment
 untracked giữ nguyên. `XR1-S-C2b` là bước BUILD kế tiếp, chưa bắt đầu;
 `P2B-APPROVER-IDENTITY-RECONCILIATION` tiếp tục PARKED.
+
+**2026-07-26 (XR1-S-C2b — REVIEW_PASS / PUSHED, continuity drift repair):**
+Git truth showed `c125becdbd72c527f2e8a910122671f704bb3cc0` already at
+HEAD==origin/main with commit `feat(xr1-s-c2b): add reciprocal workspace
+descriptor REVIEW_PASS`, but canonical continuity still said C2b had not
+started. This sync verified and repaired that drift: changed set exactly
+`.cvf/workspace-link.json` +
+`tests/integration/test_xr1s_workspace_link_descriptor.py`; focused descriptor
+suite `14 passed`; full suite `306 passed`; repository validator,
+`check_session_state.py`, catalog, file-size, JSON parse, secret scan, and
+doctor all PASS; doctor remains `RESULT: PASS WITH NOTE (24 passed, 1
+warning(s))` with only the bounded legacy catalog-kit note. No catalog file
+changed because `generate_catalog.py --check` stayed clean. No provider call,
+no secret read, no Operations/CVF-core write. Next governed move: `XR1-S-C3`
+only — independent review receipt + FREEZE continuity; Operations `XR1-O-C2`
+remains blocked until that closes.
 
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 
