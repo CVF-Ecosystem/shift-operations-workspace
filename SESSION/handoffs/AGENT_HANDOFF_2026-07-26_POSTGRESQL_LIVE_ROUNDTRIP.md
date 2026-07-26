@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26`
-- Control-chain phase: approved `WORK_ORDER`, immediately before BUILD
+- Control-chain phase: `FREEZE`
 - Roadmap target: remaining PostgreSQL component of the Phase 1 exit gate
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward: Codex
-- BUILD status: **STOPPED ON REVIEWED DEFECT; AMENDMENT 1 REPAIR AUTHORIZED**
+- BUILD status: **CLOSED_BOUNDED / REVIEW_PASS**
 
 ## Authorization
 
@@ -111,3 +111,29 @@ PostgreSQL run, and stops at:
 `READY_FOR_INDEPENDENT_BUILD_RE_REVIEW`
 
 Claude still may not stage, commit or push.
+
+## Final independent review and FREEZE
+
+- Findings `PG-REV-F1` through `PG-REV-F7` closed without waiver.
+- C3 BUILD commit:
+  `68cb86eccaa4e542afd1193173efb02b5df4c4b3`; exactly eight authorized
+  paths, independently `REVIEW_PASS`, pushed to `origin/main`.
+- Fresh Codex PostgreSQL 16 run: migrations `17/0`, reapply `14/3`, live
+  suite `36 passed`, zero skip/failure.
+- SPEC AC-20 shift lifecycle + contract subset: `100 passed`.
+- Root non-live suite: `427 passed, 36 skipped, 1 warning`.
+- Repository validator, catalog, session-state, file-size and diff gates:
+  PASS. Doctor: `PASS WITH NOTE (24 passed, 1 warning)`; only the bounded
+  legacy catalog-kit note.
+- Exact disposable container and captured anonymous volume absent.
+- AC-19 rollback rehearsal: reverted tree matched parent
+  `11c3ac5aee5e8127ec9f3fa3b53e817b831b9ad3`; baseline `405 passed`,
+  repository gates PASS; temporary worktree removed.
+- No provider call was made: this proves database behavior, not AI governance.
+
+Disposition: `FREEZE / CLOSED_BOUNDED`. Phase 1 exit gate is `DONE` only
+within the disposable-local PostgreSQL evidence boundary; this is not a
+production deployment/load/HA/backup/managed-PostgreSQL claim.
+
+Next governed move: fresh `INTAKE` for P2-A incidents/handovers, including a
+governed migration design before implementation. P2-C remains after P2-A.

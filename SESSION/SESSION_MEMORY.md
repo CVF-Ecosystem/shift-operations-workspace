@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (PostgreSQL live round-trip Work Order independently REVIEW_PASS'd/approved; C1 pushed; C2 pre-BUILD continuity)_
+_Last updated: 2026-07-26 (PostgreSQL live round-trip FREEZE/CLOSED_BOUNDED; Phase 1 exit gate DONE; C3 REVIEW_PASS pushed)_
 
 ## Where the project is
 
@@ -395,9 +395,9 @@ sử, không phải trạng thái hiện tại.
   `Ledger` Protocol). Evidence persist đúng qua cả 2 backend (P-FIX-3);
   migration Task.version đã có cột và schema-parity test đã siết (P-FIX-4,
   P-FIX-6 closure-cleanup thêm PK/FK hai chiều + type-family + CHECK
-  expression). **Vẫn NOT LIVE VERIFIED**: chưa từng chạy migration + round-trip
-  thật trên PostgreSQL. Docker hiện đã có, nhưng live round-trip chưa chạy và
-  chưa review — vẫn là pre-ship gate.
+  expression). Từ 2026-07-26 đã independently live verified trên disposable
+  local PostgreSQL 16 với schema từ migrations: 36/36 pass, migrations 17/0
+  rồi 14/3. Boundary này không phải production/managed readiness.
 - **Catalog/session/file-size guard:** file-size và session-state check là
   **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
@@ -474,12 +474,21 @@ tái hiện migrations `17/0` rồi `14/3`, live `26 passed/7 failed`, xác nh�
 `PG-REV-F2..F5`: failure output lộ credential tạm, cleanup có thể xóa
 name-collision không thuộc runner, type parity chưa phân biệt native enum, và
 receipt drift. Root non-live `410 passed/28 skipped/1 warning`; gates PASS;
-Docker zero residue; Phase 1 vẫn mở.
+  Docker zero residue; tại checkpoint stopped-BUILD đó Phase 1 vẫn mở.
 
 Amendment 1 `6d6df205f355cd34552e37f8a75584e6a17623e8` đã
-`REVIEW_PASS`/approved, authorize đúng tám repair path. Sau C2b push, Claude
-declare `REPAIR_WORKER`, chạy G6R, sửa đủ F1..F5, chạy live PostgreSQL mới và
-dừng tại `READY_FOR_INDEPENDENT_BUILD_RE_REVIEW`; không stage/commit/push.
+`REVIEW_PASS`/approved và authorize đúng tám repair path. Repair đóng
+`PG-REV-F1..F7` không waiver. Codex độc lập chạy PostgreSQL 16 thật:
+36/36 pass, migrations 17/0 rồi 14/3; shift-lifecycle/contract subset 100
+pass; full non-live 427 pass/36 skip/1 warning; validators PASS; doctor
+24/1 bounded warning; Docker zero residue. AC-19 revert rehearsal khôi phục
+đúng parent và baseline 405 pass, sau đó xóa worktree tạm. C3
+`68cb86eccaa4e542afd1193173efb02b5df4c4b3` đã REVIEW_PASS, commit/push đúng
+tám path. Tranche đạt `FREEZE / CLOSED_BOUNDED`; Phase 1 exit gate `DONE`
+trong boundary disposable-local PostgreSQL, không phải production readiness.
+
+**Next governed move:** fresh INTAKE cho P2-A incidents/handovers; phải thiết
+kế migration có governance trước BUILD. P2-C vẫn đứng sau P2-A.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);

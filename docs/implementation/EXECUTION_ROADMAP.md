@@ -180,7 +180,7 @@ Không thuộc 5 phase nghiệp vụ; là hạ tầng để mọi phase kiểm c
 
 ---
 
-## Phase 1 — Foundation and Contracts — 🟡 IN PROGRESS
+## Phase 1 — Foundation and Contracts — ✅ DONE
 
 Gate gốc: tạo được một shift record hoàn chỉnh không cần LLM; schemas valid;
 lifecycle/freeze rõ ràng.
@@ -193,9 +193,10 @@ lifecycle/freeze rõ ràng.
       schema qua `Uuid`/`JSON.with_variant(JSONB)`) + integration test round-trip
       thật trên SQLite (create/reconnect/read, append-only corrections, audit
       persist, freeze persist) → `operations-ledger` `partial` → `enforced`.
-      **Còn treo:** chạy cùng suite trên PostgreSQL thật (Docker hiện đã khả
-      dụng nhưng live round-trip chưa chạy/review) — xem `next_step` của module trong
-      `MODULE_REGISTRY.json`.
+      PostgreSQL 16 disposable-local round-trip đã independently REVIEW_PASS
+      tại C3 `68cb86e`: migrations 17/0 rồi 14/3, live 36/36, reconnect,
+      enum/parity/constraint/rollback và cleanup đều pass. Đây không phải
+      production-readiness claim — xem receipt và `MODULE_REGISTRY.json`.
 - [x] **P1-A2:** Schema integrity hardening — phát hiện `tables.py` lệch với
       migration (thiếu FK/CHECK) và SQLite tắt FK mặc định. Thêm FK
       (event→shifts) + CHECK (time-window) khớp migration; `make_engine()` bật
@@ -226,12 +227,12 @@ lifecycle/freeze rõ ràng.
       suite 292 passed (221 baseline + 71 mới). Chi tiết:
       `docs/decisions/ADR_2026-07-23_P1B_OPERATIONS_DOMAIN_EXTRACTION.md`.
 
-**Exit gate:** shift record đầy đủ tạo/confirm/freeze được, có test; SqlLedger
-round-trip Postgres pass; contract test pass. **CHƯA ĐẠT:** tất cả item `[x]`
-không có nghĩa exit gate đã đạt — **SqlLedger round-trip trên PostgreSQL thật
-chưa từng chạy** trong môi trường này; Docker hiện đã có nhưng gate vẫn chưa
-được chạy/review, vẫn là pre-ship gate.
-Đóng P1-B (2026-07-23) là đóng một roadmap item, không phải đóng Phase 1.
+**Exit gate: ĐẠT (2026-07-26).** Shift create/confirm/close/freeze + contract
+subset 100 pass; disposable PostgreSQL 16 live round-trip 36 pass;
+migrations 17/0 rồi 14/3; full non-live 427 pass/36 skip/1 warning;
+repository gates và AC-19 rollback rehearsal PASS. Phase 1 `DONE` chỉ trong
+boundary này, không chứng minh production deployment/load/concurrency/HA/
+backup/managed-PostgreSQL parity.
 
 ---
 
@@ -387,13 +388,12 @@ CLOSED_BOUNDED`; C3 `46da20a` đổi đúng 23 path được authorize và nhậ
 independent `REVIEW_PASS`. Python 300 và TS/TSX/JS/JSX 200 hiện là hard guard;
 legacy debt được khóa bằng exact path/SHA-256/line count ở đúng bốn path.
 Guard 36 pass, full suite 405 pass/1 warning, AC-24 revert rehearsal PASS.
-Tranche này không đổi trạng thái roadmap/module và không đóng Phase 1.
+Tranche này không đổi trạng thái roadmap/module và tại thời điểm đó chưa đóng
+Phase 1; PostgreSQL-live tranche kế tiếp đã đóng gate vào 2026-07-26.
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho tranche riêng chạy PostgreSQL
-live round-trip trên schema do migrations tạo để xét exit gate Phase 1. P2-A
-còn lại (incidents/handovers, cần migration mới) vẫn là business lane kế tiếp
-sau PostgreSQL; P2-C đứng sau P2-A. Mỗi tranche phải chạy đủ control chain và
-authorization riêng.
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho P2-A còn lại
+(incidents/handovers, cần migration mới và DESIGN/SPEC/WORK_ORDER riêng).
+P2-C đứng sau P2-A.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
@@ -401,11 +401,14 @@ governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
 (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B),
 tách operations-domain (P1-B), authenticated scope-bound approval receipts
 (P2B approver-identity reconciliation), repository-enforced file-split guard
-(CVF-FILE-SPLIT-GUARD-HARDENING).
+(CVF-FILE-SPLIT-GUARD-HARDENING), PostgreSQL migration-created-schema live
+round-trip và Phase 1 exit gate
+(P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
-có runtime caller, refusal routing/recording chưa implement, PostgreSQL
-round-trip thật chưa chạy trong môi trường này, incidents/handovers (P2-A còn lại) chưa có
-migration, P2-B chưa có refresh token/revocation hay admin flow cấp user thật
+có runtime caller, refusal routing/recording chưa implement, PostgreSQL mới
+được chứng minh trong disposable local PostgreSQL 16 chứ chưa production/
+managed deployment, incidents/handovers (P2-A còn lại) chưa có migration,
+P2-B chưa có refresh token/revocation hay admin flow cấp user thật
 — xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
 
 ## Cách dùng roadmap này
