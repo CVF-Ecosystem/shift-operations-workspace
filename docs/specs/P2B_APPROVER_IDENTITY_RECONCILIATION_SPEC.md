@@ -171,6 +171,12 @@ allocation. This does not change R3.3 (distinct-principal) or R3.4
 (self-approval guard); both are evaluated over the same order-invariant
 matching, not weakened or bypassed by it.
 
+**R3.7 (Amendment 3, F15, proposed).** Self-approval (R3.4) is decided
+**within** the same search R3.6 performs, not by rejecting because one
+arbitrary matching found happens to be confirmer-only. Satisfied iff **any**
+matching exists whose distinct approvers are not `{confirmer_id}` alone.
+R3.3/R3.4 are not weakened. Rationale: amendment doc §2.
+
 ### R4 — Scope binding defeats replay
 
 **R4.1** Only receipts whose full target scope equals the target's **current**
@@ -192,7 +198,10 @@ gap.
 **R5.1** At confirm/correct/create, the service **auto-collects** all stored
 receipts matching the target's current scope via `list_approval_receipts_for`;
 the governed request body contains no approver identities and no receipt ids
-(O4).
+(O4). **(Amendment 3, F16, proposed.)** "Matching current scope" means the
+**complete** six-field tuple, not a four-field subset — a receipt whose
+`risk_class` or `payload_digest` differs MUST NOT count. Rationale:
+amendment doc §2.
 
 ### R6 — `known-principals.yaml` retired
 
@@ -239,6 +248,12 @@ includes `approvals` (or any approver-identity field) is rejected **422**.
 unchanged: permission min-roles, risk/evidence gates, lifecycle transitions,
 freeze/atomic-audit, HTTP status codes for those refusals.
 
+**R7.3 (Amendment 3, F14, proposed.)** This tranche's breaking changes
+invalidate the P1-B-era golden SHA-256 pinned in
+`test_operations_domain_serialization.py`. That hash, plus new exact-shape
+assertions for the three new endpoints/schemas, MAY be updated (WORK_ORDER
+§3.11); no unrelated assertion may be loosened (S9). Amendment doc §2.
+
 ### R8 — Durable, atomic, dual-backend (receipts)
 
 **R8.1** A new `approval_receipts` table exists via
@@ -252,6 +267,12 @@ digest. It remains mandatory in full-scope matching (R4).
 **R8.2** `add_approval_receipt` and `list_approval_receipts_for` exist on the
 Ledger Protocol, InMemoryLedger and SqlLedger with matching semantics; InMemory
 returns `model_copy()` (no live-reference leak, per the standing invariant).
+
+**R8.2a (Amendment 3, F19, proposed.)** InMemoryLedger MUST enforce the same
+uniqueness key SqlLedger's `UNIQUE(record_type, record_id, action,
+target_version, approver_id)` constraint enforces: a matching insert returns
+the existing receipt (R2.4's `200`, both backends), never a second row.
+Amendment doc §2.
 
 **R8.3** `POST /approvals` persists the receipt **and** appends an
 `action="approval.create"` audit record **inside one `ledger.transaction()`**
@@ -378,6 +399,10 @@ fields are digested; list order is preserved as submitted. This mirrors the
 
 ### 5.4 Request/response schemas
 
+**(Amendment 3, F17, proposed.)** Every schema below is exact/exhaustive —
+precisely the listed fields, no more/fewer. Verification asserts the key set
+equals the listed set. Amendment doc §2.
+
 **`POST /approvals`** — request: `{record_type, action, record_id}` with
 `extra="forbid"`. `risk_class`, `target_version`, and `payload_digest` are all
 server-derived from the stored Event/TaskCreationIntent per R2.3/R9.2.
@@ -437,7 +462,7 @@ metadata + schema parity only).
 | **AC-03** | Role inflation closed | An approver whose `users` role is `operator` gets 403 attempting a `shift_supervisor`/`responsible_manager` seat (R2.2). |
 | **AC-04** | Inactive/stale-role user closed | An approver with `is_active=false` gets 403 on receipt creation; a receipt from an approver later deactivated **or demoted below the required seat** no longer counts at quorum time — re-checked through the server-owned authority resolver, not cached or taken from `approver_role` (R1.2, R3.1, R3.2). |
 | **AC-05** | Duplicate principal closed | Two receipts from the same `approver_id` cannot fill two distinct required seats (R3.3); a repeat identical request returns the same receipt with 200, not a duplicate row (R2.4). |
-| **AC-06** | Self-approval closed | The confirmer's own receipt cannot be the sole filler of a required quorum (R3.4). |
+| **AC-06** | Self-approval closed | The confirmer's own receipt cannot be the sole filler of a required quorum (R3.4). **(Amendment 3, F15 — proposed, pending review):** a valid quorum where the confirmer is *also* one of several distinct receipt-holders (not the only one) MUST still PASS (R3.7). |
 | **AC-07** | Insufficient quorum closed | An R3 record with only one valid supervisor receipt (missing the manager seat) is refused 409 (R3.2). |
 | **AC-08** | Cross-record replay closed | A receipt for event A does not count for event B (R4.2). |
 | **AC-09** | Target/version mismatch closed | A receipt bound to version N does not count once the record is at version N+1; risk/version/digest are derived from the live stored target rather than accepted from the approval request (R4.3, R2.3). |
@@ -447,14 +472,14 @@ metadata + schema parity only).
 | **AC-13** | Schema parity | `test_schema_parity*` covers `approval_receipts` and `task_creation_intents` two-directionally (columns, nullability, FK, unique, CHECK) (R8.1, R9.1). |
 | **AC-14** | Full regression not reduced | `python -m pytest -q` reports **≥ the BUILD baseline committed at C2/G6 immediately before BUILD** (F10 — neither `292` at `848aeba` nor `306` at `58918c6` may be hardcoded as the target; re-verify and quote the number from the run that produced it), 0 failed, 0 errors. |
 | **AC-15** | Validators + guards + doctor | `validate_repository.py`, `generate_catalog.py --check`, `check_session_state.py`, `check_file_size.py` PASS; workspace doctor reports **24 checks PASS** (including the core/manifest row), **0 FAIL**, and **no warning beyond** the single accepted `LEGACY_PROJECT: governed downstream catalog kit not present` note — i.e. `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` is the accepted outcome; an unqualified claim of "doctor clean" or "full PASS" when a note is present is not permitted (F12). |
-| **AC-16** | Live governance evidence | The runner refuses fabricated/wrong-role/inactive/self/insufficient/replay approvals **with 0 provider calls**; drives a genuine authenticated quorum through the real `POST /approvals` code path; makes **exactly 1** real Alibaba call after quorum is satisfied, returning the expected token; writes the sanitized receipt at `docs/decisions/P2B_APPROVER_IDENTITY_LIVE_EVIDENCE_RECEIPT.md` (§7 schema); network/quota/expiry/provider failure is recorded honestly as FAIL/BLOCKED, never PASS; the runner self-asserts its own call count (ADR §7 steps 1–8). |
+| **AC-16** | Live governance evidence | The runner refuses fabricated/wrong-role/inactive/self/insufficient/replay approvals **with 0 provider calls**; drives a genuine authenticated quorum through the real `POST /approvals` code path; makes **exactly 1** real Alibaba call after quorum is satisfied, returning the expected token; writes the sanitized receipt at `docs/decisions/P2B_APPROVER_IDENTITY_LIVE_EVIDENCE_RECEIPT.md` (§7 schema); network/quota/expiry/provider failure is recorded honestly as FAIL/BLOCKED, never PASS; the runner self-asserts its own call count (ADR §7 steps 1–8). **(Amendment 3, F20 — proposed, pending review):** every approver's identity is established via a real, minted JWT driven through the actual authenticated-request path (`get_principal`) — a manually constructed `Principal(...)` does not satisfy this AC. The receipt states one explicit, top-level `Overall outcome: PASS/FAIL/BLOCKED` line. |
 | **AC-17** | No secret leak | No API key, Authorization header, JWT, password, or raw secret appears in the receipt, logs, or the diff; secret scan over the changed set is clean. |
 | **AC-18** | TOCTOU / payload-substitution closed | Approve a `TaskCreationIntent`, then submit `POST /tasks` with a changed `title` (or `risk_class`, or `evidence`) referencing the same `intent_id`: refused 409, digest mismatch (R9.4). A second `POST /tasks` against an already-consumed `intent_id` with the *original* unchanged payload is refused 409 on the duplicate `task_id` (R9.6). An intent consumed by a principal other than its `created_by` is refused 409 (R9.4). |
 | **AC-19** | Receipt creation is atomic, audited, and idempotent | Creating a new receipt persists **both** the receipt and one `action="approval.create"` audit record in one `transaction()`; a failure injected between them leaves neither committed. An exact repeat returns 200 with the existing receipt and adds no duplicate audit — both backends (R8.3). |
 | **AC-20** | Migration evidence is honest | `python scripts/apply_migrations.py --dry-run --only 004_approval_receipts.sql --database-url sqlite:///unused` proves discovery/statement-splitting only (exit 0, prints the statement count) and is never described as "the migration ran"; `approval_receipts` and `task_creation_intents` are verified via `operations_ledger.tables.metadata` + schema parity against SQLite, not via `apply_migrations.py`; no AC requires a real `DATABASE_URL`; PostgreSQL remains explicitly **NOT LIVE VERIFIED** (ADR §4.5). |
 | **AC-21** | Rollback | `git revert` of the BUILD commit on a temporary worktree/clone (never the primary workspace) restores C3-parent source/test behaviour and the baseline suite using a newly created ephemeral SQLite database; C1/C2 remain intact. No down migration or rollback of a real database schema/data is claimed. |
-| **AC-22** | Creation intent is visible and atomically audited | An authorized approver can read the immutable intent snapshot/digest; missing/inactive/insufficient users get the pinned 404/403 outcomes. Intent creation commits both intent and `task.creation_intent.create` audit, or neither on injected failure — both backends (R9.1). |
-| **AC-23** | Order-invariant quorum matching (F9 fix) | For an R3 quorum (`shift_supervisor` + `responsible_manager`, where a `responsible_manager` also qualifies for the `shift_supervisor` seat) and an R4 quorum: **every** permutation of a valid set of qualifying receipts is submitted/collected and **every permutation PASSes** (no permutation is denied) — reproducing and closing the exact probe in ADR §4.7 (`[shift_supervisor, responsible_manager]` vs `[responsible_manager, shift_supervisor]`, both must PASS). Additionally: a higher-authority principal's receipt appearing before a lower-authority principal's receipt must never cause a false deny; a single principal must still not be able to fill two required seats regardless of order (R3.3 unchanged); self-approval-only and genuinely insufficient quorums still fail regardless of order (R3.4/R3.2 unchanged) — both backends (R3.6). |
+| **AC-22** | Creation intent is visible and atomically audited | An authorized approver can read the immutable intent snapshot/digest; missing/inactive/insufficient users get the pinned 404/403 outcomes. Intent creation commits both intent and `task.creation_intent.create` audit, or neither on injected failure — both backends (R9.1). **(Amendment 3, F18a — proposed, pending review):** the failure-injection case runs as an independent, explicit case **per backend**, mirroring AC-19; a single test silently exercising only one backend does not satisfy this AC. |
+| **AC-23** | Order-invariant quorum matching (F9 fix) | For an R3 quorum (`shift_supervisor` + `responsible_manager`, where a `responsible_manager` also qualifies for the `shift_supervisor` seat) and an R4 quorum: **every** permutation of a valid set of qualifying receipts is submitted/collected and **every permutation PASSes** (no permutation is denied) — reproducing and closing the exact probe in ADR §4.7 (`[shift_supervisor, responsible_manager]` vs `[responsible_manager, shift_supervisor]`, both must PASS). Additionally: a higher-authority principal's receipt appearing before a lower-authority principal's receipt must never cause a false deny; a single principal must still not be able to fill two required seats regardless of order (R3.3 unchanged); self-approval-only and genuinely insufficient quorums still fail regardless of order (R3.4/R3.2 unchanged) — both backends (R3.6). **(Amendment 3, F18b — proposed, pending review):** this coverage runs at **service/HTTP level for both R3 and R4, on both backends**, in addition to (not instead of) algorithm-level coverage in `test_gates_unit.py`. |
 
 ## 7. Live-evidence receipt — minimum schema
 
@@ -477,7 +502,11 @@ receipt's structure). Required fields:
   header, no JWT, no password, no raw secret" — matching the existing P2-B
   receipt's own header line);
 - overall outcome: PASS / FAIL / BLOCKED, honest under network/quota/expiry
-  failure (never coerced to PASS);
+  failure (never coerced to PASS). **(Amendment 3, F20 — proposed, pending
+  review):** stated as one explicit, top-level `Overall outcome:` line,
+  distinct from the per-case/per-call fields above; every approver identity
+  above is established via a real, minted JWT, never a manually constructed
+  `Principal`;
 - a claim-boundary paragraph stating this evidences the `approval` gate's
   in-process behaviour only, not that production actions call a provider (ADR
   §7.1).
@@ -538,8 +567,8 @@ pass with recorded output including a real Alibaba receipt at the pinned path,
 an honest doctor result (24 passed, 0 FAIL, no warning beyond the one accepted
 legacy-catalog-kit note — F12), and a full-suite count quoted against the
 BUILD baseline captured fresh at C2/G6 (F10, never a hardcoded `292`/`306`);
-changed set within the WORK_ORDER allowlist (39-path ceiling, not
-self-expanded); independent REVIEWER confirms every AC by re-running;
+changed set within the WORK_ORDER allowlist (40-path ceiling per Amendment 3,
+not self-expanded further); independent REVIEWER confirms every AC by re-running;
 catalog/roadmap/continuity updated only at REVIEW/FREEZE from observed source
 truth; no claim beyond §1's boundary; High Finding #4 recorded as **closed
 within the stated boundary**, not "all findings fixed".
@@ -559,3 +588,11 @@ requirement change):
 
 No other requirement, AC, or API contract in this SPEC changes as a result of
 this revision.
+
+## 13. Authorization Amendment 3 (2026-07-26) — F14–F20
+
+**PROPOSED, pending independent review** — not resolved until `REVIEW_PASS`.
+New R3.7/R5.1(amended)/R7.3/R8.2a and tightened AC-06/16/22/23/§5.4/§7 are
+tagged inline above. Findings, rationale, and the C2b lifecycle are in
+`docs/decisions/P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md`. F1–F13
+are not reopened.

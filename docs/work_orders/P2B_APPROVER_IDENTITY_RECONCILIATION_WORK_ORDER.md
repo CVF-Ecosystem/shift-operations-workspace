@@ -21,6 +21,12 @@
   (§7), immediately before BUILD, from whatever `HEAD == origin/main` actually
   is at that moment. AC-14/G6/S8 are evaluated against that captured number,
   never a hardcoded `292` or `306`.
+- **Authorization Amendment 3 (F14–F20)** — see
+  `docs/decisions/P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md`.
+  **Proposed, pending independent review** — not resolved until `REVIEW_PASS`.
+  C2 already landed at `cdbbe5b1d79c772f3523d4bb0e5d4ab639e501ce`; this
+  amendment does not touch, rewrite, or recreate it. C3 (BUILD) remains
+  paused and uncommitted, unmodified by this amendment (§7 G7–G7d, §10).
 
 ## 1. Authorized objective
 
@@ -49,11 +55,12 @@ approving context.
 The allowlist is a **ceiling**: touching fewer paths is conformant if every
 touched path is listed; touching any unlisted path is stop condition **S1**.
 Every file below was verified as a real, required edit site by command — see
-§3.4 for the exact audit commands a reviewer re-runs. **Total: 39 paths.** This
+§3.4 for the exact audit commands a reviewer re-runs. **Total: 40 paths**
+(§3.11, Amendment 3 F14, proposed pending review — raised from 39). This
 repair round's F9 fix (order-invariant quorum matching) adds test coverage
 only, inside `test_approver_identity_reconciliation.py` (§3.1) and
-`test_gates_unit.py` (§3.6), both already on this list — **the 39-path ceiling
-is not raised.**
+`test_gates_unit.py` (§3.6), both already on this list — that fix alone does
+not raise the ceiling; only §3.11 does.
 
 ### 3.1 Create (7)
 
@@ -198,6 +205,18 @@ If either command, run against the baseline, surfaces a file not accounted for
 above, that is **S1**: stop and report for a WORK_ORDER amendment, do not
 silently widen scope inside BUILD.
 
+### 3.11 Modify (1, new — Amendment 3, F14, proposed pending review)
+
+```
+tests/unit/test_operations_domain_serialization.py   # golden hash + new-endpoint/schema assertions only
+```
+
+Narrowly authorized: exactly (a) recomputing/replacing the pinned golden hash
+to match the intended OpenAPI document, and (b) adding new exact-shape
+assertions for the three new endpoints/schemas (SPEC §5.4). Does **not**
+authorize weakening, loosening, or deleting any pre-existing, unrelated
+assertion — remains **S9**. Rationale: amendment doc §2 (F14).
+
 ## 4. Prohibited paths
 
 ```
@@ -233,20 +252,22 @@ relocating `User`; any AI mode beyond the single evidence call; any claim that
 
 | AC | Evidence command / artifact |
 |---|---|
-| AC-01…AC-11, AC-18, AC-19, AC-22 | `python -m pytest -q tests/cvf/test_approver_identity_reconciliation.py` (service + HTTP, both backends) |
+| AC-01…AC-11, AC-18, AC-19, AC-22 | `python -m pytest -q tests/cvf/test_approver_identity_reconciliation.py` (service + HTTP, both backends). **Amendment 3, F17 (proposed):** the three new endpoints' HTTP cases assert the **exact** response shape key-for-key against SPEC §5.4. **F15 (proposed):** AC-06's self-approval case includes a valid multi-approver quorum where the confirmer is also one of several distinct receipt-holders — must PASS. |
 | AC-11 | the three ADR §4.6 replay-defeat cases specifically (lifecycle-guard block, version-scope block, valid-retry-after-rollback) — no test may assert a "consumed" state/method |
 | AC-12 | `python -m pytest -q tests/cvf/test_approval_known_principals.py` (rewritten) + the two §3.10 `rg` scans matching exactly the allowlisted file set |
 | AC-13 | `python -m pytest -q tests/integration/test_schema_parity.py tests/integration/test_schema_parity_types_and_checks.py` |
 | AC-14 | `python -m pytest -q` → **≥ the BUILD baseline captured fresh at C2/G6 (F10 — neither `292` at `848aeba` nor `306` at `58918c6` is the hardcoded target; quote the number from the run that produced it)**, 0 failed/errors |
 | AC-15 | `python scripts/testing/validate_repository.py`; `python scripts/generate_catalog.py --check`; `python scripts/check_session_state.py`; `python scripts/check_file_size.py`; workspace doctor `-ProjectPath` → **24 checks PASS, core/manifest row PASS, 0 FAIL, no warning beyond the single accepted `LEGACY_PROJECT: governed downstream catalog kit not present` note** — i.e. `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` is the accepted outcome, not an unqualified `24/24`/"doctor clean" claim (F12) |
-| AC-16 | `python scripts/run_approval_governance_evidence.py` → sanitized receipt at the §3.1 pinned path, real Alibaba HTTP 200 after a genuine authenticated quorum, gate-refusal cases logged with 0 calls, self-asserted total call count = 1 |
+| AC-16 | `python scripts/run_approval_governance_evidence.py` → sanitized receipt at the §3.1 pinned path, real Alibaba HTTP 200 after a genuine authenticated quorum, gate-refusal cases logged with 0 calls, self-asserted total call count = 1. **Amendment 3, F20 (proposed):** every approver identity in the run is established via a real, minted JWT through the actual authenticated-request path — not a manually constructed `Principal`; the receipt carries one explicit top-level `Overall outcome: PASS/FAIL/BLOCKED` line. |
 | AC-17 | secret scan over the changed set; inspection of the receipt and logs |
 | AC-18 | within `test_approver_identity_reconciliation.py`: payload-changed-after-intent-approval → 409; intent consumed by a different principal → 409 |
 | AC-19 | failure-injection test (mirrors `tests/cvf/test_atomic_mutation_audit.py`'s pattern) on `POST /approvals`'s own `transaction()`, both backends |
 | AC-20 | `python scripts/apply_migrations.py --dry-run --only 004_approval_receipts.sql --database-url sqlite:///unused` (discovery only, exit 0); SQLite verification is AC-13, not this command; no `DATABASE_URL` to a real database is required anywhere in this matrix |
 | AC-21 | Codex-run revert rehearsal (temporary worktree/clone, outside the primary workspace) → C3-parent source/test behaviour and baseline suite restored with a fresh ephemeral SQLite DB; C1/C2 intact; no real-database down migration claim |
-| AC-22 | intent GET authorization/snapshot tests + intent/audit failure-injection tests on both backends |
-| AC-23 | Permutation test of an R3 quorum and an R4 quorum inside `tests/cvf/test_approver_identity_reconciliation.py` (service/HTTP) and `tests/cvf/test_gates_unit.py` (matching-algorithm unit level) — every permutation of a valid quorum's receipts PASSes, distinct-principal/self-approval/insufficient-quorum outcomes unchanged (F9); both files already on the §3 allowlist, no new path |
+| AC-22 | intent GET authorization/snapshot tests + intent/audit failure-injection tests. **Amendment 3, F18a (proposed):** the failure-injection case runs as an independent, explicit case **per backend** — a single test silently exercising only one backend is non-compliant. |
+| AC-23 | Permutation test of an R3 quorum and an R4 quorum inside `tests/cvf/test_approver_identity_reconciliation.py` (service/HTTP) and `tests/cvf/test_gates_unit.py` (matching-algorithm unit level) — every permutation of a valid quorum's receipts PASSes, distinct-principal/self-approval/insufficient-quorum outcomes unchanged (F9); both files already on the §3 allowlist, no new path. **Amendment 3, F18b (proposed):** this service/HTTP-level coverage runs for **both** R3 and R4, on **both** backends, in addition to the algorithm-level coverage — one risk class or one backend is not sufficient. |
+| F16 (proposed) | Within `test_approver_identity_reconciliation.py`/`test_schema_parity*`: a receipt whose `risk_class` or `payload_digest` differs from the target's current value must not count toward quorum, proving the full six-field scope filter (SPEC R5.1). |
+| F19 (proposed) | A repeat `POST /approvals` at an identical scope+approver on **InMemory** returns the existing receipt with HTTP 200 (R2.4), not a second row (SPEC R8.2a). |
 | Migration diff scope | `git diff --stat -- database/` shows **only** `004_approval_receipts.sql` |
 
 Every number is quoted from the run that produced it; copying a stale count is
@@ -313,6 +334,29 @@ may land.
   - full suite passes with **0 failed, 0 errors**, at a count **≥ the BUILD
     baseline just captured above** in this same G6 check (F10).
 
+### 7.1 Amendment 3 gates (G7–G7d) — post-C2 repair lifecycle, proposed
+
+C3 (BUILD) had already started under G6 when independent review returned
+`REVIEW_CHANGES_REQUIRED` (F14–F20) on the uncommitted C3 implementation. G6
+itself is not re-demanded from scratch — it already ran once, before BUILD's
+first edit. This amendment's own lifecycle is:
+
+- **G7** — Independent review of this uncommitted amendment (ADR + SPEC +
+  WORK_ORDER + `P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md`) →
+  `REVIEW_PASS` / `REVIEW_CHANGES_REQUIRED`.
+- **G7b** — COMMIT_STEWARD commits and pushes **C2b** (§10) — exactly those
+  four paths, zero implementation/test/migration/catalog/continuity paths —
+  only after **G7** `REVIEW_PASS`.
+- **G7c** — Independent re-review of the pushed C2b and explicit operator
+  approval. Does not reopen F1–F13 or the already-committed C1/C1b/C2.
+- **G7d (repair-resumption gate, replaces an impossible fresh-G6 demand)** —
+  before C3 may be touched again: `HEAD == origin/main` at C2b; nothing
+  staged; the authorization files (ADR/SPEC/WORK_ORDER/amendment) match the
+  committed C2b tree exactly; the paused C3 changed set and the one preserved
+  untracked assessment file are the **only** remaining worktree changes; and
+  Claude explicitly declares **REPAIR_WORKER** before editing C3's
+  source/test/migration content again.
+
 ## 8. Stop conditions
 
 - **S1** — a required change falls outside §3's allowlist, any §4 path would be
@@ -345,7 +389,9 @@ may land.
   field, server-collected quorum, intent-digest binding — may be rewritten, and
   only to the new intended behaviour).
 - **S10** — operator has not approved this WORK_ORDER (G3); C1, C1b, or C2 have
-  not landed in order; or C1b lacks `REVIEW_PASS` (G1c).
+  not landed in order; C1b lacks `REVIEW_PASS` (G1c); or (Amendment 3,
+  proposed) C2b has not landed, lacks `REVIEW_PASS`/approval (G7–G7c), or
+  G7d has not been rechecked immediately before C3 resumes.
 - **S11** — a `.md`/artifact would exceed the 600-line file-size hard limit;
   split rather than compress.
 
@@ -366,20 +412,24 @@ repair round's changes land only as the new, separate C1b commit.
 |---|---|---|---|
 | **C1** | The three original authorization artifacts | COMMIT_STEWARD | **already committed** at `f98f29e145fa002be070e9d44520d20f0f82dcb3`, retained as-is (F13) |
 | **C1b (new, F13)** | Authorization-amendment: the same three files, this repair round's fixes for F9–F13 | COMMIT_STEWARD | after G1 (this round's `REVIEW_CHANGES_REQUIRED`) |
-| **C2** | Pre-BUILD continuity (§11) | COMMIT_STEWARD | after G1c `REVIEW_PASS` on C1b, G2, G3 |
-| **C3** | BUILD: §3's 39-path allowlist | COMMIT_STEWARD | after independent REVIEW_PASS on all ACs incl. AC-16 live receipt |
+| **C2** | Pre-BUILD continuity (§11) | COMMIT_STEWARD | after G1c `REVIEW_PASS` on C1b, G2, G3 — **already landed** at `cdbbe5b1d79c772f3523d4bb0e5d4ab639e501ce` |
+| **C2b (new, Amendment 3, proposed)** | Authorization amendment: ADR + SPEC + WORK_ORDER + `P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md` (F14–F20), zero implementation/test/migration/catalog/continuity paths | COMMIT_STEWARD | after **G7** `REVIEW_PASS` (G7b); **G7c** re-review/approval before C3 resumes |
+| **C3** | BUILD: §3's 40-path allowlist (39 + §3.11) — paused; resumes only after G7d | COMMIT_STEWARD | after independent REVIEW_PASS on all ACs incl. AC-16 live receipt |
 | **C4** | REVIEW/FREEZE continuity + roadmap + status + control-mapping (no catalog) | COMMIT_STEWARD | only if authorized at FREEZE |
 
-C1 and C1b are both authorization-only commits: three files, no
-implementation, no test, no migration. C3 carries **no**
-continuity/roadmap/status file; C4 carries **no** source, test, migration, or
-catalog file.
+C1, C1b, and C2b are all authorization-only commits: no implementation, test,
+or migration. C3 carries **no** continuity/roadmap/status file; C4 carries
+**no** source, test, migration, or catalog file.
 
 ## 11. C2 / C4 allowlists
 
 **C2** (pre-BUILD continuity): `SESSION/ACTIVE_SESSION_STATE.json`,
-`SESSION/SESSION_MEMORY.md`, `CVF_SESSION/ACTIVE_SESSION_STATE.json`, and a new
-`SESSION/handoffs/AGENT_HANDOFF_2026-07-23_P2B_APPROVER_IDENTITY_RECONCILIATION.md`.
+`SESSION/SESSION_MEMORY.md`, `CVF_SESSION/ACTIVE_SESSION_STATE.json`, and
+`SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2B_APPROVER_IDENTITY_RECONCILIATION.md`
+(Amendment 3, AR3-F3: corrected from a `2026-07-23`-dated path that does not
+exist). **C2 already landed** at `cdbbe5b1d79c772f3523d4bb0e5d4ab639e501ce`
+with this exact set — this correction fixes the WORK_ORDER's own record of
+that fact; it does not rewrite, amend, or recreate the C2 commit.
 
 **C4** (FREEZE closure, authorized only at FREEZE): the four continuity files
 above + `IMPLEMENTATION_STATUS.json` + `docs/implementation/EXECUTION_ROADMAP.md`
@@ -456,5 +506,21 @@ WORK_ORDER); nothing staged, committed, or pushed by this repair round; no
 BUILD action; no provider call; no secret read. The one pre-existing untracked
 file (`ASSESSMENT_2026-07-23_OPERATIONS_WORKSPACE_REPOSITIONING.md`) was read
 only to confirm its SHA-256, never edited.
+
+Returned checkpoint (end of revision 2): `READY_FOR_INDEPENDENT_AUTHORIZATION_RE_REVIEW`.
+
+### 13.3 Authorization Amendment 3 (2026-07-26) — F14–F20, PROPOSED
+
+C1b, C2 (`cdbbe5b1…`) landed and BUILD (C3) was implemented against revision
+2, then paused when independent review of the uncommitted C3 implementation
+returned `REVIEW_CHANGES_REQUIRED` (F14–F20). Findings, rationale, and the
+C2b gate/commit lifecycle (§7.1 G7–G7d, §10) are recorded in
+`docs/decisions/P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md` — **not**
+duplicated here. Operative changes in this WORK_ORDER: §3.11 (ceiling 39→40),
+§6 AC-16/22/23 evidence tightening, §7.1 (G7–G7d), §8 S10, §10 (C2b row),
+§11 (handoff-path correction). None of F1–F13 is reopened. **This entire
+amendment is proposed, addressed pending independent review — not resolved
+or closed until `REVIEW_PASS`.** C3's actual source/test content remains
+paused, uncommitted, and untouched by this round.
 
 Returned checkpoint: `READY_FOR_INDEPENDENT_AUTHORIZATION_RE_REVIEW`.

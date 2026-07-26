@@ -19,6 +19,9 @@
 - **BUILD baseline is neither of the above** — captured fresh at C2/G6,
   immediately before BUILD (WORK_ORDER §7 G6); never hardcoded to `292` or
   `306` (F10).
+- **Authorization Amendment 3 (F14–F20)** — see
+  `docs/decisions/P2B_APPROVER_IDENTITY_AUTHORIZATION_AMENDMENT_3.md`.
+  **Proposed, pending independent review** — not resolved until `REVIEW_PASS`.
 
 ## 1. INTAKE — boundary and authority
 
@@ -552,6 +555,10 @@ Continuity/catalog/roadmap land in separate commits and revert independently.
   order-invariant assignment (bipartite matching/backtracking) over required
   seats and qualifying receipts, not a greedy scan (§4.7). The outcome depends
   only on the two sets involved, never on required-role or receipt order.
+
+**O8–O14 (Amendment 3, F14–F20) — PROPOSED, pending review.** See the
+amendment doc §1/§2 for the findings and rationale, and §5 for the exact
+SPEC/WORK_ORDER requirement each one resolves to.
 
 ### 9.1 Authorization-review revision 2 (2026-07-26) — F9–F13
 
