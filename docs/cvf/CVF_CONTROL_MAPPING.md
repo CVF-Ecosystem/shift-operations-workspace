@@ -35,8 +35,9 @@ username/password so với bảng `users` mới (mật khẩu hash bằng bcrypt
 NGOÀI phạm vi tranche này, không tuyên bố đã sửa:** refresh token/revocation,
 tự đăng ký, đặt lại mật khẩu, rate-limit đăng nhập, và — quan trọng nhất —
 **không đụng tới `known-principals.yaml`** (registry approver riêng dùng cho
-quorum approval R3/R4). High Finding #4 (approval fabrication) vẫn còn
-nguyên, xem mục `approval` bên dưới.
+quorum approval R3/R4). Vì vậy High Finding #4 vẫn còn nguyên **tại closure
+P2-B 2026-07-23**; trạng thái hiện tại đã được tranche 2026-07-26 bên dưới
+thay thế.
 
 **2026-07-23 governance closure:** corrective tranche
 `P2B-AUTHENTICATION-REPAIR` đã đi đủ INTAKE → DESIGN → SPEC → WORK_ORDER →
@@ -44,7 +45,20 @@ BUILD → REVIEW → FREEZE. Review độc lập trả `REVIEW_PASS`; live evide
 qua Alibaba (`qwen3.7-max`, HTTP 200) xác nhận identity gate chấp nhận JWT hợp
 lệ, từ chối token giả mạo, rồi mới cho phép provider call. Receipt:
 `docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`. Claim này chỉ áp dụng
-cho `identity`; approval/known-principals High Finding #4 vẫn mở.
+cho `identity`; tại thời điểm closure đó, approval/known-principals High
+Finding #4 vẫn mở.
+
+**2026-07-26 approval closure:** tranche
+`P2B-APPROVER-IDENTITY-RECONCILIATION` đã đi đủ control chain và đạt `FREEZE /
+CLOSED_BOUNDED`. C3 `9376ddb` (38 path) nhận independent `REVIEW_PASS`.
+`known-principals.yaml` bị xóa khỏi runtime authority; approver xác thực JWT
+tạo durable receipt qua `/approvals`, authority được đọc lại từ active `users`,
+và receipt bind sáu trường `(record_type, record_id, action, target_version,
+risk_class, payload_digest)`. Quorum matching deterministic, order-invariant
+và chặn self-approval; Task creation dùng durable intent/digest; atomicity được
+test trên cả hai ledger. Live Alibaba evidence PASS sau genuine quorum, không
+có provider call cho refusal. Receipt:
+`docs/decisions/P2B_APPROVER_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`.
 
 ## Trạng thái (2 mức — không gộp lại thành "enforced")
 
@@ -85,11 +99,12 @@ Chính xác hơn, theo domain:
    không còn mất, `assert_evidence_sufficient` không còn từ chối sai một event
    đã có đủ evidence lúc ghi. (Critical Finding #2 trong bản review Codex gốc
    — đã sửa; xem mục `evidence` trong bảng dưới cho test xác nhận.) **Còn hạn
-   chế:** approval quorum trong bước confirm **không xác thực approver độc
-   lập** ngoài registry known-principals (xem mục approval bên dưới).
+   chế hiện tại:** approval chỉ được chứng minh trong boundary durable
+   six-field scope-bound receipt (xem mục approval bên dưới); không production
+   endpoint nào gọi provider.
 2. **Operational Event → correct** — `CorrectionService.correct_event`.
-   Load-bearing về mặt state transition; nhưng approval quorum trong bước này
-   **không xác thực approver** (xem mục approval bên dưới).
+   Load-bearing về mặt state transition; approval quorum dùng authenticated,
+   durable scope-bound receipts (xem mục approval bên dưới).
 3. **Task → create / transition** — `TaskService`. Chain đúng ở tầng service
    (test trực tiếp construct `Task` kèm evidence, pass). **Qua HTTP cũng đã
    sửa** (P-FIX-3, 2026-07-22): `TaskInput`/`api/tasks/router.py` giờ có field
@@ -142,9 +157,10 @@ Chính xác hơn, theo domain:
 + evidence + xác thực identity thật" không giới hạn** — ngoại trừ identity, mà
 P2-B (2026-07-22) đã sửa thật cho cả 5 domain (xem mục `identity` ở trên).
 Evidence persistence (SqlLedger) và evidence qua HTTP (TaskInput) đã sửa ở
-P-FIX-3 — không còn là giới hạn của Event/Task. Giới hạn còn lại chung cho
-Event/Correction là approval không xác thực approver độc lập ngoài registry
-known-principals — P2-B KHÔNG đụng tới registry đó, xem mục `approval`.
+P-FIX-3 — không còn là giới hạn của Event/Task. Giới hạn approval hiện tại của
+Event/Correction là claim boundary: receipt phải bind đúng sáu trường scope và
+current authority, nhưng không production endpoint nào gọi provider; xem mục
+`approval`.
 `shift.close` và `customer_request` là các domain có ít giới hạn riêng nhất
 tính đến 2026-07-22 (customer_request không có approval/evidence chain để
 mang giới hạn "không xác thực approver" ngay từ đầu — domain này đơn giản là
@@ -154,12 +170,12 @@ không yêu cầu approval theo migration schema).
 
 | CVF control | Trạng thái | Enforce ở đâu (file · symbol) | Giới hạn đã biết |
 |---|---|---|---|
-| identity | **load-bearing, governance-approved (P2-B closure, 2026-07-23)** | `dependencies.py · get_principal` giải mã/xác thực JWT bearer token qua `workspace_api/auth/tokens.py::decode_access_token` (HS256, `JWT_SECRET_KEY` bắt buộc); `POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/password (bcrypt) so với bảng `users` mới | Caller không còn tự đặt header để thành principal — role luôn tới từ claim đã ký. Corrective tranche đã `REVIEW_PASS` và live Alibaba evidence PASS; xem receipt nêu trên. **Còn hạn chế:** không refresh token/revocation (access token TTL cố định, mặc định 60 phút); cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật; KHÔNG đụng tới `known-principals.yaml` — approval quorum (High Finding #4) vẫn tách biệt. Test: `tests/cvf/test_auth_tokens.py` (8 test), `tests/cvf/test_auth_login.py` (5 test), `tests/cvf/test_auth_config_secret_validation.py`, và probe hồi quy `tests/cvf/test_shift_close_governance.py::test_old_header_impersonation_no_longer_grants_any_identity`. |
-| permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action; principal đầu vào được xác thực qua JWT bởi shared `get_principal` dependency. Approval identity/quorum vẫn là control riêng với giới hạn `known-principals.yaml` nêu bên dưới. |
+| identity | **load-bearing, governance-approved (P2-B closure, 2026-07-23)** | `dependencies.py · get_principal` giải mã/xác thực JWT bearer token qua `workspace_api/auth/tokens.py::decode_access_token` (HS256, `JWT_SECRET_KEY` bắt buộc); `POST /auth/login` (`workspace_api/auth/router.py`) cấp token sau khi kiểm username/password (bcrypt) so với bảng `users` mới | Caller không còn tự đặt header để thành principal — role luôn tới từ claim đã ký. Corrective tranche đã `REVIEW_PASS` và live Alibaba evidence PASS; xem receipt nêu trên. **Còn hạn chế:** không refresh token/revocation (access token TTL cố định, mặc định 60 phút); cấp user chỉ qua `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật. Approval là control riêng và đã được reconciliation 2026-07-26 đóng bounded trong receipt claim. Test: `tests/cvf/test_auth_tokens.py` (8 test), `tests/cvf/test_auth_login.py` (5 test), `tests/cvf/test_auth_config_secret_validation.py`, và probe hồi quy `tests/cvf/test_shift_close_governance.py::test_old_header_impersonation_no_longer_grants_any_identity`. |
+| permission | callable, load-bearing cho role check | `cvf_runtime/permission.py · require_action` | Đúng vai trò tối thiểu theo action; principal đầu vào được xác thực qua JWT bởi shared `get_principal` dependency. Approval identity/quorum là control riêng với durable scope-bound receipt boundary nêu bên dưới. |
 | domain_lock | callable, load-bearing tại `create_event` và `create_customer_request`, kiểm cả positive lẫn negative (2026-07-22, P2-A + repair) | `cvf_runtime/domain_lock.py · assert_event_type_in_scope` (event); `CustomerRequestService.create_customer_request · assert_domain_allowed(profile, "customer_request")` | Gắn ở `create_event` và (từ P2-A-CUSTOMER-REQUEST) `create_customer_request`; chưa gắn `create_task` hay các domain khác (Task chưa cần domain_lock vì domain `shift_operation` của nó không nằm trong nhánh event-type-mapping). Test âm thật: `tests/cvf/test_customer_request_repair.py::test_customer_request_denied_when_domain_lock_excludes_it` xây `CvfProfile` loại `customer_request` khỏi `allowed_domains`, xác nhận `CvfDenied(control="domain_lock")` và không có customer_request/audit nào được ghi — trước bản sửa này (independent review thứ ba, 2026-07-22) chỉ có test happy-path, không có test âm. |
 | data_scope | callable, **không có runtime caller** | `cvf_runtime/data_scope.py · assert_placement_allowed` | `allow_after_minimization` cho phép external placement mà không yêu cầu bằng chứng đã minimize — chính sách chỉ mang tính khuyến nghị. Chưa có nơi nào trong request path gọi hàm này. |
 | risk | callable | `cvf_runtime/risk.py · requirement_for` | Đọc policy đúng; không tự nó là control chặn. |
-| approval | **load-bearing, known-principal checked (P-FIX-3, 2026-07-22)** | `cvf_runtime/approval.py · assert_approval_satisfied` + `CvfProfile.known_role_for` (`known-principals.yaml`) | Sửa High Finding #4.1: trước đây approver_id/role do caller tự khai trong cùng request được chấp nhận vô điều kiện (HTTP probe: 2 approver bịa hoàn toàn confirm được R3, trả 200). Giờ mỗi seat quorum phải khớp một principal trong `known-principals.yaml` với role đăng ký đủ thẩm quyền — caller không còn bịa id hay tự nâng role. **Còn hạn chế:** đây KHÔNG phải xác thực thật (không chữ ký/token/session) — chỉ là registry chặn bịa hoàn toàn. P2-B (2026-07-22) triển khai auth thật cho `identity` (xem mục đó) nhưng **cố ý không đụng tới `known-principals.yaml`** — registry approver này vẫn tách biệt khỏi bảng `users` mới, chưa được thay bằng auth thật. Reconciliation này vẫn còn mở, chưa có tranche nào nhận. Test: `tests/cvf/test_approval_known_principals.py` (4 test) + HTTP probe xác nhận 409 thay vì 200. |
+| approval | **load-bearing, governance-approved within bounded receipt claim (P2B approver reconciliation, 2026-07-26)** | JWT-protected `POST /approvals`; `workspace_api/services/approval_service.py`; `cvf_runtime/approval.py · assert_approval_satisfied`; durable receipt/intent methods on both ledgers | Caller không còn gửi approver name/role vào protected mutation. API re-derives current authority from active `users`, persists a receipt bound to `(record_type, record_id, action, target_version, risk_class, payload_digest)`, and protected actions consume only matching receipts. Deterministic order-invariant quorum matching prevents seat-order bypass; self-approval guard is enforced. `known-principals.yaml` is deleted. Task creation uses durable `TaskCreationIntent` digests; receipt/intent/mutation/audit rollback is atomic on both backends. Independent review: focused 116, full 369 pass; F16 wrong-digest probe 409; live Alibaba receipt PASS; AC-21 rehearsal PASS. **Boundary:** no production endpoint provider call, no refresh/revocation/admin provisioning, no PostgreSQL-live proof. |
 | evidence | **load-bearing trên cả 2 backend (P-FIX-3, 2026-07-22)** | `cvf_runtime/evidence.py · assert_evidence_sufficient`; persistence qua `operations_ledger._evidence` (bảng `evidence_links`, map trong `tables.py`) | Sửa Critical Finding #2: trước đây `SqlLedger` không map cột evidence — event R2+ ghi evidence xong đọc lại còn 0, `confirm` bị evidence gate từ chối chính event đã có đủ evidence. Task cũng gãy tương tự qua HTTP (`TaskInput` thiếu field evidence). Cả 2 đã sửa: evidence ghi 1 lần lúc tạo (bảng riêng, giống `corrections`), đọc lại đúng; `TaskInput`/router thêm field `evidence`. Test: `tests/integration/test_evidence_persistence.py` (4 test, reproduce đúng kịch bản probe cũ của Codex) + HTTP probe xác nhận R3 task với evidence qua API trả 200. |
 | audit | **load-bearing, atomic với mutation (P-FIX-2, 2026-07-22)** | `Ledger.transaction()` (unit-of-work) qua `Ledger.append_audit(record, unit=unit)` | Sửa High Finding #5: trước đây mutation commit trước, audit ghi sau trong transaction riêng — audit fail thì mutation vẫn đứng không audit. Giờ `EventService.confirm`, `CorrectionService.correct_event`, `TaskService.create_task`/`transition`, `ShiftService.freeze` đều bọc state-change + audit-append trong `transaction()`; `SqlLedger` dùng transaction SQL thật, `InMemoryLedger` snapshot/rollback (deep copy). Test: `tests/cvf/test_atomic_mutation_audit.py` (10 test, failure-injection trên `append_audit`, cả 2 backend, cả 4 service). Phát hiện phụ trong lúc sửa: `InMemoryLedger.get_event/get_task/get_shift` trước đây trả về reference sống, không phải bản sao — service mutate object trước khi vào transaction đã làm rollback vô nghĩa; đã sửa trả `model_copy()`. |
 | cost | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/budget.py · assert_within_budget` | Không nơi nào trong request path gọi hàm này; sẽ load-bearing khi ai-gateway wire tới. |
@@ -205,12 +221,13 @@ siết parity test, sửa catalog `--check` và đồng bộ toàn bộ front do
 **Trạng thái sau P-FIX-6:** `P-FIX CLOSED_BOUNDED` — bounded nghĩa là: mọi gap
 Critical/High mà 2 review độc lập tìm ra tới nay đã có test end-to-end xác
 nhận, nhưng KHÔNG có nghĩa "tất cả High Finding đã sửa xong". High Finding #4
-còn nguyên các giới hạn chưa sửa (liệt kê trong
+sau đó đã được đóng bounded bởi P2B approver reconciliation 2026-07-26; các
+giới hạn khác chưa sửa được liệt kê trong
 `SESSION/ACTIVE_SESSION_STATE.json` `blocked_work` và
 `IMPLEMENTATION_STATUS.json`). **2026-07-22 (P2-B):** identity đã chuyển từ
 header-based sang xác thực thật qua JWT — không còn ở danh sách này. Vẫn còn
 mở: data minimization chỉ mang tính khuyến nghị; `data_scope`/`cost`/
 `termination` chưa có runtime caller; refusal routing/recording chưa
-implement; known-principals chỉ là registry check, KHÔNG được P2-B thay thế
-(reconciliation với bảng `users` mới vẫn chưa có tranche nào nhận). Không viết
+implement; PostgreSQL chưa live verified; refresh/revocation/admin provisioning
+chưa có. Không viết
 "tất cả High Finding đã sửa" ở bất kỳ đâu.

@@ -3,12 +3,13 @@
 ## Disposition
 
 - Tranche: `P2B-APPROVER-IDENTITY-RECONCILIATION`
-- Control-chain phase: `WORK_ORDER`, approved; C2 pre-BUILD continuity
+- Control-chain phase: `FREEZE`
+- Status: **CLOSED_BOUNDED**
 - Risk: R2 — changes the load-bearing approval control and requires live
   provider-backed governance evidence
-- BUILD status: **NOT STARTED**
-- Active implementation owner after C2/G6: Claude as `IMPLEMENTATION_WORKER`
-- Independent reviewer and commit steward: Codex
+- BUILD commit: `9376ddb056ef83e7d41f45ca951b6c13a4169c7f`
+  (`REVIEW_PASS`, 38 paths), pushed to `origin/main`
+- Independent reviewer, commit steward and closer: Codex
 
 ## Authorization receipts
 
@@ -33,72 +34,68 @@
 - G3: **PASS**. Codex explicitly approves the amended WORK_ORDER intact under
   the operator-delegated approval authority granted on 2026-07-26.
 
-## C2 boundary
+## Closed authorization and BUILD chain
 
-C2 may change exactly:
+- C1: `f98f29e145fa002be070e9d44520d20f0f82dcb3`
+- C1b: `d3bb1ccce340d2a102064d57cee6136147ee5c0d`
+- C2: `cdbbe5b1d79c772f3523d4bb0e5d4ab639e501ce`
+- C2b authorization amendment 3:
+  `62c740ad950d970861f5c084cb3bba3dec73e4e6`
+- C3 BUILD after independent `REVIEW_PASS`:
+  `9376ddb056ef83e7d41f45ca951b6c13a4169c7f`
 
-1. `SESSION/ACTIVE_SESSION_STATE.json`
-2. `SESSION/SESSION_MEMORY.md`
-3. `CVF_SESSION/ACTIVE_SESSION_STATE.json`
-4. this handoff
+The BUILD removed caller-supplied approver names and deleted
+`known-principals.yaml` as runtime authority. An authenticated user now creates
+a durable approval receipt through JWT-protected `POST /approvals`; current
+authority is re-derived from the active `users` row. Receipts are bound to the
+exact six-field scope `(record_type, record_id, action, target_version,
+risk_class, payload_digest)`. Quorum matching is deterministic,
+order-invariant and self-approval-safe. Task creation uses durable
+`TaskCreationIntent` payload digests. Receipt, intent, mutation and audit
+behavior is atomic across the in-memory and SQL ledger implementations.
 
-No implementation, source, test, migration, catalog, roadmap, implementation
-status, policy, provider-receipt, ADR, SPEC, or WORK_ORDER path belongs in C2.
+## Independent review evidence
 
-## Mandatory G6 before the first BUILD edit
+- Focused reconciliation suite: `116 passed`.
+- Root full suite: `369 passed, 1 warning`.
+- Repository validator, session-state check, catalog verification, file-size
+  guard, migration discovery, secret scan and diff check: PASS.
+- Workspace doctor: `PASS WITH NOTE (24 passed, 1 warning)`; the only warning
+  is the bounded legacy catalog-kit note.
+- Independent F16 probe: a non-null Event digest could not consume a null-scope
+  receipt; HTTP `409`.
+- Live Alibaba evidence: `qwen3.7-max`, HTTP `200`, expected token
+  `CVF_APPROVAL_EVIDENCE_OK`; zero calls for every refusal and exactly one call
+  after genuine JWT-backed quorum. Sanitized receipt:
+  `docs/decisions/P2B_APPROVER_IDENTITY_LIVE_EVIDENCE_RECEIPT.md`.
+- AC-21 revert rehearsal restored the exact parent tree and the `306 passed,
+  1 warning` baseline, then removed and pruned the temporary worktree.
+- Final Git truth at C3 review: `HEAD == origin/main ==
+  9376ddb056ef83e7d41f45ca951b6c13a4169c7f`.
 
-After C2 is committed and pushed, Claude must rehydrate the current canonical
-state, this handoff, ADR, SPEC and WORK_ORDER, then explicitly declare the
-transition to `IMPLEMENTATION_WORKER`. Before editing source, Claude must
-verify and record:
+## Claim boundary
 
-1. `HEAD == origin/main` at the actual post-C2 commit.
-2. No tracked modification.
-3. The only permitted untracked path is
-   `docs/decisions/ASSESSMENT_2026-07-23_OPERATIONS_WORKSPACE_REPOSITIONING.md`
-   with SHA-256
-   `168ea2c7a67a31bae50c9e4dbe78c2273a692f3a82a1074585e1bdb89b70fde2`,
-   unchanged, unstaged and uncommitted.
-4. Workspace doctor has 24 PASS, zero FAIL, and no warning beyond the single
-   bounded legacy catalog-kit note.
-5. Full suite passes with zero failures/errors; record the actual count as the
-   BUILD baseline.
-6. The two WORK_ORDER §3.10 audits surface no new path outside the 39-path
-   ceiling.
+This closure fixes High Finding #4 only within the stated authenticated,
+scope-bound approval-receipt boundary. It does not mean every historical
+finding or every CVF control is fixed. It does not prove that production
+endpoints invoke a provider; none do. It does not add refresh/revocation or an
+admin provisioning flow. It does not verify PostgreSQL live: the Phase 1 exit
+gate remains open until an actual migration-created PostgreSQL round-trip is
+run and reviewed.
 
-Any mismatch is a stop condition. Do not repair or widen scope silently.
+The preserved untracked assessment remains outside this tranche and untouched:
+`docs/decisions/ASSESSMENT_2026-07-23_OPERATIONS_WORKSPACE_REPOSITIONING.md`,
+SHA-256
+`168ea2c7a67a31bae50c9e4dbe78c2273a692f3a82a1074585e1bdb89b70fde2`.
 
-## Authorized BUILD
+## Next governed move
 
-Claude may implement C3 only inside the 39-path ceiling in
-`docs/work_orders/P2B_APPROVER_IDENTITY_RECONCILIATION_WORK_ORDER.md`.
-Requirements and evidence are ADR/SPEC/WORK_ORDER authoritative, including:
+Start a fresh `INTAKE` for the separate
+`CVF-FILE-SPLIT-GUARD-HARDENING` tranche. It must define repository-enforced
+split-file guards rather than rely on agent memory. Do not design, authorize or
+implement that tranche inside this C4 closure.
 
-- authenticated, server-derived, scope-bound approval receipts;
-- durable Task creation intents and payload-digest binding;
-- order-invariant bipartite/backtracking quorum matching, with AC-23
-  permutation coverage;
-- dual-backend atomic receipt/intent/audit behavior;
-- deletion of `known-principals.yaml` as runtime authority;
-- AC-01 through AC-23;
-- one real Alibaba call only after genuine quorum for AC-16, zero provider
-  calls for each refusal, and a sanitized tracked receipt;
-- no PostgreSQL-live claim and no claim that production endpoints call a
-  provider.
-
-Claude must not stage, commit, amend, push, branch, or alter continuity during
-C3. Stop conditions S1–S11 remain load-bearing.
-
-## Return checkpoint
-
-When implementation and its own evidence runs are complete, Claude stops with:
-
-`READY_FOR_INDEPENDENT_BUILD_REVIEW`
-
-The return must include the exact changed set, G6 baseline, targeted/full test
-results, validator/doctor output, migration discovery result, live-evidence
-outcome and sanitized receipt path, secret scan, and confirmations that
-nothing was staged, committed or pushed.
-
-No provider call or secret read occurred during authorization review, C1b, or
-C2. The live provider call is mandatory later in C3/REVIEW under AC-16.
+After that tranche reaches its own closure, open a distinct PostgreSQL live
+round-trip tranche to satisfy the Phase 1 exit gate. P2-A incidents/handovers
+remains the next business-delivery lane, deferred behind those two
+operator-selected governance/exit-gate moves.

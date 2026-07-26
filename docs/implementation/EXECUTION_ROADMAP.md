@@ -151,13 +151,11 @@ tự nó không phải là bằng chứng, phải verify lại bằng probe/test
 `pytest` pass — chạy `python -m pytest -q` để lấy số hiện tại, không chép số
 cũ. Tổng cộng: **5 tranche triển khai P-FIX-1 tới P-FIX-5, cộng tranche chuẩn
 bị P-FIX-0; 6 commit P-FIX trước P-FIX-6, 7 commit P-FIX sau khi P-FIX-6
-commit.** Docs không còn tuyên bố "tất cả High Finding đã sửa" — High Finding
-#4 còn nguyên các giới hạn liệt kê trong `IMPLEMENTATION_STATUS.json`
-(`known_remaining_defects`) và `ACTIVE_SESSION_STATE.json` (`blocked_work`):
-identity vẫn header-based; data minimization chỉ khuyến nghị;
+commit.** Tại closure P-FIX-6, High Finding #4 vẫn mở và identity còn
+header-based; các tranche P2-B/P2B sau đó đã thay thế hai sự thật lịch sử này.
+Trạng thái còn mở hiện tại: data minimization chỉ khuyến nghị;
 data_scope/cost/termination chưa có runtime caller; refusal routing/recording
-chưa implement; known-principals chỉ là registry check, không phải xác thực
-thật.
+chưa implement; PostgreSQL chưa live verified.
 
 **Có thể mở lại:** P2-A (domain còn lại), P2-B, P2-C theo `next_allowed_move`
 trong `SESSION/ACTIVE_SESSION_STATE.json` — chỉ sau khi mọi closure surface
@@ -195,8 +193,8 @@ lifecycle/freeze rõ ràng.
       schema qua `Uuid`/`JSON.with_variant(JSONB)`) + integration test round-trip
       thật trên SQLite (create/reconnect/read, append-only corrections, audit
       persist, freeze persist) → `operations-ledger` `partial` → `enforced`.
-      **Còn treo:** chạy cùng suite trên PostgreSQL thật (môi trường này không
-      có Docker daemon khả dụng) — xem `next_step` của module trong
+      **Còn treo:** chạy cùng suite trên PostgreSQL thật (Docker hiện đã khả
+      dụng nhưng live round-trip chưa chạy/review) — xem `next_step` của module trong
       `MODULE_REGISTRY.json`.
 - [x] **P1-A2:** Schema integrity hardening — phát hiện `tables.py` lệch với
       migration (thiếu FK/CHECK) và SQLite tắt FK mặc định. Thêm FK
@@ -231,7 +229,8 @@ lifecycle/freeze rõ ràng.
 **Exit gate:** shift record đầy đủ tạo/confirm/freeze được, có test; SqlLedger
 round-trip Postgres pass; contract test pass. **CHƯA ĐẠT:** tất cả item `[x]`
 không có nghĩa exit gate đã đạt — **SqlLedger round-trip trên PostgreSQL thật
-chưa từng chạy** trong môi trường này (không có Docker), vẫn là pre-ship gate.
+chưa từng chạy** trong môi trường này; Docker hiện đã có nhưng gate vẫn chưa
+được chạy/review, vẫn là pre-ship gate.
 Đóng P1-B (2026-07-23) là đóng một roadmap item, không phải đóng Phase 1.
 
 ---
@@ -289,6 +288,18 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       High Finding #4 KHÔNG được tranche này sửa). Cấp user chỉ qua
       `scripts/seed_dev_users.py` (dev/test), chưa có admin flow thật.
       ADR: `docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md`.
+- [x] **P2-B approver identity reconciliation (2026-07-26, FREEZE /
+      CLOSED_BOUNDED):** bỏ approver do caller tự khai và xóa
+      `known-principals.yaml` khỏi runtime authority. Approver đã xác thực JWT
+      tạo durable receipt qua `/approvals`; authority hiện tại được đọc lại từ
+      active `users`; receipt bind đúng sáu trường `(record_type, record_id,
+      action, target_version, risk_class, payload_digest)`. Task creation dùng
+      durable intent/digest; quorum matching deterministic, order-invariant,
+      chặn self-approval; receipt/intent/mutation/audit atomic trên cả hai
+      ledger. C3 `9376ddb` có 38 path, independent `REVIEW_PASS`; focused 116,
+      full 369 pass; live Alibaba receipt PASS; AC-21 revert rehearsal PASS.
+      **Boundary:** không production endpoint nào gọi provider; không thêm
+      refresh/revocation/admin provisioning; PostgreSQL vẫn chưa live verified.
 - [ ] **P2-C:** Frontend UI cho các vertical đã có backend (bắt đầu Events/
       Open Work), tuân thủ boundary: FE gọi API, không tự enforce.
 - [ ] **P2-D:** PWA offline queue + realtime.
@@ -367,26 +378,30 @@ load-bearing và governance-approved. **Chính xác về phạm vi:** P2-B KHÔN
 `known-principals.yaml` — reconciliation registry approver đó với bảng
 `users` mới vẫn là việc mở, chưa có tranche nào nhận; không tuyên bố "High
 Finding #4 đã sửa".
-**2026-07-23 (P1-B):** đã FREEZE / CLOSED_BOUNDED — tách domain models/lifecycle
-guards ra `operations-domain` (chi tiết ở mục P1-B trong Phase 1). Operator đã
-xác nhận thứ tự lane hiện hành; **không còn là lựa chọn ba lane tự do**:
-1. **P1-B** — HOÀN TẤT (FREEZE 2026-07-23).
-2. **known-principals.yaml ↔ authenticated users** (High Finding #4) — **lane
-   kế tiếp**, bắt đầu ở một INTAKE mới.
-3. **P2-A còn lại** — incidents/handovers (cần migration mới trước).
-4. **P2-C** — frontend UI (giữ boundary backend-only).
-Không nhảy cóc thứ tự và không bắt đầu bất kỳ lane nào từ loose chat
-instruction — mỗi lane cần INTAKE và authorization artifacts riêng.
+**2026-07-26 (P2B approver identity reconciliation):** đã FREEZE /
+`CLOSED_BOUNDED`; High Finding #4 đóng trong boundary authenticated durable
+scope-bound receipts, không phải tuyên bố "mọi finding đã sửa".
+
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho tranche riêng
+`CVF-FILE-SPLIT-GUARD-HARDENING`, nhằm biến nguyên tắc split file thành guard
+repository-enforced thay vì trông chờ agent nhớ. Không DESIGN/WORK_ORDER/BUILD
+tranche đó trong closure P2B.
+
+Sau khi tranche guard đóng riêng, mở tranche riêng chạy PostgreSQL live
+round-trip trên schema do migrations tạo để xét exit gate Phase 1. P2-A còn
+lại (incidents/handovers, cần migration mới) vẫn là business lane kế tiếp sau
+hai bước operator chọn; P2-C đứng sau P2-A. Mỗi tranche phải chạy đủ control
+chain và authorization riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
 governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ
 (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B),
-tách operations-domain (P1-B).
+tách operations-domain (P1-B), authenticated scope-bound approval receipts
+(P2B approver-identity reconciliation).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
-có runtime caller, refusal routing/recording chưa implement, known-principals
-chỉ là registry check (KHÔNG được P2-B thay thế), PostgreSQL round-trip thật
-chưa chạy trong môi trường này, incidents/handovers (P2-A còn lại) chưa có
+có runtime caller, refusal routing/recording chưa implement, PostgreSQL
+round-trip thật chưa chạy trong môi trường này, incidents/handovers (P2-A còn lại) chưa có
 migration, P2-B chưa có refresh token/revocation hay admin flow cấp user thật
 — xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
 

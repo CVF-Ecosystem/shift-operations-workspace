@@ -4,7 +4,7 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-26 (P2B approver-identity C1b REVIEW_PASS/pushed; amended WORK_ORDER explicitly approved; C2 pre-BUILD continuity in progress; BUILD awaits C2 push + fresh G6)_
+_Last updated: 2026-07-26 (P2B approver-identity C3 independently REVIEW_PASS'd and pushed; FREEZE / CLOSED_BOUNDED; next fresh INTAKE is the separate split-file guard tranche)_
 
 ## Where the project is
 
@@ -330,6 +330,26 @@ after genuine quorum and zero calls for every refusal, with a sanitized
 receipt. Claude does not stage/commit/push and stops at
 `READY_FOR_INDEPENDENT_BUILD_REVIEW`.
 
+**2026-07-26 (P2B-APPROVER-IDENTITY-RECONCILIATION — FREEZE /
+CLOSED_BOUNDED):** C3
+`9376ddb056ef83e7d41f45ca951b6c13a4169c7f` changed 38 authorized paths,
+received independent `REVIEW_PASS`, and was pushed with `HEAD == origin/main`.
+Caller-supplied approver names and `known-principals.yaml` are no longer
+runtime authority. Authenticated users create durable receipts through
+JWT-protected `/approvals`; current authority is re-derived from active
+`users`; receipts bind the exact six-field scope `(record_type, record_id,
+action, target_version, risk_class, payload_digest)`. Task creation uses
+durable intent/digest binding; quorum matching is deterministic,
+order-invariant and self-approval-safe; receipt/intent/mutation/audit behavior
+is atomic on both ledgers. Independent evidence: focused `116 passed`; root
+suite `369 passed, 1 warning`; repository gates PASS; doctor `PASS WITH NOTE`
+24/1 with only the bounded legacy warning; F16 null/non-null digest mismatch
+probe returned HTTP 409; live Alibaba receipt PASS with zero calls on refusals
+and exactly one after genuine quorum; AC-21 revert rehearsal restored the
+`306 passed, 1 warning` baseline. Claim is bounded: no production endpoint
+provider-call claim, no refresh/revocation/admin provisioning, and no
+PostgreSQL-live claim.
+
 ## Continuity drift — operator ĐÃ giải quyết (giữ lại làm hồ sơ)
 
 Hai bề mặt governed từng mâu thuẫn về lane kế tiếp:
@@ -366,8 +386,8 @@ sử, không phải trạng thái hiện tại.
   — phạm vi chính xác" trong `CVF_CONTROL_MAPPING.md` cho giới hạn còn lại
   theo từng domain. Evidence qua SqlLedger/HTTP (Event/Task) đã sửa ở P-FIX-3,
   không còn là gap; identity không còn là giới hạn chung (P2-B, 2026-07-22) —
-  giới hạn còn lại là approval không xác thực approver độc lập (Event/
-  Correction). Shift và
+  approval của Event/Correction giờ dùng authenticated durable scope-bound
+  receipts (P2B approver-identity closure, 2026-07-26). Shift và
   CustomerRequest là các domain có ít giới hạn riêng nhất tính đến
   2026-07-22 (CustomerRequest không có approval/evidence chain vì migration
   không có cột đó).
@@ -376,7 +396,8 @@ sử, không phải trạng thái hiện tại.
   migration Task.version đã có cột và schema-parity test đã siết (P-FIX-4,
   P-FIX-6 closure-cleanup thêm PK/FK hai chiều + type-family + CHECK
   expression). **Vẫn NOT LIVE VERIFIED**: chưa từng chạy migration + round-trip
-  thật trên PostgreSQL (không có Docker trong môi trường này) — pre-ship gate.
+  thật trên PostgreSQL. Docker hiện đã có, nhưng live round-trip chưa chạy và
+  chưa review — vẫn là pre-ship gate.
 - **Catalog/session/file-size guard:** file-size và session-state check là
   **cổng thật** (probe âm xác nhận). Catalog `--check` từ P-FIX-5 recompute
   metrics/Markdown thật và diff với đĩa (probe âm xác nhận, không còn là cổng
@@ -384,9 +405,9 @@ sử, không phải trạng thái hiện tại.
 - **Identity:** code hiện tại dùng JWT bearer token thay header, đã qua
   BUILD + REPAIR + **REVIEW_PASS** và live Alibaba evidence PASS (HTTP 200,
   2026-07-23), nên corrective tranche đạt **FREEZE**. Identity load-bearing
-  và governance-approved trong claim boundary của receipt. Giới hạn khác của
-  Event/Correction: approval không xác thực approver độc lập (registry
-  known-principals, ngoài phạm vi cả P2-B lẫn tranche corrective này).
+  và governance-approved trong claim boundary của receipt. Approval là
+  load-bearing/governance-approved trong boundary riêng của receipt
+  reconciliation; không gộp hai closure thành tuyên bố "mọi finding đã sửa".
 - **Tests:** chạy `python -m pytest -q` để lấy số hiện tại; đừng chép số cũ từ
   file khác — spec-drift là chính lỗi Codex nêu ở Medium #7 của review gốc.
 
@@ -420,31 +441,16 @@ GitHub đã PASS 24/24, resolve đúng active handoff và pin public core
 
 ## Next allowed move
 
-**`XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24` là tranche active hiện tại**
-(2026-07-24): `XR1-S-C1` đã REVIEW_PASS và đã commit/push tại
-`75adf51132edc4fad08618faf8dcb5b16e8f5435` (HEAD == origin/main). Rehearsal
-PASS đầy đủ (292 test, session-state, catalog, file-size, validator);
-doctor vẫn `PASS WITH NOTE (24 passed, 1 warning(s))`. Trạng thái:
-`XR1S_C1_PUSHED_READY_FOR_C2A_BUILD`. Bước kế tiếp CHỈ là `XR1-S-C2a`
-(sửa `.cvf/manifest.json` một dòng, verify-only, không chạy reconciler);
-`XR1-S-C2b` CHƯA được phép bắt đầu. Tranche
-này **trực giao với thứ tự lane** — không sửa, không xếp lại, không hủy lane
-2 (`P2B-APPROVER-IDENTITY-RECONCILIATION`, WORK_ORDER đã draft tại HEAD
-`f98f29e145fa002be070e9d44520d20f0f82dcb3`, vẫn `DRAFT — NOT APPROVED. BUILD
-IS NOT AUTHORIZED.`, PARKED bởi tranche này). Xem mục "2026-07-24" ở trên và
-`SESSION/handoffs/AGENT_HANDOFF_2026-07-24_XR1S_RECIPROCAL_WORKSPACE_LINK.md`
-cho chi tiết đầy đủ.
+`P2B-APPROVER-IDENTITY-RECONCILIATION` đã **FREEZE / CLOSED_BOUNDED** tại C3
+`9376ddb`. Bước kế tiếp duy nhất là quay về **INTAKE** cho tranche riêng
+`CVF-FILE-SPLIT-GUARD-HARDENING`: thiết kế guard repository-enforced để ràng
+buộc split file, không trông chờ agent nhớ. Closure này không DESIGN,
+WORK_ORDER hay BUILD tranche đó.
 
-**Giữ nguyên làm hồ sơ, không lặp lại:** `P1B-OPERATIONS-DOMAIN-EXTRACTION`
-**đã FREEZE / CLOSED_BOUNDED** (C1 `3e3df42`
-→ C2 `1e56a72` → C2b `ab75abb` → C3 `f68cf63` → C4 closure) — mỗi gate commit
-riêng, không gộp.
-
-Bước kế tiếp: quay về **INTAKE** cho **lane 2** trong thứ tự operator đã chọn:
-**reconciliation `known-principals.yaml` ↔ authenticated users** (High Finding
-#4). Chỉ **nêu tên** đây là lane kế tiếp — không DESIGN/SPEC/WORK_ORDER/BUILD nó
-trong closure này, không bắt đầu từ loose chat instruction. Lane 3 (P2-A
-incidents/handovers, cần migration mới) và lane 4 (P2-C frontend) vẫn xếp sau.
+Sau khi tranche split-file guard đóng riêng, mở một tranche riêng cho
+PostgreSQL live round-trip trên schema tạo bởi migrations. Phase 1 vẫn mở tới
+khi gate đó được review PASS. P2-A incidents/handovers vẫn là business lane kế
+tiếp, nhưng đứng sau hai bước operator vừa chọn; P2-C vẫn sau P2-A.
 
 **Đã đóng trước đó, không lặp lại:** `P2B-AUTHENTICATION-REPAIR` FREEZE
 (`4e15ea4`, sau independent REVIEW_PASS và live Alibaba evidence PASS);
