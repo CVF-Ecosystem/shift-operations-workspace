@@ -255,6 +255,32 @@ updates the BUILD receipt, reruns all mandatory gates, and stops at:
 
 `READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_RE_RE_REVIEW`
 
+### Reviewer-owned F15 closure
+
+The F14 repair was correct and its worker gates found
+`HOV-REV-F15 REVIEWER_CONTINUITY_HARD_LIMIT_BREACH`: reviewer-owned C2i
+`a217b12` had expanded `SESSION/SESSION_MEMORY.md` from 599 to 601 lines.
+This was not a BUILD defect and required no C3 path or exception.
+
+Codex closed F15 without waiver at `eaccf7a` by compacting only the duplicated
+front-door F14 summary. The memory is now 599 lines. Fresh independent
+evidence after that correction:
+
+- exact authorized BUILD set: 47/47, no missing/extra path, staged 0;
+- focused guard/handover/parity/schema/SQL: 117 passed;
+- root: 610 passed, 53 skipped; tests-only: 606 passed, 53 skipped;
+- PostgreSQL 16: 53 passed, migrations 21/0 then 17/4, cleanup exact;
+- file-size, validator, catalog, session-state and diff checks: PASS;
+- secret-safe diff scan: PASS;
+- doctor: 24 PASS and the one bounded legacy warning.
+
+The existing worker receipt truthfully records its earlier stop but is now
+stale after reviewer disposition. Claude may change only that already-
+authorized BUILD receipt to record F15 closure/current HEAD and the clean
+checkpoint, rerun non-live receipt/repository checks, and stop at:
+
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_RE_RE_REVIEW`
+
 ## Claim boundary
 
 Potential closure proves a server-derived, authenticated handover and real

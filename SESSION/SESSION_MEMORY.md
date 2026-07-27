@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-27 (P2-A handover F14; Amendment 4 exact 47 unchanged)_
+_Last updated: 2026-07-27 (P2-A handover F15 closed; receipt reconciliation)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — repair):** F13's 36-test canonical digest fix
-exposed F14: `generate_catalog.py` debt SHA came from CRLF bytes, not its Git
-blob. Amendment 4 C2h `781f75c` permits only that SHA correction in the existing
-baseline path; BUILD stays exactly 47 with no other rehash or 48th path.
+**2026-07-27 (P2-A HANDOVER — review):** F14 is verified repaired. Reviewer-
+owned F15 overflow is closed at `eaccf7a` by compacting this memory to 599
+lines. Exact BUILD stays 47 and all independent runtime/repository gates pass;
+only the existing BUILD receipt needs current disposition before final review.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
