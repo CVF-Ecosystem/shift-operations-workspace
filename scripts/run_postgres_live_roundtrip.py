@@ -204,12 +204,12 @@ def apply_migrations_twice(database_url: str) -> list[dict]:
     return summaries
 
 
-# P2A-INCIDENT-VERTICAL (INC-AUTH-F2): the incident live module is coherent
-# but separate (test_sql_ledger_postgres_live.py is already at the file-size
-# ceiling), so both run inside the same disposable container/migration pass.
+# P2A-INCIDENT-VERTICAL/P2A-HANDOVER-VERTICAL: each vertical's live module is
+# coherent but separate, so all three run inside one disposable container pass.
 LIVE_SUITE_TARGETS = (
     "tests/integration/test_sql_ledger_postgres_live.py",
     "tests/integration/test_incident_postgres_live.py",
+    "tests/integration/test_handover_postgres_live.py",
 )
 
 

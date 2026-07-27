@@ -25,7 +25,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from enum import StrEnum
 from uuid import UUID, uuid4
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, computed_field, model_validator
 
 class DataState(StrEnum):
     RAW = "RAW"
@@ -214,6 +214,63 @@ class Incident(BaseModel):
     # constructed-in-Python Incident can never violate it either.
     version: int = Field(default=1, ge=1)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class HandoverStatus(StrEnum):
+    DRAFT = "DRAFT"
+    REVIEWED = "REVIEWED"
+    ACKNOWLEDGED = "ACKNOWLEDGED"
+
+
+class HandoverItem(BaseModel):
+    # Mirrors database/migrations/006_handovers.sql (handover_items). One
+    # server-derived carry-over line from an open Task/CustomerRequest/
+    # Incident on the source shift - never caller-supplied (P2A-HANDOVER-
+    # VERTICAL, ADR section 3.2). `source_digest` is a canonical SHA-256 over
+    # the server-derived source snapshot (SPEC R3); it is what review/
+    # acknowledge/freeze revalidate to detect a stale handover.
+    item_id: UUID = Field(default_factory=uuid4)
+    handover_id: UUID
+    source_record_type: str
+    source_record_id: UUID
+    source_digest: str
+    summary: str
+    owner_id: str | None = None
+    due_at: datetime | None = None
+    risk_class: RiskClass = RiskClass.R1
+    evidence: list[EvidenceRef] = Field(default_factory=list)
+
+
+class Handover(BaseModel):
+    # Mirrors database/migrations/006_handovers.sql (handovers). Lifecycle is
+    # DRAFT -> REVIEWED -> ACKNOWLEDGED (ACKNOWLEDGED terminal); review and
+    # acknowledgement are separate authenticated actions and the acknowledging
+    # receiver must differ from the reviewer (ADR section 3.1). `acknowledged`
+    # is a computed field derived from `status` so it can never contradict it
+    # while still satisfying the pre-existing public contract name (SPEC R1).
+    handover_id: UUID = Field(default_factory=uuid4)
+    from_shift_id: UUID
+    to_shift_id: UUID
+    status: HandoverStatus = HandoverStatus.DRAFT
+    items: list[HandoverItem] = Field(default_factory=list)
+    created_by: str
+    reviewed_by: str | None = None
+    reviewed_at: datetime | None = None
+    received_by: str | None = None
+    acknowledged_at: datetime | None = None
+    version: int = Field(default=1, ge=1)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @model_validator(mode="after")
+    def validate_shift_pair(self):
+        if self.from_shift_id == self.to_shift_id:
+            raise ValueError("from_shift_id and to_shift_id must differ")
+        return self
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def acknowledged(self) -> bool:
+        return self.status == HandoverStatus.ACKNOWLEDGED
 
 
 class TaskCreationIntent(BaseModel):

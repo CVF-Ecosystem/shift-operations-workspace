@@ -1,17 +1,15 @@
 """Negative-probe suite for the hardened file-size guard (CVF-FSG-SPEC-001
-AC-01 through AC-12, plus the SPEC R12 closed-allowlist repair round).
+AC-01-AC-12, the SPEC R12 closed-allowlist round, and R24/AC-31-AC-32
+portable debt digests, HOV-REV-F13).
 
 Every probe uses a throwaway tmp_path git-repo fixture; production is never
 mutated. scripts/ is added to sys.path here (not in pyproject.toml's
 pythonpath) - same pattern as test_migration_idempotency_guard.py. Debt-
-baseline probes reuse the four real SPEC R12 paths, never arbitrary names:
-the allowlist check runs before duplicate/missing/untracked checks, so a
-non-allowlisted path would fail for the wrong reason.
+baseline probes reuse the four real SPEC R12 paths, never arbitrary names.
 """
 
 from __future__ import annotations
 
-import hashlib
 import subprocess
 import sys
 from pathlib import Path
@@ -29,6 +27,7 @@ from check_file_size import (  # noqa: E402
     load_debt_baseline,
     load_exceptions,
 )
+from check_file_size import _sha256 as _guard_sha256  # noqa: E402
 
 # Four real SPEC R12 allowlisted paths, reused where a distinct approved path is needed.
 _A0, _A1, _A2, _A3 = sorted(APPROVED_LEGACY_DEBT_PATHS)
@@ -63,14 +62,7 @@ def _debt_entry(root: Path, rel: str, *, n_lines: int = 310, track: bool = True)
     if track:
         subprocess.run(["git", "add", rel], cwd=root, check=True)
     lines = count_lines(target)
-    sha = hashlib.sha256(target.read_bytes()).hexdigest()
-    return f'{{"path": "{rel}", "sha256": "{sha}", "lineCount": {lines}, "hardLimit": 300, "reason": "r", "requiredSplit": "s"}}'
-
-def _baseline_path(root: Path) -> Path:
-    return root / "docs/reference/FILE_SPLIT_DEBT_BASELINE.json"
-
-def _registry_path(root: Path) -> Path:
-    return root / "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json"
+    return f'{{"path": "{rel}", "sha256": "{_guard_sha256(target)}", "lineCount": {lines}, "hardLimit": 300, "reason": "r", "requiredSplit": "s"}}'
 
 # --- AC-01/AC-02/AC-03: hard limits and deterministic counting --------------
 
@@ -105,6 +97,9 @@ def test_ac04_unchanged_digest_bound_legacy_debt_passes(tmp_path):
     entry = _debt_entry(root, _A0)
     _write(root, "docs/reference/FILE_SPLIT_DEBT_BASELINE.json", _baseline_json(entry))
     assert check(root=root)[0] == []
+    target = root / _A0
+    target.write_bytes(target.read_bytes().replace(b"\n", b"\r\n"))
+    assert check(root=root)[0] == []  # AC-31: same content, CRLF-represented, still valid
 
 def test_ac05_same_line_count_content_edit_to_legacy_debt_fails(tmp_path):
     root = _base_fixture(tmp_path)
@@ -116,6 +111,9 @@ def test_ac05_same_line_count_content_edit_to_legacy_debt_fails(tmp_path):
     _write(root, _A0, edited)
     assert count_lines(target) == lines_before  # line count unchanged, content changed
     with pytest.raises(GuardConfigError, match="stale"):
+        check(root=root)
+    target.write_bytes(edited.replace("\n", "\r\n").encode("utf-8"))
+    with pytest.raises(GuardConfigError, match="stale"):  # AC-32: same mutation, CRLF-represented
         check(root=root)
 
 def test_ac06_reduced_but_still_oversized_legacy_debt_fails(tmp_path):
@@ -166,7 +164,7 @@ def test_ac09_malformed_debt_entries_fail(tmp_path, baseline_json):
     root = _base_fixture(tmp_path)
     _write(root, "docs/reference/FILE_SPLIT_DEBT_BASELINE.json", baseline_json)
     with pytest.raises(GuardConfigError):
-        load_debt_baseline(_baseline_path(root), root=root)
+        load_debt_baseline(root / "docs/reference/FILE_SPLIT_DEBT_BASELINE.json", root=root)
 
 def _setup_debt_case(root: Path, kind: str) -> str:
     if kind == "duplicate":
@@ -239,7 +237,7 @@ def test_ac10_malformed_exception_entries_fail(tmp_path, registry_json):
     root = _base_fixture(tmp_path)
     _write(root, "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json", registry_json)
     with pytest.raises(GuardConfigError):
-        load_exceptions(_registry_path(root), root=root)
+        load_exceptions(root / "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json", root=root)
 
 @pytest.mark.parametrize(
     "registry_json, match",
@@ -266,7 +264,7 @@ def test_ac10_exception_entry_semantic_failures(tmp_path, registry_json, match):
     _write(root, "docs/notes.md", "x\n")
     _write(root, "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json", registry_json)
     with pytest.raises(GuardConfigError, match=match):
-        load_exceptions(_registry_path(root), root=root)
+        load_exceptions(root / "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json", root=root)
 
 # --- AC-11: executable exception attempt fails ------------------------------
 
@@ -278,7 +276,7 @@ def test_ac11_executable_exception_attempt_fails(tmp_path):
         '{"description": "d", "exceptions": [{"path": "pkg/mod.py", "approvedMaxLines": 500, "reason": "r", "requiredFollowup": "f"}]}',
     )
     with pytest.raises(GuardConfigError, match="executable suffix cannot be excepted"):
-        load_exceptions(_registry_path(root), root=root)
+        load_exceptions(root / "docs/reference/FILE_SIZE_EXCEPTION_REGISTRY.json", root=root)
 
 # --- AC-12: unknown CLI argument fails; --warn cannot turn FAIL into PASS ---
 

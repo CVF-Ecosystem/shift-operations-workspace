@@ -10,7 +10,7 @@ the inverted dependency this tranche exists to remove.
 does not redefine them.
 """
 
-from .models import CustomerRequestStatus, DataState, IncidentStatus, TaskStatus
+from .models import CustomerRequestStatus, DataState, HandoverStatus, IncidentStatus, TaskStatus
 
 _ALLOWED: dict[DataState, set[DataState]] = {
     DataState.RAW: {DataState.NORMALIZED, DataState.REJECTED},
@@ -91,3 +91,19 @@ _ALLOWED_INCIDENT: dict[IncidentStatus, set[IncidentStatus]] = {
 def assert_incident_transition(current: IncidentStatus, target: IncidentStatus) -> None:
     if target not in _ALLOWED_INCIDENT[current]:
         raise ValueError(f"Invalid incident-status transition: {current} -> {target}")
+
+
+# Handover status lifecycle (P2A-HANDOVER-VERTICAL). Linear and terminal:
+# DRAFT -> REVIEWED -> ACKNOWLEDGED. There is no path back to DRAFT - a stale
+# or drifted handover is recovered by creating a new draft, never by mutating
+# an existing one (ADR section 3.3).
+_ALLOWED_HANDOVER: dict[HandoverStatus, set[HandoverStatus]] = {
+    HandoverStatus.DRAFT: {HandoverStatus.REVIEWED},
+    HandoverStatus.REVIEWED: {HandoverStatus.ACKNOWLEDGED},
+    HandoverStatus.ACKNOWLEDGED: set(),
+}
+
+
+def assert_handover_transition(current: HandoverStatus, target: HandoverStatus) -> None:
+    if target not in _ALLOWED_HANDOVER[current]:
+        raise ValueError(f"Invalid handover-status transition: {current} -> {target}")

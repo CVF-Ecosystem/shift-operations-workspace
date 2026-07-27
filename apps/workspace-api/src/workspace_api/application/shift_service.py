@@ -7,10 +7,14 @@ SqlLedger. This service is the single place freeze is requested from, so the
 chain cannot be bypassed by calling the ledger directly from a router.
 
 freeze-policy.yaml requires shift_closed, report_approved and
-open_handover_items_linked. This repo has no Report or Handover model yet
-(Phase 5 / P2-D), so those two conditions cannot be checked for real. Rather
-than pretend to check them, freezing while they are unimplemented requires an
-explicit, audited override with a reason — never a silent skip.
+open_handover_items_linked. P2A-HANDOVER-VERTICAL (2026-07-26) makes the last
+of those real: `assert_freeze_ready` (workspace_api.application.handover_service)
+requires at least one ACKNOWLEDGED handover from the shift whose source
+snapshot still exactly matches current open work, and this check can never be
+bypassed by the override below. `report_approved` still has no Report model
+(Phase 5 / P2-D), so freezing without it still requires an explicit, audited
+override with a reason — never a silent skip, and never covering handover
+readiness (ADR section 3.6).
 
 P-FIX-6 (2026-07-22): a SECOND independent review rejected the P-FIX-5 closure
 claim because `POST /shifts/{shift_id}/close` still called `ledger.close_shift()`
@@ -30,14 +34,15 @@ from cvf_runtime.permission import require_action
 from operations_ledger import Ledger
 
 from operations_domain.models import Shift, ShiftStatus
+from workspace_api.application.handover_service import assert_freeze_ready
 
 _FREEZE_CHAIN = ["identity", "permission", "freeze", "audit"]
 _CLOSE_CHAIN = ["identity", "permission", "close", "audit"]
 
 # Conditions from freeze-policy.yaml this service can actually verify today.
-_CHECKABLE_PREREQUISITES = {"shift_closed"}
-# Conditions the policy names but this repo has no model for yet.
-_UNIMPLEMENTED_PREREQUISITES = {"report_approved", "open_handover_items_linked"}
+_CHECKABLE_PREREQUISITES = {"shift_closed", "open_handover_items_linked"}
+# The one condition the policy names that this repo still has no model for.
+_UNIMPLEMENTED_PREREQUISITES = {"report_approved"}
 
 
 class ShiftService:
@@ -109,10 +114,9 @@ class ShiftService:
             raise CvfDenied(
                 control="freeze",
                 reason=(
-                    "freeze-policy.yaml also requires report_approved and "
-                    "open_handover_items_linked, which have no implemented "
-                    "model yet (see EXECUTION_ROADMAP.md P2-D/P5-A). Freezing "
-                    "without them requires an explicit "
+                    "freeze-policy.yaml also requires report_approved, which has "
+                    "no implemented model yet (see EXECUTION_ROADMAP.md P2-D). "
+                    "Freezing without it requires an explicit "
                     "override_unimplemented_prerequisites=true and a reason."
                 ),
                 http_status=422,
@@ -124,9 +128,13 @@ class ShiftService:
                 http_status=422,
             )
 
-        # Unit-of-work: the freeze itself and both audit records (freeze +
-        # override) commit or roll back together (P-FIX-2 / High Finding #5).
+        # Unit-of-work: the real open_handover_items_linked readiness check,
+        # the freeze mutation and both audit records (freeze + override) all
+        # share the SAME transaction (HOV-AUTH-F4 repair / SPEC R18) - never
+        # overridable, checked after the report_approved override so the
+        # override's scope stays exactly report_approved.
         with self.ledger.transaction() as unit:
+            assert_freeze_ready(self.ledger, shift_id, unit=unit)
             frozen = self.ledger.freeze_shift(shift_id, unit=unit)
 
             self.ledger.append_audit(
@@ -151,7 +159,7 @@ class ShiftService:
                     record_id=str(shift_id),
                     control_chain=_FREEZE_CHAIN,
                     before_state=None,
-                    after_state=f"report_approved,open_handover_items_linked not checked: {override_reason.strip()}",
+                    after_state=f"report_approved not checked: {override_reason.strip()}",
                 ),
                 unit=unit,
             )

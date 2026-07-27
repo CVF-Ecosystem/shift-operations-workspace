@@ -14,6 +14,7 @@ directly.
 
 from operations_domain.lifecycle import (  # noqa: F401  (re-exported for compatibility)
     assert_customer_request_transition,
+    assert_handover_transition,
     assert_incident_transition,
     assert_task_transition,
     assert_transition,
@@ -21,6 +22,7 @@ from operations_domain.lifecycle import (  # noqa: F401  (re-exported for compat
 
 __all__ = [
     "assert_customer_request_transition",
+    "assert_handover_transition",
     "assert_incident_transition",
     "assert_task_transition",
     "assert_transition",

@@ -104,6 +104,103 @@ stdout/stderr lẫn receipt. Re-run độc lập: full suite 507 pass/44 skip;
 PostgreSQL 16 live 44 pass, cleanup container/volume sạch; live Alibaba
 evidence PASS lại với đúng 0 call refusal/1 call sau acknowledge hợp lệ.
 
+**2026-07-26 P2A-HANDOVER-VERTICAL:** thêm `HandoverService` làm service thứ
+bảy — domain `shift_handover`. Ba hành động: `create` (identity/permission
+`operator` → `domain_lock shift_handover` → server tự derive toàn bộ
+`items` từ đúng tập open work của shift nguồn — `Task` khác `DONE`/
+`CANCELLED`, `CustomerRequest` khác `CLOSED`, `Incident` khác `CLOSED` — caller
+KHÔNG bao giờ tự cung cấp items/digest/status/actor; mỗi item mang một
+SHA-256 digest chuẩn tắc trên snapshot server-derived của chính nó); `review`
+(sender, `shift_supervisor`, revalidate destination OPEN/source not-FROZEN và
+khớp đúng snapshot trước khi DRAFT→REVIEWED); `acknowledge` (receiver phải là
+supervisor xác thực KHÁC người review, cùng revalidate state/snapshot trước
+khi REVIEWED→ACKNOWLEDGED). `ACKNOWLEDGED` là terminal; khôi phục từ snapshot
+lệch là tạo draft mới, không sửa cái cũ. Không có registry gán nhân sự nào
+trong repo, nên acknowledge chỉ chứng minh một supervisor xác thực khác biệt
+đã chấp nhận — KHÔNG tuyên bố nhân sự đó được gán vào ca đích.
+
+`ShiftService.freeze`'s `open_handover_items_linked` giờ là tiền đề THẬT
+(`assert_freeze_ready`, `workspace_api.application.handover_service`): cần ít
+nhất một handover `ACKNOWLEDGED` của đúng ca đó mà snapshot vẫn khớp open work
+hiện tại VÀ ca đích vẫn `OPEN` — không cache lại lúc acknowledge, kiểm tra lại
+tại chính thời điểm freeze. Readiness check, freeze mutation, và cả hai audit
+(freeze + override) giờ dùng chung một transaction. `report_approved` là điều
+kiện duy nhất còn lại dùng override tường minh có audit; văn bản audit của
+override giờ chỉ nói `report_approved`, không còn nhắc
+`open_handover_items_linked` (điều đó đã có kiểm tra thật, không phải bỏ qua).
+Bảng `handovers`/`handover_items` khớp migration 006 hai chiều (schema-parity
+riêng, gồm cả enum `handover_status` native lẫn `risk_class` tái dùng). Live
+PostgreSQL 16 xác nhận bảng/enum/CHECK/FK/round-trip/rollback
+(`tests/integration/test_handover_postgres_live.py`); live Alibaba evidence
+PASS sau review + acknowledge + freeze hợp lệ qua đúng route HTTP/JWT thật, 0
+provider call cho 4 refusal case (thiếu handover, mới REVIEWED chưa
+acknowledge, tự acknowledge chính mình, snapshot cũ sau khi source đổi).
+Receipt: `docs/decisions/P2A_HANDOVER_LIVE_EVIDENCE_RECEIPT.md`.
+
+**HOV-AUTH-F4 (2026-07-26, sau khi Claude dừng đúng lúc không tự sửa):** full
+suite lộ 2 test path ngoài đúng 39-path Work Order
+(`tests/cvf/test_atomic_mutation_audit.py`,
+`tests/cvf/test_customer_request_vertical.py`) vẫn freeze một ca đã đóng qua
+override cũ mà không tạo handover thật. Codex xác nhận độc lập, ra ADR/SPEC/
+Work Order Amendment 1 mở đúng 2 path đó (ceiling 41), cấm mọi bypass sản
+xuất. Repair: cả hai test giờ dựng đúng chuỗi
+`HandoverService.create`→`review`→`acknowledge` (rỗng, không có open work)
+trước khi freeze, giữ nguyên assertion rollback/frozen-parent gốc — không
+chèn thẳng trạng thái terminal, không mock readiness.
+
+**HOV-REV-F5/F6/F7/F8 (2026-07-26, independent BUILD review Amendment 2):**
+Codex review độc lập KHÔNG chấp nhận receipt của worker làm bằng chứng, tự
+chạy lại từ nguồn và ra `REVIEW_CHANGES_REQUIRED` với 4 finding, sửa hết
+không waiver: (F5 `DEBT_RATCHET_BYPASS`) Amendment 1 cho phép content-edit
+`test_customer_request_vertical.py` nhưng vẫn giữ nguyên giới hạn 300 dòng —
+BUILD để file ở 321 dòng và chỉ rewrite digest debt entry, phá vỡ đúng ratchet
+mà baseline yêu cầu ("mọi content edit buộc split coherent trong cùng changed
+set"); giờ file split thành chính nó (create/HTTP, ≤300),
+`_customer_request_fixtures.py` (setup dùng chung) và
+`test_customer_request_transitions.py` (lifecycle/transition), debt entry bị
+xóa hẳn (không rehash); `test_customer_request_repair.py` (ngoài phạm vi
+repair này) vẫn import đúng các fixture cũ không đổi vì
+`test_customer_request_vertical.py` giờ re-expose chúng từ module dùng chung.
+(F6 `CONTINUITY_GATE_RED`) `SESSION/SESSION_MEMORY.md` 607/600 dòng do chính
+continuity commit của Codex gây ra, không thuộc 41 BUILD path của worker —
+Codex tự sửa riêng ở C2e, không giao cho Claude. (F7
+`LEDGER_PARITY_AND_IMMUTABILITY_GAP`) probe độc lập chứng minh
+InMemoryLedger chấp nhận item trùng `(source_record_type, source_record_id)`
+trong cùng handover và shift nguồn/đích không tồn tại; SqlLedger rò/gắn nhầm
+`IntegrityError` thô thành "duplicate handover_id" kể cả khi nguyên nhân thật
+là FK thiếu shift; `put_handover` không enforce bất biến snapshot nhất quán ở
+cả hai backend. Sửa: `_handover_repository.py`/`_handover_store.py` giờ
+prevalidate tồn tại shift nguồn/đích, trùng aggregate id, trùng item source
+và item/aggregate mismatch bằng CÙNG connection/unit trước khi ghi bất kỳ
+dòng nào — từ chối luôn để lại state sạch, không có `IntegrityError` thô nào
+lọt ra; `put_handover` giờ chỉ cho sửa các trường lifecycle (status/reviewer/
+receiver/timestamp/version), từ chối mọi thay đổi shift pair/items/evidence
+với cùng `ValueError` có kiểm soát trên cả hai backend. Test mới:
+`tests/integration/test_handover_ledger_parity.py` (17 test, cả 2 backend,
+chứng minh không có partial write). (F8 `BUILD_RECEIPT_DRIFT`) receipt cũ
+tuyên bố `571 passed` trong khi rerun độc lập ra `567 passed, 53 skipped, 1
+warning`; receipt giờ chỉ trích đúng kết quả rerun tươi sau repair, kèm lịch
+sử F5-F8 và việc PostgreSQL/provider re-review đã dừng lại khi F7 được phát
+hiện.
+
+**HOV-REV-F9/F10 (2026-07-26, re-review độc lập lần hai, cùng ceiling 44,
+không Amendment 3):** (F9 `PARTIAL_SNAPSHOT_COMPARATOR`) comparator bất biến
+của `put_handover` trước đây chỉ so `(source_record_type, source_record_id,
+source_digest)` mỗi item — `summary`, `evidence`, `owner_id`, `due_at`,
+`risk_class`, `item_id`, `handover_id` riêng của item, và `created_at` của
+chính aggregate đều có thể bị sửa lặng lẽ. Sửa: `_full_item_key`/`_items_key`
+(cả hai backend) giờ so khớp TOÀN BỘ trường của `HandoverItem` cộng
+`created_at` của aggregate; `test_handover_ledger_parity.py` thêm test
+parametrized riêng cho từng trường trước đây bị bỏ sót, cả hai backend (35
+test, tăng từ 17). (F10 `REVIEW_COMMAND_SCOPE_MISCLASSIFICATION`) chẩn đoán
+F8 trước đây là lỗi của reviewer: `571` (root `python -m pytest -q`) khác
+`567` (`python -m pytest tests/ -q`) đúng 4 test vì
+`apps/workspace-api/src/workspace_api/tests/test_lifecycle.py` nằm ngoài
+`tests/` nên chỉ root discovery thấy — không phải receipt trôi dạt. Receipt
+giờ báo cả hai lệnh tường minh:
+`python -m pytest -q` → `606 passed, 53 skipped, 1 warning`;
+`python -m pytest tests/ -q` → `602 passed, 53 skipped, 1 warning`.
+
 ## Trạng thái (2 mức — không gộp lại thành "enforced")
 
 - **callable** — hàm gate tồn tại trong `cvf_runtime`, có unit test gọi trực
@@ -242,10 +339,11 @@ không yêu cầu approval theo migration schema).
 | cost | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/budget.py · assert_within_budget` | Không nơi nào trong request path gọi hàm này; sẽ load-bearing khi ai-gateway wire tới. |
 | refusal | callable một phần | `cvf_runtime/errors.py · CvfDenied` → HTTP map | `CvfDenied` chỉ là exception container; refusal-policy.yaml yêu cầu route tới supervisor + ghi lý do — **chưa implement**, không route, không ghi audit riêng cho refusal. |
 | termination | callable, AI-gated (chưa có runtime caller) | `cvf_runtime/termination.py` | Tương tự cost — chưa có caller thật. |
-| freeze | **load-bearing (P-FIX-1, 2026-07-22)** | `ShiftService.freeze` (identity/permission/`shift_closed` + explicit audited override cho report/handover chưa implement); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (12 test, cả 2 backend). **Còn hạn chế:** `report_approved`/`open_handover_items_linked` chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật — ghi rõ để không lặp lại over-claim. Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
+| freeze | **load-bearing (P-FIX-1, 2026-07-22; `open_handover_items_linked` real từ P2A-HANDOVER-VERTICAL, 2026-07-26)** | `ShiftService.freeze` (identity/permission/`shift_closed` → explicit audited override CHỈ còn cho `report_approved` → `assert_freeze_ready` thật, cùng transaction với freeze mutation và cả hai audit); `InMemoryLedger`/`SqlLedger` chặn mọi mutation (`add_event/put_event/add_task/put_task`) khi shift cha `FROZEN`, trừ `CorrectionService` (`allow_when_frozen=True`, đúng thiết kế "post-freeze correction record only") | Sửa Critical Finding #1: trước đây `freeze_shift` bypass hoàn toàn (HTTP probe trả `200 FROZEN` không điều kiện); giờ trả `409` cho tới khi `shift_closed` + override tường minh + handover thật sẵn sàng. Test end-to-end: `tests/cvf/test_freeze_invariant.py` (16 test, cả 2 backend) + `tests/cvf/test_shift_close_freeze_interaction.py`. **Còn hạn chế:** `report_approved` vẫn chưa có model (Phase 5/P2-D) nên dùng override tường minh có audit, không phải kiểm thật; `open_handover_items_linked` KHÔNG còn là giới hạn — đã có kiểm tra thật, override không bao giờ bypass được nó (xem dòng `handover.create/.review/.acknowledge` bên dưới). Freeze's `shift_closed` check chỉ đọc `shift.status` — nó tin đúng bằng đúng mức mà `shift.close` (dòng dưới) đáng tin; trước P-FIX-6, `shift_closed` có thể bị thỏa mãn bởi một lần close vô danh không qua permission/audit. |
 | shift.close | **load-bearing (P-FIX-6, 2026-07-22)** | `ShiftService.close` (identity/permission `shift.close` role tối thiểu `operator` + state-check chặn close một shift đã `FROZEN`) → `Ledger.transaction()` bọc `close_shift` + `append_audit` atomic, cùng khuôn `freeze`/`TaskService` | Sửa gap review độc lập thứ hai tìm ra 2026-07-22: `POST /shifts/{shift_id}/close` trước đây gọi thẳng `ledger.close_shift(shift_id)` từ router — không `get_principal`, không `require_action`, không audit; probe xác nhận `anonymous_close=200`, `audit_count=0`. Vì freeze chỉ kiểm `shift.status == CLOSED`, close vô danh đó có thể âm thầm thỏa mãn tiền đề `shift_closed` của freeze. Test: `tests/cvf/test_shift_close_governance.py` (13 test: 401 vô danh, 403 role thấp, 200 + audit cho principal hợp lệ, rollback atomic khi audit fail trên cả 2 backend, chặn close shift đã FROZEN, chuỗi đầy đủ create→close có governance→freeze qua cả service lẫn HTTP). **Không** đụng tới approval/known-principals (High Finding #4) — ngoài phạm vi tranche này. |
 | customer_request.create / .transition | **load-bearing (P2-A-CUSTOMER-REQUEST, 2026-07-22; repaired after independent review, 2026-07-22)** | `CustomerRequestService.create_customer_request` (identity/permission `customer_request.create` role tối thiểu `operator` → `domain_lock` `customer_request` → `source_message_id` existence check qua `Ledger.message_exists()` khi được cung cấp → frozen-shift check chỉ khi `shift_id` được cung cấp → `Ledger.transaction()` bọc `add_customer_request` + `append_audit` atomic) / `.transition` (identity/permission `customer_request.transition` → `assert_customer_request_transition` lifecycle guard → transaction atomic) | Domain thứ năm nhân bản cùng khuôn `TaskService`/`ShiftService`. **Không có** risk/evidence/approval gate cho create — `customer_requests` không có cột `risk`/`state`/evidence trong migration 002, nên chain này ngắn hơn Task/Event có chủ đích, không phải thiếu sót. Test: `tests/cvf/test_customer_request_vertical.py` (18 test: service+HTTP create, 401/403, lifecycle hợp lệ/không hợp lệ bao gồm WAITING không được nhảy thẳng CLOSED, CLOSED terminal, rollback atomic cả 2 backend, tạo có/không `shift_id`, tạo bị chặn khi shift cha FROZEN) + `tests/cvf/test_customer_request_repair.py` (11 test: InMemory alias-bypass, `source_message_id` hợp lệ/không tồn tại trên cả 2 backend + HTTP không còn 500, `promised_at` sai định dạng trả 422, domain_lock negative-profile thật). **Sửa sau independent review 2026-07-22:** InMemoryLedger từng lưu/trả về CHÍNH object mutable của caller cho `add/get/put_customer_request` — `created.status = CLOSED` có thể âm thầm đổi state đã lưu, không qua permission/lifecycle/transaction/audit; giờ trả bản `model_copy()` giống mọi entity khác. `source_message_id` từng được kiểm không nhất quán: InMemory chấp nhận vô điều kiện, SqlLedger/SQLite raise `IntegrityError` từ FK không được bắt, có thể lộ ra HTTP 500; giờ validate qua `message_exists()` trước khi persist trên cả 2 backend, trả `CvfDenied(control="reference", http_status=404)` nhất quán. Router's `promised_at` từng khai `str | None`, giá trị sai định dạng chỉ fail khi construct `CustomerRequest(...)` trong route (ValidationError không được router bắt) → lộ HTTP 500; giờ khai `datetime | None` trên `CustomerRequestInput` để Pydantic reject ở request-boundary, trả 422. **Còn hạn chế:** `messages` vẫn chưa có persistence vertical thật; identity không còn là giới hạn ở đây (P2-B, 2026-07-22). |
-| incident.report / .acknowledge / .transition | **load-bearing (P2A-INCIDENT-VERTICAL, 2026-07-26)** | `IncidentService.report` (identity/permission `incident.report` role tối thiểu `operator` → `domain_lock` `equipment_incident` → `Ledger.transaction()` bọc `add_incident` + `append_audit` atomic, evidence persist qua `evidence_links`) / `.acknowledge` (identity/permission `incident.acknowledge` role tối thiểu `shift_supervisor` → risk/evidence từ Incident đã persist → `approval_service.collect_receipts_for`/`assert_approval_satisfied` tái dùng đúng receipt architecture của `event.confirm` → `assert_incident_transition` REPORTED→ACKNOWLEDGED → transaction atomic) / `.transition` (identity/permission `incident.transition` → từ chối tường minh khi status còn REPORTED → `assert_incident_transition` cho phần đồ thị còn lại → frozen-parent check → transaction atomic) | Domain thứ sáu, tái dùng đúng `cvf_runtime` gate — không fork logic permission/risk/evidence/approval/audit. Report tức thời (không chờ quorum); chỉ acknowledge là quyết định được bảo vệ R2+. Test: `tests/cvf/test_incident_vertical.py` (19 test: report/acknowledge/transition ở tầng service lẫn HTTP, permission 403, frozen-shift chặn, insufficient-evidence/fabricated/self-approval/inactive-approver/stale-version receipt đều bị từ chối, acknowledge hợp lệ với approver khác biệt, transition chặn REPORTED và frozen shift) + `tests/integration/test_sql_ledger_incidents.py` (9 test persistence/atomicity) + `tests/integration/test_schema_parity_incidents.py` (8 test parity hai chiều với migration 005) + `tests/integration/test_incident_postgres_live.py` (7 test live PostgreSQL 16: bảng/enum/CHECK/FK/round-trip/rollback). Live Alibaba evidence PASS: 0 provider call cho mọi refusal, đúng 1 call sau acknowledge hợp lệ — receipt `docs/decisions/P2A_INCIDENT_LIVE_EVIDENCE_RECEIPT.md`. **Còn hạn chế:** không implement handovers/reports (domain kế tiếp); không production endpoint nào gọi provider; PostgreSQL live bounded ở disposable-local, không phải production/managed readiness. |
+| incident.report / .acknowledge / .transition | **load-bearing (P2A-INCIDENT-VERTICAL, 2026-07-26)** | `IncidentService.report` (identity/permission `incident.report` role tối thiểu `operator` → `domain_lock` `equipment_incident` → `Ledger.transaction()` bọc `add_incident` + `append_audit` atomic, evidence persist qua `evidence_links`) / `.acknowledge` (identity/permission `incident.acknowledge` role tối thiểu `shift_supervisor` → risk/evidence từ Incident đã persist → `approval_service.collect_receipts_for`/`assert_approval_satisfied` tái dùng đúng receipt architecture của `event.confirm` → `assert_incident_transition` REPORTED→ACKNOWLEDGED → transaction atomic) / `.transition` (identity/permission `incident.transition` → từ chối tường minh khi status còn REPORTED → `assert_incident_transition` cho phần đồ thị còn lại → frozen-parent check → transaction atomic) | Domain thứ sáu, tái dùng đúng `cvf_runtime` gate — không fork logic permission/risk/evidence/approval/audit. Report tức thời (không chờ quorum); chỉ acknowledge là quyết định được bảo vệ R2+. Test: `tests/cvf/test_incident_vertical.py` (19 test: report/acknowledge/transition ở tầng service lẫn HTTP, permission 403, frozen-shift chặn, insufficient-evidence/fabricated/self-approval/inactive-approver/stale-version receipt đều bị từ chối, acknowledge hợp lệ với approver khác biệt, transition chặn REPORTED và frozen shift) + `tests/integration/test_sql_ledger_incidents.py` (9 test persistence/atomicity) + `tests/integration/test_schema_parity_incidents.py` (8 test parity hai chiều với migration 005) + `tests/integration/test_incident_postgres_live.py` (7 test live PostgreSQL 16: bảng/enum/CHECK/FK/round-trip/rollback). Live Alibaba evidence PASS: 0 provider call cho mọi refusal, đúng 1 call sau acknowledge hợp lệ — receipt `docs/decisions/P2A_INCIDENT_LIVE_EVIDENCE_RECEIPT.md`. **Còn hạn chế:** không production endpoint nào gọi provider; PostgreSQL live bounded ở disposable-local, không phải production/managed readiness. |
+| handover.create / .review / .acknowledge | **load-bearing (P2A-HANDOVER-VERTICAL, 2026-07-26; HOV-AUTH-F4 repair)** | `HandoverService.create` (identity/permission `handover.create` role tối thiểu `operator` → `domain_lock` `shift_handover` → server tự derive `items` từ đúng open-work set của shift nguồn, mỗi item mang SHA-256 digest chuẩn tắc → `Ledger.transaction()` bọc `add_handover` + `append_audit` atomic) / `.review` (role tối thiểu `shift_supervisor` → revalidate destination OPEN/source not-FROZEN + khớp snapshot → `assert_handover_transition` DRAFT→REVIEWED → transaction atomic) / `.acknowledge` (role tối thiểu `shift_supervisor`, receiver PHẢI khác reviewer → revalidate lại state/snapshot → `assert_handover_transition` REVIEWED→ACKNOWLEDGED → transaction atomic) | Domain thứ bảy, tái dùng đúng `cvf_runtime` gate. `ShiftService.freeze`'s `open_handover_items_linked` giờ gọi `assert_freeze_ready` thật (không còn override được) trong CÙNG transaction với freeze mutation và audit. Test: `tests/cvf/test_handover_vertical.py` (service+HTTP: lifecycle matrix, permission 403, distinct-receiver, stale/new snapshot rejected, shift-state recheck tại create/review) + `tests/cvf/test_freeze_invariant.py`/`test_shift_close_freeze_interaction.py` (freeze chỉ thành công sau handover ACKNOWLEDGED thật) + `tests/integration/test_sql_ledger_handovers.py` (9 test persistence/atomicity) + `tests/integration/test_schema_parity_handovers.py` (15 test parity hai chiều với migration 006, gồm native enum `handover_status`) + `tests/integration/test_handover_postgres_live.py` (9 test live PostgreSQL 16). Live Alibaba evidence PASS: 0 provider call cho 4 refusal case (thiếu handover, chỉ REVIEWED, tự acknowledge, snapshot cũ), đúng 1 call sau review+acknowledge+freeze hợp lệ qua route HTTP/JWT thật — receipt `docs/decisions/P2A_HANDOVER_LIVE_EVIDENCE_RECEIPT.md`. HOV-AUTH-F4: `test_atomic_mutation_audit.py`/`test_customer_request_vertical.py`'s freeze-adjacent fixtures giờ dựng handover thật thay vì dựa vào override đã bị thu hẹp. **Còn hạn chế:** không có registry gán nhân sự nên acknowledge không tuyên bố nhân sự được gán ca đích; `OperationalEvent` cố ý ngoài tập open-work bắt buộc (chưa có ngữ nghĩa open/resolved); không implement reports; không production endpoint nào gọi provider; PostgreSQL live bounded ở disposable-local. |
 
 ## Thứ tự chain trong `EventService.confirm` (thiết kế — chưa phải bảo đảm runtime)
 

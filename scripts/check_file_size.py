@@ -75,7 +75,15 @@ def count_lines(path: Path) -> int:
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """Portable debt digest (SPEC R24 / HOV-REV-F13): hash UTF-8 text read
+    with universal-newline translation (CRLF and lone CR both normalize to
+    LF on read), the SAME read mode ``count_lines`` already relies on - so
+    identical logical content hashes identically whether the working tree
+    materialized it as LF or CRLF. Any other content difference, including
+    one that preserves line count, still changes the digest, because it is
+    still hashing real text, not discarding information."""
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _normalize(raw: str) -> str:

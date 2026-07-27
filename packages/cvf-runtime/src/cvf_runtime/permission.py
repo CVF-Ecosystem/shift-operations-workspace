@@ -55,6 +55,15 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     "incident.report": "operator",
     "incident.acknowledge": "shift_supervisor",
     "incident.transition": "operator",
+    # Handover (P2A-HANDOVER-VERTICAL): creation is a routine operator action
+    # (mirrors incident.report/task.create) since the server derives every
+    # item from open work - the caller supplies only the two shift ids.
+    # Review (sender) and acknowledge (distinct receiver) are both the higher
+    # shift_supervisor bar because they gate the real `open_handover_items_
+    # linked` freeze prerequisite - the same bar shift.freeze itself uses.
+    "handover.create": "operator",
+    "handover.review": "shift_supervisor",
+    "handover.acknowledge": "shift_supervisor",
 }
 
 

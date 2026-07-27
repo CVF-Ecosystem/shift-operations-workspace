@@ -19,6 +19,13 @@ mechanically: it removes exactly the known incident paths/schemas from the
 current document and re-hashes the remainder against `PRE_INCIDENT_OPENAPI_SHA`
 (the original golden value, captured before this tranche existed) - a blind
 digest refresh, or any additional undisclosed change, could not pass it.
+
+P2A-HANDOVER-VERTICAL (SPEC R12): the same chained proof extends one more
+link. `PRE_HANDOVER_OPENAPI_SHA` is the exact prior `GOLDEN_OPENAPI_SHA`
+(post-incident, pre-handover); `test_openapi_delta_is_exactly_the_five_handover_operations`
+strips only the five handover operations and their reachable schemas and
+re-hashes against it. The incident delta test is extended to strip the
+handover delta too, so it still nets back to the true pre-incident baseline.
 """
 
 from __future__ import annotations
@@ -44,9 +51,12 @@ def _sha(data: bytes) -> str:
 # The value at the pre-P2A-INCIDENT-VERTICAL commit - never itself edited by
 # this repair, only compared against (see the delta-proof test below).
 PRE_INCIDENT_OPENAPI_SHA = "c2af8708e4579a8d1204dd12c1b75c304e5e16b831ef3ba54e0859a0beb9851b"
-# The reviewed post-incident value: PRE_INCIDENT_OPENAPI_SHA plus exactly the
-# five incident operations and their reachable schemas (proven below).
-GOLDEN_OPENAPI_SHA = "497e827e11cb194daedd26dd456a985ca63893212e60534e42662e1850adaf96"
+# The reviewed post-incident, pre-handover value - the exact prior
+# GOLDEN_OPENAPI_SHA, never itself edited, only compared against.
+PRE_HANDOVER_OPENAPI_SHA = "497e827e11cb194daedd26dd456a985ca63893212e60534e42662e1850adaf96"
+# The reviewed post-handover value: PRE_HANDOVER_OPENAPI_SHA plus exactly the
+# five handover operations and their reachable schemas (proven below).
+GOLDEN_OPENAPI_SHA = "0b7ee0dfb4ca596f2e9c6281b45bc39ebf567d864c6233ea9a5ed11ede7a1e57"
 
 _INCIDENT_PATHS = {
     "/incidents",
@@ -61,6 +71,19 @@ _INCIDENT_SCHEMAS = {
     "IncidentStatus",
     "workspace_api__api__incidents__router__TransitionInput",
 }
+_HANDOVER_PATHS = {
+    "/handovers",
+    "/handovers/{handover_id}",
+    "/handovers/{handover_id}/acknowledge",
+    "/handovers/{handover_id}/review",
+}
+_HANDOVER_SCHEMAS = {
+    "Handover",
+    "HandoverCreateInput",
+    "HandoverItem",
+    "HandoverStatus",
+    "ReviewInput",
+}
 
 
 def test_openapi_document_is_unchanged_from_the_pre_build_capture():
@@ -73,7 +96,10 @@ def test_openapi_document_is_unchanged_from_the_pre_build_capture():
 
 
 def test_openapi_delta_is_exactly_the_five_incident_operations():
-    """INC-REV-F1/R10-A: mechanical proof, not an assertion of trust."""
+    """INC-REV-F1/R10-A: mechanical proof, not an assertion of trust.
+
+    P2A-HANDOVER-VERTICAL: also strips the later handover delta so this still
+    nets back to the true pre-incident baseline, not just the pre-handover one."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -81,13 +107,32 @@ def test_openapi_delta_is_exactly_the_five_incident_operations():
     assert _INCIDENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
-    for path in _INCIDENT_PATHS:
+    for path in _INCIDENT_PATHS | _HANDOVER_PATHS:
         del reduced["paths"][path]
-    for schema in _INCIDENT_SCHEMAS:
+    for schema in _INCIDENT_SCHEMAS | _HANDOVER_SCHEMAS:
         del reduced["components"]["schemas"][schema]
 
     actual = canonical(reduced)
     assert _sha(actual) == PRE_INCIDENT_OPENAPI_SHA, actual.decode("utf-8")[:4000]
+
+
+def test_openapi_delta_is_exactly_the_five_handover_operations():
+    """P2A-HANDOVER-VERTICAL (SPEC R12): mechanical proof, not an assertion
+    of trust - mirrors the incident delta proof one link further up the chain."""
+    from workspace_api.main import app
+
+    doc = app.openapi()
+    assert _HANDOVER_PATHS <= doc["paths"].keys()
+    assert _HANDOVER_SCHEMAS <= doc["components"]["schemas"].keys()
+
+    reduced = json.loads(json.dumps(doc))
+    for path in _HANDOVER_PATHS:
+        del reduced["paths"][path]
+    for schema in _HANDOVER_SCHEMAS:
+        del reduced["components"]["schemas"][schema]
+
+    actual = canonical(reduced)
+    assert _sha(actual) == PRE_HANDOVER_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 
 def test_openapi_new_endpoints_and_schemas_exact_contract():

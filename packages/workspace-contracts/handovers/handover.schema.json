@@ -6,6 +6,7 @@
     "handover_id",
     "from_shift_id",
     "to_shift_id",
+    "status",
     "items",
     "acknowledged"
   ],
@@ -19,9 +20,44 @@
     "to_shift_id": {
       "type": "string"
     },
-    "items": {
-      "type": "array"
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "REVIEWED", "ACKNOWLEDGED"]
     },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "item_id",
+          "handover_id",
+          "source_record_type",
+          "source_record_id",
+          "source_digest",
+          "summary"
+        ],
+        "properties": {
+          "item_id": { "type": "string" },
+          "handover_id": { "type": "string" },
+          "source_record_type": {
+            "type": "string",
+            "enum": ["Task", "CustomerRequest", "Incident"]
+          },
+          "source_record_id": { "type": "string" },
+          "source_digest": { "type": "string" },
+          "summary": { "type": "string" },
+          "owner_id": { "type": ["string", "null"] },
+          "due_at": { "type": ["string", "null"] },
+          "risk_class": {
+            "type": "string",
+            "enum": ["R0", "R1", "R2", "R3", "R4"]
+          }
+        }
+      }
+    },
+    "created_by": { "type": "string" },
+    "reviewed_by": { "type": ["string", "null"] },
+    "received_by": { "type": ["string", "null"] },
     "acknowledged": {
       "type": "boolean"
     }

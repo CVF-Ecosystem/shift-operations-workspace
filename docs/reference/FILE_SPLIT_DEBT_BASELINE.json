@@ -11,7 +11,7 @@
   "debt": [
     {
       "path": "scripts/generate_catalog.py",
-      "sha256": "a46bd98d675af51d75d313b0913721c77af8d72f5fad97ded6908090703c4578",
+      "sha256": "fff6229dde57a174935b87eb8319ef7e6d1bdd882580f74e672c81054739c93b",
       "lineCount": 313,
       "hardLimit": 300,
       "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",
@@ -24,22 +24,6 @@
       "hardLimit": 300,
       "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",
       "requiredSplit": "Split the gate-refusal probes and receipt rendering into a support module if ever content-edited, mirroring run_approval_governance_evidence.py's split."
-    },
-    {
-      "path": "tests/cvf/test_customer_request_vertical.py",
-      "sha256": "c6f33faedb141049ecfdee1ccbfa83b3a229f5187341530d0423984377c32a0e",
-      "lineCount": 305,
-      "hardLimit": 300,
-      "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",
-      "requiredSplit": "Split by coherent behavior (create/transition) into two test modules plus a shared fixtures module if ever content-edited."
-    },
-    {
-      "path": "tests/cvf/test_shift_close_governance.py",
-      "sha256": "db72919eca86502610ff9d474c31a343416b66204d9f0557af995183970522d3",
-      "lineCount": 313,
-      "hardLimit": 300,
-      "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",
-      "requiredSplit": "Split by coherent behavior into two test modules plus a shared fixtures module if ever content-edited."
     }
   ]
 }

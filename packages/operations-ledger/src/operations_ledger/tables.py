@@ -44,6 +44,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 from sqlalchemy.dialects.postgresql import JSONB
 
+from operations_ledger._handover_tables import build_handover_tables
 from operations_ledger._incident_tables import build_incidents_table
 
 metadata = MetaData()
@@ -283,3 +284,8 @@ approval_receipts = Table(
 # lives in _incident_tables.py (SPEC R11): this host module only wires the
 # shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
 incidents = build_incidents_table(metadata, shifts, RISK_CLASS_TYPE)
+
+# Mirrors migration 006_handovers.sql (P2A-HANDOVER-VERTICAL). Table builder
+# lives in _handover_tables.py (SPEC R13): this host module only wires the
+# shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
+handovers, handover_items = build_handover_tables(metadata, shifts, RISK_CLASS_TYPE)

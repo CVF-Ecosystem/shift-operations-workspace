@@ -22,6 +22,7 @@ from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
 from workspace_api.application.correction_service import CorrectionService
+from workspace_api.application.handover_service import HandoverService
 from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
@@ -62,6 +63,24 @@ def _new_shift(ledger):
 
 def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
+
+
+def _receiving_supervisor():
+    return Principal(user_id="sup2", role="shift_supervisor")
+
+
+def _make_ready_handover(ledger, shift):
+    """HOV-AUTH-F4 repair: a genuine server-derived, reviewed and
+    ACKNOWLEDGED (empty) handover - the real `open_handover_items_linked`
+    freeze prerequisite - via the same HandoverService application chain
+    every other test uses, never a direct terminal-state insertion or mock."""
+    now = datetime.now(timezone.utc)
+    dest = Shift(name="Next", starts_at=now, ends_at=now + timedelta(hours=8))
+    ledger.create_shift(dest)
+    svc = HandoverService(ledger)
+    handover = svc.create(shift.shift_id, dest.shift_id, _operator())
+    handover = svc.review(handover.handover_id, _supervisor())
+    return svc.acknowledge(handover.handover_id, _receiving_supervisor())
 
 
 class _BoomOnAudit(Exception):
@@ -210,6 +229,7 @@ def test_shift_freeze_rolls_back_when_audit_fails_in_memory():
     ledger = InMemoryLedger()
     shift = _new_shift(ledger)
     ledger.close_shift(shift.shift_id)
+    _make_ready_handover(ledger, shift)
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
@@ -220,12 +240,19 @@ def test_shift_freeze_rolls_back_when_audit_fails_in_memory():
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"
+    # R18: readiness + freeze mutation + both audits share one transaction -
+    # the injected failure must leave every audit effect of THIS attempt
+    # unwritten too (the earlier handover's own audits are untouched).
+    freeze_actions = {e.action for e in ledger.audit_entries_for(str(shift.shift_id))}
+    assert "shift.freeze" not in freeze_actions
+    assert "shift.freeze_override_unimplemented_prerequisites" not in freeze_actions
 
 
 def test_shift_freeze_rolls_back_when_audit_fails_sql(tmp_path):
     ledger = _sql_ledger(tmp_path)
     shift = _new_shift(ledger)
     ledger.close_shift(shift.shift_id)
+    _make_ready_handover(ledger, shift)
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
@@ -236,3 +263,6 @@ def test_shift_freeze_rolls_back_when_audit_fails_sql(tmp_path):
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"
+    freeze_actions = {e["action"] for e in ledger.audit_entries_for(str(shift.shift_id))}
+    assert "shift.freeze" not in freeze_actions
+    assert "shift.freeze_override_unimplemented_prerequisites" not in freeze_actions

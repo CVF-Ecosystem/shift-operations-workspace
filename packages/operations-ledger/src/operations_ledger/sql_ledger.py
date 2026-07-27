@@ -11,6 +11,7 @@ from sqlalchemy.exc import IntegrityError
 
 from operations_ledger import _evidence, _rows
 from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
+from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
 from operations_ledger.tables import (
     audit_records,
@@ -48,7 +49,7 @@ def make_engine(database_url: str, **kwargs) -> Engine:
     return engine
 
 
-class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin):
+class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
     def __init__(self, database_url: str, models, engine: Engine | None = None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
         # If an engine is injected (tests), it must have been built with

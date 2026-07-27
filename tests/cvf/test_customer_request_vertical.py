@@ -1,75 +1,41 @@
 """Customer-request golden vertical: the CVF chain replicated to a fourth
-operational domain (P2-A).
+operational domain (P2-A). Create/HTTP behavior only - transition/lifecycle
+tests split into test_customer_request_transitions.py (HOV-REV-F5 repair,
+P2A-HANDOVER-VERTICAL Amendment 2, SPEC R20); shared setup lives in
+_customer_request_fixtures.py.
 
-Proves the SAME cvf-runtime gates enforce CustomerRequest create/transition,
-plus the customer-request-specific status lifecycle, the nullable-shift_id
-frozen-shift invariant, and atomic mutation+audit on both ledger backends.
+Proves the SAME cvf-runtime gates enforce CustomerRequest create, the
+nullable-shift_id frozen-shift invariant (via a real acknowledged handover,
+HOV-AUTH-F4), and atomic create+audit on both ledger backends.
 """
 
-from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
 
 import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
-from operations_ledger.sql_ledger import SqlLedger, make_engine
-from operations_ledger.tables import metadata
+from operations_ledger.sql_ledger import SqlLedger
 
 from workspace_api.application.customer_request_service import CustomerRequestService
 from workspace_api.application.shift_service import ShiftService
-from workspace_api.dependencies import get_ledger
-from workspace_api.domain import models as domain_models
-from operations_domain.models import CustomerRequest, CustomerRequestStatus, Shift
+from operations_domain.models import CustomerRequestStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
-from workspace_api.main import app
 
+from _customer_request_fixtures import (  # noqa: F401 - re-exported for test_customer_request_repair.py
+    _BoomOnAudit,
+    _backends,
+    _client_for,
+    _clear_overrides,
+    _make_ready_handover,
+    _new_shift,
+    _operator,
+    _raise_on_audit,
+    _request,
+    _sql_ledger,
+    _viewer,
+)
 from _auth_test_helpers import auth_headers
-
-
-def _sql_ledger(tmp_path, name="customer_requests.sqlite3"):
-    db = tmp_path / name
-    engine = make_engine(f"sqlite:///{db}")
-    metadata.create_all(engine)
-    return SqlLedger(str(db), models=domain_models, engine=engine)
-
-
-def _operator():
-    return Principal(user_id="op1", role="operator")
-
-
-def _viewer():
-    return Principal(user_id="v1", role="viewer")
-
-
-def _new_shift(ledger):
-    now = datetime.now(timezone.utc)
-    shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
-    ledger.create_shift(shift)
-    return shift
-
-
-def _request(shift=None, **overrides):
-    kwargs = dict(customer_id="cust-1", summary="Container missing paperwork")
-    if shift is not None:
-        kwargs["shift_id"] = shift.shift_id
-    kwargs.update(overrides)
-    return CustomerRequest(**kwargs)
-
-
-def _client_for(ledger):
-    app.dependency_overrides[get_ledger] = lambda: ledger
-    return TestClient(app)
-
-
-def _clear_overrides():
-    app.dependency_overrides.pop(get_ledger, None)
-
-
-def _backends(tmp_path):
-    return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
 
 
 # --- service-level create --------------------------------------------------
@@ -118,6 +84,7 @@ def test_create_customer_request_with_frozen_shift_is_rejected(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     shift = _new_shift(ledger)
     ShiftService(ledger).close(shift.shift_id, _operator())
+    _make_ready_handover(ledger, shift)
     ShiftService(ledger).freeze(
         shift.shift_id,
         Principal(user_id="sup1", role="shift_supervisor"),
@@ -125,8 +92,11 @@ def test_create_customer_request_with_frozen_shift_is_rejected(tmp_path, name):
         override_reason="test",
     )
 
+    rejected_request = _request(shift)
     with pytest.raises(ValueError):
-        CustomerRequestService(ledger).create_customer_request(_request(shift), _operator())
+        CustomerRequestService(ledger).create_customer_request(rejected_request, _operator())
+    with pytest.raises(KeyError):
+        ledger.get_customer_request(rejected_request.request_id)
 
 
 # --- HTTP-level round trip ---------------------------------------------------
@@ -178,79 +148,7 @@ def test_http_insufficient_role_create_is_403():
         _clear_overrides()
 
 
-# --- transition ---------------------------------------------------------
-
-
-def test_valid_status_transition_sequence():
-    ledger = InMemoryLedger()
-    svc = CustomerRequestService(ledger)
-    created = svc.create_customer_request(_request(), _operator())
-
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
-    assert moved.status == CustomerRequestStatus.ACKNOWLEDGED
-
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    assert moved.status == CustomerRequestStatus.IN_PROGRESS
-
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.RESOLVED)
-    assert moved.status == CustomerRequestStatus.RESOLVED
-
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
-    assert moved.status == CustomerRequestStatus.CLOSED
-
-    audit = ledger.audit_entries_for(str(created.request_id))
-    assert audit[-1].action == "customer_request.transition"
-    assert audit[-1].before_state == "RESOLVED"
-    assert audit[-1].after_state == "CLOSED"
-
-
-def test_waiting_cannot_go_directly_to_closed():
-    ledger = InMemoryLedger()
-    svc = CustomerRequestService(ledger)
-    created = svc.create_customer_request(_request(), _operator())
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.WAITING)
-
-    with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
-
-    # WAITING -> IN_PROGRESS remains a valid path back.
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    assert moved.status == CustomerRequestStatus.IN_PROGRESS
-
-
-def test_closed_is_terminal():
-    ledger = InMemoryLedger()
-    svc = CustomerRequestService(ledger)
-    created = svc.create_customer_request(_request(), _operator())
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.RESOLVED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
-
-    with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-
-
-def test_illegal_transition_skip_is_blocked():
-    ledger = InMemoryLedger()
-    svc = CustomerRequestService(ledger)
-    created = svc.create_customer_request(_request(), _operator())
-    # NEW -> IN_PROGRESS directly is not allowed (must go through ACKNOWLEDGED).
-    with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-
-
-# --- atomicity: audit-append failure must not leave a mutated record --------
-
-
-class _BoomOnAudit(Exception):
-    pass
-
-
-def _raise_on_audit(*args, **kwargs):
-    raise _BoomOnAudit("simulated audit sink failure")
+# --- atomicity: create only --------------------------------------------------
 
 
 def test_create_rolls_back_when_audit_fails_in_memory():
@@ -275,31 +173,3 @@ def test_create_rolls_back_when_audit_fails_sql(tmp_path):
 
     with pytest.raises(KeyError):
         ledger.get_customer_request(request.request_id)
-
-
-def test_transition_rolls_back_when_audit_fails_in_memory():
-    ledger = InMemoryLedger()
-    created = CustomerRequestService(ledger).create_customer_request(_request(), _operator())
-
-    with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
-        with pytest.raises(_BoomOnAudit):
-            CustomerRequestService(ledger).transition(
-                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED
-            )
-
-    fetched = ledger.get_customer_request(created.request_id)
-    assert fetched.status == CustomerRequestStatus.NEW, "status must not advance"
-
-
-def test_transition_rolls_back_when_audit_fails_sql(tmp_path):
-    ledger = _sql_ledger(tmp_path)
-    created = CustomerRequestService(ledger).create_customer_request(_request(), _operator())
-
-    with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
-        with pytest.raises(_BoomOnAudit):
-            CustomerRequestService(ledger).transition(
-                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED
-            )
-
-    fetched = ledger.get_customer_request(created.request_id)
-    assert fetched.status == CustomerRequestStatus.NEW, "status must not advance"

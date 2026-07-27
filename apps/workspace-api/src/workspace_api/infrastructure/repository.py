@@ -10,6 +10,7 @@ from operations_domain.models import (
     ApprovalReceipt,
     Correction,
     CustomerRequest,
+    Handover,
     Incident,
     Message,
     OperationalEvent,
@@ -27,9 +28,10 @@ from operations_domain.models import (
 # still imported from workspace_api.domain.models here.
 from workspace_api.domain.models import User
 from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
+from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
 
-class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin):
+class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRepositoryMixin):
     def __init__(self):
         self._lock = RLock()
         self.shifts: dict[UUID, Shift] = {}
@@ -39,6 +41,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin):
         self.tasks: dict[UUID, Task] = {}
         self.customer_requests: dict[UUID, CustomerRequest] = {}
         self.incidents: dict[UUID, Incident] = {}
+        self.handovers: dict[UUID, Handover] = {}
         self.users: dict[str, User] = {}
         self.approval_receipts: dict[UUID, ApprovalReceipt] = {}
         self.task_creation_intents: dict[UUID, TaskCreationIntent] = {}
@@ -69,6 +72,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin):
                     self.tasks,
                     self.customer_requests,
                     self.incidents,
+                    self.handovers,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
@@ -86,6 +90,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin):
                     self.tasks,
                     self.customer_requests,
                     self.incidents,
+                    self.handovers,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,

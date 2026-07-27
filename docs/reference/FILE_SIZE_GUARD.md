@@ -52,6 +52,26 @@ Baseline **không phải cơ chế exception chung** — thêm/sửa một mục
 đổi chính sách có kiểm soát (governed policy change), luôn hiện trong Git
 review.
 
+### Digest cổng-độc-lập (portable digest) — R24 / HOV-REV-F13
+
+`sha256` trong mỗi debt entry được tính trên nội dung UTF-8 đọc qua
+universal-newline (CRLF và CR lẻ đều normalize về LF khi đọc) — **cùng chế
+độ đọc** mà `count_lines()` đã dùng từ trước — rồi hash chuỗi đã canonical
+hoá đó, không phải hash raw bytes trên đĩa. Hệ quả:
+
+- cùng một nội dung logic hash **giống nhau** dù working tree checkout ra LF
+  hay CRLF (Windows `core.autocrlf=true` vs Linux/CI `core.autocrlf=false`
+  hay `input`) — digest baseline không còn phụ thuộc checkout;
+- mọi thay đổi nội dung THẬT (kể cả khi giữ nguyên số dòng, vd sửa một giá
+  trị bên trong dòng) vẫn đổi digest và vẫn fail — canonical hoá EOL không
+  làm yếu phát hiện nội dung;
+- digest LF hiện có trong baseline **không đổi**: với file thuần LF (không
+  có `\r`), universal-newline read là no-op nên digest mới trùng digest cũ.
+
+Không dùng `.gitattributes` hay cấu hình Git máy-cục-bộ (`core.autocrlf`,
+`core.eol`, …) để "sửa" vấn đề checkout — digest phải tự nó cổng-độc-lập ở
+tầng checker, không phụ thuộc môi trường chạy.
+
 ## Khi một file executable chạm ngưỡng
 
 1. Kiểm line count hiện tại và ngưỡng của loại đó.
