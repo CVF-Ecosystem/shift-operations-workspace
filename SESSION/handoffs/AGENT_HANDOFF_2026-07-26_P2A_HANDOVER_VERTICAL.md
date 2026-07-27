@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-HANDOVER-VERTICAL-2026-07-26`
-- Control-chain phase: `BUILD` repair; Amendment 4 repair authorized
+- Control-chain phase: `FREEZE`
 - Roadmap target: P2-A handovers only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `REVIEW_CHANGES_REQUIRED_F14`
+- Status: `CLOSED_BOUNDED`
 
 ## Prior closure
 
@@ -19,6 +19,23 @@ P2A Incident is settled history:
 - `FREEZE / CLOSED_BOUNDED`.
 
 Do not reopen or batch incident work into this tranche.
+
+## Final closure
+
+- Independent disposition: `REVIEW_PASS`; all `HOV-AUTH-F1..F4` and
+  `HOV-REV-F5..F15` closed without waiver.
+- C3: `8485ef95ec837138d9279d71f03388d1215c0306`, exactly 47 authorized paths,
+  pushed to `origin/main`.
+- Independent evidence: focused 117; root 610/53 skipped; tests-only 606/53
+  skipped; PostgreSQL 16 live 53 with exact cleanup; bounded real provider
+  evidence HTTP 200 with four refusal zero-call cases and one admitted call;
+  repository and doctor gates PASS.
+- Claim boundary remains the parent/amended boundary. This does not prove
+  report approval, destination assignment, UI, managed PostgreSQL, production
+  provider routing, load/concurrency/HA or Phase 2 completion.
+- C4 records this FREEZE separately and augments the future roadmap. The next
+  governed move is fresh INTAKE for P2-C frontend; no BUILD authority carries
+  forward.
 
 ## Authorization
 

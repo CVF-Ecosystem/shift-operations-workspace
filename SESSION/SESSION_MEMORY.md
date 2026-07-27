@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-27 (P2-A handover F15 closed; receipt reconciliation)_
+_Last updated: 2026-07-27 (P2-A handover FREEZE; roadmap augmented)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — review):** F14 is verified repaired. Reviewer-
-owned F15 overflow is closed at `eaccf7a` by compacting this memory to 599
-lines. Exact BUILD stays 47 and all independent runtime/repository gates pass;
-only the existing BUILD receipt needs current disposition before final review.
+**2026-07-27 (P2-A HANDOVER — FREEZE/CLOSED_BOUNDED):** C3 `8485ef9` contains
+exactly 47 reviewed paths; F1–F15 closed without waiver. Local PostgreSQL 16
+and bounded provider evidence pass. Roadmap now stages data cleaning,
+retrieval/RAG/memory and later proactive reporting/forecasting; none is built.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
