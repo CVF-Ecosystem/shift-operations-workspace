@@ -8,12 +8,10 @@ _Last updated: 2026-07-27 (P2-A handover F14; Amendment 4 exact 47 unchanged)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — repair):** F13's canonical digest fix passes its
-36-test focused suite but correctly exposed F14: the existing
-`generate_catalog.py` debt SHA was recorded from CRLF worktree bytes, not the
-unchanged Git blob. Amendment 4 C2h `781f75c` authorizes only that one SHA
-scalar correction in the already-authorized baseline path. Final BUILD stays
-exactly 47; no other rehash, field, source file or 48th path is allowed.
+**2026-07-27 (P2-A HANDOVER — repair):** F13's 36-test canonical digest fix
+exposed F14: `generate_catalog.py` debt SHA came from CRLF bytes, not its Git
+blob. Amendment 4 C2h `781f75c` permits only that SHA correction in the existing
+baseline path; BUILD stays exactly 47 with no other rehash or 48th path.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
