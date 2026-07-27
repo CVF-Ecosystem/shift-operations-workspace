@@ -8,7 +8,7 @@
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `REVIEW_CHANGES_REQUIRED_F11_F12`
+- Status: `REVIEW_CHANGES_REQUIRED_F13`
 
 ## Prior closure
 
@@ -144,11 +144,45 @@ duplicate item and evidence mutations on both backends and every Python file
 must remain <=300. Exact C3 remains 44; no Amendment 3 and no 45th path are
 authorized.
 
+### Independent re-review — F13 / Amendment 3
+
+Codex independently verified the F11/F12 repair:
+
+- exact 44 BUILD paths and corrected worktree arithmetic: PASS;
+- duplicate item/evidence rejection plus order-only acceptance on both
+  backends: PASS;
+- focused 171 passed; root 610 passed/53 skipped; tests-only 606 passed/53
+  skipped; repository gates PASS;
+- PostgreSQL 16 live 53 passed, migrations 21/0 then 17/4, cleanup exact;
+- four provider refusal cases at 0 calls and one genuine Alibaba HTTP 200 call.
+
+AC-21 rehearsal at committed parent `6850e6e` returned the expected tests-only
+baseline (`507 passed, 44 skipped, 1 warning`) but file-size/validator failed:
+
+- LF primary file SHA-256: `59288b5c...` (matches baseline);
+- fresh Windows worktree under `core.autocrlf=true`: CRLF SHA-256
+  `04e4039e...`;
+- logical content and line count are identical;
+- both temporary worktrees were removed successfully.
+
+Finding: `HOV-REV-F13 ROLLBACK_REHEARSAL_EOL_NONPORTABILITY`.
+
+Amendment 3 C2f `fd5367b146b40a85eb78edde6bf75aa73ab4310d`
+authorizes exactly:
+
+45. `scripts/check_file_size.py`;
+46. `tests/integration/test_file_size_guard.py`;
+47. `docs/reference/FILE_SIZE_GUARD.md`.
+
+Debt SHA becomes UTF-8/universal-newline canonical (CRLF/lone CR → LF) while
+all non-EOL mutations remain digest failures. Existing LF digests are not
+rehashed. No debt entry, `.gitattributes` workaround or 48th path is allowed.
+
 ## Exact BUILD boundary
 
-The final C3 ceiling is exactly 44 paths: Work Order section 3's 39,
-Amendment 1's two legacy freeze tests and Amendment 2's three split/parity
-test paths. No 45th path is conditional.
+The final C3 ceiling is exactly 47 paths: Work Order section 3's 39,
+Amendment 1's two legacy freeze tests, Amendment 2's three split/parity paths
+and Amendment 3's three guard portability paths. No 48th path is conditional.
 
 Key invariants:
 
@@ -181,13 +215,14 @@ Key invariants:
 
 ## G6 and return
 
-After the F11/F12 continuity push, Claude rehydrates this handoff, the parent
-authorization and Amendments 1-2; declares `REPAIR_WORKER`; repairs only F11
-and F12 inside the existing 44 paths, then reruns all gates.
+After the Amendment 3 C2f and F13 continuity C2g pushes, Claude rehydrates this
+handoff, the parent authorization and Amendments 1-3; declares
+`REPAIR_WORKER`; repairs only F13 inside the exact 47 paths, then reruns all
+gates.
 
 Claude performs no stage/commit/push and stops at:
 
-`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_REVIEW`
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_RE_REVIEW`
 
 Any stop-condition defect is reported without repair until Codex reviews and
 authorizes the next move.

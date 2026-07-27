@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-27 (P2-A handover re-review F11/F12; exact 44 unchanged)_
+_Last updated: 2026-07-27 (P2-A handover re-review F13; Amendment 3 exact 47)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — review):** F9 field coverage repaired, but
-re-review found F11 multiset collapse: identical duplicate item/evidence
-mutations still pass. F12 corrects the BUILD receipt's untracked/count claims.
-F10 is verified: root collection has exactly four app-local tests more.
+**2026-07-27 (P2-A HANDOVER — review):** F11/F12 repaired, but AC-21 found
+F13: raw-byte debt SHA changes LF→CRLF in a fresh Windows worktree, so rollback
+file-size gate fails. Amendment 3 authorizes exactly three guard/test/doc paths;
+final BUILD ceiling is 47, with no debt rehash and no 48th path.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
