@@ -3,12 +3,12 @@
 ## Disposition
 
 - Tranche: `P2A-HANDOVER-VERTICAL-2026-07-26`
-- Control-chain phase: `REVIEW` returned changes; Amendment 2 repair authorized
+- Control-chain phase: `BUILD` repair; Amendment 4 repair authorized
 - Roadmap target: P2-A handovers only
 - Risk: R2
 - Implementation worker: Claude
 - Independent reviewer / commit steward / closer: Codex
-- Status: `REVIEW_CHANGES_REQUIRED_F13`
+- Status: `REVIEW_CHANGES_REQUIRED_F14`
 
 ## Prior closure
 
@@ -226,6 +226,34 @@ Claude performs no stage/commit/push and stops at:
 
 Any stop-condition defect is reported without repair until Codex reviews and
 authorizes the next move.
+
+### Independent receipt re-review — F14 / Amendment 4
+
+Claude's F13 implementation correctly hashes UTF-8 logical text through
+universal-newline translation. Codex independently ran the focused suite
+(`36 passed`) and reproduced the resulting gate stop:
+
+- `scripts/generate_catalog.py` recorded SHA `a46bd98d...` equals the current
+  worktree's raw CRLF bytes;
+- its unchanged Git blob and canonical logical text both hash to
+  `fff6229d...`;
+- the other debt entry remains unchanged and canonical;
+- direct file-size gate fails only on the stale `generate_catalog.py` value.
+
+Finding:
+`HOV-REV-F14 PREEXISTING_CANONICAL_DEBT_DIGEST_DRIFT`.
+
+Amendment 4 C2h `781f75c` authorizes exactly one scalar correction in the
+already-authorized `docs/reference/FILE_SPLIT_DEBT_BASELINE.json`: replace
+that entry's SHA with
+`fff6229dde57a174935b87eb8319ef7e6d1bdd882580f74e672c81054739c93b`.
+No other field, entry, digest or source may change. Exact C3 remains 47.
+
+After this continuity C2i push, Claude rehydrates the parent authorization and
+Amendments 1-4, declares `REPAIR_WORKER`, applies only that scalar correction,
+updates the BUILD receipt, reruns all mandatory gates, and stops at:
+
+`READY_FOR_INDEPENDENT_HANDOVER_BUILD_RE_RE_RE_RE_RE_RE_REVIEW`
 
 ## Claim boundary
 

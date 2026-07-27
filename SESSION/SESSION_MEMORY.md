@@ -4,14 +4,16 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-27 (P2-A handover re-review F13; Amendment 3 exact 47)_
+_Last updated: 2026-07-27 (P2-A handover F14; Amendment 4 exact 47 unchanged)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — review):** F11/F12 repaired, but AC-21 found
-F13: raw-byte debt SHA changes LF→CRLF in a fresh Windows worktree, so rollback
-file-size gate fails. Amendment 3 authorizes exactly three guard/test/doc paths;
-final BUILD ceiling is 47, with no debt rehash and no 48th path.
+**2026-07-27 (P2-A HANDOVER — repair):** F13's canonical digest fix passes its
+36-test focused suite but correctly exposed F14: the existing
+`generate_catalog.py` debt SHA was recorded from CRLF worktree bytes, not the
+unchanged Git blob. Amendment 4 C2h `781f75c` authorizes only that one SHA
+scalar correction in the already-authorized baseline path. Final BUILD stays
+exactly 47; no other rehash, field, source file or 48th path is allowed.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
