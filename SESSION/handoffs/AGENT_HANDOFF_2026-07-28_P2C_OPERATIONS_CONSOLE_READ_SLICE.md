@@ -7,7 +7,7 @@
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
 - Active role: ORCHESTRATOR / SPEC_AUTHOR
-- Status: `DESIGN_AUTHORIZED — NOT_YET_AUTHORED`
+- Status: `DESIGN_COMPLETE — PENDING_SPEC`
 
 ## Settled predecessor
 
@@ -59,3 +59,16 @@ On 2026-07-28, after INTAKE commit `b96e4786bc3e0a458e0f10f14a06b39443901077`
 was pushed and continuity rehydrated, Codex transitioned from INTAKE_AUTHOR to
 SPEC_AUTHOR. DESIGN may resolve F1-F3; it may not implement source or silently
 advance to BUILD.
+
+## DESIGN disposition
+
+ADR:
+`docs/decisions/ADR_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md`.
+
+F1-F3 are resolved by a read-only cross-layer slice: reuse the canonical
+open-work snapshot, add only event-list query support, require JWT identity
+for operational reads, add no assignment/data-scope claim, and establish a
+locked frontend test/build/CI gate. `P2C-DESIGN-F1 UNGOVERNED_SHIFT_CREATE`
+is parked for a separate security repair and is not silently absorbed.
+
+Next move: author SPEC. No Work Order or BUILD authority exists.

@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-C INTAKE b96e478 is pushed. SPEC_AUTHOR may resolve F1-F3 in DESIGN only; no SPEC, Work Order or BUILD authority exists.",
+  "syncReceipt": "P2-C DESIGN resolves intake F1-F3; SPEC is the sole next move. P2C-DESIGN-F1 shift-create bypass is parked separately; no BUILD authority exists.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "SPEC_AUTHOR",
   "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
