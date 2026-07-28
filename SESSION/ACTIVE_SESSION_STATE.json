@@ -62,7 +62,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 is at INTAKE_COMPLETE. Scope is authenticated read-only frontend plus only the minimal real read/query/auth seams required for shift selection, timeline/open work, incident and handover summaries. P2C-INTAKE-F1/F2/F3 must be resolved in DESIGN: missing Events/Tasks/CustomerRequest shift-scoped reads, absent reproducible Node/pnpm lock/CI gate, and inconsistent/overclaim-prone read authority. NEXT MOVE: author and independently review DESIGN. No SPEC, Work Order or BUILD authority exists; no mutation, offline/realtime, reports, AI/RAG/memory/forecasting, assignment-registry or production-readiness claim.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 is in DESIGN after pushed INTAKE b96e478. Scope remains authenticated read-only frontend plus only the minimal real read/query/auth seams required for shift selection, timeline/open work, incident and handover summaries. DESIGN must resolve P2C-INTAKE-F1/F2/F3 without inventing assignment/data-scope claims. NEXT MOVE: author and independently review ADR; SPEC and Work Order remain unauthorized until DESIGN is recorded. No BUILD authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -169,16 +169,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "P2-C read-console intake is complete; DESIGN must resolve three named prerequisites before SPEC or Work Order.",
+    "activePhase": "DESIGN",
+    "activePhaseNote": "INTAKE b96e478 is pushed; Codex is authorized as SPEC_AUTHOR to resolve the three named findings in ADR only.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-A handover and all earlier handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "Codex authors and reviews P2-C DESIGN next. No implementation role or BUILD authority exists.",
+    "activeRole": "SPEC_AUTHOR",
+    "activeRoleNote": "Codex authors P2-C DESIGN only; no source implementation or BUILD authority exists.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-28"
   }

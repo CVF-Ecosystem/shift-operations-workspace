@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28`
-- Control-chain phase: `INTAKE`
+- Control-chain phase: `DESIGN`
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
-- Active role: ORCHESTRATOR / INTAKE_AUTHOR
-- Status: `INTAKE_COMPLETE — DESIGN_NOT_STARTED`
+- Active role: ORCHESTRATOR / SPEC_AUTHOR
+- Status: `DESIGN_AUTHORIZED — NOT_YET_AUTHORED`
 
 ## Settled predecessor
 
@@ -52,3 +52,10 @@ Canonical intake:
 
 Author and independently review DESIGN. No SPEC, Work Order or BUILD authority
 exists from this handoff.
+
+## DESIGN role transition acknowledgment
+
+On 2026-07-28, after INTAKE commit `b96e4786bc3e0a458e0f10f14a06b39443901077`
+was pushed and continuity rehydrated, Codex transitioned from INTAKE_AUTHOR to
+SPEC_AUTHOR. DESIGN may resolve F1-F3; it may not implement source or silently
+advance to BUILD.
