@@ -7,7 +7,7 @@
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
 - Active role: ORCHESTRATOR / SPEC_AUTHOR
-- Status: `DESIGN_COMPLETE — PENDING_SPEC`
+- Status: `SPEC_COMPLETE — PENDING_WORK_ORDER`
 
 ## Settled predecessor
 
@@ -72,3 +72,14 @@ locked frontend test/build/CI gate. `P2C-DESIGN-F1 UNGOVERNED_SHIFT_CREATE`
 is parked for a separate security repair and is not silently absorbed.
 
 Next move: author SPEC. No Work Order or BUILD authority exists.
+
+## SPEC disposition
+
+SPEC:
+`docs/specs/P2C_OPERATIONS_CONSOLE_READ_SLICE_SPEC.md`.
+
+R1-R19 and AC-01-AC-19 lock the read-only boundary, canonical open-work reuse,
+event-query parity, 500-record ceiling, identity-only read claim, tab-scoped
+token handling, frontend toolchain, PostgreSQL/live-provider evidence and
+rollback. Next move: exact-path Work Order feasibility review. BUILD remains
+unauthorized.
