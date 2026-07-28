@@ -8,6 +8,10 @@
   "required_reads": [
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "docs/decisions/INTAKE_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
+    "docs/decisions/ADR_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
+    "docs/specs/P2C_OPERATIONS_CONSOLE_READ_SLICE_SPEC.md",
+    "docs/work_orders/P2C_OPERATIONS_CONSOLE_READ_SLICE_WORK_ORDER.md",
+    "docs/decisions/P2C_OPERATIONS_CONSOLE_READ_SLICE_AUTHORIZATION_REVIEW.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-26_P2A_HANDOVER_VERTICAL.md",
     "docs/decisions/ADR_2026-07-26_P2A_HANDOVER_VERTICAL.md",
     "docs/specs/P2A_HANDOVER_VERTICAL_SPEC.md",
@@ -62,7 +66,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 is at WORK_ORDER drafting after pushed SPEC e416f1e. R1-R19/AC-01-AC-19 remain binding. WORK_ORDER must split C3a authenticated read API/query/contract/live evidence from C3b React console/toolchain/CI, with independent review and commit between them. NEXT MOVE: author and independently feasibility-review exact path sets, gates and stop conditions. BUILD remains unauthorized.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 is at BUILD checkpoint C3a. Work Order and authorization review are pushed at 6e1b798; R1-R19/AC-01-AC-19 and the 23-path C3a ceiling are binding. NEXT MOVE: Claude rehydrates the current handoff/ADR/SPEC/Work Order/review, verifies G5-G6 including a responding Docker daemon, declares IMPLEMENTATION_WORKER, builds C3a only, runs PostgreSQL 16 and exactly-one-call live governance evidence, then stops READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW. C3b remains unauthorized.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -92,7 +96,7 @@
     "Expanding P2-B FREEZE into approval-quorum, PostgreSQL, refresh/revocation, admin-provisioning, or AI-gateway claims; each remains outside this tranche's verified boundary.",
     "Claiming the CVF-CORE-PIN-2026-07-23 tranche demonstrates, verifies, or evidences AI/agent governance behavior - it synchronized a documentation-only CVF core delta and a manifest pin. Workspace doctor 24/24 proves local enforcement artifacts and public-core freshness only, and WORKSPACE_RULES.md states that boundary itself; it does not substitute for live provider-backed governance evidence.",
     "Re-opening or re-litigating the P1-B lane drift - it was RESOLVED by the operator at INTAKE on 2026-07-23, who confirmed the order P1-B, then known-principals-to-users, then P2-A incidents/handovers, then P2-C. Do not re-rank the lanes, do not edit EXECUTION_ROADMAP.md to make the two surfaces agree retroactively, and do not declare either surface authoritative over the other. The historical record of the drift stays in next_allowed_move and in the CVF-CORE-PIN handoff; do not delete it.",
-    "Starting P2-C BUILD from this closure. P2-C is now the next business lane but still requires fresh INTAKE/DESIGN/SPEC/WORK_ORDER before BUILD.",
+    "Starting P2-C C3b before C3a receives independent REVIEW_PASS, a Codex-owned commit/push, fresh continuity acknowledgment and explicit G7 authorization. Current BUILD authority is C3a only under the 23-path ceiling.",
     "Re-running, re-opening, or re-litigating any P1-B gate. P1B-OPERATIONS-DOMAIN-EXTRACTION reached FREEZE/CLOSED_BOUNDED on 2026-07-23 with C1 3e3df42, C2 1e56a72, C2b ab75abb, C3 f68cf63 (independent REVIEW_PASS AC-01..AC-18) and the C4 closure. Those commits are settled history; corrective work, if ever needed, lands in NEW commits, never a rewrite/amend/squash/force-push.",
     "Creating .cvf/workspace-link.json during XR1-S-C1 - it is authorized only as an exact future shape (ADR-2026-07-24-XR1S-RECIPROCAL-WORKSPACE-LINK section 2.2) and is built, if ever, only at a separately-authorized XR1-S-C2b.",
     "Editing .cvf/manifest.json during XR1-S-C1 - the 6ce1cf0/27137db4 drift is the XR1-S-C2a prerequisite, not permission to touch the manifest during this authoring round.",
@@ -169,16 +173,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "SPEC e416f1e is pushed; WORK_ORDER_AUTHOR may draft split C3a/C3b authorization only.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "C3a only is authorized after Work Order/review commit 6e1b798 and this pre-BUILD continuity checkpoint; C3b remains gated.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-A handover and all earlier handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "WORK_ORDER_AUTHOR",
-    "activeRoleNote": "Codex drafts and independently feasibility-reviews the exact-path split Work Order. No BUILD authority exists yet.",
+    "activeRole": "ORCHESTRATOR / REVIEWER",
+    "activeRoleNote": "Codex routes C3a and remains independent REVIEWER/COMMIT_STEWARD. Claude must declare IMPLEMENTATION_WORKER after fresh G5-G6 verification.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-28"
   }

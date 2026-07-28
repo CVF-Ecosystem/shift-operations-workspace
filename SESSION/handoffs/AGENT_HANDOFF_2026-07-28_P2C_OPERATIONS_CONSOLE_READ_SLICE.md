@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD — C3a`
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
-- Active role: ORCHESTRATOR / WORK_ORDER_AUTHOR
-- Status: `WORK_ORDER_AUTHORIZED_TO_DRAFT — NOT_YET_AUTHORED`
+- Active role: ORCHESTRATOR / REVIEWER
+- Status: `C3A_AUTHORIZED — PRE_BUILD_HANDOFF`
 
 ## Settled predecessor
 
@@ -90,3 +90,28 @@ After SPEC commit `e416f1e06d9974398db63f02abc48776a12f2586` was pushed,
 Codex transitioned to WORK_ORDER_AUTHOR. The Work Order must split backend
 read prerequisite and frontend construction into independently reviewed BUILD
 checkpoints; it may not authorize a single batched cross-layer commit.
+
+## WORK_ORDER authorization disposition
+
+The exact-path Work Order and Codex authorization review are pushed at
+`6e1b798609d61a9d956282429f0d4b30166c289b`. Review disposition:
+`REVIEW_PASS — C3a AUTHORIZED; C3b GATED`.
+
+C3a has a 23-path ceiling covering authenticated shifts/events/open-work
+reads, contract and parity tests, disposable PostgreSQL 16 evidence, and
+refusal-zero-call/admitted-exactly-one-call provider evidence. Claude is the
+assigned IMPLEMENTATION_WORKER but has no stage/commit/push or self-approval
+authority. Codex remains independent REVIEWER and COMMIT_STEWARD.
+
+## Pre-BUILD handoff
+
+Before the first C3a edit, Claude must rehydrate this handoff, ADR, SPEC, Work
+Order and authorization review; verify `HEAD == origin/main`, zero staged and
+tracked changes, the preserved assessment's exact hash, repository gates and
+a responding Docker daemon; then declare `IMPLEMENTATION_WORKER`. If Docker
+does not respond, stop `BLOCKED_DOCKER_UNAVAILABLE`.
+
+The required stop checkpoint is:
+`READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW`. C3b remains unauthorized
+until Codex independently reviews, commits and pushes C3a and records a fresh
+G7 acknowledgment.

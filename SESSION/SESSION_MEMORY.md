@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-28 (P2-C read-console INTAKE)_
+_Last updated: 2026-07-28 (P2-C C3a pre-BUILD authorization)_
 
 ## Where the project is
 
-**2026-07-28 (P2-C — INTAKE):** first slice is authenticated/read-only:
-shift selection, timeline/open work, incidents and handovers via real HTTP.
-DESIGN must resolve missing query APIs, frontend build reproducibility and
-the bounded read-authority claim. No Work Order or BUILD exists yet.
+**2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
+C3a = authenticated read API/query/contract plus PostgreSQL/provider evidence;
+C3b = React console/toolchain/CI only after independent C3a review and commit.
+Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker remains a mandatory pre-BUILD gate.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
