@@ -4,14 +4,14 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-27 (P2-A handover FREEZE; roadmap augmented)_
+_Last updated: 2026-07-28 (P2-C read-console INTAKE)_
 
 ## Where the project is
 
-**2026-07-27 (P2-A HANDOVER — FREEZE/CLOSED_BOUNDED):** C3 `8485ef9` contains
-exactly 47 reviewed paths; F1–F15 closed without waiver. Local PostgreSQL 16
-and bounded provider evidence pass. Roadmap now stages data cleaning,
-retrieval/RAG/memory and later proactive reporting/forecasting; none is built.
+**2026-07-28 (P2-C — INTAKE):** first slice is authenticated/read-only:
+shift selection, timeline/open work, incidents and handovers via real HTTP.
+DESIGN must resolve missing query APIs, frontend build reproducibility and
+the bounded read-authority claim. No Work Order or BUILD exists yet.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
