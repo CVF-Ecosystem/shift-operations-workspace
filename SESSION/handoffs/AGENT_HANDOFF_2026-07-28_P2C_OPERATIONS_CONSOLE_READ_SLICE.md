@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28`
-- Control-chain phase: `DESIGN`
+- Control-chain phase: `WORK_ORDER`
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
-- Active role: ORCHESTRATOR / SPEC_AUTHOR
-- Status: `SPEC_COMPLETE — PENDING_WORK_ORDER`
+- Active role: ORCHESTRATOR / WORK_ORDER_AUTHOR
+- Status: `WORK_ORDER_AUTHORIZED_TO_DRAFT — NOT_YET_AUTHORED`
 
 ## Settled predecessor
 
@@ -83,3 +83,10 @@ event-query parity, 500-record ceiling, identity-only read claim, tab-scoped
 token handling, frontend toolchain, PostgreSQL/live-provider evidence and
 rollback. Next move: exact-path Work Order feasibility review. BUILD remains
 unauthorized.
+
+## WORK_ORDER role transition acknowledgment
+
+After SPEC commit `e416f1e06d9974398db63f02abc48776a12f2586` was pushed,
+Codex transitioned to WORK_ORDER_AUTHOR. The Work Order must split backend
+read prerequisite and frontend construction into independently reviewed BUILD
+checkpoints; it may not authorize a single batched cross-layer commit.

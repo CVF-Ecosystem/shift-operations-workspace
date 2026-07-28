@@ -62,7 +62,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 has SPEC complete. R1-R19/AC-01-AC-19 define a read-only authenticated console, canonical open-work route, deterministic event query, 500-record ceiling, identity-only bounded claim, sessionStorage token lifecycle, frozen Node 22.14.0/pnpm 9.15.0 toolchain, PostgreSQL/provider evidence and rollback. P2C-DESIGN-F1 remains a separate parked security follow-up. NEXT MOVE: author and independently feasibility-review an exact-path Work Order. BUILD remains unauthorized.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 is at WORK_ORDER drafting after pushed SPEC e416f1e. R1-R19/AC-01-AC-19 remain binding. WORK_ORDER must split C3a authenticated read API/query/contract/live evidence from C3b React console/toolchain/CI, with independent review and commit between them. NEXT MOVE: author and independently feasibility-review exact path sets, gates and stop conditions. BUILD remains unauthorized.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -169,16 +169,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "SPEC",
-    "activePhaseNote": "SPEC R1-R19/AC-01-AC-19 is complete; exact-path Work Order is the sole next move.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "SPEC e416f1e is pushed; WORK_ORDER_AUTHOR may draft split C3a/C3b authorization only.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-A handover and all earlier handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "SPEC_AUTHOR",
-    "activeRoleNote": "Codex completed SPEC and may transition to WORK_ORDER_AUTHOR only after this state is pushed.",
+    "activeRole": "WORK_ORDER_AUTHOR",
+    "activeRoleNote": "Codex drafts and independently feasibility-reviews the exact-path split Work Order. No BUILD authority exists yet.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-28"
   }
