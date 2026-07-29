@@ -8,22 +8,11 @@ _Last updated: 2026-07-29 (P2-C C3a Repair Amendment 1 pushed)_
 
 ## Where the project is
 
-**2026-07-29 (P2-C — C3a Repair Amendment 1):** the interrupted BUILD exposed
-two authorization defects: `sql_ledger.py` exceeded the 300-line hard limit
-and the load-bearing predecessor OpenAPI golden-chain test was outside the
-23-path ceiling. DESIGN/SPEC/WORK_ORDER Amendment 1 plus independent
-authorization review were committed, rehearsed and pushed at
-`749d599720f8467b0c7589a29131ea81e22a2397`. C3a now has an exact 25-path
-ceiling adding only `_event_queries.py` and
-`tests/unit/test_p2b_openapi_contract.py`. The pre-BUILD G5 record proves
-`uv.lock` was absent, so it is exact generated BUILD residue authorized for
-removal, not a user-owned checkpoint artifact. Claude resumes as
-`REPAIR_WORKER`; C3b remains gated.
-
+**2026-07-29 (P2-C — C3a Repair Amendment 1):** commit `749d599` expands the ceiling from 23 to 25 paths, adding only `_event_queries.py` and `tests/unit/test_p2b_openapi_contract.py`.
+G5 proves `uv.lock` is generated BUILD residue authorized for exact removal; Claude resumes as `REPAIR_WORKER`, while C3b remains gated.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
-C3a = authenticated read API/query/contract plus PostgreSQL/provider evidence;
-C3b = React console/toolchain/CI only after independent C3a review and commit.
-Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker remains a mandatory pre-BUILD gate.
+C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
+Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.
 
 Repo bắt đầu là **blueprint trung thực nhưng CVF controls chỉ nằm trên giấy**
 (xem `docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`). Qua các phiên
