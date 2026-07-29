@@ -7,7 +7,7 @@
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
 - Active role: ORCHESTRATOR / REVIEWER
-- Status: `C3A_AUTHORIZED — PRE_BUILD_HANDOFF`
+- Status: `C3A_REPAIR_AUTHORIZED — AMENDMENT_1_PUSHED`
 
 ## Settled predecessor
 
@@ -115,3 +115,32 @@ The required stop checkpoint is:
 `READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW`. C3b remains unauthorized
 until Codex independently reviews, commits and pushes C3a and records a fresh
 G7 acknowledgment.
+
+## C3a interrupted BUILD review and Amendment 1 — 2026-07-29
+
+- Claude's interrupted BUILD left all work unstaged and reported that it could
+  not safely continue without an exact authorization amendment.
+- Codex independently reproduced focused failures, the 325-line
+  `sql_ledger.py`, stale catalog/validator state and the out-of-ceiling
+  `uv.lock`.
+- The governed G5 record from before BUILD proved `uv.lock` was absent.
+  Reviewer disposition: it is generated/materialized BUILD residue, not a
+  pre-existing operator artifact. Claude may remove only that exact file.
+- DESIGN/SPEC/WORK_ORDER Amendment 1 and its independent authorization review
+  were committed, rehearsed and pushed at
+  `749d599720f8467b0c7589a29131ea81e22a2397`.
+- The C3a ceiling is now exactly 25 possible paths. The only additions are:
+  `packages/operations-ledger/src/operations_ledger/_event_queries.py` and
+  `tests/unit/test_p2b_openapi_contract.py`.
+- Amendment rehearsal on isolated CPython 3.13.12: 610 passed, 53 skipped;
+  repository validator, catalog, session, file-size and diff gates PASS;
+  doctor PASS WITH NOTE (24 pass, one unchanged bounded legacy warning).
+- Role route:
+  `ORCHESTRATOR -> SPEC_AUTHOR -> WORK_ORDER_AUTHOR -> REVIEWER` (Codex)
+  `-> REPAIR_WORKER` (Claude) `-> REVIEWER` (Codex).
+- Next move: Claude rehydrates all parent artifacts plus Amendment 1, declares
+  `REPAIR_WORKER`, repairs only the named findings, completes every remaining
+  C3a PostgreSQL/live-provider/repository gate and stops at
+  `READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW`.
+- No C3b path, continuity path, mutation route, auth implementation, database
+  migration, roadmap or CVF core change is authorized for Claude.

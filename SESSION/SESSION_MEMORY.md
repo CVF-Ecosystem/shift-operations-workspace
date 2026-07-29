@@ -4,9 +4,21 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-28 (P2-C C3a pre-BUILD authorization)_
+_Last updated: 2026-07-29 (P2-C C3a Repair Amendment 1 pushed)_
 
 ## Where the project is
+
+**2026-07-29 (P2-C — C3a Repair Amendment 1):** the interrupted BUILD exposed
+two authorization defects: `sql_ledger.py` exceeded the 300-line hard limit
+and the load-bearing predecessor OpenAPI golden-chain test was outside the
+23-path ceiling. DESIGN/SPEC/WORK_ORDER Amendment 1 plus independent
+authorization review were committed, rehearsed and pushed at
+`749d599720f8467b0c7589a29131ea81e22a2397`. C3a now has an exact 25-path
+ceiling adding only `_event_queries.py` and
+`tests/unit/test_p2b_openapi_contract.py`. The pre-BUILD G5 record proves
+`uv.lock` was absent, so it is exact generated BUILD residue authorized for
+removal, not a user-owned checkpoint artifact. Claude resumes as
+`REPAIR_WORKER`; C3b remains gated.
 
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a = authenticated read API/query/contract plus PostgreSQL/provider evidence;

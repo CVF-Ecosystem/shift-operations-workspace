@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-C Work Order/review 6e1b798 is pushed. C3a only is authorized after G5-G6; C3b remains gated until independent C3a review/commit and fresh acknowledgment.",
+  "syncReceipt": "P2-C parent Work Order/review 6e1b798 and C3a Repair Amendment 1/review 749d599 are pushed. C3a repair uses the exact amended 25-path ceiling; C3b remains gated until independent C3a review/commit and fresh acknowledgment.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "ORCHESTRATOR / REVIEWER",
   "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
-  "updatedAt": "2026-07-28"
+  "updatedAt": "2026-07-29"
 }
