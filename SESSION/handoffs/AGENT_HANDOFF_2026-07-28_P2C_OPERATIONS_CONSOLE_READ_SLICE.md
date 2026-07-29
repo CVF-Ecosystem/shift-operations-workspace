@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28`
-- Control-chain phase: `BUILD — C3a`
+- Control-chain phase: `BUILD — C3b`
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
-- Active role: ORCHESTRATOR / REVIEWER
-- Status: `C3A_REPAIR_AUTHORIZED — AMENDMENT_1_PUSHED`
+- Active role: SESSION_SYNC_STEWARD / ORCHESTRATOR
+- Status: `C3A_REVIEW_PASS_PUSHED — C3B_G7_AUTHORIZED`
 
 ## Settled predecessor
 
@@ -144,3 +144,26 @@ G7 acknowledgment.
   `READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW`.
 - No C3b path, continuity path, mutation route, auth implementation, database
   migration, roadmap or CVF core change is authorized for Claude.
+
+## C3a independent REVIEW_PASS and G7 — 2026-07-29
+
+- Amendments 2 and 3 repaired dependency/schema/limit-matrix feasibility
+  without a file-size exception. Amendment 3 added only
+  `tests/integration/test_p2c_read_postgres_limit_live.py`.
+- Independent reviewer evidence passed: focused 90; full CPython 3.13.12
+  678 passed/65 skipped; PostgreSQL 16 standard live 55 plus full 500/501
+  matrix 10; exact container/volume cleanup; repository gates PASS.
+- Live governance evidence passed after four zero-call JWT refusals and valid
+  JWT reads, followed by exactly one Alibaba provider call returning HTTP 200.
+  The sanitized receipt does not claim production endpoints call a provider.
+- Codex committed and pushed exactly 29 authorized C3a paths at
+  `fe2f31236bec1e1e3bcaddbe15463633b0696ab3`.
+- G7 is now acknowledged. C3b is authorized only under parent Work Order §4's
+  exact 28-path ceiling. The worker must rehydrate all parent artifacts,
+  Amendments 1-3, both C3a receipts and this section; verify clean
+  `HEAD == origin/main`, Docker, Node `22.14.0`, pnpm `9.15.0`, and repository
+  gates; declare `IMPLEMENTATION_WORKER`; then build C3b only.
+- Required worker stop:
+  `READY_FOR_INDEPENDENT_P2C_WEB_BUILD_REVIEW`.
+- No stage/commit/push/self-approval, backend mutation, auth/permission/
+  data-scope change, C4/FREEZE or out-of-ceiling path is authorized.

@@ -4,12 +4,11 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-29 (P2-C C3a Repair Amendment 1 pushed)_
+_Last updated: 2026-07-29 (P2-C C3a REVIEW_PASS pushed; C3b G7 authorized)_
 
 ## Where the project is
 
-**2026-07-29 (P2-C — C3a Repair Amendment 1):** commit `749d599` expands the ceiling from 23 to 25 paths, adding only `_event_queries.py` and `tests/unit/test_p2b_openapi_contract.py`.
-G5 proves `uv.lock` is generated BUILD residue authorized for exact removal; Claude resumes as `REPAIR_WORKER`, while C3b remains gated.
+**2026-07-29 (P2-C — C3a REVIEW_PASS / C3b G7):** C3a `fe2f312` changed 29 authorized paths and is pushed; CPython 3.13.12 full 678/65 skipped, PostgreSQL 16 live 55+10 with exact cleanup, exactly-one-call Alibaba evidence and repository gates PASS. G7 authorizes only Work Order §4's 28-path C3b ceiling; C4/FREEZE remains gated.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
 Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.

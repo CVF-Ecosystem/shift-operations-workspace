@@ -70,7 +70,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 remains at BUILD checkpoint C3a. Amendment 1 and its authorization review are pushed at 749d599720f8467b0c7589a29131ea81e22a2397. R1-R22/AC-01-AC-22 and the amended exact 25-path C3a ceiling are binding. NEXT MOVE: Claude rehydrates the parent artifacts plus Amendment 1, declares REPAIR_WORKER, removes only the reviewer-confirmed generated uv.lock residue, repairs the exact C3a findings, completes all remaining PostgreSQL 16/exactly-one-provider-call/repository gates, and stops READY_FOR_INDEPENDENT_P2C_READ_API_BUILD_REVIEW. C3b remains unauthorized.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28 remains at BUILD checkpoint C3b. C3a received independent REVIEW_PASS and was pushed at fe2f31236bec1e1e3bcaddbe15463633b0696ab3 after full CPython 3.13.12, PostgreSQL 16, exactly-one-live-provider-call and repository gates passed. G7 is acknowledged by this continuity commit. NEXT MOVE: the assigned IMPLEMENTATION_WORKER rehydrates the parent ADR/SPEC/WORK_ORDER, authorization review, Amendments 1-3, C3a receipts and this G7 acknowledgment; verifies HEAD == origin/main, clean worktree, Docker and the exact Node 22.14.0/pnpm 9.15.0 toolchain gate; then builds C3b only within the parent Work Order section 4 exact 28-path ceiling and stops READY_FOR_INDEPENDENT_P2C_WEB_BUILD_REVIEW. C4/FREEZE remains unauthorized.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -100,7 +100,7 @@
     "Expanding P2-B FREEZE into approval-quorum, PostgreSQL, refresh/revocation, admin-provisioning, or AI-gateway claims; each remains outside this tranche's verified boundary.",
     "Claiming the CVF-CORE-PIN-2026-07-23 tranche demonstrates, verifies, or evidences AI/agent governance behavior - it synchronized a documentation-only CVF core delta and a manifest pin. Workspace doctor 24/24 proves local enforcement artifacts and public-core freshness only, and WORKSPACE_RULES.md states that boundary itself; it does not substitute for live provider-backed governance evidence.",
     "Re-opening or re-litigating the P1-B lane drift - it was RESOLVED by the operator at INTAKE on 2026-07-23, who confirmed the order P1-B, then known-principals-to-users, then P2-A incidents/handovers, then P2-C. Do not re-rank the lanes, do not edit EXECUTION_ROADMAP.md to make the two surfaces agree retroactively, and do not declare either surface authoritative over the other. The historical record of the drift stays in next_allowed_move and in the CVF-CORE-PIN handoff; do not delete it.",
-    "Starting P2-C C3b before C3a receives independent REVIEW_PASS, a Codex-owned commit/push, fresh continuity acknowledgment and explicit G7 authorization. Current BUILD authority is C3a repair only under Amendment 1's exact 25-path ceiling; tests/unit/test_p2b_openapi_contract.py and packages/operations-ledger/src/operations_ledger/_event_queries.py are the only added paths.",
+    "Expanding P2-C C3b beyond the parent Work Order section 4 exact 28-path ceiling, adding backend mutations, changing auth/permission/data-scope semantics, or beginning C4/FREEZE before independent C3b REVIEW_PASS and a Codex-owned commit/push. G7 authorizes C3b only after C3a fe2f312 and this continuity acknowledgment.",
     "Re-running, re-opening, or re-litigating any P1-B gate. P1B-OPERATIONS-DOMAIN-EXTRACTION reached FREEZE/CLOSED_BOUNDED on 2026-07-23 with C1 3e3df42, C2 1e56a72, C2b ab75abb, C3 f68cf63 (independent REVIEW_PASS AC-01..AC-18) and the C4 closure. Those commits are settled history; corrective work, if ever needed, lands in NEW commits, never a rewrite/amend/squash/force-push.",
     "Creating .cvf/workspace-link.json during XR1-S-C1 - it is authorized only as an exact future shape (ADR-2026-07-24-XR1S-RECIPROCAL-WORKSPACE-LINK section 2.2) and is built, if ever, only at a separately-authorized XR1-S-C2b.",
     "Editing .cvf/manifest.json during XR1-S-C1 - the 6ce1cf0/27137db4 drift is the XR1-S-C2a prerequisite, not permission to touch the manifest during this authoring round.",
@@ -136,6 +136,17 @@
     "postgresql_live_roundtrip_authorization": "FREEZE / CLOSED_BOUNDED (2026-07-26). Initial live BUILD stopped correctly on a real native-enum defect. PG-REV-F1 through F7 closed without waiver; C3 68cb86eccaa4e542afd1193173efb02b5df4c4b3 changed exactly eight authorized paths and is independently REVIEW_PASS/pushed. Fresh Codex evidence: PostgreSQL 16 live 36 passed, migrations 17/0 then 14/3, Phase 1 subset 100 passed, full non-live 427 passed/36 skipped/1 warning, repository gates PASS, doctor PASS WITH NOTE 24/1, exact Docker cleanup, AC-19 revert baseline 405 passed. Phase 1 exit gate is DONE under the bounded local-disposable-PostgreSQL claim; no provider call was required.",
     "p2a_incident_vertical": "FREEZE / CLOSED_BOUNDED (2026-07-26). C3 eac28f9 changed exactly 39 authorized paths and is independent REVIEW_PASS/pushed. Incidents only; handover closure is recorded separately.",
     "p2a_handover_vertical": "FREEZE / CLOSED_BOUNDED (2026-07-27). C3 8485ef9 changed exactly 47 authorized paths and is independent REVIEW_PASS/pushed. HOV-AUTH-F1..F4 and HOV-REV-F5..F15 closed without waiver. Evidence: focused 117, root 610, tests-only 606, PostgreSQL live 53 with cleanup, provider HTTP 200 after four zero-call refusals. Boundary excludes report approval, destination assignment, UI and production readiness."
+  },
+  "p2c_c3a_build_receipt": {
+    "status": "REVIEW_PASS_PUSHED_C3B_G7_AUTHORIZED",
+    "buildCommit": "fe2f31236bec1e1e3bcaddbe15463633b0696ab3",
+    "reviewDisposition": "REVIEW_PASS",
+    "remoteState": "HEAD == origin/main",
+    "changedSet": "29 authorized paths within the amended 30-path C3a ceiling",
+    "verification": "CPython 3.13.12 full 678 passed/65 skipped; focused 90 passed; PostgreSQL 16 standard 55 passed and limit matrix 10 passed; exact cleanup; repository validator/catalog/session/file-size/diff PASS",
+    "liveGovernanceEvidence": "PASS; four refusal cases at zero calls, admitted JWT reads PASS, exactly one Alibaba provider call, HTTP 200; sanitized receipt",
+    "claimBoundary": "Authenticated identity-only read surfaces and bounded local-disposable PostgreSQL proof only; no per-shift/tenant/data_scope claim, no production endpoint provider call, no production-readiness claim",
+    "nextMove": "C3b only under parent Work Order section 4 exact 28-path ceiling"
   },
   "xr1_s_c2a_sync_receipt": {
     "status": "XR1S_C2A_PUSHED_SYNCED_READY_FOR_C2B_BUILD",
@@ -178,15 +189,15 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "BUILD",
-    "activePhaseNote": "C3a repair only is authorized after parent Work Order/review commit 6e1b798 and Amendment 1 commit 749d599; C3b remains gated.",
+    "activePhaseNote": "C3a is independently REVIEW_PASS and pushed at fe2f31236bec1e1e3bcaddbe15463633b0696ab3. This G7 acknowledgment authorizes C3b only under the parent Work Order section 4 exact 28-path ceiling; C4/FREEZE remains gated.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-A handover and all earlier handoffs remain closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR / REVIEWER",
-    "activeRoleNote": "Codex authored/reviewed Amendment 1 and remains independent REVIEWER/COMMIT_STEWARD. Claude must declare REPAIR_WORKER after rehydrating the pushed amendment, then stop at the named independent-review checkpoint.",
+    "activeRole": "SESSION_SYNC_STEWARD / ORCHESTRATOR",
+    "activeRoleNote": "Codex independently reviewed, committed and pushed C3a and owns this G7 continuity acknowledgment. The assigned worker must declare IMPLEMENTATION_WORKER before C3b, remain within the exact 28-path ceiling, and stop READY_FOR_INDEPENDENT_P2C_WEB_BUILD_REVIEW without staging, committing, pushing or self-approving.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-29"
   }
