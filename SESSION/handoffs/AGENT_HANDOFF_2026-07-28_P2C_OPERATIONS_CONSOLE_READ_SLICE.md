@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-OPERATIONS-CONSOLE-READ-SLICE-2026-07-28`
-- Control-chain phase: `BUILD — C3b`
+- Control-chain phase: `FREEZE`
 - Roadmap target: first P2-C read-only frontend slice
 - Risk: R2
-- Active role: SESSION_SYNC_STEWARD / ORCHESTRATOR
-- Status: `C3A_REVIEW_PASS_PUSHED — C3B_G7_AUTHORIZED`
+- Active role: CLOSER / SESSION_SYNC_STEWARD / COMMIT_STEWARD
+- Status: `FREEZE / CLOSED_BOUNDED`
 
 ## Settled predecessor
 
@@ -167,3 +167,28 @@ G7 acknowledgment.
   `READY_FOR_INDEPENDENT_P2C_WEB_BUILD_REVIEW`.
 - No stage/commit/push/self-approval, backend mutation, auth/permission/
   data-scope change, C4/FREEZE or out-of-ceiling path is authorized.
+
+## C3b independent REVIEW_PASS and C4 FREEZE — 2026-07-29
+
+- Independent review returned F1 (missing visible session/connection state)
+  and F2 (insufficient component evidence). The worker repaired both within
+  the same 28-path ceiling and added no path.
+- Re-review passed exact Node `22.14.0`, pnpm `9.15.0`, frozen install,
+  typecheck, 22 frontend tests, production build, Docker image/HTTP smoke,
+  full Python `678 passed, 65 skipped`, repository/catalog/session/file-size
+  guards, whitespace and cached secret scans.
+- Codex committed and pushed the exact 28-path C3b set at
+  `e24905f3519af50866071fdbf08f1ed57fb06307`.
+- C4 found and repaired one stale closure surface: `workspace-web` catalog
+  semantics still described the pre-C3b minimal shell. Registry and generated
+  catalog now record the authenticated read-only console and its tests without
+  changing module status (`partial`).
+- Tranche disposition: `FREEZE / CLOSED_BOUNDED`. It proves authenticated
+  read-only shifts/events/open-work and incident/handover summaries with a
+  reproducible web toolchain. It does not prove mutation support,
+  per-shift/tenant assignment authorization, offline/realtime behavior,
+  reporting/AI behavior, production readiness, P2-C completion or Phase 2
+  completion.
+- Next governed move: fresh INTAKE for the parked unauthenticated
+  `POST /shifts` mutation security repair before any mutation UI. No BUILD
+  authority carries forward; P2-D offline/realtime remains separate.

@@ -4,11 +4,12 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-29 (P2-C C3a REVIEW_PASS pushed; C3b G7 authorized)_
+_Last updated: 2026-07-29 (P2-C read slice FREEZE / CLOSED_BOUNDED)_
 
 ## Where the project is
 
-**2026-07-29 (P2-C — C3a REVIEW_PASS / C3b G7):** C3a `fe2f312` changed 29 authorized paths and is pushed; CPython 3.13.12 full 678/65 skipped, PostgreSQL 16 live 55+10 with exact cleanup, exactly-one-call Alibaba evidence and repository gates PASS. G7 authorizes only Work Order §4's 28-path C3b ceiling; C4/FREEZE remains gated.
+**2026-07-29 (P2-C read slice — FREEZE / CLOSED_BOUNDED):** C3a `fe2f312` and C3b `e24905f` are separate REVIEW_PASS commits covering authenticated reads and a reproducible read-only React console; full Python, PostgreSQL 16, exactly-one Alibaba call, Node/pnpm, 22 frontend tests, Docker smoke and repository gates passed.
+This closes only the first read slice; next is fresh INTAKE for the parked unauthenticated `POST /shifts` repair, with no inherited BUILD authority.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
 Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.

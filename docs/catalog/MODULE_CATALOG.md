@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-29T08:47:44.169718+00:00_
+_Last generated: 2026-07-29T09:08:21.977717+00:00_
 
 ## How to use this catalog
 
@@ -35,7 +35,7 @@ _Last generated: 2026-07-29T08:47:44.169718+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 408 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `workspace-api` | apps/workspace-api | partial | 3612 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
-| `workspace-web` | apps/workspace-web | partial | 1102 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
+| `workspace-web` | apps/workspace-web | partial | 1102 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -127,14 +127,14 @@ _Last generated: 2026-07-29T08:47:44.169718+00:00_
 ### `workspace-web` — partial
 
 - **Path:** `apps/workspace-web` (app)
-- **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today.
+- **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary.
 - **CVF controls:** —
-- **Enforcement:** App.tsx shell + api.ts client + offline/queue.ts skeleton; feature folders are stub README only.
+- **Enforcement:** App.tsx restores a tab-scoped JWT session and routes through LoginView/OperationsConsole. The API client sends bearer authentication and maps unauthorized/network/server/cancelled failures. The console exposes read-only shifts, confirmed events, grouped open work, incidents and handovers with loading/empty/error states, stale-response suppression and no mutation controls. The pre-existing offline queue remains inactive.
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
-- **Tests:** —
+- **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`
 - **Metrics:** 1102 LOC across 19 code file(s)
-- **Next step:** Build feature verticals matching backend chain, starting with events/approvals.
+- **Next step:** Open a fresh governed tranche for the parked unauthenticated shift-create mutation before adding any mutation UI; offline/realtime activation remains a separate P2-D tranche.
 
 ### `workspace-worker` — partial
 

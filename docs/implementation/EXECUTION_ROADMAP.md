@@ -319,8 +319,13 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       full 369 pass; live Alibaba receipt PASS; AC-21 revert rehearsal PASS.
       **Boundary:** không production endpoint nào gọi provider; không thêm
       refresh/revocation/admin provisioning; PostgreSQL vẫn chưa live verified.
-- [ ] **P2-C:** Frontend UI cho các vertical đã có backend (bắt đầu Events/
-      Open Work), tuân thủ boundary: FE gọi API, không tự enforce.
+- [ ] **P2-C (first read-only slice CLOSED_BOUNDED 2026-07-29):** C3a
+      `fe2f312` và C3b `e24905f` cung cấp authenticated shifts/events/open-work
+      reads cùng React console chỉ-đọc cho shift selection, confirmed timeline,
+      grouped open work, incidents và handovers. Frontend dùng
+      `sessionStorage`, có loading/empty/offline/error và stale-response
+      suppression; Node/pnpm/CI/Docker được pin và review độc lập. P2-C vẫn mở:
+      không có mutation UI, assignment/data-scope claim hay full vertical UI.
 - [ ] **P2-D:** PWA offline queue + realtime.
 
 **Exit gate:** chạy trọn một ca (start→updates→tasks→handover→report→freeze) qua
@@ -431,8 +436,13 @@ Guard 36 pass, full suite 405 pass/1 warning, AC-24 revert rehearsal PASS.
 Tranche này không đổi trạng thái roadmap/module và tại thời điểm đó chưa đóng
 Phase 1; PostgreSQL-live tranche kế tiếp đã đóng gate vào 2026-07-26.
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho P2-C frontend UI của các
-vertical backend đã có. Không có BUILD authority từ roadmap này.
+**2026-07-29 (P2-C read slice):** `FREEZE / CLOSED_BOUNDED`; C3a `fe2f312`
+và C3b `e24905f` được review/commit/push riêng. Đây chỉ là read-only slice,
+không đóng P2-C hoặc Phase 2.
+
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho security repair của mutation
+`POST /shifts` hiện chưa yêu cầu xác thực, trước mọi mutation UI. Không có
+BUILD authority từ roadmap này; offline/realtime vẫn thuộc tranche P2-D riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
