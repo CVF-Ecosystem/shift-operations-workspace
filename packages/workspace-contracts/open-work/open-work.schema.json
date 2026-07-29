@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shift-operations-workspace/packages/workspace-contracts/open-work/open-work.schema.json",
+  "title": "OpenWorkResponse",
+  "description": "P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R2/R7/Amendment 1 R7): exact open-work response contract. The three arrays come from Ledger.open_work_snapshot, mapped from its canonical Task, CustomerRequest and Incident groups. Array item shapes reuse the canonical ../tasks/task.schema.json, ../customers/customer-request.schema.json and ../incidents/incident.schema.json contracts - the status/enum vocabulary is never forked here.",
+  "type": "object",
+  "properties": {
+    "shift_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tasks": {
+      "type": "array",
+      "items": { "$ref": "../tasks/task.schema.json" }
+    },
+    "customer_requests": {
+      "type": "array",
+      "items": { "$ref": "../customers/customer-request.schema.json" }
+    },
+    "incidents": {
+      "type": "array",
+      "items": { "$ref": "../incidents/incident.schema.json" }
+    }
+  },
+  "required": ["shift_id", "tasks", "customer_requests", "incidents"],
+  "additionalProperties": false
+}

@@ -20,10 +20,11 @@
       "type": "string"
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": ["OPEN", "IN_PROGRESS", "BLOCKED", "DONE", "CARRY_OVER", "CANCELLED"]
     },
     "owner_id": {
-      "type": "string"
+      "type": ["string", "null"]
     }
   }
 }

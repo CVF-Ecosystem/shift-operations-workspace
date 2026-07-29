@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-26T17:17:16.576001+00:00_
+_Last generated: 2026-07-29T06:07:09.608957+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-07-26T17:17:16.576001+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **6707**
-- Code files: **114**
+- Code LOC (py/ts/tsx): **6913**
+- Code files: **116**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -30,11 +30,11 @@ _Last generated: 2026-07-26T17:17:16.576001+00:00_
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 866 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
-| `operations-ledger` | packages/operations-ledger | enforced | 1659 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `operations-ledger` | packages/operations-ledger | enforced | 1754 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 408 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
-| `workspace-api` | apps/workspace-api | partial | 3501 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
+| `workspace-api` | apps/workspace-api | partial | 3612 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
 | `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -73,7 +73,7 @@ _Last generated: 2026-07-26T17:17:16.576001+00:00_
 - **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_schema_parity_users.py`, `tests/integration/test_evidence_persistence.py`, `tests/integration/test_sql_ledger_postgres_live.py`, `tests/integration/test_postgres_live_runner.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_schema_parity_handovers.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/integration/test_handover_postgres_live.py`, `tests/cvf/test_handover_vertical.py`, `tests/integration/test_handover_ledger_parity.py`
-- **Metrics:** 1659 LOC across 11 code file(s)
+- **Metrics:** 1754 LOC across 13 code file(s)
 - **Next step:** PostgreSQL live round-trip is now reviewed and passing (bounded to a disposable local container - see enforcement note above). Remaining pre-ship items: production deployment/load/concurrency/HA/backup verification, and mapping remaining migration tables (messages persistence, reports) into tables.py/SqlLedger as tranches need them. Phase 1 closure itself is a separate, independently-reviewed decision (SPEC AC-20), not implied by this entry.
 
 ### `ai-providers` — partial
@@ -121,7 +121,7 @@ _Last generated: 2026-07-26T17:17:16.576001+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`
-- **Metrics:** 3501 LOC across 59 code file(s)
+- **Metrics:** 3612 LOC across 59 code file(s)
 - **Next step:** P2-B real authentication reached FREEZE on 2026-07-23 after corrective REVIEW_PASS and live Alibaba evidence PASS (docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md). P1B-OPERATIONS-DOMAIN-EXTRACTION (2026-07-23) moved the operational models/lifecycle guards out to operations-domain; this app now consumes them as a dependency rather than owning their definition. Next: replicate the chain to the remaining P2-A domains (incidents, handovers - neither has a migration table yet, so each needs a new migration first), reconcile known-principals.yaml with the users table, or start P2-C (frontend UI). P2A-HANDOVER-VERTICAL (2026-07-26) closed the handover domain: next roadmap move is reports (P2-D) or the frontend (P2-C), not another P2-A vertical - Task/CustomerRequest/Incident/Handover are the exact mandatory handover source set and no further domain is added by this tranche.
 
 ### `workspace-web` — partial

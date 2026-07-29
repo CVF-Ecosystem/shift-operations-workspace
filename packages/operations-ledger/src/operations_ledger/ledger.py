@@ -51,6 +51,12 @@ class Ledger(Protocol):
     # --- events ---
     def add_event(self, event, *, unit: Any = None): ...
     def get_event(self, event_id: UUID, *, unit: Any = None): ...
+    # P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R3): deterministic event-list
+    # query for a single shift. Order is: events with starts_at before events
+    # without it, ascending starts_at, then ascending string form of event_id.
+    # Evidence must be preserved on every returned event. Both backends must
+    # agree.
+    def list_events_for_shift(self, shift_id: UUID, *, unit: Any = None) -> list: ...
     # allow_when_frozen=True is for CorrectionService only: post-freeze the
     # ONLY permitted mutation is via a correction record (freeze-policy.yaml:
     # post_freeze_mutation = correction_record_only). Every other caller must

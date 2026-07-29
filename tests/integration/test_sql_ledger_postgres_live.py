@@ -5,8 +5,7 @@ falls back to SQLite. Every test below requires LIVE_POSTGRES_DATABASE_URL,
 set only by scripts/run_postgres_live_roundtrip.py after it has already
 applied database/migrations/001-004 against a disposable container; without
 it they skip with a clear reason (direct/ordinary root-suite execution).
-Amendment 1 (WO 14.3 step 1): the runner's non-live unit tests (command
-construction, redaction, cleanup ownership) moved to
+Amendment 1 (WO 14.3 step 1): the runner's non-live unit tests moved to
 test_postgres_live_runner.py, purely to respect the file-size guard - not a
 behavior change to any pre-existing test.
 """
@@ -249,7 +248,39 @@ def test_duplicate_approval_receipt_scope_key_rejected(sql_ledger):
         receipt_id=uuid4(), record_type="OperationalEvent", record_id=event.event_id, action="event.confirm",
         target_version=1, risk_class="R3", approver_id=user_id, approver_role="shift_supervisor"))
 
-# --- R10: rollback -----------------------------------------------------------
+# --- P2C-OPERATIONS-CONSOLE-READ-SLICE: live event-list/open-work reads ----
+
+def test_live_list_events_for_shift_order_and_evidence(sql_ledger):
+    """R15: the real event-list query against live PostgreSQL preserves
+    deterministic order and evidence - not just against SQLite."""
+    shift = _shift()
+    sql_ledger.create_shift(shift)
+    early = OperationalEvent(shift_id=shift.shift_id, event_type="x", title="early",
+        starts_at=datetime(2026, 7, 28, 9, tzinfo=timezone.utc),
+        evidence=[EvidenceRef(source_type="message", source_id="m1", sha256="ab" * 32)])
+    late = OperationalEvent(shift_id=shift.shift_id, event_type="x", title="late",
+        starts_at=datetime(2026, 7, 28, 10, tzinfo=timezone.utc))
+    undated = OperationalEvent(shift_id=shift.shift_id, event_type="x", title="undated")
+    for e in (late, early, undated):
+        sql_ledger.add_event(e)
+
+    events = sql_ledger.list_events_for_shift(shift.shift_id)
+    assert [e.title for e in events] == ["early", "late", "undated"]
+    assert len(events[0].evidence) == 1 and events[0].evidence[0].sha256 == "ab" * 32
+
+
+def test_live_open_work_snapshot_reflects_real_rows(sql_ledger):
+    """R15: open_work_snapshot against live PostgreSQL returns exactly the
+    persisted open Task."""
+    shift = _shift()
+    sql_ledger.create_shift(shift)
+    task = Task(shift_id=shift.shift_id, title="Inspect crane", risk_class=RiskClass.R1)
+    sql_ledger.add_task(task)
+
+    snapshot = sql_ledger.open_work_snapshot(shift.shift_id)
+    assert len(snapshot["Task"]) == 1
+    assert snapshot["Task"][0].task_id == task.task_id
+
 
 def test_transaction_rollback_removes_all_writes(sql_ledger, live_database_url):
     shift = _shift()

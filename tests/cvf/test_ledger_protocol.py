@@ -36,6 +36,7 @@ def test_both_backends_expose_the_same_ledger_methods():
     required = {
         "create_shift", "get_shift", "list_shifts", "freeze_shift",
         "add_message", "add_event", "get_event", "put_event",
+        "list_events_for_shift",
         "add_correction", "corrections_for",
         "add_incident", "get_incident", "list_incidents_for_shift", "put_incident",
         "open_work_snapshot", "add_handover", "get_handover",

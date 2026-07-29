@@ -2,11 +2,32 @@
 name = "shift-operations-workspace"
 version = "0.1.0"
 description = "Governed shift operations workspace"
+# Review interpreter for P2C C3a Amendment 2 (SPEC R23/AC-23/AC-24): CPython
+# 3.13.12. This does not change the floor below.
 requires-python = ">=3.12"
 dependencies = [
-  "fastapi>=0.115",
+  # fastapi/pydantic/pydantic-core are exact-pinned, not a range, per SPEC
+  # R23 policy (a) (P2C-C3A-REV-F14, tightened by F22): a bounded range
+  # (fastapi>=0.115,<0.119 / pydantic>=2.9,<2.11) still allows multiple
+  # byte-distinct resolutions across different resolver runs/dates, which
+  # is not actually deterministic. A probe on fresh CPython 3.13.12 found
+  # fastapi>=0.119 and pydantic>=2.11 each independently change generated
+  # OpenAPI bytes relative to the golden hashes in
+  # tests/unit/test_p2b_openapi_contract.py and
+  # tests/unit/test_p2c_read_openapi_contract.py. The exact versions below
+  # are the specific resolution confirmed byte-identical to those golden
+  # hashes. starlette (fastapi's transitive dependency, range
+  # >=0.40.0,<0.49.0) was probed directly at both range endpoints
+  # (0.40.0 and 0.48.0) and does NOT affect the generated OpenAPI bytes,
+  # but its own range is still resolver-unstable, so it is pinned exactly
+  # too rather than left to float. Changing any of these four pins
+  # requires re-probing and, if the bytes actually change, following R24's
+  # mechanical delta-proof procedure - never a blind hash refresh.
+  "fastapi==0.118.3",
+  "starlette==0.48.0",
   "uvicorn[standard]>=0.30",
-  "pydantic>=2.9",
+  "pydantic==2.10.6",
+  "pydantic-core==2.27.2",
   "pydantic-settings>=2.5",
   "httpx>=0.27",
   "PyYAML>=6.0",
@@ -15,12 +36,18 @@ dependencies = [
   "bcrypt>=4.0",
 ]
 
-[project.optional-dependencies-note]
 # psycopg is only needed to connect to a real PostgreSQL DATABASE_URL; install
 # with: pip install "psycopg[binary]>=3.2"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3", "pytest-asyncio>=0.24", "ruff>=0.7", "mypy>=1.13"]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.7",
+  "mypy>=1.13",
+  "jsonschema>=4.23",
+  "referencing>=0.35",
+]
 
 [tool.pytest.ini_options]
 pythonpath = [

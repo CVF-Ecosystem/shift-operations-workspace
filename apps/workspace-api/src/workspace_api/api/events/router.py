@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 
 from cvf_runtime.audit import AuditLog
@@ -17,6 +17,9 @@ from workspace_api.dependencies import get_audit_log, get_ledger, get_principal
 from operations_domain.models import EvidenceRef, OperationalEvent, RiskClass
 
 router = APIRouter(prefix="/events", tags=["events"])
+
+# P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R4): hard maximum per returned array.
+_MAX_EVENTS = 500
 
 
 class EventInput(BaseModel):
@@ -68,3 +71,28 @@ def confirm_event(
         raise HTTPException(status_code=404, detail="Event not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get("", response_model=list[OperationalEvent])
+def list_events(
+    shift_id: UUID = Query(..., description="Filter events by shift"),
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    """P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R3/R4/R5): authenticated
+    event-list query. Requires a valid JWT via get_principal — identity-only
+    read admission, not per-shift assignment or data-scope enforcement.
+    Returns events for the given shift in deterministic order with evidence
+    preserved. Enforces a 500-record hard maximum (HTTP 422 on overflow, no
+    partial result). Missing shift returns 404."""
+    try:
+        ledger.get_shift(shift_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Shift not found") from exc
+    events = ledger.list_events_for_shift(shift_id)
+    if len(events) > _MAX_EVENTS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Event list exceeds {_MAX_EVENTS}-record maximum; pagination not yet implemented",
+        )
+    return events

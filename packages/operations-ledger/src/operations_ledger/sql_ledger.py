@@ -9,7 +9,7 @@ from sqlalchemy import create_engine, event, insert, select, update
 from sqlalchemy.engine import Connection, Engine
 from sqlalchemy.exc import IntegrityError
 
-from operations_ledger import _evidence, _rows
+from operations_ledger import _evidence, _event_queries, _rows, _shift_queries
 from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
 from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
@@ -102,24 +102,12 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
         return self.models.Shift(**dict(row))
 
     def list_shifts(self):
-        with self.engine.connect() as conn:
-            rows = conn.execute(select(shifts)).mappings().all()
-        return [self.models.Shift(**dict(r)) for r in rows]
+        # SPEC R25: delegated to _shift_queries for the file-size guard.
+        return _shift_queries.list_shifts(self.engine, self.models)
 
     def close_shift(self, shift_id: UUID, *, unit=None):
-        Status = self.models.ShiftStatus
-        with self._open(unit) as c:
-            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
-            if row is None:
-                raise KeyError(shift_id)
-            if row["status"] == Status.FROZEN.value:
-                raise ValueError("Cannot close a frozen shift")
-            c.execute(
-                update(shifts).where(shifts.c.shift_id == shift_id)
-                .values(status=Status.CLOSED.value, version=row["version"] + 1)
-            )
-            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
-        return self.models.Shift(**dict(row))
+        # SPEC R25: delegated to _shift_queries for the file-size guard.
+        return _shift_queries.close_shift(self._open(unit), self.models, shift_id)
 
     def _assert_shift_not_frozen(self, conn, shift_id: UUID, what: str) -> None:
         # Post-freeze, the ONLY permitted change is a correction record -
@@ -133,19 +121,8 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
             raise ValueError(f"Cannot {what}: shift is frozen")
 
     def freeze_shift(self, shift_id: UUID, *, unit=None):
-        Status = self.models.ShiftStatus
-        with self._open(unit) as c:
-            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
-            if row is None:
-                raise KeyError(shift_id)
-            if row["status"] == Status.FROZEN.value:
-                return self.models.Shift(**dict(row))
-            c.execute(
-                update(shifts).where(shifts.c.shift_id == shift_id)
-                .values(status=Status.FROZEN.value, version=row["version"] + 1)
-            )
-            row = c.execute(select(shifts).where(shifts.c.shift_id == shift_id)).mappings().first()
-        return self.models.Shift(**dict(row))
+        # SPEC R25: delegated to _shift_queries for the file-size guard.
+        return _shift_queries.freeze_shift(self._open(unit), self.models, shift_id)
 
     # --- messages (raw evidence preserved elsewhere; minimal here) ---
     def add_message(self, message, *, unit=None):
@@ -179,6 +156,10 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
                 c, self.models, record_type=_EVENT_RECORD_TYPE, record_id=event_id
             )
         return _rows.row_to_event(self.models, row, evidence=evidence)
+
+    def list_events_for_shift(self, shift_id: UUID, *, unit=None) -> list:
+        # SPEC R3/R20: delegated to _event_queries for the file-size guard.
+        return _event_queries.list_events_for_shift(self._open(unit), self.models, shift_id)
 
     def put_event(self, event, *, allow_when_frozen: bool = False, unit=None):
         with self._open(unit) as c:

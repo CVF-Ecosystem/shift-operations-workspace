@@ -6,6 +6,11 @@ cleanup-ownership repair tests - not a behavior change to any pre-existing
 test. None of these need Docker, psycopg or a database; every Docker-facing
 function is monkeypatched. scripts/ is not on pytest's pythonpath, added
 here like every other script-importing test module in this repo.
+
+The P2C R27 live PostgreSQL 500/501 matrix that was temporarily appended
+here during Amendment 2 repair (making this file 315 lines) has moved to
+its own authorized module, tests/integration/test_p2c_read_postgres_limit_live.py
+(Amendment 3), restoring this file to its original runner-test-only scope.
 """
 
 from __future__ import annotations

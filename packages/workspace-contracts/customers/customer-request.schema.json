@@ -20,10 +20,26 @@
       "type": "string"
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": ["NEW", "ACKNOWLEDGED", "IN_PROGRESS", "WAITING", "RESOLVED", "CLOSED"]
     },
     "received_at": {
       "type": "string"
+    },
+    "shift_id": {
+      "type": ["string", "null"]
+    },
+    "details": {
+      "type": ["string", "null"]
+    },
+    "source_message_id": {
+      "type": ["string", "null"]
+    },
+    "promised_at": {
+      "type": ["string", "null"]
+    },
+    "owner_id": {
+      "type": ["string", "null"]
     }
   }
 }

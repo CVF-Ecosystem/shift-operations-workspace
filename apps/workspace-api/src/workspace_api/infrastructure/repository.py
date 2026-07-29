@@ -164,6 +164,22 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
         # Copy, not the live reference — see get_shift() for why.
         return self.events[event_id].model_copy()
 
+    def list_events_for_shift(self, shift_id: UUID, *, unit=None) -> list[OperationalEvent]:
+        # P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R3): deterministic event-list
+        # query. Order: starts_at non-null first, ascending starts_at, then
+        # ascending str(event_id). Evidence preserved (model_copy includes it).
+        events = [
+            e.model_copy() for e in self.events.values() if e.shift_id == shift_id
+        ]
+        events.sort(
+            key=lambda e: (
+                e.starts_at is None,
+                e.starts_at if e.starts_at is not None else "",
+                str(e.event_id),
+            )
+        )
+        return events
+
     def put_event(self, event: OperationalEvent, *, allow_when_frozen: bool = False, unit=None) -> OperationalEvent:
         if not allow_when_frozen:
             self._assert_shift_not_frozen(event.shift_id, "modify event in a frozen shift")

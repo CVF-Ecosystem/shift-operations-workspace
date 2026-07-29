@@ -4,15 +4,20 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
+from pydantic import Field
+
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.dependencies import get_ledger, get_principal
-from operations_domain.models import Shift
+from operations_domain.models import CustomerRequest, Incident, Shift, Task
 
 router = APIRouter(prefix="/shifts", tags=["shifts"])
+
+# P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R4): hard maximum per returned array.
+_MAX_OPEN_WORK_PER_GROUP = 500
 
 
 class FreezeInput(BaseModel):
@@ -20,13 +25,39 @@ class FreezeInput(BaseModel):
     override_reason: str | None = None
 
 
+class OpenWorkResponse(BaseModel):
+    """P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R2/R7): exact open-work
+    response contract. The three arrays come from Ledger.open_work_snapshot,
+    mapped from its canonical Task, CustomerRequest and Incident groups -
+    typed against the same domain models used everywhere else, not a forked
+    or generic shape."""
+    shift_id: UUID
+    tasks: list[Task] = Field(default_factory=list)
+    customer_requests: list[CustomerRequest] = Field(default_factory=list)
+    incidents: list[Incident] = Field(default_factory=list)
+
+
 @router.post("", response_model=Shift)
 def create_shift(name: str, starts_at: datetime, ends_at: datetime, ledger: Ledger = Depends(get_ledger)):
     return ledger.create_shift(Shift(name=name, starts_at=starts_at, ends_at=ends_at))
 
 @router.get("", response_model=list[Shift])
-def list_shifts(ledger: Ledger = Depends(get_ledger)):
-    return list(ledger.list_shifts())
+def list_shifts(
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    # P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R4/R5): GET /shifts now
+    # requires a valid JWT via get_principal — identity-only read admission,
+    # not per-shift assignment or data-scope enforcement. Also enforces the
+    # same 500-record hard maximum as /events and open-work (P2C-C3A-REV-F16:
+    # this route previously had no limit check at all).
+    shifts = list(ledger.list_shifts())
+    if len(shifts) > _MAX_OPEN_WORK_PER_GROUP:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Shift list exceeds {_MAX_OPEN_WORK_PER_GROUP}-record maximum; pagination not yet implemented",
+        )
+    return shifts
 
 @router.post("/{shift_id}/close", response_model=Shift)
 def close_shift(
@@ -45,6 +76,42 @@ def close_shift(
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Shift not found") from exc
+
+
+@router.get("/{shift_id}/open-work", response_model=OpenWorkResponse)
+def get_open_work(
+    shift_id: UUID,
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    """P2C-OPERATIONS-CONSOLE-READ-SLICE (SPEC R2/R4/R5): authenticated
+    open-work read. Reuses Ledger.open_work_snapshot — does NOT reimplement
+    open predicates. Requires a valid JWT via get_principal — identity-only
+    read admission. Enforces a 500-record hard maximum per group (HTTP 422
+    on overflow, no partial result). Missing shift returns 404."""
+    try:
+        ledger.get_shift(shift_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Shift not found") from exc
+    snapshot = ledger.open_work_snapshot(shift_id)
+    tasks = snapshot.get("Task", [])
+    customer_requests = snapshot.get("CustomerRequest", [])
+    incidents = snapshot.get("Incident", [])
+    if (
+        len(tasks) > _MAX_OPEN_WORK_PER_GROUP
+        or len(customer_requests) > _MAX_OPEN_WORK_PER_GROUP
+        or len(incidents) > _MAX_OPEN_WORK_PER_GROUP
+    ):
+        raise HTTPException(
+            status_code=422,
+            detail=f"Open-work group exceeds {_MAX_OPEN_WORK_PER_GROUP}-record maximum; pagination not yet implemented",
+        )
+    return OpenWorkResponse(
+        shift_id=shift_id,
+        tasks=tasks,
+        customer_requests=customer_requests,
+        incidents=incidents,
+    )
 
 @router.post("/{shift_id}/freeze", response_model=Shift)
 def freeze_shift(
