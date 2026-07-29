@@ -2,6 +2,8 @@
 
 Shift Operations Workspace là không gian vận hành theo ca dành cho hoạt động khai thác tàu, bãi, thiết bị và tương tác khách hàng. Hệ thống giữ trải nghiệm cập nhật nhanh tương tự ứng dụng chat, nhưng chuyển thông tin thành sự kiện vận hành có cấu trúc, công việc cần theo dõi, nhật ký ca, bàn giao và báo cáo cuối ca.
 
+Project credits: [Blackbird081, Claude và Codex](CONTRIBUTORS.md).
+
 ## Kiến trúc đã khóa
 
 - **Mobile PWA và Desktop Web** là giao diện vận hành chính.
