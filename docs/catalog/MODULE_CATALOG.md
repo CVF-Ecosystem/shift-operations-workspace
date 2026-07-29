@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-29T06:07:09.608957+00:00_
+_Last generated: 2026-07-29T08:47:44.169718+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-07-29T06:07:09.608957+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **6913**
-- Code files: **116**
+- Code LOC (py/ts/tsx): **7956**
+- Code files: **130**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -35,7 +35,7 @@ _Last generated: 2026-07-29T06:07:09.608957+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 408 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `workspace-api` | apps/workspace-api | partial | 3612 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend: shifts, messages, operational events, corrections, tasks, customer requests. Five domains route through the same cvf-runtime gate chain (identity/permission/audit, plus risk/evidence/approval/domain_lock where applicable): event confirmation, post-freeze correction, task create/transition, shift close/freeze, and customer-request create/transition. "Golden vertical" is avoided here per the 2026-07-22 Codex review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md): whether a given path is durable/end-to-end depends on ledger backend and risk class - see docs/cvf/CVF_CONTROL_MAPPING.md for the callable/load-bearing/not-verified-server-side distinction per control. |
-| `workspace-web` | apps/workspace-web | partial | 59 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
+| `workspace-web` | apps/workspace-web | partial | 1102 | — | Mobile PWA + Desktop Web operational UI (React/Vite). Minimal shell today. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -133,7 +133,7 @@ _Last generated: 2026-07-29T06:07:09.608957+00:00_
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** —
-- **Metrics:** 59 LOC across 5 code file(s)
+- **Metrics:** 1102 LOC across 19 code file(s)
 - **Next step:** Build feature verticals matching backend chain, starting with events/approvals.
 
 ### `workspace-worker` — partial

@@ -5,6 +5,8 @@
   "scripts": {
     "dev:web": "pnpm --filter workspace-web dev",
     "build:web": "pnpm --filter workspace-web build",
+    "test:web": "pnpm --filter workspace-web test",
+    "typecheck:web": "pnpm --filter workspace-web typecheck",
     "test": "python -m pytest",
     "tree": "python scripts/maintenance/generate_tree.py"
   }

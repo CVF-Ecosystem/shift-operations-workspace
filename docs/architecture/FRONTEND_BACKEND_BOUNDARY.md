@@ -74,11 +74,16 @@ Mỗi tầng có Dockerfile riêng (`docker-compose.yml`) và deploy độc lậ
 ## Trạng thái hiện tại (trung thực)
 
 - Ranh giới **thiết kế** đã đúng và đã có code khung ở cả ba tầng.
-- Hiện thực **frontend còn mỏng**: `api.ts` mới có `health()`; feature folders là
-  stub (catalog: `workspace-web` = partial). Khi xây UI thật, giữ đúng 5 luật
-  trên.
+- P2C C3b (2026-07-29) hiện thực slice đầu tiên: `api.ts` gọi
+  `/auth/login`, `/shifts`, `/events`, `/shifts/{id}/open-work`,
+  `/incidents`, `/handovers` qua `VITE_API_URL`; token chỉ lưu
+  `sessionStorage`. Đây là **read-only** — không có route ghi nào được
+  frontend gọi. Feature folders còn lại (operations-chat, customer-inbox,
+  end-shift-report, leadership-dashboard, administration, quick-actions)
+  vẫn là stub, ngoài phạm vi slice này.
 - Gợi ý an toàn kiểu: sinh TypeScript type từ `workspace-contracts` để FE↔BE
-  không lệch (chưa làm; là bước tùy chọn khi bắt đầu xây UI).
+  không lệch (chưa làm; `src/types/operations.ts` hiện được viết tay khớp
+  theo response model của backend, là bước tùy chọn khi mở rộng UI).
 
 ## Liên quan
 

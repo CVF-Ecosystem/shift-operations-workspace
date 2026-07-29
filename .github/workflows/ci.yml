@@ -21,3 +21,21 @@ jobs:
         run: python scripts/testing/validate_repository.py
       - name: Tests
         run: python -m pytest -q
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.14.0"
+      - name: Enable Corepack
+        run: corepack enable && corepack prepare pnpm@9.15.0 --activate
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm --filter workspace-web typecheck
+      - name: Test
+        run: pnpm --filter workspace-web test
+      - name: Build
+        run: pnpm --filter workspace-web build
