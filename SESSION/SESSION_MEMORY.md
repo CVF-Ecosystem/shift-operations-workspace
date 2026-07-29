@@ -8,8 +8,8 @@ _Last updated: 2026-07-29 (P2-C read slice FREEZE / CLOSED_BOUNDED)_
 
 ## Where the project is
 
-**2026-07-29 (Shift-create admission repair — INTAKE):** after P2-C read slice C3a `fe2f312`/C3b `e24905f`/C4 `49b4d81` closed bounded, probes reproduced anonymous `POST /shifts` and adjacent anonymous `POST /messages` at HTTP 200.
-DESIGN must explicitly split or include the message bypass and define service/permission/audit/evidence boundaries; no BUILD authority exists.
+**2026-07-29 (Shift-create admission repair — DESIGN):** probes reproduced anonymous `POST /shifts` and adjacent `POST /messages` at HTTP 200; ADR chooses shift-only JWT/operator/atomic-audit repair while explicitly parking message admission as the sole next security tranche.
+Query compatibility stays; live PostgreSQL and refusal-zero-call/exactly-one-admitted-call provider evidence are mandatory. SPEC is next; no BUILD authority exists.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
 Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.

@@ -8,6 +8,7 @@
   "required_reads": [
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
+    "docs/decisions/ADR_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "docs/decisions/INTAKE_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "docs/decisions/ADR_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
@@ -72,7 +73,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 at INTAKE. Anonymous POST /shifts and the adjacent anonymous POST /messages were independently reproduced at HTTP 200. NEXT MOVE: author DESIGN resolving SCR-INTAKE-F1 through F6, including an explicit split-or-include disposition for the message bypass. No BUILD authority exists; the closed P2-C read slice remains settled and P2-D offline/realtime remains parked.",
+  "next_allowed_move": "ACTIVE TRANCHE: SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 at DESIGN. ADR resolves F1-F6: shift-only service/permission/atomic-audit repair, preserved query contract, message admission split as the sole next security tranche, and mandatory live PostgreSQL/provider evidence. NEXT MOVE: author a testable SPEC. No BUILD authority exists; the closed P2-C read slice remains settled.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -202,16 +203,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 records the anonymous shift-create bypass and adjacent anonymous message-create bypass. DESIGN is next; BUILD is unauthorized.",
+    "activePhase": "DESIGN",
+    "activePhaseNote": "ADR resolves SCR-INTAKE-F1 through F6 and explicitly splits message admission. SPEC is next; BUILD is unauthorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. The P2-C read slice and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR / INTAKE_AUTHOR",
-    "activeRoleNote": "Codex reproduced and bounded the mutation-admission findings. The next role transition is SPEC_AUTHOR for DESIGN; no BUILD authority exists.",
+    "activeRole": "SPEC_AUTHOR",
+    "activeRoleNote": "Codex authored the DESIGN decision. The same role authors the testable SPEC next; independent authorization review remains required before BUILD.",
     "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
     "updatedAt": "2026-07-29"
   }

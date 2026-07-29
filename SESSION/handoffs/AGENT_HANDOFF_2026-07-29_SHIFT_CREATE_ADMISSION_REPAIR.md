@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29`
-- Control-chain phase: `INTAKE`
+- Control-chain phase: `DESIGN`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / INTAKE_AUTHOR`
-- Status: `INTAKE_RECORDED — DESIGN_NEXT`
+- Active role: `SPEC_AUTHOR`
+- Status: `DESIGN_RECORDED — SPEC_NEXT`
 
 ## Settled predecessor
 
@@ -49,3 +49,18 @@ Canonical intake:
 Author and independently review DESIGN. DESIGN must explicitly split or
 include the adjacent message bypass. No BUILD, source edit, permission change,
 provider call, stage, commit or push authority exists from this handoff.
+
+## DESIGN disposition
+
+ADR: `docs/decisions/ADR_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md`.
+
+- Shift creation and message ingestion are split. Message admission is the
+  sole next security tranche, not waived or silently fixed here.
+- `POST /shifts` keeps its query contract but must require JWT and route only
+  through a new atomic `ShiftService.create`.
+- `shift.create` uses the existing role hierarchy with minimum `operator`.
+- Create plus actor-bound audit must share one ledger transaction.
+- BUILD must prove refusal zero-call behavior, exactly one admitted live
+  provider call, InMemory/SQLite rollback and disposable PostgreSQL parity.
+
+Next move: author SPEC. BUILD remains unauthorized.
