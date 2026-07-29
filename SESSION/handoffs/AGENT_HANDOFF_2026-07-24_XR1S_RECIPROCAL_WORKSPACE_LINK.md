@@ -198,8 +198,8 @@ or advancing the lane sequence.
 | Local/public CVF core actual HEAD | `27137db4d9aa2aea931ddd2507185d5c24943080` |
 | Workspace doctor | `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` — core/manifest row `[FAIL]` warn-only; one unrelated catalog-kit `[WARN]` |
 | Test baseline | `python -m pytest -q` → `292 passed` |
-| Operations authorization commit (`XR1-O-C1`) | `74170650bd7f2732bc2eec985e5b891df6d45897` |
-| Operations post-push continuity commit | `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` (Operations `HEAD == origin/main`) |
+| Operations authorization commit (`XR1-O-C1`) | `f99b3bf916985572e633275311a11aef4bd3aabf` |
+| Operations post-push continuity commit | `a944b72e84b22abed184a9b678c9b0b0ab3e65c3` (Operations `HEAD == origin/main`) |
 | Ordering | `74170650...` is an ancestor of `3ed0fc83...` |
 | Operations `IMPLEMENTATION_STATUS.json` `overallStatus` | `XR1_O_C1_PUSHED_WAITING_SHIFT_AUTHORIZATION` |
 | `P2B-APPROVER-IDENTITY-RECONCILIATION` | `DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.` — untouched, PARKED |
@@ -275,8 +275,8 @@ owns whether and when to authorize or execute it.
   parse, secret scan and diff check PASS.
 - Doctor: `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))`; core/manifest
   row PASS and the sole warning is the bounded legacy catalog-kit note.
-- Operations commits `74170650bd7f2732bc2eec985e5b891df6d45897` and
-  `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` exist on Operations
+- Operations commits `f99b3bf916985572e633275311a11aef4bd3aabf` and
+  `a944b72e84b22abed184a9b678c9b0b0ab3e65c3` exist on Operations
   `origin/main` in the required order.
 - Assessment file SHA-256 remains
   `168ea2c7a67a31bae50c9e4dbe78c2273a692f3a82a1074585e1bdb89b70fde2`;

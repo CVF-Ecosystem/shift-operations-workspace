@@ -80,8 +80,8 @@ and performs no BUILD.
 | Local/public CVF core actual HEAD | `27137db4d9aa2aea931ddd2507185d5c24943080` |
 | Workspace doctor | `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` — `CVF core commit matches manifest` reports `[FAIL]` but is explicitly `warn only`, plus one unrelated `[WARN]` for the governed downstream catalog kit not being present (this project predates that kit; bounded legacy compatibility, out of scope here) |
 | Test baseline | `python -m pytest -q` → `292 passed` |
-| Operations authorization commit (`XR1-O-C1`) | `74170650bd7f2732bc2eec985e5b891df6d45897` |
-| Operations post-push continuity commit | `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` |
+| Operations authorization commit (`XR1-O-C1`) | `f99b3bf916985572e633275311a11aef4bd3aabf` |
+| Operations post-push continuity commit | `a944b72e84b22abed184a9b678c9b0b0ab3e65c3` |
 | Ordering | `7417065` is an ancestor of `3ed0fc83` (post-push continuity records the push, does not fold into it); `3ed0fc83` is Operations' current `HEAD == origin/main` |
 | Operations `IMPLEMENTATION_STATUS.json` `overallStatus` | `XR1_O_C1_PUSHED_WAITING_SHIFT_AUTHORIZATION` |
 | Shift lane 2 | `P2B-APPROVER-IDENTITY-RECONCILIATION` — `docs/decisions/ADR_2026-07-23_P2B_APPROVER_IDENTITY_RECONCILIATION.md`, `docs/specs/P2B_APPROVER_IDENTITY_RECONCILIATION_SPEC.md`, `docs/work_orders/P2B_APPROVER_IDENTITY_RECONCILIATION_WORK_ORDER.md` — committed at Shift `f98f29e145fa002be070e9d44520d20f0f82dcb3` (current HEAD). Work order `Status: DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.` **PARKED** by this tranche: not edited, resumed, superseded, cancelled, or built. |
@@ -242,7 +242,7 @@ minimum:
 7. The descriptor is byte-for-byte identical when read from a fresh clone —
    no field is regenerated, templated, or machine-specific.
 8. The descriptor is compatible with Operations' own contract as authorized
-   at Operations commit `74170650bd7f2732bc2eec985e5b891df6d45897`
+   at Operations commit `f99b3bf916985572e633275311a11aef4bd3aabf`
    (`ADR-OW-006` section A), checked read-only against that repository —
    this test never writes into `CVF-Operations-Workspace`.
 9. No file from `CVF-Operations-Workspace` is required to exist locally for

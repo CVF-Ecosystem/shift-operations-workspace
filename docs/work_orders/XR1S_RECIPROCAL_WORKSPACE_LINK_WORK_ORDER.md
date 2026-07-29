@@ -78,8 +78,8 @@ artifact, and the untracked assessment file.
   IS NOT AUTHORIZED.` PARKED: not edited, resumed, superseded, cancelled, or
   built by this tranche.
 - `CVF-Operations-Workspace` — read-only inspection only (verifying commits
-  `74170650bd7f2732bc2eec985e5b891df6d45897` and
-  `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` exist and their ordering); no
+  `f99b3bf916985572e633275311a11aef4bd3aabf` and
+  `a944b72e84b22abed184a9b678c9b0b0ab3e65c3` exist and their ordering); no
   write, no BUILD, no commit performed there.
 - The CVF core repository/bootstrap-learning content — untouched.
 - Every third repository.
@@ -257,8 +257,8 @@ not self-approve past — if any of the following occurs:
 
 - Either repository's pin/remote drifts from the values recorded in the ADR
   (§1.2) at the time of this authoring round.
-- Any of the two named Operations commits (`74170650bd7f2732bc2eec985e5b891df6d45897`,
-  `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a`) is missing from Operations'
+- Any of the two named Operations commits (`f99b3bf916985572e633275311a11aef4bd3aabf`,
+  `a944b72e84b22abed184a9b678c9b0b0ab3e65c3`) is missing from Operations'
   `origin/main`.
 - The assessment file's hash mutates from
   `168ea2c7a67a31bae50c9e4dbe78c2273a692f3a82a1074585e1bdb89b70fde2`.

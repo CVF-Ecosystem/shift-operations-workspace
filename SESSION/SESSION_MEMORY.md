@@ -164,8 +164,8 @@ authorization defect thay vì nuốt lặng vào BUILD commit. Full suite 292 pa
 authorization authored):** `CVF-Operations-Workspace` (một repo Git độc lập
 khác, cùng chủ sở hữu) đã author và push `XR1-O-C1`: một portable
 relationship contract (`ADR-OW-006`/`OW-XR1-SPEC-001`/`OW-XR1-WO-001`, commit
-`74170650bd7f2732bc2eec985e5b891df6d45897`, continuity sau push
-`3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a`) đặt tên repo này là
+`f99b3bf916985572e633275311a11aef4bd3aabf`, continuity sau push
+`a944b72e84b22abed184a9b678c9b0b0ab3e65c3`) đặt tên repo này là
 `PROFILE_SOURCE` và chính nó là `PRIMARY_PLATFORM`, cộng một công cụ
 `scan`/`apply` tương lai (Operations-side, chỉ đọc repo này, không bao giờ
 ghi). `XR1-O-C2` bên Operations bị chặn tới khi repo này đóng xong

@@ -80,8 +80,8 @@ is never conflated with intended post-BUILD state.
 | C-5 | Local/public CVF core actual HEAD | `27137db4d9aa2aea931ddd2507185d5c24943080` |
 | C-6 | Workspace doctor | `RESULT: PASS WITH NOTE (24 passed, 1 warning(s))` — `CVF core commit matches manifest` `[FAIL]` (warn only, C-4/C-5 drift), plus one unrelated `[WARN]` (governed downstream catalog kit not present, bounded legacy compatibility) |
 | C-7 | Test baseline | `python -m pytest -q` → `292 passed` |
-| C-8 | Operations authorization commit | `74170650bd7f2732bc2eec985e5b891df6d45897` |
-| C-9 | Operations post-push continuity commit | `3ed0fc83cc542f9c2af2c17ee9cbed60b891e74a` (Operations `HEAD == origin/main`) |
+| C-8 | Operations authorization commit | `f99b3bf916985572e633275311a11aef4bd3aabf` |
+| C-9 | Operations post-push continuity commit | `a944b72e84b22abed184a9b678c9b0b0ab3e65c3` (Operations `HEAD == origin/main`) |
 | C-10 | Ordering | C-8 is an ancestor of C-9 |
 | C-11 | Operations `IMPLEMENTATION_STATUS.json` `overallStatus` | `XR1_O_C1_PUSHED_WAITING_SHIFT_AUTHORIZATION` |
 | C-12 | `P2B-APPROVER-IDENTITY-RECONCILIATION` work order status | `DRAFT — NOT APPROVED. BUILD IS NOT AUTHORIZED.` — untouched, PARKED |
@@ -169,7 +169,7 @@ is never conflated with intended post-BUILD state.
   regenerated, or machine-specific at read time.
 - **R-22** — A read-only compatibility check against Operations' own
   descriptor contract as authorized at Operations commit
-  `74170650bd7f2732bc2eec985e5b891df6d45897` (`ADR-OW-006` section A) is
+  `f99b3bf916985572e633275311a11aef4bd3aabf` (`ADR-OW-006` section A) is
   present as its own test, and is skipped (not failed) if the Operations
   sibling clone is not present locally — R-20 must hold independently of
   this test's outcome.
