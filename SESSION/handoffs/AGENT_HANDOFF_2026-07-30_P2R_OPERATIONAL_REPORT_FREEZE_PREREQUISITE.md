@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30`
-- Control-chain phase: `SPEC`
+- Control-chain phase: `WORK_ORDER`
 - Risk: `R2`
-- Active role: `AUTHORIZATION_REVIEWER`
-- Status: `SPEC REVIEW_PASS — WORK_ORDER NEXT; BUILD NOT AUTHORIZED`
+- Active role: `ORCHESTRATOR / AUTHORIZATION_REVIEWER`
+- Status: `WORK_ORDER REVIEW_PASS — R2 HUMAN APPROVAL REQUIRED; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -97,13 +97,35 @@ Review repaired these findings without waiver:
 
 Disposition: `REVIEW_PASS` for WORK_ORDER authoring only.
 
+## WORK_ORDER disposition
+
+Canonical Work Order:
+
+`docs/work_orders/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_WORK_ORDER.md`.
+
+Authorization review:
+
+`docs/decisions/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_WORK_ORDER_AUTHORIZATION_REVIEW.md`.
+
+The exact C3 ceiling is 59 unique paths: 37 existing and 22 new. All seven
+current non-doc override references are covered. There is no wildcard,
+conditional or reserve path.
+
+Review repaired without waiver:
+
+- `P2R-WO-REV-F1`: the three existing 300-line paths must change
+  line-neutrally using already-authorized helpers;
+- `P2R-WO-REV-F2`: rollback rehearsal uses the exact C3 parent/pushed
+  pre-BUILD checkpoint.
+
+Disposition: authorization `REVIEW_PASS`; R2 human approval remains open.
+
 ## Next governed move
 
-Author WORK_ORDER only. It must freeze the exact changed-set ceiling,
-protected paths, provider-neutral roles, evidence commands, C1/C2/C3
-sequence, stop conditions, repair authority and commit ownership.
+Operator explicitly approves or rejects the exact Work Order, 59-path
+ceiling, implementation-worker handoff and no-stage/commit/push boundary.
 
-BUILD remains prohibited until the Work Order receives R2 human approval and
-the pre-BUILD continuity checkpoint is recorded and pushed. No source/test/
-schema/migration/contract edit, provider call or Docker/PostgreSQL run is
-authorized by this handoff.
+After approval only, record/push a separate four-file pre-BUILD continuity
+checkpoint and run G6. BUILD remains prohibited until both complete. No
+source/test/schema/migration/contract edit, provider call or
+Docker/PostgreSQL run is authorized by this handoff.
