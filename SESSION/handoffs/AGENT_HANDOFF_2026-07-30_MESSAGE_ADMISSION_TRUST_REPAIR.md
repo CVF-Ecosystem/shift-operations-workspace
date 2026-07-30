@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`
-- Control-chain phase: `INTAKE`
+- Control-chain phase: `DESIGN`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / INTAKE_AUTHOR`
-- Status: `INTAKE RECORDED — DESIGN NEXT; BUILD NOT AUTHORIZED`
+- Active role: `ORCHESTRATOR / DESIGN_AUTHOR`
+- Status: `DESIGN RECORDED — SPEC NEXT; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -40,7 +40,34 @@ Source inspection and ephemeral local probes independently confirmed:
 No provider call, external webhook, secret read, Docker/PostgreSQL run,
 production data access, stage, commit, or push occurred during the probe.
 
-## Required DESIGN findings
+## DESIGN decision
+
+Canonical ADR:
+`docs/decisions/ADR_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md`.
+
+The existing `POST /messages` is classified as an authenticated internal-user
+command only:
+
+- require verified JWT and `message.create` at minimum role `operator`;
+- derive `sender_id` from `principal.user_id` and fix source to `INTERNAL`;
+- treat legacy sender/source fields only as optional matching assertions;
+- route through one MessageService transaction that persists the message and
+  exact actor-bound audit;
+- reject unknown/frozen shifts and prove InMemory/SQLite/PostgreSQL parity;
+- use the existing minimal table/domain model, with no migration and no claim
+  of Canonical Message Contract equivalence.
+
+External ingestion is a separate, later Integration Edge tranche. It requires
+dedicated service identity, verified canonical provenance, raw-envelope
+ownership, dedupe/replay, identity mapping and shift-or-fallback routing.
+Provider payload and external canonical envelopes must never use the internal
+`POST /messages` route.
+
+No Integration Edge, canonical schema, channel adapter, identity-mapping,
+conversation-routing, quarantine, attachment or fallback implementation is
+included in this tranche.
+
+## DESIGN findings disposition
 
 - `MAR-INTAKE-F1 ENTRYPOINT_CLASSIFICATION`;
 - `MAR-INTAKE-F2 SENDER_AUTHORITY`;
@@ -52,16 +79,16 @@ production data access, stage, commit, or push occurred during the probe.
 - `MAR-INTAKE-F8 FAILURE_AND_HTTP_CONTRACT`;
 - `MAR-INTAKE-F9 LIVE_EVIDENCE`.
 
-Canonical intake:
-`docs/decisions/INTAKE_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md`.
+All nine findings are resolved architecturally by the ADR. Their behavior and
+exact HTTP/test contracts must be frozen in SPEC before any work order or
+implementation can exist.
 
 ## Next governed move
 
-Author DESIGN only. DESIGN must explicitly classify internal-user versus
-external-channel entry points, bind sender/source authority to verified
-identity/provenance, decide the Integration Edge handoff, reconcile model/
-contract/persistence truth, and bound migration/fallback/quarantine scope.
+Author SPEC only for the bounded internal-message vertical and its external
+nonclaims. Freeze the request/OpenAPI compatibility contract, permission and
+audit fields, failure mapping, ledger parity, PostgreSQL 16 proof and live
+provider evidence sequence.
 
-No BUILD, source/test/schema/migration/contract edit, provider call,
-Docker/PostgreSQL run, stage, commit, or push authority exists from this
-handoff.
+No BUILD, source/test/permission/schema/migration edit, provider call,
+Docker/PostgreSQL run, or implementation authority exists from this handoff.
