@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30`
-- Control-chain phase: `INTAKE`
+- Control-chain phase: `DESIGN`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / INTAKE_ANALYST`
-- Status: `INTAKE RECORDED — DESIGN NEXT; BUILD NOT AUTHORIZED`
+- Active role: `DESIGN_AUTHOR`
+- Status: `DESIGN RECORDED — SPEC NEXT; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -49,28 +49,40 @@ No provider call, external service, secret read, Docker/PostgreSQL run,
 production data access, source/test/schema edit, stage, commit, or push
 occurred during intake inspection.
 
-## Required DESIGN findings
+## DESIGN disposition
 
-- `P2R-INTAKE-F1 CANONICAL_REPORT_SHAPE`;
-- `P2R-INTAKE-F2 LIFECYCLE_AND_IMMUTABILITY`;
-- `P2R-INTAKE-F3 SNAPSHOT_PROVENANCE`;
-- `P2R-INTAKE-F4 REVIEW_AND_APPROVAL_AUTHORITY`;
-- `P2R-INTAKE-F5 FREEZE_BINDING`;
-- `P2R-INTAKE-F6 BACKEND_PARITY`;
-- `P2R-INTAKE-F7 HTTP_AND_FAILURE_CONTRACT`;
-- `P2R-INTAKE-F8 COMPATIBILITY_AND_HISTORY`;
-- `P2R-INTAKE-F9 EVIDENCE_AND_CLAIM`.
+All intake findings `P2R-INTAKE-F1..F9` are resolved without waiver in:
 
-Canonical intake:
-`docs/decisions/INTAKE_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md`.
+`docs/decisions/ADR_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md`.
+
+The selected design:
+
+- implements only fixed operational type `END_SHIFT`;
+- makes every server-derived snapshot/version immutable and preserves
+  non-current history;
+- requires a new migration for version uniqueness and exactly one current
+  report per shift/type;
+- uses exact canonical sections, source-manifest digests and one overall
+  snapshot digest;
+- reuses durable R2 approval receipts bound to Report id, version and digest;
+- retires the report override;
+- atomically binds handover readiness, one current approved Report, Report
+  freeze, Shift freeze and both actor-bound audits;
+- preserves the old public contract field names while tightening the
+  previously loose pre-runtime schema;
+- requires InMemory/SQLite/disposable-PostgreSQL parity plus fresh
+  provider-backed governance evidence.
+
+P5-A rendering/export, P2-C, P2-D and the full-shift exit gate remain outside
+this tranche.
 
 ## Next governed move
 
-Author DESIGN only. DESIGN must select the canonical Report shape/lifecycle,
-snapshot provenance, authenticated approval mechanism, atomic freeze binding,
-backend/HTTP behavior and evidence boundary while keeping P2-C, P2-D and P5-A
-out of scope.
+Author SPEC only from the canonical intake and ADR. Freeze exact requirements,
+API/contract shapes, lifecycle, canonical snapshot encoding, migration
+constraints, backend parity, failure matrix, evidence cases and claim
+boundary.
 
-No SPEC, WORK_ORDER, BUILD, source/test/schema/migration/contract edit,
-provider call, Docker/PostgreSQL run, stage, commit, or push authority exists
-from this handoff.
+No WORK_ORDER, BUILD, source/test/schema/migration/contract edit, provider
+call, Docker/PostgreSQL run, stage, commit, or push authority exists from this
+handoff.
