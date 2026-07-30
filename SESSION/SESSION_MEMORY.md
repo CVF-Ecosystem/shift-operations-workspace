@@ -4,11 +4,11 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-30 (Message admission Amendment 1 REVIEW_PASS; C2/Claude G6 next; BUILD unauthorized)_
+_Last updated: 2026-07-30 (Message admission C2 PRE-G6; Claude assigned; no edit before G6)_
 
 ## Where the project is
 
-**2026-07-30 (Message admission — WORK_ORDER Amendment 1 REVIEW_PASS):** SPEC R1-R19/AC-01..AC-23 and exact 29-path C3 ceiling remain intact. `MAR-PREBUILD-F1` closed without waiver: C2 records G6 as next, then Claude Code runs G6 from pushed C2 before any BUILD edit and records its result in the return/receipt. Next is zero-BUILD amendment commit, separate four-path C2 assigning Claude Code as worker and Codex as reviewer/commit steward, then G6. External Integration Edge remains zero-diff/later.
+**2026-07-30 (Message admission — C2 PRE-G6):** C1 `a01e64a` and sequence Amendment 1 `9d60508` are pushed. Operator assigns Claude Code `2.1.215` as sole implementation/repair worker; Codex remains independent reviewer/commit steward. After this separate four-path C2 is pushed, Claude must rehydrate and pass G6 before its first edit, then may build exactly the reviewed 29-path ceiling and return `READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_REVIEW`; no stage/commit/push/review/FREEZE by Claude. External Integration Edge remains zero-diff/later.
 **2026-07-30 (Shift-create admission repair — FREEZE / CLOSED_BOUNDED):** C3 `3f9e456d129075e347d986af3b31d35f4d00afb9` changed exactly 19 authorized paths and is pushed after independent REVIEW_PASS. `SCR-BUILD-REV-F1..F3` closed without waiver: PostgreSQL proof now uses a minted operator JWT through the real FastAPI route, provider admission verifies exactly one persisted shift plus every actor-bound audit field before exactly one real call, and InMemory/SQLite carry the required refusal and returned-versus-persisted matrix. Evidence: focused 94; full 724/69 skipped; PostgreSQL 59 with migrations 21/0 then 17/4 and exact cleanup; parent rehearsal 678/65; fresh Alibaba qwen3.7-max HTTP 200 after four zero-call refusals; repository gates and doctor PASS WITH NOTE 24/1 bounded warning. Claim remains only: `POST /shifts` requires a verified JWT, enforces `shift.create`, and atomically persists the shift with an actor-bound audit. Anonymous `POST /messages` remains open and is the sole next security tranche; fresh INTAKE only, no authority carries forward.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.

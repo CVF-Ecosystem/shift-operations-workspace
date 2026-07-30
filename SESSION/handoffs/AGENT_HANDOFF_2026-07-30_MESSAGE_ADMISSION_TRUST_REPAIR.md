@@ -3,10 +3,11 @@
 ## Disposition
 
 - Tranche: `MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD — PRE-G6`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / WORK_ORDER_AUTHOR / REVIEWER`
-- Status: `AMENDMENT 1 REVIEW_PASS — C1b THEN C2/G6; BUILD NOT AUTHORIZED`
+- Active role: `ORCHESTRATOR / INDEPENDENT_REVIEWER / COMMIT_STEWARD`
+- Implementation worker: `Claude Code 2.1.215`
+- Status: `C2 PRE-BUILD ACKNOWLEDGED — G6 REQUIRED BEFORE FIRST BUILD EDIT`
 
 ## Settled predecessor
 
@@ -93,10 +94,21 @@ Amendment 1 closes `MAR-PREBUILD-F1 C2_G6_ORDER_CYCLE` without waiver: C2
 records the G6 requirement, then G6 runs from pushed C2 and its result belongs
 in the worker return/build receipt.
 
-Commit/push the zero-BUILD Amendment 1 checkpoint, then record/push a separate
-four-path C2 assigning Claude Code as implementation worker and Codex as
-independent reviewer/commit steward. Claude runs G6 from pushed C2 before
-editing the exact 29-path C3 ceiling.
+Operator assignment is acknowledged: Claude Code `2.1.215` is the sole
+`IMPLEMENTATION_WORKER`/bounded `REPAIR_WORKER`; Codex remains independent
+reviewer, commit steward and closer. Authorization commits:
+
+- C1 `a01e64af022289e0bbc5ad9142a4ef9099e80345`;
+- Amendment 1 `9d60508`.
+
+After this four-path C2 is pushed, Claude must rehydrate continuity and run G6
+before the first BUILD edit. If G6 passes, Claude may change exactly the 29 C3
+paths in the reviewed Work Order and must return
+`READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_REVIEW`.
+
+Claude must not review, stage, commit, push or FREEZE. Codex must not implement
+or silently repair Claude's BUILD.
 
 No BUILD, source/test/permission/schema/migration edit, provider call or
-Docker/PostgreSQL run is authorized before pushed C1/C2 and passing G6.
+Docker/PostgreSQL BUILD run is authorized before this C2 is pushed and G6
+passes.
