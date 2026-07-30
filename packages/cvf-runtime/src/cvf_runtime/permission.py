@@ -69,6 +69,11 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # shift creation is not itself a risk-classed or durable-commitment
     # decision, so it does not need the higher supervisor bar.
     "shift.create": "operator",
+    # Message creation (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30): routine
+    # operator action, same bar as shift.create/event.create/task.create - a
+    # message is append-only RAW input, not a risk-classed or durable-
+    # commitment decision, so it does not need the higher supervisor bar.
+    "message.create": "operator",
 }
 
 

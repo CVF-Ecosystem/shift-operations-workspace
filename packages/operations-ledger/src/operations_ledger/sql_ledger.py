@@ -13,6 +13,7 @@ from operations_ledger import _evidence, _event_queries, _rows, _shift_queries
 from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
 from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
+from operations_ledger._message_store import _MessageStoreMixin
 from operations_ledger.tables import (
     audit_records,
     corrections,
@@ -49,7 +50,7 @@ def make_engine(database_url: str, **kwargs) -> Engine:
     return engine
 
 
-class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
+class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _MessageStoreMixin):
     def __init__(self, database_url: str, models, engine: Engine | None = None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
         # If an engine is injected (tests), it must have been built with
@@ -124,10 +125,7 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin):
         # SPEC R25: delegated to _shift_queries for the file-size guard.
         return _shift_queries.freeze_shift(self._open(unit), self.models, shift_id)
 
-    # --- messages (raw evidence preserved elsewhere; minimal here) ---
-    def add_message(self, message, *, unit=None):
-        raise NotImplementedError("message persistence not yet wired to SQL")
-
+    # --- messages: add_message/get_message implemented by _MessageStoreMixin ---
     def message_exists(self, message_id: UUID, *, unit=None) -> bool:
         with self._open(unit) as c:
             row = c.execute(

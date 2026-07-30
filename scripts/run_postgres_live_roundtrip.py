@@ -210,8 +210,8 @@ LIVE_SUITE_TARGETS = (
     "tests/integration/test_incident_postgres_live.py",
     "tests/integration/test_handover_postgres_live.py",
     "tests/integration/test_shift_create_postgres_live.py",
+    "tests/integration/test_message_postgres_live.py",
 )
-
 
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:
     env = os.environ.copy()

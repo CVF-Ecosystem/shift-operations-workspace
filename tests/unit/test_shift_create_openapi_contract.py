@@ -44,6 +44,28 @@ def _strip_shifts_post_security(doc: dict) -> None:
     del post_op["security"]
 
 
+def _strip_messages_post_delta(doc: dict) -> None:
+    """MAR-BUILD-REV-F1 repair (SPEC R21): reverse the COMPLETE later
+    MESSAGE-ADMISSION-TRUST-REPAIR `POST /messages` delta, in place - not
+    just `security`, but also MessageInput's required order and the
+    sender_id/source property shapes (both previously required plain
+    strings, not optional `anyOf` fields). Asserts the current authorized
+    shape before reversal; never refreshes this file's own historical
+    PRE_SHIFT_CREATE_OPENAPI_SHA baseline."""
+    post_op = doc["paths"]["/messages"]["post"]
+    assert "security" in post_op, "POST /messages lost its expected security requirement"
+    del post_op["security"]
+
+    schema_ref = post_op["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    schema = doc["components"]["schemas"][schema_ref.split("/")[-1]]
+    assert set(schema["required"]) == {"shift_id", "text"}, schema["required"]
+    schema["required"] = ["shift_id", "sender_id", "text"]
+    assert schema["properties"]["sender_id"].get("anyOf"), schema["properties"]["sender_id"]
+    schema["properties"]["sender_id"] = {"title": "Sender Id", "type": "string"}
+    assert schema["properties"]["source"].get("anyOf"), schema["properties"]["source"]
+    schema["properties"]["source"] = {"default": "INTERNAL", "title": "Source", "type": "string"}
+
+
 def test_post_shifts_has_security_requirement():
     """AC-01/AC-04/R1: POST /shifts requires JWT via get_principal."""
     from workspace_api.main import app
@@ -66,16 +88,18 @@ def test_post_shifts_query_parameters_and_response_shape_unchanged():
 
 
 def test_openapi_delta_is_exactly_the_shift_create_security_requirement():
-    """R9/AC-11: mechanical proof, not an assertion of trust. Strips only the
-    new `security` key from POST /shifts and re-hashes the remainder against
-    the exact pre-tranche golden document - no other path, schema, parameter
-    or response may have moved."""
+    """R9/AC-11/SPEC R21: mechanical proof, not an assertion of trust. Strips
+    the new `security` key from POST /shifts, PLUS the complete later
+    message-admission delta (security + MessageInput requiredness/schema),
+    and re-hashes the remainder against the exact pre-tranche golden
+    document - no other path, schema, parameter or response may have moved."""
     from workspace_api.main import app
 
     doc = app.openapi()
     assert "security" in doc["paths"]["/shifts"]["post"]
 
     reduced = json.loads(json.dumps(doc))
+    _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
 
     actual = canonical(reduced)

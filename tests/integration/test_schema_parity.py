@@ -58,6 +58,7 @@ from operations_ledger.tables import (
     approval_receipts,
     corrections,
     customer_requests,
+    messages,
     metadata,
     operational_events,
     shifts,
@@ -74,12 +75,6 @@ from _schema_parity_parsing import (
 )
 
 # Tables tables.py currently maps -> their SQLAlchemy Table object.
-# NOTE: "messages" is intentionally NOT in MAPPED even though tables.py now
-# has a messages Table object - that Table exists only so
-# customer_requests.source_message_id's foreign key can resolve against this
-# MetaData (see tables.py's docstring on it); SqlLedger.add_message still
-# raises NotImplementedError, so there is no persistence behavior to parity
-# -check yet. Add it here when message persistence is actually implemented.
 MAPPED = {
     "shifts": shifts,
     "operational_events": operational_events,
@@ -92,6 +87,10 @@ MAPPED = {
     # database/migrations/004_approval_receipts.sql.
     "task_creation_intents": task_creation_intents,
     "approval_receipts": approval_receipts,
+    # MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30: add_message/get_message are
+    # now implemented (see _message_store.py) for the bounded internal
+    # vertical - joins the two-directional schema-parity set (SPEC R11/AC-12).
+    "messages": messages,
 }
 
 
@@ -163,6 +162,9 @@ _ALWAYS_EXPLICITLY_SUPPLIED_PK = {
     # Pydantic Field(default_factory=uuid4).
     ("task_creation_intents", "intent_id"),
     ("approval_receipts", "receipt_id"),
+    # Verified by reading message_row() in _rows.py: message_id is always
+    # included, sourced from Message.message_id (Field(default_factory=uuid4)).
+    ("messages", "message_id"),
 }
 
 

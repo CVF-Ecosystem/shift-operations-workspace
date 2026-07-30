@@ -24,12 +24,9 @@ Findings repaired here:
 from uuid import uuid4
 
 import pytest
-from sqlalchemy import insert
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.policy_loader import CvfProfile, load_profile
-from operations_ledger.sql_ledger import SqlLedger
-from operations_ledger.tables import messages
 
 from workspace_api.application.customer_request_service import CustomerRequestService
 from operations_domain import models as domain_models
@@ -87,28 +84,13 @@ def test_inmemory_customer_request_returned_object_is_not_a_live_alias():
     assert stored_after_transition.status == CustomerRequestStatus.ACKNOWLEDGED
 
 
-def _insert_sql_message(ledger: SqlLedger, shift):
-    """Insert a row directly into the messages table for test setup only.
-
-    SqlLedger.add_message still raises NotImplementedError (message
-    persistence is a separate, unimplemented vertical - see tables.py's
-    module docstring) - this is the smallest way to get a real, valid
-    message_id row for the source_message_id existence check without
-    implementing that vertical.
-    """
-    message_id = uuid4()
-    with ledger.engine.begin() as conn:
-        conn.execute(
-            insert(messages).values(
-                message_id=message_id,
-                shift_id=shift.shift_id,
-                source="INTERNAL",
-                sender_id="tester",
-                text_content="hello",
-                state="RAW",
-            )
-        )
-    return message_id
+def _insert_sql_message(ledger, shift):
+    """MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30: SqlLedger.add_message is
+    now implemented (see _message_store.py), so test setup goes through the
+    same public ledger path production uses - never a direct SQL insert."""
+    message = domain_models.Message(shift_id=shift.shift_id, sender_id="tester", text="hello")
+    ledger.add_message(message)
+    return message.message_id
 
 
 # --- Finding 2: source_message_id must be validated consistently ------------

@@ -115,6 +115,38 @@ def row_to_customer_request(models, row):
     )
 
 
+def message_row(message) -> dict:
+    # MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 (SPEC R10): exact field
+    # mapping. created_at is supplied explicitly (like shift_row) so a
+    # read-back always matches the value the caller was returned, rather than
+    # drifting to whatever the server_default clock produced. Internal writes
+    # always set raw_payload = NULL — this vertical never persists a raw
+    # external envelope.
+    return {
+        "message_id": message.message_id,
+        "shift_id": message.shift_id,
+        "source": message.source,
+        "sender_id": message.sender_id,
+        "text_content": message.text,
+        "state": str(message.state),
+        "raw_payload": None,
+        "created_at": message.created_at,
+    }
+
+
+def row_to_message(models, row):
+    return models.Message(
+        message_id=row["message_id"],
+        shift_id=row["shift_id"],
+        source=row["source"],
+        sender_id=row["sender_id"],
+        text=row["text_content"],
+        state=row["state"],
+        created_at=row["created_at"],
+        evidence=[],
+    )
+
+
 def user_row(user) -> dict:
     return {
         "user_id": user.user_id,

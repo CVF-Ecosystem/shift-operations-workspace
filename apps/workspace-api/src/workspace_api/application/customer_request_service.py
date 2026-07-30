@@ -53,12 +53,14 @@ class CustomerRequestService:
         assert_domain_allowed(self.profile, _CUSTOMER_REQUEST_DOMAIN)
 
         # Independent review, 2026-07-22 (Finding 2): source_message_id has a
-        # real FK to messages in the migration, but message persistence isn't
-        # implemented, so InMemoryLedger previously accepted ANY value (no
-        # check) while SqlLedger/SQLite raised an uncaught IntegrityError from
-        # the FK - a backend divergence that could surface as an HTTP 500.
-        # Validate existence up front, before either backend ever attempts the
-        # insert, so both raise the SAME controlled error.
+        # real FK to messages in the migration. Message persistence is now
+        # implemented on both backends (MESSAGE-ADMISSION-TRUST-REPAIR-
+        # 2026-07-30), but a caller can still reference a message_id that was
+        # never created, so InMemoryLedger and SqlLedger/SQLite would
+        # otherwise diverge (no check vs. an uncaught IntegrityError from the
+        # FK, surfacing as an HTTP 500). Validate existence up front, before
+        # either backend ever attempts the insert, so both raise the SAME
+        # controlled error.
         if request.source_message_id is not None and not self.ledger.message_exists(
             request.source_message_id
         ):

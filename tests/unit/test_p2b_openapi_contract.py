@@ -2,26 +2,24 @@
 endpoints (SPEC AC-09 OpenAPI half, F14/F17), plus the reviewed incident
 vertical delta (INC-REV-F1/R10-A).
 
-Split out of test_operations_domain_serialization.py
-(CVF-FILE-SPLIT-GUARD-HARDENING); `canonical()`/`_sha()` mirror the same
-trivial byte-canonicalization helpers defined there (SPEC section 4.4
-"byte-identical"), duplicated rather than cross-imported.
+`canonical()`/`_sha()` mirror the trivial byte-canonicalization helpers in
+test_operations_domain_serialization.py (SPEC section 4.4 "byte-identical"),
+duplicated rather than cross-imported.
 
 INC-REV-F1/R10-A: a golden digest cannot simply be refreshed on faith. Each
 `test_openapi_delta_is_exactly_the_*` test proves its tranche's delta
 mechanically - it strips exactly the known paths/schemas/security keys added
-by that tranche (and every later tranche's delta too) from the current
-document, then re-hashes the remainder against that tranche's own pre-change
-SHA. A blind digest refresh, or any additional undisclosed change, fails.
+by that tranche (and every later tranche's delta too), then re-hashes the
+remainder against that tranche's own pre-change SHA. A blind digest refresh
+fails.
 
-The chain: `PRE_INCIDENT_OPENAPI_SHA` (pre-incident) -> `PRE_HANDOVER_OPENAPI_SHA`
-(post-incident, SPEC R12) -> `PRE_P2C_READ_OPENAPI_SHA` (post-handover,
-Amendment 1 R21, imported from `test_p2c_read_openapi_contract.py` so both
-files can never silently drift) -> `PRE_SHIFT_CREATE_OPENAPI_SHA`
-(post-P2C-read, SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 SPEC R9, imported by
-`test_shift_create_openapi_contract.py`) -> current `GOLDEN_OPENAPI_SHA`.
-Each earlier delta test strips every later tranche's known delta too, so it
-still nets back to its own true historical baseline.
+Chain: `PRE_INCIDENT_OPENAPI_SHA` -> `PRE_HANDOVER_OPENAPI_SHA` (R12) ->
+`PRE_P2C_READ_OPENAPI_SHA` (Amendment 1 R21, from
+`test_p2c_read_openapi_contract.py`) -> `PRE_SHIFT_CREATE_OPENAPI_SHA` (SPEC
+R9) -> `PRE_MESSAGE_ADMISSION_OPENAPI_SHA` (SPEC R13, from
+`test_message_openapi_contract.py`) -> current `GOLDEN_OPENAPI_SHA`. Each
+earlier delta test strips every later delta too, netting back to its own
+true historical baseline.
 """
 
 from __future__ import annotations
@@ -55,16 +53,18 @@ PRE_HANDOVER_OPENAPI_SHA = "24390ee413e43cca086ad68cc34925280745db9fde55d7d6e040
 from test_p2c_read_openapi_contract import PRE_P2C_READ_OPENAPI_SHA  # noqa: E402
 
 # Post-P2C-read, pre-shift-create value: PRE_P2C_READ_OPENAPI_SHA plus exactly
-# the P2C read operations/schema and the GET /shifts security delta. This WAS
-# GOLDEN_OPENAPI_SHA before the shift-create tranche; kept under this name
-# because test_shift_create_openapi_contract.py imports it directly.
+# the P2C read operations/schema and the GET /shifts security delta.
 PRE_SHIFT_CREATE_OPENAPI_SHA = "a982980a1aa8af5585a1bf95006d66c73108dc2c33829c804650fe1b9828c67c"
 
-# Post-shift-create value: PRE_SHIFT_CREATE_OPENAPI_SHA plus exactly the new
-# POST /shifts security delta (proven below and in
-# test_shift_create_openapi_contract.py). Recomputed mechanically post-BUILD
-# against the real generated document (see the delta test above).
-GOLDEN_OPENAPI_SHA = "94f56893835b046736efe6697e4d2786ff1716702bfda2a4e9e712a131fee0b3"
+# Post-shift-create, pre-message-admission value: this WAS GOLDEN_OPENAPI_SHA
+# before this tranche; kept under this name because
+# test_message_openapi_contract.py imports it directly.
+PRE_MESSAGE_ADMISSION_OPENAPI_SHA = "94f56893835b046736efe6697e4d2786ff1716702bfda2a4e9e712a131fee0b3"
+
+# Post-message-admission value: PRE_MESSAGE_ADMISSION_OPENAPI_SHA plus exactly
+# the new POST /messages security/requiredness delta. Recomputed mechanically
+# post-BUILD against the real generated document (see the delta test below).
+GOLDEN_OPENAPI_SHA = "547d630d1d7fc62dfeb0691b5fcc4bb30fdc2dfe721783c377c4ff25b75a2881"
 
 _INCIDENT_PATHS = {
     "/incidents",
@@ -105,21 +105,36 @@ _P2C_READ_SCHEMAS = {
 }
 
 
+def _strip_security(doc: dict, path: str, method: str) -> None:
+    """Remove exactly the `security` key a tranche added to one operation, in
+    place. Raises if the key is missing or the path/method has moved,
+    instead of a silent no-op that would mask a security-policy regression."""
+    op = doc["paths"][path][method]
+    assert "security" in op, f"{method.upper()} {path} lost its expected security requirement"
+    del op["security"]
+
+
 def _strip_shifts_get_security(doc: dict) -> None:
-    """Remove exactly the `security` key P2C added to GET /shifts, in place.
-    Raises if the key is missing or the path/method has moved, instead of a
-    silent no-op that would mask a security-policy regression."""
-    get_op = doc["paths"]["/shifts"]["get"]
-    assert "security" in get_op, "GET /shifts lost its expected security requirement"
-    del get_op["security"]
+    _strip_security(doc, "/shifts", "get")  # P2C
 
 
 def _strip_shifts_post_security(doc: dict) -> None:
-    """Same as `_strip_shifts_get_security` for the `security` key
-    SHIFT-CREATE-ADMISSION-REPAIR added to POST /shifts."""
-    post_op = doc["paths"]["/shifts"]["post"]
-    assert "security" in post_op, "POST /shifts lost its expected security requirement"
-    del post_op["security"]
+    _strip_security(doc, "/shifts", "post")  # SHIFT-CREATE-ADMISSION-REPAIR
+
+
+def _strip_messages_post_delta(doc: dict) -> None:
+    """Reverse the COMPLETE message-admission `POST /messages` delta (SPEC
+    R13): `security` plus MessageInput's required order and sender_id/source
+    shapes - not just the security key."""
+    _strip_security(doc, "/messages", "post")
+    schema_ref = doc["paths"]["/messages"]["post"]["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    schema = doc["components"]["schemas"][schema_ref.split("/")[-1]]
+    assert set(schema["required"]) == {"shift_id", "text"}, schema["required"]
+    schema["required"] = ["shift_id", "sender_id", "text"]
+    assert schema["properties"]["sender_id"].get("anyOf"), schema["properties"]["sender_id"]
+    schema["properties"]["sender_id"] = {"title": "Sender Id", "type": "string"}
+    assert schema["properties"]["source"].get("anyOf"), schema["properties"]["source"]
+    schema["properties"]["source"] = {"default": "INTERNAL", "title": "Source", "type": "string"}
 
 
 def _strip_p2c_read_operations(doc: dict) -> None:
@@ -149,11 +164,8 @@ def test_openapi_document_is_unchanged_from_the_pre_build_capture():
 
 
 def test_openapi_delta_is_exactly_the_five_incident_operations():
-    """INC-REV-F1/R10-A: mechanical proof, not an assertion of trust.
-
-    Also strips the later handover, P2C read and shift-create deltas so this
-    still nets back to the true pre-incident baseline, not just a more
-    recent one."""
+    """INC-REV-F1/R10-A: also strips later deltas, netting back to the true
+    pre-incident baseline."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -161,6 +173,7 @@ def test_openapi_delta_is_exactly_the_five_incident_operations():
     assert _INCIDENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
     _strip_shifts_get_security(reduced)
     _strip_p2c_read_operations(reduced)
@@ -174,12 +187,8 @@ def test_openapi_delta_is_exactly_the_five_incident_operations():
 
 
 def test_openapi_delta_is_exactly_the_five_handover_operations():
-    """P2A-HANDOVER-VERTICAL (SPEC R12): mechanical proof, not an assertion
-    of trust - mirrors the incident delta proof one link further up the chain.
-
-    Also strips the later P2C read and shift-create deltas so this still
-    nets back to the true pre-handover baseline, not just the
-    pre-P2C-read one."""
+    """SPEC R12: mirrors the incident proof one link up; also strips later
+    deltas, netting back to the true pre-handover baseline."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -187,6 +196,7 @@ def test_openapi_delta_is_exactly_the_five_handover_operations():
     assert _HANDOVER_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
     _strip_shifts_get_security(reduced)
     _strip_p2c_read_operations(reduced)
@@ -200,11 +210,9 @@ def test_openapi_delta_is_exactly_the_five_handover_operations():
 
 
 def test_openapi_delta_is_exactly_the_p2c_read_operations_from_this_module():
-    """Amendment 1 R21, extended by SHIFT-CREATE-ADMISSION-REPAIR: strips
-    ONLY the P2C read GET operations/schema plus the GET/POST /shifts
-    security deltas, re-hashing against PRE_P2C_READ_OPENAPI_SHA (the exact
-    prior GOLDEN_OPENAPI_SHA). Complements test_p2c_read_openapi_contract.py's
-    own delta test and test_shift_create_openapi_contract.py's own delta test."""
+    """Amendment 1 R21, extended twice since: strips ONLY the P2C read
+    delta plus later security/schema deltas, re-hashing against
+    PRE_P2C_READ_OPENAPI_SHA."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -213,6 +221,7 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations_from_this_module():
     assert _P2C_READ_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
     _strip_shifts_get_security(reduced)
     _strip_p2c_read_operations(reduced)
@@ -258,41 +267,17 @@ def test_openapi_new_endpoints_and_schemas_exact_contract():
     assert "200" in intent_get["responses"]
 
     # Schema field key sets matching SPEC §5.4
-    assert set(schemas["ApprovalCreateInput"]["properties"].keys()) == {
-        "record_type",
-        "action",
-        "record_id",
-    }
+    assert set(schemas["ApprovalCreateInput"]["properties"].keys()) == {"record_type", "action", "record_id"}
     assert set(schemas["ApprovalReceiptResponse"]["properties"].keys()) == {
-        "receipt_id",
-        "record_type",
-        "record_id",
-        "action",
-        "target_version",
-        "risk_class",
-        "approver_id",
-        "approver_role",
-        "created_at",
+        "receipt_id", "record_type", "record_id", "action", "target_version",
+        "risk_class", "approver_id", "approver_role", "created_at",
     }
     assert set(schemas["TaskCreationIntentInput"]["properties"].keys()) == {
-        "shift_id",
-        "title",
-        "description",
-        "owner_id",
-        "risk_class",
-        "evidence",
+        "shift_id", "title", "description", "owner_id", "risk_class", "evidence",
     }
     assert set(schemas["TaskCreationIntentCreateResponse"]["properties"].keys()) == {
-        "intent_id",
-        "payload_digest",
-        "risk_class",
-        "created_at",
+        "intent_id", "payload_digest", "risk_class", "created_at",
     }
     assert set(schemas["TaskCreationIntentGetResponse"]["properties"].keys()) == {
-        "intent_id",
-        "payload_snapshot",
-        "payload_digest",
-        "risk_class",
-        "created_by",
-        "created_at",
+        "intent_id", "payload_snapshot", "payload_digest", "risk_class", "created_by", "created_at",
     }

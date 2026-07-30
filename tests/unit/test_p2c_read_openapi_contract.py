@@ -70,10 +70,10 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
     silently removes it - including a mutation-route deletion - would fail
     this test instead of being absorbed.
 
-    SHIFT-CREATE-ADMISSION-REPAIR (2026-07-29) also added a `security`
-    requirement to POST /shifts; that later delta is stripped first so this
-    proof still nets back to the true pre-P2C-read baseline, not a more
-    recent one."""
+    SHIFT-CREATE-ADMISSION-REPAIR (2026-07-29) added a `security` requirement
+    to POST /shifts, and MESSAGE-ADMISSION-TRUST-REPAIR (2026-07-30) added one
+    to POST /messages; both later deltas are stripped first so this proof
+    still nets back to the true pre-P2C-read baseline, not a more recent one."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -82,6 +82,17 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
         assert method in doc["paths"][path], f"P2C read method missing: {method} {path}"
 
     reduced = json.loads(json.dumps(doc))
+    messages_post = reduced["paths"]["/messages"]["post"]
+    assert "security" in messages_post, "POST /messages lost its expected security requirement"
+    del messages_post["security"]
+    message_schema_ref = messages_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    message_schema = reduced["components"]["schemas"][message_schema_ref.split("/")[-1]]
+    assert set(message_schema["required"]) == {"shift_id", "text"}, message_schema["required"]
+    message_schema["required"] = ["shift_id", "sender_id", "text"]
+    assert message_schema["properties"]["sender_id"].get("anyOf"), message_schema["properties"]["sender_id"]
+    message_schema["properties"]["sender_id"] = {"title": "Sender Id", "type": "string"}
+    assert message_schema["properties"]["source"].get("anyOf"), message_schema["properties"]["source"]
+    message_schema["properties"]["source"] = {"default": "INTERNAL", "title": "Source", "type": "string"}
     shifts_post = reduced["paths"]["/shifts"]["post"]
     assert "security" in shifts_post, "POST /shifts lost its expected security requirement"
     del shifts_post["security"]

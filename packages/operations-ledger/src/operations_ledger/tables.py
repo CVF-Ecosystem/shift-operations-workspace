@@ -114,13 +114,14 @@ operational_events = Table(
     ),
 )
 
-# Mirrors migration 001_foundation.sql (messages table). Minimal mapping: no
-# add_message/get_message SqlLedger methods exist yet (add_message still
-# raises NotImplementedError - message persistence is a separate vertical),
-# but customer_requests.source_message_id REFERENCES messages(message_id), so
-# this Table object must exist for that foreign key to resolve against this
-# MetaData (SQLAlchemy raises NoReferencedTableError otherwise, which breaks
-# every metadata.create_all(engine) call across the test suite).
+# Mirrors migration 001_foundation.sql (messages table). MESSAGE-ADMISSION-
+# TRUST-REPAIR-2026-07-30: add_message/get_message are now implemented (see
+# _message_store.py) for the bounded internal-message vertical - no evidence
+# column here by design (SqlLedger/InMemory both refuse non-empty evidence
+# rather than silently dropping it), and this Table object also lets
+# customer_requests.source_message_id REFERENCES messages(message_id) resolve
+# against this MetaData (SQLAlchemy raises NoReferencedTableError otherwise,
+# which breaks every metadata.create_all(engine) call across the test suite).
 messages = Table(
     "messages",
     metadata,

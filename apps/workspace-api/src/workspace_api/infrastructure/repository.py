@@ -148,9 +148,20 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
             raise ValueError(f"Cannot {what}: shift is frozen")
 
     def add_message(self, message: Message, *, unit=None) -> Message:
+        # SPEC R9: shift/freeze check, duplicate/evidence refusal, then
+        # deep-copy in and out so caller mutation never touches stored truth.
         self._assert_shift_not_frozen(message.shift_id, "add message to a frozen shift")
-        self.messages[message.message_id] = message
-        return message
+        if message.message_id in self.messages:
+            raise ValueError(f"duplicate message_id: {message.message_id}")
+        if message.evidence:
+            raise ValueError("message evidence is not supported by the persisted schema")
+        stored = message.model_copy(deep=True)
+        self.messages[message.message_id] = stored
+        return stored.model_copy(deep=True)
+
+    def get_message(self, message_id: UUID, *, unit=None) -> Message:
+        # Deep copy, not the live reference — see get_shift() for why.
+        return self.messages[message_id].model_copy(deep=True)
 
     def message_exists(self, message_id: UUID, *, unit=None) -> bool:
         return message_id in self.messages
