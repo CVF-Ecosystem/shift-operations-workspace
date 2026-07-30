@@ -112,3 +112,34 @@ or silently repair Claude's BUILD.
 No BUILD, source/test/permission/schema/migration edit, provider call or
 Docker/PostgreSQL BUILD run is authorized before this C2 is pushed and G6
 passes.
+
+## Independent BUILD review and repair authorization
+
+The implementation worker returned
+`READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_REVIEW`. Codex independently
+reviewed source, receipts and executable evidence and returned
+`REVIEW_CHANGES_REQUIRED`:
+
+- `MAR-BUILD-REV-F1 FULL_REGRESSION_AND_CEILING_GAP`;
+- `MAR-BUILD-REV-F2 ENDPOINT_PORT_SECRET_LEAK`;
+- `MAR-BUILD-REV-F3 REFUSAL_AUDIT_FALSE_PASS`;
+- `MAR-BUILD-REV-F4 ROLLBACK_AND_POSTGRES_ASSERTION_GAPS`;
+- `MAR-BUILD-REV-F5 RECEIPT_AND_CATALOG_TRUTH_DRIFT`.
+
+Independent evidence: exact focused Work Order command `106 passed`; full
+suite `782 passed / 76 skipped / 1 failed`; repository/catalog/session/
+file-size/JSON/diff gates PASS; doctor PASS WITH NOTE 24/1; exact 29-path
+dirty set and protected-boundary zero diff. Adversarial no-network probes
+proved an invalid secret-bearing endpoint port escaped in a raw `ValueError`
+and seven injected refusal audits still produced seven PASS outcomes.
+
+Amendment 2 is pushed at `8d5c085`. It adds exactly
+`tests/unit/test_shift_create_openapi_contract.py` as path 30, invalidates
+the current live receipt as closure evidence, and requires fresh PostgreSQL
+and provider proof only after all repaired non-live tests pass.
+
+Claude Code `2.1.215` may now resume only as bounded `REPAIR_WORKER` against
+the pushed Amendment 2 and exact 30-path ceiling. Claude must preserve the
+dirty BUILD, must not stage/commit/push/review/FREEZE, and must stop at
+`READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_RE_REVIEW`. Codex remains
+independent reviewer and commit steward.

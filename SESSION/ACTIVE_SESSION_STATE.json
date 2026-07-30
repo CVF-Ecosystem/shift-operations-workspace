@@ -88,7 +88,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 at BUILD PRE-G6. C1 a01e64a and Amendment 1 9d60508 are pushed. Operator assigned Claude Code 2.1.215 as sole IMPLEMENTATION_WORKER/REPAIR_WORKER; Codex remains independent reviewer/commit steward. Push this four-path C2, then Claude rehydrates and runs G6 before its first edit. On G6 PASS, Claude may build exactly the reviewed 29-path ceiling and return READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_REVIEW; Claude must not stage/commit/push/review/FREEZE.",
+  "next_allowed_move": "ACTIVE TRANCHE: MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 at REVIEW repair. Independent BUILD review returned REVIEW_CHANGES_REQUIRED with MAR-BUILD-REV-F1..F5. Amendment 2 8d5c085 is pushed and raises the exact C3 ceiling from 29 to 30 only by adding tests/unit/test_shift_create_openapi_contract.py. Claude Code 2.1.215 may resume only as bounded REPAIR_WORKER, preserve the dirty BUILD, close F1-F5, rerun full non-live then fresh PostgreSQL/provider evidence, and return READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_RE_REVIEW; no stage/commit/push/review/FREEZE. Codex remains independent reviewer/commit steward.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -229,8 +229,8 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "BUILD",
-    "activePhaseNote": "PRE-G6 only. C1 and Amendment 1 are pushed; this C2 assigns Claude Code 2.1.215. No BUILD edit before pushed C2 and passing G6.",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "REVIEW_CHANGES_REQUIRED. Amendment 2 8d5c085 is pushed; bounded repair of MAR-BUILD-REV-F1..F5 is authorized under the exact 30-path ceiling.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
@@ -239,7 +239,7 @@
     "parkedOperatorCheckpoint": null,
     "activeRole": "ORCHESTRATOR_INDEPENDENT_REVIEWER_COMMIT_STEWARD",
     "activeRoleNote": "Claude Code 2.1.215 is sole implementation/repair worker. Codex reviews and commits only after worker return.",
-    "roleRoute": "CLAUDE_G6_IMPLEMENTATION_THEN_CODEX_INDEPENDENT_REVIEW",
+    "roleRoute": "CLAUDE_BOUNDED_REPAIR_THEN_CODEX_INDEPENDENT_RE_REVIEW",
     "updatedAt": "2026-07-30"
   }
 }
