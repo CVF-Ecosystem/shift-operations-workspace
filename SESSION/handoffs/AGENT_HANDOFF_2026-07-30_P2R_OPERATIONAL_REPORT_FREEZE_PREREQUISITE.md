@@ -6,7 +6,7 @@
 - Control-chain phase: `WORK_ORDER`
 - Risk: `R2`
 - Active role: `ORCHESTRATOR / AUTHORIZATION_REVIEWER`
-- Status: `WORK_ORDER REVIEW_PASS — R2 HUMAN APPROVAL REQUIRED; BUILD NOT AUTHORIZED`
+- Status: `WORK_ORDER APPROVED + AMENDMENT 1 REVIEW_PASS — PRE-BUILD CONTINUITY NEXT`
 
 ## Settled predecessor
 
@@ -118,14 +118,32 @@ Review repaired without waiver:
 - `P2R-WO-REV-F2`: rollback rehearsal uses the exact C3 parent/pushed
   pre-BUILD checkpoint.
 
-Disposition: authorization `REVIEW_PASS`; R2 human approval remains open.
+Disposition: authorization `REVIEW_PASS`. The operator delegated exact Work
+Order approval to the orchestrator in the current session.
+
+## Amendment 1 — pre-BUILD sequence
+
+`P2R-PREBUILD-F1 C2_G6_ORDER_CYCLE` was reproduced before C2: the original
+Work Order required C2 to contain a G6 result while also requiring G6 to run
+from clean pushed C2.
+
+Canonical repair:
+
+- `docs/decisions/ADR_2026-07-30_P2R_PREBUILD_SEQUENCE_ADDENDUM.md`;
+- `docs/specs/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC_AMENDMENT_1.md`;
+- `docs/work_orders/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_WORK_ORDER_AMENDMENT_1.md`;
+- `docs/decisions/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_AMENDMENT_1_AUTHORIZATION_REVIEW.md`.
+
+Disposition: `P2R-PREBUILD-F1 CLOSED WITHOUT WAIVER`; exact 59 C3 paths and
+all product/evidence requirements remain unchanged.
 
 ## Next governed move
 
-Operator explicitly approves or rejects the exact Work Order, 59-path
-ceiling, implementation-worker handoff and no-stage/commit/push boundary.
+Record/push only the four-file pre-BUILD continuity checkpoint. It assigns
+the external implementation worker and independent reviewer, records the
+operator-delegated approval, exact 59 paths, manual transfer/no-Claude-CLI
+boundary, and G6 as the worker's next mandatory gate.
 
-After approval only, record/push a separate four-file pre-BUILD continuity
-checkpoint and run G6. BUILD remains prohibited until both complete. No
-source/test/schema/migration/contract edit, provider call or
-Docker/PostgreSQL run is authorized by this handoff.
+After push, the worker must run G6 from that clean state before any C3 edit.
+No source/test/schema/migration/contract edit, provider call or
+Docker/PostgreSQL run is authorized before passing G6.

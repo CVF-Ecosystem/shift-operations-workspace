@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-R exact 59-path Work Order is authorization REVIEW_PASS after P2R-WO-REV-F1..F2 repair. Explicit R2 human approval, separate pre-BUILD continuity and G6 are required before BUILD.",
+  "syncReceipt": "P2-R exact 59-path Work Order is operator-delegated approved. Amendment 1 closes the C2/G6 ordering cycle. Four-file pre-BUILD continuity is next; worker-run G6 must pass before BUILD.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "ORCHESTRATOR_AUTHORIZATION_REVIEWER",
-  "roleRoute": "ORCHESTRATOR_AUTHORIZATION_REVIEWER_THEN_OPERATOR_APPROVAL_THEN_PREBUILD",
+  "roleRoute": "ORCHESTRATOR_AUTHORIZATION_REVIEWER_THEN_SESSION_SYNC_STEWARD",
   "updatedAt": "2026-07-30"
 }
