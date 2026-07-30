@@ -440,9 +440,20 @@ Phase 1; PostgreSQL-live tranche kế tiếp đã đóng gate vào 2026-07-26.
 và C3b `e24905f` được review/commit/push riêng. Đây chỉ là read-only slice,
 không đóng P2-C hoặc Phase 2.
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho security repair của mutation
-`POST /shifts` hiện chưa yêu cầu xác thực, trước mọi mutation UI. Không có
-BUILD authority từ roadmap này; offline/realtime vẫn thuộc tranche P2-D riêng.
+**2026-07-30 (Shift-create admission repair):** `FREEZE / CLOSED_BOUNDED`;
+C3 `3f9e456` đổi đúng 19 path được authorize và nhận independent
+`REVIEW_PASS` sau khi `SCR-BUILD-REV-F1..F3` đóng không waiver. `POST /shifts`
+giờ yêu cầu JWT đã verify, enforce `shift.create` tối thiểu `operator`, và
+atomic persist shift + actor-bound audit. PostgreSQL 16 disposable-local chạy
+qua JWT/FastAPI thật; live Alibaba evidence chỉ gọi đúng một lần sau admitted
+proof. Boundary không bao gồm message identity, assignment/data_scope,
+frontend mutation, production PostgreSQL, P2-C completion hay Phase 2
+completion.
+
+**Bước kế tiếp duy nhất:** fresh **INTAKE** cho anonymous `POST /messages`
+admission và trusted sender/source provenance. Không có DESIGN/SPEC/
+WORK_ORDER/BUILD authority kế thừa; offline/realtime vẫn thuộc tranche P2-D
+riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
@@ -454,7 +465,8 @@ tách operations-domain (P1-B), authenticated scope-bound approval receipts
 round-trip và Phase 1 exit gate
 (P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical
 (P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`), governed handover vertical
-(P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`).
+(P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create
+admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, PostgreSQL mới
 được chứng minh trong disposable local PostgreSQL 16 chứ chưa production/

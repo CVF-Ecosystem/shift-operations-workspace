@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `FREEZE`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / REVIEWER / COMMIT_STEWARD`
-- Status: `WORK_ORDER_REVIEW_PASS — C1_PUSHED / C2_PRE_BUILD`
+- Active role: `ORCHESTRATOR`
+- Status: `FREEZE / CLOSED_BOUNDED — C3_PUSHED`
 
 ## Operator role assignment
 
@@ -151,3 +151,32 @@ entire G6 gate. A passing G6 is the only authority for Claude to declare
 `READY_FOR_INDEPENDENT_SHIFT_CREATE_ADMISSION_BUILD_REVIEW` with zero staged
 paths and no commit/push/self-approval. Until G6 passes, BUILD and provider
 calls remain prohibited.
+
+## C3 independent review, repair and FREEZE
+
+- BUILD initially returned exactly 19 authorized paths with zero staged paths.
+- Independent review returned `REVIEW_CHANGES_REQUIRED`:
+  `SCR-BUILD-REV-F1 POSTGRES_AUTHENTICATED_PATH_NOT_PROVEN`,
+  `SCR-BUILD-REV-F2 LIVE_ADMISSION_PROOF_UNDERASSERTS_R5_R6`, and
+  `SCR-BUILD-REV-F3 BACKEND_EVIDENCE_MATRIX_INCOMPLETE`.
+- Claude repaired all three without waiver and without a 20th path.
+- Independent re-review passed: focused 94; full non-live 724/69 skipped;
+  PostgreSQL 16 live 59 through a minted operator JWT and real FastAPI route,
+  migrations 21/0 then 17/4, exact cleanup; fresh Alibaba qwen3.7-max HTTP
+  200 after four zero-call refusals and exact admitted persistence/audit
+  checks; parent C2 rehearsal 678/65; repository gates and doctor PASS WITH
+  NOTE 24/1 bounded warning.
+- C3 `3f9e456d129075e347d986af3b31d35f4d00afb9` contains exactly the 19
+  authorized paths, is pushed, and passed post-push re-review.
+
+Disposition: `FREEZE / CLOSED_BOUNDED`.
+
+Permitted claim only:
+
+> `POST /shifts` requires a verified JWT, enforces `shift.create` permission,
+> and atomically persists the shift with an actor-bound audit record.
+
+Anonymous `POST /messages` remains open. The sole next governed security move
+is fresh INTAKE for message admission and trusted sender/source provenance.
+No DESIGN, SPEC, WORK_ORDER, BUILD, provider-call, commit or mutation
+authority carries forward.

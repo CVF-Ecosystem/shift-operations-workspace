@@ -4,11 +4,11 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-30 (Shift-create admission repair Work Order REVIEW_PASS; C1 pushed; C2 pre-BUILD continuity)_
+_Last updated: 2026-07-30 (Shift-create admission repair FREEZE / CLOSED_BOUNDED; C3 pushed; message admission INTAKE next)_
 
 ## Where the project is
 
-**2026-07-29 (Shift-create admission repair — WORK_ORDER):** shift-only JWT/operator/atomic-audit SPEC R1-R17/AC-01..AC-21 and exact 19-path Work Order are REVIEW_PASS after two findings closed without waiver; message admission remains the sole next security tranche. Zero-BUILD C1 `1d0f114` is pushed; this is separate C2 pre-BUILD continuity. Codex is ORCHESTRATOR/REVIEWER and does not BUILD; Claude is future IMPLEMENTATION_WORKER/REPAIR_WORKER and does not review, self-approve, stage, commit or push. After C2 push Codex runs fresh G6; only PASS authorizes Claude BUILD.
+**2026-07-30 (Shift-create admission repair — FREEZE / CLOSED_BOUNDED):** C3 `3f9e456d129075e347d986af3b31d35f4d00afb9` changed exactly 19 authorized paths and is pushed after independent REVIEW_PASS. `SCR-BUILD-REV-F1..F3` closed without waiver: PostgreSQL proof now uses a minted operator JWT through the real FastAPI route, provider admission verifies exactly one persisted shift plus every actor-bound audit field before exactly one real call, and InMemory/SQLite carry the required refusal and returned-versus-persisted matrix. Evidence: focused 94; full 724/69 skipped; PostgreSQL 59 with migrations 21/0 then 17/4 and exact cleanup; parent rehearsal 678/65; fresh Alibaba qwen3.7-max HTTP 200 after four zero-call refusals; repository gates and doctor PASS WITH NOTE 24/1 bounded warning. Claim remains only: `POST /shifts` requires a verified JWT, enforces `shift.create`, and atomically persists the shift with an actor-bound audit. Anonymous `POST /messages` remains open and is the sole next security tranche; fresh INTAKE only, no authority carries forward.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
 Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.
