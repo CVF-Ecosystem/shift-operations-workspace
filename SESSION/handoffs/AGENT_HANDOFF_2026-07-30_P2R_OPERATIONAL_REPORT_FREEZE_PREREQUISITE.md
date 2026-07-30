@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30`
-- Control-chain phase: `DESIGN`
+- Control-chain phase: `SPEC`
 - Risk: `R2`
-- Active role: `DESIGN_AUTHOR`
-- Status: `DESIGN RECORDED — SPEC NEXT; BUILD NOT AUTHORIZED`
+- Active role: `AUTHORIZATION_REVIEWER`
+- Status: `SPEC REVIEW_PASS — WORK_ORDER NEXT; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -76,13 +76,34 @@ The selected design:
 P5-A rendering/export, P2-C, P2-D and the full-shift exit gate remain outside
 this tranche.
 
+## SPEC disposition
+
+Canonical SPEC:
+
+`docs/specs/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC.md`.
+
+It freezes R1-R33 and AC-01 through AC-32. Authorization review:
+
+`docs/decisions/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC_REVIEW.md`.
+
+Review repaired these findings without waiver:
+
+- `P2R-SPEC-REV-F1`: stale predecessors can recover through successor
+  generation instead of being blocked by predecessor-digest equality;
+- `P2R-SPEC-REV-F2`: successor `reason` is optional except when revoking an
+  APPROVED version;
+- `P2R-SPEC-REV-F3`: every non-null legacy override reason, including empty
+  string, is refused.
+
+Disposition: `REVIEW_PASS` for WORK_ORDER authoring only.
+
 ## Next governed move
 
-Author SPEC only from the canonical intake and ADR. Freeze exact requirements,
-API/contract shapes, lifecycle, canonical snapshot encoding, migration
-constraints, backend parity, failure matrix, evidence cases and claim
-boundary.
+Author WORK_ORDER only. It must freeze the exact changed-set ceiling,
+protected paths, provider-neutral roles, evidence commands, C1/C2/C3
+sequence, stop conditions, repair authority and commit ownership.
 
-No WORK_ORDER, BUILD, source/test/schema/migration/contract edit, provider
-call, Docker/PostgreSQL run, stage, commit, or push authority exists from this
-handoff.
+BUILD remains prohibited until the Work Order receives R2 human approval and
+the pre-BUILD continuity checkpoint is recorded and pushed. No source/test/
+schema/migration/contract edit, provider call or Docker/PostgreSQL run is
+authorized by this handoff.

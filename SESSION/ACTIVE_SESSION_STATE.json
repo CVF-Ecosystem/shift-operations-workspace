@@ -9,6 +9,8 @@
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "docs/decisions/INTAKE_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "docs/decisions/ADR_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
+    "docs/specs/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC.md",
+    "docs/decisions/P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC_REVIEW.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/ADR_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
@@ -97,7 +99,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 at DESIGN. ADR_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md resolves P2R-INTAKE-F1..F9 with a fixed END_SHIFT type, immutable current/history versions, deterministic server snapshot/digests, R2 receipt-bound approval, a new migration for current/version uniqueness, and atomic Report+Shift freeze with the override retired. Next move is SPEC only. No WORK_ORDER, BUILD, source/test/schema/migration/contract edit, provider call, Docker/PostgreSQL, stage, commit, push, or mutation authority exists.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 at SPEC. P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE_SPEC.md freezes R1-R33 and AC-01..AC-32; authorization review closed P2R-SPEC-REV-F1..F3 without waiver and returned REVIEW_PASS. Next move is WORK_ORDER authoring only, including exact changed-set ceiling, roles, commands, stop conditions and commit sequence. BUILD remains unauthorized pending R2 human Work Order approval and pre-BUILD continuity.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -250,17 +252,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "DESIGN",
-    "activePhaseNote": "P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 DESIGN resolves P2R-INTAKE-F1..F9. SPEC is next; WORK_ORDER and BUILD are unauthorized.",
+    "activePhase": "SPEC",
+    "activePhaseNote": "P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 SPEC R1-R33/AC-01..AC-32 is REVIEW_PASS after P2R-SPEC-REV-F1..F3 repair. WORK_ORDER authoring is next; BUILD is unauthorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. Message admission and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "DESIGN_AUTHOR",
-    "activeRoleNote": "DESIGN recorded. Next role is SPEC_AUTHOR; no WORK_ORDER, implementation role, or BUILD authority exists.",
-    "roleRoute": "DESIGN_AUTHOR_THEN_SPEC_AUTHOR",
+    "activeRole": "AUTHORIZATION_REVIEWER",
+    "activeRoleNote": "SPEC authorization REVIEW_PASS. Next role is WORK_ORDER_AUTHOR; implementation and BUILD remain unauthorized pending R2 human approval.",
+    "roleRoute": "AUTHORIZATION_REVIEWER_THEN_WORK_ORDER_AUTHOR",
     "updatedAt": "2026-07-30"
   }
 }
