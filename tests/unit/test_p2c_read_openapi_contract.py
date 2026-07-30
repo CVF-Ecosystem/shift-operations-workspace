@@ -68,7 +68,12 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
     (PRE_P2C_READ_OPENAPI_SHA). Asserting each key exists before deleting it
     (rather than a no-op `if` guard) means an unrelated regression that
     silently removes it - including a mutation-route deletion - would fail
-    this test instead of being absorbed."""
+    this test instead of being absorbed.
+
+    SHIFT-CREATE-ADMISSION-REPAIR (2026-07-29) also added a `security`
+    requirement to POST /shifts; that later delta is stripped first so this
+    proof still nets back to the true pre-P2C-read baseline, not a more
+    recent one."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -77,6 +82,9 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
         assert method in doc["paths"][path], f"P2C read method missing: {method} {path}"
 
     reduced = json.loads(json.dumps(doc))
+    shifts_post = reduced["paths"]["/shifts"]["post"]
+    assert "security" in shifts_post, "POST /shifts lost its expected security requirement"
+    del shifts_post["security"]
     shifts_get = reduced["paths"]["/shifts"]["get"]
     assert "security" in shifts_get, "GET /shifts lost its expected security requirement"
     del shifts_get["security"]

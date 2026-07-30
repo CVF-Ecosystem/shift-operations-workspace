@@ -64,6 +64,11 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     "handover.create": "operator",
     "handover.review": "shift_supervisor",
     "handover.acknowledge": "shift_supervisor",
+    # Shift creation (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29): routine
+    # operator action, same bar as event.create/task.create/incident.report -
+    # shift creation is not itself a risk-classed or durable-commitment
+    # decision, so it does not need the higher supervisor bar.
+    "shift.create": "operator",
 }
 
 

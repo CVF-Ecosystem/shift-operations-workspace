@@ -38,6 +38,7 @@ from workspace_api.application.handover_service import assert_freeze_ready
 
 _FREEZE_CHAIN = ["identity", "permission", "freeze", "audit"]
 _CLOSE_CHAIN = ["identity", "permission", "close", "audit"]
+_CREATE_CHAIN = ["identity", "permission", "create", "audit"]
 
 # Conditions from freeze-policy.yaml this service can actually verify today.
 _CHECKABLE_PREREQUISITES = {"shift_closed", "open_handover_items_linked"}
@@ -48,6 +49,38 @@ _UNIMPLEMENTED_PREREQUISITES = {"report_approved"}
 class ShiftService:
     def __init__(self, ledger: Ledger):
         self.ledger = ledger
+
+    def create(self, name: str, starts_at, ends_at, principal: Principal) -> Shift:
+        """SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29: previously
+        POST /shifts called ledger.create_shift(...) directly with no
+        identity/permission/audit at all (INTAKE probe: anonymous create ->
+        200). This is now the single governed entry point, following the
+        same identity -> permission -> transaction(mutate + audit) shape as
+        close/freeze. Permission admission happens before opening the
+        mutation transaction (SPEC R5) - a refused caller never reaches the
+        ledger at all.
+        """
+        require_action(principal, "shift.create")
+
+        shift = Shift(name=name, starts_at=starts_at, ends_at=ends_at)
+
+        with self.ledger.transaction() as unit:
+            created = self.ledger.create_shift(shift, unit=unit)
+
+            self.ledger.append_audit(
+                AuditRecord(
+                    actor_id=principal.user_id,
+                    actor_role=principal.role,
+                    action="shift.create",
+                    record_type="Shift",
+                    record_id=str(created.shift_id),
+                    control_chain=_CREATE_CHAIN,
+                    before_state=None,
+                    after_state=str(created.status),
+                ),
+                unit=unit,
+            )
+        return created
 
     def close(self, shift_id, principal: Principal) -> Shift:
         shift = self.ledger.get_shift(shift_id)

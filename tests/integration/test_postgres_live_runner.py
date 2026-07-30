@@ -57,15 +57,17 @@ def test_free_loopback_port_is_actually_bindable():
         s.bind(("127.0.0.1", port))  # raises if not truly free
 
 
-def test_live_suite_targets_pin_all_three_coherent_modules():
-    """P2A-INCIDENT-VERTICAL (INC-AUTH-F2) + P2A-HANDOVER-VERTICAL: the
-    runner must execute exactly the existing PostgreSQL live module plus the
-    split incident and handover modules - not a broader glob, and not a
-    silent drop of any of the three."""
+def test_live_suite_targets_pin_all_four_coherent_modules():
+    """P2A-INCIDENT-VERTICAL (INC-AUTH-F2) + P2A-HANDOVER-VERTICAL +
+    SHIFT-CREATE-ADMISSION-REPAIR: the runner must execute exactly the
+    existing PostgreSQL live module plus the split incident, handover and
+    shift-create modules - not a broader glob, and not a silent drop of any
+    of the four."""
     assert runner.LIVE_SUITE_TARGETS == (
         "tests/integration/test_sql_ledger_postgres_live.py",
         "tests/integration/test_incident_postgres_live.py",
         "tests/integration/test_handover_postgres_live.py",
+        "tests/integration/test_shift_create_postgres_live.py",
     )
 
 

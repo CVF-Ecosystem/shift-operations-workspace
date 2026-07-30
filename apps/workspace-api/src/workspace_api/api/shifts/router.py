@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 from pydantic import Field
 
@@ -38,8 +38,23 @@ class OpenWorkResponse(BaseModel):
 
 
 @router.post("", response_model=Shift)
-def create_shift(name: str, starts_at: datetime, ends_at: datetime, ledger: Ledger = Depends(get_ledger)):
-    return ledger.create_shift(Shift(name=name, starts_at=starts_at, ends_at=ends_at))
+def create_shift(
+    name: str,
+    starts_at: datetime,
+    ends_at: datetime,
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    # SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29: previously called
+    # ledger.create_shift(...) directly with no identity/permission/audit at
+    # all (INTAKE probe: anonymous create -> 200). Governed through
+    # ShiftService.create the same way close/freeze are governed.
+    try:
+        return ShiftService(ledger).create(name, starts_at, ends_at, principal)
+    except CvfDenied as exc:
+        raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except ValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 @router.get("", response_model=list[Shift])
 def list_shifts(
