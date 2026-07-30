@@ -100,6 +100,15 @@
     "claim_boundary": "Only POST /shifts admission is closed. This does not authenticate all mutations, verify message sender identity, add assignment/tenant/data_scope authorization, add frontend mutation support, prove production PostgreSQL readiness, or close P2-C/Phase 2.",
     "next_governed_move": "Fresh INTAKE for anonymous POST /messages admission and trusted sender/source provenance. No authority carries forward."
   },
+  "message_admission_trust_repair": {
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-30).",
+    "build_review_commit": "ab92f51be5b00740f2316b6e1b1c81aa186c753f - exactly 30 authorized paths, independent final REVIEW_PASS after repair, pushed to origin/main.",
+    "what_changed": "Internal POST /messages now requires the existing verified JWT dependency, enforces message.create at operator minimum, derives sender_id from the authenticated principal, fixes source to INTERNAL, rejects unknown/frozen shifts, and atomically persists the shift-bound Message plus exact actor-bound audit on InMemoryLedger, SQLite and the disposable PostgreSQL proof path.",
+    "findings": "MAR-BUILD-REV-F1 through MAR-BUILD-REV-F5 closed without waiver. F2 required three endpoint-failure branches across the repair rounds; the final branch closed the runner.main facade leak where safe_endpoint_description could raise before call_provider's sanitized boundary. Refusal audit deltas, rollback/no-partial assertions, historical OpenAPI proof and receipt/catalog truth were repaired within the exact 30-path ceiling.",
+    "review_evidence": "Focused 82 passed/7 skipped; full non-live 789 passed/76 skipped; prior repair-round disposable PostgreSQL 16 evidence truthfully retained at 66 passed with migrations 21/0 then 17/4 and exact cleanup because no PostgreSQL-related path changed in the final F2-only round; fresh post-fix Alibaba qwen3.7-max evidence HTTP 200 with seven zero-call refusals and exactly one admitted provider call; repository, catalog, session, file-size, diff and doctor gates PASS; zero Docker residue.",
+    "claim_boundary": "Only authenticated internal POST /messages admission and atomic persistence/audit on the proven backends is closed. This does not implement external/channel ingestion, the Canonical Message Contract, raw-envelope persistence, replay, identity mapping, fallback/quarantine/attachments, assignment/tenant/data_scope authorization, production PostgreSQL readiness, P2-C completion or Phase 2 completion.",
+    "next_governed_move": "Operator-selected fresh INTAKE for the next tranche. No authority carries forward."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",

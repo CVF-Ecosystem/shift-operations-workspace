@@ -17,6 +17,12 @@
     "docs/specs/MESSAGE_ADMISSION_TRUST_REPAIR_SPEC_AMENDMENT_1.md",
     "docs/work_orders/MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER_AMENDMENT_1.md",
     "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
+    "docs/decisions/ADR_2026-07-30_MESSAGE_ADMISSION_BUILD_REVIEW_REPAIR_ADDENDUM.md",
+    "docs/specs/MESSAGE_ADMISSION_TRUST_REPAIR_SPEC_AMENDMENT_2.md",
+    "docs/work_orders/MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER_AMENDMENT_2.md",
+    "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_AMENDMENT_2_AUTHORIZATION_REVIEW.md",
+    "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_BUILD_EVIDENCE_RECEIPT.md",
+    "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_LIVE_EVIDENCE_RECEIPT.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/ADR_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
@@ -88,7 +94,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 at REVIEW repair. Independent BUILD review returned REVIEW_CHANGES_REQUIRED with MAR-BUILD-REV-F1..F5. Amendment 2 8d5c085 is pushed and raises the exact C3 ceiling from 29 to 30 only by adding tests/unit/test_shift_create_openapi_contract.py. Claude Code 2.1.215 may resume only as bounded REPAIR_WORKER, preserve the dirty BUILD, close F1-F5, rerun full non-live then fresh PostgreSQL/provider evidence, and return READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_RE_REVIEW; no stage/commit/push/review/FREEZE. Codex remains independent reviewer/commit steward.",
+  "next_allowed_move": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 ab92f51be5b00740f2316b6e1b1c81aa186c753f changed exactly 30 authorized paths, received independent final REVIEW_PASS after MAR-BUILD-REV-F1..F5 closed without waiver, and is pushed with HEAD == origin/main. The next governed move is an operator-selected fresh INTAKE; likely lanes include external/channel message ingestion through Integration Edge, the remaining P2-C mutation UI, or reports. No DESIGN, SPEC, WORK_ORDER, BUILD, provider-call, commit, or mutation authority carries forward.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -189,6 +195,18 @@
     "claimBoundary": "POST /shifts requires a verified JWT, enforces shift.create permission, and atomically persists the shift with an actor-bound audit record. No all-mutations, message-identity, assignment/data_scope, frontend mutation, production-PostgreSQL, P2-C-completion or Phase-2-completion claim.",
     "nextMove": "Fresh INTAKE for anonymous POST /messages admission and trusted sender/source provenance; no authority carries forward"
   },
+  "message_admission_trust_repair_freeze_receipt": {
+    "status": "FREEZE_CLOSED_BOUNDED",
+    "c3Commit": "ab92f51be5b00740f2316b6e1b1c81aa186c753f",
+    "reviewDisposition": "INDEPENDENT_FINAL_REVIEW_PASS_AFTER_REPAIR",
+    "closedFindings": ["MAR-BUILD-REV-F1", "MAR-BUILD-REV-F2", "MAR-BUILD-REV-F3", "MAR-BUILD-REV-F4", "MAR-BUILD-REV-F5"],
+    "changedSet": "exactly 30 authorized paths; zero protected-boundary diff",
+    "verification": "focused 82 passed/7 skipped; full non-live 789 passed/76 skipped; repository, catalog, session, file-size, diff and doctor gates PASS; doctor PASS WITH NOTE 24/1 bounded legacy warning; zero Docker residue",
+    "postgresqlEvidence": "Prior repair-round disposable PostgreSQL 16 evidence retained truthfully at 66 passed with migrations 21/0 then 17/4 and exact cleanup; not rerun in the final F2-only round because no PostgreSQL-related path changed.",
+    "liveGovernanceEvidence": "PASS; fresh after the final F2 facade fix: seven refusal cases at zero provider calls, exact admitted message plus actor-bound audit verified, then exactly one Alibaba qwen3.7-max call returned HTTP 200; sanitized receipt generated 2026-07-30T12:19:37.031585+00:00",
+    "claimBoundary": "Internal POST /messages requires a verified JWT, derives sender/source authority server-side, enforces message.create, and atomically persists a shift-bound internal Message with an actor-bound audit on the proven backends. No external/channel ingestion, Canonical Message Contract, assignment/tenant/data_scope, production-PostgreSQL, P2-C-completion or Phase-2-completion claim.",
+    "nextMove": "Operator-selected fresh INTAKE for the next tranche; no authority carries forward"
+  },
   "xr1_s_c2a_sync_receipt": {
     "status": "XR1S_C2A_PUSHED_SYNCED_READY_FOR_C2B_BUILD",
     "buildCommit": "ee73d98d359680a1cb390212b7c22386eabff678",
@@ -229,17 +247,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "REVIEW_CHANGES_REQUIRED. Amendment 2 8d5c085 is pushed; bounded repair of MAR-BUILD-REV-F1..F5 is authorized under the exact 30-path ceiling.",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 ab92f51be5b00740f2316b6e1b1c81aa186c753f is independently REVIEW_PASS and pushed after MAR-BUILD-REV-F1..F5 closed without waiver.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. Shift-create and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR_INDEPENDENT_REVIEWER_COMMIT_STEWARD",
-    "activeRoleNote": "Claude Code 2.1.215 is sole implementation/repair worker. Codex reviews and commits only after worker return.",
-    "roleRoute": "CLAUDE_BOUNDED_REPAIR_THEN_CODEX_INDEPENDENT_RE_REVIEW",
+    "activeRole": "ORCHESTRATOR",
+    "activeRoleNote": "C4 records completed independent REVIEW, COMMIT_STEWARD, CLOSER and SESSION_SYNC_STEWARD responsibilities. Any next work begins at fresh INTAKE with a new bounded role assignment.",
+    "roleRoute": "ORCHESTRATOR_TO_OPERATOR_SELECTED_FRESH_INTAKE",
     "updatedAt": "2026-07-30"
   }
 }

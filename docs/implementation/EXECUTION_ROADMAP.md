@@ -450,8 +450,22 @@ proof. Boundary không bao gồm message identity, assignment/data_scope,
 frontend mutation, production PostgreSQL, P2-C completion hay Phase 2
 completion.
 
-**Bước kế tiếp duy nhất:** fresh **INTAKE** cho anonymous `POST /messages`
-admission và trusted sender/source provenance. Không có DESIGN/SPEC/
+**2026-07-30 (Message admission trust repair):** `FREEZE / CLOSED_BOUNDED`;
+C3 `ab92f51` đổi đúng 30 path được authorize và nhận independent final
+`REVIEW_PASS` sau khi `MAR-BUILD-REV-F1..F5` đóng không waiver qua nhiều vòng
+repair. Internal `POST /messages` giờ yêu cầu JWT đã verify, derive
+sender/source authority server-side, enforce `message.create`, và atomic
+persist Message + actor-bound audit trên các backend đã prove. Evidence:
+focused 82/7 skipped; full 789/76 skipped; PostgreSQL 66 của vòng repair trước
+được giữ đúng sự thật và không giả nhận rerun ở vòng F2 cuối; fresh Alibaba
+HTTP 200 sau bảy refusal zero-call và đúng một admitted provider call.
+Boundary không bao gồm external/channel ingestion, Canonical Message Contract,
+assignment/data_scope, production PostgreSQL, P2-C completion hay Phase 2
+completion.
+
+**Bước kế tiếp duy nhất:** operator chọn tranche mới và mở fresh **INTAKE**.
+Các lane hợp lệ gồm external/channel message ingestion qua Integration Edge,
+phần mutation UI còn lại của P2-C, hoặc reports. Không có DESIGN/SPEC/
 WORK_ORDER/BUILD authority kế thừa; offline/realtime vẫn thuộc tranche P2-D
 riêng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
@@ -466,7 +480,9 @@ round-trip và Phase 1 exit gate
 (P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical
 (P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`), governed handover vertical
 (P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create
-admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`).
+admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`), governed
+internal message admission (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, C3
+`ab92f51`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, PostgreSQL mới
 được chứng minh trong disposable local PostgreSQL 16 chứ chưa production/

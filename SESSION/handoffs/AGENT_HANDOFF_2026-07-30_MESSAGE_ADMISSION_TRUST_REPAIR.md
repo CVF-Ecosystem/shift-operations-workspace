@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`
-- Control-chain phase: `BUILD — PRE-G6`
+- Control-chain phase: `FREEZE`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / INDEPENDENT_REVIEWER / COMMIT_STEWARD`
+- Active role: `ORCHESTRATOR`
 - Implementation worker: `Claude Code 2.1.215`
-- Status: `C2 PRE-BUILD ACKNOWLEDGED — G6 REQUIRED BEFORE FIRST BUILD EDIT`
+- Status: `FREEZE / CLOSED_BOUNDED — C3 PUSHED`
 
 ## Settled predecessor
 
@@ -143,3 +143,46 @@ the pushed Amendment 2 and exact 30-path ceiling. Claude must preserve the
 dirty BUILD, must not stage/commit/push/review/FREEZE, and must stop at
 `READY_FOR_INDEPENDENT_MESSAGE_ADMISSION_BUILD_RE_REVIEW`. Codex remains
 independent reviewer and commit steward.
+
+## C3 repair history, independent final review and FREEZE
+
+- BUILD initially returned exactly 29 authorized paths with zero staged paths.
+- Independent review returned `REVIEW_CHANGES_REQUIRED` for
+  `MAR-BUILD-REV-F1..F5`; Amendment 2 `8d5c085` added only historical OpenAPI
+  test path 30 and authorized bounded repair.
+- Repair required multiple review rounds. F2 closed three distinct endpoint
+  failure branches without waiver: parse/port failures inside `call_provider`,
+  a non-numeric secret-bearing port, and finally malformed IPv6 escaping from
+  `runner.main()` through `safe_endpoint_description` before the sanitized
+  provider boundary.
+- The final independent facade-level adversarial review verified no sentinel
+  in stdout, stderr or receipt. Focused suite: `82 passed / 7 skipped`; full
+  non-live suite: `789 passed / 76 skipped`.
+- The prior repair-round disposable PostgreSQL 16 evidence was retained
+  truthfully at `66 passed`, migrations `21/0` then `17/4`, exact cleanup. It
+  was not rerun in the final F2-only round because no PostgreSQL path changed.
+- Fresh provider evidence was regenerated after the final F2 fix: seven real
+  HTTP/JWT refusal cases made zero provider calls; the admitted path persisted
+  exactly one message and exact actor-bound audit before exactly one Alibaba
+  `qwen3.7-max` call returned HTTP 200.
+- Repository, catalog, session, file-size, diff and workspace-doctor gates
+  passed; doctor carried only the bounded legacy warning (24/1); no
+  `cvf-pg-live-*` residue remained.
+- C3 `ab92f51be5b00740f2316b6e1b1c81aa186c753f` contains exactly the 30
+  authorized paths, is pushed, and leaves `HEAD == origin/main`.
+
+Disposition: `FREEZE / CLOSED_BOUNDED`.
+
+Permitted claim only:
+
+> Internal `POST /messages` requires a verified JWT, derives sender/source
+> authority server-side, enforces `message.create`, and atomically persists a
+> shift-bound internal Message with an actor-bound audit record on the proven
+> backends.
+
+External/channel ingestion, Canonical Message Contract completion,
+raw-envelope/replay/identity-mapping/fallback/quarantine/attachment handling,
+assignment/tenant/data_scope authorization and production PostgreSQL readiness
+remain open. The next tranche must be selected by the operator and begin at
+fresh INTAKE. No DESIGN, SPEC, WORK_ORDER, BUILD, provider-call, commit or
+mutation authority carries forward.
