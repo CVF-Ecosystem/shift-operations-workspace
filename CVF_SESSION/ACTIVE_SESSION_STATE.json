@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 is at WORK_ORDER REVIEW_PASS. SPEC R1-R19/AC-01..AC-23 and exact 29-path C3 ceiling are reviewed. C1/C2 and G6 are next; BUILD remains unauthorized.",
+  "syncReceipt": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 Work Order Amendment 1 is REVIEW_PASS and closes the C2/G6 ordering cycle. Amendment commit, C2 assigning Claude Code, then G6 are next; BUILD remains unauthorized.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "ORCHESTRATOR_WORK_ORDER_AUTHOR_REVIEWER",
-  "roleRoute": "ORCHESTRATOR_WORK_ORDER_AUTHOR_REVIEWER_THEN_C1_C2_G6",
+  "roleRoute": "ORCHESTRATOR_REVIEWER_THEN_AMENDMENT_C2_CLAUDE_G6_BUILD",
   "updatedAt": "2026-07-30"
 }

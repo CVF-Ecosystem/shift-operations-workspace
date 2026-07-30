@@ -6,7 +6,7 @@
 - Control-chain phase: `WORK_ORDER`
 - Risk: `R2`
 - Active role: `ORCHESTRATOR / WORK_ORDER_AUTHOR / REVIEWER`
-- Status: `WORK_ORDER REVIEW_PASS — C1/C2 AND G6 NEXT; BUILD NOT AUTHORIZED`
+- Status: `AMENDMENT 1 REVIEW_PASS — C1b THEN C2/G6; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -89,11 +89,14 @@ SPEC `MESSAGE_ADMISSION_TRUST_REPAIR_SPEC.md` is `REVIEW_PASS` after
 `MAR-SPEC-REV-F1..F3` closed without waiver. Work Order
 `MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER.md` is authorization
 `REVIEW_PASS` after `MAR-WO-AUTH-F1..F3` closed without waiver.
+Amendment 1 closes `MAR-PREBUILD-F1 C2_G6_ORDER_CYCLE` without waiver: C2
+records the G6 requirement, then G6 runs from pushed C2 and its result belongs
+in the worker return/build receipt.
 
-Commit/push C1 authorization, then record/push a separate four-path C2
-pre-BUILD acknowledgment. Only after G6 passes may an implementation worker
-independent from the authorization reviewer be assigned the exact 29-path C3
-ceiling.
+Commit/push the zero-BUILD Amendment 1 checkpoint, then record/push a separate
+four-path C2 assigning Claude Code as implementation worker and Codex as
+independent reviewer/commit steward. Claude runs G6 from pushed C2 before
+editing the exact 29-path C3 ceiling.
 
 No BUILD, source/test/permission/schema/migration edit, provider call or
 Docker/PostgreSQL run is authorized before pushed C1/C2 and passing G6.
