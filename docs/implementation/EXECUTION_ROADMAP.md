@@ -10,6 +10,35 @@ Dependency order (khóa, từ `DEPENDENCY_ORDER.md`):
 contracts → domain → ledger → core workspace → CVF profile/Refinery → AI →
 channels → reporting → hardening → freeze.
 
+## Trạng thái hiện tại — đọc mục này trước
+
+_Cập nhật: 2026-07-30, sau C4
+`MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`._
+
+Quy ước:
+
+- `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
+  independent review và closure trong đúng claim boundary;
+- `[~]` / `PARTIAL`: đã có một phần dùng được nhưng milestone/phase chưa đóng;
+- `[ ]` / `NOT STARTED`: chưa có implementation đáp ứng milestone; scaffold,
+  README, contract hoặc test helper không được tính là hoàn tất.
+
+| Khu vực | Trạng thái | Đã xong | Còn lại để đóng |
+|---|---|---|---|
+| P-FIX | 🟢 `CLOSED_BOUNDED` | P-FIX-0 → P-FIX-6 | Không mở lại; các giới hạn mới đi theo tranche riêng |
+| P0 governance foundation | ✅ `DONE` (6/6) | runtime gates, catalog/session/boundary/file-size guard | Duy trì gate; không có milestone mở |
+| Phase 1 Foundation and Contracts | ✅ `DONE` (7/7) | domain/contracts/ledger, SQLite và disposable PostgreSQL 16 proof | Production/managed PostgreSQL, HA/load/backup không thuộc claim đã đóng |
+| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 11 work item đã đóng, gồm domain verticals, auth/approval, shift-create và internal-message admission | operational report + `report_approved` thật; P2-C mutation/full UI; P2-D offline/realtime; exit-gate cả ca |
+| Phase 3 Governance and Refinery | 🟡 `PARTIAL` (3/6) | policy gates và approval quorum | Refinery thật; runtime wiring cho data_scope/cost/termination; retrieval-ready contract |
+| Phase 4 AI and Channels | ⬜ `NOT STARTED` (0/8 milestone) | Chỉ có contract/scaffold và webhook verify/dedup nền | AI Gateway, retrieval/RAG/memory, provider modes, Integration Edge đầy đủ, adapters, identity/routing |
+| Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
+
+**Thứ tự còn lại để đóng Phase 2:** operational report và prerequisite
+`report_approved` thật → P2-C mutation/full UI → P2-D offline/realtime →
+chạy exit gate `start → updates → tasks → handover → report → freeze`.
+Đây là thứ tự dependency của roadmap, **không phải BUILD authorization**:
+mỗi mục vẫn phải bắt đầu bằng fresh INTAKE và Work Order riêng.
+
 ## Ghi chú thứ tự (quan trọng — vì sao trạng thái không tuần tự)
 
 Bản EA review (`docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-21.md`) chỉ ra CVF
@@ -21,7 +50,7 @@ tầng chung không thuộc phase nghiệp vụ nào.
 
 ---
 
-## P-FIX — Corrective tranche (BẮT BUỘC, chặn mọi phase/domain mới) — 🟢 CLOSED_BOUNDED
+## P-FIX — Corrective tranche — 🟢 CLOSED_BOUNDED (7/7)
 
 **2026-07-22:** review độc lập thứ hai
 ([`EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md`](../decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md))
@@ -155,16 +184,17 @@ commit.** Tại closure P-FIX-6, High Finding #4 vẫn mở và identity còn
 header-based; các tranche P2-B/P2B sau đó đã thay thế hai sự thật lịch sử này.
 Trạng thái còn mở hiện tại: data minimization chỉ khuyến nghị;
 data_scope/cost/termination chưa có runtime caller; refusal routing/recording
-chưa implement; PostgreSQL chưa live verified.
+chưa implement; PostgreSQL đã có disposable-local proof nhưng chưa có
+production/managed deployment, load, HA hay backup/restore proof.
 
-**Có thể mở lại:** P2-A (domain còn lại), P2-B, P2-C theo `next_allowed_move`
-trong `SESSION/ACTIVE_SESSION_STATE.json` — chỉ sau khi mọi closure surface
-của P-FIX-6 đã đồng bộ (điều kiện này tự nó đã thỏa mãn khi bạn đọc dòng này
-trong bản đã commit).
+**Successor hiện tại:** P2-A incidents/handovers, P2-B authentication và
+approver reconciliation đều đã đóng trong các tranche sau; P2-C read-only
+slice đã đóng bounded nhưng P2-C tổng thể vẫn mở. Xem bảng trạng thái đầu file
+và `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 
 ---
 
-## P0 — Governance foundation (ngang, phục vụ mọi phase) — ✅ DONE
+## P0 — Governance foundation (ngang, phục vụ mọi phase) — ✅ DONE (6/6)
 
 Không thuộc 5 phase nghiệp vụ; là hạ tầng để mọi phase kiểm chứng được.
 
@@ -180,7 +210,7 @@ Không thuộc 5 phase nghiệp vụ; là hạ tầng để mọi phase kiểm c
 
 ---
 
-## Phase 1 — Foundation and Contracts — ✅ DONE
+## Phase 1 — Foundation and Contracts — ✅ DONE (7/7)
 
 Gate gốc: tạo được một shift record hoàn chỉnh không cần LLM; schemas valid;
 lifecycle/freeze rõ ràng.
@@ -218,8 +248,10 @@ lifecycle/freeze rõ ràng.
       là sink (chỉ stdlib + pydantic), không import ngược `workspace_api`/
       `operations_ledger`/`cvf_runtime`. `SqlLedger(models=…)` seam **không**
       refactor (`packages/operations-ledger/**` zero-line diff). `operations-domain`
-      **stub → partial** (KHÔNG enforced: incidents/handovers/reports/approvals/
-      audit vẫn chưa có model; blueprint subdirectory vẫn README-only). Control
+      **stub → partial**. **Tại thời điểm P1-B đóng**, incidents/handovers/
+      reports/approvals/audit vẫn chưa có model; incidents và handovers đã
+      được bổ sung trong các tranche P2-A sau đó, còn reports/approvals/audit
+      package ownership và các blueprint subdirectory vẫn chưa hoàn tất. Control
       chain đầy đủ có gate trong commit graph: C1 `3e3df42` (ADR+SPEC+
       WORK_ORDER), C2 `1e56a72` (pre-BUILD continuity), C2b `ab75abb`
       (authorization amendment cho catalog-gate conflict phát hiện trong BUILD),
@@ -236,7 +268,7 @@ backup/managed-PostgreSQL parity.
 
 ---
 
-## Phase 2 — Core Operations Workspace — 🟡 IN PROGRESS
+## Phase 2 — Core Operations Workspace — 🟡 IN PROGRESS (11 đóng / 3 mở)
 
 Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external channels tắt.
 
@@ -318,22 +350,42 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       ledger. C3 `9376ddb` có 38 path, independent `REVIEW_PASS`; focused 116,
       full 369 pass; live Alibaba receipt PASS; AC-21 revert rehearsal PASS.
       **Boundary:** không production endpoint nào gọi provider; không thêm
-      refresh/revocation/admin provisioning; PostgreSQL vẫn chưa live verified.
-- [ ] **P2-C (first read-only slice CLOSED_BOUNDED 2026-07-29):** C3a
-      `fe2f312` và C3b `e24905f` cung cấp authenticated shifts/events/open-work
-      reads cùng React console chỉ-đọc cho shift selection, confirmed timeline,
-      grouped open work, incidents và handovers. Frontend dùng
-      `sessionStorage`, có loading/empty/offline/error và stale-response
-      suppression; Node/pnpm/CI/Docker được pin và review độc lập. P2-C vẫn mở:
-      không có mutation UI, assignment/data-scope claim hay full vertical UI.
+      refresh/revocation/admin provisioning. Tại thời điểm tranche này đóng,
+      PostgreSQL chưa live verified; dependency đó đã được đóng bounded sau
+      đó bởi tranche PostgreSQL disposable-local, không phải production proof.
+- [x] **Shift-create admission repair (2026-07-30, CLOSED_BOUNDED):**
+      internal `POST /shifts` yêu cầu verified JWT, enforce `shift.create` và
+      atomic persist shift + actor-bound audit. C3 `3f9e456`; không mở rộng
+      thành claim mọi mutation/assignment/data_scope hay production readiness.
+- [x] **Internal message admission repair (2026-07-30, CLOSED_BOUNDED):**
+      internal `POST /messages` yêu cầu verified JWT, derive sender/source
+      authority server-side, enforce `message.create` và atomic persist
+      Message + actor-bound audit. C3 `ab92f51`; external/channel ingestion và
+      Canonical Message Contract vẫn chưa implement.
+- [ ] **P2-R — Operational report và prerequisite `report_approved` thật:**
+      thêm canonical operational report lifecycle/model, ledger parity,
+      governed service/API và approval binding cần thiết để freeze không còn
+      dựa vào audited override. Đây là record vận hành phục vụ Phase 2 exit
+      gate, khác P5-A reporting engine (render/export PDF/Excel).
+- [ ] **P2-C — UI tổng thể còn mở:**
+  - [x] **Read-only slice (CLOSED_BOUNDED 2026-07-29):** C3a `fe2f312` và
+        C3b `e24905f` cung cấp authenticated shifts/events/open-work reads
+        cùng React console chỉ-đọc; có sessionStorage, loading/empty/offline/
+        error và stale-response suppression.
+  - [ ] **Phần còn lại:** mutation UI, full vertical UI và assignment/tenant/
+        data-scope authorization. Read-only slice không được dùng để tick xong
+        P2-C tổng thể.
 - [ ] **P2-D:** PWA offline queue + realtime.
 
-**Exit gate:** chạy trọn một ca (start→updates→tasks→handover→report→freeze) qua
-API với AI/channel tắt, mọi record truy vết được.
+**Exit gate: CHƯA ĐẠT.** Chưa có operational report/prerequisite
+`report_approved` thật, P2-C mutation/full UI và P2-D. Sau khi ba work package
+trên đóng, phải chạy trọn một ca
+`start → updates → tasks → handover → report → freeze` với AI/channel tắt và
+mọi record truy vết được.
 
 ---
 
-## Phase 3 — CVF Governance and Refinery — 🟡 PARTIAL (làm trước có chủ đích)
+## Phase 3 — CVF Governance and Refinery — 🟡 PARTIAL (3/6)
 
 Gate gốc: protected actions đi qua policy, R3/R4 không bypass, Refinery lỗi có
 fallback.
@@ -357,10 +409,15 @@ rules; R3/R4 không bypass được.
 
 ---
 
-## Phase 4 — AI and Channel Capabilities — ⬜ NOT STARTED
+## Phase 4 — AI and Channel Capabilities — ⬜ NOT STARTED (0/8 milestone)
 
 Gate gốc: thay provider/channel không sửa core; invalid schema bị reject;
 external prompt injection không vượt trust boundary.
+
+`ai-providers` và `integration-edge` có scaffold/contract hoặc capability nền
+(quota/config evidence; webhook verify + dedup), nhưng chưa work item nào bên
+dưới đạt milestone Phase 4. Vì vậy phase vẫn là `NOT STARTED`, không phải
+`PARTIAL`.
 
 - [ ] **P4-A:** AI Gateway (`ai-gateway`): model router, context builder,
       structured output, budget, fallback, kill switch — gọi cvf-runtime gates.
@@ -388,9 +445,12 @@ injection từ channel không vượt trust boundary.
 
 ---
 
-## Phase 5 — Reporting, Hardening and Freeze — ⬜ NOT STARTED
+## Phase 5 — Reporting, Hardening and Freeze — ⬜ NOT STARTED (0/5)
 
 Gate gốc: evidence traceability, outage drills, backup restore, owner review.
+
+P5-A là engine trình bày/tổng hợp và xuất báo cáo. Nó không thay thế P2-R
+operational report record cần để hoàn thành một ca và thỏa freeze prerequisite.
 
 - [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel.
 - [ ] **P5-A2:** Proactive reporting và forecasting sau khi reporting +
@@ -463,11 +523,13 @@ Boundary không bao gồm external/channel ingestion, Canonical Message Contract
 assignment/data_scope, production PostgreSQL, P2-C completion hay Phase 2
 completion.
 
-**Bước kế tiếp duy nhất:** operator chọn tranche mới và mở fresh **INTAKE**.
-Các lane hợp lệ gồm external/channel message ingestion qua Integration Edge,
-phần mutation UI còn lại của P2-C, hoặc reports. Không có DESIGN/SPEC/
-WORK_ORDER/BUILD authority kế thừa; offline/realtime vẫn thuộc tranche P2-D
-riêng.
+**Bước kế tiếp duy nhất:** operator chọn tranche mới và mở fresh **INTAKE**;
+không có DESIGN/SPEC/WORK_ORDER/BUILD authority kế thừa. Theo dependency order
+để đóng Phase 2, ưu tiên kế tiếp là **P2-R operational report +
+`report_approved` prerequisite thật**, sau đó P2-C mutation/full UI, rồi P2-D
+offline/realtime. External/channel message ingestion qua Integration Edge là
+tranche Phase 4 riêng và không được xem là đã làm chỉ vì internal
+`POST /messages` đã đóng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
