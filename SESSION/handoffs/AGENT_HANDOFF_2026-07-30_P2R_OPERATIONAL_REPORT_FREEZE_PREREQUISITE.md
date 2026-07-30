@@ -3,10 +3,11 @@
 ## Disposition
 
 - Tranche: `P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD — PRE-G6`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / AUTHORIZATION_REVIEWER`
-- Status: `WORK_ORDER APPROVED + AMENDMENT 1 REVIEW_PASS — PRE-BUILD CONTINUITY NEXT`
+- Active role: `ORCHESTRATOR / INDEPENDENT_REVIEWER / COMMIT_STEWARD`
+- Implementation worker: `EXTERNAL IMPLEMENTATION_WORKER — OPERATOR-TRANSFERRED MANUAL PROMPT`
+- Status: `C2 PRE-BUILD ACKNOWLEDGED — G6 REQUIRED BEFORE FIRST C3 EDIT`
 
 ## Settled predecessor
 
@@ -137,13 +138,28 @@ Canonical repair:
 Disposition: `P2R-PREBUILD-F1 CLOSED WITHOUT WAIVER`; exact 59 C3 paths and
 all product/evidence requirements remain unchanged.
 
+## C2 pre-BUILD acknowledgment
+
+- Work Order authorization commit: `32c0dc5561f9a9e1fbc4befb4d270aea0ee5672e`;
+- sequencing Amendment 1 commit:
+  `312b91472df9d0cc5522a16aa4e73e0888320c95`;
+- operator delegated approval of the exact Work Order and 59 paths;
+- implementation/repair worker is external and receives a prompt manually
+  from the operator;
+- current agent holds no implementation role and remains independent reviewer
+  and later commit steward;
+- worker must not stage, commit, push, review or FREEZE;
+- no Claude CLI/control call is allowed from this session;
+- G6 is pending and must run from clean pushed C2 before the first edit;
+- G6 exact results belong in worker return and BUILD evidence receipt.
+
 ## Next governed move
 
-Record/push only the four-file pre-BUILD continuity checkpoint. It assigns
-the external implementation worker and independent reviewer, records the
-operator-delegated approval, exact 59 paths, manual transfer/no-Claude-CLI
-boundary, and G6 as the worker's next mandatory gate.
+Push this exact four-file C2. The operator then transfers the implementation
+prompt manually.
 
-After push, the worker must run G6 from that clean state before any C3 edit.
-No source/test/schema/migration/contract edit, provider call or
-Docker/PostgreSQL run is authorized before passing G6.
+The worker rehydrates, verifies `HEAD == origin/main` at C2 and runs G6. On
+PASS only, it may build exactly the 59 Work Order paths and return
+`READY_FOR_INDEPENDENT_P2R_BUILD_REVIEW`. Any extra path is
+`BLOCKED_WORK_ORDER_CEILING`. No source/test/schema/migration/contract edit,
+provider call or Docker/PostgreSQL run is authorized before passing G6.
