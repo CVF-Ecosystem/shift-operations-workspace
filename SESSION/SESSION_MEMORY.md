@@ -4,12 +4,11 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-29 (P2-C read slice FREEZE / CLOSED_BOUNDED)_
+_Last updated: 2026-07-30 (Shift-create admission repair SPEC REVIEW_PASS)_
 
 ## Where the project is
 
-**2026-07-29 (Shift-create admission repair — DESIGN):** probes reproduced anonymous `POST /shifts` and adjacent `POST /messages` at HTTP 200; ADR chooses shift-only JWT/operator/atomic-audit repair while explicitly parking message admission as the sole next security tranche.
-Query compatibility stays; live PostgreSQL and refusal-zero-call/exactly-one-admitted-call provider evidence are mandatory. SPEC is next; no BUILD authority exists.
+**2026-07-29 (Shift-create admission repair — WORK_ORDER):** probes reproduced anonymous `POST /shifts` and adjacent `POST /messages` at HTTP 200; shift-only JWT/operator/atomic-audit SPEC R1-R17/AC-01..AC-21 and its exact 19-path Work Order are REVIEW_PASS after `SCR-SPEC-REV-F1` and `SCR-WO-AUTH-F1` closed without waiver. Message admission remains the sole next security tranche. Codex is ORCHESTRATOR/REVIEWER/COMMIT_STEWARD; Claude is the future IMPLEMENTATION_WORKER/REPAIR_WORKER. Codex does not BUILD; Claude does not review, self-approve, stage, commit or push. C1 authorization then separate C2 continuity are next; BUILD remains unauthorized until both are pushed and G6 passes.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
 Work Order `6e1b798` passed review; Claude builds C3a only, Codex reviews/commits, and Docker is a mandatory pre-BUILD gate.

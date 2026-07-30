@@ -4,11 +4,15 @@
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
-  "last_updated": "2026-07-29",
+  "last_updated": "2026-07-30",
   "required_reads": [
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/ADR_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
+    "docs/specs/SHIFT_CREATE_ADMISSION_REPAIR_SPEC.md",
+    "docs/decisions/SHIFT_CREATE_ADMISSION_REPAIR_SPEC_REVIEW.md",
+    "docs/work_orders/SHIFT_CREATE_ADMISSION_REPAIR_WORK_ORDER.md",
+    "docs/decisions/SHIFT_CREATE_ADMISSION_REPAIR_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "docs/decisions/INTAKE_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
     "docs/decisions/ADR_2026-07-28_P2C_OPERATIONS_CONSOLE_READ_SLICE.md",
@@ -73,7 +77,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 at DESIGN. ADR resolves F1-F6: shift-only service/permission/atomic-audit repair, preserved query contract, message admission split as the sole next security tranche, and mandatory live PostgreSQL/provider evidence. NEXT MOVE: author a testable SPEC. No BUILD authority exists; the closed P2-C read slice remains settled.",
+  "next_allowed_move": "ACTIVE TRANCHE: SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 at WORK_ORDER REVIEW_PASS. SCR-WO-AUTH-F1 closed without waiver; C3 is bounded to exactly 19 paths. OPERATOR ASSIGNMENT: Codex is ORCHESTRATOR/REVIEWER/COMMIT_STEWARD; Claude is the future IMPLEMENTATION_WORKER/REPAIR_WORKER. NEXT MOVE: Codex commits/pushes the zero-BUILD C1 authorization set, then records and separately commits/pushes C2 pre-BUILD continuity. BUILD remains unauthorized until pushed C1/C2 and G6 all pass.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -203,17 +207,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "DESIGN",
-    "activePhaseNote": "ADR resolves SCR-INTAKE-F1 through F6 and explicitly splits message admission. SPEC is next; BUILD is unauthorized.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "Work Order REVIEW_PASS after SCR-WO-AUTH-F1 closed without waiver. Exact C3 ceiling: 19 paths. C1 authorization and C2 pre-BUILD continuity must be committed/pushed separately before G6; BUILD is unauthorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. The P2-C read slice and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "SPEC_AUTHOR",
-    "activeRoleNote": "Codex authored the DESIGN decision. The same role authors the testable SPEC next; independent authorization review remains required before BUILD.",
-    "roleRoute": "SINGLE_AGENT_MULTI_ROLE_ALLOWED",
-    "updatedAt": "2026-07-29"
+    "activeRole": "ORCHESTRATOR_REVIEWER_COMMIT_STEWARD",
+    "activeRoleNote": "Operator assignment: Codex is ORCHESTRATOR/REVIEWER/COMMIT_STEWARD and does not BUILD; Claude is the future IMPLEMENTATION_WORKER/REPAIR_WORKER and does not review, self-approve, stage, commit or push. Work Order review passed; Codex owns C1 then C2.",
+    "roleRoute": "ORCHESTRATOR_REVIEWER_THEN_IMPLEMENTATION_WORKER",
+    "updatedAt": "2026-07-30"
   }
 }
