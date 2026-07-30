@@ -6,7 +6,7 @@
 - Control-chain phase: `WORK_ORDER`
 - Risk: `R2`
 - Active role: `ORCHESTRATOR / REVIEWER / COMMIT_STEWARD`
-- Status: `WORK_ORDER_REVIEW_PASS — C1_THEN_C2_NEXT`
+- Status: `WORK_ORDER_REVIEW_PASS — C1_PUSHED / C2_PRE_BUILD`
 
 ## Operator role assignment
 
@@ -132,3 +132,22 @@ zero-BUILD C1 authorization set. Codex then records a separate C2 pre-BUILD
 continuity acknowledgment and pushes it. Claude may declare
 `IMPLEMENTATION_WORKER` only after both commits are on `origin/main` and G6
 passes. No BUILD or provider call is authorized yet.
+
+## C1 pushed and C2 pre-BUILD acknowledgment
+
+- C1 authorization: `1d0f114397981481f1a72b56f6ea3c14866ef6d8`;
+- C1 contains exactly eight SPEC/WORK_ORDER/review/continuity paths and zero
+  BUILD path;
+- C1 is pushed to `origin/main`;
+- this acknowledgment is the separate C2 continuity batch;
+- operator role assignment remains Codex reviewer/orchestrator and Claude
+  future worker;
+- the 19-path ceiling, message boundary, provider/PostgreSQL separation,
+  stop conditions and commit ownership are accepted without expansion.
+
+After C2 is pushed, Codex must verify clean `HEAD == origin/main` and run the
+entire G6 gate. A passing G6 is the only authority for Claude to declare
+`IMPLEMENTATION_WORKER`. Claude then stops at
+`READY_FOR_INDEPENDENT_SHIFT_CREATE_ADMISSION_BUILD_REVIEW` with zero staged
+paths and no commit/push/self-approval. Until G6 passes, BUILD and provider
+calls remain prohibited.

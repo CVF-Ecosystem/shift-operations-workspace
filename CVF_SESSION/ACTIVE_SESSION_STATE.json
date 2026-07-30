@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 is at WORK_ORDER REVIEW_PASS. SCR-WO-AUTH-F1 closed without waiver and the C3 ceiling is exactly 19 paths. Codex owns separate C1/C2 commits; Claude remains the future IMPLEMENTATION_WORKER/REPAIR_WORKER. BUILD is unauthorized until pushed C1/C2 and G6 pass.",
+  "syncReceipt": "SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29 is at WORK_ORDER REVIEW_PASS / C2 pre-BUILD continuity. Zero-BUILD C1 1d0f114397981481f1a72b56f6ea3c14866ef6d8 is pushed. Exact C3 ceiling is 19 paths. After this separate C2 is pushed, Codex runs G6; only a passing G6 authorizes Claude to declare IMPLEMENTATION_WORKER.",
   "parkedOperatorCheckpoint": null,
-  "activeRole": "ORCHESTRATOR_REVIEWER_COMMIT_STEWARD",
+  "activeRole": "ORCHESTRATOR_REVIEWER",
   "roleRoute": "ORCHESTRATOR_REVIEWER_THEN_IMPLEMENTATION_WORKER",
   "updatedAt": "2026-07-30"
 }
