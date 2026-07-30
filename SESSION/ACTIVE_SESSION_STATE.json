@@ -9,6 +9,10 @@
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/ADR_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
+    "docs/specs/MESSAGE_ADMISSION_TRUST_REPAIR_SPEC.md",
+    "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_SPEC_REVIEW.md",
+    "docs/work_orders/MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER.md",
+    "docs/decisions/MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
     "docs/decisions/ADR_2026-07-29_SHIFT_CREATE_ADMISSION_REPAIR.md",
@@ -80,7 +84,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "ACTIVE TRANCHE: MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 at DESIGN. ADR classifies POST /messages as an authenticated internal-user command with principal-derived sender, fixed INTERNAL source, message.create permission, atomic message-plus-audit and durable backend parity. External channel ingestion is a separate later Integration Edge tranche and must never use this endpoint. Next move is SPEC only. No WORK_ORDER, BUILD, provider-call, Docker/PostgreSQL, or implementation authority exists.",
+  "next_allowed_move": "ACTIVE TRANCHE: MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 at WORK_ORDER REVIEW_PASS. SPEC R1-R19/AC-01..AC-23 and exact 29-path C3 ceiling are reviewed after MAR-SPEC-REV-F1..F3 and MAR-WO-AUTH-F1..F3 closed without waiver. Next: commit/push zero-BUILD C1, then separate four-path C2 acknowledgment, then G6. BUILD/provider/Docker/PostgreSQL remain unauthorized until all gates pass and an independent implementation worker is assigned.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -221,17 +225,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "DESIGN",
-    "activePhaseNote": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 has an ADR resolving MAR-INTAKE-F1..F9 through a bounded authenticated internal-message vertical and explicit separation of later external ingestion. SPEC is next; BUILD is unauthorized.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 SPEC and exact 29-path Work Order are REVIEW_PASS. C1/C2 and G6 are next; BUILD is unauthorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. Shift-create and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR_DESIGN_AUTHOR",
-    "activeRoleNote": "DESIGN authority only. The next role is SPEC_AUTHOR; no implementation role or BUILD authority exists.",
-    "roleRoute": "ORCHESTRATOR_DESIGN_AUTHOR_THEN_SPEC",
+    "activeRole": "ORCHESTRATOR_WORK_ORDER_AUTHOR_REVIEWER",
+    "activeRoleNote": "Authorization stewardship only. Commit/push C1, then separate C2 and run G6; no implementation role or BUILD authority exists.",
+    "roleRoute": "ORCHESTRATOR_WORK_ORDER_AUTHOR_REVIEWER_THEN_C1_C2_G6",
     "updatedAt": "2026-07-30"
   }
 }

@@ -3,10 +3,10 @@
 ## Disposition
 
 - Tranche: `MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`
-- Control-chain phase: `DESIGN`
+- Control-chain phase: `WORK_ORDER`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / DESIGN_AUTHOR`
-- Status: `DESIGN RECORDED — SPEC NEXT; BUILD NOT AUTHORIZED`
+- Active role: `ORCHESTRATOR / WORK_ORDER_AUTHOR / REVIEWER`
+- Status: `WORK_ORDER REVIEW_PASS — C1/C2 AND G6 NEXT; BUILD NOT AUTHORIZED`
 
 ## Settled predecessor
 
@@ -85,10 +85,15 @@ implementation can exist.
 
 ## Next governed move
 
-Author SPEC only for the bounded internal-message vertical and its external
-nonclaims. Freeze the request/OpenAPI compatibility contract, permission and
-audit fields, failure mapping, ledger parity, PostgreSQL 16 proof and live
-provider evidence sequence.
+SPEC `MESSAGE_ADMISSION_TRUST_REPAIR_SPEC.md` is `REVIEW_PASS` after
+`MAR-SPEC-REV-F1..F3` closed without waiver. Work Order
+`MESSAGE_ADMISSION_TRUST_REPAIR_WORK_ORDER.md` is authorization
+`REVIEW_PASS` after `MAR-WO-AUTH-F1..F3` closed without waiver.
 
-No BUILD, source/test/permission/schema/migration edit, provider call,
-Docker/PostgreSQL run, or implementation authority exists from this handoff.
+Commit/push C1 authorization, then record/push a separate four-path C2
+pre-BUILD acknowledgment. Only after G6 passes may an implementation worker
+independent from the authorization reviewer be assigned the exact 29-path C3
+ceiling.
+
+No BUILD, source/test/permission/schema/migration edit, provider call or
+Docker/PostgreSQL run is authorized before pushed C1/C2 and passing G6.
