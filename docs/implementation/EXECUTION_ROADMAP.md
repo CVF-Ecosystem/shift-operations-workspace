@@ -243,9 +243,11 @@ lifecycle/freeze rõ ràng.
       `operations_domain.lifecycle`; `workspace_api.domain.models`/`.lifecycle`
       thành **compatibility shim** re-export đúng object (identity `is`, không
       phải `==`, chứng minh bằng test theo từng module pair). `User` **không**
-      di chuyển — thuộc auth boundary, nhà canonical vẫn là app, quyết định
-      dời thuộc lane reconciliation `known-principals.yaml` ↔ `users`. Package
-      là sink (chỉ stdlib + pydantic), không import ngược `workspace_api`/
+      di chuyển — thuộc auth boundary, nhà canonical vẫn là app. Tranche
+      reconciliation sau đó đã bỏ `known-principals.yaml` khỏi runtime
+      authority nhưng vẫn giữ `User` tại auth boundary; mọi relocation tương
+      lai cần tranche riêng. Package là sink (chỉ stdlib + pydantic), không
+      import ngược `workspace_api`/
       `operations_ledger`/`cvf_runtime`. `SqlLedger(models=…)` seam **không**
       refactor (`packages/operations-ledger/**` zero-line diff). `operations-domain`
       **stub → partial**. **Tại thời điểm P1-B đóng**, incidents/handovers/
