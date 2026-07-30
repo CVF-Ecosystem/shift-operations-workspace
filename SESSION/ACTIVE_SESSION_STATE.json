@@ -3,9 +3,11 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
   "last_updated": "2026-07-30",
   "required_reads": [
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
+    "docs/decisions/INTAKE_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/INTAKE_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
     "docs/decisions/ADR_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
@@ -94,7 +96,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 ab92f51be5b00740f2316b6e1b1c81aa186c753f changed exactly 30 authorized paths, received independent final REVIEW_PASS after MAR-BUILD-REV-F1..F5 closed without waiver, and is pushed with HEAD == origin/main. The next governed move is an operator-selected fresh INTAKE. Per the roadmap dependency order for closing Phase 2, the next candidate is P2-R operational Report plus a real report_approved prerequisite, followed by remaining P2-C mutation/full UI and P2-D offline/realtime; external/channel ingestion remains a separate Phase 4 Integration Edge tranche. No DESIGN, SPEC, WORK_ORDER, BUILD, provider-call, commit, or mutation authority carries forward.",
+  "next_allowed_move": "ACTIVE TRANCHE: P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 at INTAKE. Source truth confirms migration 002 has a reports table, but operations-domain/Ledger/workspace-api have no Report vertical; the JSON contract and migration differ; report approval has no governed action; and ShiftService still satisfies report_approved only through an explicit audited override. Next move is DESIGN only, resolving P2R-INTAKE-F1..F9. No SPEC, WORK_ORDER, BUILD, source/test/schema/migration/contract edit, provider call, Docker/PostgreSQL, stage, commit, push, or mutation authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -247,17 +249,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 ab92f51be5b00740f2316b6e1b1c81aa186c753f is independently REVIEW_PASS and pushed after MAR-BUILD-REV-F1..F5 closed without waiver.",
+    "activePhase": "INTAKE",
+    "activePhaseNote": "P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 records the missing Report runtime vertical, migration/contract drift and override-only report_approved prerequisite as P2R-INTAKE-F1..F9. DESIGN is next; BUILD is unauthorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_MESSAGE_ADMISSION_TRUST_REPAIR.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. Shift-create and all earlier handoffs remain settled history.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. Message admission and all earlier handoffs remain settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "C4 records completed independent REVIEW, COMMIT_STEWARD, CLOSER and SESSION_SYNC_STEWARD responsibilities. Any next work begins at fresh INTAKE with a new bounded role assignment.",
-    "roleRoute": "ORCHESTRATOR_TO_OPERATOR_SELECTED_FRESH_INTAKE",
+    "activeRole": "ORCHESTRATOR_INTAKE_ANALYST",
+    "activeRoleNote": "INTAKE authority only. The next role is DESIGN author/reviewer as explicitly assigned; no implementation role or BUILD authority exists.",
+    "roleRoute": "ORCHESTRATOR_INTAKE_ANALYST_THEN_DESIGN",
     "updatedAt": "2026-07-30"
   }
 }
