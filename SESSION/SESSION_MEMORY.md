@@ -4,10 +4,11 @@ Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
 Provider-neutral — for every agent and human. Keep it short; details live in the
 handoffs.
 
-_Last updated: 2026-07-30 (Shift-create admission repair FREEZE / CLOSED_BOUNDED; C3 pushed; message admission INTAKE next)_
+_Last updated: 2026-07-30 (Message admission and trust repair INTAKE; DESIGN next; BUILD unauthorized)_
 
 ## Where the project is
 
+**2026-07-30 (Message admission and trust repair — INTAKE):** fresh tranche `MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30` reproduced anonymous `POST /messages` returning 200, accepting caller-controlled `sender_id` and `source="INTERNAL"`, persisting InMemory with zero audit; SqlLedger message persistence is still `NotImplemented`, while Integration Edge verifies/dedupes but has no canonical durable handoff. Canonical intake records `MAR-INTAKE-F1..F9`: entrypoint classification, sender authority, edge-to-core handoff, model/contract drift, routing/shift binding, durable parity, governance actions, failures/HTTP, and live evidence. Next move is DESIGN only. No BUILD/provider/Docker/PostgreSQL/stage/commit/push authority exists.
 **2026-07-30 (Shift-create admission repair — FREEZE / CLOSED_BOUNDED):** C3 `3f9e456d129075e347d986af3b31d35f4d00afb9` changed exactly 19 authorized paths and is pushed after independent REVIEW_PASS. `SCR-BUILD-REV-F1..F3` closed without waiver: PostgreSQL proof now uses a minted operator JWT through the real FastAPI route, provider admission verifies exactly one persisted shift plus every actor-bound audit field before exactly one real call, and InMemory/SQLite carry the required refusal and returned-versus-persisted matrix. Evidence: focused 94; full 724/69 skipped; PostgreSQL 59 with migrations 21/0 then 17/4 and exact cleanup; parent rehearsal 678/65; fresh Alibaba qwen3.7-max HTTP 200 after four zero-call refusals; repository gates and doctor PASS WITH NOTE 24/1 bounded warning. Claim remains only: `POST /shifts` requires a verified JWT, enforces `shift.create`, and atomically persists the shift with an actor-bound audit. Anonymous `POST /messages` remains open and is the sole next security tranche; fresh INTAKE only, no authority carries forward.
 **2026-07-28 (P2-C — C3a authorized):** the read-only slice is split:
 C3a covers authenticated reads plus PostgreSQL/provider evidence; C3b is React/toolchain/CI only after independent C3a review.
