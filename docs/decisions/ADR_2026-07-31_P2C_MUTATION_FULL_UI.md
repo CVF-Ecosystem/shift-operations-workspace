@@ -4,7 +4,7 @@ ID: `ADR-P2C-MUTATION-FULL-UI-2026-07-31`
 Tranche: `P2C-MUTATION-FULL-UI-2026-07-31`
 Control-chain phase: `DESIGN`
 Risk: `R2`
-Status: `DESIGN_AUTHORED — PENDING_INDEPENDENT_REVIEW`
+Status: `DESIGN_REVIEW_PASS_AFTER_REPAIR`
 
 ## 1. Context
 
@@ -18,15 +18,17 @@ it does not authorize implementation.
 
 ## 2. Decision summary
 
-P2-C will remain one roadmap tranche but use three separately authorized,
+P2-C will remain one roadmap tranche but use four separately authorized,
 reviewed, committed and pushed BUILD checkpoints:
 
-1. **C3a — assignment authorization foundation and API contracts**;
-2. **C3b — operator mutation UI**;
-3. **C3c — supervisor closeout UI and bounded P2-C proof**.
+1. **C3a — assignment authorization foundation**;
+2. **C3b — backend read/mutation contract readiness**;
+3. **C3c — operator mutation UI**;
+4. **C3d — supervisor closeout UI and bounded P2-C proof**.
 
 C3b cannot begin before C3a receives independent `REVIEW_PASS` and is pushed.
 C3c cannot begin before C3b receives independent `REVIEW_PASS` and is pushed.
+C3d cannot begin before C3c receives independent `REVIEW_PASS` and is pushed.
 No checkpoint may inherit an open changed set from its predecessor.
 
 ## 3. D1 — Single-workspace boundary; no fake tenant model
@@ -83,6 +85,11 @@ behavior. Assignment mutations and actor-bound audit writes are atomic.
 - A dedicated staffing endpoint returns only the minimum shift identity/status
   needed to select a staffing target. It is not the operational read endpoint
   and does not return events, work, messages, handovers or Reports.
+- Migration creates no inferred assignment for an existing shift because the
+  repository has no truthful source for that fact. Existing shifts therefore
+  fail closed for operational access until a supervisor uses the staffing
+  control plane to assign users. Deployment evidence must prove a supervisor
+  can discover and staff such a shift without operational-data access.
 - A target user must exist and be active when assigned.
 - Revoke is idempotent only for an already-revoked assignment with the exact
   identity; it cannot erase history.
@@ -104,6 +111,9 @@ assignment.
   assignment claim” boundary.
 - Approval creation resolves the stored target to its shift and requires the
   approver to be assigned there. Caller-supplied shift assertions are refused.
+- A customer request with `shift_id = null` is outside this shift console. The
+  P2-C UI creates and mutates only requests bound to the selected shift;
+  unbound customer-inbox workflow remains a separate future surface.
 - Cross-shift operations check each role-specific side explicitly rather than
   using either shift as a proxy for both.
 
@@ -140,6 +150,11 @@ mutation. Report status-only transitions additionally carry
 when status changes. Mismatch returns controlled 409 with no partial
 mutation/audit.
 
+These required preconditions intentionally tighten the pre-release HTTP
+contract. Old mutation requests that omit them fail with controlled 422; they
+are never silently treated as an unconditional write. SPEC and OpenAPI tests
+must enumerate every affected route and preserve unchanged routes exactly.
+
 P2-C does not add offline replay or a generic idempotency ledger. The browser:
 
 - permits one in-flight submission per control;
@@ -159,7 +174,7 @@ exactly-once claim.
 “Full UI” means all already-implemented Phase-2 operational lifecycle
 verticals needed for a shift, not every stub folder in `workspace-web`.
 
-### C3b operator surface
+### C3c operator surface
 
 - create/select shift;
 - append internal message;
@@ -173,7 +188,7 @@ verticals needed for a shift, not every stub folder in `workspace-web`.
 - deterministic refresh, validation, accessibility and controlled errors for
   every control above.
 
-### C3c supervisor closeout surface
+### C3d supervisor closeout surface
 
 - list minimal staffing targets and assign/revoke shift members;
 - confirm event;
@@ -194,6 +209,12 @@ vertical explicit.
 
 ## 8. D6 — HTTP contracts and frontend structure
 
+- C3b adds bounded assignment-scoped reads needed by the UI but absent today:
+  internal messages, full task history, shift-bound customer-request history,
+  and sanitized approval/readiness state for supported targets. Existing event,
+  incident, handover and Report reads are reused rather than forked.
+- Every new list has deterministic ordering and a hard maximum or explicit
+  pagination contract; no silent truncation is permitted.
 - FastAPI/Pydantic/OpenAPI remains the executable HTTP source.
 - Small feature-owned TypeScript DTOs are allowed; generated monolithic types
   are rejected because the repository's 200-line hard limit must remain
@@ -212,7 +233,7 @@ This resolves `P2C-MUT-INTAKE-F3` and preserves the frontend/backend boundary.
 
 ## 9. D7 — P2-D and exit-gate separation
 
-C3b/C3c may render offline status and refuse mutation while disconnected.
+C3c/C3d may render offline status and refuse mutation while disconnected.
 They may not enqueue, replay, synchronize in the background or subscribe to
 realtime updates. Those behaviors remain P2-D.
 
@@ -236,7 +257,17 @@ This resolves `P2C-MUT-INTAKE-F5` and `P2C-MUT-INTAKE-F6`.
   one real provider call with sanitized receipt;
 - exact-parent rollback rehearsal and repository gates.
 
-### C3b and C3c
+### C3b
+
+- focused API/OpenAPI/contract and cross-backend tests for every browser-used
+  read and required mutation precondition;
+- assignment refusal on every new/readiness route;
+- deterministic list limits, sanitized failures, full non-live regression,
+  disposable PostgreSQL proof where persistence/query code changes, exact-
+  parent rehearsal and repository gates;
+- no frontend source and no UI-completion claim.
+
+### C3c and C3d
 
 - frozen pnpm install, typecheck, unit/component tests and production build;
 - real browser E2E against built web plus real FastAPI routes, not mocked
@@ -245,7 +276,7 @@ This resolves `P2C-MUT-INTAKE-F5` and `P2C-MUT-INTAKE-F6`.
 - anonymous, wrong-role, unassigned, stale-version, frozen-parent and missing-
   approval refusals where applicable;
 - no provider call unless the checkpoint makes a new CVF-governance claim. The
-  final P2-C governance claim requires fresh sanitized real-provider evidence
+  final P2-C governance claim at C3d requires fresh sanitized real-provider evidence
   after the complete refusal matrix proves zero calls.
 
 Every checkpoint records exact test counts, tool versions, changed paths,

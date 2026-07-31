@@ -88,7 +88,17 @@ The design resolves intake F1-F6 by:
 - requiring expected-version checks and no automatic mutation retry;
 - defining exact operator and supervisor vertical matrices;
 - separating P2-D and the later Phase-2 exit run;
-- splitting future BUILD into C3a authorization foundation, C3b operator UI
-  and C3c supervisor closeout UI, each independently reviewed/pushed.
+- splitting future BUILD into C3a assignment foundation, C3b backend contract
+  readiness, C3c operator UI and C3d supervisor closeout UI, each independently
+  reviewed/pushed.
 
-Status: `DESIGN_AUTHORED — PENDING_INDEPENDENT_REVIEW`.
+Initial review found `P2C-DESIGN-REV-F1..F5`; all were repaired without
+waiver and re-reviewed in:
+
+`docs/decisions/P2C_MUTATION_FULL_UI_DESIGN_REVIEW.md`.
+
+Final DESIGN disposition: `REVIEW_PASS_AFTER_REPAIR` for SPEC authoring only.
+The repaired checkpoint order is C3a assignment foundation → C3b backend
+contract readiness → C3c operator UI → C3d supervisor closeout UI.
+
+Next move: author SPEC. No WORK_ORDER or BUILD authority exists.
