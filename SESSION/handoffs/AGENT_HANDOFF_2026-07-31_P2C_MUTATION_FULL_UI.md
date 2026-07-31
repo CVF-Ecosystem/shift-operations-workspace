@@ -102,3 +102,19 @@ The repaired checkpoint order is C3a assignment foundation → C3b backend
 contract readiness → C3c operator UI → C3d supervisor closeout UI.
 
 Next move: author SPEC. No WORK_ORDER or BUILD authority exists.
+
+## Pre-SPEC feasibility addendum
+
+Source inspection found `P2C-SPEC-FEAS-F1 CUSTOMER_REQUEST_NO_VERSION`:
+CustomerRequest is lifecycle-mutable but has no model/database version, so the
+DESIGN concurrency rule could not cover it truthfully.
+
+The reviewed repair is:
+
+- `docs/decisions/ADR_2026-07-31_P2C_CUSTOMER_REQUEST_CONCURRENCY_ADDENDUM.md`;
+- `docs/decisions/P2C_CUSTOMER_REQUEST_CONCURRENCY_ADDENDUM_REVIEW.md`.
+
+Disposition: `CLOSED_WITHOUT_WAIVER / REVIEW_PASS`. C3b must add/backfill
+CustomerRequest version and require expected-version transition semantics.
+Four-checkpoint order is unchanged. SPEC authoring is now permitted; no Work
+Order or BUILD authority exists.

@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-C mutation/full UI DESIGN received REVIEW_PASS_AFTER_REPAIR after five findings closed without waiver. SPEC authoring is next; no WORK_ORDER or BUILD authority exists.",
+  "syncReceipt": "P2-C DESIGN and CustomerRequest concurrency addendum are REVIEW_PASS after six total findings closed without waiver. SPEC authoring is next; no WORK_ORDER or BUILD authority exists.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "REVIEWER",
   "roleRoute": "REVIEWER_TO_SPEC_AUTHOR_FOR_P2C_SPEC",

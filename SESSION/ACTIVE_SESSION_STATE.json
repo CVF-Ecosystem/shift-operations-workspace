@@ -6,6 +6,8 @@
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "last_updated": "2026-07-31",
   "required_reads": [
+    "docs/decisions/P2C_CUSTOMER_REQUEST_CONCURRENCY_ADDENDUM_REVIEW.md",
+    "docs/decisions/ADR_2026-07-31_P2C_CUSTOMER_REQUEST_CONCURRENCY_ADDENDUM.md",
     "docs/decisions/P2C_MUTATION_FULL_UI_DESIGN_REVIEW.md",
     "docs/decisions/ADR_2026-07-31_P2C_MUTATION_FULL_UI.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
@@ -109,7 +111,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P2C-MUTATION-FULL-UI-2026-07-31 DESIGN received REVIEW_PASS_AFTER_REPAIR after P2C-DESIGN-REV-F1..F5 closed without waiver. Author the testable SPEC for the repaired four-checkpoint design. No WORK_ORDER, BUILD, provider-call or mutation authority exists.",
+  "next_allowed_move": "P2C-MUTATION-FULL-UI-2026-07-31 DESIGN and CustomerRequest concurrency addendum are REVIEW_PASS; P2C-DESIGN-REV-F1..F5 and P2C-SPEC-FEAS-F1 closed without waiver. Author the testable SPEC for the repaired four-checkpoint design. No WORK_ORDER, BUILD, provider-call or mutation authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -275,7 +277,7 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "DESIGN",
-    "activePhaseNote": "P2C-MUTATION-FULL-UI-2026-07-31 DESIGN is REVIEW_PASS_AFTER_REPAIR; SPEC authoring is next. No WORK_ORDER or BUILD authority exists.",
+    "activePhaseNote": "P2C-MUTATION-FULL-UI-2026-07-31 DESIGN plus CustomerRequest concurrency addendum are REVIEW_PASS; SPEC authoring is next. No WORK_ORDER or BUILD authority exists.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
@@ -283,7 +285,7 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "REVIEWER",
-    "activeRoleNote": "REVIEWER closed P2C-DESIGN-REV-F1..F5 without waiver and issued DESIGN REVIEW_PASS_AFTER_REPAIR. The next explicit role is SPEC_AUTHOR.",
+    "activeRoleNote": "REVIEWER closed P2C-DESIGN-REV-F1..F5 and P2C-SPEC-FEAS-F1 without waiver. The next explicit role is SPEC_AUTHOR.",
     "roleRoute": "REVIEWER_TO_SPEC_AUTHOR_FOR_P2C_SPEC",
     "updatedAt": "2026-07-31"
   }

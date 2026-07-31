@@ -155,6 +155,11 @@ contract. Old mutation requests that omit them fail with controlled 422; they
 are never silently treated as an unconditional write. SPEC and OpenAPI tests
 must enumerate every affected route and preserve unchanged routes exactly.
 
+SPEC feasibility later found that mutable `CustomerRequest` had no version.
+The reviewed concurrency addendum requires a C3b migration/model/ledger/
+contract version field with deterministic legacy backfill and stale-write
+refusal. It is part of this DESIGN without changing the checkpoint order.
+
 P2-C does not add offline replay or a generic idempotency ledger. The browser:
 
 - permits one in-flight submission per control;
