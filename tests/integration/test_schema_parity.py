@@ -37,7 +37,12 @@ test_schema_parity_users.py. The approval_receipts-specific UNIQUE constraint
 check was further split into test_schema_parity_approval_receipts.py
 (CVF-FILE-SPLIT-GUARD-HARDENING) purely to respect the file-size guard (GC-023
 style hard limit), not a behavior change; every module shares parsing helpers
-from _schema_parity_parsing.py.
+from _schema_parity_parsing.py. `reports` (defined across TWO migrations, 002
+plus 007's is_current/CHECK/UNIQUE/partial-index additions) is deliberately
+NOT added to MAPPED below - test_schema_parity_reports.py
+(P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE) parses both migrations directly
+instead, because the generic table_block() helper only matches a single
+CREATE TABLE statement and cannot see 007's ALTER-based additions.
 
 STILL NOT LIVE VERIFIED: everything here is static text-parsing of the
 migration SQL compared against SQLAlchemy Table objects in memory. No

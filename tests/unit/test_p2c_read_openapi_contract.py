@@ -82,6 +82,31 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
         assert method in doc["paths"][path], f"P2C read method missing: {method} {path}"
 
     reduced = json.loads(json.dumps(doc))
+
+    # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R28): reverse the
+    # COMPLETE later report delta first - the five new paths/schemas plus the
+    # FreezeInput deprecation markers.
+    for report_path in (
+        "/reports", "/reports/{report_id}", "/reports/{report_id}/versions",
+        "/reports/{report_id}/submit-review", "/reports/{report_id}/approve",
+    ):
+        assert report_path in reduced["paths"], f"report path missing: {report_path}"
+        del reduced["paths"][report_path]
+    for report_schema in (
+        "ReportCreateInput", "ReportResponse", "ReportSection", "ReportSourceRef",
+        "ReportStatus", "ReportType", "ReportVersionInput",
+    ):
+        assert report_schema in reduced["components"]["schemas"], f"report schema missing: {report_schema}"
+        del reduced["components"]["schemas"][report_schema]
+    freeze_schema = reduced["components"]["schemas"]["FreezeInput"]
+    assert freeze_schema.get("additionalProperties") is False
+    del freeze_schema["additionalProperties"]
+    for field in ("override_unimplemented_prerequisites", "override_reason"):
+        prop = freeze_schema["properties"][field]
+        assert prop.get("deprecated") is True
+        del prop["deprecated"]
+        del prop["description"]
+
     messages_post = reduced["paths"]["/messages"]["post"]
     assert "security" in messages_post, "POST /messages lost its expected security requirement"
     del messages_post["security"]

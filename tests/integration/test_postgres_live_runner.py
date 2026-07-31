@@ -1,17 +1,7 @@
 """Non-live unit tests for scripts/run_postgres_live_roundtrip.py.
 
-Split out of test_sql_ledger_postgres_live.py (Amendment 1, WO 14.3 step 1)
-purely to respect the file-size guard after adding the sanitization and
-cleanup-ownership repair tests - not a behavior change to any pre-existing
-test. None of these need Docker, psycopg or a database; every Docker-facing
-function is monkeypatched. scripts/ is not on pytest's pythonpath, added
-here like every other script-importing test module in this repo.
-
-The P2C R27 live PostgreSQL 500/501 matrix that was temporarily appended
-here during Amendment 2 repair (making this file 315 lines) has moved to
-its own authorized module, tests/integration/test_p2c_read_postgres_limit_live.py
-(Amendment 3), restoring this file to its original runner-test-only scope.
-"""
+None of these need Docker, psycopg or a database; every Docker/psycopg-
+facing function is monkeypatched."""
 
 from __future__ import annotations
 
@@ -57,18 +47,15 @@ def test_free_loopback_port_is_actually_bindable():
         s.bind(("127.0.0.1", port))  # raises if not truly free
 
 
-def test_live_suite_targets_pin_all_five_coherent_modules():
-    """P2A-INCIDENT-VERTICAL (INC-AUTH-F2) + P2A-HANDOVER-VERTICAL +
-    SHIFT-CREATE-ADMISSION-REPAIR + MESSAGE-ADMISSION-TRUST-REPAIR: the
-    runner must execute exactly the existing PostgreSQL live module plus the
-    split incident, handover, shift-create and message modules - not a
-    broader glob, and not a silent drop of any of the five."""
+def test_live_suite_targets_pin_all_six_coherent_modules():
+    """Exactly these six live modules - not a broader glob, no silent drop."""
     assert runner.LIVE_SUITE_TARGETS == (
         "tests/integration/test_sql_ledger_postgres_live.py",
         "tests/integration/test_incident_postgres_live.py",
         "tests/integration/test_handover_postgres_live.py",
         "tests/integration/test_shift_create_postgres_live.py",
         "tests/integration/test_message_postgres_live.py",
+        "tests/integration/test_report_postgres_live.py",
     )
 
 
@@ -79,19 +66,16 @@ def test_parse_migration_counts_extracts_applied_and_skipped():
         runner.parse_migration_counts("no summary line here")
 
 
-# --- PG-REV-F2: failure-output sanitization (SPEC R15, AC-25) ---------------
+# --- PG-REV-F2/Finding 2: failure-output sanitization (SPEC R15/R32, AC-25) -
 
 def test_sanitize_output_scrubs_sentinel_password_and_full_url():
     password = "SENTINEL_PW_9f8e7d3c2b1a"
     url = f"postgresql+psycopg://cvf_live:{password}@127.0.0.1:55555/cvf_live_roundtrip"
-    text = (
-        f"E   live_database_url = '{url}'\n"
-        f"E   some other line embedding the raw password {password} directly\n"
-    )
+    plain_url = f"postgresql://cvf_live:{password}@127.0.0.1:55555/cvf_live_roundtrip"
+    text = f"E   live_database_url = '{url}'\nE   or plain form {plain_url}\nE   raw password {password} embedded\n"
     cleaned = runner.sanitize_output(text, password=password, database_url=url)
-    assert password not in cleaned
-    assert url not in cleaned
-    assert "<redacted-password>" in cleaned or "<redacted>" in cleaned
+    assert password not in cleaned and url not in cleaned and plain_url not in cleaned
+    assert "<redacted-password>" in cleaned and "<redacted-database-url>" in cleaned
 
 
 def test_sanitize_output_is_a_noop_for_empty_text():
@@ -116,45 +100,40 @@ def test_run_once_skips_cleanup_when_container_was_never_created(monkeypatch):
     monkeypatch.setattr(runner, "start_container", _raise)
     cleanup_calls: list[tuple] = []
     monkeypatch.setattr(runner, "remove_container", lambda name, vols: cleanup_calls.append((name, vols)) or (True, []))
-
     summary = runner.run_once("postgresql+psycopg://u:p@127.0.0.1:1/db", "never-created", 1, "pw")
-
     assert cleanup_calls == []  # cleanup must never target a container that was never created
     assert summary["container_absent_after_cleanup"] is True
     assert summary["cleanup_skipped_reason"]
     assert summary["failure"]
 
 
-def test_run_once_invokes_cleanup_and_reports_success_when_container_created(monkeypatch):
+def _stub_ready(monkeypatch, volumes=(), returncode=0, stdout="ok"):
+    """Common run_once stubbing: creation, readiness, live suite, cleanup-check all succeed."""
     monkeypatch.setattr(runner, "start_container", lambda *a, **kw: None)
-    monkeypatch.setattr(runner, "container_volumes", lambda name: ["anon-vol-1"])
+    monkeypatch.setattr(runner, "container_volumes", lambda name: list(volumes))
     monkeypatch.setattr(runner, "wait_ready", lambda name: None)
-    monkeypatch.setattr(runner, "apply_migrations_twice", lambda url: [{"attempt": "first", "applied": 1, "skipped": 0}])
-    fake_result = subprocess.CompletedProcess(args=[], returncode=0, stdout="1 passed", stderr="")
-    monkeypatch.setattr(runner, "run_live_suite", lambda url: fake_result)
+    monkeypatch.setattr(runner, "wait_ready_via_database", lambda url: None)
     monkeypatch.setattr(runner, "container_exists", lambda name: False)
+    fake_result = subprocess.CompletedProcess(args=[], returncode=returncode, stdout=stdout, stderr="")
+    monkeypatch.setattr(runner, "run_live_suite", lambda url: fake_result)
+
+
+def test_run_once_invokes_cleanup_and_reports_success_when_container_created(monkeypatch):
+    _stub_ready(monkeypatch, volumes=["anon-vol-1"], stdout="1 passed")
+    monkeypatch.setattr(runner, "apply_migrations_twice", lambda url: [{"attempt": "first", "applied": 1, "skipped": 0}])
     cleanup_calls: list[tuple] = []
     monkeypatch.setattr(runner, "remove_container", lambda name, vols: cleanup_calls.append((name, vols)) or (True, []))
-
     summary = runner.run_once("postgresql+psycopg://u:p@127.0.0.1:1/db", "really-created", 1, "pw")
-
     assert cleanup_calls == [("really-created", ["anon-vol-1"])]
     assert summary["container_absent_after_cleanup"] is True
     assert summary["failure"] is None
 
 
 def test_run_once_reports_failure_when_anonymous_volume_survives_cleanup(monkeypatch):
-    monkeypatch.setattr(runner, "start_container", lambda *a, **kw: None)
-    monkeypatch.setattr(runner, "container_volumes", lambda name: ["stubborn-vol"])
-    monkeypatch.setattr(runner, "wait_ready", lambda name: None)
+    _stub_ready(monkeypatch, volumes=["stubborn-vol"])
     monkeypatch.setattr(runner, "apply_migrations_twice", lambda url: [])
-    fake_result = subprocess.CompletedProcess(args=[], returncode=0, stdout="ok", stderr="")
-    monkeypatch.setattr(runner, "run_live_suite", lambda url: fake_result)
-    monkeypatch.setattr(runner, "container_exists", lambda name: False)
     monkeypatch.setattr(runner, "remove_container", lambda name, vols: (True, ["stubborn-vol"]))
-
     summary = runner.run_once("postgresql+psycopg://u:p@127.0.0.1:1/db", "leaky", 1, "pw")
-
     assert summary["container_absent_after_cleanup"] is False
     assert "stubborn-vol" in summary["failure"]
 
@@ -166,22 +145,13 @@ _F6_URL = f"postgresql+psycopg://cvf_live:{_F6_PASSWORD}@127.0.0.1:59999/cvf_liv
 
 
 def _assert_sentinel_absent_everywhere(summary: dict, captured) -> None:
-    surfaces = [
-        json.dumps(summary),
-        captured.out,
-        captured.err,
-        summary.get("live_suite_tail") or "",
-        summary.get("failure") or "",
-    ]
+    surfaces = [json.dumps(summary), captured.out, captured.err, summary.get("live_suite_tail") or "", summary.get("failure") or ""]
     for surface in surfaces:
-        assert _F6_PASSWORD not in surface
-        assert _F6_URL not in surface
+        assert _F6_PASSWORD not in surface and _F6_URL not in surface
 
 
 def test_run_once_sanitizes_sentinel_from_a_failing_subprocess_result(monkeypatch, capsys):
-    monkeypatch.setattr(runner, "start_container", lambda *a, **kw: None)
-    monkeypatch.setattr(runner, "container_volumes", lambda name: [])
-    monkeypatch.setattr(runner, "wait_ready", lambda name: None)
+    _stub_ready(monkeypatch)
     monkeypatch.setattr(runner, "apply_migrations_twice", lambda url: [])
     fake_result = subprocess.CompletedProcess(
         args=[], returncode=1,
@@ -189,39 +159,141 @@ def test_run_once_sanitizes_sentinel_from_a_failing_subprocess_result(monkeypatc
         stderr=f"connection error using password {_F6_PASSWORD}\n",
     )
     monkeypatch.setattr(runner, "run_live_suite", lambda url: fake_result)
-    monkeypatch.setattr(runner, "container_exists", lambda name: False)
     cleanup_calls: list[tuple] = []
     monkeypatch.setattr(runner, "remove_container", lambda name, vols: cleanup_calls.append((name, vols)) or (True, []))
-
     summary = runner.run_once(_F6_URL, "f6-subprocess", 59999, _F6_PASSWORD)
     captured = capsys.readouterr()
-
     assert cleanup_calls == [("f6-subprocess", [])]  # cleanup still ran on failure
     assert summary["failure"] == "live suite did not pass"
     _assert_sentinel_absent_everywhere(summary, captured)
 
 
 def test_run_once_sanitizes_sentinel_when_an_ordinary_exception_is_raised(monkeypatch, capsys):
-    """PG-REV-F6 regression: before the fix, a non-LiveRoundTripError raised
-    here (simulating a raw SQLAlchemy/driver failure in apply_migrations)
-    propagated straight out of run_once, past all sanitization, and cleanup
-    was never reached."""
-    monkeypatch.setattr(runner, "start_container", lambda *a, **kw: None)
-    monkeypatch.setattr(runner, "container_volumes", lambda name: [])
-    monkeypatch.setattr(runner, "wait_ready", lambda name: None)
+    """PG-REV-F6 + Finding 2: a non-LiveRoundTripError embedding the PLAIN
+    `postgresql://` DSN (not just the original `+psycopg` URL) must sanitize fully."""
+    _stub_ready(monkeypatch)
+    plain_dsn = f"postgresql://cvf_live:{_F6_PASSWORD}@127.0.0.1:59999/cvf_live_roundtrip"
 
     def _boom(url):
-        raise RuntimeError(f"connection failed for {url}")
+        raise RuntimeError(f"connection failed for {plain_dsn}")
 
     monkeypatch.setattr(runner, "apply_migrations_twice", _boom)
-    monkeypatch.setattr(runner, "container_exists", lambda name: False)
     cleanup_calls: list[tuple] = []
     monkeypatch.setattr(runner, "remove_container", lambda name, vols: cleanup_calls.append((name, vols)) or (True, []))
-
     summary = runner.run_once(_F6_URL, "f6-exception", 59999, _F6_PASSWORD)
     captured = capsys.readouterr()
-
     assert cleanup_calls == [("f6-exception", [])]  # cleanup still ran despite the raw exception
     assert summary["container_absent_after_cleanup"] is True
     assert summary["failure"] and "RuntimeError" in summary["failure"]
+    assert "database_url_redacted" not in summary and "postgresql://" not in json.dumps(summary)
     _assert_sentinel_absent_everywhere(summary, captured)
+
+
+# --- P2R repair: wait_ready survives the postgres init-then-restart race ---
+
+def test_wait_ready_requires_stability_not_a_single_success(monkeypatch):
+    """A single pg_isready success (pre-restart window) must not be enough."""
+    calls = {"n": 0}
+
+    def _fake_isready(name):
+        calls["n"] += 1
+        return calls["n"] not in (2,)  # poll 2 fails (mid-restart), rest succeed
+
+    monkeypatch.setattr(runner, "_pg_isready", _fake_isready)
+    monkeypatch.setattr(runner.time, "sleep", lambda s: None)
+    runner.wait_ready("some-container", timeout_s=30, stability_checks=3)
+    assert calls["n"] >= 5  # reset after the poll-2 blip, then 3 more in a row
+
+
+def _fake_clock(monkeypatch):
+    """Deterministic elapsing clock: each `sleep(s)` advances `monotonic()`."""
+    fake_now = [0.0]
+    monkeypatch.setattr(runner.time, "sleep", lambda s: fake_now.__setitem__(0, fake_now[0] + 1))
+    monkeypatch.setattr(runner.time, "monotonic", lambda: fake_now[0])
+
+
+def test_wait_ready_never_returns_on_a_single_isready_success(monkeypatch):
+    """One success alone must never satisfy readiness when stability_checks > 1."""
+    responses = iter([True])  # exactly one success, then permanently False
+    monkeypatch.setattr(runner, "_pg_isready", lambda name: next(responses, False))
+    _fake_clock(monkeypatch)
+    with pytest.raises(runner.LiveRoundTripError, match="did not become durably ready"):
+        runner.wait_ready("some-container", timeout_s=5, stability_checks=3)
+
+
+def test_wait_ready_raises_after_timeout_if_never_ready(monkeypatch):
+    monkeypatch.setattr(runner, "_pg_isready", lambda name: False)
+    _fake_clock(monkeypatch)
+    with pytest.raises(runner.LiveRoundTripError, match="did not become durably ready"):
+        runner.wait_ready("never-ready", timeout_s=5, stability_checks=3)
+
+
+# --- Finding 3: internal pg_isready stability alone is not proof of FINAL ---
+
+class _NullCtx:
+    """Fake connection/cursor: only execute/fetchone/cursor matter here."""
+
+    def __enter__(self): return self
+    def __exit__(self, *exc): return False
+    def execute(self, *_a): pass
+    def fetchone(self): return (1,)
+    def cursor(self): return self
+
+
+def _fake_psycopg(connect_fn):
+    return type("FakePsycopg", (), {"connect": staticmethod(connect_fn)})
+
+
+def test_run_once_requires_database_readiness_even_when_internal_poll_is_ready(monkeypatch):
+    """Internal `wait_ready` success alone must not be sufficient: `run_once`
+    must fail if `wait_ready_via_database` never succeeds."""
+    _stub_ready(monkeypatch)  # internal poll ready; override the DB check below
+
+    def _never_reachable(url):
+        raise runner.LiveRoundTripError("database not reachable on the mapped port within 1s (OperationalError)")
+
+    monkeypatch.setattr(runner, "wait_ready_via_database", _never_reachable)
+    monkeypatch.setattr(runner, "remove_container", lambda name, vols: (True, []))
+    summary = runner.run_once("postgresql+psycopg://u:p@127.0.0.1:1/db", "final-check", 1, "pw")
+    assert summary["failure"] and "not reachable on the mapped port" in summary["failure"]
+
+
+def test_wait_ready_via_database_succeeds_once_a_real_connection_succeeds(monkeypatch):
+    """Positive control: success is driven by the connection attempt, not polling."""
+    monkeypatch.setitem(sys.modules, "psycopg", _fake_psycopg(lambda url, **kw: _NullCtx()))
+    runner.wait_ready_via_database("postgresql+psycopg://u:p@127.0.0.1:1/db", timeout_s=5)
+
+
+_F2_PW = "SENTINEL_PW_F2_1a2b3c4d5e6f"
+_F2_URL_PSYCOPG = f"postgresql+psycopg://cvf_live:{_F2_PW}@127.0.0.1:59998/cvf_live_roundtrip"
+_F2_URL_PLAIN = f"postgresql://cvf_live:{_F2_PW}@127.0.0.1:59998/cvf_live_roundtrip"
+_F2_SECRETS = (_F2_PW, "cvf_live", "postgresql://", "postgresql+psycopg://", "127.0.0.1", "59998", "cvf_live_roundtrip", _F2_URL_PSYCOPG, _F2_URL_PLAIN)
+
+
+def _assert_f2_secrets_absent(text: str) -> None:
+    """Finding 2: no username/password/scheme/host/port/db/either complete URL."""
+    for secret in _F2_SECRETS:
+        assert secret not in text, f"leaked {secret!r} in: {text!r}"
+
+
+def test_wait_ready_via_database_never_leaks_dsn_on_timeout(monkeypatch):
+    """Finding 2: raised message never includes raw driver text - only a fixed message + class."""
+    def _refused(conninfo, **kw):
+        raise RuntimeError(f"connection to {conninfo} refused")
+
+    monkeypatch.setitem(sys.modules, "psycopg", _fake_psycopg(_refused))
+    _fake_clock(monkeypatch)
+    with pytest.raises(runner.LiveRoundTripError) as exc:
+        runner.wait_ready_via_database(_F2_URL_PSYCOPG, timeout_s=3)
+    _assert_f2_secrets_absent(str(exc.value))
+    assert "RuntimeError" in str(exc.value) and "not reachable on the mapped port" in str(exc.value)
+
+
+def test_run_once_summary_never_contains_a_database_url(monkeypatch):
+    """Finding 2: no `database_url_redacted` (or any DSN-bearing field) in the public summary."""
+    _stub_ready(monkeypatch)
+    monkeypatch.setattr(runner, "apply_migrations_twice", lambda url: [])
+    monkeypatch.setattr(runner, "remove_container", lambda name, vols: (True, []))
+    summary = runner.run_once(_F2_URL_PSYCOPG, "f2-run", 1, _F2_PW)
+    assert "database_url_redacted" not in summary
+    _assert_f2_secrets_absent(json.dumps(summary))

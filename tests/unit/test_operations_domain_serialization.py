@@ -147,6 +147,9 @@ GOLDEN_ENUMS = {
         ("REPORTED", "REPORTED"), ("ACKNOWLEDGED", "ACKNOWLEDGED"), ("MITIGATING", "MITIGATING"),
         ("RESOLVED", "RESOLVED"), ("CLOSED", "CLOSED"),
     ],
+    "ReportStatus": [
+        ("DRAFT", "DRAFT"), ("IN_REVIEW", "IN_REVIEW"), ("APPROVED", "APPROVED"), ("FROZEN", "FROZEN"),
+    ],
 }
 
 
@@ -257,6 +260,16 @@ def test_incident_transition_matrix():
         ("RESOLVED", "CLOSED"),
     }
     assert len(allowed) + len(denied) == len(m.IncidentStatus) ** 2
+
+
+def test_report_transition_matrix():
+    """P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R10): forward-only
+    DRAFT -> IN_REVIEW -> APPROVED -> FROZEN; FROZEN terminal."""
+    allowed, denied = _matrix(m.ReportStatus, lc.assert_report_transition)
+    assert allowed == {
+        ("DRAFT", "IN_REVIEW"), ("IN_REVIEW", "APPROVED"), ("APPROVED", "FROZEN"),
+    }
+    assert len(allowed) + len(denied) == len(m.ReportStatus) ** 2
 
 
 def test_transition_error_messages_unchanged():

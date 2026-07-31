@@ -11,6 +11,7 @@ from workspace_api.api.customer_requests.router import router as customer_reques
 from workspace_api.api.approvals.router import router as approvals_router
 from workspace_api.api.incidents.router import router as incidents_router
 from workspace_api.api.handovers.router import router as handovers_router
+from workspace_api.api.reports.router import router as reports_router
 from workspace_api.config import settings
 from workspace_api.middleware.request_id import RequestIdMiddleware
 
@@ -33,3 +34,4 @@ app.include_router(customer_requests_router)
 app.include_router(approvals_router)
 app.include_router(incidents_router)
 app.include_router(handovers_router)
+app.include_router(reports_router)

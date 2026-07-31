@@ -74,6 +74,16 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # message is append-only RAW input, not a risk-classed or durable-
     # commitment decision, so it does not need the higher supervisor bar.
     "message.create": "operator",
+    # Report (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE): generation and
+    # submit-review are routine operator actions (mirrors handover.create) -
+    # the server derives the entire snapshot, the caller supplies only
+    # shift_id. Approval and revocation are the protected shift_supervisor-bar
+    # decisions, same rank as handover.review/acknowledge and shift.freeze,
+    # since an approved Report is the real report_approved freeze prerequisite.
+    "report.generate": "operator",
+    "report.submit_review": "operator",
+    "report.approve": "shift_supervisor",
+    "report.revoke_approval": "shift_supervisor",
 }
 
 

@@ -10,7 +10,7 @@ the inverted dependency this tranche exists to remove.
 does not redefine them.
 """
 
-from .models import CustomerRequestStatus, DataState, HandoverStatus, IncidentStatus, TaskStatus
+from .models import CustomerRequestStatus, DataState, HandoverStatus, IncidentStatus, ReportStatus, TaskStatus
 
 _ALLOWED: dict[DataState, set[DataState]] = {
     DataState.RAW: {DataState.NORMALIZED, DataState.REJECTED},
@@ -107,3 +107,20 @@ _ALLOWED_HANDOVER: dict[HandoverStatus, set[HandoverStatus]] = {
 def assert_handover_transition(current: HandoverStatus, target: HandoverStatus) -> None:
     if target not in _ALLOWED_HANDOVER[current]:
         raise ValueError(f"Invalid handover-status transition: {current} -> {target}")
+
+
+# Report status lifecycle (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE).
+# Forward-only: DRAFT -> IN_REVIEW -> APPROVED -> FROZEN. FROZEN is terminal.
+# Only the current version may transition (enforced by ReportService, not
+# here - same separation IncidentService uses for its acknowledge action).
+_ALLOWED_REPORT: dict[ReportStatus, set[ReportStatus]] = {
+    ReportStatus.DRAFT: {ReportStatus.IN_REVIEW},
+    ReportStatus.IN_REVIEW: {ReportStatus.APPROVED},
+    ReportStatus.APPROVED: {ReportStatus.FROZEN},
+    ReportStatus.FROZEN: set(),
+}
+
+
+def assert_report_transition(current: ReportStatus, target: ReportStatus) -> None:
+    if target not in _ALLOWED_REPORT[current]:
+        raise ValueError(f"Invalid report-status transition: {current} -> {target}")

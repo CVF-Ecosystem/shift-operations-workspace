@@ -7,14 +7,12 @@ InMemoryLedger blocked only NEW records, not updates. These tests exercise the
 fixed behavior end-to-end (service + both ledger backends), not just a single
 gate function in isolation.
 
-P2A-HANDOVER-VERTICAL (2026-07-26): `open_handover_items_linked` is now a real
-freeze prerequisite (ADR section 3.6), never overridable by
-`override_unimplemented_prerequisites` (which now covers only
-`report_approved`). Every test below that expects freeze to actually SUCCEED
-now first creates, reviews and acknowledges a matching (empty) handover via
-`_make_ready_handover`; tests that expect freeze to fail for an EARLIER reason
-(permission, not-closed, no-override, no-reason) are unaffected because those
-checks still run before the handover-readiness check.
+P2A-HANDOVER-VERTICAL (2026-07-26): `open_handover_items_linked` is a real
+freeze prerequisite (ADR section 3.6). P2R-OPERATIONAL-REPORT-FREEZE-
+PREREQUISITE retires the override entirely: every test below that expects
+freeze to SUCCEED now creates+reviews+acknowledges a matching handover via
+`_make_ready_handover` AND generates+reviews+approves a real END_SHIFT report
+via `_make_ready_report`, exactly as `test_report_freeze.py` covers in depth.
 """
 
 from datetime import datetime, timedelta, timezone
@@ -27,8 +25,10 @@ from cvf_runtime.audit import AuditLog
 from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
+from workspace_api.application.approval_service import create_approval_receipt
 from workspace_api.application.correction_service import CorrectionService
 from workspace_api.application.handover_service import HandoverService
+from workspace_api.application.report_service import ReportService
 from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
@@ -84,6 +84,21 @@ def _make_ready_handover(ledger, shift):
     return svc.acknowledge(handover.handover_id, _receiving_supervisor())
 
 
+def _make_ready_report(ledger, shift):
+    """A current, APPROVED END_SHIFT report - the real `report_approved`
+    freeze prerequisite. Shift must already be CLOSED (report generation
+    requires it)."""
+    svc = ReportService(ledger)
+    report = svc.generate(shift.shift_id, _operator())
+    report = svc.submit_review(report.report_id, _operator())
+    ledger.add_user(domain_models.User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    create_approval_receipt(
+        ledger, Principal(user_id="sup3", role="shift_supervisor"),
+        record_type="Report", action="report.approve", record_id=report.report_id,
+    )
+    return svc.approve(report.report_id, _supervisor())
+
+
 # --- ShiftService.freeze prerequisite checks ---------------------------------
 
 def test_freeze_denied_without_permission():
@@ -103,37 +118,49 @@ def test_freeze_denied_when_shift_not_closed():
     assert "shift_closed" in str(exc.value) or "CLOSED" in str(exc.value)
 
 
-def test_freeze_denied_without_explicit_override():
+def test_freeze_denied_when_legacy_override_attempted():
+    """SPEC R19: the retired override is refused (422), never silently
+    ignored or accepted."""
     ledger, shift = _in_memory_shift()
     ledger.close_shift(shift.shift_id)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
-    assert exc.value.control == "freeze"
-    assert "override" in str(exc.value)
-
-
-def test_freeze_denied_with_override_but_no_reason():
-    ledger, shift = _in_memory_shift()
-    ledger.close_shift(shift.shift_id)
-    with pytest.raises(CvfDenied):
         ShiftService(ledger).freeze(
             shift.shift_id, _supervisor(), override_unimplemented_prerequisites=True
         )
+    assert exc.value.control == "freeze"
+    assert exc.value.http_status == 422
 
 
-def test_freeze_denied_without_ready_handover_even_with_override():
-    """ADR section 3.6: the report_approved override never bypasses the real
-    open_handover_items_linked prerequisite."""
+def test_freeze_denied_when_legacy_reason_attempted():
     ledger, shift = _in_memory_shift()
     ledger.close_shift(shift.shift_id)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(
-            shift.shift_id, _supervisor(),
-            override_unimplemented_prerequisites=True,
-            override_reason="Report model not implemented yet (P2-D)",
-        )
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor(), override_reason="")
+    assert exc.value.http_status == 422
+
+
+def test_freeze_denied_without_ready_handover_even_with_approved_report():
+    """SPEC R20: a real approved report never bypasses the real
+    open_handover_items_linked prerequisite."""
+    ledger, shift = _in_memory_shift()
+    ledger.close_shift(shift.shift_id)
+    _make_ready_report(ledger, shift)
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert exc.value.control == "freeze"
     assert "handover" in str(exc.value).lower()
+
+
+def test_freeze_denied_without_approved_report_even_with_ready_handover():
+    """SPEC R20: a ready handover never bypasses the real report_approved
+    prerequisite."""
+    ledger, shift = _in_memory_shift()
+    ledger.close_shift(shift.shift_id)
+    _make_ready_handover(ledger, shift)
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    assert exc.value.control == "freeze"
+    assert "report" in str(exc.value).lower()
 
 
 def test_freeze_denied_when_acknowledged_handover_snapshot_is_stale():
@@ -149,33 +176,23 @@ def test_freeze_denied_when_acknowledged_handover_snapshot_is_stale():
     ledger.put_task(stale)
 
     ledger.close_shift(shift.shift_id)
+    _make_ready_report(ledger, shift)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(
-            shift.shift_id, _supervisor(),
-            override_unimplemented_prerequisites=True,
-            override_reason="Report model not implemented yet (P2-D)",
-        )
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert exc.value.control == "freeze"
 
 
-def test_freeze_succeeds_with_full_chain_and_audits_override():
+def test_freeze_succeeds_with_full_chain_and_audits():
     ledger, shift = _in_memory_shift()
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
-    frozen = ShiftService(ledger).freeze(
-        shift.shift_id,
-        _supervisor(),
-        override_unimplemented_prerequisites=True,
-        override_reason="Report model not implemented yet (P2-D)",
-    )
+    _make_ready_report(ledger, shift)
+    frozen = ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert frozen.status == ShiftStatus.FROZEN
     entries = ledger.audit_entries_for(str(shift.shift_id))
     actions = {e.action for e in entries}
     assert "shift.freeze" in actions
-    assert "shift.freeze_override_unimplemented_prerequisites" in actions
-    override_entry = next(e for e in entries if e.action == "shift.freeze_override_unimplemented_prerequisites")
-    assert "report_approved" in override_entry.after_state
-    assert "open_handover_items_linked" not in override_entry.after_state
+    assert "shift.freeze_override_unimplemented_prerequisites" not in actions
 
 
 # --- cross-record invariant: frozen shift blocks child mutation --------------
@@ -201,12 +218,8 @@ def test_event_confirm_blocked_after_parent_shift_frozen(backend, tmp_path):
 
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
-    ShiftService(ledger).freeze(
-        shift.shift_id,
-        _supervisor(),
-        override_unimplemented_prerequisites=True,
-        override_reason="test",
-    )
+    _make_ready_report(ledger, shift)
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     with pytest.raises(ValueError, match="frozen"):
         EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
@@ -226,18 +239,12 @@ def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
     ledger.add_task(task)
 
     ledger.close_shift(shift.shift_id)
-    # The still-OPEN task above is captured into the handover's snapshot as an
-    # open-work item; nothing mutates it before freeze, so the snapshot still
-    # matches and freeze succeeds. The frozen-parent block proven below is
-    # about the task's OWN post-freeze mutation, independent of that.
+    # The still-OPEN task is captured into the handover/report snapshots
+    # unmutated, so freeze succeeds; the block proven below is post-freeze.
     _make_ready_handover(ledger, shift)
 
-    ShiftService(ledger).freeze(
-        shift.shift_id,
-        _supervisor(),
-        override_unimplemented_prerequisites=True,
-        override_reason="test",
-    )
+    _make_ready_report(ledger, shift)
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     with pytest.raises(ValueError, match="frozen"):
         TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)
@@ -255,12 +262,8 @@ def test_new_event_rejected_on_frozen_shift(backend, tmp_path):
 
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
-    ShiftService(ledger).freeze(
-        shift.shift_id,
-        _supervisor(),
-        override_unimplemented_prerequisites=True,
-        override_reason="test",
-    )
+    _make_ready_report(ledger, shift)
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     new_event = OperationalEvent(
         shift_id=shift.shift_id,
@@ -284,12 +287,8 @@ def test_correction_still_allowed_after_freeze_in_memory():
     ledger.add_event(event)
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
-    ShiftService(ledger).freeze(
-        shift.shift_id,
-        _supervisor(),
-        override_unimplemented_prerequisites=True,
-        override_reason="test",
-    )
+    _make_ready_report(ledger, shift)
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     # Correction is the one permitted post-freeze mutation path.
     correction = CorrectionService(ledger, AuditLog()).correct_event(

@@ -46,6 +46,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 from operations_ledger._handover_tables import build_handover_tables
 from operations_ledger._incident_tables import build_incidents_table
+from operations_ledger._report_tables import build_reports_table
 
 metadata = MetaData()
 
@@ -290,3 +291,10 @@ incidents = build_incidents_table(metadata, shifts, RISK_CLASS_TYPE)
 # lives in _handover_tables.py (SPEC R13): this host module only wires the
 # shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
 handovers, handover_items = build_handover_tables(metadata, shifts, RISK_CLASS_TYPE)
+
+# Mirrors migration 002_tasks_customers_reports.sql plus migration
+# 007_report_history_constraints.sql (P2R-OPERATIONAL-REPORT-FREEZE-
+# PREREQUISITE). Table builder lives in _report_tables.py (SPEC R23/R24):
+# this host module only wires the shared metadata/shifts/JSON_TYPE objects it
+# already owns into it.
+reports = build_reports_table(metadata, shifts, JSON_TYPE)

@@ -115,3 +115,13 @@ def code_columns(tbl_obj) -> dict[str, dict]:
         }
         for col in tbl_obj.columns
     }
+
+
+def constraint_names(tbl_obj, kind: str) -> set[str]:
+    """Names of every constraint of ``kind`` (e.g. "CheckConstraint",
+    "UniqueConstraint") on ``tbl_obj``. Added for
+    P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE's reports-table parity test
+    (SPEC R24), which needs this across a table split over two migrations;
+    shared here rather than duplicated since a future ALTER-based addition to
+    another table would need the same lookup."""
+    return {c.name for c in tbl_obj.constraints if c.__class__.__name__ == kind}

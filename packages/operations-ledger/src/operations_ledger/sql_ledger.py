@@ -14,6 +14,7 @@ from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
 from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
 from operations_ledger._message_store import _MessageStoreMixin
+from operations_ledger._report_store import _ReportStoreMixin
 from operations_ledger.tables import (
     audit_records,
     corrections,
@@ -29,15 +30,10 @@ _TASK_RECORD_TYPE = "Task"
 
 
 def make_engine(database_url: str, **kwargs) -> Engine:
-    """Create an Engine with the backend correctly configured.
-
-    Always use this instead of ``create_engine`` for the ledger. On SQLite it
-    registers a connect-time PRAGMA so foreign keys are ENFORCED (SQLite has
-    them OFF by default). The listener is attached before any connection is
-    pooled, so every connection — including the first — honours it. Without
-    this, SQLite would silently ignore the FK constraints that PostgreSQL
-    enforces, and the two backends would diverge on referential integrity.
-    """
+    """SQLite: enforce FK PRAGMA, disable pysqlite's transactional emulation,
+    issue BEGIN per transaction - deferred UNLESS `conn.info["cvf_write_
+    reserving"]` was set (only `_sqlite_write_reserving_transaction` does
+    this) - an unrelated read-only transaction never blocks a second writer."""
     engine = create_engine(database_url, future=True, **kwargs)
     if engine.dialect.name == "sqlite":
 
@@ -46,11 +42,19 @@ def make_engine(database_url: str, **kwargs) -> Engine:
             cursor = dbapi_connection.cursor()
             cursor.execute("PRAGMA foreign_keys=ON")
             cursor.close()
+            dbapi_connection.isolation_level = None
+
+        @event.listens_for(engine, "begin")
+        def _begin(conn):  # noqa: ANN001
+            mode = "BEGIN IMMEDIATE" if conn.info.get("cvf_write_reserving") else "BEGIN"
+            conn.exec_driver_sql(mode)
 
     return engine
 
 
-class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _MessageStoreMixin):
+class SqlLedger(
+    _ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin
+):
     def __init__(self, database_url: str, models, engine: Engine | None = None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
         # If an engine is injected (tests), it must have been built with
@@ -61,13 +65,59 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
     @contextmanager
     def transaction(self):
         """Unit-of-work: yields a Connection with one open transaction.
-
-        Pass the yielded value as ``unit=`` to chain writes atomically. The
-        transaction commits when the block exits normally and rolls back if
-        any exception propagates — including one raised by an audit write.
-        """
+        Pass the yielded value as ``unit=`` to chain writes atomically; it
+        commits on normal exit and rolls back if any exception propagates —
+        including one from an audit write. Ordinary deferred BEGIN on SQLite
+        (F6): every other vertical uses this and must never reserve the
+        writer lock merely by opening."""
         with self.engine.begin() as conn:
             yield conn
+
+    @contextmanager
+    def _sqlite_write_reserving_transaction(self):
+        """F6/Finding 2: BEGIN IMMEDIATE on THIS transaction only, via a
+        `conn.info` marker the "begin" listener checks - always cleared in
+        `finally` (even on an exceptional exit), since `conn.info` is backed
+        by the pooled DBAPI connection and would otherwise leak the marker
+        forward into the next checkout of this same connection."""
+        with self.engine.connect() as conn:
+            conn.info["cvf_write_reserving"] = True
+            try:
+                with conn.begin():
+                    yield conn
+            finally:
+                conn.info.pop("cvf_write_reserving", None)
+
+    @contextmanager
+    def report_mutation_transaction(self):
+        """F6: write-reserving mode for Report generate/submit-review/
+        approve/create_successor - read-then-decide-then-write the same
+        (shift_id, report_type) current-report state a concurrent call could
+        race. Only SQLite needs an upgrade; PostgreSQL row-locks on UPDATE."""
+        if self.engine.dialect.name == "sqlite":
+            with self._sqlite_write_reserving_transaction() as conn:
+                yield conn
+        else:
+            with self.engine.begin() as conn:
+                yield conn
+
+    @contextmanager
+    def report_freeze_transaction(self):
+        """SPEC R22: SERIALIZABLE on PostgreSQL - one concurrent transaction
+        wins, the other aborts and ``ShiftService.freeze`` retries. SQLite
+        has no SERIALIZABLE level; BEGIN IMMEDIATE (F6, this connection only)
+        gives an equivalent write-reserving guarantee there."""
+        if self.engine.dialect.name == "postgresql":
+            with self.engine.connect() as conn:
+                conn = conn.execution_options(isolation_level="SERIALIZABLE")
+                with conn.begin():
+                    yield conn
+        elif self.engine.dialect.name == "sqlite":
+            with self._sqlite_write_reserving_transaction() as conn:
+                yield conn
+        else:
+            with self.engine.begin() as conn:
+                yield conn
 
     def _conn(self, unit) -> tuple[Connection, bool]:
         """Return (connection, owns_transaction). Opens one if unit is None."""
@@ -138,21 +188,15 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
         with self._open(unit) as c:
             self._assert_shift_not_frozen(c, event.shift_id, "add event to a frozen shift")
             c.execute(insert(operational_events).values(**_rows.event_row(event)))
-            _evidence.insert_evidence(
-                c, event.evidence, record_type=_EVENT_RECORD_TYPE, record_id=event.event_id
-            )
+            _evidence.insert_evidence(c, event.evidence, record_type=_EVENT_RECORD_TYPE, record_id=event.event_id)
         return event
 
     def get_event(self, event_id: UUID, *, unit=None):
         with self._open(unit) as c:
-            row = c.execute(
-                select(operational_events).where(operational_events.c.event_id == event_id)
-            ).mappings().first()
+            row = c.execute(select(operational_events).where(operational_events.c.event_id == event_id)).mappings().first()
             if row is None:
                 raise KeyError(event_id)
-            evidence = _evidence.evidence_for(
-                c, self.models, record_type=_EVENT_RECORD_TYPE, record_id=event_id
-            )
+            evidence = _evidence.evidence_for(c, self.models, record_type=_EVENT_RECORD_TYPE, record_id=event_id)
         return _rows.row_to_event(self.models, row, evidence=evidence)
 
     def list_events_for_shift(self, shift_id: UUID, *, unit=None) -> list:
@@ -174,17 +218,14 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
     def add_task(self, task, *, unit=None):
         with self._open(unit) as c:
             self._assert_shift_not_frozen(c, task.shift_id, "add task to a frozen shift")
-            # R9.6: task_id := intent_id on the consuming path, so a second
-            # POST /tasks against an already-consumed intent collides on this
-            # PK. Re-raised as the same ValueError shape InMemoryLedger uses
-            # so the application layer maps both backends identically.
+            # R9.6: task_id := intent_id, so a second POST /tasks against an
+            # already-consumed intent collides on this PK - re-raised as the
+            # same ValueError shape InMemoryLedger uses.
             try:
                 c.execute(insert(tasks).values(**_rows.task_row(task)))
             except IntegrityError as exc:
                 raise ValueError(f"duplicate task_id: {task.task_id}") from exc
-            _evidence.insert_evidence(
-                c, task.evidence, record_type=_TASK_RECORD_TYPE, record_id=task.task_id
-            )
+            _evidence.insert_evidence(c, task.evidence, record_type=_TASK_RECORD_TYPE, record_id=task.task_id)
         return task
 
     def get_task(self, task_id: UUID, *, unit=None):
@@ -192,22 +233,18 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
             row = c.execute(select(tasks).where(tasks.c.task_id == task_id)).mappings().first()
             if row is None:
                 raise KeyError(task_id)
-            evidence = _evidence.evidence_for(
-                c, self.models, record_type=_TASK_RECORD_TYPE, record_id=task_id
-            )
+            evidence = _evidence.evidence_for(c, self.models, record_type=_TASK_RECORD_TYPE, record_id=task_id)
         return _rows.row_to_task(self.models, row, evidence=evidence)
 
     def put_task(self, task, *, allow_when_frozen: bool = False, unit=None):
         with self._open(unit) as c:
             if not allow_when_frozen:
                 self._assert_shift_not_frozen(c, task.shift_id, "modify task in a frozen shift")
-            c.execute(
-                update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task))
-            )
+            c.execute(update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task)))
         return task
 
     # --- customer requests: shift_id is nullable, so the frozen-shift guard
-    # only runs when one is actually present (mirrors InMemoryLedger). ---
+    # only runs when one is present (mirrors InMemoryLedger). ---
     def add_customer_request(self, request, *, unit=None):
         with self._open(unit) as c:
             if request.shift_id is not None:
@@ -216,10 +253,7 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
         return request
 
     def get_customer_request(self, request_id: UUID, *, unit=None):
-        row = self._fetch_one(
-            select(customer_requests).where(customer_requests.c.request_id == request_id),
-            unit=unit,
-        )
+        row = self._fetch_one(select(customer_requests).where(customer_requests.c.request_id == request_id), unit=unit)
         if row is None:
             raise KeyError(request_id)
         return _rows.row_to_customer_request(self.models, row)
@@ -229,8 +263,7 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
             if request.shift_id is not None:
                 self._assert_shift_not_frozen(c, request.shift_id, "modify customer request in a frozen shift")
             c.execute(
-                update(customer_requests)
-                .where(customer_requests.c.request_id == request.request_id)
+                update(customer_requests).where(customer_requests.c.request_id == request.request_id)
                 .values(**_rows.customer_request_row(request))
             )
         return request
@@ -243,36 +276,25 @@ class SqlLedger(_ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _
             c.execute(insert(corrections).values(**_rows.correction_row(correction)))
         return correction
 
-    def corrections_for(self, record_id: UUID) -> list:
-        with self.engine.connect() as conn:
-            rows = conn.execute(
-                select(corrections).where(corrections.c.record_id == record_id)
-            ).mappings().all()
+    def corrections_for(self, record_id: UUID, *, unit=None) -> list:
+        with self._open(unit) as c:
+            rows = c.execute(select(corrections).where(corrections.c.record_id == record_id)).mappings().all()
         return [_rows.row_to_correction(self.models, r) for r in rows]
 
     # --- audit (append-only) ---
     def audit_entries_for(self, record_id: str) -> list:
         with self.engine.connect() as conn:
-            rows = conn.execute(
-                select(audit_records).where(audit_records.c.target_id == record_id)
-            ).mappings().all()
+            rows = conn.execute(select(audit_records).where(audit_records.c.target_id == record_id)).mappings().all()
         return [dict(r) for r in rows]
 
     def append_audit(self, record, *, unit=None) -> None:
+        metadata = {
+            "actor_role": record.actor_role, "control_chain": record.control_chain,
+            "before_state": record.before_state, "after_state": record.after_state,
+        }
         with self._open(unit) as c:
-            c.execute(
-                insert(audit_records).values(
-                    audit_id=record.audit_id,
-                    actor_id=record.actor_id,
-                    action=record.action,
-                    target_type=record.record_type,
-                    target_id=record.record_id,
-                    metadata={
-                        "actor_role": record.actor_role,
-                        "control_chain": record.control_chain,
-                        "before_state": record.before_state,
-                        "after_state": record.after_state,
-                    },
-                    occurred_at=record.at,
-                )
-            )
+            c.execute(insert(audit_records).values(
+                audit_id=record.audit_id, actor_id=record.actor_id, action=record.action,
+                target_type=record.record_type, target_id=record.record_id,
+                metadata=metadata, occurred_at=record.at,
+            ))

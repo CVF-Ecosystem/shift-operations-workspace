@@ -14,24 +14,23 @@ from operations_domain.models import (
     Incident,
     Message,
     OperationalEvent,
+    Report,
     Shift,
     ShiftStatus,
     Task,
     TaskCreationIntent,
 )
 
-# Documented exception E2 (SPEC R5.2): User did NOT move to operations-domain.
-# It belongs to the authentication boundary and its canonical home stays in the
-# application package - the known-principals.yaml <-> users reconciliation
-# tranche (P2B-APPROVER-IDENTITY-RECONCILIATION) decided `users` is the single
-# runtime approver authority without relocating User. This is the only model
-# still imported from workspace_api.domain.models here.
+# Documented exception E2 (SPEC R5.2): User did NOT move to operations-domain;
+# its canonical home stays the application package (auth boundary). The only
+# model still imported from workspace_api.domain.models here.
 from workspace_api.domain.models import User
 from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
 from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
+from workspace_api.infrastructure._report_repository import _ReportRepositoryMixin
 
-class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRepositoryMixin):
+class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRepositoryMixin, _ReportRepositoryMixin):
     def __init__(self):
         self._lock = RLock()
         self.shifts: dict[UUID, Shift] = {}
@@ -42,6 +41,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
         self.customer_requests: dict[UUID, CustomerRequest] = {}
         self.incidents: dict[UUID, Incident] = {}
         self.handovers: dict[UUID, Handover] = {}
+        self.reports: dict[UUID, Report] = {}
         self.users: dict[str, User] = {}
         self.approval_receipts: dict[UUID, ApprovalReceipt] = {}
         self.task_creation_intents: dict[UUID, TaskCreationIntent] = {}
@@ -56,11 +56,9 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
         copy is not enough — callers mutate Pydantic model objects in place,
         e.g. ``event.state = CONFIRMED``, before calling ``put_event``; a
         shallow dict copy would still hold a reference to that same mutated
-        object). Any exception inside the block restores the deep-copied
-        snapshot before propagating. This is what makes "state change
-        committed, audit write failed" an impossible outcome for
-        InMemoryLedger, matching SqlLedger's real transaction (P-FIX-2 / High
-        Finding #5).
+        object). Any exception restores the snapshot before propagating -
+        "state change committed, audit write failed" is impossible here,
+        matching SqlLedger's real transaction (P-FIX-2 / High Finding #5).
         """
         with self._lock:
             snapshot = copy.deepcopy(
@@ -73,6 +71,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                     self.customer_requests,
                     self.incidents,
                     self.handovers,
+                    self.reports,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
@@ -91,6 +90,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                     self.customer_requests,
                     self.incidents,
                     self.handovers,
+                    self.reports,
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
@@ -100,6 +100,12 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                 for entry in entries:
                     self._audit.append(entry)
                 raise
+
+    def report_mutation_transaction(self):
+        return self.transaction()  # F6: self._lock is already a single-writer guarantee.
+
+    def report_freeze_transaction(self):
+        return self.transaction()  # SPEC R22: same single-writer guarantee.
 
     def create_shift(self, shift: Shift, *, unit=None) -> Shift:
         with self._lock:
@@ -273,16 +279,14 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
     # --- approval receipts / task creation intents: see _ApprovalStoreMixin ---
 
     def add_correction(self, correction: Correction, *, unit=None) -> Correction:
-        # Corrections are append-only and are explicitly ALLOWED post-freeze:
-        # a correction record is the permitted way to change confirmed/frozen
-        # data and must never be overwritten. No shift-frozen guard here.
+        # Append-only, explicitly ALLOWED post-freeze - no shift-frozen guard.
         with self._lock:
             if correction.correction_id in self.corrections:
                 raise ValueError("Correction already recorded")
             self.corrections[correction.correction_id] = correction
         return correction
 
-    def corrections_for(self, record_id: UUID) -> list[Correction]:
+    def corrections_for(self, record_id: UUID, *, unit=None) -> list[Correction]:  # unit: F6 parity
         with self._lock:
             return [c for c in self.corrections.values() if c.record_id == record_id]
 

@@ -21,15 +21,19 @@ from cvf_runtime.identity import Principal
 from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
 
+from workspace_api.application import approval_service
 from workspace_api.application.correction_service import CorrectionService
 from workspace_api.application.handover_service import HandoverService
+from workspace_api.application.report_service import ReportService
 from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import User
 from operations_domain.models import (
     DataState,
     OperationalEvent,
+    ReportStatus,
     RiskClass,
     Shift,
     ShiftStatus,
@@ -81,6 +85,20 @@ def _make_ready_handover(ledger, shift):
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
     handover = svc.review(handover.handover_id, _supervisor())
     return svc.acknowledge(handover.handover_id, _receiving_supervisor())
+
+
+def _make_ready_report(ledger, shift):
+    """A current, APPROVED END_SHIFT report - the real `report_approved`
+    freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE)."""
+    svc = ReportService(ledger)
+    report = svc.generate(shift.shift_id, _operator())
+    report = svc.submit_review(report.report_id, _operator())
+    ledger.add_user(User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    approval_service.create_approval_receipt(
+        ledger, Principal(user_id="sup3", role="shift_supervisor"),
+        record_type="Report", action="report.approve", record_id=report.report_id,
+    )
+    return svc.approve(report.report_id, _supervisor())
 
 
 class _BoomOnAudit(Exception):
@@ -230,22 +248,21 @@ def test_shift_freeze_rolls_back_when_audit_fails_in_memory():
     shift = _new_shift(ledger)
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
+    report = _make_ready_report(ledger, shift)
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).freeze(
-                shift.shift_id, _supervisor(),
-                override_unimplemented_prerequisites=True, override_reason="test",
-            )
+            ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"
-    # R18: readiness + freeze mutation + both audits share one transaction -
-    # the injected failure must leave every audit effect of THIS attempt
-    # unwritten too (the earlier handover's own audits are untouched).
+    # R20: readiness + Report FROZEN transition + Shift freeze mutation +
+    # both audits share one transaction - the injected failure must leave
+    # every effect of THIS attempt unwritten too (the earlier handover/report
+    # setup's own audits are untouched, and the Report must not have moved).
     freeze_actions = {e.action for e in ledger.audit_entries_for(str(shift.shift_id))}
     assert "shift.freeze" not in freeze_actions
-    assert "shift.freeze_override_unimplemented_prerequisites" not in freeze_actions
+    assert ledger.get_report(report.report_id).status == ReportStatus.APPROVED
 
 
 def test_shift_freeze_rolls_back_when_audit_fails_sql(tmp_path):
@@ -253,16 +270,14 @@ def test_shift_freeze_rolls_back_when_audit_fails_sql(tmp_path):
     shift = _new_shift(ledger)
     ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
+    report = _make_ready_report(ledger, shift)
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).freeze(
-                shift.shift_id, _supervisor(),
-                override_unimplemented_prerequisites=True, override_reason="test",
-            )
+            ShiftService(ledger).freeze(shift.shift_id, _supervisor())
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"
     freeze_actions = {e["action"] for e in ledger.audit_entries_for(str(shift.shift_id))}
     assert "shift.freeze" not in freeze_actions
-    assert "shift.freeze_override_unimplemented_prerequisites" not in freeze_actions
+    assert ledger.get_report(report.report_id).status == ReportStatus.APPROVED

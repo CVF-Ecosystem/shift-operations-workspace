@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 """Live governance evidence for the handover vertical (P2A-HANDOVER-VERTICAL,
-SPEC section 6/R16). Mirrors run_incident_live_governance_evidence.py's
-shape: in-process refusal probes over the real FastAPI/JWT route chain
-(observed zero provider calls each), then a genuine sender review + distinct
-receiver acknowledgement + freeze, followed by exactly one real, non-mocked
-provider call.
-
-Provider HTTP, sanitization, safe endpoint description, provider-call
-accounting and receipt rendering live in `_handover_live_evidence_support.py`;
-this module is the orchestration facade and CLI entrypoint only.
-"""
+SPEC section 6/R16): in-process refusal probes over the real FastAPI/JWT
+route chain (observed zero provider calls each), then a genuine sender
+review + distinct receiver acknowledgement + a real approved END_SHIFT
+report + freeze, followed by exactly one real, non-mocked provider call.
+Provider HTTP/sanitization/receipt rendering live in
+`_handover_live_evidence_support.py`; this module is the orchestration
+facade and CLI entrypoint only."""
 
 from __future__ import annotations
 
@@ -18,6 +15,7 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from uuid import UUID
 
 os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-do-not-use-in-production")
 
@@ -48,32 +46,25 @@ RECEIPT_PATH = REPO_ROOT / "docs" / "decisions" / "P2A_HANDOVER_LIVE_EVIDENCE_RE
 
 
 def _new_ledger_and_shift(prefix: str):
-    from operations_domain.models import Shift
     from workspace_api.infrastructure.repository import InMemoryLedger
-
     ledger = InMemoryLedger()
     shift = _new_shift(prefix)
     ledger.create_shift(shift)
     return ledger, shift
 
-
 def _new_shift(prefix: str):
     from operations_domain.models import Shift
-
     now = datetime.now(timezone.utc)
     return Shift(name=f"{prefix} shift", starts_at=now, ends_at=now + timedelta(hours=8))
-
 
 def _auth_headers(user_id: str, role: str) -> dict[str, str]:
     from cvf_runtime.identity import Principal
     from workspace_api.auth.tokens import create_access_token
     return {"Authorization": f"Bearer {create_access_token(Principal(user_id=user_id, role=role))}"}
 
-
 def _with_ledger(ledger, fn):
     from workspace_api.dependencies import get_ledger
     from workspace_api.main import app
-
     app.dependency_overrides[get_ledger] = lambda: ledger
     try:
         from fastapi.testclient import TestClient
@@ -93,21 +84,31 @@ def _create(client, from_shift_id, to_shift_id, headers):
 def _review(client, handover_id, headers):
     return client.post(f"/handovers/{handover_id}/review", json={}, headers=headers)
 
-
 def _acknowledge(client, handover_id, headers):
     return client.post(f"/handovers/{handover_id}/acknowledge", json={}, headers=headers)
-
 
 def _close(client, shift_id, headers):
     return client.post(f"/shifts/{shift_id}/close", headers=headers)
 
-
 def _freeze(client, shift_id, headers):
-    return client.post(
-        f"/shifts/{shift_id}/freeze",
-        json={"override_unimplemented_prerequisites": True, "override_reason": "Report model not implemented yet (P2-D)"},
-        headers=headers,
+    return client.post(f"/shifts/{shift_id}/freeze", json={}, headers=headers)
+
+
+def _make_ready_report(ledger, client, shift_id, operator_headers, approver_headers):
+    """A real current, APPROVED END_SHIFT report (P2R-OPERATIONAL-REPORT-
+    FREEZE-PREREQUISITE) - the retired override no longer exists."""
+    from cvf_runtime.identity import Principal
+    from workspace_api.application import approval_service
+    import workspace_api.domain.models as _domain_models
+    generate_res = client.post("/reports", json={"shift_id": str(shift_id)}, headers=operator_headers)
+    report_id = generate_res.json()["report_id"]
+    client.post(f"/reports/{report_id}/submit-review", json={}, headers=operator_headers)
+    ledger.add_user(_domain_models.User(user_id="hov-ev-rep-approver", username="hov-ev-rep-approver", password_hash="x", role="shift_supervisor"))
+    approval_service.create_approval_receipt(
+        ledger, Principal(user_id="hov-ev-rep-approver", role="shift_supervisor"),
+        record_type="Report", action="report.approve", record_id=UUID(report_id),
     )
+    return client.post(f"/reports/{report_id}/approve", json={}, headers=approver_headers)
 
 
 def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
@@ -126,45 +127,37 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
         results.append({"case": name, "outcome": outcome, "detail": f"refused: status {res.status_code}", "calls": counter.count - before})
 
     ledger, shift = _new_ledger_and_shift("missing-handover")
-
     def _missing_handover(client):
         _close(client, shift.shift_id, op)
         return _freeze(client, shift.shift_id, sup1)
-
     _case("missing_handover_freeze_rejected", ledger, _missing_handover)
 
     ledger, shift = _new_ledger_and_shift("draft-only")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
-
     def _reviewed_only(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
         _review(client, handover_id, sup1)
         _close(client, shift.shift_id, op)
         return _freeze(client, shift.shift_id, sup1)
-
     _case("reviewed_only_handover_freeze_rejected", ledger, _reviewed_only)
 
     ledger, shift = _new_ledger_and_shift("self-ack")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
-
     def _self_ack(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
         _review(client, handover_id, sup1)
         return _acknowledge(client, handover_id, sup1)
-
     _case("self_acknowledgement_rejected", ledger, _self_ack)
 
     ledger, shift = _new_ledger_and_shift("stale")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
-
     def _stale(client):
         from operations_domain.models import Task, TaskStatus
-
         task = Task(shift_id=shift.shift_id, title="Inspect crane")
         ledger.add_task(task)
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
@@ -210,15 +203,20 @@ def build_review_acknowledge_and_freeze_genuine() -> tuple[bool, str]:
         if close_res.status_code != 200:
             return False, f"close failed: {close_res.status_code}"
 
+        report_res = _make_ready_report(ledger, client, shift.shift_id, op, sup1)
+        if report_res.status_code != 200 or report_res.json()["status"] != "APPROVED":
+            return False, f"report approval failed: {report_res.status_code}"
+
         freeze_res = _freeze(client, shift.shift_id, sup1)
         if freeze_res.status_code != 200 or freeze_res.json()["status"] != "FROZEN":
             return False, f"freeze failed: {freeze_res.status_code}"
 
         return True, (
             "distinct authenticated reviewer (hov-ev-sup1) and receiver "
-            "(hov-ev-sup2) satisfied review/acknowledgement via minted JWTs "
-            "and HTTP requests, then freeze succeeded through the real "
-            "open_handover_items_linked prerequisite plus the report_approved override"
+            "(hov-ev-sup2) satisfied handover review/acknowledgement; a real "
+            "END_SHIFT report was generated/reviewed/approved; freeze "
+            "succeeded via open_handover_items_linked and report_approved - "
+            "no override exists anymore"
         )
 
     return _with_ledger(ledger, _run)

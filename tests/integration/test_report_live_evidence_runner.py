@@ -1,10 +1,10 @@
-"""Non-live tests for run_handover_live_governance_evidence.py and its
-support module (P2A-HANDOVER-VERTICAL, SPEC R16/R17). None of these call a
-real provider or need Docker/PostgreSQL - every case exercises the real
-in-process HTTP/JWT route chain or a monkeypatched transport, asserting
+"""Non-live tests for run_report_live_governance_evidence.py and its support
+module (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE, SPEC R31). None of these
+call a real provider or need Docker/PostgreSQL - every case exercises the
+real in-process HTTP/JWT route chain or a monkeypatched transport, asserting
 refusal cases make an OBSERVED zero provider calls (not a hard-coded literal)
-and that no sentinel secret ever reaches a returned summary, stdout/stderr, or
-the receipt file. scripts/ is not on pytest's pythonpath, added here like
+and that no sentinel secret ever reaches a returned summary, stdout/stderr,
+or the receipt file. scripts/ is not on pytest's pythonpath, added here like
 every other script-importing test module in this repo.
 """
 
@@ -20,22 +20,25 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-import _handover_live_evidence_support as support  # noqa: E402
-import run_handover_live_governance_evidence as runner  # noqa: E402
+import _report_live_evidence_support as support  # noqa: E402
+import run_report_live_governance_evidence as runner  # noqa: E402
 
-_SENTINEL_KEY = "sk-SENTINEL_HOV_9f8e7d3c2b1a0000000000000000000000"
+_SENTINEL_KEY = "sk-SENTINEL_REP_9f8e7d3c2b1a0000000000000000000000"
 _SENTINEL_JWT = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4In0.c2lnbmF0dXJlLXBhcnQtc2VudGluZWw"
-_ENDPOINT_SENTINEL = "ENDPOINT_SECRET_HOV_7c6b5a4938271605f4e3d2c1b0a9f8e7"
+_ENDPOINT_SENTINEL = "ENDPOINT_SECRET_REP_7c6b5a4938271605f4e3d2c1b0a9f8e7"
 
 
-def test_handover_freeze_gate_refusal_cases_all_pass_with_observed_zero_calls():
+def test_report_freeze_gate_refusal_cases_all_pass_with_observed_zero_calls():
     counter = support.ProviderCallCounter()
-    results = runner.check_handover_freeze_gate(counter)
+    results = runner.check_report_freeze_gate(counter)
     assert {r["case"] for r in results} == {
-        "missing_handover_freeze_rejected",
-        "reviewed_only_handover_freeze_rejected",
-        "self_acknowledgement_rejected",
-        "stale_snapshot_freeze_rejected",
+        "missing_bearer_generate_rejected",
+        "viewer_cannot_generate_rejected",
+        "non_closed_generate_rejected",
+        "stale_submit_review_rejected",
+        "missing_receipt_approve_rejected",
+        "non_current_report_submit_review_rejected",
+        "legacy_override_attempt_refused",
     }
     for r in results:
         assert r["outcome"] == "PASS", r
@@ -43,65 +46,10 @@ def test_handover_freeze_gate_refusal_cases_all_pass_with_observed_zero_calls():
     assert counter.count == 0  # the shared counter itself never moved
 
 
-def test_genuine_review_acknowledge_and_freeze_construction_succeeds():
-    ok, detail = runner.build_review_acknowledge_and_freeze_genuine()
+def test_genuine_generate_review_approve_and_freeze_construction_succeeds():
+    ok, detail = runner.build_generate_review_approve_and_freeze_genuine()
     assert ok, detail
-    assert "hov-ev-sup1" in detail and "hov-ev-sup2" in detail
-
-
-# --- F1 repair: meaningful P2R coverage of _make_ready_report -------------
-
-def test_ready_handover_without_report_still_refuses_freeze_with_zero_calls():
-    """P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE: a fully ready, ACKNOWLEDGED
-    handover (this vertical's own prerequisite) is no longer sufficient for
-    freeze on its own - report_approved is a second, independent gate. Proven
-    directly against the runner's own refusal-case machinery, with the SAME
-    observed-zero-provider-calls proof every other case in this file uses."""
-    from operations_domain.models import Shift
-    from datetime import datetime, timedelta, timezone
-
-    counter = support.ProviderCallCounter()
-    ledger, shift = runner._new_ledger_and_shift("no-report")
-    now = datetime.now(timezone.utc)
-    dest = Shift(name="dest shift", starts_at=now, ends_at=now + timedelta(hours=8))
-    ledger.create_shift(dest)
-    op = runner._auth_headers("hov-ev-op2", "operator")
-    sup1 = runner._auth_headers("hov-ev-sup3", "shift_supervisor")
-    sup2 = runner._auth_headers("hov-ev-sup4", "shift_supervisor")
-
-    def _run(client):
-        create_res = runner._create(client, shift.shift_id, dest.shift_id, op)
-        handover_id = create_res.json()["handover_id"]
-        runner._review(client, handover_id, sup1)
-        runner._acknowledge(client, handover_id, sup2)
-        runner._close(client, shift.shift_id, op)
-        return runner._freeze(client, shift.shift_id, sup1)
-
-    before = counter.count
-    resp = runner._with_ledger(ledger, _run)
-    assert resp.status_code == 409, resp.text
-    assert "report" in resp.json()["detail"].lower()
-    assert counter.count == before  # no code path here can reach call_provider
-
-
-def test_make_ready_report_produces_a_real_approved_current_report():
-    """_make_ready_report (P2R addition replacing the retired freeze override)
-    must produce a genuine APPROVED, current END_SHIFT report - not a stub."""
-    ledger, shift = runner._new_ledger_and_shift("ready-report")
-    ledger.close_shift(shift.shift_id)
-    op = runner._auth_headers("hov-ev-op3", "operator")
-    approver = runner._auth_headers("hov-ev-rep-approver2", "shift_supervisor")
-
-    def _run(client):
-        return runner._make_ready_report(ledger, client, shift.shift_id, op, approver)
-
-    resp = runner._with_ledger(ledger, _run)
-    assert resp.status_code == 200, resp.text
-    body = resp.json()
-    assert body["status"] == "APPROVED"
-    assert body["is_current"] is True
-    current = ledger.get_current_report(shift.shift_id, "END_SHIFT")
-    assert str(current.status) == "APPROVED"
+    assert "rep-ev-sup1" in detail and "rep-ev-approver" in detail
 
 
 def test_main_dry_run_stops_before_any_provider_call(monkeypatch):
@@ -129,7 +77,7 @@ def test_key_present_detects_either_env_var(monkeypatch):
     assert present is True and name == "DASHSCOPE_API_KEY"
 
 
-# --- sanitization primitives (mirrors incident's proven design) -------------
+# --- sanitization primitives (mirrors handover/incident's proven design) ----
 
 def test_sanitize_secret_text_strips_exact_key_bearer_and_jwt():
     text = f"auth failed for Bearer {_SENTINEL_KEY}; jwt was {_SENTINEL_JWT}; raw key {_SENTINEL_KEY}"
@@ -236,7 +184,7 @@ def test_render_receipt_end_to_end_never_leaks_sentinel_from_a_failing_call(tmp_
 def test_write_receipt_is_sanitized(tmp_path, monkeypatch):
     monkeypatch.setattr(runner, "RECEIPT_PATH", tmp_path / "receipt.md")
     gate_results = [{"case": "x", "outcome": "PASS", "detail": "d", "calls": 0}]
-    provider_result = {"outcome": "PASS", "reached_server": True, "http_status": 200, "response_excerpt": "CVF_HANDOVER_EVIDENCE_OK"}
+    provider_result = {"outcome": "PASS", "reached_server": True, "http_status": 200, "response_excerpt": "CVF_REPORT_EVIDENCE_OK"}
     support.render_receipt(
         tmp_path / "receipt.md", gate_results=gate_results, quorum_detail="quorum ok",
         provider_result=provider_result, model="some-model",

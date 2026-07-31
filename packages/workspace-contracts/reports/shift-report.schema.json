@@ -2,28 +2,320 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "shift-report.schema",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "report_id",
     "shift_id",
     "version",
     "status",
-    "sections"
+    "sections",
+    "report_type",
+    "is_current",
+    "source_manifest",
+    "snapshot_digest",
+    "generated_from_cutoff",
+    "created_at"
   ],
+  "$defs": {
+    "riskClass": { "enum": ["R0", "R1", "R2", "R3", "R4"] },
+    "eventState": { "enum": ["RAW", "NORMALIZED", "PROPOSED", "CONFIRMED", "REJECTED", "CORRECTED", "FROZEN"] },
+    "taskStatus": { "enum": ["OPEN", "IN_PROGRESS", "BLOCKED", "DONE", "CARRY_OVER", "CANCELLED"] },
+    "customerRequestStatus": { "enum": ["NEW", "ACKNOWLEDGED", "IN_PROGRESS", "WAITING", "RESOLVED", "CLOSED"] },
+    "incidentStatus": { "enum": ["REPORTED", "ACKNOWLEDGED", "MITIGATING", "RESOLVED", "CLOSED"] },
+    "handoverStatus": { "enum": ["DRAFT", "REVIEWED", "ACKNOWLEDGED"] },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "source_type", "source_id", "sha256"],
+      "properties": {
+        "evidence_id": { "type": "string", "format": "uuid" },
+        "source_type": { "type": "string" },
+        "source_id": { "type": "string" },
+        "sha256": { "type": ["string", "null"] }
+      }
+    },
+    "operationalEventRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "shift_id", "event_type", "title", "description",
+        "risk_class", "state", "starts_at", "ends_at", "owner_id", "version", "evidence"
+      ],
+      "properties": {
+        "record_type": { "const": "OperationalEvent" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "shift_id": { "type": "string", "format": "uuid" },
+        "event_type": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "risk_class": { "$ref": "#/$defs/riskClass" },
+        "state": { "$ref": "#/$defs/eventState" },
+        "starts_at": { "type": ["string", "null"], "format": "date-time" },
+        "ends_at": { "type": ["string", "null"], "format": "date-time" },
+        "owner_id": { "type": ["string", "null"] },
+        "version": { "type": "integer" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "correctionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "target_record_type", "target_record_id", "reason",
+        "requested_by", "previous_version", "new_version", "created_at"
+      ],
+      "properties": {
+        "record_type": { "const": "Correction" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "target_record_type": { "type": "string" },
+        "target_record_id": { "type": "string", "format": "uuid" },
+        "reason": { "type": "string" },
+        "requested_by": { "type": "string" },
+        "previous_version": { "type": "integer" },
+        "new_version": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "taskRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "shift_id", "title", "description", "status",
+        "owner_id", "due_at", "risk_class", "state", "version", "created_at", "evidence"
+      ],
+      "properties": {
+        "record_type": { "const": "Task" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "shift_id": { "type": "string", "format": "uuid" },
+        "title": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "status": { "$ref": "#/$defs/taskStatus" },
+        "owner_id": { "type": ["string", "null"] },
+        "due_at": { "type": ["string", "null"], "format": "date-time" },
+        "risk_class": { "$ref": "#/$defs/riskClass" },
+        "state": { "$ref": "#/$defs/eventState" },
+        "version": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "customerRequestRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "customer_id", "shift_id", "summary", "details",
+        "status", "source_message_id", "received_at", "promised_at", "owner_id"
+      ],
+      "properties": {
+        "record_type": { "const": "CustomerRequest" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "customer_id": { "type": "string" },
+        "shift_id": { "type": ["string", "null"], "format": "uuid" },
+        "summary": { "type": "string" },
+        "details": { "type": ["string", "null"] },
+        "status": { "$ref": "#/$defs/customerRequestStatus" },
+        "source_message_id": { "type": ["string", "null"], "format": "uuid" },
+        "received_at": { "type": "string", "format": "date-time" },
+        "promised_at": { "type": ["string", "null"], "format": "date-time" },
+        "owner_id": { "type": ["string", "null"] }
+      }
+    },
+    "incidentRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "shift_id", "risk_class", "summary", "description",
+        "status", "owner_id", "version", "created_at", "evidence"
+      ],
+      "properties": {
+        "record_type": { "const": "Incident" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "shift_id": { "type": "string", "format": "uuid" },
+        "risk_class": { "$ref": "#/$defs/riskClass" },
+        "summary": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "status": { "$ref": "#/$defs/incidentStatus" },
+        "owner_id": { "type": ["string", "null"] },
+        "version": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "handoverItemRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id", "source_record_type", "source_record_id", "source_digest",
+        "summary", "owner_id", "due_at", "risk_class", "evidence"
+      ],
+      "properties": {
+        "item_id": { "type": "string", "format": "uuid" },
+        "source_record_type": { "type": "string" },
+        "source_record_id": { "type": "string", "format": "uuid" },
+        "source_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "summary": { "type": "string" },
+        "owner_id": { "type": ["string", "null"] },
+        "due_at": { "type": ["string", "null"], "format": "date-time" },
+        "risk_class": { "$ref": "#/$defs/riskClass" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "handoverRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_type", "record_id", "from_shift_id", "to_shift_id", "status", "created_by",
+        "reviewed_by", "reviewed_at", "received_by", "acknowledged_at", "version",
+        "created_at", "items"
+      ],
+      "properties": {
+        "record_type": { "const": "Handover" },
+        "record_id": { "type": "string", "format": "uuid" },
+        "from_shift_id": { "type": "string", "format": "uuid" },
+        "to_shift_id": { "type": "string", "format": "uuid" },
+        "status": { "$ref": "#/$defs/handoverStatus" },
+        "created_by": { "type": "string" },
+        "reviewed_by": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"], "format": "date-time" },
+        "received_by": { "type": ["string", "null"] },
+        "acknowledged_at": { "type": ["string", "null"], "format": "date-time" },
+        "version": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/handoverItemRecord" } }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_type", "record_id", "source_version", "source_digest"],
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "enum": [
+            "OperationalEvent",
+            "Correction",
+            "Task",
+            "CustomerRequest",
+            "Incident",
+            "Handover"
+          ]
+        },
+        "record_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "source_version": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "source_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
   "properties": {
     "report_id": {
-      "type": "string"
+      "type": "string",
+      "format": "uuid"
     },
     "shift_id": {
-      "type": "string"
+      "type": "string",
+      "format": "uuid"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": ["END_SHIFT"]
     },
     "version": {
-      "type": "integer"
+      "type": "integer",
+      "minimum": 1
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "FROZEN"]
+    },
+    "is_current": {
+      "type": "boolean"
     },
     "sections": {
-      "type": "array"
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "operational_events" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/operationalEventRecord" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "corrections" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/correctionRecord" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "tasks" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/taskRecord" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "customer_requests" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/customerRequestRecord" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "incidents" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/incidentRecord" } }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["section_type", "records"],
+          "properties": {
+            "section_type": { "const": "handovers" },
+            "records": { "type": "array", "items": { "$ref": "#/$defs/handoverRecord" } }
+          }
+        }
+      ],
+      "items": false
+    },
+    "source_manifest": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceRef" }
+    },
+    "snapshot_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generated_from_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
     }
   }
 }

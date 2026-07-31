@@ -31,6 +31,12 @@ _VALID_RECORD_ACTION_PAIRS = {
     # already-persisted-target receipt shape as event.confirm - no second
     # creation-intent mechanism (ADR section 2.2).
     ("Incident", "incident.acknowledge"),
+    # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R16): report.approve
+    # reuses the same already-persisted-target receipt shape. risk_class is
+    # fixed to R2 (Report has no independent risk_class field, unlike
+    # Incident); payload_digest is the stored current report's exact
+    # snapshot_digest, not None.
+    ("Report", "report.approve"),
 }
 
 
@@ -132,6 +138,22 @@ def create_approval_receipt(
             risk_class = str(record.risk_class)
             target_version = record.version
             payload_digest = None
+        elif record_type == "Report":
+            try:
+                record = ledger.get_report(record_id, unit=unit)
+            except KeyError as exc:
+                raise CvfDenied(
+                    control="approval", reason="target report not found", http_status=404
+                ) from exc
+            if not record.is_current or str(record.status) != "IN_REVIEW":
+                raise CvfDenied(
+                    control="approval",
+                    reason="report is not a current IN_REVIEW report",
+                    http_status=409,
+                )
+            risk_class = "R2"
+            target_version = record.version
+            payload_digest = record.content.snapshot_digest
         else:  # ("Task", "task.create")
             try:
                 intent = ledger.get_task_creation_intent(record_id, unit=unit)

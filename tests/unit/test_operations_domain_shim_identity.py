@@ -42,6 +42,12 @@ MOVED_TYPES = [
     "IncidentStatus",
     "Message",
     "OperationalEvent",
+    "Report",
+    "ReportContent",
+    "ReportSection",
+    "ReportSourceRef",
+    "ReportStatus",
+    "ReportType",
     "RiskClass",
     "Shift",
     "ShiftStatus",
@@ -51,6 +57,7 @@ MOVED_TYPES = [
 MOVED_FUNCTIONS = [
     "assert_customer_request_transition",
     "assert_incident_transition",
+    "assert_report_transition",
     "assert_task_transition",
     "assert_transition",
 ]

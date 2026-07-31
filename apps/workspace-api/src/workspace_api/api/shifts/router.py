@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ConfigDict, ValidationError
 
 from pydantic import Field
 
@@ -21,8 +21,25 @@ _MAX_OPEN_WORK_PER_GROUP = 500
 
 
 class FreezeInput(BaseModel):
-    override_unimplemented_prerequisites: bool = False
-    override_reason: str | None = None
+    # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R19): report_approved
+    # is now a real, checked freeze prerequisite - these two fields are
+    # DEPRECATED (OpenAPI marks them via json_schema_extra, not Field's
+    # deprecated=True, which would emit a DeprecationWarning on every plain
+    # attribute read including legitimate default-value freeze calls) and
+    # accepted only at their defaults; any attempt to set either one is
+    # refused with 422 by ShiftService.freeze before any mutation.
+    # extra="forbid" additionally rejects any undeclared field.
+    model_config = ConfigDict(extra="forbid")
+    override_unimplemented_prerequisites: bool = Field(
+        default=False,
+        json_schema_extra={"deprecated": True},
+        description="Deprecated and refused if set true: report_approved is now a real, checked prerequisite.",
+    )
+    override_reason: str | None = Field(
+        default=None,
+        json_schema_extra={"deprecated": True},
+        description="Deprecated and refused if non-null: report_approved is now a real, checked prerequisite.",
+    )
 
 
 class OpenWorkResponse(BaseModel):

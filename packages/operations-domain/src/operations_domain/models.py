@@ -273,6 +273,9 @@ class Handover(BaseModel):
         return self.status == HandoverStatus.ACKNOWLEDGED
 
 
+from .report_models import Report, ReportContent, ReportSection, ReportSourceRef, ReportStatus, ReportType  # noqa: E402,F401
+
+
 class TaskCreationIntent(BaseModel):
     """A durable, approver-visible target for `task.create` approvals.
 

@@ -24,6 +24,7 @@ from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger import tables as t
 
 from workspace_api.application.handover_service import HandoverService
+from workspace_api.application.shift_service import ShiftService
 from workspace_api.domain import models as domain_models
 from operations_domain.models import Shift
 
@@ -170,3 +171,33 @@ def test_handover_transaction_rollback_removes_all_writes(sql_ledger, live_datab
     fresh = _reconnected(live_database_url)
     with pytest.raises(KeyError):
         fresh.get_handover(handover.handover_id)
+
+
+# --- F1 repair: P2R report_approved freeze prerequisite, proven against REAL
+# PostgreSQL from the handover side (an ACKNOWLEDGED handover alone is no
+# longer sufficient - report_approved must independently hold too). ---------
+
+def test_ready_acknowledged_handover_alone_does_not_satisfy_freeze_on_live_postgres(sql_ledger):
+    """P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R20): a fully
+    ACKNOWLEDGED handover with a matching snapshot used to be freeze's only
+    real prerequisite (P2A-HANDOVER-VERTICAL); this tranche adds a second,
+    independent one (report_approved) that a ready handover can never
+    substitute for - verified against a real PostgreSQL-backed ledger, not
+    just SQLite/InMemory."""
+    s1, s2 = _shift(), _shift()
+    sql_ledger.create_shift(s1)
+    sql_ledger.create_shift(s2)
+    svc = HandoverService(sql_ledger)
+    h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
+    h = svc.review(h.handover_id, _SUPERVISOR)
+    h = svc.acknowledge(h.handover_id, _RECEIVER)
+    assert h.status.value == "ACKNOWLEDGED"
+
+    sql_ledger.close_shift(s1.shift_id)
+    from cvf_runtime.errors import CvfDenied
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(sql_ledger).freeze(s1.shift_id, _SUPERVISOR)
+    assert exc.value.control == "freeze"
+    assert "report" in str(exc.value).lower()
+    assert sql_ledger.get_shift(s1.shift_id).status.value == "CLOSED"

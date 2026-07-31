@@ -17,8 +17,11 @@ from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 from operations_ledger.sql_ledger import SqlLedger
 
+from workspace_api.application import approval_service
 from workspace_api.application.customer_request_service import CustomerRequestService
+from workspace_api.application.report_service import ReportService
 from workspace_api.application.shift_service import ShiftService
+from workspace_api.domain.models import User
 from operations_domain.models import CustomerRequestStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 
@@ -79,18 +82,28 @@ def test_viewer_cannot_create_customer_request():
     assert exc.value.control == "permission"
 
 
+def _make_ready_report(ledger, shift):
+    """A current, APPROVED END_SHIFT report - the real `report_approved`
+    freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE)."""
+    svc = ReportService(ledger)
+    report = svc.generate(shift.shift_id, _operator())
+    report = svc.submit_review(report.report_id, _operator())
+    ledger.add_user(User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    approval_service.create_approval_receipt(
+        ledger, Principal(user_id="sup3", role="shift_supervisor"),
+        record_type="Report", action="report.approve", record_id=report.report_id,
+    )
+    return svc.approve(report.report_id, Principal(user_id="sup1", role="shift_supervisor"))
+
+
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_create_customer_request_with_frozen_shift_is_rejected(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     shift = _new_shift(ledger)
     ShiftService(ledger).close(shift.shift_id, _operator())
     _make_ready_handover(ledger, shift)
-    ShiftService(ledger).freeze(
-        shift.shift_id,
-        Principal(user_id="sup1", role="shift_supervisor"),
-        override_unimplemented_prerequisites=True,
-        override_reason="test",
-    )
+    _make_ready_report(ledger, shift)
+    ShiftService(ledger).freeze(shift.shift_id, Principal(user_id="sup1", role="shift_supervisor"))
 
     rejected_request = _request(shift)
     with pytest.raises(ValueError):

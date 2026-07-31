@@ -57,6 +57,39 @@ def _strip_messages_post_delta(doc: dict) -> None:
     schema["properties"]["source"] = {"default": "INTERNAL", "title": "Source", "type": "string"}
 
 
+_REPORT_PATHS = {
+    "/reports",
+    "/reports/{report_id}",
+    "/reports/{report_id}/versions",
+    "/reports/{report_id}/submit-review",
+    "/reports/{report_id}/approve",
+}
+_REPORT_SCHEMAS = {
+    "ReportCreateInput", "ReportResponse", "ReportSection", "ReportSourceRef",
+    "ReportStatus", "ReportType", "ReportVersionInput",
+}
+
+
+def _strip_report_delta(doc: dict) -> None:
+    """P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R28): reverse the
+    COMPLETE later report delta, in place - the five new paths/schemas plus
+    the FreezeInput deprecation markers."""
+    for path in _REPORT_PATHS:
+        assert path in doc["paths"], f"report path missing: {path}"
+        del doc["paths"][path]
+    for schema in _REPORT_SCHEMAS:
+        assert schema in doc["components"]["schemas"], f"report schema missing: {schema}"
+        del doc["components"]["schemas"][schema]
+    freeze_schema = doc["components"]["schemas"]["FreezeInput"]
+    assert freeze_schema.get("additionalProperties") is False
+    del freeze_schema["additionalProperties"]
+    for field in ("override_unimplemented_prerequisites", "override_reason"):
+        prop = freeze_schema["properties"][field]
+        assert prop.get("deprecated") is True
+        del prop["deprecated"]
+        del prop["description"]
+
+
 def test_post_messages_has_security_requirement():
     """AC-01/R1: POST /messages requires JWT via get_principal."""
     from workspace_api.main import app
@@ -99,6 +132,7 @@ def test_openapi_delta_is_exactly_the_message_admission_security_requirement():
     assert "security" in doc["paths"]["/messages"]["post"]
 
     reduced = json.loads(json.dumps(doc))
+    _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
 
     actual = canonical(reduced)
