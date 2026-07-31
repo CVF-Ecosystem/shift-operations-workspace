@@ -377,3 +377,34 @@ push. The partial BUILD remains unstaged. Worker verifies `HEAD ==
 origin/main`, reconfirms G6 continuity/gates, edits only the exact 81 paths,
 does not stage/commit/push/self-review/FREEZE and returns
 `READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI; C3b-d blocked.
+
+## C3a2 BUILD ceiling blocker, Amendment 2 and resume
+
+After Amendment 1, the partial BUILD contained exactly 58 changed paths, all
+inside the 81-path ceiling, with zero staged. A fresh full non-live run reached
+`1125 passed / 2 failed / 112 skipped`; both failures were confined to the
+outside-ceiling `tests/integration/test_handover_live_evidence_runner.py`.
+Its two P2-R regression scenarios mint test-local authenticated principals but
+do not persist the ACTIVE assignments required by correct C3a2 enforcement.
+
+Reviewed Amendment 2 artifacts:
+
+- `docs/decisions/ADR_2026-08-01_P2C_C3A2_HANDOVER_RUNNER_TEST_CEILING_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_5.md`;
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A2_WORK_ORDER_AMENDMENT_2.md`;
+- `docs/decisions/P2C_C3A2_CEILING_AMENDMENT_2_AUTHORIZATION_REVIEW.md`.
+
+Independent disposition: `REVIEW_PASS / APPROVED`; authorization commit
+`55e6ae7dc6208a6e7976fbcc3b6771725be1ab57` is pushed. It adds only that
+one 249-line test host, raising the exact ceiling `81 → 82`. Repair must seed
+only the scenario-specific source/destination assignments and preserve the
+original P2-R 409/zero-call and approved-current-report assertions. Implicit
+assignment in runner authentication/ledger seams and production bypass remain
+forbidden; no waiver, debt, wildcard or reserve was granted.
+
+This separate four-surface resume commit becomes the exact review/rollback
+parent after push. The 58-path partial BUILD stays unstaged. Worker verifies
+`HEAD == origin/main`, reconfirms G6 continuity/gates, edits only the exact 82
+paths, completes every original C3a2 gate/evidence requirement and returns
+`READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI, worker stage,
+commit, push, self-review or FREEZE; C3b-d remain blocked.
