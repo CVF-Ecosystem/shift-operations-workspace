@@ -1,9 +1,9 @@
 # INTAKE — P2-C Mutation and Full UI
 
-ID: `P2C-MUTATION-FULL-UI-2026-07-31`  
-Roadmap lane: `P2-C`  
-Control-chain phase: `INTAKE`  
-Risk: `R2`  
+ID: `P2C-MUTATION-FULL-UI-2026-07-31`
+Roadmap lane: `P2-C`
+Control-chain phase: `INTAKE`
+Risk: `R2`
 Status: `INTAKE_COMPLETE — DESIGN_NOT_STARTED`
 
 ## 1. Intent and authority
