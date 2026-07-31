@@ -3,9 +3,11 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "last_updated": "2026-07-31",
   "required_reads": [
+    "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
+    "docs/decisions/INTAKE_2026-07-31_P2C_MUTATION_FULL_UI.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "docs/decisions/INTAKE_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
     "docs/decisions/ADR_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
@@ -105,7 +107,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 18e24e58e2bda83e18be21d5d25ad50c4b0fa24e changed exactly 59 authorized paths, received independent final REVIEW_PASS after all findings closed without waiver, and is pushed with HEAD == origin/main. The next governed move is fresh INTAKE for P2-C mutation/full UI. No DESIGN, SPEC, WORK_ORDER, BUILD, provider-call, commit or mutation authority carries forward.",
+  "next_allowed_move": "P2C-MUTATION-FULL-UI-2026-07-31 is INTAKE_COMPLETE / DESIGN_NOT_STARTED. Author and independently review DESIGN resolving P2C-MUT-INTAKE-F1..F6, including safe checkpoint separation for authorization foundation, backend contracts and React mutation UI. No SPEC, WORK_ORDER, BUILD, provider-call or mutation authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -270,17 +272,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30 is FREEZE / CLOSED_BOUNDED. C3 18e24e5 is independently REVIEW_PASS and pushed after all findings closed without waiver.",
+    "activePhase": "INTAKE",
+    "activePhaseNote": "P2C-MUTATION-FULL-UI-2026-07-31 intake is complete with six findings to resolve in DESIGN. No downstream phase or BUILD authority exists.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-30_P2R_OPERATIONAL_REPORT_FREEZE_PREREQUISITE.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R is settled history after this C4; the next tranche begins with fresh P2-C mutation/full UI INTAKE.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R is settled history; P2-C mutation/full UI is open at INTAKE only.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "C4 records completed reviewer, commit-steward, closer and session-sync responsibilities. Any P2-C work begins at fresh INTAKE with a new bounded role assignment.",
-    "roleRoute": "ORCHESTRATOR_TO_P2C_MUTATION_FULL_UI_FRESH_INTAKE",
+    "activeRoleNote": "ORCHESTRATOR opened and bounded the fresh P2-C intake. DESIGN requires an explicit transition to SPEC_AUTHOR and independent review.",
+    "roleRoute": "ORCHESTRATOR_TO_SPEC_AUTHOR_FOR_P2C_DESIGN",
     "updatedAt": "2026-07-31"
   }
 }
