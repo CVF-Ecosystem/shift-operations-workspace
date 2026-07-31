@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "C3a2 exact 79-path Work Order is independently REVIEW_PASS/approved and pushed at fd1c09e after F1/F2 closure. This separate four-surface checkpoint opens G6 only; C3a2 BUILD follows only if G6 passes. Automatic post-Phase-2 queue remains recorded.",
+  "syncReceipt": "C3a2 Amendment 1 is independently REVIEW_PASS/approved and pushed at 96c9f96 after the two-host ceiling blocker closed without waiver. Exact ceiling is 81. This four-surface checkpoint resumes the retained unstaged partial BUILD only after G6 reconfirmation. Automatic post-Phase-2 queue remains recorded.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "IMPLEMENTATION_WORKER",
   "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",

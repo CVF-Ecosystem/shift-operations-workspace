@@ -348,3 +348,32 @@ Only after G6 passes may the worker edit the exact 79-path C3a2 ceiling. The
 worker does not stage, commit, push, self-review or FREEZE and returns
 `READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI/MCP call is
 authorized. C3b/C3c/C3d remain blocked.
+
+## C3a2 BUILD ceiling blocker, Amendment 1 and resume
+
+G6 passed at pre-BUILD parent `6951810`: full non-live 1127/112, repository
+gates PASS, doctor 24/1, Docker/PostgreSQL/provider prerequisites available
+and zero owned residue. Partial BUILD then wired the central guard and stopped
+without out-of-ceiling edit when full suite `896 passed / 231 failed / 112
+skipped` exposed two omitted edit hosts.
+
+Reviewed Amendment 1 artifacts:
+
+- `docs/decisions/ADR_2026-07-31_P2C_C3A2_CEILING_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_4.md`;
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A2_WORK_ORDER_AMENDMENT_1.md`;
+- `docs/decisions/P2C_C3A2_CEILING_AMENDMENT_1_AUTHORIZATION_REVIEW.md`.
+
+Disposition: `REVIEW_PASS / APPROVED`; authorization commit `96c9f96` is
+pushed. It adds exactly `tests/contract/test_contract_files.py` and
+`scripts/run_message_admission_live_governance_evidence.py`, raising the
+ceiling `79 → 81`. Contract route proof must seed its viewer assignment. Both
+separate message `msg-ev-op` ledgers must seed ACTIVE assignment: frozen
+refusal remains 409 with zero message/audit writes and zero provider calls;
+genuine admission remains one message/exact audit/later one provider call.
+
+This four-surface commit becomes the amended review/rollback parent after
+push. The partial BUILD remains unstaged. Worker verifies `HEAD ==
+origin/main`, reconfirms G6 continuity/gates, edits only the exact 81 paths,
+does not stage/commit/push/self-review/FREEZE and returns
+`READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI; C3b-d blocked.
