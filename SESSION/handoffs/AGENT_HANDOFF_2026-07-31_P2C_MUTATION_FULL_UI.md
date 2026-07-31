@@ -180,3 +180,25 @@ Next move after this authorization checkpoint is pushed: create and push a
 separate four-surface pre-BUILD continuity checkpoint naming the exact parent,
 manual external worker, independent Codex reviewer, G6-next status and return
 token. No source edit/provider call before G6 passes.
+
+## C3a1 pre-BUILD checkpoint
+
+- Authorization commit: `1b0862fa756281166c270b573794cd2faed0eb31`
+  (`HEAD == origin/main` before this sync).
+- C3a1 implementation parent: this four-surface pre-BUILD commit itself; its
+  exact pushed hash is obtained from `git rev-parse HEAD` after commit and MUST
+  equal `origin/main` before G6 or any BUILD edit.
+- Worker: external `IMPLEMENTATION_WORKER`, reached only through the
+  operator's manual prompt transfer; no Claude CLI/MCP control call.
+- Reviewer/Commit Steward: Codex, independent from implementation.
+- Authorized ceiling: exactly 48 unique BUILD paths in
+  `P2C_MUTATION_FULL_UI_C3A1_WORK_ORDER.md`; zero wildcard/reserve/self-review
+  path.
+- G6: `NEXT_MANDATORY_GATE`, not yet run or claimed by this checkpoint.
+- Worker prohibition: no stage, commit, push, self-review or FREEZE.
+- Required return token:
+  `READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_REVIEW`.
+
+After G6 passes, only C3a1 BUILD is authorized. C3a2/C3b/C3c/C3d remain
+blocked. Any needed path outside the ceiling returns
+`BLOCKED_WORK_ORDER_CEILING` without editing it.

@@ -113,7 +113,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "C3a1 exact 48-path Work Order is REVIEW_PASS/APPROVED under operator-delegated R2 authority. Commit/push this authorization checkpoint, then create a separate four-surface pre-BUILD continuity checkpoint. No BUILD/provider call before clean-parent G6 passes; no Claude CLI.",
+  "next_allowed_move": "After this four-surface pre-BUILD checkpoint is pushed, the manual external IMPLEMENTATION_WORKER must verify HEAD == origin/main, record that exact hash as C3a1 parent and run G6. Only a passing G6 authorizes the exact 48-path C3a1 BUILD. No Claude CLI; C3a2/C3b/C3c/C3d remain blocked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -278,17 +278,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "C3a1 exact 48-path Work Order is REVIEW_PASS/APPROVED; authorization checkpoint push then separate pre-BUILD continuity are required before G6 and BUILD.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "C3a1 authorization commit 1b0862f is pushed. This four-surface pre-BUILD checkpoint becomes the exact C3 parent; worker must verify its pushed hash and pass G6 before any BUILD edit.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R is settled history; P2-C mutation/full UI is at C3a1 Work Order authoring after reviewed fan-out repair.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "AUTHORIZATION_REVIEWER",
-    "activeRoleNote": "WORK_ORDER_AUTHOR bounded C3a1 at 48 exact BUILD paths; AUTHORIZATION_REVIEWER closed P2C-C3A1-WO-REV-F1..F2 and recorded operator-delegated approval.",
-    "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_PREBUILD_SYNC",
+    "activeRole": "IMPLEMENTATION_WORKER",
+    "activeRoleNote": "External worker is assigned through manual operator handoff only. G6 is next; no edit before PASS; exact 48-path ceiling; no stage/commit/push/self-review/FREEZE.",
+    "roleRoute": "AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_EXTERNAL_IMPLEMENTATION_WORKER",
     "updatedAt": "2026-07-31"
   }
 }
