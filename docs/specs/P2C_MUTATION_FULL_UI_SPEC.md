@@ -3,7 +3,7 @@
 SPEC ID: `SPEC-P2C-MUTATION-FULL-UI-2026-07-31`
 Tranche: `P2C-MUTATION-FULL-UI-2026-07-31`
 Risk: `R2`
-Status: `SPEC_AUTHORED — PENDING_INDEPENDENT_REVIEW`
+Status: `SPEC_REVIEW_PASS_AFTER_REPAIR`
 
 ## 1. Normative sources and claim
 
@@ -73,6 +73,7 @@ back all three.
 routes MUST be:
 
 - `GET /staffing/shifts` — minimal id/name/status only;
+- `GET /staffing/users` — active user id/username/global role only;
 - `GET /shifts/{shift_id}/assignments`;
 - `POST /shifts/{shift_id}/assignments` with target `user_id` only;
 - `POST /shifts/{shift_id}/assignments/{assignment_id}/revoke` with required
@@ -80,6 +81,9 @@ routes MUST be:
 
 Target user MUST exist and be active. Actor/timestamps/status are server-
 derived. Add/revoke plus audit MUST be atomic. Below-supervisor access is 403.
+Successful revoke increments version once. A repeat with the current revoked
+version returns the stored assignment unchanged and writes no second audit; a
+repeat carrying the pre-revoke version is stale 409.
 
 ### R6 — Operational scope
 
@@ -145,11 +149,17 @@ Add authenticated assignment-scoped deterministic reads:
 - `GET /tasks?shift_id=...` including terminal history;
 - `GET /customer-requests?shift_id=...` for bound requests including terminal
   history;
-- sanitized approval/readiness state for a supported stored target.
+- `GET /approvals/readiness?record_type=...&record_id=...&action=...` for
+  exactly Event/event.confirm, TaskCreationIntent/task.create,
+  Incident/incident.acknowledge and Report/report.approve. Response fields are
+  record type/id, action, target version, risk class, ready boolean,
+  required-role names and satisfied-role names; it MUST exclude payload digest
+  and credentials.
 
-Each list MUST have deterministic ordering and a hard maximum of 500 or an
-explicit pagination contract. Overflow MUST fail; silent truncation is
-forbidden. Existing event/incident/handover/Report reads MUST be reused.
+Each list MUST use deterministic ordering and a hard maximum of 500. A 501st
+matching record MUST fail with controlled 422; silent truncation and pagination
+invented during BUILD are forbidden. Existing event/incident/handover/Report
+reads MUST be reused.
 
 ### R12 — CustomerRequest version
 
@@ -171,6 +181,18 @@ status changes without increasing content version.
 Create/append actions, task-intent creation and idempotent approval-receipt
 creation MUST remain outside this version precondition matrix. SPEC review
 MUST reject any accidental precondition added to an unchanged route.
+
+Preconditions MUST be JSON body fields, not query parameters or headers:
+
+- close and freeze: `expected_version` (freeze retains the two deprecated
+  override fields only at their refused/default-compatible contract);
+- event confirm and correction: `expected_version`;
+- task/customer-request/incident transition: `target_status` plus
+  `expected_version`;
+- incident acknowledge, handover review and acknowledge: `expected_version`;
+- Report submit/approve: `expected_version` plus `expected_status`;
+- Report successor version: existing optional `reason` plus
+  `expected_version` and `expected_status`.
 
 ### R14 — Atomic stale refusal
 

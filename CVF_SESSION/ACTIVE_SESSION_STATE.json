@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-C SPEC R1-R29/AC-01..AC-35 is authored and pending independent review. No WORK_ORDER or BUILD authority exists.",
+  "syncReceipt": "P2-C SPEC R1-R29/AC-01..AC-35 is REVIEW_PASS_AFTER_REPAIR after five findings closed without waiver. Work Order authoring is next; BUILD remains unauthorized.",
   "parkedOperatorCheckpoint": null,
-  "activeRole": "SPEC_AUTHOR",
-  "roleRoute": "SPEC_AUTHOR_TO_REVIEWER_FOR_P2C_SPEC",
+  "activeRole": "REVIEWER",
+  "roleRoute": "REVIEWER_TO_WORK_ORDER_AUTHOR_FOR_P2C",
   "updatedAt": "2026-07-31"
 }

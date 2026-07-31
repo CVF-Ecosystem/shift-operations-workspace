@@ -130,5 +130,10 @@ assignment route coverage, legacy recovery, CustomerRequest version backfill,
 exact mutation-precondition matrix, real operator/supervisor UI verticals,
 browser/PostgreSQL/provider evidence and bounded closure truth.
 
-Status: `SPEC_AUTHORED — PENDING_INDEPENDENT_REVIEW`. No Work Order or BUILD
-authority exists.
+Initial SPEC review found `P2C-SPEC-REV-F1..F5`; all were repaired without
+waiver and re-reviewed in:
+
+`docs/decisions/P2C_MUTATION_FULL_UI_SPEC_REVIEW.md`.
+
+Final SPEC disposition: `REVIEW_PASS_AFTER_REPAIR` for exact-path Work Order
+authoring only. No Work Order has been approved and BUILD remains unauthorized.
