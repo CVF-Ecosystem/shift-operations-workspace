@@ -225,3 +225,21 @@ adding only the shift-create and message-admission live runner scripts. No
 other authority changes. This amendment checkpoint must be pushed, then a
 separate four-surface resume checkpoint becomes the C3a1 parent. Worker diff
 remains unstaged; no BUILD commit/provider rerun occurred during review.
+
+## C3a1 Amendment 1 resume checkpoint
+
+- Amendment authorization commit:
+  `8f8d8b245957a94ca25651d57d1d1a05fcc5b2b5` (`origin/main` matched).
+- Exact review/rollback parent: this four-surface resume commit itself; after
+  push the worker MUST record `git rev-parse HEAD`, verify it equals
+  `origin/main`, and retain the existing unstaged partial BUILD.
+- Amended ceiling: exactly 50 paths; the only additions are the two named
+  legacy live runner scripts.
+- Mandatory repair: seed users in real runners, remove test-only masking,
+  return all four named test hosts to <=300 using only authorized paths.
+- Worker remains external/manual; no Claude CLI/MCP control.
+- No stage/commit/push/self-review/FREEZE.
+- Return token remains
+  `READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_REVIEW`.
+
+C3a1 BUILD may resume. C3a2/C3b/C3c/C3d remain unauthorized.

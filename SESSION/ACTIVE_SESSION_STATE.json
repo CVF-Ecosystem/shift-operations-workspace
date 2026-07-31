@@ -113,7 +113,7 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P2C-C3A1-BUILD-BLOCK-F1 is closed by reviewed Work Order Amendment 1, expanding the ceiling only from 48 to 50 paths for the two broken legacy live runners. Commit/push this governance amendment, then create a separate four-surface resume checkpoint before manual worker continuation. Partial BUILD stays unstaged; no Claude CLI.",
+  "next_allowed_move": "After this four-surface resume checkpoint is pushed, manually return C3a1 to the external IMPLEMENTATION_WORKER. Worker verifies HEAD == origin/main, retains the unstaged partial BUILD, applies the exact 50-path Amendment 1 repairs, completes all evidence and returns READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_REVIEW. No Claude CLI; C3a2-d blocked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -279,16 +279,16 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "BUILD",
-    "activePhaseNote": "C3a1 partial BUILD stopped correctly on ceiling conflict. Amendment 1 is REVIEW_PASS/APPROVED at exactly 50 paths; governance commit then separate resume continuity are next.",
+    "activePhaseNote": "C3a1 Amendment 1 authorization 8f8d8b2 is pushed. This four-surface resume commit becomes exact review/rollback parent; external worker may resume the exact 50-path BUILD after verifying HEAD/origin.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R is settled history; P2-C mutation/full UI is at C3a1 Work Order authoring after reviewed fan-out repair.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "AUTHORIZATION_REVIEWER",
-    "activeRoleNote": "Reviewed BLOCKED_WORK_ORDER_CEILING, rejected test-only masking, added exactly two required runner paths and approved the 50-path Amendment 1 under delegated R2 authority.",
-    "roleRoute": "IMPLEMENTATION_WORKER_BLOCKED_TO_AUTHORIZATION_REVIEWER_TO_RESUME_SYNC",
+    "activeRole": "IMPLEMENTATION_WORKER",
+    "activeRoleNote": "External manual worker resumes amended C3a1 only: exact 50 paths, two real runner repairs, four line-neutral test hosts, no stage/commit/push/self-review/FREEZE.",
+    "roleRoute": "AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_EXTERNAL_IMPLEMENTATION_WORKER_RESUME",
     "updatedAt": "2026-07-31"
   }
 }
