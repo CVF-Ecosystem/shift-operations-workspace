@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2C-WO-FEAS-F1 is closed without waiver by reviewed C3a fan-out amendment. Exact-path C3a1 Work Order authoring is next; BUILD remains unauthorized.",
+  "syncReceipt": "C3a1 exact 48-path Work Order is REVIEW_PASS/APPROVED under delegated R2 authority. Push authorization, then separate pre-BUILD continuity; no BUILD before G6.",
   "parkedOperatorCheckpoint": null,
-  "activeRole": "WORK_ORDER_AUTHOR",
-  "roleRoute": "REVIEWER_TO_WORK_ORDER_AUTHOR_FOR_P2C_C3A1",
+  "activeRole": "AUTHORIZATION_REVIEWER",
+  "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_PREBUILD_SYNC",
   "updatedAt": "2026-07-31"
 }

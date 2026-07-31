@@ -161,3 +161,22 @@ Next move: author, independently review and approve the exact-path C3a1 Work
 Order under the operator's standing delegation. BUILD/provider calls remain
 unauthorized; Claude must be handed the later prompt manually and may not be
 called through CLI.
+
+## C3a1 Work Order authorization
+
+The exact-path Work Order is:
+
+`docs/work_orders/P2C_MUTATION_FULL_UI_C3A1_WORK_ORDER.md`.
+
+Authorization review:
+
+`docs/decisions/P2C_C3A1_WORK_ORDER_AUTHORIZATION_REVIEW.md`.
+
+The 48-path BUILD ceiling has no wildcard/reserve or self-review path. Review findings
+`P2C-C3A1-WO-REV-F1..F2` closed without waiver. Under the operator's standing
+delegation the Work Order is `REVIEW_PASS / APPROVED`.
+
+Next move after this authorization checkpoint is pushed: create and push a
+separate four-surface pre-BUILD continuity checkpoint naming the exact parent,
+manual external worker, independent Codex reviewer, G6-next status and return
+token. No source edit/provider call before G6 passes.
