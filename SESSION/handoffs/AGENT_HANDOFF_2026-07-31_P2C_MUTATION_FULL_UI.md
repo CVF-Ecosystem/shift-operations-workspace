@@ -63,8 +63,8 @@ full UI, P2-C completion, P2-D or Phase-2 completion.
 
 ## Next governed move
 
-Transition explicitly to `SPEC_AUTHOR` to author DESIGN, then obtain an
-independent DESIGN review. No SPEC, WORK_ORDER or BUILD authority exists.
+Transition explicitly to `REVIEWER` and independently review the authored
+DESIGN. No SPEC, WORK_ORDER or BUILD authority exists.
 
 ## Tranche-transition acknowledgment
 
@@ -72,3 +72,23 @@ On 2026-07-31 the orchestrator re-read the manifest, policy, canonical
 continuity, active P2-R handoff, implementation truth, catalog, roadmap and
 public-core instructions; verified P2-R C4 at clean pushed `c738193`; and
 opened only this fresh INTAKE. No authority was inherited.
+
+## DESIGN disposition
+
+Canonical ADR:
+
+`docs/decisions/ADR_2026-07-31_P2C_MUTATION_FULL_UI.md`
+
+The design resolves intake F1-F6 by:
+
+- retaining a truthful single-workspace boundary and rejecting fake tenant
+  isolation or misuse of provider-placement `data_scope`;
+- adding server-owned shift assignment/resource scope;
+- adding advisory server capabilities while rechecking every backend gate;
+- requiring expected-version checks and no automatic mutation retry;
+- defining exact operator and supervisor vertical matrices;
+- separating P2-D and the later Phase-2 exit run;
+- splitting future BUILD into C3a authorization foundation, C3b operator UI
+  and C3c supervisor closeout UI, each independently reviewed/pushed.
+
+Status: `DESIGN_AUTHORED — PENDING_INDEPENDENT_REVIEW`.
