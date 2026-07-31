@@ -386,6 +386,28 @@ P2-D. Sau khi hai work package này đóng, phải chạy trọn một ca
 `start → updates → tasks → handover → report → freeze` với AI/channel tắt và
 mọi record truy vết được.
 
+### Hàng đợi tự động ngay sau Phase 2
+
+Khi và chỉ khi full-shift exit gate ở trên nhận independent `REVIEW_PASS` và
+Phase 2 đạt `CLOSED_BOUNDED`, orchestrator MUST tự mở các tranche kế tiếp theo
+đúng thứ tự dưới đây; không chờ operator nhắc lại:
+
+1. **PROJECT-OPERATIONS-SKILL:** đóng gói workflow vận hành dự án/CVF thành
+   skill dùng lại được, dựa trên implementation truth đã freeze;
+2. **PROJECT-KNOWLEDGE-PACK:** chuẩn hóa knowledge nguồn, owner, provenance,
+   freshness/retention và ingestion boundary cho chính dự án;
+3. **P3-A Refinery:** normalize, dedupe, redact, classify, quarantine,
+   provenance và data-quality trước khi dữ liệu thành context candidate;
+4. **P3-C retrieval-ready contract → P4-A1 governed retrieval → P4-A2 RAG**;
+5. **governed learning runtime:** chỉ mở sau Refinery, authorization/
+   data-scope, provenance và retrieval gates hoạt động thật; learning không
+   được tự biến provider/chat history thành canonical operational truth.
+
+Đây là hàng đợi bắt buộc, không phải authority BUILD sớm. Mỗi mục vẫn phải mở
+fresh INTAKE và đi đủ `INTAKE → DESIGN → SPEC → WORK_ORDER → BUILD → REVIEW →
+FREEZE`. Trong lúc Phase 2 còn mở, skill/knowledge chỉ là nền móng và learning
+runtime vẫn `NOT_BUILT`.
+
 ---
 
 ## Phase 3 — CVF Governance and Refinery — 🟡 PARTIAL (3/6)

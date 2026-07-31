@@ -113,6 +113,21 @@
     "docs/CVF_BOOTSTRAP_LOG_2026-07-22.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
+  "post_phase2_automatic_sequence": {
+    "trigger": "P2-C and P2-D are independently closed, the full-shift exit gate is REVIEW_PASS, and Phase 2 is CLOSED_BOUNDED",
+    "operatorReminderRequired": false,
+    "sequence": [
+      "PROJECT-OPERATIONS-SKILL",
+      "PROJECT-KNOWLEDGE-PACK",
+      "P3-A Refinery",
+      "P3-C retrieval-ready contract",
+      "P4-A1 governed retrieval",
+      "P4-A2 governed RAG",
+      "governed learning runtime"
+    ],
+    "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
+    "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
+  },
   "next_allowed_move": "After this four-surface resume checkpoint is pushed, manually return C3a1 to the external IMPLEMENTATION_WORKER. Worker verifies HEAD == origin/main, retains the unstaged partial BUILD, applies the exact 50-path Amendment 1 repairs, completes all evidence and returns READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_REVIEW. No Claude CLI; C3a2-d blocked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [

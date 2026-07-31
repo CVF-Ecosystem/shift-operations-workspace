@@ -243,3 +243,18 @@ remains unstaged; no BUILD commit/provider rerun occurred during review.
   `READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_REVIEW`.
 
 C3a1 BUILD may resume. C3a2/C3b/C3c/C3d remain unauthorized.
+
+## Parked automatic post-Phase-2 queue
+
+Operator instruction is now persistent: after P2-C, P2-D and the full-shift
+exit gate receive independent closure and Phase 2 becomes `CLOSED_BOUNDED`,
+the orchestrator MUST open—without waiting for another reminder—fresh
+tranches in this order:
+
+`PROJECT-OPERATIONS-SKILL → PROJECT-KNOWLEDGE-PACK → P3-A Refinery → P3-C
+retrieval-ready contract → P4-A1 governed retrieval → P4-A2 RAG → governed
+learning runtime`.
+
+This queue grants no present BUILD authority and does not interrupt C3a1.
+Governed learning remains blocked until Refinery, authorization/data-scope,
+provenance and retrieval gates are load-bearing.
