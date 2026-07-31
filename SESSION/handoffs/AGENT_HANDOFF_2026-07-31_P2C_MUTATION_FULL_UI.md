@@ -258,3 +258,39 @@ learning runtime`.
 This queue grants no present BUILD authority and does not interrupt C3a1.
 Governed learning remains blocked until Refinery, authorization/data-scope,
 provenance and retrieval gates are load-bearing.
+
+## C3a1 independent re-review blocker and Amendment 2 resume
+
+Independent BUILD re-review accepted F3's atomic PostgreSQL revoke CAS but
+returned `CHANGES_REQUIRED` for two residual defects: assignment primary-key
+collision still overwrote InMemory history while SQL mislabeled it as
+duplicate-active, and a signed JWT carrying a numeric but out-of-range `exp`
+still escaped as `OverflowError`/HTTP 500. The repair worker added the required
+coverage but correctly stopped when the three existing test hosts reached
+323, 342 and 372 lines and three new split paths were required.
+
+Mechanical inventory established exact pre-amendment truth: 50 changed paths
+equal the 50-path ceiling, zero missing/outside. The worker's 49 count came
+from untracked-directory aggregation and is superseded rather than repeated.
+
+Reviewed Amendment 2 artifacts:
+
+- `docs/decisions/ADR_2026-07-31_P2C_C3A1_REVIEW_REPAIR_TEST_SPLIT_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_3.md`;
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A1_WORK_ORDER_AMENDMENT_2.md`;
+- `docs/decisions/P2C_C3A1_CEILING_AMENDMENT_2_AUTHORIZATION_REVIEW.md`.
+
+Disposition: `REVIEW_PASS / APPROVED`; authorization commit
+`30fca0285df1f8252a028c1ba09d992134c26577` is pushed and equals
+`origin/main`. The ceiling is exactly 53 after adding only:
+
+- `tests/cvf/test_assignment_foundation_f1.py`;
+- `tests/integration/test_assignment_ledger_parity_f1.py`;
+- `tests/integration/test_assignment_postgres_live_f1.py`.
+
+This four-surface resume commit becomes the exact review/rollback parent after
+push. The external worker verifies `HEAD == origin/main`, retains the unstaged
+partial BUILD, moves the accepted F1/F2 tests into the named companions, keeps
+all six affected Python files <=300 lines, reruns every required gate and
+returns `READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_RE_RE_REVIEW`. No Claude CLI,
+stage/commit/push/self-review/FREEZE; C3a2/C3b/C3c/C3d remain unauthorized.
