@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-MUTATION-FULL-UI-2026-07-31`
-- Control-chain phase: `INTAKE`
+- Control-chain phase: `DESIGN`
 - Roadmap target: remaining P2-C mutation/full UI and authorization boundary
 - Risk: `R2`
-- Active role: `ORCHESTRATOR`
-- Status: `INTAKE_COMPLETE — DESIGN_NOT_STARTED`
+- Active role: `REVIEWER`
+- Status: `DESIGN_REVIEW_PASS_AFTER_REPAIR — SPEC_FEASIBILITY_NEXT`
 
 ## Settled predecessor
 
@@ -63,8 +63,8 @@ full UI, P2-C completion, P2-D or Phase-2 completion.
 
 ## Next governed move
 
-Transition explicitly to `REVIEWER` and independently review the authored
-DESIGN. No SPEC, WORK_ORDER or BUILD authority exists.
+Transition explicitly to `SPEC_AUTHOR` for SPEC feasibility and authoring.
+No WORK_ORDER or BUILD authority exists.
 
 ## Tranche-transition acknowledgment
 
