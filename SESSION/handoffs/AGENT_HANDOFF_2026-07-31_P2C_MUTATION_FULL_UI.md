@@ -202,3 +202,26 @@ token. No source edit/provider call before G6 passes.
 After G6 passes, only C3a1 BUILD is authorized. C3a2/C3b/C3c/C3d remain
 blocked. Any needed path outside the ceiling returns
 `BLOCKED_WORK_ORDER_CEILING` without editing it.
+
+## C3a1 BUILD ceiling blocker and Amendment 1
+
+Worker returned `BLOCKED_WORK_ORDER_CEILING` with an unstaged partial BUILD.
+Independent inspection found `P2C-C3A1-BUILD-BLOCK-F1`: the new persisted-
+creator invariant breaks both real legacy runners that call
+ShiftService.create, but their scripts were omitted from the 48-path ceiling.
+A test-only ledger-constructor monkeypatch would hide rather than repair this
+regression. Four authorized test hosts also exceeded 300 lines, but all have
+in-ceiling line-neutral repairs.
+
+Reviewed amendment artifacts:
+
+- `docs/decisions/ADR_2026-07-31_P2C_C3A1_LEGACY_RUNNER_CEILING_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_2.md`;
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A1_WORK_ORDER_AMENDMENT_1.md`;
+- `docs/decisions/P2C_C3A1_CEILING_AMENDMENT_1_AUTHORIZATION_REVIEW.md`.
+
+Disposition: `REVIEW_PASS / APPROVED`. Ceiling is exactly 50 paths after
+adding only the shift-create and message-admission live runner scripts. No
+other authority changes. This amendment checkpoint must be pushed, then a
+separate four-surface resume checkpoint becomes the C3a1 parent. Worker diff
+remains unstaged; no BUILD commit/provider rerun occurred during review.
