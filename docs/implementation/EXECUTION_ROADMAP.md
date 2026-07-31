@@ -364,11 +364,13 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       authority server-side, enforce `message.create` và atomic persist
       Message + actor-bound audit. C3 `ab92f51`; external/channel ingestion và
       Canonical Message Contract vẫn chưa implement.
-- [ ] **P2-R — Operational report và prerequisite `report_approved` thật:**
-      thêm canonical operational report lifecycle/model, ledger parity,
-      governed service/API và approval binding cần thiết để freeze không còn
-      dựa vào audited override. Đây là record vận hành phục vụ Phase 2 exit
-      gate, khác P5-A reporting engine (render/export PDF/Excel).
+- [x] **P2-R — Operational report và prerequisite `report_approved` thật
+      (2026-07-31, FREEZE / CLOSED_BOUNDED):** canonical `END_SHIFT` Report,
+      immutable version history, exact source manifest/digests, governed
+      service/API, R2 receipt binding và atomic Report+Shift freeze đã được
+      prove trên InMemory/SQLite/disposable PostgreSQL 16. C3 `18e24e5` đổi
+      đúng 59 path, nhận independent final `REVIEW_PASS` và đã push. Đây là
+      operational record cho Phase 2 exit gate, không phải P5-A render/export.
 - [ ] **P2-C — UI tổng thể còn mở:**
   - [x] **Read-only slice (CLOSED_BOUNDED 2026-07-29):** C3a `fe2f312` và
         C3b `e24905f` cung cấp authenticated shifts/events/open-work reads
@@ -379,9 +381,8 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
         P2-C tổng thể.
 - [ ] **P2-D:** PWA offline queue + realtime.
 
-**Exit gate: CHƯA ĐẠT.** Chưa có operational report/prerequisite
-`report_approved` thật, P2-C mutation/full UI và P2-D. Sau khi ba work package
-trên đóng, phải chạy trọn một ca
+**Exit gate: CHƯA ĐẠT.** P2-R đã đóng bounded; còn P2-C mutation/full UI và
+P2-D. Sau khi hai work package này đóng, phải chạy trọn một ca
 `start → updates → tasks → handover → report → freeze` với AI/channel tắt và
 mọi record truy vết được.
 
@@ -525,11 +526,19 @@ Boundary không bao gồm external/channel ingestion, Canonical Message Contract
 assignment/data_scope, production PostgreSQL, P2-C completion hay Phase 2
 completion.
 
-**Bước kế tiếp duy nhất:** operator chọn tranche mới và mở fresh **INTAKE**;
-không có DESIGN/SPEC/WORK_ORDER/BUILD authority kế thừa. Theo dependency order
-để đóng Phase 2, ưu tiên kế tiếp là **P2-R operational report +
-`report_approved` prerequisite thật**, sau đó P2-C mutation/full UI, rồi P2-D
-offline/realtime. External/channel message ingestion qua Integration Edge là
+**2026-07-31 (P2-R operational Report + freeze prerequisite):** `FREEZE /
+CLOSED_BOUNDED`; C3 `18e24e5` đổi đúng 59 path và được push sau independent
+final `REVIEW_PASS`, toàn bộ findings qua nhiều vòng đóng không waiver.
+Evidence cuối: focused 385; full 998/87 skipped; PostgreSQL 77 với migrations
+22/0 rồi 18/4 và exact cleanup; retained provider receipt hợp lệ với bảy
+zero-call refusals rồi đúng một Alibaba call HTTP 200; doctor 24/1. Parent
+rehearsal tại `6b2d014` trả 788/77 skipped và cleanup PASS. Boundary không
+bao gồm P5-A rendering/export, managed PostgreSQL, P2-C, P2-D hoặc Phase 2.
+
+**Bước kế tiếp duy nhất:** mở fresh **INTAKE** cho **P2-C mutation/full UI**;
+không có DESIGN/SPEC/WORK_ORDER/BUILD authority kế thừa. Sau P2-C mới tới
+P2-D offline/realtime, rồi full-shift exit gate. External/channel message
+ingestion qua Integration Edge là
 tranche Phase 4 riêng và không được xem là đã làm chỉ vì internal
 `POST /messages` đã đóng.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
@@ -546,11 +555,13 @@ round-trip và Phase 1 exit gate
 (P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create
 admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`), governed
 internal message admission (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, C3
-`ab92f51`).
+`ab92f51`), governed operational Report and audited `report_approved` freeze
+prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30, C3
+`18e24e5`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa
 có runtime caller, refusal routing/recording chưa implement, PostgreSQL mới
 được chứng minh trong disposable local PostgreSQL 16 chứ chưa production/
-managed deployment, `report_approved` vẫn là audited override, retrieval/RAG/
+managed deployment, retrieval/RAG/
 application memory/proactive forecasting mới chỉ nằm trong roadmap, P2-B
 chưa có refresh token/revocation hay admin flow cấp user thật
 — xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.

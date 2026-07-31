@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30`
-- Control-chain phase: `BUILD — PRE-G6`
+- Control-chain phase: `FREEZE`
 - Risk: `R2`
-- Active role: `ORCHESTRATOR / INDEPENDENT_REVIEWER / COMMIT_STEWARD`
+- Active role: `ORCHESTRATOR`
 - Implementation worker: `EXTERNAL IMPLEMENTATION_WORKER — OPERATOR-TRANSFERRED MANUAL PROMPT`
-- Status: `C2 PRE-BUILD ACKNOWLEDGED — G6 REQUIRED BEFORE FIRST C3 EDIT`
+- Status: `FREEZE / CLOSED_BOUNDED — C3 PUSHED`
 
 ## Settled predecessor
 
@@ -28,8 +28,8 @@ The selected roadmap order is:
 
 `P2-R → P2-C mutation/full UI → P2-D offline/realtime → full-shift exit gate`.
 
-Only P2-R is active. Later items remain unopened and have no inherited
-authority.
+P2-R is now closed bounded. P2-C mutation/full UI is the next fresh INTAKE;
+P2-D and the full-shift exit gate remain unopened with no inherited authority.
 
 ## Intake evidence
 
@@ -153,13 +153,40 @@ all product/evidence requirements remain unchanged.
 - G6 is pending and must run from clean pushed C2 before the first edit;
 - G6 exact results belong in worker return and BUILD evidence receipt.
 
+## C3 BUILD, review and FREEZE
+
+- External worker built exactly the 59 Work Order paths and never staged,
+  committed, pushed, reviewed or FREEZEd its own work.
+- Independent review required multiple bounded repair rounds. All findings
+  closed without waiver, including canonical record/manifest strictness,
+  scoped SQLite locking, PostgreSQL mapped-port readiness and DSN-safe
+  evidence output.
+- Final evidence: focused `385 passed`; full non-live `998 passed / 87
+  skipped`; disposable PostgreSQL 16 `77 passed`, migrations `22/0` then
+  `18/4`, exact cleanup; retained fresh provider receipt with seven zero-call
+  refusals and exactly one admitted Alibaba HTTP 200 call; doctor `24/1`.
+- Independent final disposition: `REVIEW_PASS`.
+- C3 `18e24e58e2bda83e18be21d5d25ad50c4b0fa24e` contains exactly 59 paths,
+  is pushed, and leaves `HEAD == origin/main`.
+- Post-push verification repeated focused `385`, full `998/87`, repository
+  validation and doctor `24/1`.
+- Exact-parent rehearsal used detached `6b2d014`, returned `788/77 skipped`
+  plus validator PASS, and removed its temporary worktree.
+
+Disposition: `FREEZE / CLOSED_BOUNDED`.
+
+Permitted claim only:
+
+> A closed shift can be frozen only with a current, immutable, server-derived
+> `END_SHIFT` Report whose exact version and snapshot digest have a valid R2
+> approval; Report freeze, Shift freeze, handover readiness, and actor-bound
+> audits are atomic on the proven backends.
+
+No rendering/export, AI-generated operational truth, managed/production
+PostgreSQL, assignment/tenant/data_scope, P2-C, P2-D, full-shift-exit or
+Phase-2-completion claim is permitted.
+
 ## Next governed move
 
-Push this exact four-file C2. The operator then transfers the implementation
-prompt manually.
-
-The worker rehydrates, verifies `HEAD == origin/main` at C2 and runs G6. On
-PASS only, it may build exactly the 59 Work Order paths and return
-`READY_FOR_INDEPENDENT_P2R_BUILD_REVIEW`. Any extra path is
-`BLOCKED_WORK_ORDER_CEILING`. No source/test/schema/migration/contract edit,
-provider call or Docker/PostgreSQL run is authorized before passing G6.
+Fresh INTAKE for P2-C mutation/full UI. No authority carries forward. P2-D
+offline/realtime and the full-shift exit gate remain later, separate tranches.
