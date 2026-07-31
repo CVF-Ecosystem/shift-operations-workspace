@@ -13,9 +13,10 @@ remainder against that tranche's own pre-change SHA.
 
 Chain: `PRE_INCIDENT_OPENAPI_SHA` -> `PRE_HANDOVER_OPENAPI_SHA` ->
 `PRE_P2C_READ_OPENAPI_SHA` -> `PRE_SHIFT_CREATE_OPENAPI_SHA` ->
-`PRE_MESSAGE_ADMISSION_OPENAPI_SHA` -> `PRE_REPORT_OPENAPI_SHA` -> current
-`GOLDEN_OPENAPI_SHA`. Each earlier delta test strips every later delta too,
-netting back to its own true historical baseline.
+`PRE_MESSAGE_ADMISSION_OPENAPI_SHA` -> `PRE_REPORT_OPENAPI_SHA` ->
+`PRE_ASSIGNMENT_OPENAPI_SHA` -> current `GOLDEN_OPENAPI_SHA`. Each earlier
+delta test strips every later delta too, netting back to its own true
+historical baseline.
 """
 
 from __future__ import annotations
@@ -57,10 +58,13 @@ PRE_MESSAGE_ADMISSION_OPENAPI_SHA = "94f56893835b046736efe6697e4d2786ff1716702bf
 # test_report_openapi_contract.py imports it directly).
 PRE_REPORT_OPENAPI_SHA = "547d630d1d7fc62dfeb0691b5fcc4bb30fdc2dfe721783c377c4ff25b75a2881"
 
-# Post-report: PRE_REPORT_OPENAPI_SHA plus Report ops/schemas and the
-# FreezeInput deprecation delta. F7 repair: recomputed after removing the
-# submit-review/approve request bodies - those operations take no body at all.
-GOLDEN_OPENAPI_SHA = "d00d106260306caa216c5f68001c7fdc7b94e778348cd0f6cc763291246b7516"
+# Post-report, pre-assignment, and the current golden value: both now owned
+# by test_assignment_openapi_contract.py (Amendment 1 line-count repair) -
+# imported so this module's GOLDEN check still uses the true current value.
+from test_assignment_openapi_contract import (  # noqa: E402
+    GOLDEN_OPENAPI_SHA,
+    _strip_assignment_delta,
+)
 
 _INCIDENT_PATHS = {
     "/incidents",
@@ -69,10 +73,7 @@ _INCIDENT_PATHS = {
     "/incidents/{incident_id}/transition",
 }
 _INCIDENT_SCHEMAS = {
-    "AcknowledgeInput",
-    "Incident",
-    "IncidentInput",
-    "IncidentStatus",
+    "AcknowledgeInput", "Incident", "IncidentInput", "IncidentStatus",
     "workspace_api__api__incidents__router__TransitionInput",
 }
 _HANDOVER_PATHS = {
@@ -81,13 +82,7 @@ _HANDOVER_PATHS = {
     "/handovers/{handover_id}/acknowledge",
     "/handovers/{handover_id}/review",
 }
-_HANDOVER_SCHEMAS = {
-    "Handover",
-    "HandoverCreateInput",
-    "HandoverItem",
-    "HandoverStatus",
-    "ReviewInput",
-}
+_HANDOVER_SCHEMAS = {"Handover", "HandoverCreateInput", "HandoverItem", "HandoverStatus", "ReviewInput"}
 # The two new read GET operations plus the one new schema; /events already
 # had a POST, so only its `get` is removed, never the whole path.
 _P2C_READ_OPERATIONS = {
@@ -189,6 +184,7 @@ def test_openapi_delta_is_exactly_the_five_incident_operations():
     assert _INCIDENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
@@ -212,6 +208,7 @@ def test_openapi_delta_is_exactly_the_five_handover_operations():
     assert _HANDOVER_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)
@@ -237,6 +234,7 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations_from_this_module():
     assert _P2C_READ_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)

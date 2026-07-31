@@ -84,6 +84,12 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     "report.submit_review": "operator",
     "report.approve": "shift_supervisor",
     "report.revoke_approval": "shift_supervisor",
+    # Staffing control plane (P2C-MUTATION-FULL-UI-C3A1, SPEC R5): assigning/
+    # revoking who may operate on a shift is the protected shift_supervisor-bar
+    # decision, same rank as event.confirm/handover.review - a supervisor may
+    # manage staffing for ANY shift (the bounded staffing control-plane
+    # exception), but that authority is narrow to staffing alone.
+    "shift.assignment.manage": "shift_supervisor",
 }
 
 
@@ -114,3 +120,11 @@ def require_action(principal: Principal, action: str) -> None:
 def has_authority(role: str, min_role: str) -> bool:
     """True if ``role`` meets or exceeds ``min_role`` authority."""
     return _rank(role) >= _rank(min_role)
+
+
+def may_perform(role: str, action: str) -> bool:
+    """Non-raising form of :func:`require_action` (P2C-MUTATION-FULL-UI-C3A1,
+    SPEC R9): advisory capability views need a boolean, not an exception, to
+    build a candidate action list without raising per unknown/denied action."""
+    min_role = _ACTION_MIN_ROLE.get(action)
+    return min_role is not None and _rank(role) >= _rank(min_role)

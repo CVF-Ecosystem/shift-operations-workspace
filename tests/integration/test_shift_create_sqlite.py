@@ -20,6 +20,7 @@ from operations_ledger.tables import metadata
 
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import User
 
 _OPERATOR = Principal(user_id="op1", role="operator")
 
@@ -32,7 +33,11 @@ def db_path(tmp_path: Path) -> Path:
 def _open_ledger(db_path: Path) -> SqlLedger:
     engine = make_engine(f"sqlite:///{db_path}")
     metadata.create_all(engine)
-    return SqlLedger(str(db_path), models=domain_models, engine=engine)
+    ledger = SqlLedger(str(db_path), models=domain_models, engine=engine)
+    # P2C-MUTATION-FULL-UI-C3A1 (SPEC R4): ShiftService.create now requires
+    # the creator to be a persisted active user.
+    ledger.add_user(User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    return ledger
 
 
 def _window():

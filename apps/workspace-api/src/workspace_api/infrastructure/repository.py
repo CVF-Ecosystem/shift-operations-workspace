@@ -24,16 +24,21 @@ from operations_domain.models import (
 # Documented exception E2 (SPEC R5.2): User did NOT move to operations-domain;
 # its canonical home stays the application package (auth boundary). The only
 # model still imported from workspace_api.domain.models here.
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
+from workspace_api.infrastructure._assignment_repository import _AssignmentRepositoryMixin
 from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
 from workspace_api.infrastructure._report_repository import _ReportRepositoryMixin
 
-class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRepositoryMixin, _ReportRepositoryMixin):
+class InMemoryLedger(
+    _ApprovalStoreMixin, _AssignmentRepositoryMixin, _IncidentRepositoryMixin,
+    _HandoverRepositoryMixin, _ReportRepositoryMixin,
+):
     def __init__(self):
         self._lock = RLock()
         self.shifts: dict[UUID, Shift] = {}
+        self.assignments: dict[UUID, ShiftAssignment] = {}
         self.messages: dict[UUID, Message] = {}
         self.events: dict[UUID, OperationalEvent] = {}
         self.corrections: dict[UUID, Correction] = {}
@@ -53,13 +58,10 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
 
         InMemoryLedger has no real database transaction, so this simulates
         one: every dict this ledger owns is DEEP-copied on entry (a shallow
-        copy is not enough — callers mutate Pydantic model objects in place,
-        e.g. ``event.state = CONFIRMED``, before calling ``put_event``; a
-        shallow dict copy would still hold a reference to that same mutated
-        object). Any exception restores the snapshot before propagating -
-        "state change committed, audit write failed" is impossible here,
-        matching SqlLedger's real transaction (P-FIX-2 / High Finding #5).
-        """
+        copy is not enough - callers mutate Pydantic objects in place, e.g.
+        ``event.state = CONFIRMED``, before calling ``put_event``). Any
+        exception restores the snapshot before propagating, matching
+        SqlLedger's real transaction (P-FIX-2 / High Finding #5)."""
         with self._lock:
             snapshot = copy.deepcopy(
                 (
@@ -75,6 +77,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
+                    self.assignments,
                     self._audit.all(),
                 )
             )
@@ -94,6 +97,7 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                     self.users,
                     self.approval_receipts,
                     self.task_creation_intents,
+                    self.assignments,
                     entries,
                 ) = snapshot
                 self._audit = AuditLog()
@@ -205,11 +209,9 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
 
     def add_task(self, task: Task, *, unit=None) -> Task:
         self._assert_shift_not_frozen(task.shift_id, "add task to a frozen shift")
-        # R9.6 (P2B-APPROVER-IDENTITY-RECONCILIATION): a second POST /tasks
-        # against an already-consumed creation intent reuses
-        # task_id := intent_id and must be refused, independent of receipt
-        # state. Mirrors SqlLedger's primary-key-constraint behaviour so the
-        # application layer maps both backends the same way.
+        # R9.6: task_id := intent_id, so a second POST /tasks against an
+        # already-consumed intent must be refused - mirrors SqlLedger's PK
+        # constraint so both backends map identically.
         if task.task_id in self.tasks:
             raise ValueError(f"duplicate task_id: {task.task_id}")
         self.tasks[task.task_id] = task
@@ -234,11 +236,9 @@ class InMemoryLedger(_ApprovalStoreMixin, _IncidentRepositoryMixin, _HandoverRep
                 request.shift_id, "add customer request to a frozen shift"
             )
         # Store and return COPIES, not the caller's live object — see
-        # get_shift() for why. Independent review (2026-07-22) found that
-        # add/get/put_customer_request were the one entity family that kept
-        # the caller-owned object itself: `created = svc.create(...)` followed
-        # by `created.status = CLOSED` silently rewrote persisted state with
-        # no permission/lifecycle/transaction/audit involved at all.
+        # get_shift() for why (2026-07-22 review: this family previously kept
+        # the caller-owned object itself, letting a later in-place mutation
+        # silently rewrite persisted state with no governance involved).
         stored = request.model_copy()
         self.customer_requests[request.request_id] = stored
         return stored.model_copy()

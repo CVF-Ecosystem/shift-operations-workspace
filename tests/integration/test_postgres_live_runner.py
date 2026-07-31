@@ -1,7 +1,6 @@
-"""Non-live unit tests for scripts/run_postgres_live_roundtrip.py.
-
-None of these need Docker, psycopg or a database; every Docker/psycopg-
-facing function is monkeypatched."""
+"""Non-live unit tests for scripts/run_postgres_live_roundtrip.py. None of
+these need Docker, psycopg or a database; every Docker/psycopg-facing
+function is monkeypatched."""
 
 from __future__ import annotations
 
@@ -47,8 +46,8 @@ def test_free_loopback_port_is_actually_bindable():
         s.bind(("127.0.0.1", port))  # raises if not truly free
 
 
-def test_live_suite_targets_pin_all_six_coherent_modules():
-    """Exactly these six live modules - not a broader glob, no silent drop."""
+def test_live_suite_targets_pin_all_eight_coherent_modules():
+    """Exactly these eight live modules - not a broader glob, no silent drop."""
     assert runner.LIVE_SUITE_TARGETS == (
         "tests/integration/test_sql_ledger_postgres_live.py",
         "tests/integration/test_incident_postgres_live.py",
@@ -56,6 +55,8 @@ def test_live_suite_targets_pin_all_six_coherent_modules():
         "tests/integration/test_shift_create_postgres_live.py",
         "tests/integration/test_message_postgres_live.py",
         "tests/integration/test_report_postgres_live.py",
+        "tests/integration/test_assignment_postgres_live.py",
+        "tests/integration/test_assignment_postgres_live_f1.py",
     )
 
 

@@ -1,12 +1,14 @@
 """Request-scoped dependencies, including the CVF identity boundary."""
 
+from datetime import datetime
+
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from cvf_runtime.audit import audit_log
 from cvf_runtime.identity import Principal
 
-from workspace_api.auth.tokens import TokenError, decode_access_token
+from workspace_api.auth.tokens import TokenError, decode_access_token, decode_access_token_with_expiry
 from workspace_api.infrastructure.ledger_factory import build_ledger
 
 _bearer_scheme = HTTPBearer(auto_error=False)
@@ -37,5 +39,20 @@ def get_principal(
         raise HTTPException(status_code=401, detail="Missing bearer token")
     try:
         return decode_access_token(credentials.credentials)
+    except TokenError as exc:
+        raise HTTPException(status_code=401, detail=f"Invalid token: {exc}") from exc
+
+
+def get_principal_with_expiry(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> tuple[Principal, datetime]:
+    """P2C-MUTATION-FULL-UI-C3A1 (GET /auth/me only): identical verification
+    to get_principal, plus the real verified token expiry. A separate
+    dependency rather than changing get_principal's return type, so every
+    existing Depends(get_principal) call site remains untouched."""
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Missing bearer token")
+    try:
+        return decode_access_token_with_expiry(credentials.credentials)
     except TokenError as exc:
         raise HTTPException(status_code=401, detail=f"Invalid token: {exc}") from exc

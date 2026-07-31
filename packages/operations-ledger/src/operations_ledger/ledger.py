@@ -142,6 +142,24 @@ class Ledger(Protocol):
     # deactivated user's authority is re-checked at receipt-creation and
     # quorum-evaluation time, not trusted from a JWT claim issued earlier.
     def get_user_by_id(self, user_id: str, *, unit: Any = None): ...
+    # P2C-MUTATION-FULL-UI-C3A1 (SPEC R5, GET /staffing/users): deterministic
+    # active-user listing for the staffing control plane's target picker -
+    # id/username/role only, never a password hash.
+    def list_active_users(self) -> list: ...
+
+    # --- shift assignments (P2C-MUTATION-FULL-UI-C3A1, SPEC R1-R5) ---
+    # At most one ACTIVE assignment per (shift_id, user_id); revoked rows are
+    # retained as history, never deleted or overwritten in place. Duplicate-
+    # active/missing-identity/stale-version failures use controlled errors
+    # equivalent on both backends (ValueError/KeyError, never a raw driver
+    # exception). Add/revoke plus audit are atomic via the shared unit token.
+    def add_assignment(self, assignment, *, unit: Any = None): ...
+    def get_assignment(self, assignment_id: UUID, *, unit: Any = None): ...
+    def list_assignments_for_shift(self, shift_id: UUID, *, unit: Any = None) -> list: ...
+    def get_active_assignment(self, shift_id: UUID, user_id: str, *, unit: Any = None): ...
+    def revoke_assignment(
+        self, assignment_id: UUID, *, revoked_by: str, expected_version: int, unit: Any = None
+    ): ...
 
     # --- approval receipts / task creation intents (P2B-APPROVER-IDENTITY-RECONCILIATION) ---
     # Authenticated, scope-bound approval receipts replace caller-supplied

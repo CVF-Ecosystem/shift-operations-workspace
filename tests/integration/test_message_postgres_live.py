@@ -64,6 +64,10 @@ def _reconnected(live_database_url: str) -> SqlLedger:
 
 
 def _new_shift(ledger):
+    # P2C-MUTATION-FULL-UI-C3A1 (SPEC R4): ShiftService.create now requires
+    # the creator to be a persisted active user.
+    if ledger.get_user_by_id("setup-op") is None:
+        ledger.add_user(domain_models.User(user_id="setup-op", username="setup-op", password_hash="x", role="operator"))
     now = datetime.now(timezone.utc)
     return ShiftService(ledger).create(
         "Live PG shift", now, now + timedelta(hours=8), Principal(user_id="setup-op", role="operator")

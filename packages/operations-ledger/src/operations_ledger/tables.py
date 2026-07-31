@@ -15,12 +15,10 @@ P1-POSTGRESQL-LIVE-ROUNDTRIP Amendment 1 (PG-REV-F1): the three migration
 ``CREATE TYPE ... AS ENUM`` types (``data_state``, ``risk_class``,
 ``shift_status``) are now mapped with the same ``with_variant`` pattern as
 ``JSON_TYPE`` - portable ``String`` on SQLite, native ``postgresql.ENUM`` on
-PostgreSQL. A live round-trip against real PostgreSQL 16 previously failed
-with ``psycopg.errors.DatatypeMismatch`` because a bare ``String`` column
-binds an explicit ``::VARCHAR`` cast that PostgreSQL refuses to implicitly
-convert to a native enum type. ``create_type=False`` on every variant is
-mandatory: the migrations already ran ``CREATE TYPE``, so SQLAlchemy must
-never attempt to create (or drop) the type itself.
+PostgreSQL. A bare ``String`` column binds an explicit ``::VARCHAR`` cast that
+PostgreSQL refuses to implicitly convert to a native enum type.
+``create_type=False`` on every variant is mandatory: the migrations already
+ran ``CREATE TYPE``, so SQLAlchemy must never attempt to create/drop it.
 """
 
 from __future__ import annotations
@@ -44,6 +42,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 from sqlalchemy.dialects.postgresql import JSONB
 
+from operations_ledger._assignment_tables import build_shift_assignments_table
 from operations_ledger._handover_tables import build_handover_tables
 from operations_ledger._incident_tables import build_incidents_table
 from operations_ledger._report_tables import build_reports_table
@@ -282,19 +281,20 @@ approval_receipts = Table(
     ),
 )
 
-# Mirrors migration 005_incidents.sql (fifth vertical, P2-A). Table builder
-# lives in _incident_tables.py (SPEC R11): this host module only wires the
-# shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
+# Mirrors migration 005_incidents.sql. Table builder lives in
+# _incident_tables.py (SPEC R11): wires the shared metadata/shifts/
+# RISK_CLASS_TYPE objects this module already owns.
 incidents = build_incidents_table(metadata, shifts, RISK_CLASS_TYPE)
 
-# Mirrors migration 006_handovers.sql (P2A-HANDOVER-VERTICAL). Table builder
-# lives in _handover_tables.py (SPEC R13): this host module only wires the
-# shared metadata/shifts/RISK_CLASS_TYPE objects it already owns into it.
+# Mirrors migration 006_handovers.sql. Table builder lives in
+# _handover_tables.py (SPEC R13): wires the same shared objects.
 handovers, handover_items = build_handover_tables(metadata, shifts, RISK_CLASS_TYPE)
 
-# Mirrors migration 002_tasks_customers_reports.sql plus migration
-# 007_report_history_constraints.sql (P2R-OPERATIONAL-REPORT-FREEZE-
-# PREREQUISITE). Table builder lives in _report_tables.py (SPEC R23/R24):
-# this host module only wires the shared metadata/shifts/JSON_TYPE objects it
-# already owns into it.
+# Mirrors migration 002_tasks_customers_reports.sql plus 007_report_history_
+# constraints.sql. Table builder lives in _report_tables.py (SPEC R23/R24).
 reports = build_reports_table(metadata, shifts, JSON_TYPE)
+
+# Mirrors migration 008_shift_assignments.sql (P2C-MUTATION-FULL-UI-C3A1).
+# Table builder lives in _assignment_tables.py: wires the shared metadata/
+# shifts/users objects this module already owns.
+shift_assignments = build_shift_assignments_table(metadata, shifts, users)

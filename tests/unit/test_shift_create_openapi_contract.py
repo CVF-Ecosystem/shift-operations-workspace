@@ -31,7 +31,10 @@ def _sha(data: bytes) -> str:
 # test_p2b_openapi_contract.py so both files can never silently drift,
 # mirroring how that file itself imports PRE_P2C_READ_OPENAPI_SHA from
 # test_p2c_read_openapi_contract.py.
-from test_p2b_openapi_contract import PRE_SHIFT_CREATE_OPENAPI_SHA  # noqa: E402
+from test_p2b_openapi_contract import (  # noqa: E402
+    PRE_SHIFT_CREATE_OPENAPI_SHA,
+    _strip_assignment_delta,
+)
 
 
 def _strip_shifts_post_security(doc: dict) -> None:
@@ -132,6 +135,7 @@ def test_openapi_delta_is_exactly_the_shift_create_security_requirement():
     assert "security" in doc["paths"]["/shifts"]["post"]
 
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
     _strip_shifts_post_security(reduced)

@@ -30,7 +30,10 @@ def _sha(data: bytes) -> str:
 # The post-shift-create, pre-message-admission value - imported (not
 # retyped) from test_p2b_openapi_contract.py so both files can never
 # silently drift.
-from test_p2b_openapi_contract import PRE_MESSAGE_ADMISSION_OPENAPI_SHA  # noqa: E402
+from test_p2b_openapi_contract import (  # noqa: E402
+    PRE_MESSAGE_ADMISSION_OPENAPI_SHA,
+    _strip_assignment_delta,
+)
 
 
 def _strip_messages_post_delta(doc: dict) -> None:
@@ -132,6 +135,7 @@ def test_openapi_delta_is_exactly_the_message_admission_security_requirement():
     assert "security" in doc["paths"]["/messages"]["post"]
 
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)
 

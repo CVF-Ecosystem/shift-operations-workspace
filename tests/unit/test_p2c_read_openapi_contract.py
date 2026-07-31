@@ -58,6 +58,31 @@ _P2C_READ_SCHEMAS = {
     "OpenWorkResponse",
 }
 
+# P2C-MUTATION-FULL-UI-C3A1: duplicated (not imported - importing back from
+# test_p2b_openapi_contract.py would be circular, mirroring this file's own
+# report-delta duplication) rather than adding a shared third module.
+_ASSIGNMENT_PATHS = {
+    "/auth/me",
+    "/staffing/shifts",
+    "/staffing/users",
+    "/shifts/{shift_id}/assignments",
+    "/shifts/{shift_id}/assignments/{assignment_id}/revoke",
+    "/shifts/{shift_id}/capabilities",
+}
+_ASSIGNMENT_SCHEMAS = {
+    "AssignInput", "AssignmentStatus", "CapabilitiesResponse", "MeResponse",
+    "RevokeInput", "ShiftAssignment", "StaffingShift", "StaffingUser",
+}
+
+
+def _strip_assignment_delta(doc: dict) -> None:
+    for path in _ASSIGNMENT_PATHS:
+        assert path in doc["paths"], f"assignment path missing: {path}"
+        del doc["paths"][path]
+    for schema in _ASSIGNMENT_SCHEMAS:
+        assert schema in doc["components"]["schemas"], f"assignment schema missing: {schema}"
+        del doc["components"]["schemas"][schema]
+
 
 def test_openapi_delta_is_exactly_the_p2c_read_operations():
     """AC-11: mechanical proof that the OpenAPI delta is exactly the P2C read
@@ -82,6 +107,8 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
         assert method in doc["paths"][path], f"P2C read method missing: {method} {path}"
 
     reduced = json.loads(json.dumps(doc))
+
+    _strip_assignment_delta(reduced)
 
     # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R28): reverse the
     # COMPLETE later report delta first - the five new paths/schemas plus the

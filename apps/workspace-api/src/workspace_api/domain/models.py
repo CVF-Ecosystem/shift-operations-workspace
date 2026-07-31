@@ -38,6 +38,10 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
+from operations_domain.assignment_models import (  # noqa: F401  (re-exported for compatibility)
+    AssignmentStatus,
+    ShiftAssignment,
+)
 from operations_domain.models import (  # noqa: F401  (re-exported for compatibility)
     ApprovalReceipt,
     Correction,
@@ -68,6 +72,7 @@ from operations_domain.models import (  # noqa: F401  (re-exported for compatibi
 
 __all__ = [
     "ApprovalReceipt",
+    "AssignmentStatus",
     "Correction",
     "CustomerRequest",
     "CustomerRequestStatus",
@@ -88,6 +93,7 @@ __all__ = [
     "ReportType",
     "RiskClass",
     "Shift",
+    "ShiftAssignment",
     "ShiftStatus",
     "Task",
     "TaskCreationIntent",

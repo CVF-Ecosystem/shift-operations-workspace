@@ -56,7 +56,12 @@ def client(sql_ledger):
     """The real FastAPI app, with only get_ledger overridden to the live
     PostgreSQL-backed SqlLedger - JWT verification, permission checks and
     ShiftService routing all run for real (SPEC R8's authenticated API/
-    service path), exactly as production traffic would."""
+    service path), exactly as production traffic would.
+
+    P2C-MUTATION-FULL-UI-C3A1 (SPEC R4): ShiftService.create now requires
+    the creator to be a persisted active user - seeded here once per test."""
+    if sql_ledger.get_user_by_id("op1") is None:
+        sql_ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
     app.dependency_overrides[get_ledger] = lambda: sql_ledger
     try:
         yield TestClient(app)

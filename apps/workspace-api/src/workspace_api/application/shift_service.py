@@ -36,6 +36,7 @@ from operations_ledger import Ledger
 from operations_domain.models import ReportStatus, Shift, ShiftStatus
 from workspace_api.application import report_freeze
 from workspace_api.application.handover_service import assert_freeze_ready
+from workspace_api.domain.models import ShiftAssignment
 
 _FREEZE_CHAIN = ["identity", "permission", "freeze", "audit"]
 
@@ -74,13 +75,33 @@ class ShiftService:
         close/freeze. Permission admission happens before opening the
         mutation transaction (SPEC R5) - a refused caller never reaches the
         ledger at all.
+
+        P2C-MUTATION-FULL-UI-C3A1 (SPEC R4): the creator must exist as a
+        persisted active user (checked before opening the transaction, same
+        admission-before-mutation shape), and atomically gains an ACTIVE
+        assignment for the new shift alongside its creation and audit - one
+        transaction; any failure rolls back all three. This does NOT make
+        existing operational routes assignment-scoped (C3a2).
         """
         require_action(principal, "shift.create")
+
+        creator = self.ledger.get_user_by_id(principal.user_id)
+        if creator is None or not creator.is_active:
+            raise CvfDenied(
+                control="create",
+                reason=f"creator is not a persisted active user: {principal.user_id!r}",
+                http_status=422,
+            )
 
         shift = Shift(name=name, starts_at=starts_at, ends_at=ends_at)
 
         with self.ledger.transaction() as unit:
             created = self.ledger.create_shift(shift, unit=unit)
+
+            assignment = ShiftAssignment(
+                shift_id=created.shift_id, user_id=principal.user_id, assigned_by=principal.user_id
+            )
+            self.ledger.add_assignment(assignment, unit=unit)
 
             self.ledger.append_audit(
                 AuditRecord(

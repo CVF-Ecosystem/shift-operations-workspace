@@ -2,16 +2,13 @@
 derives sender/source authority server-side, enforces message.create
 permission, and atomically persists a shift-bound internal Message with an
 actor-bound audit record (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, SPEC
-R1-R11, AC-01 through AC-11).
-
-Before this tranche, POST /messages was anonymous and trusted a
-caller-supplied sender_id/source as authority (INTAKE probe: anonymous
-request -> 200, forged sender_id="forged-executive"/source="INTERNAL"
-accepted unchanged, zero audit records). These tests prove the opposite:
-every refusal writes nothing, sender/source are always server-derived, and
-only an admitted operator-or-higher JWT reaches MessageService.create, which
-persists the message and its exact actor-bound audit record atomically.
-"""
+R1-R11, AC-01 through AC-11). Before this tranche, POST /messages was
+anonymous and trusted a caller-supplied sender_id/source as authority (INTAKE
+probe: anonymous request -> 200, forged sender_id/source accepted unchanged,
+zero audit records). These tests prove the opposite: every refusal writes
+nothing, sender/source are always server-derived, and only an admitted
+operator-or-higher JWT reaches MessageService.create, which persists the
+message and its exact actor-bound audit record atomically."""
 
 from __future__ import annotations
 
@@ -31,12 +28,19 @@ from workspace_api.application.message_service import MessageService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import User
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
 from _auth_test_helpers import auth_headers
 
 _TEXT = "shift handover note"
+
+
+def _seed_user(ledger, user_id: str, role: str) -> None:
+    """SPEC R4: ShiftService.create requires a persisted active creator."""
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
 
 
 def _sql_ledger(tmp_path):
@@ -52,6 +56,7 @@ def _backends(tmp_path):
 
 def _new_shift(ledger):
     now = datetime.now(timezone.utc)
+    _seed_user(ledger, "setup-op", "operator")
     return ShiftService(ledger).create(
         "Day", now, now + timedelta(hours=8), Principal(user_id="setup-op", role="operator")
     )
@@ -200,21 +205,18 @@ def test_service_constructs_only_server_derived_message(tmp_path, name):
 # --- R6/AC-07: atomic create and audit ---------------------------------------
 
 def _audit_fields(entry) -> dict:
-    """Normalize the two backends' audit shapes (mirrors
-    test_shift_create_admission.py's _audit_fields)."""
+    """Normalize the two backends' audit shapes (mirrors test_shift_create_admission.py)."""
     if hasattr(entry, "actor_id"):
         return {
             "actor_id": entry.actor_id, "actor_role": entry.actor_role, "action": entry.action,
-            "record_type": entry.record_type, "record_id": entry.record_id,
-            "control_chain": entry.control_chain, "before_state": entry.before_state,
-            "after_state": entry.after_state,
+            "record_type": entry.record_type, "record_id": entry.record_id, "control_chain": entry.control_chain,
+            "before_state": entry.before_state, "after_state": entry.after_state,
         }
     meta = entry["metadata"]
     return {
         "actor_id": entry["actor_id"], "actor_role": meta["actor_role"], "action": entry["action"],
-        "record_type": entry["target_type"], "record_id": entry["target_id"],
-        "control_chain": meta["control_chain"], "before_state": meta["before_state"],
-        "after_state": meta["after_state"],
+        "record_type": entry["target_type"], "record_id": entry["target_id"], "control_chain": meta["control_chain"],
+        "before_state": meta["before_state"], "after_state": meta["after_state"],
     }
 
 
@@ -247,8 +249,7 @@ def _raise_on_audit(*args, **kwargs):
 
 
 def test_create_rolls_back_when_audit_fails_in_memory():
-    """MAR-BUILD-REV-F4 (SPEC R24): asserts exact unchanged state, not just
-    that the exception was raised."""
+    """MAR-BUILD-REV-F4 (SPEC R24): asserts exact unchanged state."""
     ledger = InMemoryLedger()
     shift = _new_shift(ledger)
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
@@ -259,8 +260,7 @@ def test_create_rolls_back_when_audit_fails_in_memory():
 
 
 def test_create_rolls_back_when_audit_fails_sql(tmp_path):
-    """MAR-BUILD-REV-F4 (SPEC R24): asserts exact unchanged persisted
-    message/audit rows, not just that the exception was raised."""
+    """MAR-BUILD-REV-F4 (SPEC R24): asserts exact unchanged persisted rows."""
     ledger = _sql_ledger(tmp_path)
     shift = _new_shift(ledger)
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):

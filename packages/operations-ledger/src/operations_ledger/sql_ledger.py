@@ -1,5 +1,4 @@
 """SqlLedger — append-only, dual-backend SQL persistence implementing Ledger Protocol."""
-
 from __future__ import annotations
 
 from contextlib import contextmanager
@@ -11,6 +10,7 @@ from sqlalchemy.exc import IntegrityError
 
 from operations_ledger import _evidence, _event_queries, _rows, _shift_queries
 from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
+from operations_ledger._assignment_store import _AssignmentStoreMixin
 from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
 from operations_ledger._message_store import _MessageStoreMixin
@@ -53,7 +53,8 @@ def make_engine(database_url: str, **kwargs) -> Engine:
 
 
 class SqlLedger(
-    _ApprovalStoreMixin, _IncidentStoreMixin, _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin
+    _ApprovalStoreMixin, _AssignmentStoreMixin, _IncidentStoreMixin,
+    _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin,
 ):
     def __init__(self, database_url: str, models, engine: Engine | None = None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
@@ -90,10 +91,9 @@ class SqlLedger(
 
     @contextmanager
     def report_mutation_transaction(self):
-        """F6: write-reserving mode for Report generate/submit-review/
-        approve/create_successor - read-then-decide-then-write the same
-        (shift_id, report_type) current-report state a concurrent call could
-        race. Only SQLite needs an upgrade; PostgreSQL row-locks on UPDATE."""
+        """F6: write-reserving mode for Report generate/submit-review/approve/
+        create_successor - guards the same current-report race. Only SQLite
+        needs an upgrade; PostgreSQL row-locks on UPDATE."""
         if self.engine.dialect.name == "sqlite":
             with self._sqlite_write_reserving_transaction() as conn:
                 yield conn

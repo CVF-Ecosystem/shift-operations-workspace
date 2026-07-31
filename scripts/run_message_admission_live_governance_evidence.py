@@ -68,8 +68,17 @@ def _with_ledger(ledger, fn):
 
 
 def _new_shift(ledger):
+    import workspace_api.domain.models as domain_models
     from cvf_runtime.identity import Principal
     from workspace_api.application.shift_service import ShiftService
+
+    # P2C-MUTATION-FULL-UI-C3A1 (SPEC R4/R31): ShiftService.create now
+    # requires the creator to be a persisted active user; seeded here (once
+    # per fresh ledger) so this real runner keeps working.
+    if ledger.get_user_by_id("msg-ev-setup") is None:
+        ledger.add_user(
+            domain_models.User(user_id="msg-ev-setup", username="msg-ev-setup", password_hash="x", role="operator")
+        )
 
     now = datetime.now(timezone.utc)
     return ShiftService(ledger).create(

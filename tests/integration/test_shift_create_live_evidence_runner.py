@@ -28,6 +28,11 @@ _SENTINEL_KEY = "sk-SENTINEL_9f8e7d3c2b1a0000000000000000000000"
 _SENTINEL_JWT = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4In0.c2lnbmF0dXJlLXBhcnQtc2VudGluZWw"
 _ENDPOINT_SENTINEL = "ENDPOINT_SECRET_7c6b5a4938271605f4e3d2c1b0a9f8e7"
 
+# P2C-MUTATION-FULL-UI-C3A1 (SPEC R31): no test-only ledger-seeding
+# monkeypatch here - the real runner (now in-ceiling, Amendment 1) seeds its
+# own "shift-ev-op"/"shift-ev-viewer" users before calling ShiftService.create,
+# so these tests exercise its real, unmodified behavior.
+
 
 def test_refusal_gate_cases_all_pass_with_observed_zero_calls():
     counter = support.ProviderCallCounter()

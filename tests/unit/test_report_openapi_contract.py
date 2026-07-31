@@ -30,7 +30,10 @@ def _sha(data: bytes) -> str:
 # PRE_MESSAGE_ADMISSION_OPENAPI_SHA's successor GOLDEN_OPENAPI_SHA before
 # this tranche. Imported (not retyped) from test_p2b_openapi_contract.py so
 # both files can never silently drift.
-from test_p2b_openapi_contract import PRE_REPORT_OPENAPI_SHA  # noqa: E402
+from test_p2b_openapi_contract import (  # noqa: E402
+    PRE_REPORT_OPENAPI_SHA,
+    _strip_assignment_delta,
+)
 
 _REPORT_PATHS = {
     "/reports",
@@ -139,6 +142,7 @@ def test_openapi_delta_is_exactly_the_report_operations_and_freeze_deprecation()
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
 
     actual = canonical(reduced)

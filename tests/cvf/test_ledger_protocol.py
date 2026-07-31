@@ -49,6 +49,8 @@ def test_both_backends_expose_the_same_ledger_methods():
         "list_handovers_for_shift", "put_handover",
         "add_report", "get_report", "get_current_report",
         "list_reports_for_shift", "put_report", "create_report_successor",
+        "list_active_users", "add_assignment", "get_assignment",
+        "list_assignments_for_shift", "get_active_assignment", "revoke_assignment",
     }
     for backend in (InMemoryLedger, SqlLedger):
         missing = {m for m in required if not hasattr(backend, m)}

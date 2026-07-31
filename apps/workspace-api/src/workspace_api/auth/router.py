@@ -17,7 +17,7 @@ from operations_ledger import Ledger
 from workspace_api.auth.passwords import DUMMY_PASSWORD_HASH, verify_password
 from workspace_api.auth.tokens import create_access_token
 from workspace_api.config import settings
-from workspace_api.dependencies import get_ledger
+from workspace_api.dependencies import get_ledger, get_principal_with_expiry
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -39,6 +39,12 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     expires_in: int
+
+
+class MeResponse(BaseModel):
+    user_id: str
+    role: str
+    expires_at: str
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -79,3 +85,14 @@ def login(payload: LoginInput, ledger: Ledger = Depends(get_ledger)):
         access_token=token,
         expires_in=settings.jwt_access_token_ttl_minutes * 60,
     )
+
+
+@router.get("/me", response_model=MeResponse)
+def me(identity: tuple[Principal, object] = Depends(get_principal_with_expiry)):
+    """P2C-MUTATION-FULL-UI-C3A1 (SPEC R9): verified user id, role and the
+    ACTUAL verified token expiry from THIS token - never a freshly
+    recalculated TTL-from-now approximation, which would silently diverge
+    from what the presented token really carries. Fixed-TTL/no-early-
+    revocation remains the existing, unchanged limitation."""
+    principal, expires_at = identity
+    return MeResponse(user_id=principal.user_id, role=principal.role, expires_at=expires_at.isoformat())

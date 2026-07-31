@@ -12,7 +12,7 @@ from cvf_runtime.approval import assert_approval_satisfied
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.evidence import assert_evidence_sufficient
 from cvf_runtime.identity import Principal
-from cvf_runtime.permission import has_authority, require_action
+from cvf_runtime.permission import has_authority, may_perform, require_action
 from cvf_runtime.policy_loader import load_profile
 from cvf_runtime.risk import requirement_for
 
@@ -51,6 +51,21 @@ def test_permission_supervisor_can_confirm():
 def test_authority_ordering():
     assert has_authority("responsible_manager", "shift_supervisor")
     assert not has_authority("operator", "shift_supervisor")
+
+
+def test_permission_map_has_exactly_shift_assignment_manage_supervisor_added():
+    """P2C-MUTATION-FULL-UI-C3A1 (SPEC R5): shift.assignment.manage requires
+    at least shift_supervisor."""
+    require_action(Principal(user_id="sup1", role="shift_supervisor"), "shift.assignment.manage")
+    with pytest.raises(CvfDenied) as exc:
+        require_action(Principal(user_id="op1", role="operator"), "shift.assignment.manage")
+    assert exc.value.control == "permission"
+
+
+def test_may_perform_is_the_non_raising_boolean_form():
+    assert may_perform("shift_supervisor", "shift.assignment.manage") is True
+    assert may_perform("operator", "shift.assignment.manage") is False
+    assert may_perform("operator", "not-a-real-action") is False
 
 
 # --- risk -> requirement --------------------------------------------------

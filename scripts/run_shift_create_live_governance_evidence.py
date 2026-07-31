@@ -116,10 +116,16 @@ def build_admitted_create_genuine() -> tuple[bool, str]:
     id) and every required audit field is exactly right - actor_id,
     actor_role, action, record_type, record_id, control_chain, before_state
     and after_state - so a tampered actor or an unexpected second shift
-    cannot silently pass as "one actor-bound audit"."""
+    cannot silently pass as "one actor-bound audit". P2C-MUTATION-FULL-UI-
+    C3A1 (SPEC R4/R31): ShiftService.create now requires the creator to be a
+    persisted active user; seeded here so this real runner keeps working."""
+    import workspace_api.domain.models as domain_models
     from workspace_api.infrastructure.repository import InMemoryLedger
 
     ledger = InMemoryLedger()
+    ledger.add_user(
+        domain_models.User(user_id="shift-ev-op", username="shift-ev-op", password_hash="x", role="operator")
+    )
     headers = _auth_headers("shift-ev-op", "operator")
 
     def _run(client):

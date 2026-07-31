@@ -1,14 +1,12 @@
 """Shift create admission: POST /shifts requires a verified JWT, enforces
 shift.create permission, and atomically persists the shift with an
 actor-bound audit record (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, SPEC
-R1-R6, AC-01 through AC-08).
-
-Before this tranche, POST /shifts had no Depends(get_principal) and called
-ledger.create_shift directly (INTAKE probe: ANONYMOUS_SHIFT_CREATE status=200).
-These tests prove the opposite: every refusal writes nothing, and only an
-admitted operator-or-higher JWT reaches ShiftService.create, which persists
-the shift and its exact actor-bound audit record atomically.
-"""
+R1-R6, AC-01 through AC-08). Before this tranche, POST /shifts had no
+Depends(get_principal) and called ledger.create_shift directly (INTAKE probe:
+ANONYMOUS_SHIFT_CREATE status=200). These tests prove the opposite: every
+refusal writes nothing, and only an admitted operator-or-higher JWT reaches
+ShiftService.create, which persists the shift and its exact actor-bound audit
+record atomically."""
 
 from __future__ import annotations
 
@@ -27,12 +25,18 @@ from operations_ledger.tables import metadata
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import User
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
 from _auth_test_helpers import auth_headers
 
 _NAME = "Day"
+
+
+def _seed_user(ledger, user_id: str, role: str) -> None:
+    """SPEC R4: ShiftService.create requires a persisted active creator."""
+    ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
 
 
 def _window():
@@ -127,7 +131,8 @@ def test_viewer_role_rejected_with_no_writes(client):
     "role", ["operator", "shift_supervisor", "responsible_manager", "authorized_executive"]
 )
 def test_operator_and_higher_roles_admitted(client, role):
-    _, http = client
+    ledger, http = client
+    _seed_user(ledger, "u1", role)
     res = _create(http, headers=auth_headers("u1", role))
     assert res.status_code == 200
     body = res.json()
@@ -147,7 +152,8 @@ def test_permission_map_has_exactly_shift_create_operator_added():
 
 
 def test_query_parameters_preserved_and_response_is_canonical_shift(client):
-    _, http = client
+    ledger, http = client
+    _seed_user(ledger, "op1", "operator")
     res = _create(http, headers=auth_headers("op1", "operator"))
     assert res.status_code == 200
     body = res.json()
@@ -156,6 +162,7 @@ def test_query_parameters_preserved_and_response_is_canonical_shift(client):
 
 def test_invalid_window_returns_422_with_no_writes(client):
     ledger, http = client
+    _seed_user(ledger, "op1", "operator")
     now = datetime.now(timezone.utc)
     params = {
         "name": _NAME,
@@ -193,6 +200,7 @@ def test_router_source_has_no_direct_ledger_mutation_call():
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_service_constructs_only_server_default_open_version_one_shift(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
+    _seed_user(ledger, "op1", "operator")
     starts_at, ends_at = _window()
     shift = ShiftService(ledger).create(_NAME, starts_at, ends_at, Principal(user_id="op1", role="operator"))
     assert shift.status.value == "OPEN"
@@ -207,6 +215,7 @@ def test_returned_record_equals_persisted_record(tmp_path, name):
     test_shift_create_sqlite.py; InMemoryLedger previously had no direct
     version of this check)."""
     ledger = dict(_backends(tmp_path))[name]
+    _seed_user(ledger, "op1", "operator")
     starts_at, ends_at = _window()
     returned = ShiftService(ledger).create(_NAME, starts_at, ends_at, Principal(user_id="op1", role="operator"))
 
@@ -227,31 +236,22 @@ def _audit_fields(entry) -> dict:
     test_atomic_mutation_audit.py's e.action / e["action"] split)."""
     if hasattr(entry, "actor_id"):
         return {
-            "actor_id": entry.actor_id,
-            "actor_role": entry.actor_role,
-            "action": entry.action,
-            "record_type": entry.record_type,
-            "record_id": entry.record_id,
-            "control_chain": entry.control_chain,
-            "before_state": entry.before_state,
-            "after_state": entry.after_state,
+            "actor_id": entry.actor_id, "actor_role": entry.actor_role, "action": entry.action,
+            "record_type": entry.record_type, "record_id": entry.record_id, "control_chain": entry.control_chain,
+            "before_state": entry.before_state, "after_state": entry.after_state,
         }
     meta = entry["metadata"]
     return {
-        "actor_id": entry["actor_id"],
-        "actor_role": meta["actor_role"],
-        "action": entry["action"],
-        "record_type": entry["target_type"],
-        "record_id": entry["target_id"],
-        "control_chain": meta["control_chain"],
-        "before_state": meta["before_state"],
-        "after_state": meta["after_state"],
+        "actor_id": entry["actor_id"], "actor_role": meta["actor_role"], "action": entry["action"],
+        "record_type": entry["target_type"], "record_id": entry["target_id"], "control_chain": meta["control_chain"],
+        "before_state": meta["before_state"], "after_state": meta["after_state"],
     }
 
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_successful_create_emits_exactly_one_actor_bound_audit(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
+    _seed_user(ledger, "op1", "operator")
     starts_at, ends_at = _window()
     principal = Principal(user_id="op1", role="operator")
     shift = ShiftService(ledger).create(_NAME, starts_at, ends_at, principal)
@@ -268,8 +268,6 @@ def test_successful_create_emits_exactly_one_actor_bound_audit(tmp_path, name):
     assert list(fields["control_chain"]) == ["identity", "permission", "create", "audit"]
     assert fields["before_state"] is None
     assert fields["after_state"] == str(shift.status)
-
-
 # --- R6/AC-08: injected audit failure rolls back -----------------------------
 
 
@@ -283,6 +281,7 @@ def _raise_on_audit(*args, **kwargs):
 
 def test_create_rolls_back_when_audit_fails_in_memory():
     ledger = InMemoryLedger()
+    _seed_user(ledger, "op1", "operator")
     starts_at, ends_at = _window()
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
@@ -292,6 +291,7 @@ def test_create_rolls_back_when_audit_fails_in_memory():
 
 def test_create_rolls_back_when_audit_fails_sql(tmp_path):
     ledger = _sql_ledger(tmp_path)
+    _seed_user(ledger, "op1", "operator")
     starts_at, ends_at = _window()
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
