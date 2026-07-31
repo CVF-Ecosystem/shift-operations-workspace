@@ -408,3 +408,36 @@ parent after push. The 58-path partial BUILD stays unstaged. Worker verifies
 paths, completes every original C3a2 gate/evidence requirement and returns
 `READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI, worker stage,
 commit, push, self-review or FREEZE; C3b-d remain blocked.
+
+## C3a2 independent BUILD review, Amendment 3 and re-review resume
+
+Independent BUILD review returned `REVIEW_CHANGES_REQUIRED` on four findings:
+F1 coarse-permission ordering, F2 absent admitted-operation audit proof, F3
+AC-32 exact-set mismatch and F4 two missing focused-matrix cases. Worker
+repaired F1/F2/F4 inside already-authorized paths, reran focused/full/
+PostgreSQL/live evidence, and correctly stopped on F3 rather than fabricate
+edits to eight authorized-but-unneeded test hosts.
+
+Reviewed Amendment 3 artifacts:
+
+- `docs/decisions/ADR_2026-08-01_P2C_C3A2_EXACT_SET_CONTRACTION_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_6.md`;
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A2_WORK_ORDER_AMENDMENT_3.md`;
+- `docs/decisions/P2C_C3A2_CEILING_AMENDMENT_3_AUTHORIZATION_REVIEW.md`.
+
+Independent disposition: `REVIEW_PASS / APPROVED`; authorization commit
+`d39c09bde31710573156a4d2de9f45e5ec293cd8` is pushed. Amendment 3 removes
+exactly the eight unchanged paths from the prior 82, yielding an exact 74-path
+set equal to the current candidate with zero outside/missing/staged. All eight
+removed paths are byte-identical to parent `22e05b5`; they are prohibited,
+not reserved. No authority, wildcard, waiver, debt or exception was added.
+
+This separate four-surface resume commit becomes the exact re-review/rollback
+parent after push. Worker verifies `HEAD == origin/main`, reconfirms G6, keeps
+the eight removed paths unchanged, rewrites the BUILD receipt from 74/82
+subset language to exact 74/74, reruns the required non-provider gates and
+returns `READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_RE_REVIEW`. The fresh post-F2
+provider receipt is retained only while provider-path code and the receipt
+remain unchanged; contraction alone does not authorize or require another
+provider call. No Claude CLI, worker stage/commit/push/self-review/FREEZE;
+C3b-d remain blocked.
