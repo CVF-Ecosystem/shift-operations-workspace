@@ -3,11 +3,11 @@
 ## Disposition
 
 - Tranche: `P2C-MUTATION-FULL-UI-2026-07-31`
-- Control-chain phase: `DESIGN`
+- Control-chain phase: `WORK_ORDER`
 - Roadmap target: remaining P2-C mutation/full UI and authorization boundary
 - Risk: `R2`
-- Active role: `REVIEWER`
-- Status: `DESIGN_REVIEW_PASS_AFTER_REPAIR — SPEC_FEASIBILITY_NEXT`
+- Active role: `WORK_ORDER_AUTHOR`
+- Status: `C3A_FANOUT_AMENDMENT_REVIEW_PASS — C3A1_WORK_ORDER_NEXT`
 
 ## Settled predecessor
 
@@ -137,3 +137,27 @@ waiver and re-reviewed in:
 
 Final SPEC disposition: `REVIEW_PASS_AFTER_REPAIR` for exact-path Work Order
 authoring only. No Work Order has been approved and BUILD remains unauthorized.
+
+## Work Order feasibility and C3a fan-out amendment
+
+Exact-path feasibility found `P2C-WO-FEAS-F1
+C3A_ROUTE_ENFORCEMENT_TEST_FANOUT`: the original C3a combines new assignment
+storage/staffing/bootstrap with enforcement across 24 principal-bearing
+production paths and at least 38 existing test/support paths, while multiple
+required seams are already at 296-300 physical lines.
+
+The reviewed repair is:
+
+- `docs/decisions/ADR_2026-07-31_P2C_C3A_FANOUT_ADDENDUM.md`;
+- `docs/specs/P2C_MUTATION_FULL_UI_SPEC_AMENDMENT_1.md`;
+- `docs/decisions/P2C_C3A_FANOUT_AMENDMENT_REVIEW.md`.
+
+Disposition: `CLOSED_WITHOUT_WAIVER / REVIEW_PASS`. C3a is now C3a1
+assignment persistence/staffing/bootstrap followed by C3a2 route-wide
+enforcement and legacy fixture migration. C3b-C3d keep their names and order.
+Every final requirement remains mandatory.
+
+Next move: author, independently review and approve the exact-path C3a1 Work
+Order under the operator's standing delegation. BUILD/provider calls remain
+unauthorized; Claude must be handed the later prompt manually and may not be
+called through CLI.
