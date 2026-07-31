@@ -294,3 +294,30 @@ partial BUILD, moves the accepted F1/F2 tests into the named companions, keeps
 all six affected Python files <=300 lines, reruns every required gate and
 returns `READY_FOR_INDEPENDENT_P2C_C3A1_BUILD_RE_RE_REVIEW`. No Claude CLI,
 stage/commit/push/self-review/FREEZE; C3a2/C3b/C3c/C3d remain unauthorized.
+
+## C3a1 final closure and C3a2 handoff
+
+C3a1 received independent final `REVIEW_PASS` after F1-F6 and the final
+control-mapping truth repair. Commit
+`ec90c78c98c6d314e81d7b50506b514c81f7f580` changes exactly the authorized
+53 paths and is pushed with `HEAD == origin/main`; worktree is clean.
+
+Final evidence: focused 121; full 1127 passed/112 skipped; session/catalog/
+file-size/repository/diff gates PASS; correct workspace doctor PASS WITH NOTE
+24/1; disposable PostgreSQL migrations 24/0 then 20/4 and live runner PASS
+with exact container/volume cleanup; fresh sanitized Alibaba evidence HTTP
+200 after three zero-call refusals; AC-29 exact-parent rehearsal at
+`9520c57359a6dd7fddb8a665e2cf159c8b326a9a` returned 998/87 and all gates
+PASS, with the temporary worktree removed.
+
+C3a1 proves only the single-workspace assignment persistence/staffing,
+advisory session/capability reads and atomic creator bootstrap boundary. It
+does not prove route-wide operational assignment enforcement, tenant or
+provider data scope, frontend mutation, production PostgreSQL, P2-C, P2-D or
+Phase-2 completion.
+
+Next move: author and independently review an exact-path C3a2 Work Order that
+consumes the pushed C3a1 contract and enforces assignment across existing
+operational routes. No C3a2 source edit, provider call or BUILD before that
+authorization and a separate pre-BUILD checkpoint. C3b/C3c/C3d remain
+blocked; no Claude CLI/MCP control is authorized.
