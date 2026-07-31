@@ -321,3 +321,30 @@ consumes the pushed C3a1 contract and enforces assignment across existing
 operational routes. No C3a2 source edit, provider call or BUILD before that
 authorization and a separate pre-BUILD checkpoint. C3b/C3c/C3d remain
 blocked; no Claude CLI/MCP control is authorized.
+
+## C3a2 Work Order authorization and pre-BUILD checkpoint
+
+Canonical authorization artifacts:
+
+- `docs/work_orders/P2C_MUTATION_FULL_UI_C3A2_WORK_ORDER.md`;
+- `docs/decisions/P2C_C3A2_WORK_ORDER_AUTHORIZATION_REVIEW.md`.
+
+Independent review first returned `REVIEW_CHANGES_REQUIRED` on
+`C3A2-WO-REV-F1/F2`: four legacy live runners that use direct-ledger shifts
+were omitted, and AC-29 was not operationalized. Repair added exactly those
+four paths, raised the ceiling `75 → 79`, required persisted ACTIVE assignment
+seeding with line-neutral repairs for the 298/297/299-line runners, and made
+the isolated exact-parent rehearsal/cleanup/receipt evidence mandatory.
+Re-review returned `REVIEW_PASS`; both findings closed without waiver.
+
+Authorization commit `fd1c09e` is pushed. This separate four-surface
+checkpoint becomes the exact C3a2 implementation/review parent after push.
+The root Codex role transitions to `IMPLEMENTATION_WORKER`; an independent
+agent remains the BUILD reviewer. Before any source edit or provider call the
+worker MUST verify `HEAD == origin/main`, record this checkpoint hash, run all
+G6 gates in the Work Order and stop `BLOCKED_G6` on any failure.
+
+Only after G6 passes may the worker edit the exact 79-path C3a2 ceiling. The
+worker does not stage, commit, push, self-review or FREEZE and returns
+`READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_REVIEW`. No Claude CLI/MCP call is
+authorized. C3b/C3c/C3d remain blocked.
