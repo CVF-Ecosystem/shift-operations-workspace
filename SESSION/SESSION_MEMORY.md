@@ -1,8 +1,7 @@
 # Session Memory
 
 Human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json).
-Provider-neutral — for every agent and human. Keep it short; details live in the
-handoffs.
+Provider-neutral for every agent and human; details live in the handoffs.
 
 _Last updated: 2026-07-31 (P2-C C3a1 Amendment 2 test-split resume)_
 
