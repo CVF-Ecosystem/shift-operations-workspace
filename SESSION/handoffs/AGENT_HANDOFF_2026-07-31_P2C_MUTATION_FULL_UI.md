@@ -118,3 +118,17 @@ Disposition: `CLOSED_WITHOUT_WAIVER / REVIEW_PASS`. C3b must add/backfill
 CustomerRequest version and require expected-version transition semantics.
 Four-checkpoint order is unchanged. SPEC authoring is now permitted; no Work
 Order or BUILD authority exists.
+
+## SPEC disposition
+
+Canonical SPEC:
+
+`docs/specs/P2C_MUTATION_FULL_UI_SPEC.md`
+
+It defines R1-R29 and AC-01..AC-35 across four gated checkpoints, including
+assignment route coverage, legacy recovery, CustomerRequest version backfill,
+exact mutation-precondition matrix, real operator/supervisor UI verticals,
+browser/PostgreSQL/provider evidence and bounded closure truth.
+
+Status: `SPEC_AUTHORED — PENDING_INDEPENDENT_REVIEW`. No Work Order or BUILD
+authority exists.
