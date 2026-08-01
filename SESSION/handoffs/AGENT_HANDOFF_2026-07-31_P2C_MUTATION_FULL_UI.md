@@ -597,3 +597,4 @@ gates PASS; doctor 24/1 bounded note. No provider call or Claude CLI/MCP.
 C3b2 proves only CustomerRequest version/CAS and backend mutation preconditions
 on proven backends. Next: exact-path C3c operator UI Work Order authorization;
 no BUILD authority carries forward, and C3d/P2-D/Phase 2 remain blocked.
+**C3c pre-BUILD:** exact 38-path WO/review `REVIEW_PASS / PUSHED` at `fbb1d31`, five findings closed without waiver. This four-surface commit is the clean parent; G6 must prove HEAD/origin, rehydration/ancestry, doctor 24/1 note, full Python/frozen frontend, Playwright Chromium, repository gates and zero residue before manual transfer. No Claude CLI/MCP/provider call; worker never stages/commits/pushes/self-reviews/FREEZEs; C3d/P2-D/Phase 2 blocked.

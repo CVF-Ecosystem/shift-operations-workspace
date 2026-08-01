@@ -6,6 +6,8 @@
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "last_updated": "2026-08-02",
   "required_reads": [
+    "docs/work_orders/P2C_MUTATION_FULL_UI_C3C_WORK_ORDER.md",
+    "docs/decisions/P2C_C3C_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "docs/decisions/P2C_C3B2_BUILD_INDEPENDENT_REVIEW.md",
     "docs/decisions/P2C_C3B2_BUILD_EVIDENCE_RECEIPT.md",
     "docs/decisions/ADR_2026-08-01_P2C_C3B2_HANDOVER_RUNNER_TEST_CEILING_ADDENDUM.md",
@@ -136,7 +138,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "P2-C C3b2 exact BUILD 9b751de is independently REVIEW_PASS/pushed, 83/83, after F1-F5 and residual REREV-F1 closed without waiver. Author and independently review an exact-path C3c operator mutation UI Work Order from the existing reviewed DESIGN/SPEC. No C3c BUILD before authorization, separate pushed pre-BUILD checkpoint and G6; C3d/P2-D/Phase 2 remain blocked. No provider call or Claude CLI/MCP control.",
+  "next_allowed_move": "C3c exact 38-path Work Order and independent authorization review are REVIEW_PASS/pushed at fbb1d31. This continuity commit is the separate clean pre-BUILD checkpoint. Run G6 from its pushed hash; only after G6 PASS may the operator manually transfer the C3c BUILD prompt. The worker edits exactly 38 paths and never stages/commits/pushes/self-reviews/FREEZEs. C3d/P2-D/Phase 2 remain blocked. No provider call or Claude CLI/MCP control.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -301,17 +303,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "C3b2 exact BUILD 9b751de is REVIEW_PASS/pushed after every finding closed. C3c has no BUILD authority; exact-path operator UI Work Order authorization is next.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "C3c exact 38-path Work Order is independently REVIEW_PASS/pushed at fbb1d31. BUILD authority activates only after this separate continuity checkpoint is pushed and G6 passes.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. C3b2 is REVIEW_PASS/pushed; C3c may enter Work Order authorization only, while C3d remains blocked.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. C3c Work Order authorization is pushed; this commit is the pre-BUILD checkpoint, G6 and manual prompt transfer are next, while C3d remains blocked.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "WORK_ORDER_AUTHOR",
-    "activeRoleNote": "Author C3c's exact-path operator mutation UI Work Order from reviewed DESIGN/SPEC, obtain independent authorization review and create a separate pushed pre-BUILD checkpoint. No Claude CLI/MCP.",
-    "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Push this separate C3c pre-BUILD checkpoint, run G6, then hand the exact worker prompt to the operator for manual transfer. No Claude CLI/MCP.",
+    "roleRoute": "SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD",
     "updatedAt": "2026-08-02"
   }
 }
