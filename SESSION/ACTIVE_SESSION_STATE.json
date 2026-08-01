@@ -128,7 +128,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "C3a2 Amendment 3 is independently REVIEW_PASS/approved and pushed at d39c09b; the final exact BUILD set is contracted from 82 to 74. This separate four-surface resume commit becomes the exact re-review/rollback parent after push while all 74 BUILD paths remain unstaged. IMPLEMENTATION_WORKER must verify HEAD == origin/main, reconfirm G6 continuity/gates, keep the eight removed paths unchanged, rewrite the BUILD receipt to exact 74/74, rerun required non-provider gates, retain the fresh post-F2 provider receipt only while provider-path code/live receipt stay unchanged, and return READY_FOR_INDEPENDENT_P2C_C3A2_BUILD_RE_REVIEW. No Claude CLI or worker stage/commit/push/self-review/FREEZE; C3b-d remain blocked.",
+  "next_allowed_move": "P2-C C3a2 is FREEZE/CLOSED_BOUNDED at pushed exact-74 BUILD 95b66b1 after independent final REVIEW_PASS. Author and independently review an exact-path C3b backend read/mutation contract readiness Work Order, then create a separate pre-BUILD checkpoint. No C3b source edit/provider call before authorization; C3c/C3d remain blocked. No Claude CLI/MCP control is authorized.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -293,17 +293,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "BUILD",
-    "activePhaseNote": "C3a2 Amendment 3 independently passed review and is pushed at d39c09b. Final exact set is 74; the 74-path unstaged candidate resumes only after this separate checkpoint is pushed and G6 is reconfirmed.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "C3a2 is FREEZE/CLOSED_BOUNDED at pushed exact-74 BUILD 95b66b1 after independent final REVIEW_PASS. Only the C3b Work Order may be authored next.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R and C3a1 are settled; P2-C C3a2 is at the pushed pre-BUILD checkpoint/G6 boundary.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. P2-R, C3a1 and C3a2 are settled bounded; P2-C remains open at the C3b Work Order boundary.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "IMPLEMENTATION_WORKER",
-    "activeRoleNote": "Root Codex may resume only the exact contracted 74-path C3a2 set after G6 reconfirmation. Independent BUILD re-review remains separate; root worker may not self-review or commit before REVIEW_PASS.",
-    "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
+    "activeRole": "WORK_ORDER_AUTHOR",
+    "activeRoleNote": "Author only the exact-path C3b backend-contract Work Order. Independent authorization review and a separate pre-BUILD checkpoint are required before implementation.",
+    "roleRoute": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER",
     "updatedAt": "2026-08-01"
   }
 }

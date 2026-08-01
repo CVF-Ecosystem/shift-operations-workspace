@@ -441,3 +441,33 @@ provider receipt is retained only while provider-path code and the receipt
 remain unchanged; contraction alone does not authorize or require another
 provider call. No Claude CLI, worker stage/commit/push/self-review/FREEZE;
 C3b-d remain blocked.
+
+## C3a2 final closure and C3b handoff
+
+Independent focused re-review returned final `REVIEW_PASS` after
+`C3A2-BUILD-REV-F1..F4` and residual
+`C3A2-BUILD-REREV-F1 REPORT_APPROVAL_SCOPE_ORDERING_INCOMPLETE` closed
+without waiver. Report approval now proves coarse authority 403, assignment
+404 and lifecycle 409 in that order with zero receipt/audit writes.
+
+C3 `95b66b15c9e7208f078c750cfbb7c30f051867f4` changes exactly the contracted
+74-path set, is pushed with `HEAD == origin/main`, and the worktree is clean.
+Final evidence: focused 39; full 1180 passed/116 skipped; repository gates
+PASS; disposable PostgreSQL 106 passed with migrations 24/0 then 20/4 and
+exact container/volume cleanup; AC-29 exact-parent rehearsal at `22e05b5`;
+doctor PASS WITH NOTE 24/1; fresh post-F2 Alibaba HTTP 200 receipt retained
+because the final repair changed only approval ordering and its test/BUILD
+receipt, not provider code or live receipt.
+
+C3a2 is `FREEZE / CLOSED_BOUNDED`. It proves only single-workspace stored
+ACTIVE assignment enforcement across the existing operational route matrix,
+with enumeration-safe refusal and capability non-authority, on InMemory,
+SQLite and disposable PostgreSQL 16. It does not prove tenant isolation,
+provider `data_scope`, token revocation, production PostgreSQL, frontend
+mutation/full UI, P2-C completion, P2-D or Phase-2 completion.
+
+Next governed move: author and independently review an exact-path C3b backend
+read/mutation contract readiness Work Order from the existing reviewed DESIGN
+and SPEC. No C3b source edit or provider call before authorization plus a
+separate pre-BUILD checkpoint. C3c/C3d remain blocked; no Claude CLI/MCP
+control is authorized.
