@@ -1,26 +1,28 @@
-# P2-C Mutation/Full UI SPEC — Amendment 8
+# SPEC Amendment 8 — P2-C C3b1 Outcome-Unknown Compatibility Host
 
-- Scope: C3b2 handover live-evidence runner regression host only
-- DESIGN authority:
-  `docs/decisions/ADR_2026-08-01_P2C_C3B2_HANDOVER_RUNNER_TEST_CEILING_ADDENDUM.md`
-- Parent SPEC: `docs/specs/P2C_MUTATION_FULL_UI_SPEC.md`
-- Status: `REVIEW_PASS / APPROVED FOR WORK_ORDER AMENDMENT`
+- Tranche: `P2C-MUTATION-FULL-UI-2026-07-31`
+- Checkpoint: `C3b1`
+- Risk: `R2`
+- Status: `REVIEW_PASS`
 
-## R39 — Explicit runner preconditions
+## Amendment
 
-Every handover live-runner helper invocation affected by R13 must receive an
-explicit expected version obtained from the durable response immediately
-preceding that mutation. Helper defaults, fixed version literals used as a
-general compatibility path, and helper-side current-version lookup are
-forbidden.
+Add `R38 — exhaustive outcome-unknown presentation compatibility`:
 
-The ready-handover/no-report regression must still reach the Report prerequisite
-and return controlled 409 with zero provider-call delta. It must not terminate
-earlier on a stale precondition.
+> C3b1 SHALL add exactly
+> `apps/workspace-web/src/components/AsyncState.tsx` to its BUILD ceiling.
+> Because that host is an exhaustive `Record<ApiErrorKind, string>`, it MUST
+> map `outcome_unknown` to a deterministic sanitized message that tells the
+> operator the outcome cannot be confirmed and a fresh read is required
+> before retry. It MUST NOT add automatic/manual retry controls, mutation
+> controls, storage, queueing, navigation, new state, styling or feature
+> wiring. No other React path is authorized. Casts, broad string types,
+> non-exhaustive maps or generic tricks that conceal the missing member are
+> forbidden.
 
-## AC-36
+AC-16/AC-17/AC-32 additionally require typecheck plus a focused assertion for
+the exact sanitized `outcome_unknown` mapping. The final exact C3b1 changed set
+is 35 paths. All earlier requirements and acceptance criteria remain unchanged.
 
-- the focused runner test file passes all 16 tests;
-- the added path is the only expansion of the original ceiling;
-- the runner helpers have no expected-version default;
-- all original C3b2 gates and bounded nonclaims remain mandatory.
+This amendment grants no BUILD resume, provider call, stage, commit, push,
+self-review or FREEZE authority.

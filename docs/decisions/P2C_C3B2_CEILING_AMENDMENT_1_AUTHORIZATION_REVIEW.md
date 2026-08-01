@@ -1,6 +1,6 @@
 # Authorization Review — P2-C C3b2 Ceiling Amendment 1
 
-- Reviewed artifacts: C3b2 runner-test ADR addendum, SPEC Amendment 8 and Work
+- Reviewed artifacts: C3b2 runner-test ADR addendum, SPEC Amendment 9 and Work
   Order Amendment 1
 - Reviewer role: independent `AUTHORIZATION_REVIEWER`
 - Final disposition: `REVIEW_PASS / APPROVED`
