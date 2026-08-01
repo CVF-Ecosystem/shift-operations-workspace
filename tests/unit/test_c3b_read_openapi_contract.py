@@ -11,8 +11,10 @@ imports `_strip_c3b_read_delta` from here instead of duplicating it or
 refreshing its own historical PRE_* baseline (Work Order section 3.4).
 
 Chain: ... -> `PRE_ASSIGNMENT_OPENAPI_SHA` -> (assignment's own prior
-`GOLDEN_OPENAPI_SHA`, now `PRE_C3B_READ_OPENAPI_SHA`) -> current
-`GOLDEN_OPENAPI_SHA`.
+`GOLDEN_OPENAPI_SHA`, now `PRE_C3B_READ_OPENAPI_SHA`) -> this module's
+`GOLDEN_OPENAPI_SHA` -> (C3B2: consumed as `PRE_C3B2_MUTATION_OPENAPI_SHA` by
+test_c3b2_mutation_openapi_contract.py, which now owns the current golden-hash
+link).
 """
 
 from __future__ import annotations
@@ -79,9 +81,12 @@ def _strip_c3b_read_delta(doc: dict) -> None:
 
 
 def test_openapi_delta_is_exactly_the_c3b_read_operations():
-    """AC-11/AC-16: mechanical proof, not an assertion of trust. Strips ONLY
-    the C3b1 delta, re-hashing against PRE_C3B_READ_OPENAPI_SHA."""
+    """AC-11/AC-16: mechanical proof, not an assertion of trust. Strips the
+    C3b1 delta PLUS the later C3b2 mutation-precondition delta, re-hashing
+    against PRE_C3B_READ_OPENAPI_SHA (mirrors the chain-proof pattern every
+    earlier link already uses)."""
     from workspace_api.main import app
+    from test_c3b2_mutation_openapi_contract import _strip_c3b2_mutation_delta
 
     doc = app.openapi()
     assert _C3B_READ_OPERATIONS <= {
@@ -91,18 +96,26 @@ def test_openapi_delta_is_exactly_the_c3b_read_operations():
     assert _C3B_READ_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
 
     actual = canonical(reduced)
     assert _sha(actual) == PRE_C3B_READ_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 
-def test_openapi_document_is_the_new_golden_value():
-    """The full current document, including the C3b1 delta, matches the
-    pinned current GOLDEN_OPENAPI_SHA."""
+def test_openapi_document_is_the_pre_c3b2_mutation_value():
+    """The full document with only the C3b1 delta present (i.e. before C3b2)
+    matches the C3b1-era GOLDEN_OPENAPI_SHA this module still owns - proves
+    this module's exported constant is the true pre-C3b2 baseline that
+    test_c3b2_mutation_openapi_contract.py imports as its own PRE_ value."""
     from workspace_api.main import app
+    from test_c3b2_mutation_openapi_contract import _strip_c3b2_mutation_delta
 
-    actual = canonical(app.openapi())
+    doc = app.openapi()
+    reduced = json.loads(json.dumps(doc))
+    _strip_c3b2_mutation_delta(reduced)
+
+    actual = canonical(reduced)
     assert _sha(actual) == GOLDEN_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 

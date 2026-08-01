@@ -80,8 +80,8 @@ def make_ready_handover(ledger, shift):
     seed_assignment(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, operator())
-    handover = svc.review(handover.handover_id, supervisor())
-    return svc.acknowledge(handover.handover_id, receiving_supervisor())
+    handover = svc.review(handover.handover_id, supervisor(), expected_version=handover.version)
+    return svc.acknowledge(handover.handover_id, receiving_supervisor(), expected_version=handover.version)
 
 
 __all__ = [

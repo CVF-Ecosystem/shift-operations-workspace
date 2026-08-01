@@ -127,9 +127,10 @@ def test_live_incident_acknowledge_requires_active_assignment_for_sufficient_rol
         "/incidents", json={"shift_id": str(shift.shift_id), "summary": "s"}, headers=auth_headers(*_OP)
     ).json()["incident_id"]
 
-    res = http.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=auth_headers(*_OUTSIDER))
+    ack_body = {"expected_version": 1}
+    res = http.post(f"/incidents/{incident_id}/acknowledge", json=ack_body, headers=auth_headers(*_OUTSIDER))
     assert res.status_code == 403  # insufficient role fires before assignment
 
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
-    res = http.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=auth_headers(*_SUP))
+    res = http.post(f"/incidents/{incident_id}/acknowledge", json=ack_body, headers=auth_headers(*_SUP))
     assert res.status_code != 404

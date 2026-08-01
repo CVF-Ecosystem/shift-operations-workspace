@@ -21,6 +21,7 @@ import os
 os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-do-not-use-in-production")
 
 from test_c3b_read_openapi_contract import _strip_c3b_read_delta  # noqa: E402
+from test_c3b2_mutation_openapi_contract import _strip_c3b2_mutation_delta  # noqa: E402
 
 
 def canonical(value) -> bytes:
@@ -110,6 +111,7 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations():
 
     reduced = json.loads(json.dumps(doc))
 
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
 

@@ -152,7 +152,9 @@ def test_r0_r1_creation_intent_rejected():
 def test_valid_status_transition():
     ledger, shift = _ledger_with_shift()
     created = TaskService(ledger).create_task(_task(shift), _operator())
-    moved = TaskService(ledger).transition(created.task_id, _operator(), TaskStatus.IN_PROGRESS)
+    moved = TaskService(ledger).transition(
+        created.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=created.version
+    )
     assert moved.status == TaskStatus.IN_PROGRESS
     assert moved.version == 2
 
@@ -162,14 +164,20 @@ def test_illegal_status_transition_blocked():
     created = TaskService(ledger).create_task(_task(shift), _operator())
     # OPEN -> DONE is not allowed directly.
     with pytest.raises(ValueError):
-        TaskService(ledger).transition(created.task_id, _operator(), TaskStatus.DONE)
+        TaskService(ledger).transition(
+            created.task_id, _operator(), TaskStatus.DONE, expected_version=created.version
+        )
 
 
 def test_done_task_is_terminal():
     ledger, shift = _ledger_with_shift()
     created = TaskService(ledger).create_task(_task(shift), _operator())
     svc = TaskService(ledger)
-    svc.transition(created.task_id, _operator(), TaskStatus.IN_PROGRESS)
-    svc.transition(created.task_id, _operator(), TaskStatus.DONE)
+    in_progress = svc.transition(
+        created.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=created.version
+    )
+    done = svc.transition(
+        created.task_id, _operator(), TaskStatus.DONE, expected_version=in_progress.version
+    )
     with pytest.raises(ValueError):
-        svc.transition(created.task_id, _operator(), TaskStatus.IN_PROGRESS)
+        svc.transition(created.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=done.version)

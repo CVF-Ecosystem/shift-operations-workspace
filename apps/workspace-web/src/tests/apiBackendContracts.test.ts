@@ -9,6 +9,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { api } from '../services/api';
 import type { Message, ReadinessResponse } from '../types/backendContracts';
+import type { CustomerRequest } from '../types/operations';
 
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
@@ -57,12 +58,26 @@ describe('backend contract reads (C3b1)', () => {
     expect(url).toContain('shift_id=s-1');
   });
 
-  it('lists customer requests for a shift with the exact query contract', async () => {
+  it('lists customer requests for a shift with the exact query contract and round-trips version', async () => {
     const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
-    fetchMock.mockResolvedValueOnce(jsonResponse(200, []));
+    const customerRequest: CustomerRequest = {
+      request_id: 'cr-1',
+      customer_id: 'c-1',
+      shift_id: 's-1',
+      summary: 'Delayed delivery',
+      details: null,
+      status: 'NEW',
+      source_message_id: null,
+      received_at: '2026-08-01T00:00:00Z',
+      promised_at: null,
+      owner_id: null,
+      version: 1
+    };
+    fetchMock.mockResolvedValueOnce(jsonResponse(200, [customerRequest]));
 
-    await api.listCustomerRequests('s-1');
+    const result = await api.listCustomerRequests('s-1');
 
+    expect(result).toStrictEqual([customerRequest]);
     const [url] = fetchMock.mock.calls[0] as [string];
     expect(url).toContain('/customer-requests?');
     expect(url).toContain('shift_id=s-1');

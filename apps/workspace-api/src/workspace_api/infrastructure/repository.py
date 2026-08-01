@@ -27,14 +27,16 @@ from operations_domain.models import (
 from workspace_api.domain.models import ShiftAssignment, User
 from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
 from workspace_api.infrastructure._assignment_repository import _AssignmentRepositoryMixin
+from workspace_api.infrastructure._customer_request_repository import _CustomerRequestRepositoryMixin
 from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
 from workspace_api.infrastructure._message_repository import _MessageRepositoryMixin
 from workspace_api.infrastructure._report_repository import _ReportRepositoryMixin
 
 class InMemoryLedger(
-    _ApprovalStoreMixin, _AssignmentRepositoryMixin, _IncidentRepositoryMixin,
-    _HandoverRepositoryMixin, _MessageRepositoryMixin, _ReportRepositoryMixin,
+    _ApprovalStoreMixin, _AssignmentRepositoryMixin, _CustomerRequestRepositoryMixin,
+    _IncidentRepositoryMixin, _HandoverRepositoryMixin, _MessageRepositoryMixin,
+    _ReportRepositoryMixin,
 ):
     def __init__(self):
         self._lock = RLock()
@@ -212,34 +214,9 @@ class InMemoryLedger(
         self.tasks[task.task_id] = task
         return task
 
-    def add_customer_request(self, request: CustomerRequest, *, unit=None) -> CustomerRequest:
-        # shift_id is nullable on CustomerRequest (unlike Task.shift_id): a
-        # request not tied to any shift has no frozen-shift invariant to
-        # check, so only guard when a shift_id is actually present.
-        if request.shift_id is not None:
-            self._assert_shift_not_frozen(
-                request.shift_id, "add customer request to a frozen shift"
-            )
-        # Store and return COPIES, not the caller's live object — see
-        # get_shift() for why (2026-07-22 review: this family previously kept
-        # the caller-owned object itself, letting a later in-place mutation
-        # silently rewrite persisted state with no governance involved).
-        stored = request.model_copy()
-        self.customer_requests[request.request_id] = stored
-        return stored.model_copy()
-
-    def get_customer_request(self, request_id: UUID, *, unit=None) -> CustomerRequest:
-        # Copy, not the live reference — see get_shift() for why.
-        return self.customer_requests[request_id].model_copy()
-
-    def put_customer_request(self, request: CustomerRequest, *, unit=None) -> CustomerRequest:
-        if request.shift_id is not None:
-            self._assert_shift_not_frozen(
-                request.shift_id, "modify customer request in a frozen shift"
-            )
-        stored = request.model_copy()
-        self.customer_requests[request.request_id] = stored
-        return stored.model_copy()
+    # --- customer requests: add_customer_request/get_customer_request/
+    # put_customer_request/transition_customer_request implemented by
+    # _CustomerRequestRepositoryMixin ---
 
     def add_user(self, user: User, *, unit=None) -> User:
         with self._lock:

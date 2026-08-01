@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
@@ -29,12 +29,15 @@ class IncidentInput(BaseModel):
 
 
 class AcknowledgeInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): expected_version is required.
     model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
 
 
 class TransitionInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
     target_status: IncidentStatus
+    expected_version: int = Field(ge=1)
 
 
 @router.post("", response_model=Incident)
@@ -95,7 +98,7 @@ def acknowledge_incident(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return IncidentService(ledger).acknowledge(incident_id, principal)
+        return IncidentService(ledger).acknowledge(incident_id, principal, expected_version=payload.expected_version)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
@@ -112,7 +115,9 @@ def transition_incident(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return IncidentService(ledger).transition(incident_id, principal, payload.target_status)
+        return IncidentService(ledger).transition(
+            incident_id, principal, payload.target_status, expected_version=payload.expected_version
+        )
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:

@@ -7,8 +7,7 @@ zero audit records - a governed mutation that "succeeded" with no audit trail.
 
 These tests inject the same failure and assert the OPPOSITE outcome now: the
 mutation must not be visible after a failed audit write, for every service
-that combines a state change with an audit append, on both ledger backends.
-"""
+that combines a state change with an audit append, on both ledger backends."""
 
 from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
@@ -93,8 +92,8 @@ def _make_ready_handover(ledger, shift):
     _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
-    handover = svc.review(handover.handover_id, _supervisor())
-    return svc.acknowledge(handover.handover_id, _receiving_supervisor())
+    handover = svc.review(handover.handover_id, _supervisor(), expected_version=handover.version)
+    return svc.acknowledge(handover.handover_id, _receiving_supervisor(), expected_version=handover.version)
 
 
 def _make_ready_report(ledger, shift):
@@ -102,13 +101,17 @@ def _make_ready_report(ledger, shift):
     freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE)."""
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
-    report = svc.submit_review(report.report_id, _operator())
+    report = svc.submit_review(
+        report.report_id, _operator(), expected_version=report.version, expected_status=report.status
+    )
     _seed(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, _supervisor())
+    return svc.approve(
+        report.report_id, _supervisor(), expected_version=report.version, expected_status=report.status
+    )
 
 
 class _BoomOnAudit(Exception):
@@ -130,7 +133,7 @@ def test_event_confirm_rolls_back_when_audit_fails_in_memory():
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
+            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), expected_version=event.version)
 
     fetched = ledger.get_event(event.event_id)
     assert fetched.state == DataState.PROPOSED, "mutation must not survive a failed audit write"
@@ -148,7 +151,7 @@ def test_event_confirm_rolls_back_when_audit_fails_sql(tmp_path):
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
+            EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), expected_version=event.version)
 
     fetched = ledger.get_event(event.event_id)
     assert fetched.state == DataState.PROPOSED, "mutation must not survive a failed audit write"
@@ -167,7 +170,7 @@ def test_correction_rolls_back_when_audit_fails_in_memory():
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CorrectionService(ledger, AuditLog()).correct_event(
-                event.event_id, _supervisor(), reason="fix title"
+                event.event_id, _supervisor(), reason="fix title", expected_version=event.version
             )
 
     fetched = ledger.get_event(event.event_id)
@@ -188,7 +191,7 @@ def test_correction_rolls_back_when_audit_fails_sql(tmp_path):
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CorrectionService(ledger, AuditLog()).correct_event(
-                event.event_id, _supervisor(), reason="fix title"
+                event.event_id, _supervisor(), reason="fix title", expected_version=event.version
             )
 
     fetched = ledger.get_event(event.event_id)
@@ -231,7 +234,9 @@ def test_task_transition_rolls_back_when_audit_fails_in_memory():
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)
+            TaskService(ledger).transition(
+                task.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=task.version
+            )
 
     fetched = ledger.get_task(task.task_id)
     assert fetched.status == TaskStatus.OPEN, "task status must not advance"
@@ -246,7 +251,9 @@ def test_task_transition_rolls_back_when_audit_fails_sql(tmp_path):
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)
+            TaskService(ledger).transition(
+                task.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=task.version
+            )
 
     fetched = ledger.get_task(task.task_id)
     assert fetched.status == TaskStatus.OPEN, "task status must not advance"
@@ -256,13 +263,13 @@ def test_task_transition_rolls_back_when_audit_fails_sql(tmp_path):
 def test_shift_freeze_rolls_back_when_audit_fails_in_memory():
     ledger = InMemoryLedger()
     shift = _new_shift(ledger)
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     report = _make_ready_report(ledger, shift)
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+            ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"
@@ -278,13 +285,13 @@ def test_shift_freeze_rolls_back_when_audit_fails_in_memory():
 def test_shift_freeze_rolls_back_when_audit_fails_sql(tmp_path):
     ledger = _sql_ledger(tmp_path)
     shift = _new_shift(ledger)
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     report = _make_ready_report(ledger, shift)
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+            ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.CLOSED, "freeze must not survive a failed audit write"

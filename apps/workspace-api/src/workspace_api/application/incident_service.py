@@ -39,6 +39,7 @@ from operations_domain.lifecycle import assert_incident_transition
 from operations_domain.models import Incident, IncidentStatus
 from workspace_api.application import approval_service
 from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 _REPORT_CHAIN = ["identity", "permission", "domain_lock", "audit"]
 _ACKNOWLEDGE_CHAIN = ["identity", "permission", "risk", "evidence", "approval", "audit"]
@@ -67,12 +68,20 @@ class IncidentService:
             )
         return stored
 
-    def acknowledge(self, incident_id: UUID, principal: Principal) -> Incident:
+    def acknowledge(
+        self, incident_id: UUID, principal: Principal, *, expected_version: int | None = None
+    ) -> Incident:
         require_action(principal, "incident.acknowledge")
         with self.ledger.transaction() as unit:
             incident = self.ledger.get_incident(incident_id, unit=unit)
             AssignmentScope(self.ledger).require_record(incident, principal, unit=unit)
             risk_class = str(incident.risk_class)
+
+            # SPEC R13/R14: compared after assignment admission, before the
+            # lifecycle/evidence/approval checks or any mutation.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=incident.version
+            )
 
             assert_incident_transition(incident.status, IncidentStatus.ACKNOWLEDGED)
             assert_evidence_sufficient(
@@ -114,26 +123,36 @@ class IncidentService:
         incident_id: UUID,
         principal: Principal,
         target_status: IncidentStatus,
+        *,
+        expected_version: int | None = None,
     ) -> Incident:
         require_action(principal, "incident.transition")
-        incident = self.ledger.get_incident(incident_id)
-        AssignmentScope(self.ledger).require_record(incident, principal)
-        if incident.status == IncidentStatus.REPORTED:
-            raise CvfDenied(
-                control="lifecycle",
-                reason=(
-                    "REPORTED incidents must be accepted via POST "
-                    "/incidents/{incident_id}/acknowledge, not the generic transition action"
-                ),
-                http_status=409,
-            )
-        assert_incident_transition(incident.status, target_status)
-
-        before = str(incident.status)
-        incident.status = target_status
-        incident.version += 1
-
+        # C3B2-WO-REV-F2: stored-target read, assignment admission,
+        # precondition compare, lifecycle check and mutation now share ONE
+        # transaction (previously the read/decision happened outside it).
         with self.ledger.transaction() as unit:
+            incident = self.ledger.get_incident(incident_id, unit=unit)
+            AssignmentScope(self.ledger).require_record(incident, principal, unit=unit)
+
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=incident.version
+            )
+
+            if incident.status == IncidentStatus.REPORTED:
+                raise CvfDenied(
+                    control="lifecycle",
+                    reason=(
+                        "REPORTED incidents must be accepted via POST "
+                        "/incidents/{incident_id}/acknowledge, not the generic transition action"
+                    ),
+                    http_status=409,
+                )
+            assert_incident_transition(incident.status, target_status)
+
+            before = str(incident.status)
+            incident.status = target_status
+            incident.version += 1
+
             self.ledger.put_incident(incident, unit=unit)
             self._audit(
                 principal, "incident.transition", incident_id, _TRANSITION_CHAIN,

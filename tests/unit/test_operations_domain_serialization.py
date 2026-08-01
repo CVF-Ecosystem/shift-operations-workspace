@@ -78,7 +78,7 @@ def _instances() -> dict[str, object]:
         ),
         "CustomerRequest": m.CustomerRequest(
             request_id=U[6], customer_id="c1", shift_id=U[1], summary="s", details="d",
-            source_message_id=U[2], received_at=T0, promised_at=T1, owner_id="op1",
+            source_message_id=U[2], received_at=T0, promised_at=T1, owner_id="op1", version=1,
         ),
         # P2A-INCIDENT-VERTICAL: fifth vertical, no pre-BUILD capture exists -
         # these are the first-ever golden hashes for this model, computed the
@@ -96,7 +96,7 @@ MODEL_NAMES = sorted(_instances())
 # --- golden captures from the pre-BUILD commit -----------------------------
 GOLDEN_SCHEMA_SHA = {
     "Correction": "65aab7b864d5b93348642449ba735c0e0cd7695abd951cf6aed9dca7c8db7829",
-    "CustomerRequest": "3dd9bc52ae4aad2b3338f6c0067fc825a975534a9979f38a6d70d3483ff8dadf",
+    "CustomerRequest": "1c6aab2db2b02765363a10ac2e2a571eb54ae06440eb032b2d225c7a659c815c",
     "EvidenceRef": "978e8f78a0ba88137a7558b823e0518c0185b3698c8e6a9aa9914c429527a85a",
     "Message": "6d6f6fa228cb162f54addc51d8e7d43d649db59be65548bf9f05444c70c32835",
     "OperationalEvent": "47272b4c40fb86c2f0c27299f3d1e2b3d777445ce05ce7264bb6f86a7840a933",
@@ -106,7 +106,7 @@ GOLDEN_SCHEMA_SHA = {
 }
 GOLDEN_DUMP_SHA = {
     "Correction": "d2634a1a5f4e3dd2946d4497353b5ad17605965d251f1c07e78e21a32f664a0f",
-    "CustomerRequest": "140ffebe2e7c57989939ed6d7a40ab3c4df509b98fc243384947dd5a4dd93adb",
+    "CustomerRequest": "6ed37da84820713ad1255d5b52c692a22cde307f4255789701f9584b637768ce",
     "EvidenceRef": "449fff73b872b588f60d8ee661d1d93b39a9f91526f32849118c126a4cad8de0",
     "Message": "7c280bb6d2c6854c3b87fe1df68a0cabb45b14df5be85472d6d67a4ecc2459b1",
     "OperationalEvent": "76d75ba5297061924c28e9aa0716969ec7369ede984e416342d9cd5d359a318b",
@@ -116,7 +116,7 @@ GOLDEN_DUMP_SHA = {
 }
 GOLDEN_DUMP_JSON_SHA = {
     "Correction": "bc2a0ad969b8977732a567fe3bdbbf01803c29a67e03b65d01388ca5c6ae751a",
-    "CustomerRequest": "f87d25a09e1bf377f1ec15e59f58ade75dad091f01fd12fa425a65d1a7bdd930",
+    "CustomerRequest": "90acf9b6b1b26a0f95e78b277128644ff3091209d40eb9200e6c611f150f8b40",
     "EvidenceRef": "a0e2743dad518391fe1373d0a0b14e8ae40e5ec339160e9cb9170e00d51f516a",
     "Message": "4c0853cd8bd1204d922e497fa1ee7c60d2c84d7321385ba020fca4a283580526",
     "OperationalEvent": "ff43cecec1cf62ce2df2332859d6b473dc4e99c517a2ebc8c3f5a0a2c1f31312",

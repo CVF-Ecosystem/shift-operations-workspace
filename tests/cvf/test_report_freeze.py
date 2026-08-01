@@ -60,20 +60,20 @@ def _ready_handover(ledger, shift):
     _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _OPERATOR)
-    handover = svc.review(handover.handover_id, _SUPERVISOR)
-    return svc.acknowledge(handover.handover_id, _RECEIVING_SUPERVISOR)
+    handover = svc.review(handover.handover_id, _SUPERVISOR, expected_version=handover.version)
+    return svc.acknowledge(handover.handover_id, _RECEIVING_SUPERVISOR, expected_version=handover.version)
 
 
 def _approved_report(ledger, shift, approver_id="sup3"):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
-    report = svc.submit_review(report.report_id, _OPERATOR)
+    report = svc.submit_review(report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status)
     _seed(ledger, shift.shift_id, approver_id, "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, _SUPERVISOR)
+    return svc.approve(report.report_id, _SUPERVISOR, expected_version=report.version, expected_status=report.status)
 
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
@@ -83,7 +83,7 @@ def test_freeze_atomically_transitions_report_and_shift(tmp_path, name):
     _ready_handover(ledger, shift)
     report = _approved_report(ledger, shift)
 
-    frozen_shift = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+    frozen_shift = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
     assert frozen_shift.status == ShiftStatus.FROZEN
 
     frozen_report = ledger.get_report(report.report_id)
@@ -101,7 +101,7 @@ def test_freeze_refused_with_zero_current_reports(tmp_path, name):
     _ready_handover(ledger, shift)
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
     assert exc.value.control == "freeze"
     assert "report" in str(exc.value).lower()
     assert ledger.get_shift(shift.shift_id).status == ShiftStatus.CLOSED  # no partial mutation
@@ -115,7 +115,7 @@ def test_freeze_refused_when_report_not_approved(tmp_path, name):
     ReportService(ledger).generate(shift.shift_id, _OPERATOR)  # still DRAFT
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
     assert exc.value.control == "freeze"
 
 
@@ -127,9 +127,10 @@ def test_idempotent_frozen_read_requires_frozen_report(tmp_path, name):
     shift = _closed_shift(ledger)
     _ready_handover(ledger, shift)
     report = _approved_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+    frozen = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
 
-    again = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)  # idempotent success
+    # idempotent success: the supplied precondition matches the now-frozen shift.
+    again = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=frozen.version)
     assert again.status == ShiftStatus.FROZEN
     assert ledger.get_report(report.report_id).status == ReportStatus.FROZEN
 
@@ -149,7 +150,7 @@ def test_freeze_rejects_stale_approved_report(tmp_path, name):
     ledger.add_task(Task(shift_id=shift.shift_id, title="Late addition"))
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+        ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
     assert exc.value.control == "freeze"
     assert ledger.get_shift(shift.shift_id).status == ShiftStatus.CLOSED
 

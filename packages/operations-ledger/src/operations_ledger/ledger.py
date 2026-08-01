@@ -99,6 +99,14 @@ class Ledger(Protocol):
     # CustomerRequest whose non-null shift_id matches, including terminal
     # CLOSED status.
     def list_customer_requests_for_shift(self, shift_id: UUID, *, unit: Any = None) -> list: ...
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R12/R14): atomic compare-and-swap
+    # transition. A matching-version write increments the version exactly
+    # once; a mismatch is a controlled stale-version error with zero write -
+    # the UPDATE's own predicate (SQL) / equivalent atomic check (InMemory)
+    # is the single source of truth, never a separate prior SELECT.
+    def transition_customer_request(
+        self, request_id: UUID, *, expected_version: int, target_status, unit: Any = None
+    ): ...
 
     # --- incidents (fifth vertical, P2-A) ---
     def add_incident(self, incident, *, unit: Any = None): ...

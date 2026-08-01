@@ -143,7 +143,7 @@ _REFUSAL_CASES = (
     ),
     (
         "incident_acknowledge_denied_insufficient_role_before_assignment",
-        lambda c, sid: c.post(f"/incidents/{sid}/acknowledge", json={},
+        lambda c, sid: c.post(f"/incidents/{sid}/acknowledge", json={"expected_version": 1},
                                headers=_auth_headers("scope-ev-op", "operator")),
         403,
     ),

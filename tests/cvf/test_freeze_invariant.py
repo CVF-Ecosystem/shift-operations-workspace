@@ -87,8 +87,8 @@ def _make_ready_handover(ledger, shift):
     _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
-    handover = svc.review(handover.handover_id, _supervisor())
-    return svc.acknowledge(handover.handover_id, _receiving_supervisor())
+    handover = svc.review(handover.handover_id, _supervisor(), expected_version=handover.version)
+    return svc.acknowledge(handover.handover_id, _receiving_supervisor(), expected_version=handover.version)
 
 def _make_ready_report(ledger, shift):
     """A current, APPROVED END_SHIFT report - the real `report_approved`
@@ -96,13 +96,17 @@ def _make_ready_report(ledger, shift):
     requires it)."""
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
-    report = svc.submit_review(report.report_id, _operator())
+    report = svc.submit_review(
+        report.report_id, _operator(), expected_version=report.version, expected_status=report.status
+    )
     _seed(ledger, shift.shift_id, "sup3", "shift_supervisor")
     create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, _supervisor())
+    return svc.approve(
+        report.report_id, _supervisor(), expected_version=report.version, expected_status=report.status
+    )
 
 # --- ShiftService.freeze prerequisite checks ---------------------------------
 
@@ -118,7 +122,7 @@ def test_freeze_denied_without_permission():
 def test_freeze_denied_when_shift_not_closed():
     ledger, shift = _in_memory_shift()
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=shift.version)
     assert exc.value.control == "freeze"
     assert "shift_closed" in str(exc.value) or "CLOSED" in str(exc.value)
 
@@ -145,10 +149,10 @@ def test_freeze_denied_without_ready_handover_even_with_approved_report():
     """SPEC R20: a real approved report never bypasses the real
     open_handover_items_linked prerequisite."""
     ledger, shift = _in_memory_shift()
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_report(ledger, shift)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
     assert exc.value.control == "freeze"
     assert "handover" in str(exc.value).lower()
 
@@ -156,10 +160,10 @@ def test_freeze_denied_without_approved_report_even_with_ready_handover():
     """SPEC R20: a ready handover never bypasses the real report_approved
     prerequisite."""
     ledger, shift = _in_memory_shift()
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
     assert exc.value.control == "freeze"
     assert "report" in str(exc.value).lower()
 
@@ -175,18 +179,18 @@ def test_freeze_denied_when_acknowledged_handover_snapshot_is_stale():
     stale.status = TaskStatus.IN_PROGRESS
     ledger.put_task(stale)
 
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_report(ledger, shift)
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+        ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
     assert exc.value.control == "freeze"
 
 def test_freeze_succeeds_with_full_chain_and_audits():
     ledger, shift = _in_memory_shift()
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    frozen = ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    frozen = ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
     assert frozen.status == ShiftStatus.FROZEN
     entries = ledger.audit_entries_for(str(shift.shift_id))
     actions = {e.action for e in entries}
@@ -214,13 +218,13 @@ def test_event_confirm_blocked_after_parent_shift_frozen(backend, tmp_path):
     )
     ledger.add_event(event)
 
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     with pytest.raises(ValueError, match="frozen"):
-        EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
+        EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor(), expected_version=event.version)
 
 @pytest.mark.parametrize("backend", ["in_memory", "sql"])
 def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
@@ -235,16 +239,18 @@ def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
     task = Task(shift_id=shift.shift_id, title="Inspect crane")
     ledger.add_task(task)
 
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     # The still-OPEN task is captured into the handover/report snapshots
     # unmutated, so freeze succeeds; the block proven below is post-freeze.
     _make_ready_handover(ledger, shift)
 
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     with pytest.raises(ValueError, match="frozen"):
-        TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)
+        TaskService(ledger).transition(
+            task.task_id, _operator(), TaskStatus.IN_PROGRESS, expected_version=task.version
+        )
 
 @pytest.mark.parametrize("backend", ["in_memory", "sql"])
 def test_new_event_rejected_on_frozen_shift(backend, tmp_path):
@@ -256,10 +262,10 @@ def test_new_event_rejected_on_frozen_shift(backend, tmp_path):
         shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
         ledger.create_shift(shift)
 
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     new_event = OperationalEvent(
         shift_id=shift.shift_id,
@@ -280,14 +286,14 @@ def test_correction_still_allowed_after_freeze_in_memory():
         state=DataState.CONFIRMED,
     )
     ledger.add_event(event)
-    ledger.close_shift(shift.shift_id)
+    closed = ledger.close_shift(shift.shift_id)
     _make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, _supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, _supervisor(), expected_version=closed.version)
 
     # Correction is the one permitted post-freeze mutation path.
     correction = CorrectionService(ledger, AuditLog()).correct_event(
-        event.event_id, _supervisor(), reason="fix title"
+        event.event_id, _supervisor(), reason="fix title", expected_version=event.version
     )
     assert correction.new_version == event.version + 0 or correction.new_version >= 1
     fetched = ledger.get_event(event.event_id)

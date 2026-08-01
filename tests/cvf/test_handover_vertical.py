@@ -1,8 +1,6 @@
 """Handover golden vertical (P2A-HANDOVER-VERTICAL): server-derived carry-over,
-sender review, distinct receiver acknowledgement. Freeze integration is
-exercised in test_freeze_invariant.py / test_shift_close_freeze_interaction.py,
-not duplicated here.
-"""
+sender review, distinct receiver acknowledgement. Freeze integration lives in
+test_freeze_invariant.py / test_shift_close_freeze_interaction.py."""
 
 from datetime import datetime, timedelta, timezone
 from uuid import uuid4
@@ -21,30 +19,24 @@ from workspace_api.domain.models import ShiftAssignment
 from operations_domain.models import EvidenceRef, HandoverStatus, Incident, Shift, Task, TaskStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
-
 from _auth_test_helpers import auth_headers
 
 _OPERATOR = Principal(user_id="op1", role="operator")
 _SUPERVISOR = Principal(user_id="sup1", role="shift_supervisor")
 _RECEIVER = Principal(user_id="sup2", role="shift_supervisor")
-
-
 def _sql_ledger(tmp_path):
     engine = make_engine(f"sqlite:///{tmp_path / 'handovers.sqlite3'}")
     metadata.create_all(engine)
     return SqlLedger(str(tmp_path / "handovers.sqlite3"), models=domain_models, engine=engine)
 
-
 def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
-
 
 def _seed(ledger, shift_id, user_id, role):
     if ledger.get_user_by_id(user_id) is None:
         ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
     if ledger.get_active_assignment(shift_id, user_id) is None:
         ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
-
 
 def _shift(ledger, **kw):
     now = datetime.now(timezone.utc)
@@ -54,17 +46,14 @@ def _shift(ledger, **kw):
     _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return shift
 
-
 def _pair(ledger):
     s1, s2 = _shift(ledger), _shift(ledger)
     _seed(ledger, s2.shift_id, "sup2", "shift_supervisor")
     return s1, s2
 
-
 def _action_of(entry) -> str:
     """Normalize InMemoryLedger AuditRecord objects vs SqlLedger dict rows."""
     return entry.action if hasattr(entry, "action") else entry["action"]
-
 
 @pytest.fixture
 def client(request):
@@ -104,16 +93,16 @@ def test_invalid_lifecycle_transitions_rejected():
     svc = HandoverService(ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
     with pytest.raises(CvfDenied) as exc:
-        svc.acknowledge(h.handover_id, _RECEIVER)
+        svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     assert exc.value.control == "lifecycle"
 
-    h = svc.review(h.handover_id, _SUPERVISOR)
+    h = svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
     with pytest.raises(CvfDenied):
-        svc.review(h.handover_id, _SUPERVISOR)
+        svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
 
-    h = svc.acknowledge(h.handover_id, _RECEIVER)
+    h = svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     with pytest.raises(CvfDenied):
-        svc.review(h.handover_id, _SUPERVISOR)
+        svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
 
 # --- AC-03/AC-23: permission, distinct receiver, no assignment claim --------
 
@@ -124,18 +113,30 @@ def test_create_rejects_viewer_role():
         HandoverService(ledger).create(s1.shift_id, s2.shift_id, Principal(user_id="v1", role="viewer"))
     assert exc.value.control == "permission"
 
+# REVIEW-F5: coarse authority before target lookup - a viewer must be
+# refused 403 for a handover_id that does not exist, never a 404 oracle.
+def test_review_and_acknowledge_unauthorized_gets_403_not_404_for_nonexistent_handover():
+    ledger = InMemoryLedger()
+    viewer = Principal(user_id="v1", role="viewer")
+    with pytest.raises(CvfDenied) as exc:
+        HandoverService(ledger).review(uuid4(), viewer, expected_version=1)
+    assert exc.value.control == "permission"
+    with pytest.raises(CvfDenied) as exc:
+        HandoverService(ledger).acknowledge(uuid4(), viewer, expected_version=1)
+    assert exc.value.control == "permission"
+
 def test_acknowledge_requires_distinct_receiver_and_makes_no_assignment_claim():
     """AC-23: no assignment registry exists - bounded to receiver identity only."""
     ledger = InMemoryLedger()
     s1, s2 = _pair(ledger)
     svc = HandoverService(ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
-    h = svc.review(h.handover_id, _SUPERVISOR)
+    h = svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
     with pytest.raises(CvfDenied) as exc:
-        svc.acknowledge(h.handover_id, _SUPERVISOR)
+        svc.acknowledge(h.handover_id, _SUPERVISOR, expected_version=h.version)
     assert exc.value.control == "lifecycle" and "differ" in str(exc.value)
 
-    acknowledged = svc.acknowledge(h.handover_id, _RECEIVER)
+    acknowledged = svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     assert not hasattr(acknowledged, "assigned_to_shift")
     assert acknowledged.received_by == "sup2"
 
@@ -178,7 +179,7 @@ def test_review_rejects_stale_snapshot_after_new_open_work_appears():
     handover = HandoverService(ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
     ledger.add_task(Task(shift_id=s1.shift_id, title="Appeared after create"))
     with pytest.raises(CvfDenied) as exc:
-        HandoverService(ledger).review(handover.handover_id, _SUPERVISOR)
+        HandoverService(ledger).review(handover.handover_id, _SUPERVISOR, expected_version=handover.version)
     assert exc.value.control == "lifecycle"
     assert "snapshot" in str(exc.value)
 
@@ -189,14 +190,14 @@ def test_acknowledge_rejects_stale_snapshot_after_source_task_mutates():
     ledger.add_task(task)
     svc = HandoverService(ledger)
     handover = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
-    handover = svc.review(handover.handover_id, _SUPERVISOR)
+    handover = svc.review(handover.handover_id, _SUPERVISOR, expected_version=handover.version)
 
     mutated = ledger.get_task(task.task_id)
     mutated.status = TaskStatus.IN_PROGRESS
     ledger.put_task(mutated)
 
     with pytest.raises(CvfDenied) as exc:
-        svc.acknowledge(handover.handover_id, _RECEIVER)
+        svc.acknowledge(handover.handover_id, _RECEIVER, expected_version=handover.version)
     assert exc.value.control == "lifecycle"
 
 # --- AC-04/AC-09: shift/actor invariants rechecked at every transition ------
@@ -219,7 +220,7 @@ def test_shift_state_rechecked_at_create_and_review():
     handover = HandoverService(ledger).create(s5.shift_id, s6.shift_id, _OPERATOR)
     ledger.close_shift(s6.shift_id)
     with pytest.raises(CvfDenied) as exc:
-        HandoverService(ledger).review(handover.handover_id, _SUPERVISOR)
+        HandoverService(ledger).review(handover.handover_id, _SUPERVISOR, expected_version=handover.version)
     assert exc.value.control == "lifecycle"
 
 # --- AC-06/AC-08/AC-12: ledger parity and atomic persistence ----------------
@@ -235,9 +236,9 @@ def test_create_review_acknowledge_persist_and_audit_atomically_both_backends(tm
     assert len(ledger.get_handover(h.handover_id).items) == 1
     assert len(ledger.audit_entries_for(str(h.handover_id))) == 1
 
-    h = svc.review(h.handover_id, _SUPERVISOR)
+    h = svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
     assert h.status == HandoverStatus.REVIEWED
-    h = svc.acknowledge(h.handover_id, _RECEIVER)
+    h = svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     assert h.status == HandoverStatus.ACKNOWLEDGED and h.acknowledged is True
     actions = {_action_of(a) for a in ledger.audit_entries_for(str(h.handover_id))}
     assert {"handover.create", "handover.review", "handover.acknowledge"} <= actions
@@ -283,18 +284,17 @@ def test_http_review_then_acknowledge_over_full_route_chain(client):
     ledger, http = client
     s1, s2 = _shift(ledger), _shift(ledger)
     _seed(ledger, s2.shift_id, "sup2", "shift_supervisor")
-    create_res = http.post(
-        "/handovers",
-        json={"from_shift_id": str(s1.shift_id), "to_shift_id": str(s2.shift_id)},
-        headers=auth_headers("op1", "operator"),
-    )
+    create_body = {"from_shift_id": str(s1.shift_id), "to_shift_id": str(s2.shift_id)}
+    create_res = http.post("/handovers", json=create_body, headers=auth_headers("op1", "operator"))
     handover_id = create_res.json()["handover_id"]
 
-    review_res = http.post(f"/handovers/{handover_id}/review", json={}, headers=auth_headers("sup1", "shift_supervisor"))
+    review_body = {"expected_version": create_res.json()["version"]}
+    review_res = http.post(f"/handovers/{handover_id}/review", json=review_body, headers=auth_headers("sup1", "shift_supervisor"))
     assert review_res.status_code == 200, review_res.text
     assert review_res.json()["status"] == "REVIEWED"
 
-    ack_res = http.post(f"/handovers/{handover_id}/acknowledge", json={}, headers=auth_headers("sup2", "shift_supervisor"))
+    ack_body = {"expected_version": review_res.json()["version"]}
+    ack_res = http.post(f"/handovers/{handover_id}/acknowledge", json=ack_body, headers=auth_headers("sup2", "shift_supervisor"))
     assert ack_res.status_code == 200, ack_res.text
     assert ack_res.json()["status"] == "ACKNOWLEDGED"
     assert ack_res.json()["acknowledged"] is True

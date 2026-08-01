@@ -62,7 +62,7 @@ def check_approval_gate() -> list[dict]:
     app.dependency_overrides[get_ledger] = lambda: ledger
     try:
         client = TestClient(app)
-        res = client.post(f"/events/{event.event_id}/confirm", json={}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
+        res = client.post(f"/events/{event.event_id}/confirm", json={"expected_version": event.version}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
         results.append({"case": "fabricated_approval_rejected", "outcome": "PASS" if res.status_code == 409 else "FAIL", "detail": f"refused: status {res.status_code}", "calls": 0})
     finally:
         app.dependency_overrides.pop(get_ledger, None)
@@ -97,7 +97,7 @@ def check_approval_gate() -> list[dict]:
         client = TestClient(app)
         headers = _auth_headers("evidence-sup1", "shift_supervisor")
         _rec(client, headers, "OperationalEvent", "event.confirm", event.event_id)
-        res = client.post(f"/events/{event.event_id}/confirm", json={}, headers=headers)
+        res = client.post(f"/events/{event.event_id}/confirm", json={"expected_version": event.version}, headers=headers)
         results.append({"case": "self_approval_rejected", "outcome": "PASS" if res.status_code == 409 else "FAIL", "detail": f"refused: status {res.status_code}", "calls": 0})
     finally:
         app.dependency_overrides.pop(get_ledger, None)
@@ -109,7 +109,7 @@ def check_approval_gate() -> list[dict]:
     try:
         client = TestClient(app)
         _rec(client, _auth_headers("evidence-sup3", "shift_supervisor"), "OperationalEvent", "event.confirm", event.event_id)
-        res = client.post(f"/events/{event.event_id}/confirm", json={}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
+        res = client.post(f"/events/{event.event_id}/confirm", json={"expected_version": event.version}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
         results.append({"case": "insufficient_quorum_rejected", "outcome": "PASS" if res.status_code == 409 else "FAIL", "detail": f"refused: status {res.status_code}", "calls": 0})
     finally:
         app.dependency_overrides.pop(get_ledger, None)
@@ -123,8 +123,13 @@ def check_approval_gate() -> list[dict]:
         client = TestClient(app)
         _rec(client, _auth_headers("evidence-sup4", "shift_supervisor"), "OperationalEvent", "event.confirm", event.event_id)
         _rec(client, _auth_headers("evidence-mgr1", "responsible_manager"), "OperationalEvent", "event.confirm", event.event_id)
+        original_version = event.version
         ledger.events[event.event_id].version += 1
-        res = client.post(f"/events/{event.event_id}/confirm", json={}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
+        res = client.post(
+            f"/events/{event.event_id}/confirm",
+            json={"expected_version": original_version},
+            headers=_auth_headers("evidence-sup1", "shift_supervisor"),
+        )
         results.append({"case": "replay_stale_version_rejected", "outcome": "PASS" if res.status_code == 409 else "FAIL", "detail": f"refused: status {res.status_code}", "calls": 0})
     finally:
         app.dependency_overrides.pop(get_ledger, None)
@@ -151,7 +156,11 @@ def build_and_confirm_valid_quorum() -> tuple[bool, str]:
         if r1.status_code != 201: return False, f"receipt 1 failed: {r1.status_code}"
         r2 = client.post("/approvals", json={"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}, headers=_auth_headers("evidence-mgr2", "responsible_manager"))
         if r2.status_code != 201: return False, f"receipt 2 failed: {r2.status_code}"
-        cres = client.post(f"/events/{event.event_id}/confirm", json={}, headers=_auth_headers("evidence-sup1", "shift_supervisor"))
+        cres = client.post(
+            f"/events/{event.event_id}/confirm",
+            json={"expected_version": event.version},
+            headers=_auth_headers("evidence-sup1", "shift_supervisor"),
+        )
         if cres.status_code != 200: return False, f"confirm failed with HTTP {cres.status_code}"
         confirmed = ledger.get_event(event.event_id)
         if confirmed.state != DataState.CONFIRMED: return False, f"confirm state={confirmed.state}"

@@ -27,16 +27,24 @@ def test_valid_status_transition_sequence():
     svc = CustomerRequestService(ledger)
     created = svc.create_customer_request(_request(), _operator())
 
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED, expected_version=created.version
+    )
     assert moved.status == CustomerRequestStatus.ACKNOWLEDGED
 
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=moved.version
+    )
     assert moved.status == CustomerRequestStatus.IN_PROGRESS
 
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.RESOLVED)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.RESOLVED, expected_version=moved.version
+    )
     assert moved.status == CustomerRequestStatus.RESOLVED
 
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.CLOSED, expected_version=moved.version
+    )
     assert moved.status == CustomerRequestStatus.CLOSED
 
     audit = ledger.audit_entries_for(str(created.request_id))
@@ -49,15 +57,25 @@ def test_waiting_cannot_go_directly_to_closed():
     ledger = InMemoryLedger()
     svc = CustomerRequestService(ledger)
     created = svc.create_customer_request(_request(), _operator())
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.WAITING)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED, expected_version=created.version
+    )
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=moved.version
+    )
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.WAITING, expected_version=moved.version
+    )
 
     with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
+        svc.transition(
+            created.request_id, _operator(), CustomerRequestStatus.CLOSED, expected_version=moved.version
+        )
 
     # WAITING -> IN_PROGRESS remains a valid path back.
-    moved = svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=moved.version
+    )
     assert moved.status == CustomerRequestStatus.IN_PROGRESS
 
 
@@ -65,13 +83,23 @@ def test_closed_is_terminal():
     ledger = InMemoryLedger()
     svc = CustomerRequestService(ledger)
     created = svc.create_customer_request(_request(), _operator())
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.RESOLVED)
-    svc.transition(created.request_id, _operator(), CustomerRequestStatus.CLOSED)
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED, expected_version=created.version
+    )
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=moved.version
+    )
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.RESOLVED, expected_version=moved.version
+    )
+    moved = svc.transition(
+        created.request_id, _operator(), CustomerRequestStatus.CLOSED, expected_version=moved.version
+    )
 
     with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
+        svc.transition(
+            created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=moved.version
+        )
 
 
 def test_illegal_transition_skip_is_blocked():
@@ -80,7 +108,9 @@ def test_illegal_transition_skip_is_blocked():
     created = svc.create_customer_request(_request(), _operator())
     # NEW -> IN_PROGRESS directly is not allowed (must go through ACKNOWLEDGED).
     with pytest.raises(ValueError):
-        svc.transition(created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS)
+        svc.transition(
+            created.request_id, _operator(), CustomerRequestStatus.IN_PROGRESS, expected_version=created.version
+        )
 
 
 # --- atomicity: transition only ----------------------------------------------
@@ -93,7 +123,8 @@ def test_transition_rolls_back_when_audit_fails_in_memory():
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CustomerRequestService(ledger).transition(
-                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED
+                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED,
+                expected_version=created.version,
             )
 
     fetched = ledger.get_customer_request(created.request_id)
@@ -107,7 +138,8 @@ def test_transition_rolls_back_when_audit_fails_sql(tmp_path):
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
             CustomerRequestService(ledger).transition(
-                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED
+                created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED,
+                expected_version=created.version,
             )
 
     fetched = ledger.get_customer_request(created.request_id)

@@ -37,6 +37,7 @@ from operations_domain.models import ReportStatus, Shift, ShiftStatus
 from workspace_api.application import report_freeze
 from workspace_api.application.assignment_scope import require_active_assignment
 from workspace_api.application.handover_service import assert_freeze_ready
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 from workspace_api.domain.models import ShiftAssignment
 
 _FREEZE_CHAIN = ["identity", "permission", "freeze", "audit"]
@@ -119,25 +120,32 @@ class ShiftService:
             )
         return created
 
-    def close(self, shift_id, principal: Principal) -> Shift:
+    def close(self, shift_id, principal: Principal, *, expected_version: int | None = None) -> Shift:
+        """REVIEW-F2: stored Shift read, ACTIVE-assignment admission, version
+        comparison, lifecycle decision, close mutation and audit all share
+        the SAME transaction unit - a concurrent version bump between
+        admission and mutation is caught by the same atomic read used for
+        the compare, not a separate, earlier, non-transactional read."""
         require_action(principal, "shift.close")
 
-        shift = require_active_assignment(self.ledger, shift_id, principal)
+        with self.ledger.transaction() as unit:
+            shift = require_active_assignment(self.ledger, shift_id, principal, unit=unit)
 
-        if shift.status == ShiftStatus.FROZEN:
-            # Mirrors freeze's bad-state mapping: a state-transition conflict
-            # is a 409, not a permission or validation error.
-            raise CvfDenied(
-                control="close",
-                reason=f"cannot close: shift is {shift.status}",
-                http_status=409,
+            # SPEC R13/R14: compared before any lifecycle check or mutation.
+            assert_version_precondition(
+                control="close", expected_version=expected_version, current_version=shift.version
             )
 
-        before = str(shift.status)
+            if shift.status == ShiftStatus.FROZEN:
+                # Mirrors freeze's bad-state mapping: a state-transition
+                # conflict is a 409, not a permission or validation error.
+                raise CvfDenied(
+                    control="close",
+                    reason=f"cannot close: shift is {shift.status}",
+                    http_status=409,
+                )
 
-        # Unit-of-work: the close itself and its audit record commit or roll
-        # back together, same as freeze/create_task/transition (P-FIX-2).
-        with self.ledger.transaction() as unit:
+            before = str(shift.status)
             closed = self.ledger.close_shift(shift_id, unit=unit)
 
             self.ledger.append_audit(
@@ -162,6 +170,7 @@ class ShiftService:
         *,
         override_unimplemented_prerequisites: bool = False,
         override_reason: str | None = None,
+        expected_version: int | None = None,
     ) -> Shift:
         # SPEC R19: the legacy override fields are retired. Any attempt to
         # set them (true, or any non-null reason including an empty string)
@@ -179,50 +188,61 @@ class ShiftService:
 
         require_action(principal, "shift.freeze")
 
-        shift = require_active_assignment(self.ledger, shift_id, principal)
-
-        if shift.status == ShiftStatus.FROZEN:
-            # SPEC R21: idempotent only if the paired current report is also
-            # FROZEN and unambiguous - never a bare pass-through anymore.
-            with self.ledger.transaction() as unit:
-                report_freeze.assert_frozen_shift_report_integrity(self.ledger, shift_id, unit=unit)
-            return shift
-
-        if shift.status != ShiftStatus.CLOSED:
-            raise CvfDenied(
-                control="freeze",
-                reason=(
-                    f"freeze requires shift_closed; shift is {shift.status}. "
-                    "Close the shift before freezing."
-                ),
-                http_status=409,
-            )
-
-        return self._freeze_transaction(shift_id, principal)
+        return self._freeze_transaction(shift_id, principal, expected_version=expected_version)
 
     _MAX_SERIALIZATION_RETRIES = 3
 
-    def _freeze_transaction(self, shift_id, principal: Principal) -> Shift:
-        """SPEC R22: re-read CLOSED, real open_handover_items_linked
+    def _freeze_transaction(
+        self, shift_id, principal: Principal, *, expected_version: int | None
+    ) -> Shift:
+        """REVIEW-F3: EVERY status branch - FROZEN idempotent, CLOSED->FROZEN,
+        and invalid-state refusal - now lives inside this single SERIALIZABLE
+        (PostgreSQL)/write-reserving (SQLite) transaction, sharing the SAME
+        assignment-admitted, version-compared read. There is no separate,
+        earlier, non-transactional outer read the caller could rely on as
+        "authoritative" - `freeze()` above does only permission admission
+        before delegating here. SPEC R22: real open_handover_items_linked
         readiness, real report_approved readiness (SPEC R20), the Report
         FROZEN transition, the Shift freeze mutation and both actor-bound
-        audits all share the SAME SERIALIZABLE (PostgreSQL) transaction -
-        any failure, including a serialization conflict, rolls back every
-        write together. A concurrent-conflict is retried a bounded number of
-        times before surfacing as a controlled 409."""
+        audits all share this same transaction - any failure, including a
+        serialization conflict, rolls back every write together. A
+        concurrent-conflict is retried a bounded number of times before
+        surfacing as a controlled 409.
+
+        SPEC R13/R14/WO 3.3: the precondition is compared against the
+        freshly read shift INSIDE this transaction, after assignment
+        admission and before any lifecycle/idempotency branch."""
         from sqlalchemy.exc import OperationalError
 
         attempt = 0
         while True:
             try:
                 with self.ledger.report_freeze_transaction() as unit:
-                    fresh = self.ledger.get_shift(shift_id, unit=unit)
+                    fresh = require_active_assignment(self.ledger, shift_id, principal, unit=unit)
+                    assert_version_precondition(
+                        control="freeze",
+                        expected_version=expected_version,
+                        current_version=fresh.version,
+                    )
+
+                    if fresh.status == ShiftStatus.FROZEN:
+                        # SPEC R21/WO 3.3: idempotent only when the checked
+                        # precondition matches the frozen Shift AND the
+                        # paired Report is also FROZEN and unambiguous -
+                        # never a bare pass-through.
+                        report_freeze.assert_frozen_shift_report_integrity(self.ledger, shift_id, unit=unit)
+                        return fresh
+
                     if fresh.status != ShiftStatus.CLOSED:
                         raise CvfDenied(
                             control="freeze",
-                            reason=f"freeze requires shift_closed; shift is {fresh.status}",
+                            reason=(
+                                f"freeze requires shift_closed; shift is {fresh.status}. "
+                                "Close the shift before freezing."
+                            ),
                             http_status=409,
                         )
+
                     assert_freeze_ready(self.ledger, shift_id, unit=unit)
                     report = report_freeze.assert_report_freeze_ready(self.ledger, shift_id, unit=unit)
                     frozen_report = report_freeze.freeze_report(self.ledger, report, unit=unit)

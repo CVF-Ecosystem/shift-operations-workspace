@@ -13,7 +13,7 @@ from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
@@ -34,9 +34,21 @@ class ReportCreateInput(BaseModel):
     shift_id: UUID
 
 
+class ReportPreconditionInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): submit-review/approve are
+    # status-only transitions - content version does not increment.
+    model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
+    expected_status: ReportStatus
+
+
 class ReportVersionInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): expected_version/expected_status
+    # are required; content version does not increment on a status-only move.
     model_config = ConfigDict(extra="forbid")
     reason: str | None = None
+    expected_version: int = Field(ge=1)
+    expected_status: ReportStatus
 
 
 class ReportResponse(BaseModel):
@@ -139,7 +151,10 @@ def create_report_version(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        report = ReportService(ledger).create_successor(report_id, principal, reason=payload.reason)
+        report = ReportService(ledger).create_successor(
+            report_id, principal, reason=payload.reason,
+            expected_version=payload.expected_version, expected_status=payload.expected_status,
+        )
         return ReportResponse.from_report(report)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
@@ -152,11 +167,15 @@ def create_report_version(
 @router.post("/{report_id}/submit-review", response_model=ReportResponse)
 def submit_review(
     report_id: UUID,
+    payload: ReportPreconditionInput,
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        report = ReportService(ledger).submit_review(report_id, principal)
+        report = ReportService(ledger).submit_review(
+            report_id, principal,
+            expected_version=payload.expected_version, expected_status=payload.expected_status,
+        )
         return ReportResponse.from_report(report)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
@@ -169,11 +188,15 @@ def submit_review(
 @router.post("/{report_id}/approve", response_model=ReportResponse)
 def approve_report(
     report_id: UUID,
+    payload: ReportPreconditionInput,
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        report = ReportService(ledger).approve(report_id, principal)
+        report = ReportService(ledger).approve(
+            report_id, principal,
+            expected_version=payload.expected_version, expected_status=payload.expected_status,
+        )
         return ReportResponse.from_report(report)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc

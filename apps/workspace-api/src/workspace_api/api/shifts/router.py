@@ -21,6 +21,14 @@ router = APIRouter(prefix="/shifts", tags=["shifts"])
 _MAX_OPEN_WORK_PER_GROUP = 500
 
 
+class CloseInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): missing expected_version fails at
+    # this HTTP boundary with 422 (Pydantic required-field enforcement, no
+    # service call); a stale value fails controlled 409 inside ShiftService.
+    model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
+
+
 class FreezeInput(BaseModel):
     # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R19): report_approved
     # is now a real, checked freeze prerequisite - these two fields are
@@ -30,7 +38,9 @@ class FreezeInput(BaseModel):
     # accepted only at their defaults; any attempt to set either one is
     # refused with 422 by ShiftService.freeze before any mutation.
     # extra="forbid" additionally rejects any undeclared field.
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): expected_version is required.
     model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
     override_unimplemented_prerequisites: bool = Field(
         default=False,
         json_schema_extra={"deprecated": True},
@@ -95,6 +105,7 @@ def list_shifts(
 @router.post("/{shift_id}/close", response_model=Shift)
 def close_shift(
     shift_id: UUID,
+    payload: CloseInput,
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
@@ -102,9 +113,9 @@ def close_shift(
     # identity/permission/audit at all (second independent review, 2026-07-22:
     # anonymous close -> 200 CLOSED, audit_count=0). Governed through
     # ShiftService.close the same way freeze_shift is governed through
-    # ShiftService.freeze.
+    # ShiftService.freeze. P2C-MUTATION-FULL-UI-C3B2: requires expected_version.
     try:
-        return ShiftService(ledger).close(shift_id, principal)
+        return ShiftService(ledger).close(shift_id, principal, expected_version=payload.expected_version)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
@@ -149,7 +160,7 @@ def get_open_work(
 @router.post("/{shift_id}/freeze", response_model=Shift)
 def freeze_shift(
     shift_id: UUID,
-    payload: FreezeInput = FreezeInput(),
+    payload: FreezeInput,
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
@@ -159,6 +170,7 @@ def freeze_shift(
             principal,
             override_unimplemented_prerequisites=payload.override_unimplemented_prerequisites,
             override_reason=payload.override_reason,
+            expected_version=payload.expected_version,
         )
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc

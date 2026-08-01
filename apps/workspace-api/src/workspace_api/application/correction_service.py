@@ -30,6 +30,7 @@ from operations_ledger import Ledger
 from operations_domain.models import Correction, DataState, OperationalEvent
 from workspace_api.application import approval_service
 from workspace_api.application.assignment_scope import AssignmentScope
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 _CONTROL_CHAIN = ["identity", "permission", "freeze", "approval", "audit"]
 _RECORD_TYPE = "OperationalEvent"
@@ -55,12 +56,20 @@ class CorrectionService:
         event_id: UUID,
         principal: Principal,
         reason: str,
+        *,
+        expected_version: int | None = None,
     ) -> Correction:
         require_action(principal, "event.correct")
         with self.ledger.transaction() as unit:
             event: OperationalEvent = self.ledger.get_event(event_id, unit=unit)
             AssignmentScope(self.ledger).require_record(event, principal, unit=unit)
             risk_class = str(event.risk_class)
+
+            # SPEC R13/R14: compared after assignment admission, before the
+            # correctable-state/reason/approval checks or any mutation.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=event.version
+            )
 
             # freeze/state: only an official fact can be corrected; a proposal
             # must go through normal confirmation, not a correction record.

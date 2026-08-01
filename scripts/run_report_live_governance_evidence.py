@@ -3,9 +3,8 @@
 FREEZE-PREREQUISITE, SPEC R31): in-process refusal probes over the real
 FastAPI/JWT route chain (observed zero provider calls each), then a genuine
 generate -> submit-review -> distinct-approver receipt -> approve -> freeze,
-followed by exactly one real provider call. Provider HTTP/sanitization/
-receipt rendering live in `_report_live_evidence_support.py`; this module is
-the orchestration facade and CLI entrypoint only."""
+followed by exactly one real provider call. Provider HTTP/sanitization/receipt
+rendering live in `_report_live_evidence_support.py`; orchestration+CLI only."""
 
 from __future__ import annotations
 
@@ -20,21 +19,13 @@ os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-do-not-use-in-producti
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 for _rel in (
-    "apps/workspace-api/src",
-    "packages/cvf-runtime/src",
-    "packages/operations-ledger/src",
-    "packages/operations-domain/src",
-    "packages/ai-providers/alibaba",
+    "apps/workspace-api/src", "packages/cvf-runtime/src", "packages/operations-ledger/src",
+    "packages/operations-domain/src", "packages/ai-providers/alibaba",
 ):
     sys.path.insert(0, str(REPO_ROOT / _rel))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from _report_live_evidence_support import (  # noqa: E402
-    ProviderCallCounter,
-    call_provider,
-    render_receipt,
-    safe_endpoint_description,
-)
+from _report_live_evidence_support import ProviderCallCounter, call_provider, render_receipt, safe_endpoint_description  # noqa: E402
 
 KEY_ENV_NAMES = ("ALIBABA_API_KEY", "DASHSCOPE_API_KEY")
 BASE_URL_ENV_NAMES = ("ALIBABA_BASE_URL", "DASHSCOPE_BASE_URL")
@@ -83,17 +74,21 @@ def _with_ledger(ledger, fn):
 def _generate(client, shift_id, headers=None):
     return client.post("/reports", json={"shift_id": str(shift_id)}, headers=headers or {})
 
-def _submit_review(client, report_id, headers):
-    return client.post(f"/reports/{report_id}/submit-review", json={}, headers=headers)
+def _submit_review(client, report_id, headers, *, expected_version=1, expected_status="DRAFT"):
+    body = {"expected_version": expected_version, "expected_status": expected_status}
+    return client.post(f"/reports/{report_id}/submit-review", json=body, headers=headers)
 
-def _approve(client, report_id, headers):
-    return client.post(f"/reports/{report_id}/approve", json={}, headers=headers)
+def _approve(client, report_id, headers, *, expected_version=1, expected_status="IN_REVIEW"):
+    body = {"expected_version": expected_version, "expected_status": expected_status}
+    return client.post(f"/reports/{report_id}/approve", json=body, headers=headers)
 
-def _close(client, shift_id, headers):
-    return client.post(f"/shifts/{shift_id}/close", headers=headers)
+def _close(client, shift_id, headers, *, expected_version=1):
+    return client.post(f"/shifts/{shift_id}/close", json={"expected_version": expected_version}, headers=headers)
 
-def _freeze(client, shift_id, headers, *, override=False):
-    body = {"override_unimplemented_prerequisites": True, "override_reason": "x"} if override else {}
+def _freeze(client, shift_id, headers, *, override=False, expected_version=1):
+    body = {"expected_version": expected_version}
+    if override:
+        body.update({"override_unimplemented_prerequisites": True, "override_reason": "x"})
     return client.post(f"/shifts/{shift_id}/freeze", json=body, headers=headers)
 
 def _make_ready_handover(ledger, shift, op, sup1, sup2):
@@ -103,8 +98,8 @@ def _make_ready_handover(ledger, shift, op, sup1, sup2):
     _seed(ledger, dest.shift_id, "rep-ev-sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     h = svc.create(shift.shift_id, dest.shift_id, _principal_of(op))
-    h = svc.review(h.handover_id, _principal_of(sup1))
-    return svc.acknowledge(h.handover_id, _principal_of(sup2))
+    h = svc.review(h.handover_id, _principal_of(sup1), expected_version=h.version)
+    return svc.acknowledge(h.handover_id, _principal_of(sup2), expected_version=h.version)
 
 def _principal_of(headers):
     """Recover a Principal from minted auth headers by decoding the token -
@@ -144,7 +139,7 @@ def check_report_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
         gen = _generate(client, shift.shift_id, op)
         report_id = gen.json()["report_id"]
         ledger.add_task(Task(shift_id=shift.shift_id, title="late"))
-        return _submit_review(client, report_id, op)
+        return _submit_review(client, report_id, op, expected_version=gen.json()["version"])
     _case("stale_submit_review_rejected", ledger, _stale_submit)
 
     ledger, shift = _new_ledger_and_shift("missing-receipt")
@@ -152,18 +147,23 @@ def check_report_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
         ledger.close_shift(shift.shift_id)
         gen = _generate(client, shift.shift_id, op)
         report_id = gen.json()["report_id"]
-        _submit_review(client, report_id, op)
-        return _approve(client, report_id, sup1)
+        _submit_review(client, report_id, op, expected_version=gen.json()["version"])
+        return _approve(client, report_id, sup1, expected_version=gen.json()["version"])
     _case("missing_receipt_approve_rejected", ledger, _missing_receipt)
 
     ledger, shift = _new_ledger_and_shift("non-current")
     ledger.close_shift(shift.shift_id)
     def _non_current_submit_review(client):
+        from operations_domain.models import ReportStatus
         from workspace_api.application.report_service import ReportService
         gen = _generate(client, shift.shift_id, op)
         report_id = gen.json()["report_id"]
-        ReportService(ledger).create_successor(UUID(report_id), _principal_of(op))
-        return _submit_review(client, report_id, op)  # predecessor is now non-current
+        ReportService(ledger).create_successor(
+            UUID(report_id), _principal_of(op),
+            expected_version=gen.json()["version"], expected_status=ReportStatus.DRAFT,
+        )
+        # predecessor is now non-current
+        return _submit_review(client, report_id, op, expected_version=gen.json()["version"])
     _case("non_current_report_submit_review_rejected", ledger, _non_current_submit_review)
 
     ledger, shift = _new_ledger_and_shift("legacy-override")
@@ -197,8 +197,9 @@ def build_generate_review_approve_and_freeze_genuine() -> tuple[bool, str]:
         if gen_res.status_code != 201:
             return False, f"generate failed: {gen_res.status_code}"
         report_id = gen_res.json()["report_id"]
+        report_version = gen_res.json()["version"]
 
-        review_res = _submit_review(client, report_id, op)
+        review_res = _submit_review(client, report_id, op, expected_version=report_version)
         if review_res.status_code != 200:
             return False, f"submit-review failed: {review_res.status_code}"
 
@@ -208,11 +209,11 @@ def build_generate_review_approve_and_freeze_genuine() -> tuple[bool, str]:
             record_type="Report", action="report.approve", record_id=UUID(report_id),
         )
 
-        approve_res = _approve(client, report_id, sup1)
+        approve_res = _approve(client, report_id, sup1, expected_version=report_version)
         if approve_res.status_code != 200 or approve_res.json()["status"] != "APPROVED":
             return False, f"approve failed: {approve_res.status_code}"
 
-        freeze_res = _freeze(client, shift.shift_id, sup1)
+        freeze_res = _freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
         if freeze_res.status_code != 200 or freeze_res.json()["status"] != "FROZEN":
             return False, f"freeze failed: {freeze_res.status_code}"
 

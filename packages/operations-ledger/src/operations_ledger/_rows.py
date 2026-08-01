@@ -85,22 +85,14 @@ def row_to_task(models, row, *, evidence=None):
     )
 
 
-def customer_request_row(request) -> dict:
-    return {
-        "request_id": request.request_id,
-        "customer_id": request.customer_id,
-        "shift_id": request.shift_id,
-        "summary": request.summary,
-        "details": request.details,
-        "status": str(request.status),
-        "source_message_id": request.source_message_id,
-        "received_at": request.received_at,
-        "promised_at": request.promised_at,
-        "owner_id": request.owner_id,
-    }
-
-
 def row_to_customer_request(models, row):
+    """Read-only row mapper, kept here (rather than moved wholesale into
+    ``_customer_request_store.py``) because ``_report_store.py``'s
+    ``list_customer_requests_for_shift`` is an out-of-ceiling existing call
+    site for this tranche (P2C-MUTATION-FULL-UI-C3B2) and still imports it
+    from this module. ``customer_request_row`` (the write-side mapper) moved
+    to ``_customer_request_store.py`` since every write call site is inside
+    this tranche's authorized changed set."""
     return models.CustomerRequest(
         request_id=row["request_id"],
         customer_id=row["customer_id"],
@@ -112,6 +104,7 @@ def row_to_customer_request(models, row):
         received_at=row["received_at"],
         promised_at=row["promised_at"],
         owner_id=row["owner_id"],
+        version=row["version"],
     )
 
 

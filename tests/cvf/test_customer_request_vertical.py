@@ -88,23 +88,30 @@ def _make_ready_report(ledger, shift):
     freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE)."""
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
-    report = svc.submit_review(report.report_id, _operator())
+    report = svc.submit_review(
+        report.report_id, _operator(), expected_version=report.version, expected_status=report.status
+    )
     _seed_assignment(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, Principal(user_id="sup1", role="shift_supervisor"))
+    return svc.approve(
+        report.report_id, Principal(user_id="sup1", role="shift_supervisor"),
+        expected_version=report.version, expected_status=report.status,
+    )
 
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_create_customer_request_with_frozen_shift_is_rejected(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     shift = _new_shift(ledger)
-    ShiftService(ledger).close(shift.shift_id, _operator())
+    closed = ShiftService(ledger).close(shift.shift_id, _operator(), expected_version=shift.version)
     _make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, Principal(user_id="sup1", role="shift_supervisor"))
+    ShiftService(ledger).freeze(
+        shift.shift_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=closed.version
+    )
 
     rejected_request = _request(shift)
     with pytest.raises(ValueError):

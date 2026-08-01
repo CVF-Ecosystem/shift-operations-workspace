@@ -217,6 +217,7 @@ LIVE_SUITE_TARGETS = (
     "tests/integration/test_message_postgres_live.py", "tests/integration/test_report_postgres_live.py",
     "tests/integration/test_assignment_postgres_live.py", "tests/integration/test_assignment_postgres_live_f1.py",
     "tests/integration/test_assignment_scope_postgres_live.py", "tests/integration/test_c3b_read_postgres_live.py",
+    "tests/integration/test_c3b2_postgres_live.py",
 )
 
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:

@@ -83,7 +83,7 @@ def test_r3_full_chain_confirms_and_audits():
     _approve_confirm(ledger, event, "sup2", "shift_supervisor")
     _approve_confirm(ledger, event, "mgr1", "responsible_manager")
 
-    confirmed = EventService(ledger, audit).confirm(event.event_id, supervisor)
+    confirmed = EventService(ledger, audit).confirm(event.event_id, supervisor, expected_version=event.version)
 
     assert confirmed.state == DataState.CONFIRMED
     # Both the two receipt creations (AC-19: each atomically audited as
@@ -120,7 +120,7 @@ def test_r2_denied_when_evidence_missing():
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
 
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, audit).confirm(event.event_id, supervisor)
+        EventService(ledger, audit).confirm(event.event_id, supervisor, expected_version=event.version)
     assert exc.value.control == "evidence"
 
 
@@ -132,7 +132,7 @@ def test_r3_denied_when_quorum_not_met():
     _approve_confirm(ledger, event, "sup2", "shift_supervisor")
 
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, audit).confirm(event.event_id, supervisor)
+        EventService(ledger, audit).confirm(event.event_id, supervisor, expected_version=event.version)
     assert exc.value.control == "approval"
 
 
@@ -142,9 +142,9 @@ def test_confirm_blocked_on_frozen_shift():
     event = _add_event(ledger, shift, risk=RiskClass.R1, evidence_count=0)
     # Freeze the event's state path by first confirming then freezing.
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
-    EventService(ledger, audit).confirm(event.event_id, supervisor)
+    confirmed = EventService(ledger, audit).confirm(event.event_id, supervisor, expected_version=event.version)
     # Move to FROZEN directly to simulate a frozen record.
     ledger.events[event.event_id].state = DataState.FROZEN
 
     with pytest.raises((CvfDenied, ValueError)):
-        EventService(ledger, audit).confirm(event.event_id, supervisor)
+        EventService(ledger, audit).confirm(event.event_id, supervisor, expected_version=confirmed.version)

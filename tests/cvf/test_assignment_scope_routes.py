@@ -58,18 +58,12 @@ def client():
 
 _SIMPLE_CASES = [
     ("open_work", "GET", lambda sid: f"/shifts/{sid}/open-work", None, (200,)),
-    ("shift_close", "POST", lambda sid: f"/shifts/{sid}/close", None, (200,)),
+    ("shift_close", "POST", lambda sid: f"/shifts/{sid}/close", lambda sid: {"expected_version": 1}, (200,)),
     ("message_create", "POST", lambda sid: "/messages", lambda sid: {"shift_id": str(sid), "text": "hi"}, (200,)),
-    (
-        "event_create", "POST", lambda sid: "/events",
-        lambda sid: {"shift_id": str(sid), "event_type": "equipment_downtime", "title": "t"}, (200,),
-    ),
+    ("event_create", "POST", lambda sid: "/events", lambda sid: {"shift_id": str(sid), "event_type": "equipment_downtime", "title": "t"}, (200,)),
     ("event_list", "GET", lambda sid: f"/events?shift_id={sid}", None, (200,)),
     ("task_create", "POST", lambda sid: "/tasks", lambda sid: {"shift_id": str(sid), "title": "t"}, (200,)),
-    (
-        "customer_request_create", "POST", lambda sid: "/customer-requests",
-        lambda sid: {"customer_id": "c1", "shift_id": str(sid), "summary": "s"}, (200,),
-    ),
+    ("customer_request_create", "POST", lambda sid: "/customer-requests", lambda sid: {"customer_id": "c1", "shift_id": str(sid), "summary": "s"}, (200,)),
     ("incident_report", "POST", lambda sid: "/incidents", lambda sid: {"shift_id": str(sid), "summary": "s"}, (200,)),
     ("incident_list", "GET", lambda sid: f"/incidents?shift_id={sid}", None, (200,)),
 ]
@@ -108,10 +102,11 @@ def test_shift_list_returns_only_assigned_shifts(client):
 def test_shift_freeze_requires_active_assignment(client):
     ledger, http = client
     shift = _shift(ledger)
-    res = http.post(f"/shifts/{shift.shift_id}/freeze", json={}, headers=auth_headers(*_OUTSIDER_SUP))
+    freeze_body = {"expected_version": 1}
+    res = http.post(f"/shifts/{shift.shift_id}/freeze", json=freeze_body, headers=auth_headers(*_OUTSIDER_SUP))
     assert res.status_code == 404
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
-    res = http.post(f"/shifts/{shift.shift_id}/freeze", json={}, headers=auth_headers(*_SUP))
+    res = http.post(f"/shifts/{shift.shift_id}/freeze", json=freeze_body, headers=auth_headers(*_SUP))
     # Not assignment-refused: reaches the real (unmet) freeze precondition.
     assert res.status_code == 409
 
@@ -125,12 +120,13 @@ def test_event_confirm_role_then_assignment_ordering(client):
     payload = {"shift_id": str(shift.shift_id), "event_type": "equipment_downtime", "title": "t"}
     event_id = http.post("/events", json=payload, headers=auth_headers(*_OP)).json()["event_id"]
 
-    res = http.post(f"/events/{event_id}/confirm", json={}, headers=auth_headers(*_OUTSIDER))
+    body = {"expected_version": 1}
+    res = http.post(f"/events/{event_id}/confirm", json=body, headers=auth_headers(*_OUTSIDER))
     assert res.status_code == 403  # insufficient role fires before assignment
-    res = http.post(f"/events/{event_id}/confirm", json={}, headers=auth_headers(*_OUTSIDER_SUP))
+    res = http.post(f"/events/{event_id}/confirm", json=body, headers=auth_headers(*_OUTSIDER_SUP))
     assert res.status_code == 404
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
-    res = http.post(f"/events/{event_id}/confirm", json={}, headers=auth_headers(*_SUP))
+    res = http.post(f"/events/{event_id}/confirm", json=body, headers=auth_headers(*_SUP))
     assert res.status_code != 404
 
 
@@ -141,13 +137,14 @@ def test_incident_acknowledge_role_then_assignment_ordering(client):
     payload = {"shift_id": str(shift.shift_id), "summary": "s"}
     incident_id = http.post("/incidents", json=payload, headers=auth_headers(*_OP)).json()["incident_id"]
     ack_path = f"/incidents/{incident_id}/acknowledge"
-    assert http.post(ack_path, json={}, headers=auth_headers(*_OUTSIDER)).status_code == 403
-    assert http.post(ack_path, json={}, headers=auth_headers(*_OUTSIDER_SUP)).status_code == 404
+    ack_body = {"expected_version": 1}
+    assert http.post(ack_path, json=ack_body, headers=auth_headers(*_OUTSIDER)).status_code == 403
+    assert http.post(ack_path, json=ack_body, headers=auth_headers(*_OUTSIDER_SUP)).status_code == 404
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
-    assert http.post(ack_path, json={}, headers=auth_headers(*_SUP)).status_code != 404
+    assert http.post(ack_path, json=ack_body, headers=auth_headers(*_SUP)).status_code != 404
 
     assert http.get(f"/incidents/{incident_id}", headers=auth_headers(*_OUTSIDER)).status_code == 404
-    trans_body = {"target_status": "CLOSED"}
+    trans_body = {"target_status": "CLOSED", "expected_version": 1}
     trans_res = http.post(f"/incidents/{incident_id}/transition", json=trans_body, headers=auth_headers(*_OUTSIDER))
     assert trans_res.status_code == 404
 
@@ -165,23 +162,25 @@ def test_report_lifecycle_requires_active_assignment_at_every_step(client):
     res = http.get(f"/reports?shift_id={shift.shift_id}", headers=auth_headers(*_OUTSIDER))
     assert res.status_code == 404
 
-    report_id = http.post(
-        "/reports", json={"shift_id": str(shift.shift_id)}, headers=auth_headers(*_OP)
-    ).json()["report_id"]
+    gen_res = http.post("/reports", json={"shift_id": str(shift.shift_id)}, headers=auth_headers(*_OP))
+    report_id = gen_res.json()["report_id"]
     assert http.get(f"/reports?shift_id={shift.shift_id}", headers=auth_headers(*_OP)).status_code == 200
 
     res = http.get(f"/reports/{report_id}", headers=auth_headers(*_OUTSIDER))
     assert res.status_code == 404
     assert http.get(f"/reports/{report_id}", headers=auth_headers(*_OP)).status_code == 200
 
-    res = http.post(f"/reports/{report_id}/submit-review", headers=auth_headers(*_OUTSIDER))
+    review_body = {"expected_version": 1, "expected_status": "DRAFT"}
+    res = http.post(f"/reports/{report_id}/submit-review", json=review_body, headers=auth_headers(*_OUTSIDER))
     assert res.status_code == 404
-    assert http.post(f"/reports/{report_id}/submit-review", headers=auth_headers(*_OP)).status_code == 200
+    submit_res = http.post(f"/reports/{report_id}/submit-review", json=review_body, headers=auth_headers(*_OP))
+    assert submit_res.status_code == 200
 
-    res = http.post(f"/reports/{report_id}/approve", headers=auth_headers(*_OUTSIDER_SUP))
+    approve_body = {"expected_version": 1, "expected_status": "IN_REVIEW"}
+    res = http.post(f"/reports/{report_id}/approve", json=approve_body, headers=auth_headers(*_OUTSIDER_SUP))
     assert res.status_code == 404
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
-    res = http.post(f"/reports/{report_id}/approve", headers=auth_headers(*_SUP))
+    res = http.post(f"/reports/{report_id}/approve", json=approve_body, headers=auth_headers(*_SUP))
     assert res.status_code != 404
 
 
@@ -193,7 +192,7 @@ def test_task_transition_requires_active_assignment(client):
     seed_active_assignment(ledger, shift.shift_id, *_OP)
     task = Task(shift_id=shift.shift_id, title="t")
     ledger.add_task(task)
-    path, body = f"/tasks/{task.task_id}/transition", {"target_status": "IN_PROGRESS"}
+    path, body = f"/tasks/{task.task_id}/transition", {"target_status": "IN_PROGRESS", "expected_version": 1}
     assert http.post(path, json=body, headers=auth_headers(*_OUTSIDER)).status_code == 404
     assert http.post(path, json=body, headers=auth_headers(*_OP)).status_code == 200
 
@@ -223,7 +222,8 @@ def test_customer_request_transition_requires_active_assignment(client):
     seed_active_assignment(ledger, shift.shift_id, *_OP)
     request = CustomerRequest(customer_id="cust-1", shift_id=shift.shift_id, summary="s")
     ledger.add_customer_request(request)
-    path, body = f"/customer-requests/{request.request_id}/transition", {"target_status": "ACKNOWLEDGED"}
+    path = f"/customer-requests/{request.request_id}/transition"
+    body = {"target_status": "ACKNOWLEDGED", "expected_version": request.version}
     assert http.post(path, json=body, headers=auth_headers(*_OUTSIDER)).status_code == 404
     assert http.post(path, json=body, headers=auth_headers(*_OP)).status_code == 200
 
@@ -263,7 +263,7 @@ def test_event_correct_role_then_assignment_ordering(client):
     shift = _shift(ledger)
     event = OperationalEvent(shift_id=shift.shift_id, event_type="equipment_downtime", title="t")
     ledger.add_event(event)
-    path, body = f"/corrections/events/{event.event_id}", {"reason": "typo fix"}
+    path, body = f"/corrections/events/{event.event_id}", {"reason": "typo fix", "expected_version": event.version}
     assert http.post(path, json=body, headers=auth_headers(*_OUTSIDER)).status_code == 403  # role before assignment
     assert http.post(path, json=body, headers=auth_headers(*_OUTSIDER_SUP)).status_code == 404
     seed_active_assignment(ledger, shift.shift_id, *_SUP)
@@ -275,12 +275,11 @@ def test_report_create_version_requires_active_assignment(client):
     shift = _shift(ledger)
     seed_active_assignment(ledger, shift.shift_id, *_OP)
     ledger.close_shift(shift.shift_id)
-    report_id = http.post(
-        "/reports", json={"shift_id": str(shift.shift_id)}, headers=auth_headers(*_OP)
-    ).json()["report_id"]
-    path = f"/reports/{report_id}/versions"
-    assert http.post(path, json={}, headers=auth_headers(*_OUTSIDER)).status_code == 404
-    assert http.post(path, json={}, headers=auth_headers(*_OP)).status_code == 201
+    gen_res = http.post("/reports", json={"shift_id": str(shift.shift_id)}, headers=auth_headers(*_OP))
+    path = f"/reports/{gen_res.json()['report_id']}/versions"
+    body = {"expected_version": 1, "expected_status": "DRAFT"}
+    assert http.post(path, json=body, headers=auth_headers(*_OUTSIDER)).status_code == 404
+    assert http.post(path, json=body, headers=auth_headers(*_OP)).status_code == 201
 
 
 # --- bootstrap exceptions and out-of-scope surfaces -------------------------

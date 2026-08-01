@@ -119,8 +119,8 @@ def test_handover_review_then_acknowledge_persists_and_audits_through_reconnect(
     _seed(sql_ledger, s2.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(sql_ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
-    h = svc.review(h.handover_id, _SUPERVISOR)
-    h = svc.acknowledge(h.handover_id, _RECEIVER)
+    h = svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
+    h = svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     sql_ledger.engine.dispose()
 
     fresh = _reconnected(live_database_url)
@@ -206,15 +206,15 @@ def test_ready_acknowledged_handover_alone_does_not_satisfy_freeze_on_live_postg
     _seed(sql_ledger, s2.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(sql_ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
-    h = svc.review(h.handover_id, _SUPERVISOR)
-    h = svc.acknowledge(h.handover_id, _RECEIVER)
+    h = svc.review(h.handover_id, _SUPERVISOR, expected_version=h.version)
+    h = svc.acknowledge(h.handover_id, _RECEIVER, expected_version=h.version)
     assert h.status.value == "ACKNOWLEDGED"
 
-    sql_ledger.close_shift(s1.shift_id)
+    closed_shift = sql_ledger.close_shift(s1.shift_id)
     from cvf_runtime.errors import CvfDenied
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(sql_ledger).freeze(s1.shift_id, _SUPERVISOR)
+        ShiftService(sql_ledger).freeze(s1.shift_id, _SUPERVISOR, expected_version=closed_shift.version)
     assert exc.value.control == "freeze"
     assert "report" in str(exc.value).lower()
     assert sql_ledger.get_shift(s1.shift_id).status.value == "CLOSED"

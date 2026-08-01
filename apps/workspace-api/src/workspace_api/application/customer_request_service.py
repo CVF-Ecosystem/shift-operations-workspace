@@ -29,6 +29,7 @@ from operations_ledger import Ledger
 from operations_domain.lifecycle import assert_customer_request_transition
 from operations_domain.models import CustomerRequest, CustomerRequestStatus
 from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 # No "risk"/"evidence"/"approval" in either chain: customer_requests has no
 # risk_class/evidence column in the migration, so those gates do not apply to
@@ -90,25 +91,40 @@ class CustomerRequestService:
         request_id: UUID,
         principal: Principal,
         target_status: CustomerRequestStatus,
+        *,
+        expected_version: int | None = None,
     ) -> CustomerRequest:
         require_action(principal, "customer_request.transition")
-        request = self.ledger.get_customer_request(request_id)
-        if request.shift_id is not None:
-            AssignmentScope(self.ledger).require_record(request, principal)
-        # Customer-request-status lifecycle guard (raises ValueError on an
-        # illegal move).
-        assert_customer_request_transition(request.status, target_status)
-
-        before = str(request.status)
-        request.status = target_status
-
+        # C3B2-WO-REV-F2: stored-target read, assignment admission,
+        # precondition compare, lifecycle check and the atomic CAS mutation
+        # all now share ONE transaction.
         with self.ledger.transaction() as unit:
-            self.ledger.put_customer_request(request, unit=unit)
+            request = self.ledger.get_customer_request(request_id, unit=unit)
+            if request.shift_id is not None:
+                AssignmentScope(self.ledger).require_record(request, principal, unit=unit)
+
+            # SPEC R12/R13/R14: a missing expected_version is 422 here (never
+            # reaches the CAS write below); a present-but-stale value is
+            # instead left to the atomic CAS write's own rowcount check so
+            # the compare happens against the freshest possible row.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=request.version
+            )
+
+            # Customer-request-status lifecycle guard (raises ValueError on
+            # an illegal move) - checked against current status before the
+            # atomic compare-and-swap write.
+            assert_customer_request_transition(request.status, target_status)
+
+            before = str(request.status)
+            updated = self.ledger.transition_customer_request(
+                request_id, expected_version=expected_version, target_status=target_status, unit=unit
+            )
             self._audit(
                 principal, "customer_request.transition", request_id, _TRANSITION_CHAIN,
-                before, str(request.status), unit=unit,
+                before, str(updated.status), unit=unit,
             )
-        return request
+        return updated
 
     def _audit(self, principal, action, record_id, chain, before, after, *, unit=None) -> None:
         self.ledger.append_audit(

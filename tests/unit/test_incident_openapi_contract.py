@@ -37,12 +37,16 @@ def test_incident_endpoints_and_schemas_exact_contract():
         "shift_id", "risk_class", "summary", "description", "owner_id", "evidence",
     }
     assert schemas["IncidentInput"]["additionalProperties"] is False
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): AcknowledgeInput now requires
+    # expected_version - and is structurally identical to handover's
+    # AcknowledgeInput, so FastAPI deduplicates them into one shared schema.
     assert schemas["AcknowledgeInput"]["additionalProperties"] is False
-    assert schemas["AcknowledgeInput"]["properties"] == {}
+    assert set(schemas["AcknowledgeInput"]["properties"].keys()) == {"expected_version"}
+    assert schemas["AcknowledgeInput"]["required"] == ["expected_version"]
     # FastAPI disambiguates same-named request models across routers by full
     # module path (tasks/customer_requests/incidents each define TransitionInput).
     incident_transition = schemas["workspace_api__api__incidents__router__TransitionInput"]
-    assert set(incident_transition["properties"].keys()) == {"target_status"}
+    assert set(incident_transition["properties"].keys()) == {"target_status", "expected_version"}
     assert incident_transition["additionalProperties"] is False
 
     assert set(schemas["Incident"]["properties"].keys()) == {

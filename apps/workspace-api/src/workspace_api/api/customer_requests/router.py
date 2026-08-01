@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
@@ -40,7 +40,10 @@ class CustomerRequestInput(BaseModel):
 
 
 class TransitionInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R12/R13): expected_version is required.
+    model_config = ConfigDict(extra="forbid")
     target_status: CustomerRequestStatus
+    expected_version: int = Field(ge=1)
 
 
 @router.post("", response_model=CustomerRequest)
@@ -77,7 +80,7 @@ def transition_customer_request(
 ):
     try:
         return CustomerRequestService(ledger).transition(
-            request_id, principal, payload.target_status
+            request_id, principal, payload.target_status, expected_version=payload.expected_version
         )
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc

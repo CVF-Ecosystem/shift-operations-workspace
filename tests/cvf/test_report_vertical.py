@@ -26,16 +26,13 @@ from _auth_test_helpers import auth_headers
 _OPERATOR = Principal(user_id="op1", role="operator")
 _SUPERVISOR = Principal(user_id="sup1", role="shift_supervisor")
 
-
 def _sql_ledger(tmp_path):
     engine = make_engine(f"sqlite:///{tmp_path / 'reports.sqlite3'}")
     metadata.create_all(engine)
     return SqlLedger(str(tmp_path / "reports.sqlite3"), models=domain_models, engine=engine)
 
-
 def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
-
 
 def _closed_shift(ledger):
     now = datetime.now(timezone.utc)
@@ -46,7 +43,6 @@ def _closed_shift(ledger):
     ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
     ledger.close_shift(shift.shift_id); return ledger.get_shift(shift.shift_id)
 
-
 @pytest.fixture
 def client(request):
     ledger = InMemoryLedger()
@@ -56,12 +52,10 @@ def client(request):
     finally:
         app.dependency_overrides.pop(get_ledger, None)
 
-
 # --- AC-01/02: model identity/serialization, R2-R4 public/content shapes ---
 
 def test_report_model_identity_across_shims():
     assert Report is WorkspaceReport
-
 
 def test_report_default_type_and_version():
     from workspace_api.application.report_snapshot import build_snapshot
@@ -76,7 +70,6 @@ def test_report_default_type_and_version():
     assert r.is_current is True
     assert r.status == ReportStatus.DRAFT
 
-
 # --- AC-05/06: R10 lifecycle/current guards -------------------------------
 
 def test_lifecycle_forward_only_and_frozen_terminal():
@@ -85,7 +78,6 @@ def test_lifecycle_forward_only_and_frozen_terminal():
     assert_report_transition(ReportStatus.APPROVED, ReportStatus.FROZEN)
     with pytest.raises(ValueError): assert_report_transition(ReportStatus.FROZEN, ReportStatus.DRAFT)
     with pytest.raises(ValueError): assert_report_transition(ReportStatus.DRAFT, ReportStatus.APPROVED)
-
 
 # --- AC-01: generation eligibility (R5) ------------------------------------
 
@@ -102,7 +94,6 @@ def test_generate_requires_closed_shift(tmp_path, name):
         ReportService(ledger).generate(shift.shift_id, _OPERATOR)
     assert exc.value.http_status == 409
 
-
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_generate_requires_permission(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
@@ -112,13 +103,11 @@ def test_generate_requires_permission(tmp_path, name):
         ReportService(ledger).generate(shift.shift_id, viewer)
     assert exc.value.control == "permission"
 
-
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_generate_unknown_shift_is_404(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     with pytest.raises(KeyError):
         ReportService(ledger).generate(__import__("uuid").uuid4(), _OPERATOR)
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_generate_produces_current_draft_with_audit(tmp_path, name):
@@ -132,7 +121,6 @@ def test_generate_produces_current_draft_with_audit(tmp_path, name):
     actions = [_action_of(e) for e in entries]
     assert "report.generate" in actions
 
-
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_generate_twice_without_successor_is_409(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
@@ -142,9 +130,7 @@ def test_generate_twice_without_successor_is_409(tmp_path, name):
         ReportService(ledger).generate(shift.shift_id, _OPERATOR)
     assert exc.value.http_status == 409
 
-
 def _action_of(entry): return entry.action if hasattr(entry, "action") else entry["action"]
-
 
 # --- AC-09/10: submit-review (R15) -----------------------------------------
 
@@ -153,13 +139,17 @@ def test_submit_review_requires_current_draft(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     shift = _closed_shift(ledger)
     report = ReportService(ledger).generate(shift.shift_id, _OPERATOR)
-    reviewed = ReportService(ledger).submit_review(report.report_id, _OPERATOR)
+    reviewed = ReportService(ledger).submit_review(
+        report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status
+    )
     assert reviewed.status == ReportStatus.IN_REVIEW
 
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).submit_review(report.report_id, _OPERATOR)
+        ReportService(ledger).submit_review(
+            report.report_id, _OPERATOR,
+            expected_version=reviewed.version, expected_status=reviewed.status,
+        )
     assert exc.value.http_status == 409
-
 
 # --- AC-19/20: successor generation (R12) ----------------------------------
 
@@ -168,13 +158,14 @@ def test_successor_generation_from_draft_needs_no_reason(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     shift = _closed_shift(ledger)
     report = ReportService(ledger).generate(shift.shift_id, _OPERATOR)
-    successor = ReportService(ledger).create_successor(report.report_id, _OPERATOR)
+    successor = ReportService(ledger).create_successor(
+        report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status
+    )
     assert successor.version == 2
     assert successor.is_current is True
     predecessor = ledger.get_report(report.report_id)
     assert predecessor.is_current is False
     assert predecessor.version == 1  # immutable version never changes
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_successor_generation_from_frozen_report_refused(tmp_path, name):
@@ -193,9 +184,11 @@ def test_successor_generation_from_frozen_report_refused(tmp_path, name):
             unit.execute(update(reports_table).where(reports_table.c.report_id == report.report_id).values(status="FROZEN"))
 
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).create_successor(report.report_id, _OPERATOR)
+        ReportService(ledger).create_successor(
+            report.report_id, _OPERATOR,
+            expected_version=report.version, expected_status=ReportStatus.FROZEN,
+        )
     assert exc.value.http_status == 409
-
 
 # --- AC-11/12: R11 immutability ---------------------------------------------
 
@@ -208,7 +201,6 @@ def test_put_report_rejects_immutable_field_change(tmp_path, name):
     mutated.version = 99
     with pytest.raises(ValueError):
         ledger.put_report(mutated)
-
 
 # --- Stale-snapshot revalidation (R9) ---------------------------------------
 
@@ -224,10 +216,11 @@ def test_submit_review_refuses_when_snapshot_stale(tmp_path, name):
     ledger.add_task(another_task)
 
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).submit_review(report.report_id, _OPERATOR)
+        ReportService(ledger).submit_review(
+            report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status
+        )
     assert exc.value.http_status == 409
     assert "stale" in str(exc.value).lower()
-
 
 # --- HTTP-level (AC-23/24: R26 endpoints) -----------------------------------
 
@@ -251,13 +244,11 @@ def test_http_generate_get_and_list(client):
     assert list_resp.status_code == 200
     assert len(list_resp.json()) == 1
 
-
 def test_http_generate_requires_auth(client):
     ledger, http = client
     shift = _closed_shift(ledger)
     resp = http.post("/reports", json={"shift_id": str(shift.shift_id)})
     assert resp.status_code == 401
-
 
 def test_http_generate_rejects_extra_fields(client):
     ledger, http = client
@@ -269,12 +260,10 @@ def test_http_generate_rejects_extra_fields(client):
     )
     assert resp.status_code == 422
 
-
 def test_http_get_missing_report_is_404(client):
     _, http = client
     resp = http.get(f"/reports/{__import__('uuid').uuid4()}", headers=auth_headers("op1", "operator"))
     assert resp.status_code == 404
-
 
 # --- F4 repair: parent-shift invariant surfaced correctly over HTTP --------
 
@@ -285,7 +274,6 @@ def test_http_generate_for_unknown_shift_is_404_not_500(client):
         headers=auth_headers("op1", "operator"),
     )
     assert resp.status_code == 404
-
 
 def test_http_list_current_maps_ambiguous_current_to_409(client, monkeypatch):
     """F7: ambiguous-current ValueError must be a controlled 409, not 500."""

@@ -112,7 +112,7 @@ def test_incident_acknowledge_persists_and_audits_through_reconnect(sql_ledger, 
     confirmer = Principal(user_id="pg-live-inc-confirmer", role="shift_supervisor")
     sql_ledger.add_user(domain_models.User(user_id=confirmer.user_id, username=confirmer.user_id, password_hash="x", role="shift_supervisor"))
     sql_ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id=confirmer.user_id, assigned_by=confirmer.user_id))
-    IncidentService(sql_ledger).acknowledge(reported.incident_id, confirmer)
+    IncidentService(sql_ledger).acknowledge(reported.incident_id, confirmer, expected_version=reported.version)
     sql_ledger.engine.dispose()
 
     fresh = _reconnected(live_database_url)

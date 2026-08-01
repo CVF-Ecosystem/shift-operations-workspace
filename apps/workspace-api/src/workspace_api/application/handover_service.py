@@ -8,21 +8,17 @@ consumes:
                   evidence atomically -> audit. The caller supplies only
                   ``from_shift_id``/``to_shift_id`` (ADR section 3.2); items,
                   digests, status and actor identity are never caller input.
-* review       — identity -> permission -> revalidate snapshot -> lifecycle
-                  DRAFT->REVIEWED -> persist -> audit. The sender's step.
-* acknowledge  — identity -> permission -> distinct receiver -> revalidate
-                  snapshot -> lifecycle REVIEWED->ACKNOWLEDGED -> persist ->
-                  audit. The receiver must differ from the reviewer.
+* review       — identity -> permission -> target lookup -> assignment ->
+                  expected_version -> revalidate -> lifecycle -> audit.
+* acknowledge  — identity -> permission -> target lookup -> assignment ->
+                  distinct receiver -> expected_version -> revalidate ->
+                  lifecycle -> audit (P2C-MUTATION-FULL-UI-C3B2, SPEC R13/
+                  R14/REVIEW-F5: permission strictly before target lookup).
 
 ``assert_freeze_ready`` is the real ``open_handover_items_linked`` freeze
-prerequisite (ADR section 3.6): at least one ACKNOWLEDGED handover from the
-shift whose source snapshot still exactly matches current open work.
-
-Digest construction (SPEC R3) is canonical, UTF-8 JSON with sorted keys and
-compact separators, hashed with SHA-256 - byte-identical across backends
-because it only ever consumes already-reconstructed domain objects, never
-raw SQL rows.
-"""
+prerequisite (ADR section 3.6). Digest construction (SPEC R3) is canonical
+UTF-8 JSON, sorted keys/compact separators, SHA-256 hashed - byte-identical
+across backends since it only consumes reconstructed domain objects."""
 
 from __future__ import annotations
 
@@ -42,6 +38,7 @@ from operations_ledger import Ledger
 from operations_domain.lifecycle import assert_handover_transition
 from operations_domain.models import EvidenceRef, Handover, HandoverItem, HandoverStatus, RiskClass, ShiftStatus
 from workspace_api.application.assignment_scope import require_active_assignment
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 _CREATE_CHAIN = ["identity", "permission", "domain_lock", "audit"]
 _REVIEW_CHAIN = ["identity", "permission", "lifecycle", "audit"]
@@ -57,18 +54,11 @@ def _iso(value) -> str | None:
 
 
 def _evidence_payload(evidence) -> list[dict]:
-    return sorted(
-        (
-            {
-                "evidence_id": str(e.evidence_id),
-                "source_type": e.source_type,
-                "source_id": e.source_id,
-                "sha256": e.sha256,
-            }
-            for e in evidence
-        ),
-        key=lambda e: (e["evidence_id"], e["source_type"], e["source_id"], e["sha256"] or ""),
+    items = (
+        {"evidence_id": str(e.evidence_id), "source_type": e.source_type, "source_id": e.source_id, "sha256": e.sha256}
+        for e in evidence
     )
+    return sorted(items, key=lambda e: (e["evidence_id"], e["source_type"], e["source_id"], e["sha256"] or ""))
 
 
 def _task_payload(task) -> dict:
@@ -182,12 +172,10 @@ def _assert_shift_pair_ready(from_shift, to_shift) -> None:
 
 def assert_freeze_ready(ledger: Ledger, shift_id: UUID, *, unit=None) -> None:
     """The real `open_handover_items_linked` freeze prerequisite (ADR 3.6):
-    at least one ACKNOWLEDGED handover from ``shift_id`` whose destination
-    shift is still OPEN and whose source snapshot still exactly matches
-    current mandatory open work - both rechecked here, not trusted from
-    acknowledgement time (ADR 3.4: a state change invalidates readiness).
-    Never overridable - the report-approved override covers only
-    `report_approved`."""
+    at least one ACKNOWLEDGED handover whose destination shift is still OPEN
+    and whose source snapshot still exactly matches current open work - both
+    rechecked here, never trusted from acknowledgement time. Never
+    overridable - the report-approved override covers only `report_approved`."""
     for handover in ledger.list_handovers_for_shift(shift_id, unit=unit):
         if handover.status != HandoverStatus.ACKNOWLEDGED:
             continue
@@ -234,15 +222,20 @@ class HandoverService:
             self._audit(principal, "handover.create", stored.handover_id, _CREATE_CHAIN, None, str(stored.status), unit=unit)
         return stored
 
-    def review(self, handover_id: UUID, principal: Principal) -> Handover:
+    def review(
+        self, handover_id: UUID, principal: Principal, *, expected_version: int | None = None
+    ) -> Handover:
+        # REVIEW-F5: authority before target lookup - never a 404-vs-403 oracle.
+        require_action(principal, "handover.review")
+
         with self.ledger.transaction() as unit:
             handover = self.ledger.get_handover(handover_id, unit=unit)
-            require_action(principal, "handover.review")
             require_active_assignment(self.ledger, handover.from_shift_id, principal, unit=unit)
-            _assert_shift_pair_ready(
-                self.ledger.get_shift(handover.from_shift_id, unit=unit),
-                self.ledger.get_shift(handover.to_shift_id, unit=unit),
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=handover.version
             )
+            from_shift = self.ledger.get_shift(handover.from_shift_id, unit=unit)
+            _assert_shift_pair_ready(from_shift, self.ledger.get_shift(handover.to_shift_id, unit=unit))
             if handover.status != HandoverStatus.DRAFT:
                 raise CvfDenied(control="lifecycle", reason=f"handover is {handover.status}, expected DRAFT", http_status=409)
             assert_handover_transition(handover.status, HandoverStatus.REVIEWED)
@@ -258,11 +251,18 @@ class HandoverService:
             self._audit(principal, "handover.review", handover_id, _REVIEW_CHAIN, before, str(stored.status), unit=unit)
         return stored
 
-    def acknowledge(self, handover_id: UUID, principal: Principal) -> Handover:
+    def acknowledge(
+        self, handover_id: UUID, principal: Principal, *, expected_version: int | None = None
+    ) -> Handover:
+        # REVIEW-F5: authority before target lookup, same reasoning as review().
+        require_action(principal, "handover.acknowledge")
+
         with self.ledger.transaction() as unit:
             handover = self.ledger.get_handover(handover_id, unit=unit)
-            require_action(principal, "handover.acknowledge")
             require_active_assignment(self.ledger, handover.to_shift_id, principal, unit=unit)
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=handover.version
+            )
             if handover.reviewed_by is not None and handover.reviewed_by == principal.user_id:
                 raise CvfDenied(control="lifecycle", reason="receiver must differ from reviewer", http_status=409)
             _assert_shift_pair_ready(

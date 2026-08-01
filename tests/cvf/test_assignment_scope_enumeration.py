@@ -72,7 +72,7 @@ def test_coarse_permission_denial_stays_403_even_when_assigned(client):
     seed_active_assignment(ledger, shift.shift_id, *_OP)
     payload = {"shift_id": str(shift.shift_id), "event_type": "equipment_downtime", "title": "t"}
     event_id = http.post("/events", json=payload, headers=auth_headers(*_OP)).json()["event_id"]
-    res = http.post(f"/events/{event_id}/confirm", json={}, headers=auth_headers(*_OP))
+    res = http.post(f"/events/{event_id}/confirm", json={"expected_version": 1}, headers=auth_headers(*_OP))
     assert res.status_code == 403
 
 
@@ -170,7 +170,11 @@ def test_refused_incident_acknowledge_leaves_incident_and_audit_unchanged(client
     before = ledger.get_incident(UUID(incident_id))
     before_audit_count = len(ledger.audit_entries_for(str(incident_id)))
 
-    res = http.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=auth_headers(*_OUTSIDER))
+    res = http.post(
+        f"/incidents/{incident_id}/acknowledge",
+        json={"expected_version": before.version},
+        headers=auth_headers(*_OUTSIDER),
+    )
     assert res.status_code == 403  # insufficient role (operator) fires first
 
     after = ledger.get_incident(UUID(incident_id))

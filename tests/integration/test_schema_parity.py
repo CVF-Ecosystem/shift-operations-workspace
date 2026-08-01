@@ -43,6 +43,10 @@ NOT added to MAPPED below - test_schema_parity_reports.py
 (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE) parses both migrations directly
 instead, because the generic table_block() helper only matches a single
 CREATE TABLE statement and cannot see 007's ALTER-based additions.
+`customer_requests` (P2C-MUTATION-FULL-UI-C3B2, SPEC R12: now defined across
+TWO migrations, 002 plus 009's version column) is likewise deliberately NOT
+in MAPPED below for the exact same reason - test_customer_request_version_
+parity.py parses both migrations directly.
 
 STILL NOT LIVE VERIFIED: everything here is static text-parsing of the
 migration SQL compared against SQLAlchemy Table objects in memory. No
@@ -62,7 +66,6 @@ import re
 from operations_ledger.tables import (
     approval_receipts,
     corrections,
-    customer_requests,
     messages,
     metadata,
     operational_events,
@@ -85,7 +88,6 @@ MAPPED = {
     "operational_events": operational_events,
     "corrections": corrections,
     "tasks": tasks,
-    "customer_requests": customer_requests,
     # P2-B: real authentication (2026-07-22). See database/migrations/003_users.sql.
     "users": users,
     # P2B-APPROVER-IDENTITY-RECONCILIATION. See

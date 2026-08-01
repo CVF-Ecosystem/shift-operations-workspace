@@ -11,6 +11,7 @@ from sqlalchemy.exc import IntegrityError
 from operations_ledger import _evidence, _event_queries, _rows, _shift_queries
 from operations_ledger._approval_store import _ApprovalStoreMixin, _noop_cm
 from operations_ledger._assignment_store import _AssignmentStoreMixin
+from operations_ledger._customer_request_store import _CustomerRequestStoreMixin
 from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
 from operations_ledger._message_store import _MessageStoreMixin
@@ -18,7 +19,6 @@ from operations_ledger._report_store import _ReportStoreMixin
 from operations_ledger.tables import (
     audit_records,
     corrections,
-    customer_requests,
     messages,
     operational_events,
     shifts,
@@ -53,7 +53,7 @@ def make_engine(database_url: str, **kwargs) -> Engine:
 
 
 class SqlLedger(
-    _ApprovalStoreMixin, _AssignmentStoreMixin, _IncidentStoreMixin,
+    _ApprovalStoreMixin, _AssignmentStoreMixin, _CustomerRequestStoreMixin, _IncidentStoreMixin,
     _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin,
 ):
     def __init__(self, database_url: str, models, engine: Engine | None = None):
@@ -243,30 +243,9 @@ class SqlLedger(
             c.execute(update(tasks).where(tasks.c.task_id == task.task_id).values(**_rows.task_row(task)))
         return task
 
-    # --- customer requests: shift_id is nullable, so the frozen-shift guard
-    # only runs when one is present (mirrors InMemoryLedger). ---
-    def add_customer_request(self, request, *, unit=None):
-        with self._open(unit) as c:
-            if request.shift_id is not None:
-                self._assert_shift_not_frozen(c, request.shift_id, "add customer request to a frozen shift")
-            c.execute(insert(customer_requests).values(**_rows.customer_request_row(request)))
-        return request
-
-    def get_customer_request(self, request_id: UUID, *, unit=None):
-        row = self._fetch_one(select(customer_requests).where(customer_requests.c.request_id == request_id), unit=unit)
-        if row is None:
-            raise KeyError(request_id)
-        return _rows.row_to_customer_request(self.models, row)
-
-    def put_customer_request(self, request, *, unit=None):
-        with self._open(unit) as c:
-            if request.shift_id is not None:
-                self._assert_shift_not_frozen(c, request.shift_id, "modify customer request in a frozen shift")
-            c.execute(
-                update(customer_requests).where(customer_requests.c.request_id == request.request_id)
-                .values(**_rows.customer_request_row(request))
-            )
-        return request
+    # --- customer requests: add_customer_request/get_customer_request/
+    # put_customer_request/transition_customer_request implemented by
+    # _CustomerRequestStoreMixin ---
 
     # --- users, approval receipts / task creation intents: see _ApprovalStoreMixin ---
 

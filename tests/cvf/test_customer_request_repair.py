@@ -77,7 +77,8 @@ def test_inmemory_customer_request_returned_object_is_not_a_live_alias():
 
     # A legitimate service-mediated transition must still work normally.
     moved = CustomerRequestService(ledger).transition(
-        created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED
+        created.request_id, _operator(), CustomerRequestStatus.ACKNOWLEDGED,
+        expected_version=created.version,
     )
     assert moved.status == CustomerRequestStatus.ACKNOWLEDGED
     stored_after_transition = ledger.get_customer_request(created.request_id)

@@ -36,6 +36,7 @@ from test_c3b_read_openapi_contract import (  # noqa: E402
     PRE_C3B_READ_OPENAPI_SHA,
     _strip_c3b_read_delta,
 )
+from test_c3b2_mutation_openapi_contract import _strip_c3b2_mutation_delta  # noqa: E402
 
 
 def canonical(value) -> bytes:
@@ -88,6 +89,7 @@ def test_openapi_delta_is_exactly_the_assignment_operations():
     assert _ASSIGNMENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
 
@@ -103,6 +105,7 @@ def test_openapi_document_is_the_pre_c3b_read_value():
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
 
     actual = canonical(reduced)

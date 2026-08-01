@@ -80,21 +80,25 @@ def _ready_handover(ledger, shift):
     _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _OPERATOR)
-    handover = svc.review(handover.handover_id, _SUPERVISOR)
-    return svc.acknowledge(handover.handover_id, _RECEIVER)
+    handover = svc.review(handover.handover_id, _SUPERVISOR, expected_version=handover.version)
+    return svc.acknowledge(handover.handover_id, _RECEIVER, expected_version=handover.version)
 
 
 def _approved_report(ledger, shift, approver_id=None):
     approver_id = approver_id or f"pg-live-approver-{uuid4().hex[:8]}"
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
-    report = svc.submit_review(report.report_id, _OPERATOR)
+    report = svc.submit_review(
+        report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status
+    )
     _seed(ledger, shift.shift_id, approver_id, "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, _SUPERVISOR)
+    return svc.approve(
+        report.report_id, _SUPERVISOR, expected_version=report.version, expected_status=report.status
+    )
 
 
 def test_live_reports_table_and_is_current_present(sql_ledger):
@@ -137,7 +141,7 @@ def test_atomic_report_and_shift_freeze_through_reconnect(sql_ledger, live_datab
     _ready_handover(sql_ledger, shift)
     report = _approved_report(sql_ledger, shift)
 
-    frozen_shift = ShiftService(sql_ledger).freeze(shift.shift_id, _SUPERVISOR)
+    frozen_shift = ShiftService(sql_ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
     assert frozen_shift.status == ShiftStatus.FROZEN
     sql_ledger.engine.dispose()
 
@@ -195,7 +199,9 @@ def test_report_transaction_rollback_removes_all_writes(sql_ledger, live_databas
 def test_report_successor_atomic_through_reconnect(sql_ledger, live_database_url):
     shift = _closed_shift(sql_ledger)
     report = ReportService(sql_ledger).generate(shift.shift_id, _OPERATOR)
-    successor = ReportService(sql_ledger).create_successor(report.report_id, _OPERATOR)
+    successor = ReportService(sql_ledger).create_successor(
+        report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status
+    )
     sql_ledger.engine.dispose()
 
     fresh = _reconnected(live_database_url)
@@ -231,7 +237,7 @@ def test_add_report_rejects_frozen_parent_shift_on_live_postgres(sql_ledger):
     shift = _closed_shift(sql_ledger)
     _ready_handover(sql_ledger, shift)
     _approved_report(sql_ledger, shift)
-    ShiftService(sql_ledger).freeze(shift.shift_id, _SUPERVISOR)
+    ShiftService(sql_ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
 
     from operations_domain.models import Report, ReportContent, ReportSection
 
@@ -260,7 +266,7 @@ def test_concurrent_freeze_race_resolves_to_exactly_one_winner(sql_ledger, live_
     results = []
     for ledger in (ledger_a, ledger_b):
         try:
-            frozen = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR)
+            frozen = ShiftService(ledger).freeze(shift.shift_id, _SUPERVISOR, expected_version=shift.version)
             results.append(("ok", frozen.status))
         except Exception as exc:  # noqa: BLE001 - either controlled CvfDenied or idempotent success
             results.append(("conflict", str(exc)))

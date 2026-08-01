@@ -13,16 +13,16 @@ could race, so on SQLite it reserves the write lock from open (BEGIN
 IMMEDIATE), scoped to only this call. Every OTHER vertical's own reads/
 writes keep using plain ``transaction()`` unaffected.
 
-Governed chains (ADR Decision 4):
+Governed chains (ADR Decision 4; REVIEW-F5 fixed the exact order below):
 
-* generate        -- identity -> permission -> closed-shift check -> derive
-                      snapshot -> persist version -> audit.
-* submit_review   -- identity -> permission -> lifecycle -> revalidate
-                      snapshot -> persist status -> audit.
-* approve         -- identity -> permission -> lifecycle -> revalidate
-                      snapshot -> R2 approval -> persist status -> audit.
-* create_successor -- identity -> permission -> reason (if revoking an
-                      APPROVED version) -> create successor version -> audit.
+* generate        -- identity -> permission -> closed-shift -> snapshot -> audit.
+* submit_review   -- identity -> permission -> lookup -> assignment ->
+                      precondition -> lifecycle -> revalidate -> audit.
+* approve         -- identity -> permission -> lookup -> assignment ->
+                      precondition -> lifecycle -> R2 approval -> audit.
+* create_successor -- identity -> coarse permission -> lookup -> exact
+                      permission -> assignment -> precondition -> lifecycle
+                      -> reason (if revoking) -> new version -> audit.
 """
 
 from __future__ import annotations
@@ -42,6 +42,10 @@ from operations_domain.lifecycle import assert_report_transition
 from operations_domain.models import Report, ReportStatus, ShiftStatus
 from workspace_api.application import approval_service, report_snapshot
 from workspace_api.application.assignment_scope import require_active_assignment
+from workspace_api.application.mutation_preconditions import (
+    assert_status_precondition,
+    assert_version_precondition,
+)
 
 _RECORD_TYPE = "Report"
 _APPROVE_ACTION = "report.approve"
@@ -53,7 +57,6 @@ _REGENERATE_CHAIN = ["identity", "permission", "snapshot", "version", "audit"]
 _REVOKE_CHAIN = ["identity", "permission", "approval", "snapshot", "version", "audit"]
 
 _MAX_REASON_LEN = 1000
-
 
 def _gather_snapshot_inputs(ledger: Ledger, shift_id: UUID, *, unit=None) -> dict:
     events = report_snapshot.filter_eligible_events(ledger.list_events_for_shift(shift_id, unit=unit))
@@ -132,12 +135,28 @@ class ReportService:
             self._audit(principal, "report.generate", stored.report_id, _GENERATE_CHAIN, None, str(stored.status), unit=unit)
         return stored
 
-    def submit_review(self, report_id: UUID, principal: Principal) -> Report:
+    def submit_review(
+        self,
+        report_id: UUID,
+        principal: Principal,
+        *,
+        expected_version: int | None = None,
+        expected_status: ReportStatus | None = None,
+    ) -> Report:
         require_action(principal, "report.submit_review")
 
         with self.ledger.report_mutation_transaction() as unit:
             report = self.ledger.get_report(report_id, unit=unit)
             require_active_assignment(self.ledger, report.shift_id, principal, unit=unit)
+            # REVIEW-F5: admission, THEN precondition, THEN _assert_current/
+            # lifecycle - Report submit/approve are status-only (content
+            # `version` never increments).
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=report.version
+            )
+            assert_status_precondition(
+                control="lifecycle", expected_status=expected_status, current_status=report.status
+            )
             self._assert_current(report)
             if report.status != ReportStatus.DRAFT:
                 raise CvfDenied(control="lifecycle", reason=f"report is {report.status}, expected DRAFT", http_status=409)
@@ -150,11 +169,27 @@ class ReportService:
             self._audit(principal, "report.submit_review", report_id, _SUBMIT_REVIEW_CHAIN, before, str(stored.status), unit=unit)
         return stored
 
-    def approve(self, report_id: UUID, principal: Principal) -> Report:
+    def approve(
+        self,
+        report_id: UUID,
+        principal: Principal,
+        *,
+        expected_version: int | None = None,
+        expected_status: ReportStatus | None = None,
+    ) -> Report:
+        # REVIEW-F5: authority before target lookup - never a 404-vs-403 oracle.
+        require_action(principal, "report.approve")
+
         with self.ledger.report_mutation_transaction() as unit:
             report = self.ledger.get_report(report_id, unit=unit)
-            require_action(principal, "report.approve")
             require_active_assignment(self.ledger, report.shift_id, principal, unit=unit)
+            # REVIEW-F5: admission, THEN precondition, THEN _assert_current.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=report.version
+            )
+            assert_status_precondition(
+                control="lifecycle", expected_status=expected_status, current_status=report.status
+            )
             self._assert_current(report)
             if report.status != ReportStatus.IN_REVIEW:
                 raise CvfDenied(control="lifecycle", reason=f"report is {report.status}, expected IN_REVIEW", http_status=409)
@@ -179,7 +214,22 @@ class ReportService:
             self._audit(principal, _APPROVE_ACTION, report_id, _APPROVE_CHAIN, before, str(stored.status), unit=unit)
         return stored
 
-    def create_successor(self, report_id: UUID, principal: Principal, *, reason: str | None = None) -> Report:
+    def create_successor(
+        self,
+        report_id: UUID,
+        principal: Principal,
+        *,
+        reason: str | None = None,
+        expected_version: int | None = None,
+        expected_status: ReportStatus | None = None,
+    ) -> Report:
+        # REVIEW-F5: overloaded route - the EXACT action (generate vs
+        # revoke_approval) depends on stored status, not yet known. Coarse
+        # "report.generate" (the lower of the two role bars) is the floor
+        # checked here so an unauthorized nonexistent target is 403, never an
+        # existence-revealing 404; the exact action is re-checked below.
+        require_action(principal, "report.generate")
+
         with self.ledger.report_mutation_transaction() as unit:
             previous = self.ledger.get_report(report_id, unit=unit)
 
@@ -187,6 +237,14 @@ class ReportService:
             require_action(principal, "report.revoke_approval" if is_revocation else "report.generate")
 
             require_active_assignment(self.ledger, previous.shift_id, principal, unit=unit)
+            # REVIEW-F5: admission, THEN precondition (vs the predecessor
+            # being superseded), THEN _assert_current/lifecycle/reason.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=previous.version
+            )
+            assert_status_precondition(
+                control="lifecycle", expected_status=expected_status, current_status=previous.status
+            )
             self._assert_current(previous)
 
             if previous.status == ReportStatus.FROZEN:

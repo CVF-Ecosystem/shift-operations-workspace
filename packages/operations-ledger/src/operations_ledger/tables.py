@@ -18,8 +18,7 @@ P1-POSTGRESQL-LIVE-ROUNDTRIP Amendment 1 (PG-REV-F1): the three migration
 PostgreSQL. A bare ``String`` column binds an explicit ``::VARCHAR`` cast that
 PostgreSQL refuses to implicitly convert to a native enum type.
 ``create_type=False`` on every variant is mandatory: the migrations already
-ran ``CREATE TYPE``, so SQLAlchemy must never attempt to create/drop it.
-"""
+ran ``CREATE TYPE``, so SQLAlchemy must never attempt to create/drop it."""
 
 from __future__ import annotations
 
@@ -196,10 +195,9 @@ tasks = Table(
     ),
 )
 
-# Mirrors migration 002_tasks_customers_reports.sql (customer_requests table).
-# Unlike tasks, shift_id here is NULLABLE (a customer request can exist
-# without being tied to a specific shift) and there is no version/risk/state
-# column - this table is intentionally simpler than tasks/operational_events.
+# Mirrors migration 002_tasks_customers_reports.sql plus 009_customer_
+# request_version.sql (P2C-MUTATION-FULL-UI-C3B2, SPEC R12). shift_id is
+# NULLABLE (unlike tasks); still no risk/state column.
 customer_requests = Table(
     "customer_requests",
     metadata,
@@ -213,10 +211,12 @@ customer_requests = Table(
     Column("received_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
     Column("promised_at", DateTime(timezone=True)),
     Column("owner_id", Text),
+    Column("version", Integer, nullable=False, server_default="1"),
     CheckConstraint(
         "status IN ('NEW','ACKNOWLEDGED','IN_PROGRESS','WAITING','RESOLVED','CLOSED')",
         name="customer_requests_status_check",
     ),
+    CheckConstraint("version >= 1", name="customer_requests_version_check"),
 )
 
 # Mirrors migration 003_users.sql (P2-B: real authentication). user_id is a

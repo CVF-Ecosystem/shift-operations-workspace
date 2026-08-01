@@ -29,12 +29,7 @@ for _rel in (
     sys.path.insert(0, str(REPO_ROOT / _rel))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from _handover_live_evidence_support import (  # noqa: E402
-    ProviderCallCounter,
-    call_provider,
-    render_receipt,
-    safe_endpoint_description,
-)
+from _handover_live_evidence_support import ProviderCallCounter, call_provider, render_receipt, safe_endpoint_description  # noqa: E402
 
 KEY_ENV_NAMES = ("ALIBABA_API_KEY", "DASHSCOPE_API_KEY")
 BASE_URL_ENV_NAMES = ("ALIBABA_BASE_URL", "DASHSCOPE_BASE_URL")
@@ -87,32 +82,37 @@ def _create(client, from_shift_id, to_shift_id, headers):
         headers=headers,
     )
 
-def _review(client, handover_id, headers):
-    return client.post(f"/handovers/{handover_id}/review", json={}, headers=headers)
+def _review(client, handover_id, headers, *, expected_version):
+    return client.post(f"/handovers/{handover_id}/review", json={"expected_version": expected_version}, headers=headers)
 
-def _acknowledge(client, handover_id, headers):
-    return client.post(f"/handovers/{handover_id}/acknowledge", json={}, headers=headers)
+def _acknowledge(client, handover_id, headers, *, expected_version):
+    return client.post(f"/handovers/{handover_id}/acknowledge", json={"expected_version": expected_version}, headers=headers)
 
-def _close(client, shift_id, headers):
-    return client.post(f"/shifts/{shift_id}/close", headers=headers)
+def _close(client, shift_id, headers, *, expected_version):
+    return client.post(f"/shifts/{shift_id}/close", json={"expected_version": expected_version}, headers=headers)
 
-def _freeze(client, shift_id, headers):
-    return client.post(f"/shifts/{shift_id}/freeze", json={}, headers=headers)
+def _freeze(client, shift_id, headers, *, expected_version):
+    return client.post(f"/shifts/{shift_id}/freeze", json={"expected_version": expected_version}, headers=headers)
 
 def _make_ready_report(ledger, client, shift_id, operator_headers, approver_headers):
     """A real current, APPROVED END_SHIFT report (P2R-OPERATIONAL-REPORT-
-    FREEZE-PREREQUISITE) - the retired override no longer exists."""
+    FREEZE-PREREQUISITE) - the retired override no longer exists. Report
+    submit-review/approve are status-only: content version never increments,
+    so every call in this chain reuses the immutable generated version."""
     from cvf_runtime.identity import Principal
     from workspace_api.application import approval_service
     generate_res = client.post("/reports", json={"shift_id": str(shift_id)}, headers=operator_headers)
     report_id = generate_res.json()["report_id"]
-    client.post(f"/reports/{report_id}/submit-review", json={}, headers=operator_headers)
+    report_version = generate_res.json()["version"]
+    review_body = {"expected_version": report_version, "expected_status": "DRAFT"}
+    client.post(f"/reports/{report_id}/submit-review", json=review_body, headers=operator_headers)
     _seed(ledger, shift_id, "hov-ev-rep-approver", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="hov-ev-rep-approver", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=UUID(report_id),
     )
-    return client.post(f"/reports/{report_id}/approve", json={}, headers=approver_headers)
+    approve_body = {"expected_version": report_version, "expected_status": "IN_REVIEW"}
+    return client.post(f"/reports/{report_id}/approve", json=approve_body, headers=approver_headers)
 
 def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     """Refusal cases: each records the OBSERVED provider-call delta on the
@@ -131,8 +131,8 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
 
     ledger, shift = _new_ledger_and_shift("missing-handover")
     def _missing_handover(client):
-        _close(client, shift.shift_id, op)
-        return _freeze(client, shift.shift_id, sup1)
+        close_res = _close(client, shift.shift_id, op, expected_version=shift.version)
+        return _freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
     _case("missing_handover_freeze_rejected", ledger, _missing_handover)
 
     ledger, shift = _new_ledger_and_shift("draft-only")
@@ -142,9 +142,9 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     def _reviewed_only(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
-        _review(client, handover_id, sup1)
-        _close(client, shift.shift_id, op)
-        return _freeze(client, shift.shift_id, sup1)
+        _review(client, handover_id, sup1, expected_version=create_res.json()["version"])
+        close_res = _close(client, shift.shift_id, op, expected_version=shift.version)
+        return _freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
     _case("reviewed_only_handover_freeze_rejected", ledger, _reviewed_only)
 
     ledger, shift = _new_ledger_and_shift("self-ack")
@@ -154,8 +154,8 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     def _self_ack(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
-        _review(client, handover_id, sup1)
-        return _acknowledge(client, handover_id, sup1)
+        review_res = _review(client, handover_id, sup1, expected_version=create_res.json()["version"])
+        return _acknowledge(client, handover_id, sup1, expected_version=review_res.json()["version"])
     _case("self_acknowledgement_rejected", ledger, _self_ack)
 
     ledger, shift = _new_ledger_and_shift("stale")
@@ -168,13 +168,13 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
         ledger.add_task(task)
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
-        _review(client, handover_id, sup1)
-        _acknowledge(client, handover_id, sup2)
+        review_res = _review(client, handover_id, sup1, expected_version=create_res.json()["version"])
+        ack_res = _acknowledge(client, handover_id, sup2, expected_version=review_res.json()["version"])
         mutated = ledger.get_task(task.task_id)
         mutated.status = TaskStatus.IN_PROGRESS
         ledger.put_task(mutated)
-        _close(client, shift.shift_id, op)
-        return _freeze(client, shift.shift_id, sup1)
+        close_res = _close(client, shift.shift_id, op, expected_version=shift.version)
+        return _freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
 
     _case("stale_snapshot_freeze_rejected", ledger, _stale)
 
@@ -197,15 +197,15 @@ def build_review_acknowledge_and_freeze_genuine() -> tuple[bool, str]:
             return False, f"create failed: {create_res.status_code}"
         handover_id = create_res.json()["handover_id"]
 
-        review_res = _review(client, handover_id, sup1)
+        review_res = _review(client, handover_id, sup1, expected_version=create_res.json()["version"])
         if review_res.status_code != 200:
             return False, f"review failed: {review_res.status_code}"
 
-        ack_res = _acknowledge(client, handover_id, sup2)
+        ack_res = _acknowledge(client, handover_id, sup2, expected_version=review_res.json()["version"])
         if ack_res.status_code != 200 or ack_res.json()["status"] != "ACKNOWLEDGED":
             return False, f"acknowledge failed: {ack_res.status_code}"
 
-        close_res = _close(client, shift.shift_id, op)
+        close_res = _close(client, shift.shift_id, op, expected_version=shift.version)
         if close_res.status_code != 200:
             return False, f"close failed: {close_res.status_code}"
 
@@ -213,7 +213,7 @@ def build_review_acknowledge_and_freeze_genuine() -> tuple[bool, str]:
         if report_res.status_code != 200 or report_res.json()["status"] != "APPROVED":
             return False, f"report approval failed: {report_res.status_code}"
 
-        freeze_res = _freeze(client, shift.shift_id, sup1)
+        freeze_res = _freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
         if freeze_res.status_code != 200 or freeze_res.json()["status"] != "FROZEN":
             return False, f"freeze failed: {freeze_res.status_code}"
 

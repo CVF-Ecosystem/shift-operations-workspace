@@ -40,6 +40,7 @@ from operations_domain.lifecycle import assert_task_transition
 from operations_domain.models import Task, TaskCreationIntent, TaskStatus
 from workspace_api.application import approval_service
 from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 _CREATE_CHAIN = ["identity", "permission", "domain_lock", "risk", "evidence", "approval", "audit"]
 _TRANSITION_CHAIN = ["identity", "permission", "freeze", "audit"]
@@ -201,18 +202,32 @@ class TaskService:
         task_id: UUID,
         principal: Principal,
         target_status: TaskStatus,
+        *,
+        expected_version: int | None = None,
     ) -> Task:
         require_action(principal, "task.transition")
-        task = self.ledger.get_task(task_id)
-        AssignmentScope(self.ledger).require_record(task, principal)
-        # Task-status lifecycle guard (raises ValueError on an illegal move).
-        assert_task_transition(task.status, target_status)
-
-        before = str(task.status)
-        task.status = target_status
-        task.version += 1
-
+        # C3B2-WO-REV-F2: the stored-target read, assignment admission,
+        # precondition compare, lifecycle check and mutation all now share
+        # ONE transaction - previously the read/decision happened outside
+        # transaction(), so a concurrent writer could interleave between the
+        # read and the eventual put_task().
         with self.ledger.transaction() as unit:
+            task = self.ledger.get_task(task_id, unit=unit)
+            AssignmentScope(self.ledger).require_record(task, principal, unit=unit)
+
+            # SPEC R13/R14: compared after assignment admission, before the
+            # lifecycle check or any mutation.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=task.version
+            )
+
+            # Task-status lifecycle guard (raises ValueError on an illegal move).
+            assert_task_transition(task.status, target_status)
+
+            before = str(task.status)
+            task.status = target_status
+            task.version += 1
+
             self.ledger.put_task(task, unit=unit)
             self._audit(
                 principal, "task.transition", task_id, _TRANSITION_CHAIN,

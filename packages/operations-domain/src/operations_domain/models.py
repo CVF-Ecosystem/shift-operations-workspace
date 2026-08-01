@@ -145,8 +145,9 @@ class CustomerRequestStatus(StrEnum):
 
 
 class CustomerRequest(BaseModel):
-    # Mirrors database/migrations/002_tasks_customers_reports.sql exactly: no
-    # version/risk_class/state/evidence columns on this table (unlike
+    # Mirrors database/migrations/002_tasks_customers_reports.sql plus
+    # 009_customer_request_version.sql (P2C-MUTATION-FULL-UI-C3B2, SPEC R12):
+    # still no risk_class/state/evidence columns on this table (unlike
     # Task/OperationalEvent) - this is a simpler record type by design, not an
     # omission. Do not add those fields without first adding the matching
     # migration columns (the schema-parity test enforces exact column match).
@@ -160,6 +161,7 @@ class CustomerRequest(BaseModel):
     received_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     promised_at: datetime | None = None
     owner_id: str | None = None
+    version: int = Field(default=1, ge=1)
 
 
 class ApprovalReceipt(BaseModel):

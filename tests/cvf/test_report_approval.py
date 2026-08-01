@@ -1,7 +1,4 @@
-"""Report approval receipt scoping and R2 quorum (SPEC R16-R17). Mirrors
-test_incident_vertical.py's acknowledge-quorum coverage, applied to
-report.approve.
-"""
+"""Report approval receipt scoping and R2 quorum (SPEC R16-R17)."""
 
 from datetime import datetime, timedelta, timezone
 from uuid import uuid4
@@ -19,32 +16,27 @@ from workspace_api.application.report_service import ReportService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
 from workspace_api.domain.models import ShiftAssignment, User
-from operations_domain.models import ReportStatus, Shift
+from operations_domain.models import ReportStatus, ShiftStatus, Shift
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
-
 from _auth_test_helpers import auth_headers
 
 _OPERATOR = Principal(user_id="op1", role="operator")
 _SUPERVISOR = Principal(user_id="sup1", role="shift_supervisor")
-
 
 def _sql_ledger(tmp_path):
     engine = make_engine(f"sqlite:///{tmp_path / 'report_approval.sqlite3'}")
     metadata.create_all(engine)
     return SqlLedger(str(tmp_path / "report_approval.sqlite3"), models=domain_models, engine=engine)
 
-
 def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
-
 
 def _seed(ledger, shift_id, user_id, role):
     if ledger.get_user_by_id(user_id) is None:
         ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
     if ledger.get_active_assignment(shift_id, user_id) is None:
         ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
-
 
 def _in_review_report(ledger):
     now = datetime.now(timezone.utc)
@@ -54,28 +46,22 @@ def _in_review_report(ledger):
     ledger.close_shift(shift.shift_id)
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
-    return svc.submit_review(report.report_id, _OPERATOR)
-
+    return svc.submit_review(report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status)
 
 def _add_approver(ledger, report, user_id="sup2", role="shift_supervisor"):
     _seed(ledger, report.shift_id, user_id, role)
     return Principal(user_id=user_id, role=role)
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_receipt_creation_requires_current_in_review_report(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
     approver = _add_approver(ledger, report)
-
-    receipt, created = approval_service.create_approval_receipt(
-        ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
-    )
+    receipt, created = approval_service.create_approval_receipt(ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id)
     assert created is True
     assert receipt.risk_class == "R2"
     assert receipt.target_version == report.version
     assert receipt.payload_digest == report.content.snapshot_digest
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_receipt_creation_refused_for_draft_report(tmp_path, name):
@@ -87,22 +73,17 @@ def test_receipt_creation_refused_for_draft_report(tmp_path, name):
     ledger.close_shift(shift.shift_id)
     report = ReportService(ledger).generate(shift.shift_id, _OPERATOR)
     approver = _add_approver(ledger, report)
-
     with pytest.raises(CvfDenied) as exc:
-        approval_service.create_approval_receipt(
-            ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
-        )
+        approval_service.create_approval_receipt(ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id)
     assert exc.value.http_status == 409
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_approve_requires_permission(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).approve(report.report_id, _OPERATOR)
+        ReportService(ledger).approve(report.report_id, _OPERATOR, expected_version=report.version, expected_status=report.status)
     assert exc.value.control == "permission"
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_approve_requires_receipt(tmp_path, name):
@@ -110,61 +91,49 @@ def test_approve_requires_receipt(tmp_path, name):
     report = _in_review_report(ledger)
     _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).approve(report.report_id, _SUPERVISOR)
+        ReportService(ledger).approve(report.report_id, _SUPERVISOR, expected_version=report.version, expected_status=report.status)
     assert exc.value.control == "approval"
 
-
+# R17: the approving transition actor cannot be the sole receipt approver.
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_approve_actor_cannot_be_sole_receipt_approver(tmp_path, name):
-    """R17: the approving transition actor cannot be the sole receipt
-    approver - the existing confirmer-separation rule remains load-bearing."""
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
     _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
-    approval_service.create_approval_receipt(
-        ledger, _SUPERVISOR, record_type="Report", action="report.approve", record_id=report.report_id,
-    )
+    approval_service.create_approval_receipt(ledger, _SUPERVISOR, record_type="Report", action="report.approve", record_id=report.report_id)
     with pytest.raises(CvfDenied) as exc:
-        ReportService(ledger).approve(report.report_id, _SUPERVISOR)
+        ReportService(ledger).approve(report.report_id, _SUPERVISOR, expected_version=report.version, expected_status=report.status)
     assert exc.value.control == "approval"
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_approve_succeeds_with_distinct_receipt_approver(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
     approver = _add_approver(ledger, report, "sup2")
-    approval_service.create_approval_receipt(
-        ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
-    )
+    approval_service.create_approval_receipt(ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id)
     _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
-
-    approved = ReportService(ledger).approve(report.report_id, _SUPERVISOR)
+    approved = ReportService(ledger).approve(report.report_id, _SUPERVISOR, expected_version=report.version, expected_status=report.status)
     assert approved.status == ReportStatus.APPROVED
     entries = ledger.audit_entries_for(str(report.report_id))
     actions = [e.action if hasattr(e, "action") else e["action"] for e in entries]
     assert "report.approve" in actions
 
-
+# A receipt bound to an older version cannot authorize approval of a
+# successor - stale receipts never carry forward.
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_receipt_for_wrong_version_does_not_count(tmp_path, name):
-    """A receipt bound to an older version cannot authorize approval of a
-    successor - stale receipts never carry forward."""
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
     approver = _add_approver(ledger, report, "sup2")
-    approval_service.create_approval_receipt(
-        ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
-    )
-
+    approval_service.create_approval_receipt(ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id)
     # Wrong record id entirely - receipt scoped elsewhere never counts here.
     other_report = _in_review_report(ledger)
     _seed(ledger, other_report.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied):
-        ReportService(ledger).approve(other_report.report_id, _SUPERVISOR)
+        ReportService(ledger).approve(other_report.report_id, _SUPERVISOR, expected_version=other_report.version, expected_status=other_report.status)
 
-
-# --- F7 repair: submit-review/approve take no request body over HTTP -------
+# --- SPEC R13: submit-review/approve require expected_version/expected_status
+# in the request body - the F7 "no request body" contract was retired. -----
 
 @pytest.fixture
 def client():
@@ -175,14 +144,13 @@ def client():
     finally:
         app.dependency_overrides.pop(get_ledger, None)
 
-
-def test_http_submit_review_accepts_empty_request(client):
+def test_http_submit_review_requires_expected_version_and_status(client):
     ledger, http = client
     report = _in_review_report_removing_status(ledger)
-    resp = http.post(f"/reports/{report.report_id}/submit-review", headers=auth_headers("op1", "operator"))
+    body = {"expected_version": report.version, "expected_status": report.status.value}
+    resp = http.post(f"/reports/{report.report_id}/submit-review", json=body, headers=auth_headers("op1", "operator"))
     assert resp.status_code == 200, resp.text
     assert resp.json()["status"] == "IN_REVIEW"
-
 
 def _in_review_report_removing_status(ledger):
     """DRAFT (not yet IN_REVIEW) report, so submit-review below is the real
@@ -194,35 +162,101 @@ def _in_review_report_removing_status(ledger):
     ledger.close_shift(shift.shift_id)
     return ReportService(ledger).generate(shift.shift_id, _OPERATOR)
 
-
-def test_http_submit_review_rejects_caller_supplied_body(client):
-    """F7: no requestBody is declared for this operation, so FastAPI ignores
-    caller-supplied JSON entirely - a caller trying to smuggle `status` in
-    cannot influence the transition; the server-derived IN_REVIEW still wins."""
+# SPEC R13: a missing expected_version/expected_status is a controlled 422.
+def test_http_submit_review_missing_body_is_422(client):
     ledger, http = client
     report = _in_review_report_removing_status(ledger)
-    resp = http.post(
-        f"/reports/{report.report_id}/submit-review",
-        json={"status": "APPROVED"},
-        headers=auth_headers("op1", "operator"),
-    )
-    assert resp.status_code == 200, resp.text
-    assert resp.json()["status"] == "IN_REVIEW"
+    resp = http.post(f"/reports/{report.report_id}/submit-review", json={}, headers=auth_headers("op1", "operator"))
+    assert resp.status_code == 422, resp.text
 
+# extra="forbid": smuggling `status` in is refused, never silently ignored.
+def test_http_submit_review_rejects_extra_fields(client):
+    ledger, http = client
+    report = _in_review_report_removing_status(ledger)
+    body = {"expected_version": report.version, "expected_status": report.status.value, "status": "APPROVED"}
+    resp = http.post(f"/reports/{report.report_id}/submit-review", json=body, headers=auth_headers("op1", "operator"))
+    assert resp.status_code == 422, resp.text
 
-def test_http_approve_accepts_empty_request(client):
+def test_http_approve_requires_expected_version_and_status(client):
     ledger, http = client
     report = _in_review_report(ledger)
     _add_approver(ledger, report, "sup2")
-    approval_service.create_approval_receipt(
-        ledger, Principal(user_id="sup2", role="shift_supervisor"),
-        record_type="Report", action="report.approve", record_id=report.report_id,
-    )
+    approval_service.create_approval_receipt(ledger, Principal(user_id="sup2", role="shift_supervisor"), record_type="Report", action="report.approve", record_id=report.report_id)
     _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
-    resp = http.post(f"/reports/{report.report_id}/approve", headers=auth_headers("sup1", "shift_supervisor"))
+    body = {"expected_version": report.version, "expected_status": report.status.value}
+    resp = http.post(f"/reports/{report.report_id}/approve", json=body, headers=auth_headers("sup1", "shift_supervisor"))
     assert resp.status_code == 200, resp.text
     assert resp.json()["status"] == "APPROVED"
 
+# --- REVIEW-F5: coarse authority before target lookup - 404 never leaks
+# past an unauthorized caller as an existence oracle for a nonexistent id. --
+
+def test_approve_unauthorized_caller_gets_403_not_404_for_nonexistent_report():
+    ledger = InMemoryLedger()
+    with pytest.raises(CvfDenied) as exc:
+        ReportService(ledger).approve(uuid4(), _OPERATOR, expected_version=1, expected_status=ReportStatus.IN_REVIEW)
+    assert exc.value.control == "permission"
+
+# Below even the coarse `report.generate` floor (viewer), so the overloaded
+# route must refuse before ever attempting the lookup.
+def test_create_successor_unauthorized_caller_gets_403_not_404_for_nonexistent_report():
+    ledger = InMemoryLedger()
+    viewer = Principal(user_id="v1", role="viewer")
+    with pytest.raises(CvfDenied) as exc:
+        ReportService(ledger).create_successor(uuid4(), viewer, expected_version=1, expected_status=ReportStatus.DRAFT)
+    assert exc.value.control == "permission"
+
+# admission -> precondition -> _assert_current: a stale version against a
+# superseded report must fail on the precondition, not _assert_current.
+def test_approve_admission_then_precondition_then_assert_current_order(tmp_path):
+    ledger = InMemoryLedger()
+    report = _in_review_report(ledger)
+    approver = _add_approver(ledger, report, "sup2")
+    approval_service.create_approval_receipt(ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id)
+    _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
+    with pytest.raises(CvfDenied) as exc:
+        ReportService(ledger).approve(report.report_id, _SUPERVISOR, expected_version=report.version + 1, expected_status=report.status)
+    assert "stale" in exc.value.reason.lower()
+
+# --- REVIEW-REREV-F1: expected_status must be a genuine ReportStatus
+# INSTANCE, never constructed/coerced from a raw value - a StrEnum's own
+# constructor accepts a plain string like "DRAFT" and returns a real member,
+# so isinstance (not status_type(value)) is required at the boundary. -------
+
+def _submit_review_actions(ledger, report):
+    entries = ledger.audit_entries_for(str(report.report_id))
+    return [e.action if hasattr(e, "action") else e["action"] for e in entries]
+
+# None, raw strings (incl. valid-looking "DRAFT"/"APPROVED"), int, bool,
+# float and an unrelated enum member (ShiftStatus, not ReportStatus - both
+# are StrEnum subclasses backed by matching string values, isinstance still
+# rejects it) are all 422, never coerced/admitted.
+@pytest.mark.parametrize("expected_status", ["DRAFT", "APPROVED", None, 1, True, 1.0, ShiftStatus.OPEN])
+def test_submit_review_invalid_expected_status_is_422_leaves_state_unchanged(expected_status):
+    ledger = InMemoryLedger()
+    report = _in_review_report_removing_status(ledger)
+    with pytest.raises(CvfDenied) as exc:
+        ReportService(ledger).submit_review(report.report_id, _OPERATOR, expected_version=report.version, expected_status=expected_status)
+    assert exc.value.http_status == 422
+    fetched = ledger.get_report(report.report_id)
+    assert fetched.status == ReportStatus.DRAFT and fetched.version == report.version
+    assert "report.submit_review" not in _submit_review_actions(ledger, report)
+
+def test_submit_review_genuine_current_expected_status_is_admitted():
+    ledger = InMemoryLedger()
+    report = _in_review_report_removing_status(ledger)
+    moved = ReportService(ledger).submit_review(report.report_id, _OPERATOR, expected_version=report.version, expected_status=ReportStatus.DRAFT)
+    assert moved.status == ReportStatus.IN_REVIEW
+
+def test_submit_review_genuine_but_stale_expected_status_is_409_leaves_state_unchanged():
+    ledger = InMemoryLedger()
+    report = _in_review_report_removing_status(ledger)
+    with pytest.raises(CvfDenied) as exc:
+        ReportService(ledger).submit_review(report.report_id, _OPERATOR, expected_version=report.version, expected_status=ReportStatus.APPROVED)
+    assert exc.value.http_status == 409
+    fetched = ledger.get_report(report.report_id)
+    assert fetched.status == ReportStatus.DRAFT and fetched.version == report.version
+    assert "report.submit_review" not in _submit_review_actions(ledger, report)
 
 # --- Finding 1: canonical model must reject 4 independent-review probes ----
 
@@ -233,57 +267,32 @@ def _real_content():
     shift_id = uuid4()
     now = datetime.now(timezone.utc)
     task = Task(shift_id=shift_id, title="Check pumps", created_at=now)
-    return report_snapshot.build_snapshot(
-        shift_id=shift_id, events=[], corrections=[], tasks=[task],
-        customer_requests=[], incidents=[], handovers=[],
-    )
-
+    return report_snapshot.build_snapshot(shift_id=shift_id, events=[], corrections=[], tasks=[task], customer_requests=[], incidents=[], handovers=[])
 
 def test_build_snapshot_output_is_accepted_by_the_canonical_model():
     """Positive control: genuine build_snapshot output validates - the four
     probes below prove TAMPERED variants of it are rejected."""
     assert _real_content().sections[2].section_type == "tasks"
 
-
-def test_probe_wrong_field_types_rejected():
+@pytest.mark.parametrize("mutate", [
+    lambda bad: bad["sections"][2]["records"][0].__setitem__("version", "not-an-int"),
+    lambda bad: bad["source_manifest"][0].__setitem__("source_version", 999),
+    lambda bad: bad["source_manifest"][0].__setitem__("source_digest", "f" * 64),
+])
+def test_probe_tampered_field_rejected(mutate):
     from operations_domain.models import ReportContent
 
     bad = _real_content().model_dump(mode="json")
-    bad["sections"][2]["records"][0]["version"] = "not-an-int"
+    mutate(bad)
     with pytest.raises(Exception):
         ReportContent(**bad)
-
-
-def test_probe_source_version_mismatch_rejected():
-    from operations_domain.models import ReportContent
-
-    bad = _real_content().model_dump(mode="json")
-    bad["source_manifest"][0]["source_version"] = 999
-    with pytest.raises(Exception):
-        ReportContent(**bad)
-
-
-def test_probe_source_digest_mismatch_rejected():
-    from operations_domain.models import ReportContent
-
-    bad = _real_content().model_dump(mode="json")
-    bad["source_manifest"][0]["source_digest"] = "f" * 64
-    with pytest.raises(Exception):
-        ReportContent(**bad)
-
 
 def test_probe_reversed_canonical_order_rejected():
     from operations_domain.models import ReportContent, Task
     from workspace_api.application import report_snapshot
-
-    shift_id = uuid4()
-    now = datetime.now(timezone.utc)
-    old = Task(shift_id=shift_id, title="old", created_at=now)
-    new = Task(shift_id=shift_id, title="new", created_at=now.replace(year=now.year + 1))
-    content = report_snapshot.build_snapshot(
-        shift_id=shift_id, events=[], corrections=[], tasks=[old, new],
-        customer_requests=[], incidents=[], handovers=[],
-    )
+    shift_id, now = uuid4(), datetime.now(timezone.utc)
+    old, new = Task(shift_id=shift_id, title="old", created_at=now), Task(shift_id=shift_id, title="new", created_at=now.replace(year=now.year + 1))
+    content = report_snapshot.build_snapshot(shift_id=shift_id, events=[], corrections=[], tasks=[old, new], customer_requests=[], incidents=[], handovers=[])
     bad = content.model_dump(mode="json")
     bad["sections"][2]["records"] = list(reversed(bad["sections"][2]["records"]))
     bad["source_manifest"] = list(reversed(bad["source_manifest"]))

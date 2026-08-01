@@ -68,6 +68,7 @@ def test_insufficient_role_close_is_rejected():
     try:
         resp = client.post(
             f"/shifts/{shift.shift_id}/close",
+            json={"expected_version": shift.version},
             headers=auth_headers("v1", "viewer"),
         )
         assert resp.status_code == 403, resp.text
@@ -85,6 +86,7 @@ def test_valid_operator_close_succeeds_over_http():
     try:
         resp = client.post(
             f"/shifts/{shift.shift_id}/close",
+            json={"expected_version": shift.version},
             headers=auth_headers("op1", "operator"),
         )
         assert resp.status_code == 200, resp.text
@@ -103,7 +105,7 @@ def test_valid_operator_close_succeeds_over_http():
 def test_successful_close_produces_audit_record_with_expected_fields():
     ledger = InMemoryLedger()
     shift = new_shift(ledger)
-    closed = ShiftService(ledger).close(shift.shift_id, operator())
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
     assert closed.status == ShiftStatus.CLOSED
 
     entries = [e for e in ledger.audit_entries_for(str(shift.shift_id)) if e.action == "shift.close"]
@@ -136,7 +138,7 @@ def test_close_rolls_back_when_audit_fails_in_memory():
 
     with patch.object(InMemoryLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).close(shift.shift_id, operator())
+            ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.OPEN, "shift must remain OPEN when audit write fails"
@@ -151,10 +153,66 @@ def test_close_rolls_back_when_audit_fails_sql(tmp_path):
 
     with patch.object(SqlLedger, "append_audit", side_effect=_raise_on_audit):
         with pytest.raises(_BoomOnAudit):
-            ShiftService(ledger).close(shift.shift_id, operator())
+            ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
 
     fetched = ledger.get_shift(shift.shift_id)
     assert fetched.status == ShiftStatus.OPEN, "shift must remain OPEN when audit write fails"
+
+
+# --- C3B2-BUILD-REV-F2: admission/comparison/mutation/audit share one unit -
+
+
+def test_close_stale_version_leaves_shift_and_audit_unchanged():
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    original_version = shift.version
+    ShiftService(ledger).close(shift.shift_id, operator(), expected_version=original_version)
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).close(shift.shift_id, operator(), expected_version=original_version)
+    assert exc.value.http_status == 409
+
+    fetched = ledger.get_shift(shift.shift_id)
+    assert fetched.status == ShiftStatus.CLOSED, "the earlier genuine close is untouched"
+    close_actions = [e for e in ledger.audit_entries_for(str(shift.shift_id)) if e.action == "shift.close"]
+    assert len(close_actions) == 1, "the stale retry must not append a second audit record"
+
+
+def test_close_missing_precondition_leaves_shift_and_audit_unchanged():
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).close(shift.shift_id, operator(), expected_version=None)
+    assert exc.value.http_status == 422
+
+    fetched = ledger.get_shift(shift.shift_id)
+    assert fetched.status == ShiftStatus.OPEN
+    assert ledger.audit_entries_for(str(shift.shift_id)) == []
+
+
+def test_close_admission_and_comparison_use_the_same_unit_as_the_mutation():
+    """REVIEW-F2: `require_active_assignment` must be called WITH the same
+    `unit` that later mutates and audits - not a separate, earlier,
+    non-transactional read. Proven by capturing the exact `unit` object
+    passed to the admission call and asserting it is not None (InMemoryLedger
+    only ever hands a non-None unit from inside `transaction()`)."""
+    import workspace_api.application.shift_service as shift_service_module
+
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    captured_units = []
+    real = shift_service_module.require_active_assignment
+
+    def _spy(ledger_arg, shift_id, principal, *, unit=None):
+        captured_units.append(unit)
+        return real(ledger_arg, shift_id, principal, unit=unit)
+
+    with patch.object(shift_service_module, "require_active_assignment", side_effect=_spy):
+        ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
+
+    assert len(captured_units) == 1
+    assert captured_units[0] is not None, "admission must run inside the same transaction as the mutation"
 
 
 def test_old_header_impersonation_no_longer_grants_any_identity():

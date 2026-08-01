@@ -2,8 +2,7 @@
 native-enum parity. Split out of test_schema_parity.py in P-FIX-6 purely to
 respect the file-size guard - not a behavior change; see that module's
 docstring for the static-text-parsing rationale. Shares helpers from
-_schema_parity_parsing.py and the MAPPED table set.
-"""
+_schema_parity_parsing.py and the MAPPED table set."""
 
 from __future__ import annotations
 
@@ -13,22 +12,9 @@ import pytest
 from sqlalchemy import CheckConstraint, String
 from sqlalchemy.dialects.postgresql import ENUM as PostgresEnum
 
-from operations_ledger.tables import (
-    approval_receipts,
-    customer_requests,
-    messages,
-    operational_events,
-    shifts,
-    task_creation_intents,
-    tasks,
-)
+from operations_ledger.tables import approval_receipts, customer_requests, messages, operational_events, shifts, task_creation_intents, tasks
 
-from _schema_parity_parsing import (
-    code_columns,
-    migration_columns,
-    migration_text,
-    table_block,
-)
+from _schema_parity_parsing import code_columns, migration_columns, migration_text, table_block
 from test_schema_parity import MAPPED
 
 # Tables whose migration uses a column-level `status text ... CHECK (status
@@ -280,6 +266,24 @@ def test_native_enum_type_name_and_value_parity(table_column):
     assert pg_type.create_type is False, f"{table_name}.{column_name}: create_type must be False"
     expected = _migration_enum_values(migration_text(), enum_name)
     assert list(pg_type.enums) == expected, f"{table_name}.{column_name}: migration={expected} tables.py={list(pg_type.enums)}"
+
+# --- customer_requests.version CHECK parity (P2C-MUTATION-FULL-UI-C3B2) ----
+# customer_requests is absent from MAPPED (spans TWO migrations - see
+# test_schema_parity.py docstring), so the generic CHECK test above never
+# sees migration 009's ALTER-added customer_requests_version_check.
+
+def test_customer_request_version_check_expression_matches_migration_009():
+    from pathlib import Path
+
+    sql = (Path(__file__).resolve().parents[2] / "database" / "migrations" / "009_customer_request_version.sql").read_text(encoding="utf-8")
+    m = re.search(r"customer_requests_version_check CHECK\s*\((.*?)\)\s*;", sql, re.DOTALL)
+    assert m, "expected customer_requests_version_check CHECK in migration 009"
+
+    version_checks = [c for c in customer_requests.constraints if isinstance(c, CheckConstraint) and "version" in str(c.sqltext)]
+    assert version_checks, "tables.py customer_requests has no version CheckConstraint"
+    assert _normalize_check_text(m.group(1)) == _normalize_check_text(str(version_checks[0].sqltext)), (
+        f"customer_requests version CHECK mismatch - migration={m.group(1)!r} tables.py={version_checks[0].sqltext!r}"
+    )
 
 def test_native_enum_parity_check_actually_catches_regressions():
     """Negative proof (AC-23): plain text / wrong name / missing / extra

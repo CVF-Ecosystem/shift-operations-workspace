@@ -90,8 +90,14 @@ def _make_ready_handover(ledger, shift):
     _seed_assignment(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
-    handover = svc.review(handover.handover_id, Principal(user_id="sup1", role="shift_supervisor"))
-    return svc.acknowledge(handover.handover_id, Principal(user_id="sup2", role="shift_supervisor"))
+    handover = svc.review(
+        handover.handover_id, Principal(user_id="sup1", role="shift_supervisor"),
+        expected_version=handover.version,
+    )
+    return svc.acknowledge(
+        handover.handover_id, Principal(user_id="sup2", role="shift_supervisor"),
+        expected_version=handover.version,
+    )
 
 
 class _BoomOnAudit(Exception):

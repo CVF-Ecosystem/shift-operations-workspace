@@ -75,16 +75,42 @@ def test_ready_handover_without_report_still_refuses_freeze_with_zero_calls():
     def _run(client):
         create_res = runner._create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
-        runner._review(client, handover_id, sup1)
-        runner._acknowledge(client, handover_id, sup2)
-        runner._close(client, shift.shift_id, op)
-        return runner._freeze(client, shift.shift_id, sup1)
+        review_res = runner._review(client, handover_id, sup1, expected_version=create_res.json()["version"])
+        runner._acknowledge(client, handover_id, sup2, expected_version=review_res.json()["version"])
+        close_res = runner._close(client, shift.shift_id, op, expected_version=shift.version)
+        return runner._freeze(client, shift.shift_id, sup1, expected_version=close_res.json()["version"])
 
     before = counter.count
     resp = runner._with_ledger(ledger, _run)
     assert resp.status_code == 409, resp.text
     assert "report" in resp.json()["detail"].lower()
     assert counter.count == before  # no code path here can reach call_provider
+
+
+# --- C3B2-BUILD-REV-F1: no runner helper may invent a version -------------
+
+def test_runner_mutation_helpers_have_no_expected_version_default():
+    """REVIEW-F1: `_review`/`_acknowledge`/`_close`/`_freeze` must require
+    `expected_version` with no default - a caller that omits it is a bug, not
+    a silently-accepted version-1 guess."""
+    import inspect
+
+    for name in ("_review", "_acknowledge", "_close", "_freeze"):
+        sig = inspect.signature(getattr(runner, name))
+        param = sig.parameters["expected_version"]
+        assert param.default is inspect.Parameter.empty, f"{name} must not default expected_version"
+        assert param.kind is inspect.Parameter.KEYWORD_ONLY, f"{name}.expected_version must stay keyword-only"
+
+
+def test_runner_scenarios_use_the_persisted_shift_version_not_a_literal():
+    """REVIEW-F1: every `_close` call site in the refusal-gate/genuine-chain
+    functions must read `shift.version` from the setup-returned Shift, never
+    a hard-coded `1` - source-level proof the literal cannot silently return."""
+    import inspect
+
+    source = inspect.getsource(runner)
+    assert "expected_version=1" not in source
+    assert "expected_version=shift.version" in source
 
 
 def test_make_ready_report_produces_a_real_approved_current_report():

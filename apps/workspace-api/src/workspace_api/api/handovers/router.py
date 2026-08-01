@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
@@ -25,11 +25,14 @@ class HandoverCreateInput(BaseModel):
 
 
 class ReviewInput(BaseModel):
+    # P2C-MUTATION-FULL-UI-C3B2 (SPEC R13): expected_version is required.
     model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
 
 
 class AcknowledgeInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
+    expected_version: int = Field(ge=1)
 
 
 @router.post("", response_model=Handover)
@@ -83,7 +86,7 @@ def review_handover(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return HandoverService(ledger).review(handover_id, principal)
+        return HandoverService(ledger).review(handover_id, principal, expected_version=payload.expected_version)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
@@ -100,7 +103,7 @@ def acknowledge_handover(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return HandoverService(ledger).acknowledge(handover_id, principal)
+        return HandoverService(ledger).acknowledge(handover_id, principal, expected_version=payload.expected_version)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:

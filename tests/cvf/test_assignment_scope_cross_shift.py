@@ -81,14 +81,16 @@ def test_handover_review_requires_source_assignment_dest_alone_insufficient(clie
     src, dst = _shift(ledger), _shift(ledger)
     seed_active_assignment(ledger, src.shift_id, *_OP)
     seed_active_assignment(ledger, dst.shift_id, *_SUP2)
-    handover_id = _create_handover(http, src.shift_id, dst.shift_id, auth_headers(*_OP)).json()["handover_id"]
+    create_res = _create_handover(http, src.shift_id, dst.shift_id, auth_headers(*_OP))
+    handover_id = create_res.json()["handover_id"]
+    review_body = {"expected_version": create_res.json()["version"]}
 
     # sup2 has destination assignment only - review is refused (enumeration-safe 404).
-    res = http.post(f"/handovers/{handover_id}/review", json={}, headers=auth_headers(*_SUP2))
+    res = http.post(f"/handovers/{handover_id}/review", json=review_body, headers=auth_headers(*_SUP2))
     assert res.status_code == 404
 
     seed_active_assignment(ledger, src.shift_id, *_SUP1)
-    res = http.post(f"/handovers/{handover_id}/review", json={}, headers=auth_headers(*_SUP1))
+    res = http.post(f"/handovers/{handover_id}/review", json=review_body, headers=auth_headers(*_SUP1))
     assert res.status_code == 200
 
 
@@ -99,15 +101,21 @@ def test_handover_acknowledge_requires_destination_assignment_source_alone_insuf
     src, dst = _shift(ledger), _shift(ledger)
     seed_active_assignment(ledger, src.shift_id, *_OP)
     seed_active_assignment(ledger, src.shift_id, *_SUP1)
-    handover_id = _create_handover(http, src.shift_id, dst.shift_id, auth_headers(*_OP)).json()["handover_id"]
-    http.post(f"/handovers/{handover_id}/review", json={}, headers=auth_headers(*_SUP1))
+    create_res = _create_handover(http, src.shift_id, dst.shift_id, auth_headers(*_OP))
+    handover_id = create_res.json()["handover_id"]
+    review_res = http.post(
+        f"/handovers/{handover_id}/review",
+        json={"expected_version": create_res.json()["version"]},
+        headers=auth_headers(*_SUP1),
+    )
+    ack_body = {"expected_version": review_res.json()["version"]}
 
     # sup1 has source assignment only, not destination - acknowledge refused.
-    res = http.post(f"/handovers/{handover_id}/acknowledge", json={}, headers=auth_headers(*_SUP1))
+    res = http.post(f"/handovers/{handover_id}/acknowledge", json=ack_body, headers=auth_headers(*_SUP1))
     assert res.status_code == 404
 
     seed_active_assignment(ledger, dst.shift_id, *_SUP2)
-    res = http.post(f"/handovers/{handover_id}/acknowledge", json={}, headers=auth_headers(*_SUP2))
+    res = http.post(f"/handovers/{handover_id}/acknowledge", json=ack_body, headers=auth_headers(*_SUP2))
     assert res.status_code == 200
     assert res.json()["status"] == "ACKNOWLEDGED"
 
@@ -173,12 +181,13 @@ def test_incident_acknowledge_ignores_a_mismatched_stored_shift_claim(client):
         "/incidents", json={"shift_id": str(shift.shift_id), "summary": "s"}, headers=auth_headers(*_OP)
     ).json()["incident_id"]
 
+    ack_body = {"expected_version": 1}
     seed_active_assignment(ledger, other.shift_id, *_SUP1)
-    res = http.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=auth_headers(*_SUP1))
+    res = http.post(f"/incidents/{incident_id}/acknowledge", json=ack_body, headers=auth_headers(*_SUP1))
     assert res.status_code == 404
 
     seed_active_assignment(ledger, shift.shift_id, *_SUP1)
-    res = http.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=auth_headers(*_SUP1))
+    res = http.post(f"/incidents/{incident_id}/acknowledge", json=ack_body, headers=auth_headers(*_SUP1))
     assert res.status_code == 200
 
 
@@ -196,7 +205,7 @@ def test_customer_request_transition_trusts_stored_shift_not_body(client):
     ledger.add_customer_request(request)
 
     seed_active_assignment(ledger, other.shift_id, *_SUP1)
-    body = {"target_status": "ACKNOWLEDGED"}
+    body = {"target_status": "ACKNOWLEDGED", "expected_version": request.version}
     res = http.post(f"/customer-requests/{request.request_id}/transition", json=body, headers=auth_headers(*_SUP1))
     assert res.status_code == 404
 

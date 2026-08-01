@@ -35,6 +35,7 @@ from test_p2b_openapi_contract import (  # noqa: E402
     _strip_assignment_delta,
 )
 from test_c3b_read_openapi_contract import _strip_c3b_read_delta  # noqa: E402
+from test_c3b2_mutation_openapi_contract import _strip_c3b2_mutation_delta  # noqa: E402
 
 _REPORT_PATHS = {
     "/reports",
@@ -113,14 +114,23 @@ def test_report_request_models_forbid_extra_fields():
         assert doc["components"]["schemas"][schema_name].get("additionalProperties") is False
 
 
-def test_report_submit_review_and_approve_have_no_request_body():
-    """F7: these two operations take no request body at all - not even an
-    empty-shape one - so OpenAPI must omit `requestBody` entirely."""
+def test_report_submit_review_and_approve_require_precondition_body():
+    """P2C-MUTATION-FULL-UI-C3B2 (SPEC R13) retires F7's "no request body":
+    both status-only transitions now require a ReportPreconditionInput body
+    with expected_version/expected_status - immutable content version never
+    increments on a status-only move."""
     from workspace_api.main import app
 
     doc = app.openapi()
+    schemas = doc["components"]["schemas"]
+    assert set(schemas["ReportPreconditionInput"]["properties"].keys()) == {
+        "expected_version", "expected_status",
+    }
     for path in ("/reports/{report_id}/submit-review", "/reports/{report_id}/approve"):
-        assert "requestBody" not in doc["paths"][path]["post"]
+        body = doc["paths"][path]["post"]["requestBody"]
+        assert body["required"] is True
+        ref = body["content"]["application/json"]["schema"]["$ref"]
+        assert ref == "#/components/schemas/ReportPreconditionInput"
 
 
 def test_report_response_has_no_nested_content_property():
@@ -143,6 +153,7 @@ def test_openapi_delta_is_exactly_the_report_operations_and_freeze_deprecation()
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)

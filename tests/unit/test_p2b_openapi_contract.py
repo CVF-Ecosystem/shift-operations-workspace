@@ -14,12 +14,10 @@ remainder against that tranche's own pre-change SHA.
 Chain: `PRE_INCIDENT_OPENAPI_SHA` -> `PRE_HANDOVER_OPENAPI_SHA` ->
 `PRE_P2C_READ_OPENAPI_SHA` -> `PRE_SHIFT_CREATE_OPENAPI_SHA` ->
 `PRE_MESSAGE_ADMISSION_OPENAPI_SHA` -> `PRE_REPORT_OPENAPI_SHA` ->
-`PRE_ASSIGNMENT_OPENAPI_SHA` -> `PRE_C3B_READ_OPENAPI_SHA` -> current
-`GOLDEN_OPENAPI_SHA` (C3B1: the current golden-hash link now lives in
-test_c3b_read_openapi_contract.py, one further than the assignment delta).
-Each earlier delta test strips every later delta too, netting back to its
-own true historical baseline.
-"""
+`PRE_ASSIGNMENT_OPENAPI_SHA` -> `PRE_C3B_READ_OPENAPI_SHA` ->
+`PRE_C3B2_MUTATION_OPENAPI_SHA` -> current `GOLDEN_OPENAPI_SHA` (owned by
+test_c3b2_mutation_openapi_contract.py). Each earlier delta test strips every
+later delta too, netting back to its own true historical baseline."""
 
 from __future__ import annotations
 
@@ -69,8 +67,11 @@ from test_assignment_openapi_contract import _strip_assignment_delta  # noqa: E4
 # further) - imported so this module's GOLDEN check still uses the true
 # current value.
 from test_c3b_read_openapi_contract import (  # noqa: E402
-    GOLDEN_OPENAPI_SHA,
     _strip_c3b_read_delta,
+)
+from test_c3b2_mutation_openapi_contract import (  # noqa: E402
+    GOLDEN_OPENAPI_SHA,
+    _strip_c3b2_mutation_delta,
 )
 
 _INCIDENT_PATHS = {
@@ -177,6 +178,7 @@ def _strip_p2c_read_operations(doc: dict) -> None:
 def _strip_all_later_deltas(reduced: dict) -> None:
     """Every delta strip shared by the three `test_openapi_delta_is_exactly_*`
     proofs below, netting each back to its own true historical baseline."""
+    _strip_c3b2_mutation_delta(reduced)
     _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)

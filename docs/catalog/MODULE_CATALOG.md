@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-01T12:32:10.077150+00:00_
+_Last generated: 2026-08-01T17:07:17.924073+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **11941**
-- Code files: **153**
+- Code LOC (py/ts/tsx): **12413**
+- Code files: **156**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -30,12 +30,12 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 900 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
-| `operations-ledger` | packages/operations-ledger | enforced | 2598 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
-| `operations-domain` | packages/operations-domain | partial | 816 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
-| `workspace-api` | apps/workspace-api | partial | 6029 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
-| `workspace-web` | apps/workspace-web | partial | 1384 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
+| `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
+| `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-web` | apps/workspace-web | partial | 1400 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -73,7 +73,7 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 - **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_schema_parity_users.py`, `tests/integration/test_evidence_persistence.py`, `tests/integration/test_sql_ledger_postgres_live.py`, `tests/integration/test_postgres_live_runner.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_schema_parity_handovers.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/integration/test_handover_postgres_live.py`, `tests/cvf/test_handover_vertical.py`, `tests/integration/test_handover_ledger_parity.py`, `tests/integration/test_message_sqlite.py`, `tests/integration/test_message_postgres_live.py`
-- **Metrics:** 2598 LOC across 18 code file(s)
+- **Metrics:** 2688 LOC across 19 code file(s)
 - **Next step:** PostgreSQL live round-trip is now reviewed and passing (bounded to a disposable local container - see enforcement note above). Messages persistence is implemented (see enforcement note above); it is no longer remaining work. Remaining pre-ship items: production deployment/load/concurrency/HA/backup verification, and mapping the remaining migration table (reports) into tables.py/SqlLedger as a tranche needs it. Phase 1 closure itself is a separate, independently-reviewed decision (SPEC AC-20), not implied by this entry.
 
 ### `ai-providers` — partial
@@ -109,7 +109,7 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 - **Contract:** packages/workspace-contracts
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_incident_vertical.py`, `tests/cvf/test_handover_vertical.py`
-- **Metrics:** 816 LOC across 5 code file(s)
+- **Metrics:** 818 LOC across 5 code file(s)
 - **Next step:** Incident and handover canonical models/lifecycle are already implemented; do not reopen them. The Phase 2 dependency blocker is a package-owned operational Report model/lifecycle for P2-R and the real report_approved prerequisite. Approval and Audit package ownership, plus any split of central models.py into the README-only per-domain subdirectories, remain separate future tranches. Do not claim operations-domain enforced.
 
 ### `workspace-api` — partial
@@ -121,7 +121,7 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 6029 LOC across 73 code file(s)
+- **Metrics:** 6393 LOC across 75 code file(s)
 - **Next step:** Authentication, approver identity, incidents, handovers, shift-create admission and internal-message admission are already closed bounded. Follow the Phase 2 dependency order in EXECUTION_ROADMAP.md: P2-R operational report plus a real report_approved prerequisite, then the remaining P2-C mutation/full UI, then P2-D offline/realtime and the full-shift exit gate. Governed external/channel ingestion belongs to a separate Phase 4 Integration Edge tranche, not this internal API admission path.
 
 ### `workspace-web` — partial
@@ -133,7 +133,7 @@ _Last generated: 2026-08-01T12:32:10.077150+00:00_
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`
-- **Metrics:** 1384 LOC across 21 code file(s)
+- **Metrics:** 1400 LOC across 21 code file(s)
 - **Next step:** The shift-create admission blocker is already CLOSED_BOUNDED. After the P2-R operational report prerequisite, open a fresh P2-C tranche for mutation/full-vertical UI plus assignment/tenant/data-scope authorization. Offline queue and realtime remain a separate P2-D tranche.
 
 ### `workspace-worker` — partial

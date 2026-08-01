@@ -92,8 +92,12 @@ def _rec(client, headers, incident_id):
     return client.post("/approvals", json={"record_type": "Incident", "action": "incident.acknowledge", "record_id": str(incident_id)}, headers=headers)
 
 
-def _ack(client, headers, incident_id):
-    return client.post(f"/incidents/{incident_id}/acknowledge", json={}, headers=headers)
+def _ack(client, headers, incident_id, *, expected_version=1):
+    return client.post(
+        f"/incidents/{incident_id}/acknowledge",
+        json={"expected_version": expected_version},
+        headers=headers,
+    )
 
 
 def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
@@ -111,11 +115,17 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
 
     ledger, incident = _new_ledger_shift_incident(evidence_count=0)
     _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
-    _case("insufficient_evidence_rejected", ledger, lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id))
+    _case(
+        "insufficient_evidence_rejected", ledger,
+        lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id, expected_version=incident.version),
+    )
 
     ledger, incident = _new_ledger_shift_incident()
     _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
-    _case("fabricated_approval_rejected", ledger, lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id))
+    _case(
+        "fabricated_approval_rejected", ledger,
+        lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id, expected_version=incident.version),
+    )
 
     ledger, incident = _new_ledger_shift_incident()
     _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
@@ -123,7 +133,7 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
     def _self(client):
         headers = _auth_headers("inc-ev-sup1", "shift_supervisor")
         _rec(client, headers, incident.incident_id)
-        return _ack(client, headers, incident.incident_id)
+        return _ack(client, headers, incident.incident_id, expected_version=incident.version)
 
     _case("self_approval_rejected", ledger, _self)
 
@@ -134,7 +144,7 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
     def _inactive(client):
         _rec(client, _auth_headers("inc-ev-sup2", "shift_supervisor"), incident.incident_id)
         ledger.users["inc-ev-sup2"].is_active = False
-        return _ack(client, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id)
+        return _ack(client, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id, expected_version=incident.version)
 
     _case("inactive_approver_rejected", ledger, _inactive)
 
@@ -144,10 +154,14 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
 
     def _stale(client):
         _rec(client, _auth_headers("inc-ev-sup2", "shift_supervisor"), incident.incident_id)
+        original_version = incident.version
         stale = ledger.get_incident(incident.incident_id)
         stale.version += 1
         ledger.put_incident(stale)
-        return _ack(client, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id)
+        return _ack(
+            client, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id,
+            expected_version=original_version,
+        )
 
     _case("stale_version_rejected", ledger, _stale)
 
@@ -169,7 +183,11 @@ def build_and_acknowledge_genuine() -> tuple[bool, str]:
         )
         if r1.status_code != 201:
             return False, f"receipt failed: {r1.status_code}"
-        ack = client.post(f"/incidents/{incident.incident_id}/acknowledge", json={}, headers=_auth_headers("inc-ev-sup1", "shift_supervisor"))
+        ack = client.post(
+            f"/incidents/{incident.incident_id}/acknowledge",
+            json={"expected_version": incident.version},
+            headers=_auth_headers("inc-ev-sup1", "shift_supervisor"),
+        )
         if ack.status_code != 200:
             return False, f"acknowledge failed with HTTP {ack.status_code}"
         if ack.json()["status"] != "ACKNOWLEDGED":

@@ -82,6 +82,7 @@ def test_confirmed_event_corrected_with_record_and_audit():
         event.event_id,
         _supervisor(),
         reason="Downtime end time was mistyped",
+        expected_version=event.version,
     )
     assert correction.previous_version == 1
     assert correction.new_version == 2
@@ -104,6 +105,7 @@ def test_frozen_event_not_silently_overwritten():
         event.event_id,
         _supervisor(),
         reason="Regulatory reclassification after review",
+        expected_version=event.version,
     )
     # Frozen record stays FROZEN (no silent overwrite); correction records the change.
     assert ledger.events[event.event_id].state == DataState.FROZEN
@@ -115,7 +117,7 @@ def test_proposed_event_cannot_be_corrected():
     ledger, event = _ledger_with_event(state=DataState.PROPOSED)
     with pytest.raises(CvfDenied) as exc:
         CorrectionService(ledger, AuditLog()).correct_event(
-            event.event_id, _supervisor(), reason="x"
+            event.event_id, _supervisor(), reason="x", expected_version=event.version
         )
     assert exc.value.control == "freeze"
 
@@ -128,6 +130,7 @@ def test_correction_requires_reason():
             event.event_id,
             _supervisor(),
             reason="   ",
+            expected_version=event.version,
         )
     assert exc.value.control == "audit"
 
@@ -151,5 +154,6 @@ def test_r3_correction_needs_dual_quorum():
             event.event_id,
             _supervisor(),
             reason="Reclassify severity",
+            expected_version=event.version,
         )
     assert exc.value.control == "approval"

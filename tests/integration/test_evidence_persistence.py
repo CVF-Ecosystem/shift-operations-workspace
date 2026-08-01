@@ -91,7 +91,7 @@ def test_r2_event_confirm_succeeds_on_sql_ledger_with_evidence(tmp_path):
         action="event.confirm",
         record_id=event.event_id,
     )
-    confirmed = EventService(ledger, AuditLog()).confirm(event.event_id, supervisor)
+    confirmed = EventService(ledger, AuditLog()).confirm(event.event_id, supervisor, expected_version=event.version)
     assert confirmed.state.value == "CONFIRMED"
 
 
@@ -116,7 +116,7 @@ def test_event_without_evidence_still_refused_on_sql_ledger(tmp_path):
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
     _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
-        EventService(ledger, AuditLog()).confirm(event.event_id, supervisor)
+        EventService(ledger, AuditLog()).confirm(event.event_id, supervisor, expected_version=event.version)
     assert exc.value.control == "evidence"
 
 
@@ -195,7 +195,9 @@ def test_r2_incident_acknowledge_succeeds_on_sql_ledger_with_evidence():
         action="incident.acknowledge",
         record_id=incident.incident_id,
     )
-    acknowledged = IncidentService(ledger).acknowledge(incident.incident_id, supervisor)
+    acknowledged = IncidentService(ledger).acknowledge(
+        incident.incident_id, supervisor, expected_version=incident.version
+    )
     assert acknowledged.status.value == "ACKNOWLEDGED"
 
 
@@ -215,5 +217,5 @@ def test_incident_without_evidence_still_refused():
     supervisor = Principal(user_id="inc-sup1", role="shift_supervisor")
     _seed(ledger, shift.shift_id, "inc-sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, supervisor)
+        IncidentService(ledger).acknowledge(incident.incident_id, supervisor, expected_version=incident.version)
     assert exc.value.control == "evidence"

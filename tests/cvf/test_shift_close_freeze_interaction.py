@@ -11,6 +11,8 @@ readiness because their expected failure happens at an earlier check
 (already-FROZEN / shift-not-CLOSED).
 """
 
+from unittest.mock import patch
+
 import pytest
 
 from cvf_runtime.errors import CvfDenied
@@ -40,13 +42,19 @@ def _make_ready_report(ledger, shift):
     freeze prerequisite. Mirrors test_freeze_invariant.py's helper."""
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, operator())
-    report = svc.submit_review(report.report_id, operator())
+    report = svc.submit_review(
+        report.report_id, operator(),
+        expected_version=report.version, expected_status=report.status,
+    )
     seed_assignment(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    return svc.approve(report.report_id, supervisor())
+    return svc.approve(
+        report.report_id, supervisor(),
+        expected_version=report.version, expected_status=report.status,
+    )
 
 
 # --- state-transition guard: cannot close an already-frozen shift -----------
@@ -55,26 +63,26 @@ def _make_ready_report(ledger, shift):
 def test_cannot_close_already_frozen_shift_in_memory():
     ledger = InMemoryLedger()
     shift = new_shift(ledger)
-    ShiftService(ledger).close(shift.shift_id, operator())
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
     make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed.version)
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).close(shift.shift_id, operator())
+        ShiftService(ledger).close(shift.shift_id, operator(), expected_version=closed.version)
     assert exc.value.http_status == 409
 
 
 def test_cannot_close_already_frozen_shift_sql(tmp_path):
     ledger = sql_ledger(tmp_path)
     shift = new_shift(ledger)
-    ShiftService(ledger).close(shift.shift_id, operator())
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
     make_ready_handover(ledger, shift)
     _make_ready_report(ledger, shift)
-    ShiftService(ledger).freeze(shift.shift_id, supervisor())
+    ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed.version)
 
     with pytest.raises(CvfDenied) as exc:
-        ShiftService(ledger).close(shift.shift_id, operator())
+        ShiftService(ledger).close(shift.shift_id, operator(), expected_version=closed.version)
     assert exc.value.http_status == 409
 
 
@@ -85,12 +93,12 @@ def test_full_sequence_create_governed_close_then_freeze_in_memory():
     ledger = InMemoryLedger()
     shift = new_shift(ledger)
 
-    closed = ShiftService(ledger).close(shift.shift_id, operator())
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
     assert closed.status.value == "CLOSED"
 
     make_ready_handover(ledger, shift)
     report = _make_ready_report(ledger, shift)
-    frozen = ShiftService(ledger).freeze(shift.shift_id, supervisor())
+    frozen = ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed.version)
     assert frozen.status.value == "FROZEN"
 
     shift_actions = [e.action for e in ledger.audit_entries_for(str(shift.shift_id))]
@@ -110,6 +118,7 @@ def test_full_sequence_create_governed_close_then_freeze_over_http():
     try:
         close_resp = client.post(
             f"/shifts/{shift.shift_id}/close",
+            json={"expected_version": shift.version},
             headers=auth_headers("op1", "operator"),
         )
         assert close_resp.status_code == 200, close_resp.text
@@ -120,7 +129,7 @@ def test_full_sequence_create_governed_close_then_freeze_over_http():
 
         freeze_resp = client.post(
             f"/shifts/{shift.shift_id}/freeze",
-            json={},
+            json={"expected_version": close_resp.json()["version"]},
             headers=auth_headers("sup1", "shift_supervisor"),
         )
         assert freeze_resp.status_code == 200, freeze_resp.text
@@ -137,7 +146,7 @@ def test_anonymous_close_no_longer_bypasses_freeze_prerequisite():
     shift = new_shift(ledger)
     client = client_for(ledger)
     try:
-        anon_resp = client.post(f"/shifts/{shift.shift_id}/close")
+        anon_resp = client.post(f"/shifts/{shift.shift_id}/close", json={"expected_version": shift.version})
         assert anon_resp.status_code == 401
 
         # Shift is still OPEN, so freeze must still be rejected (409) even
@@ -145,12 +154,102 @@ def test_anonymous_close_no_longer_bypasses_freeze_prerequisite():
         # was never actually satisfied.
         freeze_resp = client.post(
             f"/shifts/{shift.shift_id}/freeze",
-            json={},
+            json={"expected_version": shift.version},
             headers=auth_headers("sup1", "shift_supervisor"),
         )
         assert freeze_resp.status_code == 409, freeze_resp.text
     finally:
         clear_overrides()
+
+
+# --- C3B2-BUILD-REV-F3: freeze admission/comparison/branch/mutation/audit --
+# all share one transaction, for BOTH the idempotent-FROZEN path and the
+# ordinary CLOSED->FROZEN path. -----------------------------------------
+
+
+def test_freeze_stale_version_on_closed_shift_leaves_everything_unchanged():
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
+    make_ready_handover(ledger, shift)
+    report = _make_ready_report(ledger, shift)
+    stale_version = closed.version - 1
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=stale_version)
+    assert exc.value.http_status == 409
+
+    fetched = ledger.get_shift(shift.shift_id)
+    assert fetched.status.value == "CLOSED", "stale freeze must not mutate the shift"
+    assert ledger.get_report(report.report_id).status.value == "APPROVED"
+    freeze_actions = [e.action for e in ledger.audit_entries_for(str(shift.shift_id)) if e.action == "shift.freeze"]
+    assert freeze_actions == []
+
+
+def test_freeze_missing_precondition_on_closed_shift_leaves_everything_unchanged():
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
+    make_ready_handover(ledger, shift)
+    report = _make_ready_report(ledger, shift)
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=None)
+    assert exc.value.http_status == 422
+
+    fetched = ledger.get_shift(shift.shift_id)
+    assert fetched.status.value == "CLOSED"
+    assert ledger.get_report(report.report_id).status.value == "APPROVED"
+    freeze_actions = [e.action for e in ledger.audit_entries_for(str(shift.shift_id)) if e.action == "shift.freeze"]
+    assert freeze_actions == [], "missing-precondition freeze must not append a freeze audit"
+
+
+def test_freeze_stale_version_on_already_frozen_shift_is_409_idempotent_path():
+    """The idempotent-FROZEN branch also compares BEFORE returning success -
+    a stale caller must not be told freeze "succeeded" against a version it
+    never actually observed."""
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
+    closed_version = closed.version
+    make_ready_handover(ledger, shift)
+    _make_ready_report(ledger, shift)
+    frozen = ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed_version)
+
+    with pytest.raises(CvfDenied) as exc:
+        ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed_version)
+    assert exc.value.http_status == 409
+
+    fetched = ledger.get_shift(shift.shift_id)
+    assert fetched.status.value == "FROZEN"
+    assert fetched.version == frozen.version, "the stale retry must not touch the already-frozen shift"
+
+
+def test_freeze_admission_and_comparison_use_the_same_unit_as_the_mutation():
+    """REVIEW-F3: `require_active_assignment` must be called WITH the same
+    `unit` the CLOSED->FROZEN branch later mutates and audits under - proven
+    by capturing the exact `unit` object passed to the admission call."""
+    import workspace_api.application.shift_service as shift_service_module
+
+    ledger = InMemoryLedger()
+    shift = new_shift(ledger)
+    closed = ShiftService(ledger).close(shift.shift_id, operator(), expected_version=shift.version)
+    make_ready_handover(ledger, shift)
+    _make_ready_report(ledger, shift)
+
+    captured_units = []
+    real = shift_service_module.require_active_assignment
+
+    def _spy(ledger_arg, shift_id, principal, *, unit=None):
+        captured_units.append(unit)
+        return real(ledger_arg, shift_id, principal, unit=unit)
+
+    with patch.object(shift_service_module, "require_active_assignment", side_effect=_spy):
+        frozen = ShiftService(ledger).freeze(shift.shift_id, supervisor(), expected_version=closed.version)
+
+    assert frozen.status.value == "FROZEN"
+    assert len(captured_units) == 1
+    assert captured_units[0] is not None, "admission must run inside the same transaction as the mutation"
 
 
 def test_legacy_override_fields_refused_over_http():
@@ -160,13 +259,21 @@ def test_legacy_override_fields_refused_over_http():
     shift = new_shift(ledger)
     client = client_for(ledger)
     try:
-        client.post(f"/shifts/{shift.shift_id}/close", headers=auth_headers("op1", "operator"))
+        close_resp = client.post(
+            f"/shifts/{shift.shift_id}/close",
+            json={"expected_version": shift.version},
+            headers=auth_headers("op1", "operator"),
+        )
         make_ready_handover(ledger, shift)
         _make_ready_report(ledger, shift)
 
         freeze_resp = client.post(
             f"/shifts/{shift.shift_id}/freeze",
-            json={"override_unimplemented_prerequisites": True, "override_reason": "x"},
+            json={
+                "expected_version": close_resp.json()["version"],
+                "override_unimplemented_prerequisites": True,
+                "override_reason": "x",
+            },
             headers=auth_headers("sup1", "shift_supervisor"),
         )
         assert freeze_resp.status_code == 422, freeze_resp.text

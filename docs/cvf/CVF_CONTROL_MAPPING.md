@@ -502,3 +502,43 @@ identity hay policy internals trong response. C3b1 không gọi provider — cla
 governance boundary giữ nguyên như đã ghi ở C3a2 phía trên; không mở rộng sang
 mutation/CustomerRequest version (C3b2), React UI (C3c/C3d), tenant/data_scope
 hay Phase 2 completion.
+
+**2026-08-01 P2-C C3b2 (CustomerRequest version + mutation preconditions) —
+không thêm CVF `required_control` mới; đây là tightening một invariant đã
+tồn tại (optimistic concurrency), không phải governance gate mới.**
+`CustomerRequest` giờ có `version` (migration 009, backfill 1, CHECK `>= 1`),
+theo đúng khuôn mẫu `Task`/`Report`/`Shift`/`Incident`/`Handover` đã có từ
+trước; `CustomerRequestService.transition` dùng compare-and-swap atomic
+(`transition_customer_request`) thay vì read-then-put. Tám route/service
+entry point (shift close/freeze; event confirm; correction; task transition;
+CustomerRequest transition; incident acknowledge/transition; handover
+review/acknowledge; Report submit-review/approve/version-successor) giờ yêu
+cầu `expected_version` (Report còn thêm `expected_status`) — so sánh diễn ra
+SAU permission/assignment admission nhưng TRƯỚC lifecycle/quorum, trong CÙNG
+transaction với mutation và audit, theo `mutation_preconditions.
+assert_version_precondition`/`assert_status_precondition` dùng chung.
+Thiếu precondition ở HTTP boundary là 422 do Pydantic (`extra=forbid`, field
+required); thiếu ở direct-service boundary cũng là 422 có kiểm soát qua
+`CvfDenied`, không permissive default, không caller-derived current value.
+Version/status cũ (stale) là 409 có kiểm soát, zero domain/audit/receipt
+write khi rollback. `TaskService.transition` và `IncidentService.transition`
+trước đây đọc rồi mutate NGOÀI `ledger.transaction()` — C3b2 sửa cả hai vào
+trong transaction (điểm đúng theo Work Order review finding C3B2-WO-REV-F2),
+đóng một lỗ atomicity thật chứ không chỉ thêm field. Route
+create/append/task-intent/approval-receipt (protected boundary) giữ nguyên
+contract cũ tuyệt đối — `EventInput`/`CustomerRequestInput` vẫn không khai
+`extra=forbid` (pre-existing, không liên quan C3b2, không "sửa"), field lạ
+vẫn bị silently drop như trước; các route khác đã có `extra=forbid` từ trước
+tiếp tục reject field lạ với 422 như cũ. OpenAPI delta chỉ đúng 9 schema bị
+tighten cộng 2 schema mới cộng 3 route thêm requestBody — golden-hash chain
+(`test_c3b2_mutation_openapi_contract.py`) strip lại đúng delta này để chứng
+minh cấu trúc, không chỉ so text. C3b2 không gọi provider, không claim AI/
+agent-governance mới — boundary giữ nguyên như C3a2/C3b1 phía trên; không mở
+rộng sang React mutation UI (C3c/C3d), offline/realtime (P2-D), tenant/
+data_scope hay Phase 2 completion. Amendment 1 (2026-08-01) thêm đúng một
+path ngoài ceiling gốc — `tests/integration/test_handover_live_evidence_
+runner.py` — vì regression cũ của nó dùng default `expected_version=1` của
+runner, khiến freeze fail vì stale version thay vì đến đúng Report gate;
+default đó đã bị xoá khỏi `run_handover_live_governance_evidence.py`
+(`expected_version` giờ bắt buộc, keyword-only), test đã thread version thật
+từ mỗi response qua review/acknowledge/close/freeze.

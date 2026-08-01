@@ -31,6 +31,7 @@ from operations_domain.lifecycle import assert_transition
 from operations_domain.models import DataState, OperationalEvent
 from workspace_api.application import approval_service
 from workspace_api.application.assignment_scope import AssignmentScope
+from workspace_api.application.mutation_preconditions import assert_version_precondition
 
 _CONTROL_CHAIN = ["identity", "permission", "risk", "evidence", "approval", "audit"]
 _RECORD_TYPE = "OperationalEvent"
@@ -48,12 +49,20 @@ class EventService:
         self.audit = audit
         self.profile = profile or load_profile()
 
-    def confirm(self, event_id: UUID, principal: Principal) -> OperationalEvent:
+    def confirm(
+        self, event_id: UUID, principal: Principal, *, expected_version: int | None = None
+    ) -> OperationalEvent:
         require_action(principal, "event.confirm")
         with self.ledger.transaction() as unit:
             event = self.ledger.get_event(event_id, unit=unit)
             AssignmentScope(self.ledger).require_record(event, principal, unit=unit)
             risk_class = str(event.risk_class)
+
+            # SPEC R13/R14: compared after assignment admission, before any
+            # lifecycle/evidence/approval check or mutation.
+            assert_version_precondition(
+                control="lifecycle", expected_version=expected_version, current_version=event.version
+            )
 
             # state: is CONFIRMED even reachable from event's own data-state?
             # NOTE: this only checks the event's own state, NOT the parent

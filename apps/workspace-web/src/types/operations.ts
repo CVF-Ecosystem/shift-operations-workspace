@@ -83,6 +83,7 @@ export interface CustomerRequest {
   received_at: string;
   promised_at: string | null;
   owner_id: string | null;
+  version: number;
 }
 
 export interface Incident {

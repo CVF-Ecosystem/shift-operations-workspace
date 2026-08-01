@@ -1,6 +1,5 @@
 """Incident golden vertical: the CVF chain replicated to a fifth operational
-domain (P2-A), including report, acknowledge, transition and both backends.
-"""
+domain (P2-A), including report, acknowledge, transition and both backends."""
 
 from datetime import datetime, timedelta, timezone
 
@@ -75,9 +74,7 @@ def client(request):
     finally:
         app.dependency_overrides.pop(get_ledger, None)
 
-
 # --- AC-07: report ----------------------------------------------------------
-
 
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_report_persists_incident_evidence_and_audit_atomically(tmp_path, name):
@@ -104,15 +101,13 @@ def test_report_rejected_under_frozen_shift():
     with pytest.raises(ValueError, match="frozen"):
         IncidentService(ledger).report(_incident(shift), _OPERATOR)
 
-
 # --- AC-08/AC-09: acknowledge ------------------------------------------------
-
 
 def test_acknowledge_insufficient_evidence_denied():
     ledger = InMemoryLedger()
     incident = IncidentService(ledger).report(_incident(_new_shift(ledger), evidence=[]), _OPERATOR)
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     assert exc.value.control == "evidence"
 
 
@@ -122,7 +117,7 @@ def test_acknowledge_fabricated_zero_receipts_denied():
         _incident(_new_shift(ledger), evidence=[EvidenceRef(source_type="message", source_id="m1")]), _OPERATOR
     )
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     assert exc.value.control == "approval"
 
 
@@ -130,7 +125,7 @@ def test_acknowledge_self_approval_denied():
     ledger = InMemoryLedger()
     incident = _reported_with_receipt(ledger, approver_id="sup1")
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     assert exc.value.control == "approval"
 
 
@@ -142,7 +137,7 @@ def test_acknowledge_inactive_approver_receipt_denied():
     incident = _reported_with_receipt(ledger)
     ledger.users["sup2"].is_active = False
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     assert exc.value.control == "approval"
 
 
@@ -155,7 +150,7 @@ def test_acknowledge_stale_version_receipt_denied():
     stale.version += 1
     ledger.put_incident(stale)
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+        IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=stale.version)
     assert exc.value.control == "approval"
 
 
@@ -163,29 +158,29 @@ def test_acknowledge_stale_version_receipt_denied():
 def test_acknowledge_succeeds_with_distinct_authenticated_receipt(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     incident = _reported_with_receipt(ledger)
-    acknowledged = IncidentService(ledger).acknowledge(
-        incident.incident_id, Principal(user_id="sup1", role="shift_supervisor")
-    )
+    acknowledged = IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     assert acknowledged.status.value == "ACKNOWLEDGED"
     assert acknowledged.version == 2
 
-
 # --- AC-10: post-acknowledgement transition ---------------------------------
-
 
 def test_transition_rejects_reported_status():
     ledger = InMemoryLedger()
     incident = IncidentService(ledger).report(_incident(_new_shift(ledger)), _OPERATOR)
     with pytest.raises(CvfDenied) as exc:
-        IncidentService(ledger).transition(incident.incident_id, _OPERATOR, IncidentStatus.ACKNOWLEDGED)
+        IncidentService(ledger).transition(
+            incident.incident_id, _OPERATOR, IncidentStatus.ACKNOWLEDGED, expected_version=incident.version
+        )
     assert exc.value.control == "lifecycle"
 
 
 def test_transition_progresses_and_audits_atomically():
     ledger = InMemoryLedger()
     incident = _reported_with_receipt(ledger)
-    IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
-    resolved = IncidentService(ledger).transition(incident.incident_id, _OPERATOR, IncidentStatus.RESOLVED)
+    acknowledged = IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
+    resolved = IncidentService(ledger).transition(
+        incident.incident_id, _OPERATOR, IncidentStatus.RESOLVED, expected_version=acknowledged.version
+    )
     assert resolved.status.value == "RESOLVED"
     actions = {a.action for a in ledger.audit_entries_for(str(incident.incident_id))}
     assert {"incident.report", "incident.acknowledge", "incident.transition"} <= actions
@@ -194,14 +189,14 @@ def test_transition_progresses_and_audits_atomically():
 def test_transition_rejected_under_frozen_shift():
     ledger = InMemoryLedger()
     incident = _reported_with_receipt(ledger)
-    IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"))
+    acknowledged = IncidentService(ledger).acknowledge(incident.incident_id, Principal(user_id="sup1", role="shift_supervisor"), expected_version=incident.version)
     ledger.freeze_shift(incident.shift_id)
     with pytest.raises(ValueError, match="frozen"):
-        IncidentService(ledger).transition(incident.incident_id, _OPERATOR, IncidentStatus.RESOLVED)
-
+        IncidentService(ledger).transition(
+            incident.incident_id, _OPERATOR, IncidentStatus.RESOLVED, expected_version=acknowledged.version
+        )
 
 # --- INC-REV-F2: cross-backend ledger parity ---------------------------------
-
 
 def _force_equal_created_at(ledger, name, ids):
     """Give every incident in ``ids`` the SAME ``created_at`` so only the
@@ -252,9 +247,7 @@ def test_list_incidents_orders_by_created_at_then_incident_id_when_tied(tmp_path
     # coincidence of dict/row iteration order.
     assert [i.incident_id for i in ledger.list_incidents_for_shift(shift.shift_id)] == [i.incident_id for i in got]
 
-
 # --- AC-11: HTTP -------------------------------------------------------------
-
 
 def test_http_report_requires_auth(client):
     ledger, http = client
