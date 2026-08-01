@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "C3b2 exact 82-path Work Order and authorization review are REVIEW_PASS/pushed at b9a62a3. Separate pre-BUILD checkpoint and complete G6 are mandatory before manual worker transfer; C3c-d remain blocked.",
+  "syncReceipt": "C3b2 Amendment 1 is REVIEW_PASS/pushed through 3dcc966, adding exactly one runner-test path for an exact 83-path ceiling. Partial BUILD resumes manually after this checkpoint; C3c-d remain blocked.",
   "parkedOperatorCheckpoint": null,
-  "activeRole": "SESSION_SYNC_STEWARD",
+  "activeRole": "IMPLEMENTATION_WORKER",
   "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
   "updatedAt": "2026-08-01"
 }
