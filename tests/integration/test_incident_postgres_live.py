@@ -90,8 +90,12 @@ def test_incident_round_trip_survives_reconnect(sql_ledger, live_database_url):
 
 
 def test_incident_acknowledge_persists_and_audits_through_reconnect(sql_ledger, live_database_url):
+    # P2C-MUTATION-FULL-UI-C3A2 (WO section 3.5): incident.report/acknowledge
+    # now require the caller's persisted ACTIVE assignment on the shift.
     shift = _shift()
     sql_ledger.create_shift(shift)
+    sql_ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    sql_ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
     incident = Incident(
         shift_id=shift.shift_id, summary="Crane stopped", risk_class=RiskClass.R2,
         evidence=[EvidenceRef(source_type="message", source_id="m1")],
@@ -100,12 +104,14 @@ def test_incident_acknowledge_persists_and_audits_through_reconnect(sql_ledger, 
 
     approver_id = f"pg-live-inc-{uuid4().hex[:8]}"
     sql_ledger.add_user(domain_models.User(user_id=approver_id, username=approver_id, password_hash="x", role="shift_supervisor"))
+    sql_ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id=approver_id, assigned_by=approver_id))
     approval_service.create_approval_receipt(
         sql_ledger, Principal(user_id=approver_id, role="shift_supervisor"),
         record_type="Incident", action="incident.acknowledge", record_id=reported.incident_id,
     )
     confirmer = Principal(user_id="pg-live-inc-confirmer", role="shift_supervisor")
     sql_ledger.add_user(domain_models.User(user_id=confirmer.user_id, username=confirmer.user_id, password_hash="x", role="shift_supervisor"))
+    sql_ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id=confirmer.user_id, assigned_by=confirmer.user_id))
     IncidentService(sql_ledger).acknowledge(reported.incident_id, confirmer)
     sql_ledger.engine.dispose()
 

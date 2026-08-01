@@ -26,7 +26,7 @@ from cvf_runtime.policy_loader import CvfProfile, load_profile
 
 from operations_domain.models import OperationalEvent, RiskClass, Shift
 from workspace_api.application import approval_service
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from workspace_api.infrastructure.repository import InMemoryLedger
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -62,17 +62,22 @@ def _r3_event(ledger):
     return event
 
 
-def _active_user(ledger, user_id: str, role: str) -> None:
+def _active_user(ledger, user_id: str, role: str, *, shift_id=None) -> None:
     ledger.add_user(
         User(user_id=user_id, username=user_id, password_hash="x", role=role, is_active=True)
     )
+    if shift_id is not None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
 
 
 def test_fabricated_approver_id_cannot_create_a_receipt():
     """The exact Codex probe intent, through the new mechanism: an
     approver_id that is not a real, known user cannot be turned into a
     counted approval seat - there is no request shape left that lets a
-    caller invent one (High Finding #4)."""
+    caller invent one (High Finding #4). P2C-C3A2 (F1 repair): coarse
+    identity/role denial must fire before the enumeration-safe operational-
+    scope guard, so an unknown principal is refused by the identity check
+    first - still a controlled refusal, never a counted receipt."""
     ledger = InMemoryLedger()
     event = _r3_event(ledger)
     fabricated = Principal(user_id="totally-made-up", role="shift_supervisor")
@@ -85,7 +90,6 @@ def test_fabricated_approver_id_cannot_create_a_receipt():
             action="event.confirm",
             record_id=event.event_id,
         )
-    assert exc.value.control == "approval"
     assert exc.value.http_status == 403
 
 
@@ -95,7 +99,7 @@ def test_known_id_with_inflated_role_cannot_fill_a_higher_seat():
     CURRENT role (from `users`, not a claimed one) is checked."""
     ledger = InMemoryLedger()
     event = _r3_event(ledger)
-    _active_user(ledger, "op1", "operator")
+    _active_user(ledger, "op1", "operator", shift_id=event.shift_id)
 
     with pytest.raises(CvfDenied) as exc:
         approval_service.create_approval_receipt(
@@ -112,8 +116,8 @@ def test_known_id_with_inflated_role_cannot_fill_a_higher_seat():
 def test_known_active_users_with_correct_roles_create_receipts_and_pass_quorum():
     ledger = InMemoryLedger()
     event = _r3_event(ledger)
-    _active_user(ledger, "sup2", "shift_supervisor")
-    _active_user(ledger, "mgr1", "responsible_manager")
+    _active_user(ledger, "sup2", "shift_supervisor", shift_id=event.shift_id)
+    _active_user(ledger, "mgr1", "responsible_manager", shift_id=event.shift_id)
 
     receipt1, created1 = approval_service.create_approval_receipt(
         ledger,
@@ -136,7 +140,10 @@ def test_known_active_users_with_correct_roles_create_receipts_and_pass_quorum()
 
 def test_unregistered_or_random_uuid_approver_is_not_a_known_user():
     """No `users` row exists for a random id - receipt creation is refused,
-    not silently accepted (the old `known_role_for` behaviour retired)."""
+    not silently accepted (the old `known_role_for` behaviour retired).
+    P2C-C3A2 (F1 repair): refused by the coarse identity/role check, which
+    now runs before the enumeration-safe operational-scope guard - still a
+    controlled refusal."""
     ledger = InMemoryLedger()
     event = _r3_event(ledger)
     with pytest.raises(CvfDenied) as exc:
@@ -147,5 +154,4 @@ def test_unregistered_or_random_uuid_approver_is_not_a_known_user():
             action="event.confirm",
             record_id=event.event_id,
         )
-    assert exc.value.control == "approval"
     assert exc.value.http_status == 403

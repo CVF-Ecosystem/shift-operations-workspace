@@ -1,9 +1,5 @@
 """Incident golden vertical: the CVF chain replicated to a fifth operational
-domain (P2-A). Report is immediate; acknowledge is the protected R2+ decision
-reusing the durable-receipt architecture; transition is post-acknowledgement
-only. Proves the SAME cvf-runtime gates (identity/permission/domain_lock/risk/
-evidence/approval/audit/freeze) enforce this vertical, on both ledger backends
-where relevant.
+domain (P2-A), including report, acknowledge, transition and both backends.
 """
 
 from datetime import datetime, timedelta, timezone
@@ -26,6 +22,7 @@ from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
 from _auth_test_helpers import auth_headers
+from _assignment_scope_fixtures import seed_active_assignment
 
 _OPERATOR = Principal(user_id="op1", role="operator")
 
@@ -44,6 +41,8 @@ def _new_shift(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    seed_active_assignment(ledger, shift.shift_id, "op1", "operator")
+    seed_active_assignment(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return shift
 
 
@@ -59,7 +58,7 @@ def _reported_with_receipt(ledger, approver_id="sup2", *, evidence=True):
     transition test below starts from."""
     ev = [EvidenceRef(source_type="message", source_id="m1")] if evidence else []
     incident = IncidentService(ledger).report(_incident(_new_shift(ledger), evidence=ev), _OPERATOR)
-    ledger.add_user(User(user_id=approver_id, username=approver_id, password_hash="x", role="shift_supervisor"))
+    seed_active_assignment(ledger, incident.shift_id, approver_id, "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role="shift_supervisor"), record_type="Incident",
         action="incident.acknowledge", record_id=incident.incident_id,

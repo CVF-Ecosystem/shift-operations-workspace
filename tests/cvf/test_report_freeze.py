@@ -17,7 +17,7 @@ from workspace_api.application.handover_service import HandoverService
 from workspace_api.application.report_service import ReportService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from operations_domain.models import ReportStatus, Shift, ShiftStatus
 from workspace_api.infrastructure.repository import InMemoryLedger
 
@@ -36,10 +36,19 @@ def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
 
 
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _closed_shift(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     ledger.close_shift(shift.shift_id)
     return ledger.get_shift(shift.shift_id)
 
@@ -48,6 +57,7 @@ def _ready_handover(ledger, shift):
     now = datetime.now(timezone.utc)
     dest = Shift(name="Next", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _OPERATOR)
     handover = svc.review(handover.handover_id, _SUPERVISOR)
@@ -58,7 +68,7 @@ def _approved_report(ledger, shift, approver_id="sup3"):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
     report = svc.submit_review(report.report_id, _OPERATOR)
-    ledger.add_user(User(user_id=approver_id, username=approver_id, password_hash="x", role="shift_supervisor"))
+    _seed(ledger, shift.shift_id, approver_id, "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
@@ -154,10 +164,8 @@ def _task_record(record_id, created_at="2026-01-01T00:00:00Z", title="t", eviden
         "created_at": created_at, "evidence": list(evidence),
     }
 
-
 def _evidence_item(evidence_id, source_type="doc", source_id="1", sha256=None):
     return {"evidence_id": evidence_id, "source_type": source_type, "source_id": source_id, "sha256": sha256}
-
 
 def _digest_of(record: dict) -> str:
     """Matches operations_domain.report_models._recompute_record_digest."""
@@ -166,13 +174,11 @@ def _digest_of(record: dict) -> str:
     canonical = json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     return hashlib.sha256(canonical).hexdigest()
 
-
 def _six_sections(tasks_records=()):
     from operations_domain.models import ReportSection
 
     order = ("operational_events", "corrections", "tasks", "customer_requests", "incidents", "handovers")
     return [ReportSection(section_type=s, records=list(tasks_records) if s == "tasks" else []) for s in order]
-
 
 def test_record_without_matching_manifest_entry_rejected():
     """The manifest must be the EXACT set of records, not a subset."""
@@ -183,7 +189,6 @@ def test_record_without_matching_manifest_entry_rejected():
             sections=_six_sections([_task_record(str(uuid4()))]),
             source_manifest=[], snapshot_digest="b" * 64,
         )
-
 
 def test_manifest_entry_without_matching_record_rejected():
     """The manifest must never be a superset of the records either."""
@@ -197,7 +202,6 @@ def test_manifest_entry_without_matching_record_rejected():
             ],
             snapshot_digest="b" * 64,
         )
-
 
 def test_manifest_order_must_match_record_order_within_section():
     """Two Task records (distinct created_at) with reversed manifest order
@@ -219,7 +223,6 @@ def test_manifest_order_must_match_record_order_within_section():
     content = ReportContent(sections=sections, source_manifest=forward_manifest, snapshot_digest="b" * 64)
     assert len(content.source_manifest) == 2
 
-
 def test_record_with_mismatched_record_type_for_its_section_rejected():
     from operations_domain.models import ReportSection
 
@@ -227,7 +230,6 @@ def test_record_with_mismatched_record_type_for_its_section_rejected():
     bad["record_type"] = "Incident"
     with pytest.raises(Exception):
         ReportSection(section_type="tasks", records=[bad])
-
 
 def test_record_with_wrong_field_set_rejected():
     """SPEC R2: a record's shape is pinned to its record_type's exact field set."""
@@ -243,7 +245,6 @@ def test_record_with_wrong_field_set_rejected():
     with pytest.raises(Exception):
         ReportSection(section_type="tasks", records=[extra_field])
 
-
 def test_record_with_invalid_record_id_rejected():
     from operations_domain.models import ReportSection
 
@@ -256,7 +257,6 @@ def test_record_with_invalid_record_id_rejected():
     with pytest.raises(Exception):
         ReportSection(section_type="tasks", records=[non_string_id])
 
-
 # --- Finding 1 (second repair): no over-rejection, evidence R7 order -------
 
 def _correction_record(record_id, previous_version, new_version):
@@ -268,7 +268,6 @@ def _correction_record(record_id, previous_version, new_version):
         "created_at": "2026-01-01T00:00:00Z",
     }
 
-
 def test_empty_title_and_sorted_evidence_are_accepted():
     """Task.title is a plain `str` with no min_length domain-wide, and
     correctly R7-ordered evidence must remain accepted."""
@@ -278,14 +277,12 @@ def test_empty_title_and_sorted_evidence_are_accepted():
     record = _task_record(str(uuid4()), title="", evidence=[first, second])
     ReportSection(section_type="tasks", records=[record])
 
-
 def test_correction_zero_to_one_is_accepted():
     """DB CHECK is only `new_version > previous_version`, no lower bound."""
     from operations_domain.models import ReportSection
 
     record = _correction_record(str(uuid4()), previous_version=0, new_version=1)
     ReportSection(section_type="corrections", records=[record])
-
 
 def test_correction_bad_order_and_reversed_evidence_rejected():
     from operations_domain.models import ReportSection

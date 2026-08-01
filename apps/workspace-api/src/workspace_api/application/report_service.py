@@ -41,6 +41,7 @@ from operations_ledger import Ledger
 from operations_domain.lifecycle import assert_report_transition
 from operations_domain.models import Report, ReportStatus, ShiftStatus
 from workspace_api.application import approval_service, report_snapshot
+from workspace_api.application.assignment_scope import require_active_assignment
 
 _RECORD_TYPE = "Report"
 _APPROVE_ACTION = "report.approve"
@@ -105,6 +106,7 @@ class ReportService:
         require_action(principal, "report.generate")
 
         with self.ledger.report_mutation_transaction() as unit:
+            require_active_assignment(self.ledger, shift_id, principal, unit=unit)
             shift = self.ledger.get_shift(shift_id, unit=unit)
             if shift.status != ShiftStatus.CLOSED:
                 raise CvfDenied(
@@ -135,6 +137,7 @@ class ReportService:
 
         with self.ledger.report_mutation_transaction() as unit:
             report = self.ledger.get_report(report_id, unit=unit)
+            require_active_assignment(self.ledger, report.shift_id, principal, unit=unit)
             self._assert_current(report)
             if report.status != ReportStatus.DRAFT:
                 raise CvfDenied(control="lifecycle", reason=f"report is {report.status}, expected DRAFT", http_status=409)
@@ -151,6 +154,7 @@ class ReportService:
         with self.ledger.report_mutation_transaction() as unit:
             report = self.ledger.get_report(report_id, unit=unit)
             require_action(principal, "report.approve")
+            require_active_assignment(self.ledger, report.shift_id, principal, unit=unit)
             self._assert_current(report)
             if report.status != ReportStatus.IN_REVIEW:
                 raise CvfDenied(control="lifecycle", reason=f"report is {report.status}, expected IN_REVIEW", http_status=409)
@@ -178,6 +182,11 @@ class ReportService:
     def create_successor(self, report_id: UUID, principal: Principal, *, reason: str | None = None) -> Report:
         with self.ledger.report_mutation_transaction() as unit:
             previous = self.ledger.get_report(report_id, unit=unit)
+
+            is_revocation = previous.status == ReportStatus.APPROVED
+            require_action(principal, "report.revoke_approval" if is_revocation else "report.generate")
+
+            require_active_assignment(self.ledger, previous.shift_id, principal, unit=unit)
             self._assert_current(previous)
 
             if previous.status == ReportStatus.FROZEN:
@@ -186,9 +195,7 @@ class ReportService:
             if shift.status == ShiftStatus.FROZEN:
                 raise CvfDenied(control="freeze", reason="cannot regenerate a report for a FROZEN shift", http_status=409)
 
-            is_revocation = previous.status == ReportStatus.APPROVED
             if is_revocation:
-                require_action(principal, "report.revoke_approval")
                 trimmed = (reason or "").strip()
                 if not (1 <= len(trimmed) <= _MAX_REASON_LEN):
                     raise CvfDenied(
@@ -197,7 +204,6 @@ class ReportService:
                         http_status=422,
                     )
             else:
-                require_action(principal, "report.generate")
                 if previous.status not in (ReportStatus.DRAFT, ReportStatus.IN_REVIEW):
                     raise CvfDenied(control="lifecycle", reason=f"cannot regenerate report in status {previous.status}", http_status=409)
 

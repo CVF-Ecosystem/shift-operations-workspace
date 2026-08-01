@@ -192,6 +192,7 @@ def test_representative_open_work_route_response_validates_against_schema():
     from operations_domain.models import CustomerRequest, Incident, RiskClass, Shift, Task, TaskStatus
     from workspace_api.dependencies import get_ledger
     from workspace_api.infrastructure.repository import InMemoryLedger
+    from workspace_api.domain.models import ShiftAssignment, User
     from workspace_api.main import app
 
     now = datetime.now(timezone.utc)
@@ -206,6 +207,8 @@ def test_representative_open_work_route_response_validates_against_schema():
 
     ledger = InMemoryLedger()
     ledger.create_shift(shift)
+    ledger.add_user(User(user_id="viewer-1", username="viewer-1", password_hash="x", role="viewer"))
+    ledger.add_assignment(ShiftAssignment(shift_id=shift.shift_id, user_id="viewer-1", assigned_by="viewer-1"))
     ledger.add_task(task)
     ledger.add_customer_request(request)
     ledger.add_incident(incident)

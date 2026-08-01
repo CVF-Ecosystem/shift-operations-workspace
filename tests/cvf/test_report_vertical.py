@@ -12,12 +12,11 @@ from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 from operations_ledger.sql_ledger import SqlLedger, make_engine
 from operations_ledger.tables import metadata
-
 from workspace_api.application.report_service import ReportService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
 from workspace_api.domain.models import Report as WorkspaceReport
-from operations_domain.models import Report, ReportStatus, Shift, ShiftStatus, Task
+from operations_domain.models import Report, ReportStatus, Shift, Task
 from operations_domain.lifecycle import assert_report_transition
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
@@ -42,8 +41,10 @@ def _closed_shift(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
-    ledger.close_shift(shift.shift_id)
-    return ledger.get_shift(shift.shift_id)
+    if ledger.get_user_by_id("op1") is None:
+        ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
+    ledger.close_shift(shift.shift_id); return ledger.get_shift(shift.shift_id)
 
 
 @pytest.fixture
@@ -82,10 +83,8 @@ def test_lifecycle_forward_only_and_frozen_terminal():
     assert_report_transition(ReportStatus.DRAFT, ReportStatus.IN_REVIEW)
     assert_report_transition(ReportStatus.IN_REVIEW, ReportStatus.APPROVED)
     assert_report_transition(ReportStatus.APPROVED, ReportStatus.FROZEN)
-    with pytest.raises(ValueError):
-        assert_report_transition(ReportStatus.FROZEN, ReportStatus.DRAFT)
-    with pytest.raises(ValueError):
-        assert_report_transition(ReportStatus.DRAFT, ReportStatus.APPROVED)
+    with pytest.raises(ValueError): assert_report_transition(ReportStatus.FROZEN, ReportStatus.DRAFT)
+    with pytest.raises(ValueError): assert_report_transition(ReportStatus.DRAFT, ReportStatus.APPROVED)
 
 
 # --- AC-01: generation eligibility (R5) ------------------------------------
@@ -96,6 +95,8 @@ def test_generate_requires_closed_shift(tmp_path, name):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
 
     with pytest.raises(CvfDenied) as exc:
         ReportService(ledger).generate(shift.shift_id, _OPERATOR)
@@ -142,8 +143,7 @@ def test_generate_twice_without_successor_is_409(tmp_path, name):
     assert exc.value.http_status == 409
 
 
-def _action_of(entry):
-    return entry.action if hasattr(entry, "action") else entry["action"]
+def _action_of(entry): return entry.action if hasattr(entry, "action") else entry["action"]
 
 
 # --- AC-09/10: submit-review (R15) -----------------------------------------

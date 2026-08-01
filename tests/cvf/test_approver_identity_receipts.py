@@ -25,6 +25,7 @@ from _approver_identity_support import (
     _R3_PAIRS,
     _R4_PAIRS,
     _action,
+    _assign,
     _backends,
     _client_for,
     _clear_overrides,
@@ -111,8 +112,8 @@ def test_f16_event_receipt_non_null_digest_rejected_against_null_scope(tmp_path,
     assert exc.value.http_status == 409
 
 def test_f17_exact_response_schemas_spec_5_4():
-    ledger = InMemoryLedger(); shift = _new_shift(ledger); _user(ledger, "sup1", "shift_supervisor"); _user(ledger, "sup2", "shift_supervisor")
-    event = _new_event(ledger, risk=RiskClass.R3); client = _client_for(ledger)
+    ledger = InMemoryLedger(); shift = _new_shift(ledger); _assign(ledger, shift.shift_id, "sup2", "shift_supervisor")
+    event = _new_event(ledger, risk=RiskClass.R3); _assign(ledger, event.shift_id, "sup2", "shift_supervisor"); client = _client_for(ledger)
     try:
         r1 = client.post("/approvals", json={"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}, headers=auth_headers("sup2", "shift_supervisor"))
         assert r1.status_code == 201 and set(r1.json().keys()) == {"receipt_id", "record_type", "record_id", "action", "target_version", "risk_class", "approver_id", "approver_role", "created_at"}
@@ -126,10 +127,10 @@ def test_f17_exact_response_schemas_spec_5_4():
 @pytest.mark.parametrize("order", list(permutations(["sup2", "mgr1"])))
 def test_f18b_r3_permutations_http_both_backends(tmp_path, name, order):
     ledger = dict(_backends(tmp_path))[name]
-    event = _new_event(ledger, risk=RiskClass.R3); roles = dict(_R3_PAIRS); _user(ledger, "sup1", "shift_supervisor"); client = _client_for(ledger)
+    event = _new_event(ledger, risk=RiskClass.R3); roles = dict(_R3_PAIRS); client = _client_for(ledger)
     try:
         for a in order:
-            _user(ledger, a, roles[a])
+            _assign(ledger, event.shift_id, a, roles[a])
             assert client.post("/approvals", json={"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}, headers=auth_headers(a, roles[a])).status_code == 201
         assert client.post(f"/events/{event.event_id}/confirm", json={}, headers=auth_headers("sup1", "shift_supervisor")).status_code == 200
     finally: _clear_overrides()
@@ -138,10 +139,10 @@ def test_f18b_r3_permutations_http_both_backends(tmp_path, name, order):
 @pytest.mark.parametrize("order", list(permutations(["mgr1", "exec1"])))
 def test_f18b_r4_permutations_http_both_backends(tmp_path, name, order):
     ledger = dict(_backends(tmp_path))[name]
-    event = _new_event(ledger, risk=RiskClass.R4, evidence_count=2); roles = dict(_R4_PAIRS); _user(ledger, "sup1", "shift_supervisor"); client = _client_for(ledger)
+    event = _new_event(ledger, risk=RiskClass.R4, evidence_count=2); roles = dict(_R4_PAIRS); client = _client_for(ledger)
     try:
         for a in order:
-            _user(ledger, a, roles[a])
+            _assign(ledger, event.shift_id, a, roles[a])
             assert client.post("/approvals", json={"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}, headers=auth_headers(a, roles[a])).status_code == 201
         assert client.post(f"/events/{event.event_id}/confirm", json={}, headers=auth_headers("sup1", "shift_supervisor")).status_code == 200
     finally: _clear_overrides()
@@ -149,7 +150,7 @@ def test_f18b_r4_permutations_http_both_backends(tmp_path, name, order):
 @pytest.mark.parametrize("name", ["in_memory", "sql"])
 def test_f19_idempotency_http_both_backends(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
-    event = _new_event(ledger, risk=RiskClass.R3); _user(ledger, "sup2", "shift_supervisor"); client = _client_for(ledger)
+    event = _new_event(ledger, risk=RiskClass.R3); _assign(ledger, event.shift_id, "sup2", "shift_supervisor"); client = _client_for(ledger)
     try:
         payload = {"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}
         hdrs = auth_headers("sup2", "shift_supervisor")

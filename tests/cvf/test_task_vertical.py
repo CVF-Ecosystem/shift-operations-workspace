@@ -21,7 +21,7 @@ from cvf_runtime.identity import Principal
 
 from workspace_api.application import approval_service
 from workspace_api.application.task_service import TaskService
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from operations_domain.models import (
     EvidenceRef,
     RiskClass,
@@ -32,11 +32,20 @@ from operations_domain.models import (
 from workspace_api.infrastructure.repository import InMemoryLedger
 
 
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _ledger_with_shift():
     ledger = InMemoryLedger()
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return ledger, shift
 
 
@@ -58,9 +67,8 @@ def _task(shift, *, risk=RiskClass.R1, evidence=0):
 
 
 def _approve_task_creation(ledger, intent_id, approver_id, role):
-    ledger.add_user(
-        User(user_id=approver_id, username=approver_id, password_hash="x", role=role, is_active=True)
-    )
+    intent = ledger.get_task_creation_intent(intent_id)
+    _seed(ledger, intent.shift_id, approver_id, role)
     approval_service.create_approval_receipt(
         ledger,
         Principal(user_id=approver_id, role=role),

@@ -11,6 +11,7 @@ from cvf_runtime.permission import require_action
 from cvf_runtime.policy_loader import load_profile
 
 from workspace_api.application.services import EventService
+from workspace_api.application.assignment_scope import require_active_assignment
 from operations_ledger import Ledger
 
 from workspace_api.dependencies import get_audit_log, get_ledger, get_principal
@@ -48,11 +49,12 @@ def create_event(
     try:
         require_action(principal, "event.create")
         assert_event_type_in_scope(load_profile(), payload.event_type)
+        require_active_assignment(ledger, payload.shift_id, principal)
         return ledger.add_event(OperationalEvent(**payload.model_dump()))
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
 
 
 @router.post("/{event_id}/confirm", response_model=OperationalEvent)
@@ -68,7 +70,7 @@ def confirm_event(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Event not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
@@ -86,9 +88,9 @@ def list_events(
     preserved. Enforces a 500-record hard maximum (HTTP 422 on overflow, no
     partial result). Missing shift returns 404."""
     try:
-        ledger.get_shift(shift_id)
+        require_active_assignment(ledger, shift_id, principal)
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     events = ledger.list_events_for_shift(shift_id)
     if len(events) > _MAX_EVENTS:
         raise HTTPException(

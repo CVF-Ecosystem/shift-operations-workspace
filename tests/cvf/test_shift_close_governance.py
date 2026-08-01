@@ -37,6 +37,7 @@ from _shift_close_fixtures import (
     clear_overrides,
     new_shift,
     operator,
+    seed_assignment,
     sql_ledger,
 )
 
@@ -62,6 +63,7 @@ def test_anonymous_close_is_rejected_not_200():
 def test_insufficient_role_close_is_rejected():
     ledger = InMemoryLedger()
     shift = new_shift(ledger)
+    seed_assignment(ledger, shift.shift_id, "v1", "viewer")
     client = client_for(ledger)
     try:
         resp = client.post(

@@ -21,6 +21,7 @@ from operations_ledger import Ledger
 
 from operations_domain.models import Report, ReportSection, ReportSourceRef, ReportStatus, ReportType
 from workspace_api.application.report_service import ReportService
+from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
 from workspace_api.dependencies import get_ledger, get_principal
 
 router = APIRouter(prefix="/reports", tags=["reports"])
@@ -97,6 +98,7 @@ def get_report(
 ):
     try:
         report = ledger.get_report(report_id)
+        AssignmentScope(ledger).require_record(report, principal)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Report not found") from exc
     return ReportResponse.from_report(report)
@@ -109,6 +111,10 @@ def list_reports(
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
+    try:
+        require_active_assignment(ledger, shift_id, principal)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Report not found") from exc
     if not include_history:
         try:
             current = ledger.get_current_report(shift_id, "END_SHIFT")

@@ -8,6 +8,7 @@ from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
 from workspace_api.application.handover_service import HandoverService
+from workspace_api.application.assignment_scope import require_active_assignment
 from workspace_api.dependencies import get_ledger, get_principal
 from operations_domain.models import Handover
 
@@ -54,7 +55,9 @@ def get_handover(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return ledger.get_handover(handover_id)
+        handover = ledger.get_handover(handover_id)
+        require_active_assignment(ledger, handover.from_shift_id, principal)
+        return handover
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Handover not found") from exc
 
@@ -65,7 +68,11 @@ def list_handovers(
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
-    return ledger.list_handovers_for_shift(from_shift_id)
+    try:
+        require_active_assignment(ledger, from_shift_id, principal)
+        return ledger.list_handovers_for_shift(from_shift_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Handover not found") from exc
 
 
 @router.post("/{handover_id}/review", response_model=Handover)

@@ -18,7 +18,7 @@ from workspace_api.application import approval_service
 from workspace_api.application.report_service import ReportService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from operations_domain.models import ReportStatus, Shift
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
@@ -39,18 +39,26 @@ def _backends(tmp_path):
     return [("in_memory", InMemoryLedger()), ("sql", _sql_ledger(tmp_path))]
 
 
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _in_review_report(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
     ledger.close_shift(shift.shift_id)
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
     return svc.submit_review(report.report_id, _OPERATOR)
 
 
-def _add_approver(ledger, user_id="sup2", role="shift_supervisor"):
-    ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+def _add_approver(ledger, report, user_id="sup2", role="shift_supervisor"):
+    _seed(ledger, report.shift_id, user_id, role)
     return Principal(user_id=user_id, role=role)
 
 
@@ -58,7 +66,7 @@ def _add_approver(ledger, user_id="sup2", role="shift_supervisor"):
 def test_receipt_creation_requires_current_in_review_report(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
-    approver = _add_approver(ledger)
+    approver = _add_approver(ledger, report)
 
     receipt, created = approval_service.create_approval_receipt(
         ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
@@ -75,9 +83,10 @@ def test_receipt_creation_refused_for_draft_report(tmp_path, name):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
     ledger.close_shift(shift.shift_id)
     report = ReportService(ledger).generate(shift.shift_id, _OPERATOR)
-    approver = _add_approver(ledger)
+    approver = _add_approver(ledger, report)
 
     with pytest.raises(CvfDenied) as exc:
         approval_service.create_approval_receipt(
@@ -99,6 +108,7 @@ def test_approve_requires_permission(tmp_path, name):
 def test_approve_requires_receipt(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
+    _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
         ReportService(ledger).approve(report.report_id, _SUPERVISOR)
     assert exc.value.control == "approval"
@@ -110,7 +120,7 @@ def test_approve_actor_cannot_be_sole_receipt_approver(tmp_path, name):
     approver - the existing confirmer-separation rule remains load-bearing."""
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
-    ledger.add_user(User(user_id="sup1", username="sup1", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, _SUPERVISOR, record_type="Report", action="report.approve", record_id=report.report_id,
     )
@@ -123,11 +133,11 @@ def test_approve_actor_cannot_be_sole_receipt_approver(tmp_path, name):
 def test_approve_succeeds_with_distinct_receipt_approver(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
-    approver = _add_approver(ledger, "sup2")
+    approver = _add_approver(ledger, report, "sup2")
     approval_service.create_approval_receipt(
         ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    ledger.add_user(User(user_id="sup1", username="sup1", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
 
     approved = ReportService(ledger).approve(report.report_id, _SUPERVISOR)
     assert approved.status == ReportStatus.APPROVED
@@ -142,14 +152,14 @@ def test_receipt_for_wrong_version_does_not_count(tmp_path, name):
     successor - stale receipts never carry forward."""
     ledger = dict(_backends(tmp_path))[name]
     report = _in_review_report(ledger)
-    approver = _add_approver(ledger, "sup2")
+    approver = _add_approver(ledger, report, "sup2")
     approval_service.create_approval_receipt(
         ledger, approver, record_type="Report", action="report.approve", record_id=report.report_id,
     )
 
     # Wrong record id entirely - receipt scoped elsewhere never counts here.
     other_report = _in_review_report(ledger)
-    ledger.add_user(User(user_id="sup1", username="sup1", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, other_report.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied):
         ReportService(ledger).approve(other_report.report_id, _SUPERVISOR)
 
@@ -180,6 +190,7 @@ def _in_review_report_removing_status(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
     ledger.close_shift(shift.shift_id)
     return ReportService(ledger).generate(shift.shift_id, _OPERATOR)
 
@@ -202,12 +213,12 @@ def test_http_submit_review_rejects_caller_supplied_body(client):
 def test_http_approve_accepts_empty_request(client):
     ledger, http = client
     report = _in_review_report(ledger)
-    _add_approver(ledger, "sup2")
+    _add_approver(ledger, report, "sup2")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup2", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
-    ledger.add_user(User(user_id="sup1", username="sup1", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, report.shift_id, "sup1", "shift_supervisor")
     resp = http.post(f"/reports/{report.report_id}/approve", headers=auth_headers("sup1", "shift_supervisor"))
     assert resp.status_code == 200, resp.text
     assert resp.json()["status"] == "APPROVED"

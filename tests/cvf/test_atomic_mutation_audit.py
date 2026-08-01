@@ -29,7 +29,7 @@ from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from operations_domain.models import (
     DataState,
     OperationalEvent,
@@ -58,10 +58,19 @@ def _sql_ledger(tmp_path):
     return SqlLedger(str(db), models=domain_models, engine=engine)
 
 
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _new_shift(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return shift
 
 
@@ -81,6 +90,7 @@ def _make_ready_handover(ledger, shift):
     now = datetime.now(timezone.utc)
     dest = Shift(name="Next", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
     handover = svc.review(handover.handover_id, _supervisor())
@@ -93,7 +103,7 @@ def _make_ready_report(ledger, shift):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
     report = svc.submit_review(report.report_id, _operator())
-    ledger.add_user(User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,

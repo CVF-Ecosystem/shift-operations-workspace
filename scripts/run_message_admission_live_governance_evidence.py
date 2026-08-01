@@ -81,9 +81,14 @@ def _new_shift(ledger):
         )
 
     now = datetime.now(timezone.utc)
-    return ShiftService(ledger).create(
+    shift = ShiftService(ledger).create(
         "Live evidence shift", now, now + timedelta(hours=8), Principal(user_id="msg-ev-setup", role="operator")
     )
+    ledger.add_user(domain_models.User(user_id="msg-ev-op", username="msg-ev-op", password_hash="x", role="operator"))
+    ledger.add_assignment(domain_models.ShiftAssignment(
+        shift_id=shift.shift_id, user_id="msg-ev-op", assigned_by="msg-ev-setup"
+    ))
+    return shift
 
 
 def _create(client, shift_id, headers, **body_overrides):

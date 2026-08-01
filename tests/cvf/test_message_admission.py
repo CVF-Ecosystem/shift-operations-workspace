@@ -1,11 +1,7 @@
 """Message admission: internal POST /messages requires a verified JWT,
 derives sender/source authority server-side, enforces message.create
 permission, and atomically persists a shift-bound internal Message with an
-actor-bound audit record (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, SPEC
-R1-R11, AC-01 through AC-11). Before this tranche, POST /messages was
-anonymous and trusted a caller-supplied sender_id/source as authority (INTAKE
-probe: anonymous request -> 200, forged sender_id/source accepted unchanged,
-zero audit records). These tests prove the opposite: every refusal writes
+actor-bound audit record. These tests prove every refusal writes
 nothing, sender/source are always server-derived, and only an admitted
 operator-or-higher JWT reaches MessageService.create, which persists the
 message and its exact actor-bound audit record atomically."""
@@ -33,6 +29,7 @@ from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
 from _auth_test_helpers import auth_headers
+from _assignment_scope_fixtures import seed_active_assignment
 
 _TEXT = "shift handover note"
 
@@ -57,9 +54,12 @@ def _backends(tmp_path):
 def _new_shift(ledger):
     now = datetime.now(timezone.utc)
     _seed_user(ledger, "setup-op", "operator")
-    return ShiftService(ledger).create(
+    shift = ShiftService(ledger).create(
         "Day", now, now + timedelta(hours=8), Principal(user_id="setup-op", role="operator")
     )
+    seed_active_assignment(ledger, shift.shift_id, "op1", "operator")
+    seed_active_assignment(ledger, shift.shift_id, "u1", "operator")
+    return shift
 
 
 @pytest.fixture

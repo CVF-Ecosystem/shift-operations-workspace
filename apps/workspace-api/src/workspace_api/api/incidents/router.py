@@ -8,6 +8,7 @@ from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
 from workspace_api.application.incident_service import IncidentService
+from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
 from workspace_api.dependencies import get_ledger, get_principal
 from operations_domain.models import EvidenceRef, Incident, IncidentStatus, RiskClass
 
@@ -67,7 +68,8 @@ def get_incident(
     ledger: Ledger = Depends(get_ledger),
 ):
     try:
-        return ledger.get_incident(incident_id)
+        incident = ledger.get_incident(incident_id)
+        return AssignmentScope(ledger).require_record(incident, principal)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Incident not found") from exc
 
@@ -78,7 +80,11 @@ def list_incidents(
     principal: Principal = Depends(get_principal),
     ledger: Ledger = Depends(get_ledger),
 ):
-    return ledger.list_incidents_for_shift(shift_id)
+    try:
+        require_active_assignment(ledger, shift_id, principal)
+        return ledger.list_incidents_for_shift(shift_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Incident not found") from exc
 
 
 @router.post("/{incident_id}/acknowledge", response_model=Incident)

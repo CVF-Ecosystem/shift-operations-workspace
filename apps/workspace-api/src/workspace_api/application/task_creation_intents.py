@@ -22,6 +22,7 @@ from cvf_runtime.risk import requirement_for
 from operations_ledger import Ledger
 
 from operations_domain.models import Task, TaskCreationIntent
+from workspace_api.application.assignment_scope import require_active_assignment
 
 from workspace_api.application.approval_receipts import has_authority_for_any_required_seat
 
@@ -64,6 +65,7 @@ def create_task_creation_intent(
     ever bind a meaningful quorum to."""
     profile = profile or load_profile()
     require_action(principal, "task.create")
+    require_active_assignment(ledger, task.shift_id, principal)
     risk_class = str(task.risk_class)
     requirement = requirement_for(profile, risk_class)
     if not requirement.required_roles:
@@ -138,4 +140,5 @@ def get_task_creation_intent(
             reason="viewer is missing, inactive, or insufficiently authorized for this intent",
             http_status=403,
         )
+    require_active_assignment(ledger, intent.shift_id, principal)
     return intent

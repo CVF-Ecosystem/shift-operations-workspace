@@ -31,6 +31,7 @@ from cvf_runtime.permission import require_action
 from operations_ledger import Ledger
 
 from operations_domain.models import Message
+from workspace_api.application.assignment_scope import require_active_assignment
 
 _CREATE_CHAIN = ["identity", "permission", "create", "audit"]
 _INTERNAL_SOURCE = "INTERNAL"
@@ -70,6 +71,7 @@ class MessageService:
 
         # R4 step 2: message.create permission, minimum role operator.
         require_action(principal, "message.create")
+        require_active_assignment(self.ledger, shift_id, principal)
 
         # R5: canonical internal Message — every persisted field is
         # server/domain-derived from only the admitted shift_id, text and

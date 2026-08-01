@@ -116,12 +116,10 @@ def _new_ledger_and_shift(prefix: str):
     ledger.add_incident(Incident(shift_id=shift.shift_id, summary="I1", risk_class=RiskClass.R2))
     return ledger, shift
 
-
 def _auth_headers(user_id: str, role: str) -> dict[str, str]:
     from cvf_runtime.identity import Principal
     from workspace_api.auth.tokens import create_access_token
     return {"Authorization": f"Bearer {create_access_token(Principal(user_id=user_id, role=role))}"}
-
 
 def _with_ledger(ledger, fn):
     from workspace_api.dependencies import get_ledger
@@ -132,7 +130,6 @@ def _with_ledger(ledger, fn):
         return fn(TestClient(app))
     finally:
         app.dependency_overrides.pop(get_ledger, None)
-
 
 def check_p2c_read_refusal_gate(counter: ProviderCallCounter) -> list[dict]:
     """Refusal cases: each records the OBSERVED provider-call delta on the
@@ -154,11 +151,13 @@ def check_p2c_read_refusal_gate(counter: ProviderCallCounter) -> list[dict]:
     _case("anonymous_open_work_read_rejected", lambda c: c.get(f"/shifts/{shift.shift_id}/open-work"), 401)
     return results
 
-
 def build_admitted_reads_genuine() -> tuple[bool, str]:
     """Construct a genuine valid-JWT read of shift, events and open-work via
     a minted JWT and real HTTP requests (SPEC R16)."""
     ledger, shift = _new_ledger_and_shift("admitted")
+    import workspace_api.domain.models as _dm
+    ledger.add_user(_dm.User(user_id="p2c-ev-viewer", username="p2c-ev-viewer", password_hash="x", role="viewer"))
+    ledger.add_assignment(_dm.ShiftAssignment(shift_id=shift.shift_id, user_id="p2c-ev-viewer", assigned_by="p2c-ev-viewer"))
     headers = _auth_headers("p2c-ev-viewer", "viewer")
 
     def _run(client):
@@ -181,13 +180,11 @@ def build_admitted_reads_genuine() -> tuple[bool, str]:
 
     return _with_ledger(ledger, _run)
 
-
 def _key_present() -> tuple[bool, str | None]:
     for name in KEY_ENV_NAMES:
         if os.environ.get(name, "").strip():
             return True, name
     return False, None
-
 
 def _endpoint() -> str:
     base_url = next(
@@ -195,7 +192,6 @@ def _endpoint() -> str:
         DEFAULT_BASE_URL,
     ).rstrip("/")
     return base_url if base_url.endswith("/chat/completions") else f"{base_url}/chat/completions"
-
 
 _CLAIM_BOUNDARY = (
     "This receipt evidences that the P2C read surfaces' identity-only JWT gate "
@@ -206,7 +202,6 @@ _CLAIM_BOUNDARY = (
     "does not evidence per-shift assignment or data_scope enforcement, and "
     "does not evidence PostgreSQL production readiness."
 )
-
 
 def render_receipt(path: Path, *, gate_results: list[dict], admitted_detail: str,
                     provider_result: dict, model: str, safe_endpoint: str, call_count: int) -> None:
@@ -242,7 +237,6 @@ def render_receipt(path: Path, *, gate_results: list[dict], admitted_detail: str
         "", "## Claim boundary", "", _CLAIM_BOUNDARY, "",
     ]
     path.write_text("\n".join(lines), encoding="utf-8")
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="P2C read slice live governance evidence")
@@ -293,7 +287,6 @@ def main() -> int:
         return 1
     print("LIVE EVIDENCE PASS")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

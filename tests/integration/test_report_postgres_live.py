@@ -28,7 +28,6 @@ from workspace_api.application.report_service import ReportService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.handover_service import HandoverService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
 from operations_domain.models import ReportStatus, Shift, ShiftStatus
 
 LIVE_URL_ENV = "LIVE_POSTGRES_DATABASE_URL"
@@ -55,10 +54,21 @@ def _reconnected(live_database_url: str) -> SqlLedger:
     return SqlLedger(live_database_url, models=domain_models, engine=make_engine(live_database_url))
 
 
+def _seed(ledger, shift_id, user_id, role):
+    # P2C-MUTATION-FULL-UI-C3A2 (WO section 3.5): every governed service call
+    # below now requires the caller's persisted ACTIVE assignment.
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _closed_shift(ledger) -> Shift:
     now = datetime.now(timezone.utc)
     shift = Shift(name="Live PG shift", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     ledger.close_shift(shift.shift_id)
     return ledger.get_shift(shift.shift_id)
 
@@ -67,6 +77,7 @@ def _ready_handover(ledger, shift):
     now = datetime.now(timezone.utc)
     dest = Shift(name="Live PG next", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _OPERATOR)
     handover = svc.review(handover.handover_id, _SUPERVISOR)
@@ -78,7 +89,7 @@ def _approved_report(ledger, shift, approver_id=None):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _OPERATOR)
     report = svc.submit_review(report.report_id, _OPERATOR)
-    ledger.add_user(User(user_id=approver_id, username=approver_id, password_hash="x", role="shift_supervisor"))
+    _seed(ledger, shift.shift_id, approver_id, "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,

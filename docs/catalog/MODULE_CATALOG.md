@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-07-31T15:35:46.730217+00:00_
+_Last generated: 2026-08-01T00:43:41.127301+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-07-31T15:35:46.730217+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **11068**
-- Code files: **147**
+- Code LOC (py/ts/tsx): **11200**
+- Code files: **148**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -34,7 +34,7 @@ _Last generated: 2026-07-31T15:35:46.730217+00:00_
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 816 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
-| `workspace-api` | apps/workspace-api | partial | 5453 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-api` | apps/workspace-api | partial | 5585 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 1102 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -121,7 +121,7 @@ _Last generated: 2026-07-31T15:35:46.730217+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 5453 LOC across 69 code file(s)
+- **Metrics:** 5585 LOC across 70 code file(s)
 - **Next step:** Authentication, approver identity, incidents, handovers, shift-create admission and internal-message admission are already closed bounded. Follow the Phase 2 dependency order in EXECUTION_ROADMAP.md: P2-R operational report plus a real report_approved prerequisite, then the remaining P2-C mutation/full UI, then P2-D offline/realtime and the full-shift exit gate. Governed external/channel ingestion belongs to a separate Phase 4 Integration Edge tranche, not this internal API admission path.
 
 ### `workspace-web` — partial

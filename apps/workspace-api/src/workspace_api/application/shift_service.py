@@ -35,6 +35,7 @@ from operations_ledger import Ledger
 
 from operations_domain.models import ReportStatus, Shift, ShiftStatus
 from workspace_api.application import report_freeze
+from workspace_api.application.assignment_scope import require_active_assignment
 from workspace_api.application.handover_service import assert_freeze_ready
 from workspace_api.domain.models import ShiftAssignment
 
@@ -119,9 +120,9 @@ class ShiftService:
         return created
 
     def close(self, shift_id, principal: Principal) -> Shift:
-        shift = self.ledger.get_shift(shift_id)
-
         require_action(principal, "shift.close")
+
+        shift = require_active_assignment(self.ledger, shift_id, principal)
 
         if shift.status == ShiftStatus.FROZEN:
             # Mirrors freeze's bad-state mapping: a state-transition conflict
@@ -176,9 +177,9 @@ class ShiftService:
                 http_status=422,
             )
 
-        shift = self.ledger.get_shift(shift_id)
-
         require_action(principal, "shift.freeze")
+
+        shift = require_active_assignment(self.ledger, shift_id, principal)
 
         if shift.status == ShiftStatus.FROZEN:
             # SPEC R21: idempotent only if the paired current report is also

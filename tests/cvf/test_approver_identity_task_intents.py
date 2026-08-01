@@ -20,6 +20,7 @@ from operations_domain.models import EvidenceRef, RiskClass, Task
 
 from _approver_identity_support import (
     _action,
+    _assign,
     _backends,
     _confirmer,
     _new_shift,
@@ -64,7 +65,7 @@ def test_ac19_non_proposer_cannot_consume_creation_intent():
 def test_ac22_authorized_approver_can_read_intent_snapshot(tmp_path, name):
     ledger = dict(_backends(tmp_path))[name]
     svc, task, intent = _r3_task_intent(ledger, with_receipts=False)
-    _user(ledger, "sup2", "shift_supervisor")
+    _assign(ledger, intent.shift_id, "sup2", "shift_supervisor")
     fetched = svc.get_creation_intent(intent.intent_id, Principal(user_id="sup2", role="shift_supervisor"))
     assert fetched.intent_id == intent.intent_id and fetched.payload_digest == intent.payload_digest
     actions = [_action(e) for e in ledger.audit_entries_for(str(intent.intent_id))]
@@ -73,7 +74,7 @@ def test_ac22_authorized_approver_can_read_intent_snapshot(tmp_path, name):
 def test_ac22_unauthorized_user_cannot_read_intent_snapshot():
     ledger = InMemoryLedger()
     svc, task, intent = _r3_task_intent(ledger, with_receipts=False)
-    _user(ledger, "op1", "operator")
+    _assign(ledger, intent.shift_id, "op1", "operator")
     with pytest.raises(CvfDenied) as exc:
         svc.get_creation_intent(intent.intent_id, Principal(user_id="op1", role="operator"))
     assert exc.value.http_status == 403

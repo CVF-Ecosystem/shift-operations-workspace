@@ -26,6 +26,7 @@ from _auth_test_helpers import auth_headers
 from _approver_identity_support import (
     _R3_PAIRS,
     _action,
+    _assign,
     _backends,
     _client_for,
     _clear_overrides,
@@ -54,7 +55,7 @@ def test_ac01_no_receipts_r3_confirm_refused_and_old_approvals_body_422():
 def test_ac02_receipt_records_authenticated_approver_id_not_a_payload_field():
     ledger = InMemoryLedger()
     event = _new_event(ledger, risk=RiskClass.R3)
-    _user(ledger, "sup2", "shift_supervisor")
+    _assign(ledger, event.shift_id, "sup2", "shift_supervisor")
     client = _client_for(ledger)
     try:
         resp = client.post("/approvals", json={"record_type": "OperationalEvent", "action": "event.confirm", "record_id": str(event.event_id)}, headers=auth_headers("sup2", "shift_supervisor"))

@@ -29,6 +29,7 @@ from _shift_close_fixtures import (
     make_ready_handover,
     new_shift,
     operator,
+    seed_assignment,
     sql_ledger,
     supervisor,
 )
@@ -40,7 +41,7 @@ def _make_ready_report(ledger, shift):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, operator())
     report = svc.submit_review(report.report_id, operator())
-    ledger.add_user(domain_models.User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    seed_assignment(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,

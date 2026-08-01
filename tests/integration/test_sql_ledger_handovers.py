@@ -46,6 +46,7 @@ def _handover_with_one_task_item(ledger) -> Handover:
     s1, s2 = _shift(), _shift()
     ledger.create_shift(s1)
     ledger.create_shift(s2)
+    _seed_assignment(ledger, s1.shift_id, "op1")
     task = Task(
         shift_id=s1.shift_id, title="Inspect crane",
         evidence=[EvidenceRef(source_type="message", source_id="m1")],
@@ -59,11 +60,18 @@ def _shift(**kw) -> Shift:
     return Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8), **kw)
 
 
+def _seed_assignment(ledger, shift_id, user_id, role="operator"):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def test_add_and_get_handover_round_trips(tmp_path):
     ledger = _open_ledger(tmp_path / "a.sqlite3")
     s1, s2 = _shift(), _shift()
     ledger.create_shift(s1)
     ledger.create_shift(s2)
+    _seed_assignment(ledger, s1.shift_id, "op1")
     task = Task(shift_id=s1.shift_id, title="Inspect crane", evidence=[EvidenceRef(source_type="message", source_id="m1")])
     ledger.add_task(task)
 
@@ -80,6 +88,7 @@ def test_get_handover_returns_copy_not_live_reference(tmp_path):
     s1, s2 = _shift(), _shift()
     ledger.create_shift(s1)
     ledger.create_shift(s2)
+    _seed_assignment(ledger, s1.shift_id, "op1")
     created = HandoverService(ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
 
     got = ledger.get_handover(created.handover_id)
@@ -120,6 +129,8 @@ def test_list_handovers_for_shift_is_scoped_and_deterministic(tmp_path):
     ledger.create_shift(s1)
     ledger.create_shift(s2)
     ledger.create_shift(s3)
+    _seed_assignment(ledger, s1.shift_id, "op1")
+    _seed_assignment(ledger, s2.shift_id, "op1")
     h1 = HandoverService(ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
     h2 = HandoverService(ledger).create(s1.shift_id, s3.shift_id, _OPERATOR)
     HandoverService(ledger).create(s2.shift_id, s3.shift_id, _OPERATOR)
@@ -152,6 +163,9 @@ def test_review_then_acknowledge_persists_and_audits_through_reconnect(tmp_path)
     s1, s2 = _shift(), _shift()
     ledger.create_shift(s1)
     ledger.create_shift(s2)
+    _seed_assignment(ledger, s1.shift_id, "op1")
+    _seed_assignment(ledger, s1.shift_id, "sup1", "shift_supervisor")
+    _seed_assignment(ledger, s2.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
     h = svc.review(h.handover_id, _SUPERVISOR)
@@ -172,6 +186,7 @@ def test_mutation_and_audit_roll_back_together_on_handover_failure(tmp_path):
     s1, s2 = _shift(), _shift()
     ledger.create_shift(s1)
     ledger.create_shift(s2)
+    _seed_assignment(ledger, s1.shift_id, "op1")
     handover = HandoverService(ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
 
     class _Boom(Exception):

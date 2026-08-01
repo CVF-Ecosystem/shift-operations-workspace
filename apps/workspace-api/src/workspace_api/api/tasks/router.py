@@ -99,6 +99,8 @@ def create_creation_intent(
         return TaskCreationIntentCreateResponse.model_validate(intent, from_attributes=True)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
 
 
 @router.get("/creation-intents/{intent_id}", response_model=TaskCreationIntentGetResponse)
@@ -112,6 +114,8 @@ def get_creation_intent(
         return TaskCreationIntentGetResponse.model_validate(intent, from_attributes=True)
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
 
 
 @router.post("", response_model=Task)
@@ -126,7 +130,7 @@ def create_task(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
@@ -143,6 +147,6 @@ def transition_task(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Task not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

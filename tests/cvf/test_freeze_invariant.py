@@ -33,6 +33,7 @@ from workspace_api.application.services import EventService
 from workspace_api.application.shift_service import ShiftService
 from workspace_api.application.task_service import TaskService
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import ShiftAssignment
 from operations_domain.models import (
     DataState,
     OperationalEvent,
@@ -48,14 +49,11 @@ from workspace_api.infrastructure.repository import InMemoryLedger
 def _supervisor():
     return Principal(user_id="sup1", role="shift_supervisor")
 
-
 def _receiving_supervisor():
     return Principal(user_id="sup2", role="shift_supervisor")
 
-
 def _operator():
     return Principal(user_id="op1", role="operator")
-
 
 def _sql_ledger(tmp_path):
     db = tmp_path / "freeze.sqlite3"
@@ -63,14 +61,20 @@ def _sql_ledger(tmp_path):
     metadata.create_all(engine)
     return SqlLedger(str(db), models=domain_models, engine=engine)
 
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
 
 def _in_memory_shift():
     ledger = InMemoryLedger()
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return ledger, shift
-
 
 def _make_ready_handover(ledger, shift):
     """An ACKNOWLEDGED handover whose (empty) snapshot matches current open
@@ -78,11 +82,13 @@ def _make_ready_handover(ledger, shift):
     now = datetime.now(timezone.utc)
     dest = Shift(name="Next", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(dest)
+    _seed(ledger, shift.shift_id, "op1", "operator")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
+    _seed(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, _operator())
     handover = svc.review(handover.handover_id, _supervisor())
     return svc.acknowledge(handover.handover_id, _receiving_supervisor())
-
 
 def _make_ready_report(ledger, shift):
     """A current, APPROVED END_SHIFT report - the real `report_approved`
@@ -91,24 +97,23 @@ def _make_ready_report(ledger, shift):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
     report = svc.submit_review(report.report_id, _operator())
-    ledger.add_user(domain_models.User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, shift.shift_id, "sup3", "shift_supervisor")
     create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,
     )
     return svc.approve(report.report_id, _supervisor())
 
-
 # --- ShiftService.freeze prerequisite checks ---------------------------------
 
 def test_freeze_denied_without_permission():
     ledger, shift = _in_memory_shift()
     viewer = Principal(user_id="v1", role="viewer")
+    _seed(ledger, shift.shift_id, "v1", "viewer")
     ledger.close_shift(shift.shift_id)
     with pytest.raises(CvfDenied) as exc:
         ShiftService(ledger).freeze(shift.shift_id, viewer)
     assert exc.value.control == "permission"
-
 
 def test_freeze_denied_when_shift_not_closed():
     ledger, shift = _in_memory_shift()
@@ -116,7 +121,6 @@ def test_freeze_denied_when_shift_not_closed():
         ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert exc.value.control == "freeze"
     assert "shift_closed" in str(exc.value) or "CLOSED" in str(exc.value)
-
 
 def test_freeze_denied_when_legacy_override_attempted():
     """SPEC R19: the retired override is refused (422), never silently
@@ -130,14 +134,12 @@ def test_freeze_denied_when_legacy_override_attempted():
     assert exc.value.control == "freeze"
     assert exc.value.http_status == 422
 
-
 def test_freeze_denied_when_legacy_reason_attempted():
     ledger, shift = _in_memory_shift()
     ledger.close_shift(shift.shift_id)
     with pytest.raises(CvfDenied) as exc:
         ShiftService(ledger).freeze(shift.shift_id, _supervisor(), override_reason="")
     assert exc.value.http_status == 422
-
 
 def test_freeze_denied_without_ready_handover_even_with_approved_report():
     """SPEC R20: a real approved report never bypasses the real
@@ -150,7 +152,6 @@ def test_freeze_denied_without_ready_handover_even_with_approved_report():
     assert exc.value.control == "freeze"
     assert "handover" in str(exc.value).lower()
 
-
 def test_freeze_denied_without_approved_report_even_with_ready_handover():
     """SPEC R20: a ready handover never bypasses the real report_approved
     prerequisite."""
@@ -161,7 +162,6 @@ def test_freeze_denied_without_approved_report_even_with_ready_handover():
         ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert exc.value.control == "freeze"
     assert "report" in str(exc.value).lower()
-
 
 def test_freeze_denied_when_acknowledged_handover_snapshot_is_stale():
     """A source record that changes after acknowledgement invalidates the
@@ -181,7 +181,6 @@ def test_freeze_denied_when_acknowledged_handover_snapshot_is_stale():
         ShiftService(ledger).freeze(shift.shift_id, _supervisor())
     assert exc.value.control == "freeze"
 
-
 def test_freeze_succeeds_with_full_chain_and_audits():
     ledger, shift = _in_memory_shift()
     ledger.close_shift(shift.shift_id)
@@ -193,7 +192,6 @@ def test_freeze_succeeds_with_full_chain_and_audits():
     actions = {e.action for e in entries}
     assert "shift.freeze" in actions
     assert "shift.freeze_override_unimplemented_prerequisites" not in actions
-
 
 # --- cross-record invariant: frozen shift blocks child mutation --------------
 
@@ -224,7 +222,6 @@ def test_event_confirm_blocked_after_parent_shift_frozen(backend, tmp_path):
     with pytest.raises(ValueError, match="frozen"):
         EventService(ledger, AuditLog()).confirm(event.event_id, _supervisor())
 
-
 @pytest.mark.parametrize("backend", ["in_memory", "sql"])
 def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
     if backend == "in_memory":
@@ -249,7 +246,6 @@ def test_task_transition_blocked_after_parent_shift_frozen(backend, tmp_path):
     with pytest.raises(ValueError, match="frozen"):
         TaskService(ledger).transition(task.task_id, _operator(), TaskStatus.IN_PROGRESS)
 
-
 @pytest.mark.parametrize("backend", ["in_memory", "sql"])
 def test_new_event_rejected_on_frozen_shift(backend, tmp_path):
     if backend == "in_memory":
@@ -273,7 +269,6 @@ def test_new_event_rejected_on_frozen_shift(backend, tmp_path):
     )
     with pytest.raises(ValueError, match="frozen"):
         ledger.add_event(new_event)
-
 
 def test_correction_still_allowed_after_freeze_in_memory():
     ledger, shift = _in_memory_shift()

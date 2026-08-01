@@ -9,6 +9,7 @@ from cvf_runtime.audit import audit_log
 from cvf_runtime.identity import Principal
 
 from workspace_api.auth.tokens import TokenError, decode_access_token, decode_access_token_with_expiry
+from workspace_api.application.assignment_scope import AssignmentScope
 from workspace_api.infrastructure.ledger_factory import build_ledger
 
 _bearer_scheme = HTTPBearer(auto_error=False)
@@ -20,6 +21,11 @@ def get_ledger():
 
 def get_audit_log():
     return audit_log
+
+
+def get_assignment_scope(ledger=Depends(get_ledger)) -> AssignmentScope:
+    """Return the request ledger's canonical operational-scope evaluator."""
+    return AssignmentScope(ledger)
 
 
 def get_principal(

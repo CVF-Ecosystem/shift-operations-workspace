@@ -44,6 +44,9 @@ def _new_shift(ledger) -> Shift:
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    if ledger.get_user_by_id("op1") is None:
+        ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
     return shift
 
 

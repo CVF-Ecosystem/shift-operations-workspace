@@ -21,6 +21,7 @@ from operations_ledger.tables import metadata
 from workspace_api.application.handover_service import HandoverService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
+from workspace_api.domain.models import ShiftAssignment
 from operations_domain.models import Shift
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
@@ -45,10 +46,19 @@ def sql_ledger(tmp_path, name="close.sqlite3") -> SqlLedger:
     return SqlLedger(str(db), models=domain_models, engine=engine)
 
 
+def seed_assignment(ledger, shift_id, user_id, role) -> None:
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def new_shift(ledger) -> Shift:
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    seed_assignment(ledger, shift.shift_id, "op1", "operator")
+    seed_assignment(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return shift
 
 
@@ -67,6 +77,7 @@ def make_ready_handover(ledger, shift):
     (P2A-HANDOVER-VERTICAL) instead of the prior unimplemented-prerequisite
     override that used to cover it."""
     dest = new_shift(ledger)
+    seed_assignment(ledger, dest.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     handover = svc.create(shift.shift_id, dest.shift_id, operator())
     handover = svc.review(handover.handover_id, supervisor())
@@ -81,6 +92,7 @@ __all__ = [
     "new_shift",
     "operator",
     "receiving_supervisor",
+    "seed_assignment",
     "sql_ledger",
     "supervisor",
 ]

@@ -20,7 +20,7 @@ from workspace_api.application import approval_service
 from workspace_api.application.task_service import TaskService
 from workspace_api.dependencies import get_ledger
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 from operations_domain.models import DataState, EvidenceRef, OperationalEvent, RiskClass, Shift, Task
@@ -40,10 +40,18 @@ def _client_for(ledger):
     return TestClient(app)
 def _clear_overrides(): app.dependency_overrides.pop(get_ledger, None)
 
+def _assign(ledger, shift_id, user_id, role="operator", *, is_active=True):
+    if ledger.get_user_by_id(user_id) is None:
+        _user(ledger, user_id, role, is_active=is_active)
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def _new_shift(ledger):
     now = datetime.now(timezone.utc)
     shift = Shift(name="Day", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(shift)
+    _assign(ledger, shift.shift_id, "sup1", "shift_supervisor")
     return shift
 
 def _new_event(ledger, *, risk=RiskClass.R3, evidence_count=1):
@@ -59,15 +67,24 @@ def _new_event(ledger, *, risk=RiskClass.R3, evidence_count=1):
     return event
 
 def _user(ledger, user_id: str, role: str, *, is_active: bool = True) -> None:
+    if ledger.get_user_by_id(user_id) is not None:
+        return
     ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role, is_active=is_active))
 
+def _shift_id_of(ledger, record_type, record_id):
+    if record_type == "Task":
+        return ledger.get_task_creation_intent(record_id).shift_id
+    return ledger.get_event(record_id).shift_id
+
 def _receipt(ledger, *, record_type, action, record_id, approver_id, role):
+    _assign(ledger, _shift_id_of(ledger, record_type, record_id), approver_id, role)
     return approval_service.create_approval_receipt(
         ledger, Principal(user_id=approver_id, role=role), record_type=record_type, action=action, record_id=record_id
     )[0]
 
 def _seat(ledger, record_id, approver_id, role, *, record_type="OperationalEvent", action="event.confirm", is_active=True):
     _user(ledger, approver_id, role, is_active=is_active)
+    _assign(ledger, _shift_id_of(ledger, record_type, record_id), approver_id, role, is_active=is_active)
     return _receipt(ledger, record_type=record_type, action=action, record_id=record_id, approver_id=approver_id, role=role)
 
 def _fill_seats(ledger, record_id, pairs=_R3_PAIRS, *, record_type="OperationalEvent", action="event.confirm"):

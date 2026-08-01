@@ -11,6 +11,7 @@ from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
 from workspace_api.application.shift_service import ShiftService
+from workspace_api.application.assignment_scope import assigned_shifts, require_active_assignment
 from workspace_api.dependencies import get_ledger, get_principal
 from operations_domain.models import CustomerRequest, Incident, Shift, Task
 
@@ -83,7 +84,7 @@ def list_shifts(
     # not per-shift assignment or data-scope enforcement. Also enforces the
     # same 500-record hard maximum as /events and open-work (P2C-C3A-REV-F16:
     # this route previously had no limit check at all).
-    shifts = list(ledger.list_shifts())
+    shifts = assigned_shifts(ledger, principal)
     if len(shifts) > _MAX_OPEN_WORK_PER_GROUP:
         raise HTTPException(
             status_code=422,
@@ -107,7 +108,7 @@ def close_shift(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
 
 
 @router.get("/{shift_id}/open-work", response_model=OpenWorkResponse)
@@ -122,9 +123,9 @@ def get_open_work(
     read admission. Enforces a 500-record hard maximum per group (HTTP 422
     on overflow, no partial result). Missing shift returns 404."""
     try:
-        ledger.get_shift(shift_id)
+        require_active_assignment(ledger, shift_id, principal)
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     snapshot = ledger.open_work_snapshot(shift_id)
     tasks = snapshot.get("Task", [])
     customer_requests = snapshot.get("CustomerRequest", [])
@@ -162,4 +163,4 @@ def freeze_shift(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Shift not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc

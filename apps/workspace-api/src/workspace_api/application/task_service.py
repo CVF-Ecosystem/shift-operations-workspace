@@ -39,6 +39,7 @@ from operations_ledger import Ledger
 from operations_domain.lifecycle import assert_task_transition
 from operations_domain.models import Task, TaskCreationIntent, TaskStatus
 from workspace_api.application import approval_service
+from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
 
 _CREATE_CHAIN = ["identity", "permission", "domain_lock", "risk", "evidence", "approval", "audit"]
 _TRANSITION_CHAIN = ["identity", "permission", "freeze", "audit"]
@@ -76,6 +77,7 @@ class TaskService:
 
         require_action(principal, "task.create")
         assert_domain_allowed(self.profile, _TASK_DOMAIN)
+        require_active_assignment(self.ledger, task.shift_id, principal)
 
         requirement = requirement_for(self.profile, risk_class)
 
@@ -200,9 +202,9 @@ class TaskService:
         principal: Principal,
         target_status: TaskStatus,
     ) -> Task:
-        task = self.ledger.get_task(task_id)
-
         require_action(principal, "task.transition")
+        task = self.ledger.get_task(task_id)
+        AssignmentScope(self.ledger).require_record(task, principal)
         # Task-status lifecycle guard (raises ValueError on an illegal move).
         assert_task_transition(task.status, target_status)
 

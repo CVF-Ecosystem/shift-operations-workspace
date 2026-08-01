@@ -28,6 +28,7 @@ from operations_ledger import Ledger
 
 from operations_domain.lifecycle import assert_customer_request_transition
 from operations_domain.models import CustomerRequest, CustomerRequestStatus
+from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
 
 # No "risk"/"evidence"/"approval" in either chain: customer_requests has no
 # risk_class/evidence column in the migration, so those gates do not apply to
@@ -51,6 +52,8 @@ class CustomerRequestService:
     ) -> CustomerRequest:
         require_action(principal, "customer_request.create")
         assert_domain_allowed(self.profile, _CUSTOMER_REQUEST_DOMAIN)
+        if request.shift_id is not None:
+            require_active_assignment(self.ledger, request.shift_id, principal)
 
         # Independent review, 2026-07-22 (Finding 2): source_message_id has a
         # real FK to messages in the migration. Message persistence is now
@@ -88,9 +91,10 @@ class CustomerRequestService:
         principal: Principal,
         target_status: CustomerRequestStatus,
     ) -> CustomerRequest:
-        request = self.ledger.get_customer_request(request_id)
-
         require_action(principal, "customer_request.transition")
+        request = self.ledger.get_customer_request(request_id)
+        if request.shift_id is not None:
+            AssignmentScope(self.ledger).require_record(request, principal)
         # Customer-request-status lifecycle guard (raises ValueError on an
         # illegal move).
         assert_customer_request_transition(request.status, target_status)

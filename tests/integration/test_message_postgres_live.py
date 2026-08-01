@@ -69,9 +69,17 @@ def _new_shift(ledger):
     if ledger.get_user_by_id("setup-op") is None:
         ledger.add_user(domain_models.User(user_id="setup-op", username="setup-op", password_hash="x", role="operator"))
     now = datetime.now(timezone.utc)
-    return ShiftService(ledger).create(
+    shift = ShiftService(ledger).create(
         "Live PG shift", now, now + timedelta(hours=8), Principal(user_id="setup-op", role="operator")
     )
+    # P2C-MUTATION-FULL-UI-C3A2 (WO section 3.5): message.create is now
+    # route-wide assignment-scoped - op1 needs its own persisted ACTIVE
+    # assignment, not just the creator's bootstrap one.
+    if ledger.get_user_by_id("op1") is None:
+        ledger.add_user(domain_models.User(user_id="op1", username="op1", password_hash="x", role="operator"))
+    if ledger.get_active_assignment(shift.shift_id, "op1") is None:
+        ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift.shift_id, user_id="op1", assigned_by="op1"))
+    return shift
 
 
 def _post_create(client_, shift_id, text_, headers=None):

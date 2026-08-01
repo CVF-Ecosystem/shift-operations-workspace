@@ -5,8 +5,7 @@ route chain (observed zero provider calls each), then a genuine sender
 review + distinct receiver acknowledgement + a real approved END_SHIFT
 report + freeze, followed by exactly one real, non-mocked provider call.
 Provider HTTP/sanitization/receipt rendering live in
-`_handover_live_evidence_support.py`; this module is the orchestration
-facade and CLI entrypoint only."""
+`_handover_live_evidence_support.py`; this module is orchestration+CLI only."""
 
 from __future__ import annotations
 
@@ -45,11 +44,20 @@ EXPECTED_TOKEN = "CVF_HANDOVER_EVIDENCE_OK"
 RECEIPT_PATH = REPO_ROOT / "docs" / "decisions" / "P2A_HANDOVER_LIVE_EVIDENCE_RECEIPT.md"
 
 
+def _seed(ledger, shift_id, user_id, role="operator"):
+    import workspace_api.domain.models as _dm
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(_dm.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(_dm.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
 def _new_ledger_and_shift(prefix: str):
     from workspace_api.infrastructure.repository import InMemoryLedger
     ledger = InMemoryLedger()
     shift = _new_shift(prefix)
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "hov-ev-op", "operator")
+    _seed(ledger, shift.shift_id, "hov-ev-sup1", "shift_supervisor")
     return ledger, shift
 
 def _new_shift(prefix: str):
@@ -72,14 +80,12 @@ def _with_ledger(ledger, fn):
     finally:
         app.dependency_overrides.pop(get_ledger, None)
 
-
 def _create(client, from_shift_id, to_shift_id, headers):
     return client.post(
         "/handovers",
         json={"from_shift_id": str(from_shift_id), "to_shift_id": str(to_shift_id)},
         headers=headers,
     )
-
 
 def _review(client, handover_id, headers):
     return client.post(f"/handovers/{handover_id}/review", json={}, headers=headers)
@@ -93,23 +99,20 @@ def _close(client, shift_id, headers):
 def _freeze(client, shift_id, headers):
     return client.post(f"/shifts/{shift_id}/freeze", json={}, headers=headers)
 
-
 def _make_ready_report(ledger, client, shift_id, operator_headers, approver_headers):
     """A real current, APPROVED END_SHIFT report (P2R-OPERATIONAL-REPORT-
     FREEZE-PREREQUISITE) - the retired override no longer exists."""
     from cvf_runtime.identity import Principal
     from workspace_api.application import approval_service
-    import workspace_api.domain.models as _domain_models
     generate_res = client.post("/reports", json={"shift_id": str(shift_id)}, headers=operator_headers)
     report_id = generate_res.json()["report_id"]
     client.post(f"/reports/{report_id}/submit-review", json={}, headers=operator_headers)
-    ledger.add_user(_domain_models.User(user_id="hov-ev-rep-approver", username="hov-ev-rep-approver", password_hash="x", role="shift_supervisor"))
+    _seed(ledger, shift_id, "hov-ev-rep-approver", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="hov-ev-rep-approver", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=UUID(report_id),
     )
     return client.post(f"/reports/{report_id}/approve", json={}, headers=approver_headers)
-
 
 def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     """Refusal cases: each records the OBSERVED provider-call delta on the
@@ -135,6 +138,7 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     ledger, shift = _new_ledger_and_shift("draft-only")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "hov-ev-sup2", "shift_supervisor")
     def _reviewed_only(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
@@ -146,6 +150,7 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     ledger, shift = _new_ledger_and_shift("self-ack")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "hov-ev-sup1", "shift_supervisor")
     def _self_ack(client):
         create_res = _create(client, shift.shift_id, dest.shift_id, op)
         handover_id = create_res.json()["handover_id"]
@@ -156,6 +161,7 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     ledger, shift = _new_ledger_and_shift("stale")
     dest = _new_shift("dest")
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "hov-ev-sup2", "shift_supervisor")
     def _stale(client):
         from operations_domain.models import Task, TaskStatus
         task = Task(shift_id=shift.shift_id, title="Inspect crane")
@@ -174,13 +180,13 @@ def check_handover_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
 
     return results
 
-
 def build_review_acknowledge_and_freeze_genuine() -> tuple[bool, str]:
     """Construct a genuine sender review, distinct receiver acknowledgement
     and freeze via minted JWTs and real HTTP requests (SPEC R16)."""
     ledger, shift = _new_ledger_and_shift("genuine")
     dest = _new_shift("genuine-dest")
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "hov-ev-sup2", "shift_supervisor")
     op = _auth_headers("hov-ev-op", "operator")
     sup1 = _auth_headers("hov-ev-sup1", "shift_supervisor")
     sup2 = _auth_headers("hov-ev-sup2", "shift_supervisor")
@@ -221,13 +227,11 @@ def build_review_acknowledge_and_freeze_genuine() -> tuple[bool, str]:
 
     return _with_ledger(ledger, _run)
 
-
 def _key_present() -> tuple[bool, str | None]:
     for name in KEY_ENV_NAMES:
         if os.environ.get(name, "").strip():
             return True, name
     return False, None
-
 
 def _endpoint() -> str:
     base_url = next(
@@ -235,7 +239,6 @@ def _endpoint() -> str:
         DEFAULT_BASE_URL,
     ).rstrip("/")
     return base_url if base_url.endswith("/chat/completions") else f"{base_url}/chat/completions"
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Handover live governance evidence")
@@ -292,7 +295,6 @@ def main() -> int:
         return 1
     print("LIVE EVIDENCE PASS")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

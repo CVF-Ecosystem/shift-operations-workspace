@@ -22,7 +22,7 @@ from workspace_api.application import approval_service
 from workspace_api.application.incident_service import IncidentService
 from workspace_api.application.services import EventService
 from workspace_api.domain import models as domain_models
-from workspace_api.domain.models import User
+from workspace_api.domain.models import ShiftAssignment, User
 from workspace_api.infrastructure.repository import InMemoryLedger
 from operations_domain.models import EvidenceRef, Incident, OperationalEvent, RiskClass, Shift
 
@@ -31,6 +31,13 @@ def _open_ledger(db_path: Path) -> SqlLedger:
     engine = make_engine(f"sqlite:///{db_path}")
     metadata.create_all(engine)
     return SqlLedger(str(db_path), models=domain_models, engine=engine)
+
+
+def _seed(ledger, shift_id, user_id, role):
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
 
 
 def test_evidence_round_trips_through_sql_ledger(tmp_path):
@@ -75,9 +82,8 @@ def test_r2_event_confirm_succeeds_on_sql_ledger_with_evidence(tmp_path):
     ledger.add_event(event)
 
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
-    ledger.add_user(
-        User(user_id="sup2", username="sup2", password_hash="x", role="shift_supervisor", is_active=True)
-    )
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
+    _seed(ledger, shift.shift_id, "sup2", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger,
         Principal(user_id="sup2", role="shift_supervisor"),
@@ -108,6 +114,7 @@ def test_event_without_evidence_still_refused_on_sql_ledger(tmp_path):
     ledger.add_event(event)
 
     supervisor = Principal(user_id="sup1", role="shift_supervisor")
+    _seed(ledger, shift.shift_id, "sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
         EventService(ledger, AuditLog()).confirm(event.event_id, supervisor)
     assert exc.value.control == "evidence"
@@ -179,9 +186,8 @@ def test_r2_incident_acknowledge_succeeds_on_sql_ledger_with_evidence():
     ledger.add_incident(incident)
 
     supervisor = Principal(user_id="inc-sup1", role="shift_supervisor")
-    ledger.add_user(
-        User(user_id="inc-sup2", username="inc-sup2", password_hash="x", role="shift_supervisor", is_active=True)
-    )
+    _seed(ledger, shift.shift_id, "inc-sup1", "shift_supervisor")
+    _seed(ledger, shift.shift_id, "inc-sup2", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger,
         Principal(user_id="inc-sup2", role="shift_supervisor"),
@@ -207,6 +213,7 @@ def test_incident_without_evidence_still_refused():
     ledger.add_incident(incident)
 
     supervisor = Principal(user_id="inc-sup1", role="shift_supervisor")
+    _seed(ledger, shift.shift_id, "inc-sup1", "shift_supervisor")
     with pytest.raises(CvfDenied) as exc:
         IncidentService(ledger).acknowledge(incident.incident_id, supervisor)
     assert exc.value.control == "evidence"

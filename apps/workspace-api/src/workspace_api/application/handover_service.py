@@ -41,6 +41,7 @@ from operations_ledger import Ledger
 
 from operations_domain.lifecycle import assert_handover_transition
 from operations_domain.models import EvidenceRef, Handover, HandoverItem, HandoverStatus, RiskClass, ShiftStatus
+from workspace_api.application.assignment_scope import require_active_assignment
 
 _CREATE_CHAIN = ["identity", "permission", "domain_lock", "audit"]
 _REVIEW_CHAIN = ["identity", "permission", "lifecycle", "audit"]
@@ -221,6 +222,7 @@ class HandoverService:
             raise CvfDenied(control="lifecycle", reason="from_shift_id and to_shift_id must differ", http_status=409)
 
         with self.ledger.transaction() as unit:
+            require_active_assignment(self.ledger, from_shift_id, principal, unit=unit)
             from_shift = self.ledger.get_shift(from_shift_id, unit=unit)
             to_shift = self.ledger.get_shift(to_shift_id, unit=unit)
             _assert_shift_pair_ready(from_shift, to_shift)
@@ -236,6 +238,7 @@ class HandoverService:
         with self.ledger.transaction() as unit:
             handover = self.ledger.get_handover(handover_id, unit=unit)
             require_action(principal, "handover.review")
+            require_active_assignment(self.ledger, handover.from_shift_id, principal, unit=unit)
             _assert_shift_pair_ready(
                 self.ledger.get_shift(handover.from_shift_id, unit=unit),
                 self.ledger.get_shift(handover.to_shift_id, unit=unit),
@@ -259,6 +262,7 @@ class HandoverService:
         with self.ledger.transaction() as unit:
             handover = self.ledger.get_handover(handover_id, unit=unit)
             require_action(principal, "handover.acknowledge")
+            require_active_assignment(self.ledger, handover.to_shift_id, principal, unit=unit)
             if handover.reviewed_by is not None and handover.reviewed_by == principal.user_id:
                 raise CvfDenied(control="lifecycle", reason="receiver must differ from reviewer", http_status=409)
             _assert_shift_pair_ready(

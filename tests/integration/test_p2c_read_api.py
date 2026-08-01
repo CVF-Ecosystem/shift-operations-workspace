@@ -1,13 +1,8 @@
 """P2C-OPERATIONS-CONSOLE-READ-SLICE — API integration tests (SPEC R2-R5/AC-01-AC-04,
 Amendment 2 R27/AC-27).
 
-Tests the authenticated read endpoints through the real FastAPI/JWT route chain:
-- GET /shifts requires JWT (anonymous 401, malformed 401, viewer 200);
-- GET /events?shift_id=<uuid> requires JWT, returns deterministic order, 404 on missing shift;
-- GET /shifts/{shift_id}/open-work requires JWT, reuses open_work_snapshot, 404 on missing shift;
-- 500-record ceiling (HTTP 422 on overflow), proven on InMemory and SQLite for
-  every surface (shifts, events, and each open-work group), driven through
-  the real API/backend dependency chain, not a bare row-count check.
+Exercises authenticated, explicitly assigned read access, ordering, 404
+refusal and 500-record ceilings through the real API/backend chain.
 """
 
 from __future__ import annotations
@@ -43,6 +38,7 @@ from workspace_api.infrastructure.repository import InMemoryLedger
 from workspace_api.main import app
 
 from _auth_test_helpers import auth_headers
+from _assignment_scope_fixtures import seed_all_shift_assignments
 
 
 def _shift() -> Shift:
@@ -62,6 +58,7 @@ def _event(shift_id, *, starts_at=None, title="E1") -> OperationalEvent:
 
 
 def _with_ledger(ledger, fn):
+    seed_all_shift_assignments(ledger, "viewer-1", "viewer")
     app.dependency_overrides[get_ledger] = lambda: ledger
     try:
         return fn(TestClient(app))

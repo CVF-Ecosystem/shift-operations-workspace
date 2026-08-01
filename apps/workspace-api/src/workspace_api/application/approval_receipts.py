@@ -21,6 +21,7 @@ from cvf_runtime.risk import requirement_for
 from operations_ledger import Ledger
 
 from operations_domain.models import ApprovalReceipt
+from workspace_api.application.assignment_scope import require_active_assignment
 
 # The only (record_type, action) pairs this tranche authorizes (SPEC section 5.2).
 _VALID_RECORD_ACTION_PAIRS = {
@@ -128,6 +129,7 @@ def create_approval_receipt(
             risk_class = str(record.risk_class)
             target_version = record.version
             payload_digest = None
+            shift_id = record.shift_id
         elif record_type == "Incident":
             try:
                 record = ledger.get_incident(record_id, unit=unit)
@@ -138,6 +140,7 @@ def create_approval_receipt(
             risk_class = str(record.risk_class)
             target_version = record.version
             payload_digest = None
+            shift_id = record.shift_id
         elif record_type == "Report":
             try:
                 record = ledger.get_report(record_id, unit=unit)
@@ -145,15 +148,11 @@ def create_approval_receipt(
                 raise CvfDenied(
                     control="approval", reason="target report not found", http_status=404
                 ) from exc
-            if not record.is_current or str(record.status) != "IN_REVIEW":
-                raise CvfDenied(
-                    control="approval",
-                    reason="report is not a current IN_REVIEW report",
-                    http_status=409,
-                )
+            report_lifecycle_ok = record.is_current and str(record.status) == "IN_REVIEW"
             risk_class = "R2"
             target_version = record.version
             payload_digest = record.content.snapshot_digest
+            shift_id = record.shift_id
         else:  # ("Task", "task.create")
             try:
                 intent = ledger.get_task_creation_intent(record_id, unit=unit)
@@ -164,6 +163,7 @@ def create_approval_receipt(
             risk_class = str(intent.risk_class)
             target_version = 1
             payload_digest = intent.payload_digest
+            shift_id = intent.shift_id
 
         user = ledger.get_user_by_id(principal.user_id, unit=unit)
         if user is None or not user.is_active:
@@ -180,6 +180,13 @@ def create_approval_receipt(
                     f"{risk_class} requires"
                 ),
                 http_status=403,
+            )
+        require_active_assignment(ledger, shift_id, principal, unit=unit)
+        if record_type == "Report" and not report_lifecycle_ok:
+            raise CvfDenied(
+                control="approval",
+                reason="report is not a current IN_REVIEW report",
+                http_status=409,
             )
 
         existing = ledger.get_approval_receipt(

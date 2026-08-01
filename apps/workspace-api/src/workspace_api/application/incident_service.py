@@ -38,6 +38,7 @@ from operations_ledger import Ledger
 from operations_domain.lifecycle import assert_incident_transition
 from operations_domain.models import Incident, IncidentStatus
 from workspace_api.application import approval_service
+from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
 
 _REPORT_CHAIN = ["identity", "permission", "domain_lock", "audit"]
 _ACKNOWLEDGE_CHAIN = ["identity", "permission", "risk", "evidence", "approval", "audit"]
@@ -56,6 +57,7 @@ class IncidentService:
     def report(self, incident: Incident, principal: Principal) -> Incident:
         require_action(principal, "incident.report")
         assert_domain_allowed(self.profile, _INCIDENT_DOMAIN)
+        require_active_assignment(self.ledger, incident.shift_id, principal)
 
         with self.ledger.transaction() as unit:
             stored = self.ledger.add_incident(incident, unit=unit)
@@ -66,11 +68,12 @@ class IncidentService:
         return stored
 
     def acknowledge(self, incident_id: UUID, principal: Principal) -> Incident:
+        require_action(principal, "incident.acknowledge")
         with self.ledger.transaction() as unit:
             incident = self.ledger.get_incident(incident_id, unit=unit)
+            AssignmentScope(self.ledger).require_record(incident, principal, unit=unit)
             risk_class = str(incident.risk_class)
 
-            require_action(principal, "incident.acknowledge")
             assert_incident_transition(incident.status, IncidentStatus.ACKNOWLEDGED)
             assert_evidence_sufficient(
                 profile=self.profile, risk_class=risk_class, evidence_count=len(incident.evidence),
@@ -112,9 +115,9 @@ class IncidentService:
         principal: Principal,
         target_status: IncidentStatus,
     ) -> Incident:
-        incident = self.ledger.get_incident(incident_id)
-
         require_action(principal, "incident.transition")
+        incident = self.ledger.get_incident(incident_id)
+        AssignmentScope(self.ledger).require_record(incident, principal)
         if incident.status == IncidentStatus.REPORTED:
             raise CvfDenied(
                 control="lifecycle",

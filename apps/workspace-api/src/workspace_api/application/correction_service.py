@@ -29,6 +29,7 @@ from operations_ledger import Ledger
 
 from operations_domain.models import Correction, DataState, OperationalEvent
 from workspace_api.application import approval_service
+from workspace_api.application.assignment_scope import AssignmentScope
 
 _CONTROL_CHAIN = ["identity", "permission", "freeze", "approval", "audit"]
 _RECORD_TYPE = "OperationalEvent"
@@ -55,12 +56,11 @@ class CorrectionService:
         principal: Principal,
         reason: str,
     ) -> Correction:
+        require_action(principal, "event.correct")
         with self.ledger.transaction() as unit:
             event: OperationalEvent = self.ledger.get_event(event_id, unit=unit)
+            AssignmentScope(self.ledger).require_record(event, principal, unit=unit)
             risk_class = str(event.risk_class)
-
-            # permission: may this principal issue corrections?
-            require_action(principal, "event.correct")
 
             # freeze/state: only an official fact can be corrected; a proposal
             # must go through normal confirmation, not a correction record.

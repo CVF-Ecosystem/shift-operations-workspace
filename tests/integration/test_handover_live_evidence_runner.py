@@ -65,6 +65,9 @@ def test_ready_handover_without_report_still_refuses_freeze_with_zero_calls():
     now = datetime.now(timezone.utc)
     dest = Shift(name="dest shift", starts_at=now, ends_at=now + timedelta(hours=8))
     ledger.create_shift(dest)
+    runner._seed(ledger, shift.shift_id, "hov-ev-op2", "operator")
+    runner._seed(ledger, shift.shift_id, "hov-ev-sup3", "shift_supervisor")
+    runner._seed(ledger, dest.shift_id, "hov-ev-sup4", "shift_supervisor")
     op = runner._auth_headers("hov-ev-op2", "operator")
     sup1 = runner._auth_headers("hov-ev-sup3", "shift_supervisor")
     sup2 = runner._auth_headers("hov-ev-sup4", "shift_supervisor")
@@ -89,6 +92,8 @@ def test_make_ready_report_produces_a_real_approved_current_report():
     must produce a genuine APPROVED, current END_SHIFT report - not a stub."""
     ledger, shift = runner._new_ledger_and_shift("ready-report")
     ledger.close_shift(shift.shift_id)
+    runner._seed(ledger, shift.shift_id, "hov-ev-op3", "operator")
+    runner._seed(ledger, shift.shift_id, "hov-ev-rep-approver2", "shift_supervisor")
     op = runner._auth_headers("hov-ev-op3", "operator")
     approver = runner._auth_headers("hov-ev-rep-approver2", "shift_supervisor")
 

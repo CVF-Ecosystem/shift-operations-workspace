@@ -78,6 +78,8 @@ def create_approval(
         )
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     # R2.4: 201 for a newly created receipt, 200 for an exact idempotent repeat.
     response.status_code = 201 if created else 200
     return ApprovalReceiptResponse.model_validate(receipt, from_attributes=True)

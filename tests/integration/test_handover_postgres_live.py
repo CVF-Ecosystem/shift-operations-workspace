@@ -57,6 +57,15 @@ def _shift(**kw) -> Shift:
     return Shift(name="Live PG shift", starts_at=now, ends_at=now + timedelta(hours=8), **kw)
 
 
+def _seed(ledger, shift_id, user_id, role):
+    # P2C-MUTATION-FULL-UI-C3A2 (WO section 3.5): handover create/review need
+    # SOURCE-shift assignment, acknowledge needs DESTINATION-shift assignment.
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(domain_models.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
+
 def test_live_handovers_tables_and_enum_present(sql_ledger):
     inspector = sa_inspect(sql_ledger.engine)
     tables = inspector.get_table_names()
@@ -91,6 +100,7 @@ def test_handover_round_trip_survives_reconnect(sql_ledger, live_database_url):
     s1, s2 = _shift(), _shift()
     sql_ledger.create_shift(s1)
     sql_ledger.create_shift(s2)
+    _seed(sql_ledger, s1.shift_id, "op1", "operator")
     created = HandoverService(sql_ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
     sql_ledger.engine.dispose()
 
@@ -104,6 +114,9 @@ def test_handover_review_then_acknowledge_persists_and_audits_through_reconnect(
     s1, s2 = _shift(), _shift()
     sql_ledger.create_shift(s1)
     sql_ledger.create_shift(s2)
+    _seed(sql_ledger, s1.shift_id, "op1", "operator")
+    _seed(sql_ledger, s1.shift_id, "sup1", "shift_supervisor")
+    _seed(sql_ledger, s2.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(sql_ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
     h = svc.review(h.handover_id, _SUPERVISOR)
@@ -143,6 +156,7 @@ def test_handover_item_source_type_outside_check_constraint_rejected(sql_ledger)
     s1, s2 = _shift(), _shift()
     sql_ledger.create_shift(s1)
     sql_ledger.create_shift(s2)
+    _seed(sql_ledger, s1.shift_id, "op1", "operator")
     handover = HandoverService(sql_ledger).create(s1.shift_id, s2.shift_id, _OPERATOR)
     _rejected_then_usable(sql_ledger.engine, lambda conn: insert(t.handover_items).values(
         item_id=uuid4(), handover_id=handover.handover_id, source_record_type="NotARealType",
@@ -187,6 +201,9 @@ def test_ready_acknowledged_handover_alone_does_not_satisfy_freeze_on_live_postg
     s1, s2 = _shift(), _shift()
     sql_ledger.create_shift(s1)
     sql_ledger.create_shift(s2)
+    _seed(sql_ledger, s1.shift_id, "op1", "operator")
+    _seed(sql_ledger, s1.shift_id, "sup1", "shift_supervisor")
+    _seed(sql_ledger, s2.shift_id, "sup2", "shift_supervisor")
     svc = HandoverService(sql_ledger)
     h = svc.create(s1.shift_id, s2.shift_id, _OPERATOR)
     h = svc.review(h.handover_id, _SUPERVISOR)

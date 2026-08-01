@@ -35,6 +35,7 @@ from _customer_request_fixtures import (  # noqa: F401 - re-exported for test_cu
     _operator,
     _raise_on_audit,
     _request,
+    _seed_assignment,
     _sql_ledger,
     _viewer,
 )
@@ -88,7 +89,7 @@ def _make_ready_report(ledger, shift):
     svc = ReportService(ledger)
     report = svc.generate(shift.shift_id, _operator())
     report = svc.submit_review(report.report_id, _operator())
-    ledger.add_user(User(user_id="sup3", username="sup3", password_hash="x", role="shift_supervisor"))
+    _seed_assignment(ledger, shift.shift_id, "sup3", "shift_supervisor")
     approval_service.create_approval_receipt(
         ledger, Principal(user_id="sup3", role="shift_supervisor"),
         record_type="Report", action="report.approve", record_id=report.report_id,

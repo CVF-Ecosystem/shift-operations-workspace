@@ -63,9 +63,11 @@ def _new_ledger_shift_incident(risk_class="R2", *, evidence_count=1):
     return ledger, incident
 
 
-def _register_user(ledger, user_id, role, *, is_active=True):
+def _register_user(ledger, user_id, role, *, is_active=True, shift_id=None):
     import workspace_api.domain.models as _domain_models
     ledger.add_user(_domain_models.User(user_id=user_id, username=user_id, password_hash="x", role=role, is_active=is_active))
+    if shift_id is not None:
+        ledger.add_assignment(_domain_models.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
 
 
 def _auth_headers(user_id: str, role: str) -> dict[str, str]:
@@ -108,15 +110,15 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
         results.append({"case": name, "outcome": outcome, "detail": f"refused: status {res.status_code}", "calls": counter.count - before})
 
     ledger, incident = _new_ledger_shift_incident(evidence_count=0)
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
     _case("insufficient_evidence_rejected", ledger, lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id))
 
     ledger, incident = _new_ledger_shift_incident()
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
     _case("fabricated_approval_rejected", ledger, lambda c: _ack(c, _auth_headers("inc-ev-sup1", "shift_supervisor"), incident.incident_id))
 
     ledger, incident = _new_ledger_shift_incident()
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
 
     def _self(client):
         headers = _auth_headers("inc-ev-sup1", "shift_supervisor")
@@ -126,8 +128,8 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
     _case("self_approval_rejected", ledger, _self)
 
     ledger, incident = _new_ledger_shift_incident()
-    _register_user(ledger, "inc-ev-sup2", "shift_supervisor")
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup2", "shift_supervisor", shift_id=incident.shift_id)
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
 
     def _inactive(client):
         _rec(client, _auth_headers("inc-ev-sup2", "shift_supervisor"), incident.incident_id)
@@ -137,8 +139,8 @@ def check_incident_gate(counter: ProviderCallCounter) -> list[dict]:
     _case("inactive_approver_rejected", ledger, _inactive)
 
     ledger, incident = _new_ledger_shift_incident()
-    _register_user(ledger, "inc-ev-sup2", "shift_supervisor")
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup2", "shift_supervisor", shift_id=incident.shift_id)
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
 
     def _stale(client):
         _rec(client, _auth_headers("inc-ev-sup2", "shift_supervisor"), incident.incident_id)
@@ -156,8 +158,8 @@ def build_and_acknowledge_genuine() -> tuple[bool, str]:
     """Construct a genuine authenticated R2 acknowledgement via minted JWTs
     and real HTTP requests (SPEC R14)."""
     ledger, incident = _new_ledger_shift_incident()
-    _register_user(ledger, "inc-ev-sup2", "shift_supervisor")
-    _register_user(ledger, "inc-ev-sup1", "shift_supervisor")
+    _register_user(ledger, "inc-ev-sup2", "shift_supervisor", shift_id=incident.shift_id)
+    _register_user(ledger, "inc-ev-sup1", "shift_supervisor", shift_id=incident.shift_id)
 
     def _run(client):
         r1 = client.post(

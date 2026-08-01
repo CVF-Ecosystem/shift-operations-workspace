@@ -440,3 +440,46 @@ mở: data minimization chỉ mang tính khuyến nghị; `data_scope`/`cost`/
 implement; PostgreSQL chưa live verified; refresh/revocation/admin provisioning
 chưa có. Không viết
 "tất cả High Finding đã sửa" ở bất kỳ đâu.
+
+## C3a2 — route-wide operational assignment enforcement (P2C-MUTATION-FULL-UI-C3A2)
+
+`assignment_scope.py` (`AssignmentScope.require_shift`/`.require_record`,
+module-level `require_active_assignment`/`assigned_shifts`) là guard duy nhất
+cho ACTIVE-membership: resolve shift từ record đã persist (không bao giờ tin
+`shift_id` do caller cung cấp trong body khi record đã tồn tại), rồi yêu cầu
+`Ledger.get_active_assignment` trả về khác `None`. Guard này được TẤT CẢ route/
+service của R6 (shift list/open-work/close/freeze, message create, event
+create/list/confirm/correct, task creation-intent create/get, task create/
+transition, customer-request có `shift_id` create/transition, incident report/
+get/list/acknowledge/transition, handover create/get/list/review/acknowledge,
+report generate/get/list/version/submit/approve, approval receipt cho
+supported shift-bound target) gọi trước khi cho phép đọc hoặc ghi — không
+router/service nào tự viết lại logic assignment riêng.
+
+Thiếu hoặc không có ACTIVE assignment đều raise `OperationalResourceNotFound`
+(subclass của `KeyError`), router bắt qua `except KeyError` và trả 404 —
+CÙNG status và CÙNG hình dạng body cho record không tồn tại lẫn record tồn tại
+nhưng caller không có assignment (enumeration-safe, không rò rỉ khác biệt).
+Handover create/review đòi assignment trên shift NGUỒN; acknowledge đòi
+assignment trên shift ĐÍCH — assignment chỉ ở phía còn lại không đủ. Approval
+receipt resolve target shift từ record đã lưu (event/incident/report/creation
+intent), không bao giờ từ record type/id hay scope do caller khẳng định.
+`POST /shifts` giữ nguyên ngoại lệ bootstrap R4 (chưa có assignment nào để
+đòi); login/health/staffing control-plane nằm ngoài phạm vi đọc operational
+resource; customer-request không có `shift_id` (null-shift) nằm ngoài shift
+console nên không mang assignment claim.
+
+Test: `tests/cvf/test_assignment_scope_routes.py` (ma trận R6 đầy đủ qua HTTP),
+`tests/cvf/test_assignment_scope_cross_shift.py` (quy tắc nguồn/đích và
+stored-target), `tests/cvf/test_assignment_scope_enumeration.py` (401/403 giữ
+nguyên, 404 giống hệt giữa missing/inaccessible, list chỉ trả record được gán,
+refusal xảy ra trước mọi mutation/audit) +
+`tests/integration/test_assignment_scope_postgres_live.py` (cùng hành vi trên
+PostgreSQL 16 thật qua `SqlLedger`, opt-in `LIVE_POSTGRES_DATABASE_URL`). Live
+governance evidence: `scripts/run_assignment_scope_live_governance_evidence.py`
+— refusal case tại 0 provider call, một genuine ACTIVE-assignment-admitted
+operation thật qua route HTTP/JWT, rồi đúng một Alibaba call — receipt
+`docs/decisions/P2C_C3A2_ASSIGNMENT_SCOPE_LIVE_EVIDENCE_RECEIPT.md`. **Còn hạn
+chế:** không đổi assignment schema/lifecycle/staffing (đó là C3a1, zero-diff ở
+đây); không tenant/data_scope; không frontend mutation; PostgreSQL live vẫn
+bounded disposable-local.

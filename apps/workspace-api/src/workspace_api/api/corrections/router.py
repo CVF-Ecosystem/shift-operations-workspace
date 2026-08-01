@@ -38,6 +38,6 @@ def correct_event(
     except CvfDenied as exc:
         raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
     except KeyError as exc:
-        raise HTTPException(status_code=404, detail="Event not found") from exc
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

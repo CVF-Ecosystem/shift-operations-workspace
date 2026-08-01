@@ -44,11 +44,20 @@ EXPECTED_TOKEN = "CVF_REPORT_EVIDENCE_OK"
 RECEIPT_PATH = REPO_ROOT / "docs" / "decisions" / "P2R_OPERATIONAL_REPORT_FREEZE_LIVE_EVIDENCE_RECEIPT.md"
 
 
+def _seed(ledger, shift_id, user_id, role="operator"):
+    import workspace_api.domain.models as _dm
+    if ledger.get_user_by_id(user_id) is None:
+        ledger.add_user(_dm.User(user_id=user_id, username=user_id, password_hash="x", role=role))
+    if ledger.get_active_assignment(shift_id, user_id) is None:
+        ledger.add_assignment(_dm.ShiftAssignment(shift_id=shift_id, user_id=user_id, assigned_by=user_id))
+
 def _new_ledger_and_shift(prefix: str):
     from workspace_api.infrastructure.repository import InMemoryLedger
     ledger = InMemoryLedger()
     shift = _new_shift(prefix)
     ledger.create_shift(shift)
+    _seed(ledger, shift.shift_id, "rep-ev-op", "operator")
+    _seed(ledger, shift.shift_id, "rep-ev-sup1", "shift_supervisor")
     return ledger, shift
 
 def _new_shift(prefix: str):
@@ -71,7 +80,6 @@ def _with_ledger(ledger, fn):
     finally:
         app.dependency_overrides.pop(get_ledger, None)
 
-
 def _generate(client, shift_id, headers=None):
     return client.post("/reports", json={"shift_id": str(shift_id)}, headers=headers or {})
 
@@ -88,16 +96,15 @@ def _freeze(client, shift_id, headers, *, override=False):
     body = {"override_unimplemented_prerequisites": True, "override_reason": "x"} if override else {}
     return client.post(f"/shifts/{shift_id}/freeze", json=body, headers=headers)
 
-
 def _make_ready_handover(ledger, shift, op, sup1, sup2):
     from workspace_api.application.handover_service import HandoverService
     dest = _new_shift("dest")
     ledger.create_shift(dest)
+    _seed(ledger, dest.shift_id, "rep-ev-sup2", "shift_supervisor")
     svc = HandoverService(ledger)
     h = svc.create(shift.shift_id, dest.shift_id, _principal_of(op))
     h = svc.review(h.handover_id, _principal_of(sup1))
     return svc.acknowledge(h.handover_id, _principal_of(sup2))
-
 
 def _principal_of(headers):
     """Recover a Principal from minted auth headers by decoding the token -
@@ -105,7 +112,6 @@ def _principal_of(headers):
     from workspace_api.auth.tokens import decode_access_token
     token = headers["Authorization"].split(" ", 1)[1]
     return decode_access_token(token)
-
 
 def check_report_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
     """SPEC R31 refusal matrix: each records the OBSERVED provider-call delta
@@ -168,12 +174,10 @@ def check_report_freeze_gate(counter: ProviderCallCounter) -> list[dict]:
 
     return results
 
-
 def build_generate_review_approve_and_freeze_genuine() -> tuple[bool, str]:
     """Construct a genuine generate -> submit-review -> distinct-approver
     receipt -> approve -> freeze via minted JWTs and real HTTP requests."""
     from workspace_api.application import approval_service
-    import workspace_api.domain.models as _domain_models
 
     ledger, shift = _new_ledger_and_shift("genuine")
     op = _auth_headers("rep-ev-op", "operator")
@@ -198,7 +202,7 @@ def build_generate_review_approve_and_freeze_genuine() -> tuple[bool, str]:
         if review_res.status_code != 200:
             return False, f"submit-review failed: {review_res.status_code}"
 
-        ledger.add_user(_domain_models.User(user_id="rep-ev-approver", username="rep-ev-approver", password_hash="x", role="shift_supervisor"))
+        _seed(ledger, shift.shift_id, "rep-ev-approver", "shift_supervisor")
         approval_service.create_approval_receipt(
             ledger, _principal_of(_auth_headers("rep-ev-approver", "shift_supervisor")),
             record_type="Report", action="report.approve", record_id=UUID(report_id),
@@ -221,7 +225,6 @@ def build_generate_review_approve_and_freeze_genuine() -> tuple[bool, str]:
 
     return _with_ledger(ledger, _run)
 
-
 def _key_present() -> tuple[bool, str | None]:
     for name in KEY_ENV_NAMES:
         if os.environ.get(name, "").strip():
@@ -234,7 +237,6 @@ def _endpoint() -> str:
         DEFAULT_BASE_URL,
     ).rstrip("/")
     return base_url if base_url.endswith("/chat/completions") else f"{base_url}/chat/completions"
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Report live governance evidence")
@@ -291,7 +293,6 @@ def main() -> int:
         return 1
     print("LIVE EVIDENCE PASS")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -4,17 +4,16 @@
 P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26 (SPEC section 3, ADR section 2).
 Starts a uniquely named PostgreSQL 16 container on a dynamic loopback port -
 no bind/named volume passed to `docker run`; the image's own declared VOLUME
-still creates an anonymous one per container, verified gone after cleanup
-too. Applies migrations 001-004 twice (never metadata.create_all()), runs
-the opt-in live suite, then always removes that container. No PRE-EXISTING
+still creates an anonymous one per container, verified gone after cleanup too.
+Applies migrations 001-004 twice (never metadata.create_all()), runs the
+opt-in live suite, then always removes that container. No PRE-EXISTING
 container/image/volume/database is touched; credential/URL never printed.
 
 Failure output is always sanitized (PG-REV-F2/F3/F6); cleanup targets only a
 container this run created. `wait_ready` requires STABLE polls (image
 restarts once after init scripts); `wait_ready_via_database` (Finding 3)
-then proves the FINAL server is reachable on the mapped port - never via
-raw driver text (Finding 2: fixed message + exception class name only).
-"""
+proves the FINAL server is reachable - never raw driver text (fixed message +
+class name only, Finding 2)."""
 
 from __future__ import annotations
 
@@ -221,6 +220,7 @@ LIVE_SUITE_TARGETS = (
     "tests/integration/test_report_postgres_live.py",
     "tests/integration/test_assignment_postgres_live.py",
     "tests/integration/test_assignment_postgres_live_f1.py",
+    "tests/integration/test_assignment_scope_postgres_live.py",
 )
 
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:
