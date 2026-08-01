@@ -520,3 +520,27 @@ boundary, and received independent `REVIEW_PASS`; amendment/review are pushed
 at `edb9b02`. This four-surface resume commit becomes the new exact BUILD
 parent after push. The complete G6 must rerun from scratch—no spliced evidence—
 before manual prompt transfer. C3b2-d remain blocked.
+
+### C3b1 partial BUILD stop and Amendment 2 resume
+
+After G6 passed at `e2ef541`, the worker changed 30/34 authorized paths with
+zero outside and zero staged. Typecheck then exposed a real ceiling blocker:
+R16 adds `outcome_unknown`, while `AsyncState.tsx` is the sole exhaustive
+`Record<ApiErrorKind, string>` consumer and was outside the ceiling. The
+separate `ReadinessQuery` type error remains inside authorized `api.ts`.
+
+DESIGN/SPEC/Work Order Amendment 2 and independent authorization review are
+pushed at `a15c33c`. They close `C3B1-BUILD-FEAS-F1` without waiver by adding
+exactly path 35, `apps/workspace-web/src/components/AsyncState.tsx`, solely for
+the deterministic sanitized compatibility message. No handler, retry/refresh
+execution, state, storage, style, navigation, mutation control, feature wiring,
+wildcard or reserve is authorized.
+
+This four-surface commit becomes the exact partial-BUILD resume parent after
+push. Preserve the 30-path worktree; remove generated `tsconfig.tsbuildinfo`;
+reconfirm zero outside/staged; and repair the already-authorized 301/305/308-
+line Python hosts line-neutrally. If those repairs require a new path, stop for
+a fresh amendment. Rerun every applicable focused/full/frontend/repository/
+session/catalog/file-size/JSON/PostgreSQL/Docker gate and truthfully regenerate
+the receipts. No provider call is required or authorized. Manual prompt
+transfer only; worker never stages, commits, pushes, self-reviews or FREEZEs.

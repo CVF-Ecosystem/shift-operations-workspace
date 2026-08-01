@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "C3b1 Amendment 1 is independently REVIEW_PASS/approved and pushed at edb9b02 after initial G6 caught an invalid pnpm test command. Exact ceiling remains 34. This resume checkpoint must be pushed and full G6 rerun before manual external-worker BUILD; C3b2-d remain blocked.",
+  "syncReceipt": "C3b1 partial BUILD stopped at 30/34 with zero outside/staged on the sole exhaustive outcome_unknown consumer. Amendment 2 is independently REVIEW_PASS/approved and pushed at a15c33c; exact ceiling is 35. This four-surface checkpoint must be pushed before the preserved partial BUILD resumes; fresh post-repair gates required and C3b2-d remain blocked.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "IMPLEMENTATION_WORKER",
   "roleRoute": "WORK_ORDER_AUTHOR_TO_AUTHORIZATION_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
