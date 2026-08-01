@@ -471,3 +471,35 @@ read/mutation contract readiness Work Order from the existing reviewed DESIGN
 and SPEC. No C3b source edit or provider call before authorization plus a
 separate pre-BUILD checkpoint. C3c/C3d remain blocked; no Claude CLI/MCP
 control is authorized.
+
+## C3b feasibility, authorization and pre-BUILD handoff
+
+Work Order feasibility found two independently revertible C3b concerns and a
+real parent DESIGN/SPEC contradiction: DESIGN prohibited frontend source while
+R15-R16 required browser DTO/request-transport source. The reviewed repair
+splits C3b into C3b1 reads/readiness/transport and C3b2 CustomerRequest
+version/mutation preconditions. C3b1 permits only non-React browser contract
+source; C3b2 starts only after C3b1 review/push, and C3c remains blocked until
+both are closed.
+
+Authorization commit `5f72a03ac7e4c16fc6e89beaeec03bbb60fc9c76`
+contains the DESIGN addendum, SPEC Amendment 7, exact 34-path C3b1 Work Order
+and independent authorization receipt. Review rounds closed without waiver:
+exact-set frontend-test/synthetic-OpenAPI mismatch; nonexistent read-action
+permission; incomplete deterministic readiness matching/current-Report rule;
+and the residual canonical receipt pair, now exactly `Task/task.create` with
+the stored TaskCreationIntent id as `record_id`. Final result is
+`REVIEW_PASS`, 34 numbered/34 unique paths, correct existing/NEW markers.
+
+This separate four-surface commit becomes the exact C3b1 pre-BUILD parent
+after push. Before any source edit, the manually prompted external worker must
+verify `HEAD == origin/main`, clean worktree, authorization ancestry and run
+G6: full Python non-live and frozen frontend baseline; session/catalog/file-
+size/repository/JSON/diff gates; doctor 24/1 only; Docker/PostgreSQL readiness
+and zero owned residue. Failure returns `BLOCKED_G6`.
+
+C3b1 makes no new AI/agent-governance claim: no provider call is authorized or
+required. Worker changes only the exact 34 paths, never stages, commits,
+pushes, self-reviews or FREEZEs, and returns
+`READY_FOR_INDEPENDENT_P2C_C3B1_BUILD_REVIEW`. No Claude CLI/MCP control is
+authorized. C3b2, C3c, C3d, P2-D and Phase-2 completion remain blocked.
