@@ -544,3 +544,26 @@ a fresh amendment. Rerun every applicable focused/full/frontend/repository/
 session/catalog/file-size/JSON/PostgreSQL/Docker gate and truthfully regenerate
 the receipts. No provider call is required or authorized. Manual prompt
 transfer only; worker never stages, commits, pushes, self-reviews or FREEZEs.
+
+### C3b1 frontend integration stop and Amendment 3 resume
+
+At the Amendment 2 resume, `AsyncState.tsx` gained the authorized sanitized
+mapping and typecheck passed. Fresh frontend execution returned 30 passed / 1
+failed: `App.test.tsx` still expected `Offline` after a fetch-level `TypeError`,
+although R16 now maps that ambiguity to `outcome_unknown`; runtime correctly
+showed `Connection issue` plus the exact R38 alert.
+
+Direct review found no application-source defect. `deriveConnectionState`
+already maps known `network` to offline and every other non-null controlled
+kind to error, so editing `OperationsConsole.tsx` would be synthetic. Amendment
+3 and its review, pushed at `e7342cd`, add only path 36
+`apps/workspace-web/src/tests/App.test.tsx` for a line-neutral expectation and
+sanitized-alert assertion. The file must remain <=200 lines; final ceiling is
+exactly 36/36, with no wildcard or reserve.
+
+This four-surface commit becomes the exact partial-BUILD resume parent after
+push. Preserve all 31 authorized changed paths and zero staged, keep
+`OperationsConsole.tsx` byte-identical, ensure generated `tsconfig.tsbuildinfo`
+is absent, complete the three authorized Python file-size repairs and rerun all
+fresh gates. Manual transfer only; no provider call, Claude CLI/MCP, worker
+stage/commit/push/self-review/FREEZE, or C3b2-d work.
