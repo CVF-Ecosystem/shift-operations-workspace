@@ -587,3 +587,14 @@ an exact-path C3b2 CustomerRequest version/mutation-precondition Work Order
 derived from the reviewed DESIGN/SPEC split, followed by independent
 authorization and a separate pushed pre-BUILD/G6 checkpoint. No C3b2 BUILD
 authority carries forward; C3c/d remain blocked and prompt transfer is manual.
+### C3b2 authorization and pre-BUILD handoff
+Authorization `b9a62a3` contains the exact 82-path C3b2 Work Order and review.
+Four findings closed without waiver: direct-service bypass, atomic compare
+order, Report/freeze semantics and persistence/live-runner file-size fan-out.
+Final disposition is `REVIEW_PASS / APPROVED`.
+This four-surface commit becomes the pre-BUILD parent after push. Before source
+edit, verify clean `HEAD == origin/main`, rehydrate the chain and run complete
+G6: required ancestry, Python/frontend baselines, repository gates, Docker/
+PostgreSQL readiness and zero owned residue. Failure returns `BLOCKED_G6`.
+After PASS, manual transfer only: worker edits exactly 82 paths, makes no provider
+call/stage/commit/push/self-review/FREEZE and returns `READY_FOR_INDEPENDENT_P2C_C3B2_BUILD_REVIEW`; outside/unnecessary paths return `BLOCKED_WORK_ORDER_CEILING`. C3c/d, P2-D and Phase 2 remain blocked; no Claude CLI/MCP control is authorized.
