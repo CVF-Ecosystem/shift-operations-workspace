@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "C3c exact 38-path Work Order/review are REVIEW_PASS/pushed at fbb1d31. This is the separate pre-BUILD checkpoint; G6 then manual prompt transfer are next. C3d remains blocked.",
+  "syncReceipt": "C3c exact 38-path Work Order plus browser-pin Amendment 1 are REVIEW_PASS/pushed through 4937ac9. This renewed pre-BUILD checkpoint precedes G6/manual transfer; C3d remains blocked.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "SESSION_SYNC_STEWARD",
   "roleRoute": "SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD",

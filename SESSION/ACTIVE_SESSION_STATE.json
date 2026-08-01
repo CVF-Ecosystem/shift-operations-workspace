@@ -6,6 +6,8 @@
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
   "last_updated": "2026-08-02",
   "required_reads": [
+    "docs/work_orders/P2C_MUTATION_FULL_UI_C3C_WORK_ORDER_AMENDMENT_1.md",
+    "docs/decisions/P2C_C3C_WORK_ORDER_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/P2C_MUTATION_FULL_UI_C3C_WORK_ORDER.md",
     "docs/decisions/P2C_C3C_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "docs/decisions/P2C_C3B2_BUILD_INDEPENDENT_REVIEW.md",
@@ -138,7 +140,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "C3c exact 38-path Work Order and independent authorization review are REVIEW_PASS/pushed at fbb1d31. This continuity commit is the separate clean pre-BUILD checkpoint. Run G6 from its pushed hash; only after G6 PASS may the operator manually transfer the C3c BUILD prompt. The worker edits exactly 38 paths and never stages/commits/pushes/self-reviews/FREEZEs. C3d/P2-D/Phase 2 remain blocked. No provider call or Claude CLI/MCP control.",
+  "next_allowed_move": "C3c exact 38-path Work Order is REVIEW_PASS/pushed; browser-pin Amendment 1 and review are pushed at 4937ac9. This renewed continuity commit is the separate clean pre-BUILD checkpoint. Run G6 from its pushed hash, including isolated @playwright/test 1.62.1 Chromium install/version proof; only G6 PASS permits manual prompt transfer. Worker never stages/commits/pushes/self-reviews/FREEZEs. C3d/P2-D/Phase 2 blocked; no provider or Claude CLI/MCP call.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -304,15 +306,15 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "BUILD",
-    "activePhaseNote": "C3c exact 38-path Work Order is independently REVIEW_PASS/pushed at fbb1d31. BUILD authority activates only after this separate continuity checkpoint is pushed and G6 passes.",
+    "activePhaseNote": "C3c exact 38-path Work Order plus browser-pin Amendment 1 are independently REVIEW_PASS/pushed through 4937ac9. BUILD authority activates only after this renewed continuity checkpoint is pushed and G6 passes.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. C3c Work Order authorization is pushed; this commit is the pre-BUILD checkpoint, G6 and manual prompt transfer are next, while C3d remains blocked.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. C3c authorization and browser-pin amendment are pushed; this renewed commit is the pre-BUILD checkpoint, G6/manual transfer next, C3d blocked.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
     "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Push this separate C3c pre-BUILD checkpoint, run G6, then hand the exact worker prompt to the operator for manual transfer. No Claude CLI/MCP.",
+    "activeRoleNote": "Push this renewed C3c pre-BUILD checkpoint, run G6 including exact Playwright 1.62.1 Chromium proof, then provide the manual worker prompt. No Claude CLI/MCP.",
     "roleRoute": "SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD",
     "updatedAt": "2026-08-02"
   }
