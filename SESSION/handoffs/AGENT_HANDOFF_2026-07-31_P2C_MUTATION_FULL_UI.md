@@ -503,3 +503,20 @@ required. Worker changes only the exact 34 paths, never stages, commits,
 pushes, self-reviews or FREEZEs, and returns
 `READY_FOR_INDEPENDENT_P2C_C3B1_BUILD_REVIEW`. No Claude CLI/MCP control is
 authorized. C3b2, C3c, C3d, P2-D and Phase-2 completion remain blocked.
+
+### C3b1 G6 stop and Amendment 1 resume
+
+Initial G6 at `338bf1e` passed ancestry and Python 1180/116, frontend frozen
+install, typecheck and production build, but the authorized frontend test
+command failed under pnpm 9.15.0 with `Unknown option: 'run'`. The later build
+success did not mask that failed gate. The canonical package-script command
+then proved the diagnostic baseline: 2 files / 22 tests passed. Generated
+untracked `apps/workspace-web/tsconfig.tsbuildinfo` was verified and removed;
+source stayed untouched and no provider call occurred.
+
+Work Order Amendment 1 changes only the command to
+`pnpm --dir apps/workspace-web run test`, preserves exact 34/34 and every
+boundary, and received independent `REVIEW_PASS`; amendment/review are pushed
+at `edb9b02`. This four-surface resume commit becomes the new exact BUILD
+parent after push. The complete G6 must rerun from scratch—no spliced evidence—
+before manual prompt transfer. C3b2-d remain blocked.
