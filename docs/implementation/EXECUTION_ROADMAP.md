@@ -12,9 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-07-30, sau C4
-`MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30`._
-
+_Cập nhật: 2026-08-02, sau P2-C C3b2 `REVIEW_PASS`._
 Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
@@ -22,19 +20,18 @@ Quy ước:
 - `[~]` / `PARTIAL`: đã có một phần dùng được nhưng milestone/phase chưa đóng;
 - `[ ]` / `NOT STARTED`: chưa có implementation đáp ứng milestone; scaffold,
   README, contract hoặc test helper không được tính là hoàn tất.
-
 | Khu vực | Trạng thái | Đã xong | Còn lại để đóng |
 |---|---|---|---|
 | P-FIX | 🟢 `CLOSED_BOUNDED` | P-FIX-0 → P-FIX-6 | Không mở lại; các giới hạn mới đi theo tranche riêng |
 | P0 governance foundation | ✅ `DONE` (6/6) | runtime gates, catalog/session/boundary/file-size guard | Duy trì gate; không có milestone mở |
 | Phase 1 Foundation and Contracts | ✅ `DONE` (7/7) | domain/contracts/ledger, SQLite và disposable PostgreSQL 16 proof | Production/managed PostgreSQL, HA/load/backup không thuộc claim đã đóng |
-| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 14 work item đã đóng, gồm domain verticals, auth/approval, admission repairs, P2-R và P2-C assignment foundation/enforcement | P2-C C3b backend contracts → C3c operator UI → C3d supervisor UI; P2-D; exit-gate cả ca |
+| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 15 work item đã đóng, gồm domain verticals, auth/approval, admission repairs, P2-R, P2-C assignment và C3b backend contracts | P2-C C3c operator UI → C3d supervisor UI; P2-D; exit-gate cả ca |
 | Phase 3 Governance and Refinery | 🟡 `PARTIAL` (3/6) | policy gates và approval quorum | Refinery thật; runtime wiring cho data_scope/cost/termination; retrieval-ready contract |
 | Phase 4 AI and Channels | ⬜ `NOT STARTED` (0/8 milestone) | Chỉ có contract/scaffold và webhook verify/dedup nền | AI Gateway, retrieval/RAG/memory, provider modes, Integration Edge đầy đủ, adapters, identity/routing |
 | Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
 
-**Thứ tự còn lại để đóng Phase 2:** P2-C C3b backend contract readiness →
-C3c operator mutation UI → C3d supervisor closeout UI → P2-D offline/realtime
+**Thứ tự còn lại để đóng Phase 2:** P2-C C3c operator mutation UI → C3d
+supervisor closeout UI → P2-D offline/realtime
 → chạy exit gate `start → updates → tasks → handover → report → freeze`.
 Đây là thứ tự dependency của roadmap, **không phải BUILD authorization**:
 mỗi mục vẫn phải bắt đầu bằng fresh INTAKE và Work Order riêng.
@@ -381,7 +378,10 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
   - [x] **C3b1 browser reads/readiness/transport (REVIEW_PASS 2026-08-01):**
         BUILD `03e57f9`, đúng 36/36 path, pass independent review sau F1/F2 và
         PostgreSQL 110/110; không claim mutation concurrency/React feature UI.
-  - [ ] **Còn lại:** C3b2 version/preconditions → C3c operator UI → C3d
+  - [x] **C3b2 version/mutation preconditions (REVIEW_PASS 2026-08-02):** BUILD
+        `9b751de`, đúng 83/83; F1-F5/residual đóng không waiver; full 1314/127,
+        PostgreSQL 117, frontend 31, cleanup PASS.
+  - [ ] **Còn lại:** C3c operator UI → C3d
         supervisor closeout/bounded P2-C proof; chỉ tick sau independent C3d.
 - [ ] **P2-D:** PWA offline queue + realtime.
 

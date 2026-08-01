@@ -127,6 +127,15 @@
     "claim_boundary": "Proves only single-workspace stored ACTIVE assignment enforcement with enumeration-safe refusal and capability non-authority on InMemory, SQLite and disposable local PostgreSQL 16. It does not prove tenant isolation, provider data_scope, token revocation, production PostgreSQL, frontend mutation/full UI, P2-C completion, P2-D or Phase-2 completion.",
     "next_governed_move": "Author and independently review an exact-path C3b backend read/mutation contract readiness Work Order. No C3b BUILD before authorization and a separate pre-BUILD checkpoint; C3c/C3d remain blocked."
   },
+  "p2c_c3b_backend_contracts": {
+    "governance_disposition": "REVIEW_PASS / CLOSED_BOUNDED (2026-08-02); C3b1 and C3b2 are pushed, while P2-C remains open for C3c/C3d.",
+    "build_review_commits": "C3b1 03e57f96168bb96fd13afac232b2f0593c84f98f; C3b2 9b751ded6c56a6204025bc48f758179484ea8798 exact 83-path BUILD.",
+    "what_changed": "C3b1 added assignment-scoped bounded browser reads, approval readiness and typed no-retry transport. C3b2 added CustomerRequest version/backfill/CAS plus required atomic expected-version/status preconditions across the enumerated mutation matrix, with strict direct-service validation and admission-before-disclosure ordering.",
+    "review_evidence": "C3b2 independent focused 143 passed; full 1314 passed/127 skipped; frontend frozen install/typecheck/31 tests/build PASS; disposable PostgreSQL 16 live 117 passed with migrations 29/0 then 25/4 and exact cleanup; repository gates PASS; doctor PASS WITH NOTE 24/1.",
+    "findings": "C3B2 BUILD F1-F5 and residual REREV-F1 closed without waiver. One reviewed ceiling amendment added only the omitted handover live-runner test, raising 82 to exact 83.",
+    "claim_boundary": "Proves backend read/readiness/transport and mutation-precondition contracts on the proven backends only. It does not prove React mutation controls, offline/realtime, tenant/provider data scope, production PostgreSQL, C3c/C3d, P2-C or Phase-2 completion.",
+    "next_governed_move": "Author and independently review the exact-path C3c operator mutation UI Work Order from the existing reviewed DESIGN/SPEC. No BUILD authority carries forward."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",

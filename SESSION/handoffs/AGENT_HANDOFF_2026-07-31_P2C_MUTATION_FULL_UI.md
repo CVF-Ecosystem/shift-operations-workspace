@@ -587,14 +587,13 @@ an exact-path C3b2 CustomerRequest version/mutation-precondition Work Order
 derived from the reviewed DESIGN/SPEC split, followed by independent
 authorization and a separate pushed pre-BUILD/G6 checkpoint. No C3b2 BUILD
 authority carries forward; C3c/d remain blocked and prompt transfer is manual.
-### C3b2 authorization, blocker and Amendment 1 resume
-Authorization `b9a62a3` approved exact 82 paths; G6 passed at `7b04b72` (Python
-1238/120 skipped, frontend 31/typecheck/build, repository/doctor/Docker gates).
-Partial BUILD stopped with zero staged after the omitted existing
-`test_handover_live_evidence_runner.py` returned 1 failed/15 passed: fixed
-helper default version 1 made freeze stale instead of reaching the Report gate.
-Reviewed Amendment 1 through `3dcc966` adds only that path (82→83), requires
-response-derived explicit versions and removal of permissive defaults. SPEC
-Amendments 8/9 remain the restored C3b1 history; C3b2 uses Amendment 10.
-This commit is the resume parent after push. Preserve the partial unstaged BUILD,
-repair only authorized runner/test paths, rerun every gate and return `READY_FOR_INDEPENDENT_P2C_C3B2_BUILD_REVIEW`; outside/unnecessary paths return `BLOCKED_WORK_ORDER_CEILING`. No provider call, Claude CLI/MCP, worker stage/commit/push/self-review/FREEZE or C3c/d authority.
+### C3b2 independent BUILD closure
+Amendment 1 added only the omitted runner-test path (82→83). Independent review
+then closed F1-F5 and residual raw-status coercion without waiver. Exact BUILD
+`9b751ded6c56a6204025bc48f758179484ea8798` is pushed with 83/83 paths.
+Reviewer evidence: focused 143; full 1314/127 skipped; frontend 31/typecheck/
+build; PostgreSQL 117 with migrations 29/0→25/4 and exact cleanup; repository
+gates PASS; doctor 24/1 bounded note. No provider call or Claude CLI/MCP.
+C3b2 proves only CustomerRequest version/CAS and backend mutation preconditions
+on proven backends. Next: exact-path C3c operator UI Work Order authorization;
+no BUILD authority carries forward, and C3d/P2-D/Phase 2 remain blocked.
