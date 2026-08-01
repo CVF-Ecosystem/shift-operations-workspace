@@ -48,3 +48,14 @@ class _MessageStoreMixin:
             if row is None:
                 raise KeyError(message_id)
         return _rows.row_to_message(self.models, row)
+
+    def list_messages_for_shift(self, shift_id: UUID, *, unit=None):
+        """P2C-MUTATION-FULL-UI-C3B1 (SPEC R11/R36): every Message bound to
+        ``shift_id``, ascending ``(created_at, message_id)`` — cross-backend
+        equivalent to ``_MessageRepositoryMixin.list_messages_for_shift``."""
+        with self._open(unit) as c:
+            rows = c.execute(
+                select(messages).where(messages.c.shift_id == shift_id)
+                .order_by(messages.c.created_at, messages.c.message_id)
+            ).mappings().all()
+            return [_rows.row_to_message(self.models, r) for r in rows]

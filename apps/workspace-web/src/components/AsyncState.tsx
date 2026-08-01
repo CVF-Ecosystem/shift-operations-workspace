@@ -9,7 +9,8 @@ const MESSAGES: Record<ApiErrorKind, string> = {
   conflict: 'This record changed elsewhere. Reload and try again.',
   invalid: 'The request could not be processed.',
   server: 'Something went wrong on the server. Try again shortly.',
-  cancelled: 'Request was cancelled.'
+  cancelled: 'Request was cancelled.',
+  outcome_unknown: 'The outcome of this request could not be confirmed. Refresh before trying again.'
 };
 
 export interface AsyncStateProps {

@@ -1,6 +1,9 @@
+import { createElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import { api, ApiError, login } from '../services/api';
 import { getToken, setToken } from '../features/authentication/session';
+import { AsyncState } from '../components/AsyncState';
 
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
@@ -50,12 +53,12 @@ describe('api client', () => {
     }
   });
 
-  it('maps a network failure to a network ApiError without leaking the raw cause', async () => {
+  it('maps an ambiguous transport failure to outcome_unknown without leaking the raw cause', async () => {
     const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
     fetchMock.mockRejectedValueOnce(new TypeError('Failed to fetch'));
     const failure = await api.listShifts().catch((cause: unknown) => cause);
     expect(failure).toBeInstanceOf(ApiError);
-    expect((failure as ApiError).kind).toBe('network');
+    expect((failure as ApiError).kind).toBe('outcome_unknown');
     expect((failure as ApiError).message).not.toContain('TypeError');
   });
 
@@ -65,7 +68,16 @@ describe('api client', () => {
     fetchMock.mockRejectedValueOnce(rawTransportError);
     const failure = await api.listShifts().catch((cause: unknown) => cause);
     expect(failure).toBeInstanceOf(ApiError);
-    expect((failure as ApiError).message).toBe('Unable to reach the server');
+    expect((failure as ApiError).kind).toBe('outcome_unknown');
+    expect((failure as ApiError).message).toBe('Unable to confirm the request outcome; refresh before retrying');
+  });
+
+  it('clears the tab-scoped session on HTTP 401', async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    setToken('secret-token-value');
+    fetchMock.mockResolvedValueOnce(jsonResponse(401, { detail: 'token expired' }));
+    await expect(api.listShifts()).rejects.toMatchObject({ kind: 'unauthorized' });
+    expect(getToken()).toBeNull();
   });
 
   it('surfaces the sanitized detail field from a 4xx body, not the whole response', async () => {
@@ -84,6 +96,13 @@ describe('api client', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse(200, { access_token: 'abc.def.ghi', token_type: 'bearer', expires_in: 3600 }));
     const response = await login('user', 'right');
     expect(response.access_token).toBe('abc.def.ghi');
+  });
+
+  it('AsyncState renders the exact sanitized outcome_unknown message (R38)', () => {
+    render(createElement(AsyncState, { loading: false, errorKind: 'outcome_unknown', isEmpty: false, children: null }));
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'The outcome of this request could not be confirmed. Refresh before trying again.'
+    );
   });
 
   it('supports request cancellation via AbortSignal for stale-response suppression', async () => {

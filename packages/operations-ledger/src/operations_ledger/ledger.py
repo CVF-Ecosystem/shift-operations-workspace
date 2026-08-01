@@ -59,6 +59,10 @@ class Ledger(Protocol):
     # lets a caller check existence up front and raise the SAME controlled
     # error on both backends.
     def message_exists(self, message_id: UUID, *, unit: Any = None) -> bool: ...
+    # P2C-MUTATION-FULL-UI-C3B1 (SPEC R11/R36): deterministic message-list
+    # query for a single shift, ascending (created_at, message_id). Both
+    # backends must agree — see _MessageRepositoryMixin/_MessageStoreMixin.
+    def list_messages_for_shift(self, shift_id: UUID, *, unit: Any = None) -> list: ...
 
     # --- events ---
     def add_event(self, event, *, unit: Any = None): ...

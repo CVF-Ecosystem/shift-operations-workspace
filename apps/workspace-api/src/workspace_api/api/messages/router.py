@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 
 from cvf_runtime.errors import CvfDenied
@@ -8,6 +8,7 @@ from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
 from operations_domain.models import Message
+from workspace_api.application import browser_reads
 from workspace_api.application.message_service import MessageService
 from workspace_api.dependencies import get_ledger, get_principal
 
@@ -50,3 +51,22 @@ def create_message(
         raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get("", response_model=list[Message])
+def list_messages(
+    shift_id: UUID = Query(..., description="Filter messages by shift"),
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    """P2C-MUTATION-FULL-UI-C3B1 (SPEC R11/R36/R37): authenticated,
+    ACTIVE-assignment-scoped Message list, ascending
+    (created_at, message_id). 501+ matches return controlled 422."""
+    try:
+        return browser_reads.list_messages_for_shift(ledger, shift_id, principal)
+    except CvfDenied as exc:
+        raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
+    except browser_reads.ReadLimitExceeded as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc

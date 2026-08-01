@@ -29,11 +29,12 @@ from workspace_api.infrastructure._approval_store import _ApprovalStoreMixin
 from workspace_api.infrastructure._assignment_repository import _AssignmentRepositoryMixin
 from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
+from workspace_api.infrastructure._message_repository import _MessageRepositoryMixin
 from workspace_api.infrastructure._report_repository import _ReportRepositoryMixin
 
 class InMemoryLedger(
     _ApprovalStoreMixin, _AssignmentRepositoryMixin, _IncidentRepositoryMixin,
-    _HandoverRepositoryMixin, _ReportRepositoryMixin,
+    _HandoverRepositoryMixin, _MessageRepositoryMixin, _ReportRepositoryMixin,
 ):
     def __init__(self):
         self._lock = RLock()
@@ -157,24 +158,8 @@ class InMemoryLedger(
         if shift.status == ShiftStatus.FROZEN:
             raise ValueError(f"Cannot {what}: shift is frozen")
 
-    def add_message(self, message: Message, *, unit=None) -> Message:
-        # SPEC R9: shift/freeze check, duplicate/evidence refusal, then
-        # deep-copy in and out so caller mutation never touches stored truth.
-        self._assert_shift_not_frozen(message.shift_id, "add message to a frozen shift")
-        if message.message_id in self.messages:
-            raise ValueError(f"duplicate message_id: {message.message_id}")
-        if message.evidence:
-            raise ValueError("message evidence is not supported by the persisted schema")
-        stored = message.model_copy(deep=True)
-        self.messages[message.message_id] = stored
-        return stored.model_copy(deep=True)
-
-    def get_message(self, message_id: UUID, *, unit=None) -> Message:
-        # Deep copy, not the live reference — see get_shift() for why.
-        return self.messages[message_id].model_copy(deep=True)
-
-    def message_exists(self, message_id: UUID, *, unit=None) -> bool:
-        return message_id in self.messages
+    # --- messages: add_message/get_message/message_exists/
+    # list_messages_for_shift implemented by _MessageRepositoryMixin ---
 
     def add_event(self, event: OperationalEvent, *, unit=None) -> OperationalEvent:
         self._assert_shift_not_frozen(event.shift_id, "add event to a frozen shift")

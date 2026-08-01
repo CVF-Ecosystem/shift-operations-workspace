@@ -2,18 +2,26 @@
 
 Exact schema/security assertions for the six new C3a1 operations: the five
 R5 staffing routes plus /auth/me and capabilities. This module ALSO owns the
-canonical assignment-delta path/schema constants, the `_strip_assignment_delta`
-helper and the chained golden-hash proof (Amendment 1: these moved here from
+canonical assignment-delta path/schema constants and the
+`_strip_assignment_delta` helper (Amendment 1: these moved here from
 test_p2b_openapi_contract.py, which had grown past the 300-line hard limit).
 Every earlier-chain OpenAPI test file imports `_strip_assignment_delta` from
 here rather than duplicating it - `test_p2b_openapi_contract.py` included,
 since this module imports nothing from it (no circular import).
 
+C3B1: the chain's current golden-hash link moved one further to
+`test_c3b_read_openapi_contract.py` (this module's assignment delta had grown
+to be the last one before C3b1's own read/readiness delta) - this module's
+own `test_openapi_delta_is_exactly_the_assignment_operations` now nets back
+to `PRE_ASSIGNMENT_OPENAPI_SHA` by stripping BOTH the assignment delta AND
+the later C3b1 delta, mirroring the chain-proof pattern every earlier link
+already uses. `PRE_C3B_READ_OPENAPI_SHA` (imported, not retyped) is this
+module's post-assignment value, now consumed by
+`test_c3b_read_openapi_contract.py` as its own pre-tranche baseline.
+
 Chain: `PRE_INCIDENT_OPENAPI_SHA` -> ... -> `PRE_ASSIGNMENT_OPENAPI_SHA` ->
-current `GOLDEN_OPENAPI_SHA` (see test_p2b_openapi_contract.py for the
-earlier links). `test_openapi_delta_is_exactly_the_assignment_operations`
-below nets back to `PRE_ASSIGNMENT_OPENAPI_SHA`, mirroring the chain proof
-pattern test_report_openapi_contract.py established one link up.
+`PRE_C3B_READ_OPENAPI_SHA` -> current `GOLDEN_OPENAPI_SHA` (both owned by
+test_c3b_read_openapi_contract.py).
 """
 
 from __future__ import annotations
@@ -23,6 +31,11 @@ import json
 import os
 
 os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-do-not-use-in-production")
+
+from test_c3b_read_openapi_contract import (  # noqa: E402
+    PRE_C3B_READ_OPENAPI_SHA,
+    _strip_c3b_read_delta,
+)
 
 
 def canonical(value) -> bytes:
@@ -37,10 +50,6 @@ def _sha(data: bytes) -> str:
 
 # Post-report, pre-assignment (the prior GOLDEN_OPENAPI_SHA).
 PRE_ASSIGNMENT_OPENAPI_SHA = "d00d106260306caa216c5f68001c7fdc7b94e778348cd0f6cc763291246b7516"
-
-# Post-assignment: PRE_ASSIGNMENT_OPENAPI_SHA plus the six new C3a1 staffing/
-# session/capability operations and their reachable schemas.
-GOLDEN_OPENAPI_SHA = "3b708784f9a1c6e02b9b051fb8463dbe41b6f7d4a3eeead14b348e4c44aefe71"
 
 # P2C-MUTATION-FULL-UI-C3A1: five staffing routes plus /auth/me and
 # capabilities, and every schema they reach.
@@ -69,8 +78,9 @@ def _strip_assignment_delta(doc: dict) -> None:
 
 def test_openapi_delta_is_exactly_the_assignment_operations():
     """P2C-MUTATION-FULL-UI-C3A1: mechanical proof, not an assertion of
-    trust. Strips ONLY the assignment delta, re-hashing against
-    PRE_ASSIGNMENT_OPENAPI_SHA."""
+    trust. Strips the assignment delta PLUS the later C3b1 read/readiness
+    delta, re-hashing against PRE_ASSIGNMENT_OPENAPI_SHA (mirrors the
+    chain-proof pattern every earlier link already uses)."""
     from workspace_api.main import app
 
     doc = app.openapi()
@@ -78,10 +88,25 @@ def test_openapi_delta_is_exactly_the_assignment_operations():
     assert _ASSIGNMENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
 
     actual = canonical(reduced)
     assert _sha(actual) == PRE_ASSIGNMENT_OPENAPI_SHA, actual.decode("utf-8")[:4000]
+
+
+def test_openapi_document_is_the_pre_c3b_read_value():
+    """The full document with only the assignment delta present (i.e. before
+    C3b1) matches PRE_C3B_READ_OPENAPI_SHA - proves this module's exported
+    constant is the true current pre-C3b1 baseline."""
+    from workspace_api.main import app
+
+    doc = app.openapi()
+    reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
+
+    actual = canonical(reduced)
+    assert _sha(actual) == PRE_C3B_READ_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 
 def test_unrelated_path_addition_fails_the_golden_chain():
@@ -90,6 +115,7 @@ def test_unrelated_path_addition_fails_the_golden_chain():
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
     reduced["paths"]["/unrelated-undisclosed-probe-path"] = {
         "get": {"responses": {"200": {"description": "OK"}}}
@@ -109,6 +135,7 @@ def test_unrelated_mutation_route_removal_fails_the_golden_chain():
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
 
     assert "post" in reduced["paths"]["/shifts"], (

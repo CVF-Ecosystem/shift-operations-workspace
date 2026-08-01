@@ -27,6 +27,7 @@ from workspace_api.application.approval_receipts import (
     create_approval_receipt,
     has_authority_for_any_required_seat as _has_authority_for_any_required_seat,
 )
+from workspace_api.application.approval_readiness import evaluate_readiness
 from workspace_api.application.task_creation_intents import (
     compute_payload_digest,
     create_task_creation_intent,
@@ -40,4 +41,5 @@ __all__ = [
     "compute_payload_digest",
     "create_task_creation_intent",
     "get_task_creation_intent",
+    "evaluate_readiness",
 ]

@@ -212,15 +212,11 @@ def apply_migrations_twice(database_url: str) -> list[dict]:
 
 # Each vertical's live module is coherent but separate; all run in one pass.
 LIVE_SUITE_TARGETS = (
-    "tests/integration/test_sql_ledger_postgres_live.py",
-    "tests/integration/test_incident_postgres_live.py",
-    "tests/integration/test_handover_postgres_live.py",
-    "tests/integration/test_shift_create_postgres_live.py",
-    "tests/integration/test_message_postgres_live.py",
-    "tests/integration/test_report_postgres_live.py",
-    "tests/integration/test_assignment_postgres_live.py",
-    "tests/integration/test_assignment_postgres_live_f1.py",
-    "tests/integration/test_assignment_scope_postgres_live.py",
+    "tests/integration/test_sql_ledger_postgres_live.py", "tests/integration/test_incident_postgres_live.py",
+    "tests/integration/test_handover_postgres_live.py", "tests/integration/test_shift_create_postgres_live.py",
+    "tests/integration/test_message_postgres_live.py", "tests/integration/test_report_postgres_live.py",
+    "tests/integration/test_assignment_postgres_live.py", "tests/integration/test_assignment_postgres_live_f1.py",
+    "tests/integration/test_assignment_scope_postgres_live.py", "tests/integration/test_c3b_read_postgres_live.py",
 )
 
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:

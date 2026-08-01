@@ -14,9 +14,11 @@ remainder against that tranche's own pre-change SHA.
 Chain: `PRE_INCIDENT_OPENAPI_SHA` -> `PRE_HANDOVER_OPENAPI_SHA` ->
 `PRE_P2C_READ_OPENAPI_SHA` -> `PRE_SHIFT_CREATE_OPENAPI_SHA` ->
 `PRE_MESSAGE_ADMISSION_OPENAPI_SHA` -> `PRE_REPORT_OPENAPI_SHA` ->
-`PRE_ASSIGNMENT_OPENAPI_SHA` -> current `GOLDEN_OPENAPI_SHA`. Each earlier
-delta test strips every later delta too, netting back to its own true
-historical baseline.
+`PRE_ASSIGNMENT_OPENAPI_SHA` -> `PRE_C3B_READ_OPENAPI_SHA` -> current
+`GOLDEN_OPENAPI_SHA` (C3B1: the current golden-hash link now lives in
+test_c3b_read_openapi_contract.py, one further than the assignment delta).
+Each earlier delta test strips every later delta too, netting back to its
+own true historical baseline.
 """
 
 from __future__ import annotations
@@ -58,12 +60,17 @@ PRE_MESSAGE_ADMISSION_OPENAPI_SHA = "94f56893835b046736efe6697e4d2786ff1716702bf
 # test_report_openapi_contract.py imports it directly).
 PRE_REPORT_OPENAPI_SHA = "547d630d1d7fc62dfeb0691b5fcc4bb30fdc2dfe721783c377c4ff25b75a2881"
 
-# Post-report, pre-assignment, and the current golden value: both now owned
-# by test_assignment_openapi_contract.py (Amendment 1 line-count repair) -
-# imported so this module's GOLDEN check still uses the true current value.
-from test_assignment_openapi_contract import (  # noqa: E402
+# Post-report, pre-assignment: owned by test_assignment_openapi_contract.py
+# (Amendment 1 line-count repair) - imported so this module never retypes it.
+from test_assignment_openapi_contract import _strip_assignment_delta  # noqa: E402
+
+# Post-assignment, pre-C3b1, and the current golden value: both now owned by
+# test_c3b_read_openapi_contract.py (C3B1: the chain's current link moved one
+# further) - imported so this module's GOLDEN check still uses the true
+# current value.
+from test_c3b_read_openapi_contract import (  # noqa: E402
     GOLDEN_OPENAPI_SHA,
-    _strip_assignment_delta,
+    _strip_c3b_read_delta,
 )
 
 _INCIDENT_PATHS = {
@@ -167,6 +174,18 @@ def _strip_p2c_read_operations(doc: dict) -> None:
             )
 
 
+def _strip_all_later_deltas(reduced: dict) -> None:
+    """Every delta strip shared by the three `test_openapi_delta_is_exactly_*`
+    proofs below, netting each back to its own true historical baseline."""
+    _strip_c3b_read_delta(reduced)
+    _strip_assignment_delta(reduced)
+    _strip_report_delta(reduced)
+    _strip_messages_post_delta(reduced)
+    _strip_shifts_post_security(reduced)
+    _strip_shifts_get_security(reduced)
+    _strip_p2c_read_operations(reduced)
+
+
 def test_openapi_document_is_unchanged_from_the_pre_build_capture():
     """AC-09: the contract did not move beyond the reviewed Report delta."""
     from workspace_api.main import app
@@ -184,12 +203,7 @@ def test_openapi_delta_is_exactly_the_five_incident_operations():
     assert _INCIDENT_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
-    _strip_assignment_delta(reduced)
-    _strip_report_delta(reduced)
-    _strip_messages_post_delta(reduced)
-    _strip_shifts_post_security(reduced)
-    _strip_shifts_get_security(reduced)
-    _strip_p2c_read_operations(reduced)
+    _strip_all_later_deltas(reduced)
     for path in _INCIDENT_PATHS | _HANDOVER_PATHS:
         del reduced["paths"][path]
     for schema in _INCIDENT_SCHEMAS | _HANDOVER_SCHEMAS | _P2C_READ_SCHEMAS:
@@ -208,12 +222,7 @@ def test_openapi_delta_is_exactly_the_five_handover_operations():
     assert _HANDOVER_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
-    _strip_assignment_delta(reduced)
-    _strip_report_delta(reduced)
-    _strip_messages_post_delta(reduced)
-    _strip_shifts_post_security(reduced)
-    _strip_shifts_get_security(reduced)
-    _strip_p2c_read_operations(reduced)
+    _strip_all_later_deltas(reduced)
     for path in _HANDOVER_PATHS:
         del reduced["paths"][path]
     for schema in _HANDOVER_SCHEMAS | _P2C_READ_SCHEMAS:
@@ -234,12 +243,7 @@ def test_openapi_delta_is_exactly_the_p2c_read_operations_from_this_module():
     assert _P2C_READ_SCHEMAS <= doc["components"]["schemas"].keys()
 
     reduced = json.loads(json.dumps(doc))
-    _strip_assignment_delta(reduced)
-    _strip_report_delta(reduced)
-    _strip_messages_post_delta(reduced)
-    _strip_shifts_post_security(reduced)
-    _strip_shifts_get_security(reduced)
-    _strip_p2c_read_operations(reduced)
+    _strip_all_later_deltas(reduced)
     for schema in _P2C_READ_SCHEMAS:
         del reduced["components"]["schemas"][schema]
 
@@ -260,20 +264,16 @@ def test_openapi_new_endpoints_and_schemas_exact_contract():
     assert "post" in paths["/approvals"]
     approvals_post = paths["/approvals"]["post"]
     assert "200" in approvals_post["responses"]
-    assert (
-        approvals_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
-        == "#/components/schemas/ApprovalCreateInput"
-    )
+    approvals_ref = approvals_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    assert approvals_ref == "#/components/schemas/ApprovalCreateInput"
 
     # POST /tasks/creation-intents
     assert "/tasks/creation-intents" in paths
     assert "post" in paths["/tasks/creation-intents"]
     intent_post = paths["/tasks/creation-intents"]["post"]
     assert "201" in intent_post["responses"]
-    assert (
-        intent_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
-        == "#/components/schemas/TaskCreationIntentInput"
-    )
+    intent_ref = intent_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    assert intent_ref == "#/components/schemas/TaskCreationIntentInput"
 
     # GET /tasks/creation-intents/{intent_id}
     assert "/tasks/creation-intents/{intent_id}" in paths

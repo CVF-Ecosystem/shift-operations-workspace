@@ -483,3 +483,22 @@ operation thật qua route HTTP/JWT, rồi đúng một Alibaba call — receipt
 chế:** không đổi assignment schema/lifecycle/staffing (đó là C3a1, zero-diff ở
 đây); không tenant/data_scope; không frontend mutation; PostgreSQL live vẫn
 bounded disposable-local.
+
+**2026-08-01 P2-C C3b1 (browser read/readiness contract) — không thêm CVF
+`required_control` mới.** `GET /messages`, `GET /tasks`, `GET
+/customer-requests` chỉ tái dùng đúng guard `require_active_assignment` đã có
+sẵn ở trên (verified authentication rồi ACTIVE assignment, không phát minh
+read-action permission mới). `GET /approvals/readiness`
+(`workspace_api.application.approval_readiness.evaluate_readiness`) là READ,
+không phải authorization gate: nó áp coarse `require_action` của action được
+yêu cầu, resolve target/shift/version/risk/digest từ stored truth (không nhận
+version/risk/digest do caller khai), rồi kiểm ACTIVE assignment, dùng
+deterministic maximum bipartite matching trên authority hiện tại (không tin
+role lưu trong receipt cũ) — nhưng `ready=true` không authorize hay dự đoán
+lifecycle; mutation thật (`approval_receipts.create_approval_receipt`) vẫn
+chạy lại toàn bộ gate độc lập, bao gồm cả confirmer/self-approval rule mà
+readiness cố ý không áp. Không lộ payload digest, receipt id, approver
+identity hay policy internals trong response. C3b1 không gọi provider — claim
+governance boundary giữ nguyên như đã ghi ở C3a2 phía trên; không mở rộng sang
+mutation/CustomerRequest version (C3b2), React UI (C3c/C3d), tenant/data_scope
+hay Phase 2 completion.

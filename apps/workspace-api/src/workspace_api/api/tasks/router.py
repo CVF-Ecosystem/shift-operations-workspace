@@ -2,13 +2,14 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
 from operations_ledger import Ledger
 
+from workspace_api.application import browser_reads
 from workspace_api.application.task_service import TaskService
 from workspace_api.dependencies import get_ledger, get_principal
 from operations_domain.models import EvidenceRef, RiskClass, Task, TaskCreationIntent, TaskStatus
@@ -150,3 +151,22 @@ def transition_task(
         raise HTTPException(status_code=404, detail="Operational resource not found") from exc
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get("", response_model=list[Task])
+def list_tasks(
+    shift_id: UUID = Query(..., description="Filter tasks by shift"),
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    """P2C-MUTATION-FULL-UI-C3B1 (SPEC R11/R36/R37): authenticated,
+    ACTIVE-assignment-scoped Task list including terminal history, ascending
+    (created_at, task_id). 501+ matches return controlled 422."""
+    try:
+        return browser_reads.list_tasks_for_shift(ledger, shift_id, principal)
+    except CvfDenied as exc:
+        raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
+    except browser_reads.ReadLimitExceeded as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc

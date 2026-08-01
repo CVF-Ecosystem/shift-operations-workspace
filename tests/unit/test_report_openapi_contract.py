@@ -34,6 +34,7 @@ from test_p2b_openapi_contract import (  # noqa: E402
     PRE_REPORT_OPENAPI_SHA,
     _strip_assignment_delta,
 )
+from test_c3b_read_openapi_contract import _strip_c3b_read_delta  # noqa: E402
 
 _REPORT_PATHS = {
     "/reports",
@@ -142,6 +143,7 @@ def test_openapi_delta_is_exactly_the_report_operations_and_freeze_deprecation()
 
     doc = app.openapi()
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
 

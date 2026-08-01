@@ -133,14 +133,14 @@ describe('App', () => {
   });
 
   it.each([
-    ['network failure', () => fetchMock.mockRejectedValue(new TypeError('Failed to fetch')), /Offline/],
-    ['5xx read', () => fetchMock.mockResolvedValue(jsonResponse(500, { detail: 'boom' })), /Connection issue/]
-  ])('renders a controlled error state and indicator on %s', async (_label, arrange, indicator) => {
+    ['network failure', () => fetchMock.mockRejectedValue(new TypeError('Failed to fetch')), 'The outcome of this request could not be confirmed. Refresh before trying again.'],
+    ['5xx read', () => fetchMock.mockResolvedValue(jsonResponse(500, { detail: 'boom' })), null]
+  ])('renders a controlled error state and indicator on %s', async (_label, arrange, message) => {
     setToken('existing-token');
-    arrange();
-    render(<App />);
-    expect((await screen.findAllByRole('alert')).length).toBeGreaterThan(0);
-    expect(screen.getByText(indicator)).toBeInTheDocument();
+    arrange(); render(<App />);
+    const alerts = (await screen.findAllByRole('alert')).map((a) => a.textContent);
+    expect(alerts).toContain(message ?? alerts[0]);
+    expect(screen.getByText(/Connection issue/)).toBeInTheDocument();
   });
 
   it('shows an operational loading state while shift detail is in flight', async () => {

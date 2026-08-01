@@ -34,6 +34,7 @@ from test_p2b_openapi_contract import (  # noqa: E402
     PRE_MESSAGE_ADMISSION_OPENAPI_SHA,
     _strip_assignment_delta,
 )
+from test_c3b_read_openapi_contract import _strip_c3b_read_delta  # noqa: E402
 
 
 def _strip_messages_post_delta(doc: dict) -> None:
@@ -135,6 +136,7 @@ def test_openapi_delta_is_exactly_the_message_admission_security_requirement():
     assert "security" in doc["paths"]["/messages"]["post"]
 
     reduced = json.loads(json.dumps(doc))
+    _strip_c3b_read_delta(reduced)
     _strip_assignment_delta(reduced)
     _strip_report_delta(reduced)
     _strip_messages_post_delta(reduced)

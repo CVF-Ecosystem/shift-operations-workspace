@@ -14,7 +14,7 @@ and 201 (new receipt) are documented in the OpenAPI schema.
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from pydantic import BaseModel, ConfigDict
 
 from cvf_runtime.errors import CvfDenied
@@ -83,3 +83,47 @@ def create_approval(
     # R2.4: 201 for a newly created receipt, 200 for an exact idempotent repeat.
     response.status_code = 201 if created else 200
     return ApprovalReceiptResponse.model_validate(receipt, from_attributes=True)
+
+
+class ReadinessResponse(BaseModel):
+    """GET /approvals/readiness 200 response — SPEC R35: never exposes
+    payload digest, receipt id, approver identity or credential."""
+
+    record_type: str
+    record_id: UUID
+    action: str
+    target_version: int
+    risk_class: str
+    ready: bool
+    required_roles: list[str]
+    satisfied_roles: list[str]
+
+
+@router.get("/readiness", response_model=ReadinessResponse)
+def get_readiness(
+    record_type: str = Query(...),
+    record_id: UUID = Query(...),
+    action: str = Query(...),
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    """SPEC R11/R35/R37: sanitized current-binding approval-readiness for
+    exactly the four canonical pairs. Read-only — never authorizes."""
+    try:
+        result = approval_service.evaluate_readiness(
+            ledger, principal, record_type=record_type, action=action, record_id=record_id,
+        )
+    except CvfDenied as exc:
+        raise HTTPException(status_code=exc.http_status, detail=str(exc)) from exc
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Operational resource not found") from exc
+    return ReadinessResponse(
+        record_type=result.record_type,
+        record_id=result.record_id,
+        action=result.action,
+        target_version=result.target_version,
+        risk_class=result.risk_class,
+        ready=result.ready,
+        required_roles=result.required_roles,
+        satisfied_roles=result.satisfied_roles,
+    )
