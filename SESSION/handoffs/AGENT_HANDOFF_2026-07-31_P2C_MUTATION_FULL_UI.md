@@ -567,3 +567,23 @@ push. Preserve all 31 authorized changed paths and zero staged, keep
 is absent, complete the three authorized Python file-size repairs and rerun all
 fresh gates. Manual transfer only; no provider call, Claude CLI/MCP, worker
 stage/commit/push/self-review/FREEZE, or C3b2-d work.
+
+### C3b1 independent BUILD closure
+
+Independent review found and closed two readiness-matching defects without
+waiver: F1 replaced order-dependent greedy allocation with genuine Kuhn
+augmenting paths and an adversarial manager-first regression; F2 corrected
+the assignment map's string-key annotations to its actual integer indices.
+
+Exact BUILD `03e57f96168bb96fd13afac232b2f0593c84f98f` changes 36/36
+authorized paths and is pushed. Independent evidence: exhaustive small
+matching probe PASS; focused 57; full 1238/120 skipped; frontend 31 plus
+typecheck/build; PostgreSQL 110 with migrations 24/0 then 20/4 and exact zero
+residue; repository gates PASS; doctor retains only bounded 24/1 note. No
+provider call or governance claim was added.
+
+C3b1 is `REVIEW_PASS / PUSHED`, not P2-C completion. The next allowed move is
+an exact-path C3b2 CustomerRequest version/mutation-precondition Work Order
+derived from the reviewed DESIGN/SPEC split, followed by independent
+authorization and a separate pushed pre-BUILD/G6 checkpoint. No C3b2 BUILD
+authority carries forward; C3c/d remain blocked and prompt transfer is manual.

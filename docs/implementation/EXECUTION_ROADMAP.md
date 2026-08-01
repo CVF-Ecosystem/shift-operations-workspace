@@ -373,16 +373,16 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       operational record cho Phase 2 exit gate, không phải P5-A render/export.
 - [ ] **P2-C — UI tổng thể còn mở:**
   - [x] **Read-only slice (CLOSED_BOUNDED 2026-07-29):** C3a `fe2f312` và
-        C3b `e24905f` cung cấp authenticated shifts/events/open-work reads
-        cùng React console chỉ-đọc; có sessionStorage, loading/empty/offline/
-        error và stale-response suppression.
+        C3b `e24905f` cung cấp authenticated shifts/events/open-work reads và
+        React console chỉ-đọc với sessionStorage/loading/error/stale suppression.
   - [x] **Assignment foundation + route enforcement (CLOSED_BOUNDED 2026-08-01):**
-        C3a1 `ec90c78` foundation; C3a2 `95b66b1` enforce stored ACTIVE scope,
-        enumeration-safe refusal, exact 74 paths/ba backend; không claim
-        tenant/provider `data_scope` hay frontend completion.
-  - [ ] **Còn lại theo gate:** C3b backend read/mutation contract readiness →
-        C3c operator mutation UI → C3d supervisor closeout UI/bounded P2-C
-        proof. Không tick xong P2-C trước independent C3d review.
+        C3a1 `ec90c78`; C3a2 `95b66b1` enforce ACTIVE scope và enumeration-safe
+        refusal, 74 paths/ba backend; không claim tenant/data_scope/frontend.
+  - [x] **C3b1 browser reads/readiness/transport (REVIEW_PASS 2026-08-01):**
+        BUILD `03e57f9`, đúng 36/36 path, pass independent review sau F1/F2 và
+        PostgreSQL 110/110; không claim mutation concurrency/React feature UI.
+  - [ ] **Còn lại:** C3b2 version/preconditions → C3c operator UI → C3d
+        supervisor closeout/bounded P2-C proof; chỉ tick sau independent C3d.
 - [ ] **P2-D:** PWA offline queue + realtime.
 
 **Exit gate: CHƯA ĐẠT.** P2-R đã đóng bounded; còn P2-C mutation/full UI và
