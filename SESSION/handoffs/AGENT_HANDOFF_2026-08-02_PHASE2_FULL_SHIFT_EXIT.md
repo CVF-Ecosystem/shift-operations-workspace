@@ -4,17 +4,17 @@
 
 - Tranche: `P2-FULL-SHIFT-EXIT-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` repair after independent `REVIEW_FAIL`
-- Active role: `REPAIR_WORKER`
-- Status: `REPAIR AUTHORIZED — PROVIDER PROHIBITED PENDING PRE-CALL REVIEW_PASS`
+- Control-chain phase: `FREEZE`
+- Active role: `CLOSER / SESSION_SYNC_STEWARD / COMMIT_STEWARD`
+- Status: `CLOSED_BOUNDED`
 - Authorization commit: `def5ec0188f0bdfb6045e5ebbc156147115b89c9`
 - Repair amendment commit: `22d6bd7cc28a623bcaf05654724d53dca83405a8`
 
 ## Settled predecessor
 
 P2-D is `FREEZE / CLOSED_BOUNDED`: BUILD `6fc4359` and C4 `e1ac14b` are
-pushed. P2-D authority does not carry forward. Phase 2 remains `IN PROGRESS`
-for this full-shift exit gate only.
+pushed. P2-D authority did not carry forward. The successor full-shift exit
+gate is now reviewed/pushed and this C4 closes Phase 2 bounded.
 
 ## Control chain
 
@@ -58,16 +58,29 @@ replacement. A third call is forbidden.
 
 ## Next governed move
 
-`REPAIR_WORKER` may modify only Amendment 1's 13 finding hosts within the same
-final exact 15-path BUILD ceiling. Rerun the complete ordered evidence and a
-fresh exact-parent detached rehearsal, then stop for independent repaired-
-candidate pre-call review. Provider use remains prohibited until that review
-returns `REVIEW_PASS`. Only then may exactly one replacement call occur,
-followed by final independent BUILD review. No BUILD commit/push, C4 or Phase 2
-closure is authorized before final `REVIEW_PASS`.
+Exact 15-path BUILD `d02186ad7b2cb60616723e23829e78a9473473af`
+received independent final post-call `REVIEW_PASS` with no waiver and is pushed.
+The first provider call remains invalidated; the sole replacement is accepted;
+accounting is physical `2` / accepted `1`, and persisted rerun prohibition was
+verified before provider dispatch. C4 closes the exit gate and Phase 2 bounded.
+The next governed move is fresh INTAKE for `PROJECT-OPERATIONS-SKILL`; no BUILD
+or provider authority carries forward.
 
 ## Parked checkpoint
 
-The automatic post-Phase-2 queue remains `PARKED_ONLY_NO_BUILD_AUTHORITY`.
-It activates only after this BUILD receives independent review/push and a
-separate C4 marks the exit gate and Phase 2 `CLOSED_BOUNDED`.
+The automatic post-Phase-2 queue is `ACTIVE_AT_FIRST_ITEM_INTAKE_ONLY`. Its
+ordered first item is `PROJECT-OPERATIONS-SKILL`, followed by the knowledge
+pack/Refinery/retrieval/RAG/learning sequence. Only fresh INTAKE is authorized.
+
+## Final evidence and claim boundary
+
+- BUILD: `d02186a`, exact 15 paths, clean after push.
+- Review: independent `FINAL REVIEW_PASS`, no finding/waiver.
+- Verification: focused 22; frontend 119/typecheck/build; Python 1378/128;
+  PostgreSQL 118; migrations 29/0→25/4; real browser and AC-14 PASS; exact
+  worktree/container/volume/temp cleanup; repository gates and doctor 24/1.
+- Provider: first call retained invalidated; replacement PASS/HTTP 200/exact
+  token; total physical 2, accepted 1; third call fail-closed.
+- Boundary: one scheduled 12-hour local/disposable start-to-freeze lineage;
+  no wall-clock soak, push/exactly-once, full-offline, production/managed
+  readiness, Phase 3 completion or post-Phase-2 implementation claim.

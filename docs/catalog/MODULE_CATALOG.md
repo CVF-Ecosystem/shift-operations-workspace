@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-02T14:38:50.418399+00:00_
+_Last generated: 2026-08-02T15:03:08.996568+00:00_
 
 ## How to use this catalog
 
@@ -110,7 +110,7 @@ _Last generated: 2026-08-02T14:38:50.418399+00:00_
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_incident_vertical.py`, `tests/cvf/test_handover_vertical.py`
 - **Metrics:** 818 LOC across 5 code file(s)
-- **Next step:** Incident, handover and operational Report prerequisites are already implemented; do not reopen them. P2-C and P2-D are CLOSED_BOUNDED, so the full-shift exit gate is the remaining Phase 2 dependency. Approval/Audit package ownership and any split of central models.py into the README-only per-domain subdirectories remain separate future tranches. Do not claim operations-domain enforced.
+- **Next step:** Incident, handover, operational Report and the Phase 2 full-shift exit gate are CLOSED_BOUNDED; do not reopen them. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next. Approval/Audit ownership and any split of central models.py remain separate future tranches; do not claim operations-domain enforced.
 
 ### `workspace-api` — partial
 
@@ -122,7 +122,7 @@ _Last generated: 2026-08-02T14:38:50.418399+00:00_
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
 - **Metrics:** 6393 LOC across 75 code file(s)
-- **Next step:** P2-R, P2-C and P2-D are CLOSED_BOUNDED. Fresh full-shift exit-gate INTAKE is the remaining Phase 2 dependency. Governed external/channel ingestion belongs to a separate Phase 4 Integration Edge tranche, not this internal API admission path.
+- **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial
 
@@ -134,7 +134,7 @@ _Last generated: 2026-08-02T14:38:50.418399+00:00_
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`
 - **Metrics:** 7684 LOC across 79 code file(s)
-- **Next step:** P2-D is CLOSED_BOUNDED at reviewed/pushed BUILD 6fc4359. The Phase 2 full-shift exit evidence BUILD candidate now composes one real-browser/FastAPI lineage plus disposable PostgreSQL reconnect and remains pending independent review; only a later C4 may close Phase 2 bounded. Tenant/provider data_scope and production readiness remain unclaimed.
+- **Next step:** Phase 2 is CLOSED_BOUNDED after exact reviewed/pushed full-shift exit BUILD d02186a plus separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next. Tenant/provider data_scope, soak and production readiness remain unclaimed.
 
 ### `workspace-worker` — partial
 

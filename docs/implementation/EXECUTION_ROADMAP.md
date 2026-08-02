@@ -12,7 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-08-02, sau P2-D BUILD `6fc4359` nhận independent `REVIEW_PASS` và C4 truth-sync._ Quy ước:
+_Cập nhật: 2026-08-02, sau Phase 2 full-shift exit BUILD `d02186a` nhận independent final `REVIEW_PASS` và C4 truth-sync._ Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
   independent review và closure trong đúng claim boundary;
@@ -24,15 +24,12 @@ _Cập nhật: 2026-08-02, sau P2-D BUILD `6fc4359` nhận independent `REVIEW_P
 | P-FIX | 🟢 `CLOSED_BOUNDED` | P-FIX-0 → P-FIX-6 | Không mở lại; các giới hạn mới đi theo tranche riêng |
 | P0 governance foundation | ✅ `DONE` (6/6) | runtime gates, catalog/session/boundary/file-size guard | Duy trì gate; không có milestone mở |
 | Phase 1 Foundation and Contracts | ✅ `DONE` (7/7) | domain/contracts/ledger, SQLite và disposable PostgreSQL 16 proof | Production/managed PostgreSQL, HA/load/backup không thuộc claim đã đóng |
-| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 18 work item đã đóng; P2-C và P2-D đạt `CLOSED_BOUNDED` | Exit-gate cả ca |
+| Phase 2 Core Operations | ✅ `CLOSED_BOUNDED` | P2-A/P2-B/P2-R/P2-C/P2-D + full-shift exit gate | Chỉ giới hạn ngoài claim: production/managed, soak, push/exactly-once, full-offline |
 | Phase 3 Governance and Refinery | 🟡 `PARTIAL` (3/6) | policy gates và approval quorum | Refinery thật; runtime wiring cho data_scope/cost/termination; retrieval-ready contract |
 | Phase 4 AI and Channels | ⬜ `NOT STARTED` (0/8 milestone) | Chỉ có contract/scaffold và webhook verify/dedup nền | AI Gateway, retrieval/RAG/memory, provider modes, Integration Edge đầy đủ, adapters, identity/routing |
 | Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
 
-**Phần còn lại để đóng Phase 2:** chạy exit gate
-`start → updates → tasks → handover → report → freeze`.
-Đây là thứ tự dependency của roadmap, **không phải BUILD authorization**:
-mỗi mục vẫn phải bắt đầu bằng fresh INTAKE và Work Order riêng.
+**Phase 2 đã đóng bounded:** exit gate `start → updates → tasks → handover → report → freeze` PASS tại reviewed/pushed BUILD `d02186a` và C4 này. Claim chỉ cho scheduled 12-hour lineage trên real Chromium/FastAPI/JWT và disposable PostgreSQL 16; không phải wall-clock soak hay production readiness.
 
 ## Ghi chú thứ tự (quan trọng — vì sao trạng thái không tuần tự)
 
@@ -265,7 +262,7 @@ backup/managed-PostgreSQL parity.
 
 ---
 
-## Phase 2 — Core Operations Workspace — 🟡 IN PROGRESS (13 đóng / 1 mở)
+## Phase 2 — Core Operations Workspace — ✅ CLOSED_BOUNDED (14/14)
 
 Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external channels tắt.
 
@@ -384,14 +381,13 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
         `REVIEW_PASS`; frontend 92, Python 1351/127, Chromium/FastAPI,
         PostgreSQL 117, AC-29 và fresh exactly-one-provider-call đều PASS.
 - [x] **P2-D — bounded offline queue + polling realtime (CLOSED_BOUNDED 2026-08-02):** BUILD `6fc4359`, đúng 49/49 path, independent final `REVIEW_PASS`; frontend 119/typecheck/build, real Chromium/FastAPI 6/6, Python 1356/127, PostgreSQL 117 với cleanup, AC-29 và fresh exactly-one-provider-call đều PASS. Claim chỉ navigation fallback, actor-bound queue cho ba CAS transition, per-tab fail-stop replay và foreground polling; không push, cross-tab/request exactly-once, full-offline hay production readiness.
+- [x] **Full-shift exit gate (CLOSED_BOUNDED 2026-08-02):** BUILD `d02186a`, đúng 15/15 path, independent final post-call `REVIEW_PASS`; frontend 119/typecheck/build, Python 1378/128, real Chromium/FastAPI, PostgreSQL 118 với migrations 29/0→25/4 và cleanup, AC-14 exact-parent PASS. Provider accounting physical 2/accepted 1 giữ nguyên invalidated first call và chặn call thứ ba. Boundary: scheduled 12-hour local/disposable lineage; không soak, push/exactly-once, full-offline hay production.
 
-**Exit gate: CHƯA ĐẠT.** P2-R/P2-C/P2-D đã đóng bounded; còn phải chạy trọn ca `start → updates → tasks → handover → report → freeze` có truy vết.
+**Exit gate: ĐẠT / CLOSED_BOUNDED.** Trọn ca `start → updates → tasks → handover → report → freeze` có truy vết đã PASS; các giới hạn trên vẫn mở và không bị làm tròn thành production readiness.
 
 ### Hàng đợi tự động ngay sau Phase 2
 
-Khi và chỉ khi full-shift exit gate ở trên nhận independent `REVIEW_PASS` và
-Phase 2 đạt `CLOSED_BOUNDED`, orchestrator MUST tự mở các tranche kế tiếp theo
-đúng thứ tự dưới đây; không chờ operator nhắc lại:
+Trigger đã thỏa tại BUILD `d02186a` + C4. Orchestrator kích hoạt đúng mục đầu tiên dưới đây ở mức fresh INTAKE; các mục sau chưa có BUILD authority:
 
 1. **PROJECT-OPERATIONS-SKILL:** đóng gói workflow vận hành dự án/CVF thành
    skill dùng lại được, dựa trên implementation truth đã freeze;
@@ -566,7 +562,8 @@ PostgreSQL 117, AC-29 và provider evidence PASS. P2-C `CLOSED_BOUNDED`, không
 gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
-**Bước kế tiếp duy nhất:** fresh full-shift exit-gate INTAKE; Phase 2 vẫn mở và không có BUILD/provider authority kế thừa.
+**2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
+**Bước kế tiếp duy nhất:** fresh `PROJECT-OPERATIONS-SKILL` INTAKE; không có BUILD/provider authority kế thừa. Knowledge pack và các tranche sau vẫn chờ đúng thứ tự tự động đã ghi.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
