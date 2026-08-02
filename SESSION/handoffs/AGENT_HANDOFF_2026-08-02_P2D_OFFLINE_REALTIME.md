@@ -40,11 +40,12 @@ was used or claimed during authorization.
 
 ## Next governed move
 
-Commit and push this authorization package only. Then create and push a
-separate clean pre-BUILD continuity checkpoint that pins the authorization
-parent. The receiving `IMPLEMENTATION_WORKER` must rehydrate this handoff,
-declare the role transition, verify clean `HEAD == origin/main`, run fresh G6
-and record baselines before the first source edit. Any failure is `BLOCKED_G6`.
+Authorization package `7437b70e9005341b4ebf0f287b92411a110798b0` is
+`REVIEW_PASS / APPROVED` and pushed. This continuity-only successor is the
+separate pre-BUILD checkpoint and pins that commit as the exact BUILD parent.
+The receiving `IMPLEMENTATION_WORKER` must rehydrate this handoff, declare the
+role transition, verify clean `HEAD == origin/main`, run fresh G6 and record
+baselines before the first source edit. Any failure is `BLOCKED_G6`.
 
 BUILD and provider calls remain prohibited until that checkpoint and G6 pass.
 The later worker changes only the exact 49 BUILD paths, does not stage/commit/

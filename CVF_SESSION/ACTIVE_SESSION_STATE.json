@@ -8,7 +8,7 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2D_OFFLINE_REALTIME.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P2-D exact 49-path WORK_ORDER is independently REVIEW_PASS / APPROVED. BUILD/provider calls have not started; separate pre-BUILD checkpoint and fresh G6 are next. Phase 2 remains open.",
+  "syncReceipt": "P2-D authorization 7437b70 is pushed; this separate pre-BUILD checkpoint requires fresh G6 before source edit/provider call. Phase 2 remains open.",
   "parkedOperatorCheckpoint": null,
   "activeRole": "SESSION_SYNC_STEWARD_COMMIT_STEWARD",
   "roleRoute": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER",
