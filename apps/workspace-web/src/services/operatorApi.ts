@@ -5,10 +5,26 @@
 // rather than `string`, so a caller can never pass an out-of-domain value
 // past the type checker.
 import { request } from './api';
+import { enqueueTransition } from '../offline/queue';
 import type { CustomerRequest, CustomerRequestStatus, Handover, Incident, IncidentStatus, OperationalEvent, RiskClass, Shift, Task, TaskCreationIntentResponse, TaskStatus } from '../types/operations';
 import type { CapabilitiesResponse, Message, OperationalEventType, ReportResponse, ReportStatus } from '../types/backendContracts';
 
 export type ReportEntry = ReportResponse;
+
+export const transitionTaskOnline = (taskId: string, target_status: TaskStatus, expectedVersion: number) =>
+  request<Task>(`/tasks/${encodeURIComponent(taskId)}/transition`, {
+    method: 'POST', body: { target_status, expected_version: expectedVersion }
+  });
+
+export const transitionCustomerRequestOnline = (requestId: string, target_status: CustomerRequestStatus, expectedVersion: number) =>
+  request<CustomerRequest>(`/customer-requests/${encodeURIComponent(requestId)}/transition`, {
+    method: 'POST', body: { target_status, expected_version: expectedVersion }
+  });
+
+export const transitionIncidentOnline = (incidentId: string, target_status: IncidentStatus, expectedVersion: number) =>
+  request<Incident>(`/incidents/${encodeURIComponent(incidentId)}/transition`, {
+    method: 'POST', body: { target_status, expected_version: expectedVersion }
+  });
 
 export const operatorApi = {
   createShift: (name: string, starts_at: string, ends_at: string) =>
@@ -44,11 +60,10 @@ export const operatorApi = {
       body: { shift_id: shiftId, title, risk_class, intent_id: intentId ?? null, description: description || undefined }
     }),
 
-  transitionTask: (taskId: string, target_status: TaskStatus, expectedVersion: number) =>
-    request<Task>(`/tasks/${encodeURIComponent(taskId)}/transition`, {
-      method: 'POST',
-      body: { target_status, expected_version: expectedVersion }
-    }),
+  transitionTask: (taskId: string, target_status: TaskStatus, expectedVersion: number) => {
+    if (!navigator.onLine) enqueueTransition('task.transition', taskId, target_status, expectedVersion);
+    return transitionTaskOnline(taskId, target_status, expectedVersion);
+  },
 
   createCustomerRequest: (shiftId: string, customerId: string, summary: string) =>
     request<CustomerRequest>('/customer-requests', {
@@ -56,11 +71,10 @@ export const operatorApi = {
       body: { shift_id: shiftId, customer_id: customerId, summary }
     }),
 
-  transitionCustomerRequest: (requestId: string, target_status: CustomerRequestStatus, expectedVersion: number) =>
-    request<CustomerRequest>(`/customer-requests/${encodeURIComponent(requestId)}/transition`, {
-      method: 'POST',
-      body: { target_status, expected_version: expectedVersion }
-    }),
+  transitionCustomerRequest: (requestId: string, target_status: CustomerRequestStatus, expectedVersion: number) => {
+    if (!navigator.onLine) enqueueTransition('customer_request.transition', requestId, target_status, expectedVersion);
+    return transitionCustomerRequestOnline(requestId, target_status, expectedVersion);
+  },
 
   reportIncident: (shiftId: string, summary: string, risk_class: RiskClass, description?: string) =>
     request<Incident>('/incidents', {
@@ -68,11 +82,10 @@ export const operatorApi = {
       body: { shift_id: shiftId, summary, risk_class, description: description || undefined }
     }),
 
-  transitionIncident: (incidentId: string, target_status: IncidentStatus, expectedVersion: number) =>
-    request<Incident>(`/incidents/${encodeURIComponent(incidentId)}/transition`, {
-      method: 'POST',
-      body: { target_status, expected_version: expectedVersion }
-    }),
+  transitionIncident: (incidentId: string, target_status: IncidentStatus, expectedVersion: number) => {
+    if (!navigator.onLine) enqueueTransition('incident.transition', incidentId, target_status, expectedVersion);
+    return transitionIncidentOnline(incidentId, target_status, expectedVersion);
+  },
 
   createHandover: (from_shift_id: string, to_shift_id: string) =>
     request<Handover>('/handovers', {

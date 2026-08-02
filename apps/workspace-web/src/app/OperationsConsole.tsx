@@ -1,14 +1,3 @@
-// P2C-MUTATION-FULL-UI-C3C (SPEC R18/R19/D6): OperationsConsole is a coordinator.
-// Delegates data fetching to useOperationsData and operator actions to OperatorActions.
-// All mutation state is ephemeral React state (SPEC R19/AC-27).
-//
-// P2C-MUTATION-FULL-UI-C3D (SPEC R2, C3D-WO-REV-F4): also wires
-// useSupervisorData (staffing, deliberately separate from operational state)
-// and SupervisorActions. Staffing/assignment success refreshes the ordinary
-// assignment-scoped shift list; if that refreshed list no longer contains
-// the selected shift (including a self-revoke), selection is cleared so
-// useOperationsData's own effect clears retained operational state instead
-// of leaving a stale disclosure on screen.
 import { useCallback, useEffect, useState } from 'react';
 import { api, ApiError, type ApiErrorKind } from '../services/api';
 import { clearSession } from '../features/authentication/session';
@@ -22,6 +11,8 @@ import { useSupervisorData } from './useSupervisorData';
 import { OperatorActions } from '../features/operator-actions/OperatorActions';
 import { SupervisorActions } from '../features/supervisor-actions/SupervisorActions';
 import type { Shift } from '../types/operations';
+import { registerRefreshOwner } from '../offline/refreshBridge';
+import { serializeRefresh } from '../offline/refreshCoordinator';
 
 export interface OperationsConsoleProps {
   onSignedOut: () => void;
@@ -50,7 +41,7 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
   const [selectedShiftId, setSelectedShiftId] = useState<string | null>(null);
 
   const signOut = useCallback(() => {
-    clearSession();
+    clearSession(false);
     onSignedOut();
   }, [onSignedOut]);
 
@@ -110,13 +101,17 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
   const supervisorState = useSupervisorData(handleFailure);
   const selectedShift = shifts.find((s) => s.shift_id === selectedShiftId) ?? null;
 
-  const refreshAll = useCallback(async (): Promise<void> => {
+  const compositeRefresh = useCallback(async (): Promise<void> => {
     await Promise.all([dataState.refresh(), refreshShifts()]);
   }, [dataState, refreshShifts]);
 
-  const refreshStaffingAndShifts = useCallback(async (): Promise<void> => {
+  const refreshAll = useCallback(() => serializeRefresh(compositeRefresh), [compositeRefresh]);
+
+  useEffect(() => registerRefreshOwner(compositeRefresh), [compositeRefresh]);
+
+  const refreshStaffingAndShifts = useCallback(() => serializeRefresh(async () => {
     await Promise.all([supervisorState.refresh(), refreshShifts()]);
-  }, [supervisorState, refreshShifts]);
+  }), [supervisorState, refreshShifts]);
 
   const connectionState = deriveConnectionState(
     shiftsLoading || dataState.loading,

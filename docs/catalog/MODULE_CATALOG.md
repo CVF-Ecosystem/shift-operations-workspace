@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-02T07:47:59.394997+00:00_
+_Last generated: 2026-08-02T10:17:00.930027+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-08-02T07:47:59.394997+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **17326**
-- Code files: **196**
+- Code LOC (py/ts/tsx): **18457**
+- Code files: **212**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -35,7 +35,7 @@ _Last generated: 2026-08-02T07:47:59.394997+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
-| `workspace-web` | apps/workspace-web | partial | 6313 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped operational reads plus operator mutation and supervisor staffing/closeout workflows over existing APIs. |
+| `workspace-web` | apps/workspace-web | partial | 7444 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -127,14 +127,14 @@ _Last generated: 2026-08-02T07:47:59.394997+00:00_
 ### `workspace-web` — partial
 
 - **Path:** `apps/workspace-web` (app)
-- **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped operational reads plus operator mutation and supervisor staffing/closeout workflows over existing APIs.
+- **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling.
 - **CVF controls:** —
-- **Enforcement:** App.tsx restores a tab-scoped JWT session and routes through LoginView/OperationsConsole. The bearer API client provides typed reads/mutations with no-retry outcome-unknown handling. The console exposes assignment-scoped reads, operator actions and supervisor staffing/closeout controls; capability hints affect presentation only and backend identity/permission/assignment/version/approval gates remain authoritative. The pre-existing offline queue remains inactive and realtime is not implemented.
+- **Enforcement:** App.tsx restores a tab-scoped JWT session; ConnectivityRuntime resolves /auth/me before queue/poll activation. Exactly three typed CAS transitions may stage in a strict actor-bound 50-item/24-hour queue while pre-dispatch offline; all other mutations remain online-only. Replay and foreground polling share serialized refresh, fail stop on ambiguity/conflict/server errors and keep backend identity/permission/assignment/version gates authoritative. The navigation service worker never caches API/auth data; polling is not push and the queue is not exactly-once.
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
-- **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`
-- **Metrics:** 6313 LOC across 61 code file(s)
-- **Next step:** P2-C is CLOSED_BOUNDED. Open a fresh governed P2-D tranche for offline queue and realtime; then independently prove the full-shift exit gate. Tenant/provider data_scope and production readiness remain separate work.
+- **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`
+- **Metrics:** 7444 LOC across 77 code file(s)
+- **Next step:** P2-D BUILD candidate requires ordered evidence and independent review before bounded closure. The full-shift exit gate remains separate; tenant/provider data_scope and production readiness are not claimed.
 
 ### `workspace-worker` — partial
 

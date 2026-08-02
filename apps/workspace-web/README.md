@@ -6,15 +6,13 @@ Ranh giới: [`docs/architecture/FRONTEND_BACKEND_BOUNDARY.md`](../../docs/archi
 
 React/Vite PWA dùng chung cho mobile và desktop.
 
-## Operations Console (read-only slice, P2C C3b)
+## Operations Console
 
-The first implemented slice is a **read-only** authenticated Operations
-Console: login/logout, shift selection, confirmed-event timeline, open work
-(tasks/customer requests/incidents), incident severity/status summary, and
-handover lifecycle summary. It has no create/confirm/transition/approve/
-close/freeze controls, no offline queue activation, no realtime transport,
-and no AI/RAG/reporting behavior — see the ADR/SPEC/Work Order under
-`docs/decisions/` and `docs/specs/` for the exact authorized boundary.
+The authenticated console supports the reviewed operator/supervisor workflows.
+P2-D adds foreground polling and bounded local staging for exactly three
+versioned transitions: task, customer request and incident. All creates,
+approval, staffing, correction, close, freeze and report actions remain online
+only. Polling is not push realtime and local staging is not exactly-once.
 
 Auth token lives only in `sessionStorage` (never `localStorage`); logout and
 any HTTP 401 both clear it and return to the login screen.
@@ -30,9 +28,10 @@ any HTTP 401 both clear it and return to the login screen.
 
 ## Offline boundary
 
-Chỉ queue các command idempotent. Mỗi command có client_operation_id để backend chống trùng khi đồng bộ lại.
-The offline queue module is not wired into the read-only console in this
-slice.
+The service worker caches only the navigation fallback and never API/auth data.
+Queue entries are bound to the authenticated user, expire after 24 hours and
+retain recorded CAS without server-dedupe claims. Ambiguous/blocked actions
+fail stop and require review/discard; they are never silently retried.
 
 ## Security
 

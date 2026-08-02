@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { operatorApi } from '../services/operatorApi';
+import { setPrincipalUserId } from '../features/authentication/session';
 
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
@@ -10,6 +11,7 @@ describe('operatorApi service', () => {
 
   beforeEach(() => {
     sessionStorage.clear();
+    localStorage.clear();
     fetchMock = vi.fn();
     vi.stubGlobal('fetch', fetchMock);
   });
@@ -87,5 +89,14 @@ describe('operatorApi service', () => {
       expect.stringContaining('/incidents/inc-1/transition'),
       expect.objectContaining({ method: 'POST', body: JSON.stringify({ target_status: 'MITIGATING', expected_version: 1 }) })
     );
+  });
+
+  it('stages only a supported transition before dispatch when offline', async () => {
+    setPrincipalUserId('actor-1');
+    vi.spyOn(window.navigator, 'onLine', 'get').mockReturnValue(false);
+    expect(() => operatorApi.transitionTask('123e4567-e89b-42d3-a456-426614174000', 'IN_PROGRESS', 2)).toThrow('Mutation staged for reconnect');
+    expect(fetchMock).not.toHaveBeenCalled();
+    const stored = JSON.parse(localStorage.getItem('shiftops.offline.queue.v1.actor-1') ?? '[]');
+    expect(stored[0]).toMatchObject({ commandType: 'task.transition', expectedVersion: 2, actorUserId: 'actor-1' });
   });
 });

@@ -69,18 +69,17 @@ Mỗi tầng có Dockerfile riêng (`docker-compose.yml`) và deploy độc lậ
 | DB lưu trữ riêng | Đổi `DATABASE_URL`. FE/BE không đổi. |
 | Thêm mobile app | Dùng chung `workspace-api`. Không viết lại logic. |
 | Scale | Scale web, API, DB độc lập. |
-| Offline/degraded | FE có `offline/queue.ts`; BE có `InMemoryLedger` fallback. |
+| Offline/degraded | FE chỉ stage ba CAS transition trong queue actor-bound; service worker chỉ navigation fallback. `InMemoryLedger` là test backend, không phải browser offline data. |
 
 ## Trạng thái hiện tại (trung thực)
 
 - Ranh giới **thiết kế** đã đúng và đã có code khung ở cả ba tầng.
-- P2C C3b (2026-07-29) hiện thực slice đầu tiên: `api.ts` gọi
-  `/auth/login`, `/shifts`, `/events`, `/shifts/{id}/open-work`,
-  `/incidents`, `/handovers` qua `VITE_API_URL`; token chỉ lưu
-  `sessionStorage`. Đây là **read-only** — không có route ghi nào được
-  frontend gọi. Feature folders còn lại (operations-chat, customer-inbox,
-  end-shift-report, leadership-dashboard, administration, quick-actions)
-  vẫn là stub, ngoài phạm vi slice này.
+- P2-C hiện thực assignment-scoped reads cùng operator/supervisor mutations
+  qua `VITE_API_URL`; token vẫn chỉ ở `sessionStorage`. P2-D thêm polling khi
+  authenticated/online/visible và local staging giới hạn cho task, customer
+  request, incident transition với recorded CAS. Create/approval/staffing/
+  correction/report/close/freeze vẫn online-only. Service worker không cache
+  API/auth data; polling không phải push và queue không phải exactly-once.
 - Gợi ý an toàn kiểu: sinh TypeScript type từ `workspace-contracts` để FE↔BE
   không lệch (chưa làm; `src/types/operations.ts` hiện được viết tay khớp
   theo response model của backend, là bước tùy chọn khi mở rộng UI).

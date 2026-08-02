@@ -1,8 +1,6 @@
 // WO C3C-BUILD-REV-F5/REREV-F2: proves keyboard labels, aria-describedby/
 // focus-to-error association, one-in-flight-submit (with real request
-// counting), a genuine browser transport failure locking outcome_unknown
-// with no auto-retry, zero supervisor controls and zero digest/offline-queue
-// rendering, all against the real backend.
+// counting), genuine transport lockout and the bounded P2-D connectivity UI.
 import { expect, test } from '@playwright/test';
 import { createShift, loginAsOperator } from './operator-flow-helpers';
 
@@ -119,7 +117,7 @@ test.describe('Operator Accessibility & Keyboard Flow', () => {
     await expect(page.locator('.message-list__item')).toHaveCount(0);
   });
 
-  test('renders zero supervisor controls and no offline queue/background retry surface', async ({ page }) => {
+  test('renders zero supervisor controls and truthful polling/PWA state', async ({ page }) => {
     await loginAsOperator(page);
     await createShift(page, 'Supervisor Free Shift', '2026-08-01T08:00', '2026-08-01T16:00');
 
@@ -128,7 +126,8 @@ test.describe('Operator Accessibility & Keyboard Flow', () => {
       await expect(page.getByRole('button', { name: label })).toHaveCount(0);
     }
 
-    expect(await page.evaluate(() => localStorage.length)).toBe(0);
-    expect(await page.evaluate(() => 'serviceWorker' in navigator && navigator.serviceWorker.controller !== null)).toBe(false);
+    await expect(page.getByRole('status').filter({ hasText: 'Polling sync:' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Offline actions' })).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => 'serviceWorker' in navigator && navigator.serviceWorker.getRegistration().then(Boolean))).toBe(true);
   });
 });

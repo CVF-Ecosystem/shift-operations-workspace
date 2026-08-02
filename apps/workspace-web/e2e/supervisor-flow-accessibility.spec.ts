@@ -1,7 +1,6 @@
 // P2C-MUTATION-FULL-UI-C3D (SPEC R4/R8/R9): proves the five approval pairs
 // post the real API, wrong-role/unassigned/stale/missing-approval/frozen-
-// parent/retired-override refusals against the real backend, accessibility
-// labelling/focus, and zero offline queue/service worker/localStorage.
+// parent/retired-override refusals, accessibility and bounded P2-D PWA truth.
 import { expect, test } from '@playwright/test';
 import { apiLogin, API_BASE_URL, arrangeFrozenEvent, createShift, loginAsOperator, loginAsSupervisor } from './operator-flow-helpers';
 
@@ -177,13 +176,14 @@ test.describe('Supervisor Accessibility & Refusal Matrix', () => {
     await expect(page.locator('.mutation-feedback--error')).toHaveCount(0);
   });
 
-  test('zero offline queue, localStorage and service worker surfaces in the supervisor subtree', async ({ page }) => {
+  test('supervisor starts with an empty actor-bound queue and navigation service worker', async ({ page }) => {
     await loginAsSupervisor(page);
     await createShift(page, 'Storage Free Shift', '2026-08-02T08:00', '2026-08-02T16:00');
     await page.waitForSelector('.supervisor-actions');
 
     expect(await page.evaluate(() => localStorage.length)).toBe(0);
-    expect(await page.evaluate(() => 'serviceWorker' in navigator && navigator.serviceWorker.controller !== null)).toBe(false);
+    await expect(page.getByRole('heading', { name: 'Offline actions' })).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => navigator.serviceWorker.getRegistration().then(Boolean))).toBe(true);
   });
 
   test('freeze control is keyboard reachable and its feedback is focus-associated on refusal', async ({ page }) => {

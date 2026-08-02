@@ -38,6 +38,10 @@ export function MutationFeedback({ id, state, onRefreshAndUnlock }: MutationFeed
     return null;
   }
 
+  if (state.status === 'queued') {
+    return <p id={id} role="status" aria-live="polite" className="mutation-feedback mutation-feedback--queued">Queued on this device. It will be checked against your identity, permission and recorded version after reconnect.</p>;
+  }
+
   if (state.status === 'stale') {
     return (
       <p id={id} ref={ref} role="status" tabIndex={-1} aria-live="polite" className="mutation-feedback mutation-feedback--stale">

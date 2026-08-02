@@ -9,6 +9,7 @@ import userEvent from '@testing-library/user-event';
 import { useMutationControl } from '../features/operator-actions/useMutationControl';
 import { MutationFeedback } from '../features/operator-actions/MutationFeedback';
 import { ApiError } from '../services/api';
+import { OfflineQueuedError } from '../offline/queue';
 
 function TestComponent({ action, refresh }: { action: () => Promise<void>; refresh: () => Promise<void> }) {
   const { state, submit, feedbackId, refreshAndUnlock, isLockedOut } = useMutationControl(action, refresh);
@@ -29,6 +30,14 @@ function TestComponent({ action, refresh }: { action: () => Promise<void>; refre
 }
 
 describe('operator mutation state and feedback', () => {
+  it('renders a bounded queued result without invoking the confirming refresh', async () => {
+    const action = () => Promise.reject(new OfflineQueuedError('123e4567-e89b-42d3-a456-426614174000'));
+    const refresh = vi.fn();
+    render(<TestComponent action={action} refresh={refresh} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(await screen.findByRole('status')).toHaveTextContent('Queued on this device');
+    expect(refresh).not.toHaveBeenCalled();
+  });
   it('disables submit button while submission is in-flight (one in-flight per control)', async () => {
     let resolveAction!: () => void;
     const action = () => new Promise<void>((r) => (resolveAction = r));

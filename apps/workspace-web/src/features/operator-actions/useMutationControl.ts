@@ -15,11 +15,13 @@
 // unlock it; a superseded manual refresh leaves it locked too.
 import { useCallback, useId, useRef, useState } from 'react';
 import { ApiError, type ApiErrorKind } from '../../services/api';
+import { OfflineQueuedError } from '../../offline/queue';
 
 export type MutationControlState =
   | { status: 'idle' }
   | { status: 'submitting' }
   | { status: 'success' }
+  | { status: 'queued'; clientOperationId: string }
   | { status: 'stale'; locked: true }
   | { status: 'conflict'; locked: true }
   | { status: 'conflict_resolved'; locked: false }
@@ -32,6 +34,7 @@ export function useMutationControl<TArgs extends unknown[]>(
 ) {
   const [state, setState] = useState<MutationControlState>({ status: 'idle' });
   const inFlight = useRef(false);
+  const refreshInFlight = useRef(false);
   const feedbackId = useId();
 
   const submit = useCallback(
@@ -56,7 +59,9 @@ export function useMutationControl<TArgs extends unknown[]>(
         setState({ status: 'success' });
       } catch (cause) {
         inFlight.current = false;
-        if (cause instanceof ApiError) {
+        if (cause instanceof OfflineQueuedError) {
+          setState({ status: 'queued', clientOperationId: cause.clientOperationId });
+        } else if (cause instanceof ApiError) {
           if (cause.kind === 'outcome_unknown') {
             // Never auto-refresh here: an ambiguous transport outcome must
             // wait for an explicit operator-triggered refresh, never a
@@ -90,13 +95,15 @@ export function useMutationControl<TArgs extends unknown[]>(
   }, [state]);
 
   const manualRefreshAndUnlock = useCallback(async (): Promise<void> => {
+    if (refreshInFlight.current) return;
+    refreshInFlight.current = true;
     try {
       await refresh();
       setState({ status: 'idle' });
     } catch {
       // A failed or superseded refresh MUST leave the control locked - only
       // a refresh that genuinely committed a current read may unlock it.
-    }
+    } finally { refreshInFlight.current = false; }
   }, [refresh]);
 
   const isSubmitting = state.status === 'submitting';

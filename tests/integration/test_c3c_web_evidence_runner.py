@@ -36,9 +36,11 @@ def test_sanitize_output_empty_input():
     assert runner.sanitize_output("") == ""
 
 
-def test_offline_queue_clean_derives_from_playwright_pass_not_hardcoded():
-    assert runner.offline_queue_clean(True) is True
-    assert runner.offline_queue_clean(False) is False
+def test_queue_checkpoint_distinguishes_legacy_prohibition_from_p2d_cleanup():
+    assert runner.queue_checkpoint_passed(True, "prohibited") is True
+    assert runner.queue_checkpoint_passed(True, "bounded_exercised_and_cleaned") is True
+    assert runner.queue_checkpoint_passed(False, "bounded_exercised_and_cleaned") is False
+    assert runner.queue_checkpoint_passed(True, "invented") is False
 
 
 def test_kill_process_tree_uses_taskkill_on_windows(monkeypatch):

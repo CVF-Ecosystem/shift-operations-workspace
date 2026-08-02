@@ -119,17 +119,19 @@ def static_asset_smoke(vite_port: int) -> tuple[bool, list[str]]:
     return True, checked
 
 
-def offline_queue_clean(playwright_passed: bool) -> bool:
-    """Derived, not hardcoded: the Playwright suite itself contains explicit
-    zero-localStorage/no-offline-queue assertions (operator-flow.spec.ts and
-    operator-flow-accessibility.spec.ts). Those assertions fail the run if an
-    offline queue write is ever observed, so `playwright_pass` already IS the
-    real signal; this only names that dependency instead of claiming a value
-    the harness never actually checked."""
+def queue_checkpoint_passed(playwright_passed: bool, queue_checkpoint: str) -> bool:
+    """Name the Playwright-owned queue contract without inventing a check.
+
+    C3c/C3d prohibit queue writes. P2-D instead exercises the bounded queue and
+    proves cleanup. In both modes the selected browser spec owns the assertion.
+    """
+    if queue_checkpoint not in {"prohibited", "bounded_exercised_and_cleaned"}:
+        return False
     return playwright_passed
 
 
-def run_harness(as_json: bool = False, checkpoint: str = "C3c", playwright_grep: str | None = None) -> int:
+def run_harness(as_json: bool = False, checkpoint: str = "C3c", playwright_grep: str | None = None,
+                queue_checkpoint: str = "prohibited") -> int:
     tmp_dir = tempfile.mkdtemp(prefix=f"{checkpoint.lower()}_web_evidence_")
     db_path = os.path.join(tmp_dir, f"test_{checkpoint.lower()}.db").replace('\\', '/')
     api_port = find_free_port()
@@ -145,7 +147,8 @@ def run_harness(as_json: bool = False, checkpoint: str = "C3c", playwright_grep:
         "static_smoke": False,
         "static_assets_checked": [],
         "playwright_pass": False,
-        "offline_queue_clean": False
+        "queue_checkpoint": queue_checkpoint,
+        "queue_checkpoint_pass": False
     }
 
     try:
@@ -231,11 +234,13 @@ def run_harness(as_json: bool = False, checkpoint: str = "C3c", playwright_grep:
         ]
         pw_res = subprocess.run(pw_cmd, cwd=WORK_DIR, env=env, capture_output=True, text=True, timeout=600)
         evidence["playwright_pass"] = pw_res.returncode == 0
-        evidence["offline_queue_clean"] = offline_queue_clean(evidence["playwright_pass"])
+        evidence["queue_checkpoint_pass"] = queue_checkpoint_passed(
+            bool(evidence["playwright_pass"]), queue_checkpoint
+        )
         if pw_res.returncode != 0:
             evidence["playwright_failure_summary"] = sanitize_output(pw_res.stderr or pw_res.stdout)
 
-        success = bool(smoke_ok and evidence["playwright_pass"])
+        success = bool(smoke_ok and evidence["playwright_pass"] and evidence["queue_checkpoint_pass"])
         return _finish(evidence, success, as_json)
 
     finally:

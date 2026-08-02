@@ -18,6 +18,7 @@ function mockReads(fetchMock: ReturnType<typeof vi.fn>, overrides: ReadOverrides
   const pending = new Map<string, (value: Response) => void>();
   const defer = overrides.deferShiftId;
   fetchMock.mockImplementation((url: string) => {
+    if (url.includes('/auth/me')) return Promise.resolve(jsonResponse(200, { user_id: 'u1', role: 'operator', expires_at: '2026-08-03T00:00:00Z' }));
     // C3D: staffing 403 by default; matched before /shifts (substring overlap).
     if (url.includes('/staffing/')) return Promise.resolve(jsonResponse(403, { detail: 'requires shift_supervisor or higher' }));
     if (url.includes('/shifts') && !url.includes('open-work')) return Promise.resolve(jsonResponse(200, SHIFTS));
@@ -72,6 +73,7 @@ describe('App', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
     await waitFor(() => expect(screen.getByLabelText('Shift')).toBeInTheDocument());
     expect(sessionStorage.getItem('shiftops.session.token')).toBe('jwt.value.here');
+    expect(sessionStorage.getItem('shiftops.session.user_id')).toBe('u1');
     expect(localStorage.getItem('shiftops.session.token')).toBeNull();
     expect(Object.keys(localStorage)).toHaveLength(0);
   });
@@ -128,9 +130,7 @@ describe('App', () => {
     expect(within(screen.getByLabelText('Handover summary')).getByText('REVIEWED')).toBeInTheDocument();
   });
 
-  it('a superseded refresh never falsely unlocks a locked control (WO C3C-BUILD-REREREV-F1)', async () => {
-    // Refresh click 1 (A) hangs; click 2 (B) is the CURRENT attempt and
-    // fails. A's later resolution is superseded and must never unlock.
+  it('serializes repeated manual refresh clicks and unlocks only after the owned read commits', async () => {
     await signInWithSession();
     await userEvent.selectOptions(screen.getByLabelText('Shift'), 's1');
     await screen.findByRole('form', { name: 'Append message' });
@@ -144,13 +144,13 @@ describe('App', () => {
     let resolveA!: (v: Response) => void;
     fetchMock.mockReturnValueOnce(new Promise<Response>((r) => (resolveA = r))); // A: /events hangs
     await userEvent.click(within(msgForm).getByRole('button', { name: 'Refresh' }));
-    fetchMock.mockRejectedValueOnce(new TypeError('Failed to fetch')); // B: current attempt fails
+    fetchMock.mockRejectedValueOnce(new TypeError('must remain unused'));
     await userEvent.click(within(msgForm).getByRole('button', { name: 'Refresh' }));
     await waitFor(() => expect(within(msgForm).getByText(/could not be confirmed/)).toBeInTheDocument());
 
-    await act(async () => { resolveA(jsonResponse(200, [])); await Promise.resolve(); }); // A resolves late, superseded by B
-    expect(within(msgForm).getByText(/could not be confirmed/)).toBeInTheDocument();
-    expect(within(msgForm).getByRole('button', { name: 'Send message' })).toBeDisabled();
+    await act(async () => { resolveA(jsonResponse(200, [])); await Promise.resolve(); });
+    await waitFor(() => expect(within(msgForm).queryByText(/could not be confirmed/)).not.toBeInTheDocument());
+    expect(within(msgForm).getByRole('button', { name: 'Send message' })).not.toBeDisabled();
   });
 
   it('switching shifts resets the operator mutation subtree: no carried-over lock, and a retained task intent is never reused (WO C3C-BUILD-REREREV-F2)', async () => {
