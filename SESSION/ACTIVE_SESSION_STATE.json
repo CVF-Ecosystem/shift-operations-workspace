@@ -6,6 +6,8 @@
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
   "last_updated": "2026-08-02",
   "required_reads": [
+    "docs/decisions/PHASE2_FULL_SHIFT_EXIT_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
+    "docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AMENDMENT_1.md",
     "docs/decisions/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER.md",
     "docs/specs/PHASE2_FULL_SHIFT_EXIT_SPEC.md",
@@ -159,7 +161,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Phase 2 full-shift exit authorization def5ec0 is independently REVIEW_PASS/APPROVED and pushed. This separate continuity commit is the pre-BUILD checkpoint. The receiving IMPLEMENTATION_WORKER must rehydrate, verify the clean pushed checkpoint and pass fresh G6 before any source edit; then implement only the exact 15-path Work Order and stop READY_FOR_INDEPENDENT_PHASE2_FULL_SHIFT_BUILD_REVIEW. No provider call is allowed until every ordered behavior gate and exact-parent rehearsal pass. Phase 2 remains open and the post-Phase-2 queue remains parked.",
+  "next_allowed_move": "Repair Amendment 1 and its independent REVIEW_PASS are pushed at 22d6bd7. The dirty exact 15-path BUILD candidate remains REVIEW_FAIL. REPAIR_WORKER may repair only the 13 finding hosts authorized by Amendment 1, then must rerun the ordered evidence and obtain an independent pre-call REVIEW_PASS. The first provider call is immutable but INVALIDATED_BY_REVIEW_FAIL; tranche budget is two physical calls, exactly one replacement remains, and provider use is prohibited before that pre-call pass. A third call is forbidden. Phase 2 remains open and the post-Phase-2 queue remains parked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -355,28 +357,30 @@
     "nextMove": "Fresh full-shift exit-gate INTAKE only; no BUILD or provider-call authority carries forward"
   },
   "phase2_full_shift_exit_authorization": {
-    "status": "PRE_BUILD_CHECKPOINT_G6_REQUIRED_BUILD_NOT_STARTED",
+    "status": "BUILD_REVIEW_FAIL_REPAIR_AUTHORIZED_PROVIDER_PROHIBITED_PENDING_PRECALL_REVIEW_PASS",
     "sourceBaseline": "e1ac14beaf426ded1b763ff3373b238a065c4694",
     "authorizationCommit": "def5ec0188f0bdfb6045e5ebbc156147115b89c9",
-    "reviewDisposition": "INDEPENDENT_REVIEW_PASS_F1_THROUGH_F7_CLOSED_WITHOUT_WAIVER",
+    "repairAmendmentCommit": "22d6bd7cc28a623bcaf05654724d53dca83405a8",
+    "reviewDisposition": "BUILD_REVIEW_FAIL_FOUR_FINDINGS_ACCEPTED_REPAIR_AMENDMENT_INDEPENDENT_REVIEW_PASS_NO_WAIVER",
     "changedSetCeiling": "exactly 15 evidence-only BUILD paths; 11 NEW and 4 existing",
     "claimBoundary": "One persisted scheduled 12-hour start-to-freeze lineage on real UI/FastAPI/JWT, P2-D replay/polling and disposable PostgreSQL reconnect only. No wall-clock soak, product behavior change, production readiness, Phase 3 or post-Phase-2 claim.",
-    "nextMove": "Rehydrate pushed pre-BUILD checkpoint and run fresh G6; no source edit or provider call before PASS"
+    "providerCallBudget": "two physical calls total; first call INVALIDATED_BY_REVIEW_FAIL; exactly one replacement remains; third call forbidden",
+    "nextMove": "REPAIR_WORKER repairs only Amendment 1 finding hosts, reruns all ordered evidence and stops for independent pre-call REVIEW_PASS; provider prohibited until that pass"
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Phase 2 full-shift exit authorization def5ec0 is REVIEW_PASS/APPROVED and pushed; this separate pre-BUILD checkpoint requires fresh G6. BUILD and provider calls have not started. Phase 2 remains open.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "The exact 15-path BUILD candidate received REVIEW_FAIL. Repair Amendment 1 is independently REVIEW_PASS/APPROVED and pushed at 22d6bd7. One physical provider call occurred but is INVALIDATED_BY_REVIEW_FAIL; exactly one replacement remains and is prohibited until independent pre-call REVIEW_PASS. Phase 2 remains open.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records full-shift exit authorization REVIEW_PASS before BUILD.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records BUILD REVIEW_FAIL, Amendment 1 repair authority and the two-call budget.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "SESSION_SYNC_STEWARD_COMMIT_STEWARD",
-    "activeRoleNote": "This separate checkpoint pins authorization commit def5ec0. Role transitions to IMPLEMENTATION_WORKER only for fresh G6 and, on PASS, exact 15-path BUILD.",
-    "roleRoute": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER",
+    "activeRole": "REPAIR_WORKER",
+    "activeRoleNote": "Repair is bounded to Amendment 1's 13 finding hosts inside the existing exact 15-path candidate. No provider call is allowed until an independent repaired-candidate pre-call REVIEW_PASS.",
+    "roleRoute": "IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD_TO_REPAIR_WORKER",
     "updatedAt": "2026-08-02"
   }
 }

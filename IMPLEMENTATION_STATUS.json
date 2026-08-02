@@ -157,13 +157,15 @@
     "next_governed_move": "Fresh full-shift exit-gate INTAKE only. No BUILD or provider-call authority carries forward; Phase 2 remains open."
   },
   "phase2_full_shift_exit_authorization": {
-    "governance_disposition": "PRE-BUILD CHECKPOINT after independent WORK_ORDER REVIEW_PASS / APPROVED (2026-08-02); BUILD not started and fresh G6 required.",
+    "governance_disposition": "BUILD REVIEW_FAIL; Amendment 1 independently REVIEW_PASS / APPROVED with no waiver (2026-08-02). Repair authorized; provider prohibited pending independent pre-call REVIEW_PASS.",
     "source_baseline": "e1ac14beaf426ded1b763ff3373b238a065c4694",
     "authorization_commit": "def5ec0188f0bdfb6045e5ebbc156147115b89c9",
     "authorized_ceiling": "Exactly 15 evidence-only BUILD paths (11 NEW, 4 existing); product/API/schema/migration/dependency/CI/roadmap/status/continuity are protected.",
     "design_boundary": "One persisted scheduled 12-hour start-to-freeze lineage through real UI/FastAPI/JWT, bounded replay/polling, handover/Report/freeze and disposable PostgreSQL reconnect. No wall-clock soak, production readiness or post-Phase-2 claim.",
-    "authorization_review": "Independent REVIEW_PASS / APPROVED after P2-EXIT-AUTH-F1 through F5 and re-review F6/F7 closed without waiver.",
-    "next_governed_move": "Rehydrate the pushed separate pre-BUILD checkpoint and run fresh G6. On PASS, implement only the exact 15 paths and stop for independent review. Provider remains prohibited until every ordered behavioral gate and exact-parent rehearsal pass; Phase 2 remains open."
+    "authorization_review": "Original Work Order independently REVIEW_PASS after P2-EXIT-AUTH-F1 through F7. BUILD review later returned REVIEW_FAIL with four accepted findings. Repair Amendment 1 at 22d6bd7 independently REVIEW_PASS after A1-AUTH-F1 through F4 closed without waiver.",
+    "build_candidate": "Dirty exact 15-path candidate remains uncommitted. Accepted findings require whole-ledger refusal immutability, producer-bound browser provenance, exact PostgreSQL snapshot/receipt/action-actor bindings, and exact committed-task GET-before-render proof.",
+    "provider_call_budget": "Two physical calls total: first call occurred but is INVALIDATED_BY_REVIEW_FAIL; exactly one replacement remains; a third call is forbidden.",
+    "next_governed_move": "REPAIR_WORKER repairs only the 13 Amendment 1 finding hosts, reruns the complete ordered evidence and exact-parent rehearsal, then stops for independent pre-call REVIEW_PASS. No provider use before that pass; Phase 2 remains open."
   },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",

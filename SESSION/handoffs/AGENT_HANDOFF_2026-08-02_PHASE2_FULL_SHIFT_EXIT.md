@@ -4,10 +4,11 @@
 
 - Tranche: `P2-FULL-SHIFT-EXIT-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `SESSION_SYNC_STEWARD / COMMIT_STEWARD`
-- Status: `REVIEW_PASS / APPROVED — BUILD NOT STARTED`
+- Control-chain phase: `BUILD` repair after independent `REVIEW_FAIL`
+- Active role: `REPAIR_WORKER`
+- Status: `REPAIR AUTHORIZED — PROVIDER PROHIBITED PENDING PRE-CALL REVIEW_PASS`
 - Authorization commit: `def5ec0188f0bdfb6045e5ebbc156147115b89c9`
+- Repair amendment commit: `22d6bd7cc28a623bcaf05654724d53dca83405a8`
 
 ## Settled predecessor
 
@@ -23,6 +24,10 @@ for this full-shift exit gate only.
 - WORK_ORDER: `docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER.md`
 - AUTHORIZATION REVIEW:
   `docs/decisions/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AUTHORIZATION_REVIEW.md`
+- REPAIR AMENDMENT:
+  `docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AMENDMENT_1.md`
+- AMENDMENT AUTHORIZATION REVIEW:
+  `docs/decisions/PHASE2_FULL_SHIFT_EXIT_AMENDMENT_1_AUTHORIZATION_REVIEW.md`
 
 Independent authorization review closed `P2-EXIT-AUTH-F1` through `F5` and
 re-review findings `F6`/`F7` without waiver. Final disposition is
@@ -38,19 +43,28 @@ dependency/CI behavior. Twelve hours means scheduled interval, not wall-clock
 soak. No production, push/exactly-once/full-offline, Phase 3 or post-Phase-2
 claim is authorized.
 
+## BUILD review disposition and provider accounting
+
+Independent BUILD review returned `REVIEW_FAIL` with four accepted findings,
+all carried without waiver into Amendment 1: whole-ledger refusal immutability
+and isolated prerequisites; producer-bound browser evidence; complete durable
+handover/receipt/action-actor binding; and exact committed-task fresh GET
+before rendered `IN_PROGRESS` state.
+
+One physical provider call already occurred. It remains immutable evidence but
+its admission claim is `INVALIDATED_BY_REVIEW_FAIL`. The amended tranche budget
+is exactly two physical calls: the invalidated first call and exactly one
+replacement. A third call is forbidden.
+
 ## Next governed move
 
-This continuity-only successor is the separate pre-BUILD checkpoint. The
-receiving `IMPLEMENTATION_WORKER` must rehydrate this handoff and all five
-authorization/review artifacts, declare the role transition, verify clean
-`HEAD == origin/main`, run fresh G6 and record baselines before any source edit.
-No provider call is allowed at G6. Any failure is `BLOCKED_G6`.
-
-On G6 PASS, implement only the exact 15 Work Order paths. Exact-parent
-rehearsal and every other behavioral gate precede the single real provider
-call. The worker does not stage/commit/push/self-review/FREEZE and stops at:
-
-`READY_FOR_INDEPENDENT_PHASE2_FULL_SHIFT_BUILD_REVIEW`
+`REPAIR_WORKER` may modify only Amendment 1's 13 finding hosts within the same
+final exact 15-path BUILD ceiling. Rerun the complete ordered evidence and a
+fresh exact-parent detached rehearsal, then stop for independent repaired-
+candidate pre-call review. Provider use remains prohibited until that review
+returns `REVIEW_PASS`. Only then may exactly one replacement call occur,
+followed by final independent BUILD review. No BUILD commit/push, C4 or Phase 2
+closure is authorized before final `REVIEW_PASS`.
 
 ## Parked checkpoint
 
