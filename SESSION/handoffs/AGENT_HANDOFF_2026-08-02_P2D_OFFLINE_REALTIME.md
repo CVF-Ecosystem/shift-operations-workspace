@@ -4,9 +4,9 @@
 
 - Tranche: `P2D-OFFLINE-REALTIME-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `SESSION_SYNC_STEWARD / COMMIT_STEWARD`
-- Status: `REVIEW_PASS / APPROVED — BUILD NOT STARTED`
+- Control-chain phase: `FREEZE`
+- Active role: `CLOSER / SESSION_SYNC_STEWARD / COMMIT_STEWARD`
+- Status: `CLOSED_BOUNDED`
 
 ## Settled predecessor
 
@@ -38,21 +38,33 @@ Independent review closed `P2D-AUTH-F1` through `F5` and re-review finding
 labels. No implementation test, browser run, PostgreSQL run or provider call
 was used or claimed during authorization.
 
+## BUILD and review receipt
+
+Exact 49-path BUILD `6fc43591f05cd931dba89d61ddb607b21f54dae8` is
+pushed and received independent final `REVIEW_PASS`; every accepted finding
+was repaired without waiver. Frontend typecheck/build and 119/119 tests,
+real Chromium/FastAPI 6/6, Python 1356 passed/127 skipped, disposable
+PostgreSQL 16 live 117 passed with migrations 29/0 then 25/4 and exact cleanup,
+AC-29 exact-parent rehearsal, repository gates and doctor 24/1 bounded note
+all passed. The fresh live-governance receipt records refusal zero-call gates
+followed by exactly one admitted real-provider call returning HTTP 200.
+
+Evidence receipts:
+
+- `docs/decisions/P2D_BUILD_EVIDENCE_RECEIPT.md`
+- `docs/decisions/P2D_LIVE_GOVERNANCE_EVIDENCE_RECEIPT.md`
+
 ## Next governed move
 
-Authorization package `7437b70e9005341b4ebf0f287b92411a110798b0` is
-`REVIEW_PASS / APPROVED` and pushed. This continuity-only successor is the
-separate pre-BUILD checkpoint and pins that commit as the exact BUILD parent.
-The receiving `IMPLEMENTATION_WORKER` must rehydrate this handoff, declare the
-role transition, verify clean `HEAD == origin/main`, run fresh G6 and record
-baselines before the first source edit. Any failure is `BLOCKED_G6`.
-
-BUILD and provider calls remain prohibited until that checkpoint and G6 pass.
-The later worker changes only the exact 49 BUILD paths, does not stage/commit/
-push/self-review/FREEZE, and stops at `READY_FOR_INDEPENDENT_P2D_BUILD_REVIEW`.
+Fresh full-shift exit-gate `INTAKE` only. No BUILD or provider-call authority
+carries forward. Phase 2 remains `IN PROGRESS` until the separately authorized
+full-shift `start → updates → tasks → handover → report → freeze` exit gate
+receives independent `REVIEW_PASS` and its own bounded closure.
 
 ## Claim boundary
 
-P2-D remains open. No offline/realtime governance behavior, full-shift exit,
-Phase 2 completion, push transport, cross-tab/request exactly-once, production
-readiness or post-Phase-2 capability is claimed by this authoring package.
+P2-D is closed only for the reviewed navigation fallback, actor-bound bounded
+queue for three existing CAS transitions, per-tab fail-stop replay and
+authenticated foreground polling. No push transport, cross-tab/request
+exactly-once, full-offline, production readiness, full-shift exit, Phase 2
+completion or post-Phase-2 capability is claimed.

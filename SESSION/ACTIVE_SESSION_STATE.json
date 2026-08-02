@@ -153,7 +153,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "P2-D authorization package 7437b70 is pushed and this separate continuity commit is the pre-BUILD checkpoint. The receiving IMPLEMENTATION_WORKER must rehydrate, verify the clean pushed checkpoint and pass fresh G6 before any source edit or provider call; then implement only the exact 49-path Work Order and stop READY_FOR_INDEPENDENT_P2D_BUILD_REVIEW. P2-D, full-shift exit and Phase 2 remain open.",
+  "next_allowed_move": "P2-D is FREEZE / CLOSED_BOUNDED after exact 49-path BUILD 6fc4359 received independent final REVIEW_PASS and was pushed. The sole next governed move is fresh full-shift exit-gate INTAKE; no BUILD or provider-call authority carries forward. Phase 2 remains open.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -170,7 +170,7 @@
     "Claiming 'P-FIX CLOSED' or 'all Critical/High findings fixed' without a fresh probe/test run - a prior agent made exactly this overclaim after P-FIX-5 and a second independent review rejected it (P-FIX-6, 2026-07-22: anonymous shift.close bypassed governance entirely). Use 'P-FIX CLOSED_BOUNDED' and always re-verify before repeating a closure claim from a prior handoff.",
     "Restating the bounded P2B approver-identity closure as 'all findings fixed'. High Finding #4 is closed only inside the reviewed receipt boundary; unrelated CVF gaps remain open.",
     "Adding a new router endpoint that mutates a governed record without first checking whether an application service (ShiftService/TaskService/EventService/CorrectionService pattern) already exists for that record type and routing through it - the P-FIX-6 gap was exactly a router calling the ledger directly, bypassing the service that would have enforced identity/permission/audit.",
-    "Expanding the separate bounded P2-A, P2-R and P2-C closures into a Phase 2 completion claim. P2-D offline/realtime and the full-shift exit gate remain open.",
+    "Expanding the separate bounded P2-A, P2-R, P2-C and P2-D closures into a Phase 2 completion claim. The full-shift exit gate remains open.",
     "Reopening or rewriting the settled P2-A handover BUILD. Corrective work, if ever needed, requires a new governed tranche and commit.",
     "Claiming P2-B shipped refresh tokens, revocation, self-service registration, password reset, or login rate-limiting - none of these were built; access tokens are valid for their full fixed TTL (JWT_ACCESS_TOKEN_TTL_MINUTES) with no early invalidation.",
     "Treating scripts/seed_dev_users.py as a real user-provisioning flow - it is dev/test only, with fixed printed passwords; do not use it to provision real users, and do not claim a real admin-provisioning flow exists.",
@@ -208,7 +208,7 @@
     "p2a_customer_request": "DONE (2026-07-22, tranche P2-A-CUSTOMER-REQUEST). CustomerRequestService is the fifth service replicating the same cvf-runtime gate chain. Incidents and handovers subsequently closed bounded in separate governed tranches.",
     "p2c_operations_console_read_slice": "FREEZE / CLOSED_BOUNDED (2026-07-29). C3a fe2f312 added authenticated read APIs and passed CPython 3.13.12 full 678/65 skipped, PostgreSQL 16 live evidence and exactly one admitted Alibaba provider call after refusal zero-call gates. C3b e24905f added the read-only React console in exactly 28 paths; independent re-review passed Node 22.14.0/pnpm 9.15.0 frozen install, typecheck, 22 frontend tests, production build, Docker HTTP smoke, Python 678/65 skipped and repository gates. The closure corrected stale workspace-web catalog semantics. Boundary: no mutation controls, offline/realtime activation, assignment/data-scope claim, reporting/AI behavior, production-readiness claim or Phase 2 completion.",
     "p2b_authentication": "FREEZE (2026-07-23). cd36b27 remains the original unauthorized build candidate. Corrective tranche P2B-AUTHENTICATION-REPAIR completed operator-approved INTAKE->DESIGN->SPEC->WORK_ORDER->BUILD, repaired 8 findings, received independent REVIEW_PASS, repaired the live script's regional endpoint after an honestly recorded HTTP 401, and then produced live Alibaba evidence PASS with qwen3.7-max HTTP 200. Identity is load-bearing and governance-approved within the receipt boundary. See SESSION/handoffs/AGENT_HANDOFF_2026-07-23_P2B_AUTHENTICATION_REPAIR_FREEZE.md.",
-    "known_remaining_defects": "data minimization is advisory only; data_scope/cost/termination have no runtime caller yet (AI-gated); refusal routing/recording per refusal-policy.yaml not implemented; PostgreSQL evidence is bounded to disposable local PostgreSQL 16 rather than production/managed deployment; retrieval/RAG/application memory/proactive forecasting are roadmap-only; P2-D offline/realtime and the full-shift exit gate remain open; P2-B has no refresh token/revocation and no real admin user-provisioning flow.",
+    "known_remaining_defects": "data minimization is advisory only; data_scope/cost/termination have no runtime caller yet (AI-gated); refusal routing/recording per refusal-policy.yaml not implemented; PostgreSQL evidence is bounded to disposable local PostgreSQL 16 rather than production/managed deployment; retrieval/RAG/application memory/proactive forecasting are roadmap-only; the full-shift exit gate remains open; P2-B has no refresh token/revocation and no real admin user-provisioning flow.",
     "second_independent_review": "docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md - read before trusting any 'enforced' or 'CLOSED' claim in this repo; its recommended fix order (freeze -> atomic audit -> evidence/approval -> migration/parity -> catalog) is fixed, plus the shift.close governance gap it also implied (freeze's shift_closed check trusts close_shift) is now closed by P-FIX-6.",
     "third_review_reminder": "A prior handoff (AGENT_HANDOFF_2026-07-22_PFIX5.md) claimed the P-FIX tranche fully closed and was wrong. Do not repeat that pattern: verify with a fresh probe/test run before restating any closure claim, even one recorded in this file.",
     "portable_clone_continuity": "VERIFIED on 2026-07-22 from GitHub project head 3aa8b680618e9ba31891c7eb0f1d11a5ed6caa79 with public CVF core pin c1076dc4be9ef9058b7c4e7b96def59c26aab148. Fresh clone initializer returned workspace doctor 24/24, FRESH_CLONE_CONTINUITY_PASS, active handoff exists, and ignored local binding. Superseded on 2026-07-23 by tranche CVF-CORE-PIN-2026-07-23: the pin is now 6ce1cf00c31a7f825d4c3fa3e66e8a3509e4a4b2 - see cvf_core_pin below.",
@@ -336,28 +336,32 @@
     "nextMove": "Fresh P2-D INTAKE for offline queue and realtime; no BUILD or provider-call authority carries forward"
   },
   "p2d_offline_realtime_authorization": {
-    "status": "PRE_BUILD_CHECKPOINT_G6_REQUIRED_BUILD_NOT_STARTED",
+    "status": "FREEZE_CLOSED_BOUNDED",
     "sourceBaseline": "1f3646aba7d2bc4becea6c156475360331133f29",
     "reviewDisposition": "INDEPENDENT_REVIEW_PASS_AFTER_F1_THROUGH_F6_CLOSED_WITHOUT_WAIVER",
     "changedSetCeiling": "exactly 49 BUILD paths; frontend/evidence only",
     "claimBoundary": "Navigation fallback, actor-bound bounded queue for three existing CAS transitions, per-tab fail-stop replay and authenticated foreground polling only. No push, exactly-once, full-offline, production-readiness, full-shift-exit or Phase-2 completion claim.",
     "authorizationCommit": "7437b70e9005341b4ebf0f287b92411a110798b0",
-    "nextMove": "Rehydrate pushed pre-BUILD checkpoint and run fresh G6; no source edit or provider call before PASS"
+    "buildCommit": "6fc43591f05cd931dba89d61ddb607b21f54dae8",
+    "buildReviewDisposition": "INDEPENDENT_FINAL_REVIEW_PASS_ALL_FINDINGS_CLOSED_WITHOUT_WAIVER",
+    "verification": "frontend typecheck/build and 119/119 tests; real Chromium/FastAPI 6/6; Python 1356 passed/127 skipped; disposable PostgreSQL 16 live 117 passed with migrations 29/0 then 25/4 and exact cleanup; AC-29 exact-parent rehearsal; repository gates and doctor 24/1 bounded note PASS",
+    "liveGovernanceEvidence": "PASS; fresh refusal zero-call gates followed by exactly one admitted real-provider call returning HTTP 200",
+    "nextMove": "Fresh full-shift exit-gate INTAKE only; no BUILD or provider-call authority carries forward"
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "P2-D authorization 7437b70 is pushed; separate pre-BUILD checkpoint is current and G6 is mandatory before BUILD. P2-D, full-shift exit and Phase 2 remain open.",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "P2-D is FREEZE / CLOSED_BOUNDED after exact 49-path BUILD 6fc4359 received independent final REVIEW_PASS and was pushed. Full-shift exit and Phase 2 remain open.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2D_OFFLINE_REALTIME.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records P2-D authorization REVIEW_PASS before BUILD.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the reviewed/pushed P2-D BUILD and bounded FREEZE.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "SESSION_SYNC_STEWARD_COMMIT_STEWARD",
-    "activeRoleNote": "This separate checkpoint pins authorization commit 7437b70. Role transitions to IMPLEMENTATION_WORKER only for fresh G6 and, on PASS, exact 49-path BUILD.",
-    "roleRoute": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER",
+    "activeRole": "CLOSER_SESSION_SYNC_STEWARD_COMMIT_STEWARD",
+    "activeRoleNote": "C4 records the independently reviewed/pushed P2-D BUILD and bounded FREEZE. Any full-shift exit-gate work starts at fresh INTAKE with a new role assignment.",
+    "roleRoute": "IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD",
     "updatedAt": "2026-08-02"
   }
 }
