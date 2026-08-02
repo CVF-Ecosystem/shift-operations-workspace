@@ -12,8 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-08-02, sau P2-C C3c `REVIEW_PASS` và push `65b10d2`._
-Quy ước:
+_Cập nhật: 2026-08-02, sau P2-C C3d `REVIEW_PASS`, push `e120a7f` và C4 truth-sync._ Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
   independent review và closure trong đúng claim boundary;
@@ -25,13 +24,13 @@ Quy ước:
 | P-FIX | 🟢 `CLOSED_BOUNDED` | P-FIX-0 → P-FIX-6 | Không mở lại; các giới hạn mới đi theo tranche riêng |
 | P0 governance foundation | ✅ `DONE` (6/6) | runtime gates, catalog/session/boundary/file-size guard | Duy trì gate; không có milestone mở |
 | Phase 1 Foundation and Contracts | ✅ `DONE` (7/7) | domain/contracts/ledger, SQLite và disposable PostgreSQL 16 proof | Production/managed PostgreSQL, HA/load/backup không thuộc claim đã đóng |
-| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 16 work item đã đóng, gồm domain verticals, auth/approval, admission repairs, P2-R, P2-C assignment/C3b và C3c operator UI | P2-C C3d supervisor UI; P2-D; exit-gate cả ca |
+| Phase 2 Core Operations | 🟡 `IN PROGRESS` | 17 work item đã đóng; P2-C đạt `CLOSED_BOUNDED` qua C3a-d | P2-D offline/realtime; exit-gate cả ca |
 | Phase 3 Governance and Refinery | 🟡 `PARTIAL` (3/6) | policy gates và approval quorum | Refinery thật; runtime wiring cho data_scope/cost/termination; retrieval-ready contract |
 | Phase 4 AI and Channels | ⬜ `NOT STARTED` (0/8 milestone) | Chỉ có contract/scaffold và webhook verify/dedup nền | AI Gateway, retrieval/RAG/memory, provider modes, Integration Edge đầy đủ, adapters, identity/routing |
 | Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
 
-**Thứ tự còn lại để đóng Phase 2:** P2-C C3d supervisor closeout UI → P2-D offline/realtime
-→ chạy exit gate `start → updates → tasks → handover → report → freeze`.
+**Thứ tự còn lại để đóng Phase 2:** P2-D offline/realtime → chạy exit gate
+`start → updates → tasks → handover → report → freeze`.
 Đây là thứ tự dependency của roadmap, **không phải BUILD authorization**:
 mỗi mục vẫn phải bắt đầu bằng fresh INTAKE và Work Order riêng.
 
@@ -266,7 +265,7 @@ backup/managed-PostgreSQL parity.
 
 ---
 
-## Phase 2 — Core Operations Workspace — 🟡 IN PROGRESS (11 đóng / 3 mở)
+## Phase 2 — Core Operations Workspace — 🟡 IN PROGRESS (12 đóng / 2 mở)
 
 Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external channels tắt.
 
@@ -367,7 +366,7 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
       prove trên InMemory/SQLite/disposable PostgreSQL 16. C3 `18e24e5` đổi
       đúng 59 path, nhận independent final `REVIEW_PASS` và đã push. Đây là
       operational record cho Phase 2 exit gate, không phải P5-A render/export.
-- [ ] **P2-C — UI tổng thể còn mở:**
+- [x] **P2-C — UI tổng thể (CLOSED_BOUNDED 2026-08-02):**
   - [x] **Read-only slice (CLOSED_BOUNDED 2026-07-29):** C3a `fe2f312` và
         C3b `e24905f` cung cấp authenticated shifts/events/open-work reads và
         React console chỉ-đọc với sessionStorage/loading/error/stale suppression.
@@ -381,14 +380,13 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
         `9b751de`, đúng 83/83; F1-F5/residual đóng không waiver; full 1314/127,
         PostgreSQL 117, frontend 31, cleanup PASS.
   - [x] **C3c operator mutation UI (CLOSED_BOUNDED 2026-08-02):** BUILD `65b10d2`, đúng 38/38, independent final `REVIEW_PASS`; frontend 58, full 1327/127, hai real-browser runs và AC-29 exact-parent PASS. Claim chỉ operator controls; không supervisor/offline/realtime/P2-C closure.
-  - [ ] **Còn lại:** C3d supervisor closeout/bounded P2-C proof; chỉ tick sau
-        independent C3d review/push.
+  - [x] **C3d supervisor closeout:** BUILD `e120a7f`, 36/36 path, independent
+        `REVIEW_PASS`; frontend 92, Python 1351/127, Chromium/FastAPI,
+        PostgreSQL 117, AC-29 và fresh exactly-one-provider-call đều PASS.
 - [ ] **P2-D:** PWA offline queue + realtime.
 
-**Exit gate: CHƯA ĐẠT.** P2-R đã đóng bounded; còn P2-C mutation/full UI và
-P2-D. Sau khi hai work package này đóng, phải chạy trọn một ca
-`start → updates → tasks → handover → report → freeze` với AI/channel tắt và
-mọi record truy vết được.
+**Exit gate: CHƯA ĐẠT.** P2-R/P2-C đã đóng bounded; còn P2-D, rồi phải chạy
+trọn ca `start → updates → tasks → handover → report → freeze` có truy vết.
 
 ### Hàng đợi tự động ngay sau Phase 2
 
@@ -563,11 +561,13 @@ bao gồm P5-A rendering/export, managed PostgreSQL, P2-C, P2-D hoặc Phase 2.
 
 **2026-08-01 (P2-C C3a2):** `FREEZE / CLOSED_BOUNDED`; C3 `95b66b1`, exact 74 paths, final `REVIEW_PASS`, mọi finding đóng không waiver; 39/1180/116/PostgreSQL 106/live pass. Chỉ claim single-workspace stored ACTIVE;
 C3b-d/P2-D/exit còn mở.
-**Bước kế tiếp duy nhất:** fresh C3d INTAKE rồi DESIGN → SPEC → exact-path WORK_ORDER/review; chưa BUILD trước authorization + pre-BUILD riêng.
-Sau C3d mới tới P2-D, rồi full-shift exit gate. External/channel message
-ingestion qua Integration Edge là
-tranche Phase 4 riêng và không được xem là đã làm chỉ vì internal
-`POST /messages` đã đóng.
+**2026-08-02 (P2-C C3d / P2-C closure):** BUILD `e120a7f`, 36/36 path,
+independent `REVIEW_PASS`/push; frontend 92, Python 1351/127, Chromium/FastAPI,
+PostgreSQL 117, AC-29 và provider evidence PASS. P2-C `CLOSED_BOUNDED`, không
+gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
+**Bước kế tiếp duy nhất:** fresh P2-D INTAKE; không có BUILD authority kế thừa.
+Sau P2-D mới chạy full-shift exit. External/channel ingestion qua Integration
+Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
