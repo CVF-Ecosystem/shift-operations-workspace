@@ -3,9 +3,15 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2D_OFFLINE_REALTIME.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
   "last_updated": "2026-08-02",
   "required_reads": [
+    "docs/decisions/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AUTHORIZATION_REVIEW.md",
+    "docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER.md",
+    "docs/specs/PHASE2_FULL_SHIFT_EXIT_SPEC.md",
+    "docs/decisions/ADR_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
+    "docs/decisions/INTAKE_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
     "docs/decisions/P2D_WORK_ORDER_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/P2D_OFFLINE_REALTIME_WORK_ORDER.md",
     "docs/specs/P2D_OFFLINE_REALTIME_SPEC.md",
@@ -153,7 +159,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "P2-D is FREEZE / CLOSED_BOUNDED after exact 49-path BUILD 6fc4359 received independent final REVIEW_PASS and was pushed. The sole next governed move is fresh full-shift exit-gate INTAKE; no BUILD or provider-call authority carries forward. Phase 2 remains open.",
+  "next_allowed_move": "Phase 2 full-shift exit authorization def5ec0 is independently REVIEW_PASS/APPROVED and pushed. This separate continuity commit is the pre-BUILD checkpoint. The receiving IMPLEMENTATION_WORKER must rehydrate, verify the clean pushed checkpoint and pass fresh G6 before any source edit; then implement only the exact 15-path Work Order and stop READY_FOR_INDEPENDENT_PHASE2_FULL_SHIFT_BUILD_REVIEW. No provider call is allowed until every ordered behavior gate and exact-parent rehearsal pass. Phase 2 remains open and the post-Phase-2 queue remains parked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -348,20 +354,29 @@
     "liveGovernanceEvidence": "PASS; fresh refusal zero-call gates followed by exactly one admitted real-provider call returning HTTP 200",
     "nextMove": "Fresh full-shift exit-gate INTAKE only; no BUILD or provider-call authority carries forward"
   },
+  "phase2_full_shift_exit_authorization": {
+    "status": "PRE_BUILD_CHECKPOINT_G6_REQUIRED_BUILD_NOT_STARTED",
+    "sourceBaseline": "e1ac14beaf426ded1b763ff3373b238a065c4694",
+    "authorizationCommit": "def5ec0188f0bdfb6045e5ebbc156147115b89c9",
+    "reviewDisposition": "INDEPENDENT_REVIEW_PASS_F1_THROUGH_F7_CLOSED_WITHOUT_WAIVER",
+    "changedSetCeiling": "exactly 15 evidence-only BUILD paths; 11 NEW and 4 existing",
+    "claimBoundary": "One persisted scheduled 12-hour start-to-freeze lineage on real UI/FastAPI/JWT, P2-D replay/polling and disposable PostgreSQL reconnect only. No wall-clock soak, product behavior change, production readiness, Phase 3 or post-Phase-2 claim.",
+    "nextMove": "Rehydrate pushed pre-BUILD checkpoint and run fresh G6; no source edit or provider call before PASS"
+  },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "P2-D is FREEZE / CLOSED_BOUNDED after exact 49-path BUILD 6fc4359 received independent final REVIEW_PASS and was pushed. Full-shift exit and Phase 2 remain open.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "Phase 2 full-shift exit authorization def5ec0 is REVIEW_PASS/APPROVED and pushed; this separate pre-BUILD checkpoint requires fresh G6. BUILD and provider calls have not started. Phase 2 remains open.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2D_OFFLINE_REALTIME.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the reviewed/pushed P2-D BUILD and bounded FREEZE.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PHASE2_FULL_SHIFT_EXIT.md",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records full-shift exit authorization REVIEW_PASS before BUILD.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "CLOSER_SESSION_SYNC_STEWARD_COMMIT_STEWARD",
-    "activeRoleNote": "C4 records the independently reviewed/pushed P2-D BUILD and bounded FREEZE. Any full-shift exit-gate work starts at fresh INTAKE with a new role assignment.",
-    "roleRoute": "IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD_COMMIT_STEWARD",
+    "activeRoleNote": "This separate checkpoint pins authorization commit def5ec0. Role transitions to IMPLEMENTATION_WORKER only for fresh G6 and, on PASS, exact 15-path BUILD.",
+    "roleRoute": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER",
     "updatedAt": "2026-08-02"
   }
 }

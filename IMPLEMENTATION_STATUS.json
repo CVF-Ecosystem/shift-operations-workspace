@@ -156,6 +156,15 @@
     "claim_boundary": "Navigation fallback, actor-bound bounded queue for three existing CAS transitions, per-tab fail-stop replay and authenticated foreground polling only. No push, cross-tab/request exactly-once, full-offline, production-readiness, full-shift-exit or Phase-2 completion claim.",
     "next_governed_move": "Fresh full-shift exit-gate INTAKE only. No BUILD or provider-call authority carries forward; Phase 2 remains open."
   },
+  "phase2_full_shift_exit_authorization": {
+    "governance_disposition": "PRE-BUILD CHECKPOINT after independent WORK_ORDER REVIEW_PASS / APPROVED (2026-08-02); BUILD not started and fresh G6 required.",
+    "source_baseline": "e1ac14beaf426ded1b763ff3373b238a065c4694",
+    "authorization_commit": "def5ec0188f0bdfb6045e5ebbc156147115b89c9",
+    "authorized_ceiling": "Exactly 15 evidence-only BUILD paths (11 NEW, 4 existing); product/API/schema/migration/dependency/CI/roadmap/status/continuity are protected.",
+    "design_boundary": "One persisted scheduled 12-hour start-to-freeze lineage through real UI/FastAPI/JWT, bounded replay/polling, handover/Report/freeze and disposable PostgreSQL reconnect. No wall-clock soak, production readiness or post-Phase-2 claim.",
+    "authorization_review": "Independent REVIEW_PASS / APPROVED after P2-EXIT-AUTH-F1 through F5 and re-review F6/F7 closed without waiver.",
+    "next_governed_move": "Rehydrate the pushed separate pre-BUILD checkpoint and run fresh G6. On PASS, implement only the exact 15 paths and stop for independent review. Provider remains prohibited until every ordered behavioral gate and exact-parent rehearsal pass; Phase 2 remains open."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",
