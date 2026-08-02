@@ -3,9 +3,15 @@
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
   "mode": "cvf_enforcement_buildout",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2C_C3D_SUPERVISOR_CLOSEOUT.md",
   "last_updated": "2026-08-02",
   "required_reads": [
+    "docs/decisions/P2C_C3D_WORK_ORDER_AUTHORIZATION_REVIEW.md",
+    "docs/work_orders/P2C_C3D_SUPERVISOR_CLOSEOUT_WORK_ORDER.md",
+    "docs/specs/P2C_C3D_SUPERVISOR_CLOSEOUT_SPEC.md",
+    "docs/decisions/ADR_2026-08-02_P2C_C3D_SUPERVISOR_CLOSEOUT.md",
+    "docs/decisions/INTAKE_2026-08-02_P2C_C3D_SUPERVISOR_CLOSEOUT.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2C_C3D_SUPERVISOR_CLOSEOUT.md",
     "docs/decisions/P2C_C3C_BUILD_EVIDENCE_RECEIPT.md",
     "docs/work_orders/P2C_MUTATION_FULL_UI_C3C_WORK_ORDER_AMENDMENT_1.md",
     "docs/decisions/P2C_C3C_WORK_ORDER_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
@@ -141,7 +147,7 @@
     "currentAuthority": "PARKED_ONLY_NO_BUILD_AUTHORITY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "C3c operator mutation UI is CLOSED_BOUNDED: exact 38-path BUILD 65b10d25078dce57fca6ffc43eb2e144f3ab1789 received independent final REVIEW_PASS and is pushed with HEAD == origin/main. The sole next move is fresh C3d supervisor-closeout INTAKE, followed by DESIGN -> SPEC -> exact-path WORK_ORDER and independent authorization review. No C3d BUILD authority carries forward. P2-D, full-shift exit, Phase 2 closure and the post-Phase-2 skill/knowledge/refinery sequence remain blocked; no Claude CLI/MCP/provider call.",
+  "next_allowed_move": "C3d authorization review is REVIEW_PASS / APPROVED after four findings closed without waiver. BUILD remains locked. The sole next move is commit/push of the authorization package, followed by a separate pushed pre-BUILD continuity checkpoint; the external worker may edit source only after fresh G6 passes from that exact clean parent. P2-C, P2-D, full-shift exit, Phase 2 closure and the post-Phase-2 sequence remain blocked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -316,17 +322,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "C3c exact 38-path BUILD 65b10d2 is independently REVIEW_PASS/pushed and CLOSED_BOUNDED. C3d begins only at a fresh INTAKE; no BUILD authority carries forward.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "C3d exact 36-path WORK_ORDER is REVIEW_PASS / APPROVED. BUILD remains blocked until authorization push, separate pushed pre-BUILD checkpoint and G6.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-07-31_P2C_MUTATION_FULL_UI.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. C3c is CLOSED_BOUNDED at 65b10d2; fresh C3d INTAKE is next and all later work remains blocked.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_P2C_C3D_SUPERVISOR_CLOSEOUT.md",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. C3d authorization review passed; push and separate pre-BUILD checkpoint are next.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": null,
-    "activeRole": "INTAKE_AUTHOR",
-    "activeRoleNote": "Author bounded C3d supervisor-closeout INTAKE only; then follow DESIGN, SPEC and reviewed exact-path WORK_ORDER before any BUILD. No Claude CLI/MCP.",
-    "roleRoute": "SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD",
+    "activeRole": "AUTHORIZATION_REVIEWER",
+    "activeRoleNote": "C3d authorization review returned REVIEW_PASS after four repairs. Only governance commit/push and pre-BUILD checkpoint work is allowed; no implementation or provider call yet.",
+    "roleRoute": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_COMMIT_STEWARD_TO_CLOSER",
     "updatedAt": "2026-08-02"
   }
 }

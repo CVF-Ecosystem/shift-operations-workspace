@@ -136,6 +136,13 @@
     "claim_boundary": "Proves backend read/readiness/transport and mutation-precondition contracts on the proven backends only. It does not prove React mutation controls, offline/realtime, tenant/provider data scope, production PostgreSQL, C3c/C3d, P2-C or Phase-2 completion.",
     "next_governed_move": "Author and independently review the exact-path C3c operator mutation UI Work Order from the existing reviewed DESIGN/SPEC. No BUILD authority carries forward."
   },
+  "p2c_c3d_supervisor_closeout_authorization": {
+    "governance_disposition": "WORK_ORDER REVIEW_PASS / APPROVED (2026-08-02) after four authorization findings closed without waiver; BUILD remains blocked pending authorization push, separate pre-BUILD checkpoint and G6.",
+    "source_inspection_parent": "8359f3f11bfafb1debd8d64ca8a8f5468adfbff5; clean and equal to origin/main before authoring.",
+    "scope": "Frontend/evidence-only supervisor staffing and closeout surface over existing routes: staffing assign/revoke, Event confirm/correction, five POST-supported approval targets, Incident acknowledge, Handover review/destination-assigned acknowledge, Report approve/revoke-via-successor, Shift freeze, real Chromium and fresh provider proof.",
+    "claim_boundary": "No backend/OpenAPI/schema/migration change, no BUILD or provider call yet, no destination-only handover discovery, no P2-C closure before independent C3d review/push plus separate C4 truth sync, and no P2-D/full-shift-exit/Phase-2 completion claim.",
+    "next_governed_move": "Commit/push the REVIEW_PASS authorization package, then create/push a separate exact-parent pre-BUILD continuity checkpoint. External worker BUILD starts only after fresh G6."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",
