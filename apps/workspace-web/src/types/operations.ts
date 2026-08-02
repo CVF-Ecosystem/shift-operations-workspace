@@ -72,6 +72,17 @@ export interface Task {
   created_at: string;
 }
 
+// P2C-MUTATION-FULL-UI-C3C (SPEC R18): task creation intent response — the
+// server returns intent_id and risk_class for the caller to retain (ephemeral
+// React state only). payload_digest is present in the API response but MUST
+// NOT be rendered or persisted in the UI per SPEC R18/WO C3C-WO-REV-F4.
+export interface TaskCreationIntentResponse {
+  intent_id: string;
+  payload_digest: string;
+  risk_class: string;
+  created_at: string;
+}
+
 export interface CustomerRequest {
   request_id: string;
   customer_id: string;

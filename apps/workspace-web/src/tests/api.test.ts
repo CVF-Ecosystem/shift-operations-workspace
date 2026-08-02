@@ -87,6 +87,17 @@ describe('api client', () => {
     expect((failure as ApiError).message).toBe('password must not exceed 72 UTF-8 bytes');
   });
 
+  it('maps a server-side domain-lock rejection of an out-of-scope event_type to the controlled invalid kind with its detail intact (WO C3C-BUILD-REV-F2)', async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse(422, { detail: "event_type 'not_a_real_type' is outside the permitted domain-lock scope" })
+    );
+    const failure = await api.listShifts().catch((cause: unknown) => cause);
+    expect(failure).toBeInstanceOf(ApiError);
+    expect((failure as ApiError).kind).toBe('invalid');
+    expect((failure as ApiError).message).toBe("event_type 'not_a_real_type' is outside the permitted domain-lock scope");
+  });
+
   it('login stores no token on failure and returns a token response on success', async () => {
     const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
     fetchMock.mockResolvedValueOnce(jsonResponse(401, { detail: 'Invalid username or password' }));

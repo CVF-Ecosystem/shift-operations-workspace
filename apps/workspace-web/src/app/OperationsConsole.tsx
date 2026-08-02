@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+// P2C-MUTATION-FULL-UI-C3C (SPEC R18/R19/D6): OperationsConsole is a coordinator.
+// Delegates data fetching to useOperationsData and operator actions to OperatorActions.
+// All mutation state is ephemeral React state (SPEC R19/AC-27).
+import { useCallback, useEffect, useState } from 'react';
 import { api, ApiError, type ApiErrorKind } from '../services/api';
 import { clearSession } from '../features/authentication/session';
 import { ShiftSelector } from '../features/shift-selection/ShiftSelector';
@@ -6,20 +9,13 @@ import { ShiftTimeline } from '../features/shift-timeline/ShiftTimeline';
 import { OpenWorkPanel } from '../features/open-work/OpenWorkPanel';
 import { IncidentSummary } from '../features/incident-room/IncidentSummary';
 import { HandoverSummary } from '../features/shift-handover/HandoverSummary';
-import type { Handover, Incident, OpenWorkResponse, OperationalEvent, Shift } from '../types/operations';
+import { useOperationsData } from './useOperationsData';
+import { OperatorActions } from '../features/operator-actions/OperatorActions';
+import type { Shift } from '../types/operations';
 
 export interface OperationsConsoleProps {
   onSignedOut: () => void;
 }
-
-interface ShiftDetail {
-  events: OperationalEvent[];
-  openWork: OpenWorkResponse | null;
-  incidents: Incident[];
-  handovers: Handover[];
-}
-
-const EMPTY_DETAIL: ShiftDetail = { events: [], openWork: null, incidents: [], handovers: [] };
 
 type ConnectionState = 'connecting' | 'offline' | 'error' | 'connected';
 
@@ -41,13 +37,7 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
   const [shifts, setShifts] = useState<Shift[]>([]);
   const [shiftsLoading, setShiftsLoading] = useState(true);
   const [shiftsError, setShiftsError] = useState<ApiErrorKind | null>(null);
-
   const [selectedShiftId, setSelectedShiftId] = useState<string | null>(null);
-  const [detail, setDetail] = useState<ShiftDetail>(EMPTY_DETAIL);
-  const [detailLoading, setDetailLoading] = useState(false);
-  const [detailError, setDetailError] = useState<ApiErrorKind | null>(null);
-
-  const requestToken = useRef(0);
 
   const signOut = useCallback(() => {
     clearSession();
@@ -87,50 +77,27 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
     };
   }, [handleFailure]);
 
-  useEffect(() => {
-    if (!selectedShiftId) {
-      setDetail(EMPTY_DETAIL);
-      return;
+  const refreshShifts = useCallback(async (): Promise<void> => {
+    try {
+      const result = await api.listShifts();
+      setShifts(result);
+    } catch (cause) {
+      handleFailure(cause);
+      throw cause;
     }
+  }, [handleFailure]);
 
-    // Stale-response suppression: only the latest request's resolution is
-    // allowed to commit state, so switching shifts quickly cannot let an
-    // earlier in-flight response overwrite a later one.
-    const token = ++requestToken.current;
-    const controller = new AbortController();
-    setDetailLoading(true);
-    setDetailError(null);
+  const dataState = useOperationsData(selectedShiftId, handleFailure);
+  const selectedShift = shifts.find((s) => s.shift_id === selectedShiftId) ?? null;
 
-    Promise.all([
-      api.listEvents(selectedShiftId, controller.signal),
-      api.getOpenWork(selectedShiftId, controller.signal),
-      api.listIncidents(selectedShiftId, controller.signal),
-      api.listHandovers(selectedShiftId, controller.signal)
-    ])
-      .then(([events, openWork, incidents, handovers]) => {
-        if (requestToken.current !== token) return;
-        setDetail({
-          events: events.filter((event) => event.state === 'CONFIRMED'),
-          openWork,
-          incidents,
-          handovers
-        });
-      })
-      .catch((cause) => {
-        if (requestToken.current !== token) return;
-        if (cause instanceof ApiError && cause.kind === 'cancelled') return;
-        setDetailError(handleFailure(cause));
-      })
-      .finally(() => {
-        if (requestToken.current === token) setDetailLoading(false);
-      });
+  const refreshAll = useCallback(async (): Promise<void> => {
+    await Promise.all([dataState.refresh(), refreshShifts()]);
+  }, [dataState, refreshShifts]);
 
-    return () => {
-      controller.abort();
-    };
-  }, [selectedShiftId, handleFailure]);
-
-  const connectionState = deriveConnectionState(shiftsLoading || detailLoading, shiftsError ?? detailError);
+  const connectionState = deriveConnectionState(
+    shiftsLoading || dataState.loading,
+    shiftsError ?? dataState.errorKind
+  );
 
   return (
     <main className="operations-console">
@@ -153,12 +120,33 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
       />
       {selectedShiftId && (
         <div className="operations-console__panels">
-          <ShiftTimeline events={detail.events} loading={detailLoading} errorKind={detailError} />
-          <OpenWorkPanel openWork={detail.openWork} loading={detailLoading} errorKind={detailError} />
-          <IncidentSummary incidents={detail.incidents} loading={detailLoading} errorKind={detailError} />
-          <HandoverSummary handovers={detail.handovers} loading={detailLoading} errorKind={detailError} />
+          <ShiftTimeline events={dataState.events} loading={dataState.loading} errorKind={dataState.errorKind} />
+          <OpenWorkPanel openWork={dataState.openWork} loading={dataState.loading} errorKind={dataState.errorKind} />
+          <IncidentSummary incidents={dataState.incidents} loading={dataState.loading} errorKind={dataState.errorKind} />
+          <HandoverSummary handovers={dataState.handovers} loading={dataState.loading} errorKind={dataState.errorKind} />
         </div>
       )}
+      <OperatorActions
+        // WO C3C-BUILD-REREREV-F2: keying by selected shift forces React to
+        // unmount/remount the whole operator mutation subtree on shift
+        // change, resetting every local useState (form fields, retained
+        // task intent_id, useMutationControl lock/feedback state) instead of
+        // reusing component instances across a shift boundary they were
+        // never scoped to.
+        key={selectedShiftId ?? 'no-shift'}
+        selectedShiftId={selectedShiftId}
+        selectedShift={selectedShift}
+        shifts={shifts}
+        messages={dataState.messages}
+        tasks={dataState.tasks}
+        customerRequests={dataState.customerRequests}
+        incidents={dataState.incidents}
+        handovers={dataState.handovers}
+        reports={dataState.reports}
+        capabilities={dataState.capabilities}
+        onShiftCreated={(s) => { setSelectedShiftId(s.shift_id); void refreshShifts(); }}
+        onRefresh={refreshAll}
+      />
     </main>
   );
 }

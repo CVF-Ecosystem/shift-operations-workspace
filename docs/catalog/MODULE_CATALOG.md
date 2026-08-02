@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-01T17:07:17.924073+00:00_
+_Last generated: 2026-08-02T02:43:10.374939+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-08-01T17:07:17.924073+00:00_
 ## Totals
 
 - Modules: **20**
-- Code LOC (py/ts/tsx): **12413**
-- Code files: **156**
+- Code LOC (py/ts/tsx): **14995**
+- Code files: **178**
 - By status: contract-only=6, enforced=2, partial=6, stub=6
 
 ## Status legend
@@ -35,7 +35,7 @@ _Last generated: 2026-08-01T17:07:17.924073+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
-| `workspace-web` | apps/workspace-web | partial | 1400 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
+| `workspace-web` | apps/workspace-web | partial | 3982 | — | Mobile PWA + Desktop Web operational UI (React/Vite). The first P2-C slice provides authenticated read-only shift selection, confirmed-event timeline, grouped open work, incident summary and handover summary. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -133,7 +133,7 @@ _Last generated: 2026-08-01T17:07:17.924073+00:00_
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`
-- **Metrics:** 1400 LOC across 21 code file(s)
+- **Metrics:** 3982 LOC across 43 code file(s)
 - **Next step:** The shift-create admission blocker is already CLOSED_BOUNDED. After the P2-R operational report prerequisite, open a fresh P2-C tranche for mutation/full-vertical UI plus assignment/tenant/data-scope authorization. Offline queue and realtime remain a separate P2-D tranche.
 
 ### `workspace-worker` — partial

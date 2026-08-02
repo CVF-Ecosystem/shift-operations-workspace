@@ -542,3 +542,59 @@ runner, khiến freeze fail vì stale version thay vì đến đúng Report gate
 default đó đã bị xoá khỏi `run_handover_live_governance_evidence.py`
 (`expected_version` giờ bắt buộc, keyword-only), test đã thread version thật
 từ mỗi response qua review/acknowledge/close/freeze.
+
+**2026-08-01 P2-C C3c (operator mutation UI) — không thêm CVF `required_control` mới.**
+Thêm giao diện React cho các thao tác của operator (shift create/close, internal message append, event create, task intent/create và transition, customer request create/transition, incident report/transition, handover create, report generate/version/submit). Mọi thao tác đều gọi API backend thật, dùng token JWT của principal đã đăng nhập, re-fetch dữ liệu sau thành công/xung đột, và khóa nút gửi (outcome_unknown) khi có sự cố mạng chưa xác định được kết quả (yêu cầu refresh trước khi gửi lại). Không dùng queue offline/storage/background retry (thỏa mãn SPEC R19/R20).
+
+**2026-08-01 P2-C C3c independent BUILD review round 1 — `REVIEW_FAIL`, sáu
+finding (F1 exact-set false 35/38, F2 backend contract drift, F3 mutation
+state broken, F4 operator lifecycle false controls, F5 browser evidence
+underproves R18, F6 harness cleanup/regression), tất cả sửa không waiver
+trong đúng ceiling 38-path. Chi tiết đầy đủ + repair từng finding nằm trong
+receipt `docs/decisions/P2C_C3C_BUILD_EVIDENCE_RECEIPT.md` §1 (giữ nguyên
+lịch sử, không rút gọn ở đó).**
+
+**2026-08-02 P2-C C3c independent BUILD review round 2 — `REVIEW_FAIL`, ba
+finding còn lại sau round 1, tất cả sửa không waiver, vẫn đúng ceiling 38-path
+(0 ngoài, 0 staged). Chi tiết đầy đủ nằm trong receipt §1a:**
+
+- `REREV-F1 REFRESH_COMPLETION_STILL_FALSE`: `refresh()`/`refreshShifts()`
+  trả `void` (chỉ tăng state key hoặc nuốt lỗi), nên `refreshAndUnlock()` mở
+  khoá trước khi read nào thật sự xong; conflict chỉ chờ người bấm, không tự
+  refresh. Sửa: `useOperationsData` tách fetch thành `load()` dùng chung bởi
+  effect và `refresh()` — `refresh()` giờ `Promise<void>` chỉ resolve sau khi
+  mọi read + capabilities commit thật, vẫn giữ `requestToken`/`AbortSignal`;
+  `refreshShifts`/`onRefresh` gộp đều `Promise<void>`, hết `.catch(() => {})`;
+  mọi `onRefresh` prop trong cây operator-actions đổi `() => Promise<void>`.
+  `useMutationControl(fn, refresh)` nhận `refresh` bắt buộc: thành công await
+  trước khi `success`; conflict tự khởi động đúng một `refresh()` (thành công
+  → `conflict_resolved` mở khoá nhưng vẫn hiện thông điệp conflict để xem giá
+  trị mới; thất bại → giữ khoá, nút refresh thủ công); `outcome_unknown`
+  không bao giờ tự refresh. Test mới dùng promise điều khiển được để chứng
+  minh: refresh chưa xong chưa mở khoá, refresh reject vẫn khoá, conflict chỉ
+  gọi refresh đúng một lần.
+- `REREV-F2 BROWSER_MATRIX_STILL_INCOMPLETE`: mở rộng đúng hai spec/helper đã
+  duyệt, không thêm path. `operator-flow.spec.ts` thêm successor-version thật
+  qua UI (version 2/DRAFT trước khi submit IN_REVIEW) và kịch bản Incident:
+  report qua UI operator, JWT supervisor thật (`sup1`) chỉ để tự gán ca rồi
+  gọi thật `POST /incidents/{id}/acknowledge` làm test arrangement (không
+  render/assert như control operator), reload UI thật rồi chứng minh control
+  transition chỉ hiện MITIGATING/RESOLVED, không nút Acknowledge, transition
+  MITIGATING qua UI. `operator-flow-accessibility.spec.ts` thay one-in-flight
+  cũ bằng `form.requestSubmit()` hai lần đồng bộ chứng minh `inFlight` ref
+  chặn lần hai, đếm POST thật qua `page.route`; thêm outcome_unknown dùng
+  `context.setOffline(true)` thật, xác nhận không tự thử lại, rồi
+  `setOffline(false)` + bấm Refresh thật, chỉ mở khoá sau GET thật thành
+  công, tổng POST vẫn đúng 1. Risk R2 cho Incident từng bị 409 vì evidence-
+  policy.yaml yêu cầu >=1 evidence cho R2+ trước acknowledge — đổi sang R1.
+- `REREV-F3 REPORT_DTO_AND_RECEIPT_OVERCLAIM`: `sections`/`source_manifest`
+  vẫn `unknown[]`; `operatorApi.ts` nhận `string` thô dù đã có type union
+  chính xác. Sửa: `backendContracts.ts` thêm `ReportSourceRef {record_type,
+  record_id, source_version, source_digest}` và `ReportSection {section_type,
+  records}` khớp đúng `report_models.py` (không phải client sinh tự động);
+  `records` giữ `Record<string, unknown>` cộng `record_type`/`record_id` vì
+  backend tự khai `list[dict]` không đồng nhất — đóng chặt hơn sẽ overclaim.
+  `operatorApi.ts` mọi tham số đổi `OperationalEventType`/`RiskClass`/
+  `TaskStatus`/`CustomerRequestStatus`/`IncidentStatus`/`ReportStatus`. Test
+  mới dùng section/manifest đúng shape thật, không còn `{title}` giả.
+**2026-08-02 P2-C C3c final repairs.** Round-4 sửa saved-but-unconfirmed thành locked/manual-refresh-only, không auto-retry. Independent final review sau đó tìm Report UI matrix sai và thiếu AC-29: sửa đúng `DRAFT=version+submit`, `IN_REVIEW=version`, `APPROVED/FROZEN=no operator mutation`, thêm four-row test; detached exact-parent `b17a8cb...` rehearsal PASS và cleanup path/registration hoàn tất. Codex không gọi Claude CLI/MCP/provider; receipt trả `READY_FOR_INDEPENDENT_P2C_C3C_BUILD_FINAL_RE_REVIEW`.

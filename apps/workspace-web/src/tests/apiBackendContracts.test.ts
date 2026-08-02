@@ -8,7 +8,9 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { api } from '../services/api';
-import type { Message, ReadinessResponse } from '../types/backendContracts';
+import { operatorApi } from '../services/operatorApi';
+import { OPERATIONAL_EVENT_TYPES } from '../types/backendContracts';
+import type { CapabilitiesResponse, Message, ReadinessResponse, ReportResponse } from '../types/backendContracts';
 import type { CustomerRequest } from '../types/operations';
 
 function jsonResponse(status: number, body: unknown): Response {
@@ -114,35 +116,12 @@ describe('backend contract reads (C3b1)', () => {
   it('never exposes a payload digest, receipt id, approver identity or credential field on the readiness DTO', async () => {
     const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
     const readiness: ReadinessResponse = {
-      record_type: 'Report',
-      record_id: 'r-1',
-      action: 'report.approve',
-      target_version: 3,
-      risk_class: 'R3',
-      ready: true,
-      required_roles: ['shift_supervisor', 'operations_manager'],
-      satisfied_roles: ['shift_supervisor', 'operations_manager']
+      record_type: 'Report', record_id: 'r-1', action: 'report.approve', target_version: 3, risk_class: 'R3',
+      ready: true, required_roles: ['shift_supervisor', 'operations_manager'], satisfied_roles: ['shift_supervisor']
     };
     fetchMock.mockResolvedValueOnce(jsonResponse(200, readiness));
-
-    const result = await api.getApprovalReadiness({
-      record_type: 'Report',
-      record_id: 'r-1',
-      action: 'report.approve'
-    });
-
-    expect(Object.keys(result).sort()).toStrictEqual(
-      [
-        'record_type',
-        'record_id',
-        'action',
-        'target_version',
-        'risk_class',
-        'ready',
-        'required_roles',
-        'satisfied_roles'
-      ].sort()
-    );
+    const result = await api.getApprovalReadiness({ record_type: 'Report', record_id: 'r-1', action: 'report.approve' });
+    expect(Object.keys(result).sort()).toStrictEqual(Object.keys(readiness).sort());
   });
 
   it('maps a readiness 404 to the controlled not_found kind', async () => {
@@ -161,5 +140,35 @@ describe('backend contract reads (C3b1)', () => {
     );
 
     await expect(api.listMessages('s-1')).rejects.toMatchObject({ kind: 'invalid' });
+  });
+
+  it('reads capabilities in the real {shift_id, actions, reasons} shape (WO C3C-BUILD-REV-F2), not {capabilities}', async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    const response: CapabilitiesResponse = {
+      shift_id: 's-1', actions: ['task.create', 'incident.report'],
+      reasons: ['active_assignment_required', 'server_reauthorizes_every_mutation']
+    };
+    fetchMock.mockResolvedValueOnce(jsonResponse(200, response));
+    const result = await operatorApi.getCapabilities('s-1');
+    expect(result).toStrictEqual(response);
+    expect(Object.keys(result).sort()).toStrictEqual(['actions', 'reasons', 'shift_id']);
+  });
+
+  it('round-trips a Report with the exact backend ReportStatus/ReportType and never invents REVIEW_REQUESTED', async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    const report: ReportResponse = {
+      report_id: 'r-1', shift_id: 's-1', report_type: 'END_SHIFT', version: 2, status: 'IN_REVIEW', is_current: true,
+      sections: [], source_manifest: [], snapshot_digest: 'SECRET_DIGEST',
+      generated_from_cutoff: '2026-08-01T00:00:00Z', created_at: '2026-08-01T00:00:00Z'
+    };
+    fetchMock.mockResolvedValueOnce(jsonResponse(200, [report]));
+    const [result] = await operatorApi.listReports('s-1');
+    expect(result.status).toBe('IN_REVIEW');
+    expect(result.report_type).toBe('END_SHIFT');
+  });
+
+  it('exposes the exact bounded OperationalEvent.event_type domain-lock allowlist including equipment_downtime', () => {
+    expect(OPERATIONAL_EVENT_TYPES).toContain('equipment_downtime');
+    expect(OPERATIONAL_EVENT_TYPES).toHaveLength(10);
   });
 });

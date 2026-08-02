@@ -1,24 +1,9 @@
 import { clearSession, getToken } from '../features/authentication/session';
-import type {
-  CustomerRequest,
-  Handover,
-  Incident,
-  OpenWorkResponse,
-  OperationalEvent,
-  Shift,
-  Task,
-  TokenResponse
-} from '../types/operations';
+import type { CustomerRequest, Handover, Incident, OpenWorkResponse, OperationalEvent, Shift, Task, TokenResponse } from '../types/operations';
 import type { Message, ReadinessQuery, ReadinessResponse } from '../types/backendContracts';
 
 const baseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 
-// P2C-MUTATION-FULL-UI-C3B1 (SPEC R16/R36): 'outcome_unknown' is the
-// controlled category for an ambiguous transport failure (aborted vs.
-// genuinely lost is indistinguishable from fetch's rejection alone) - the
-// caller must invalidate local state and require a fresh read, never retry
-// automatically. 'cancelled' remains distinct: it is reported only when the
-// caller's own AbortSignal was the one that fired.
 export type ApiErrorKind =
   | 'network'
   | 'unauthorized'
@@ -32,7 +17,6 @@ export type ApiErrorKind =
 
 export class ApiError extends Error {
   readonly kind: ApiErrorKind;
-
   constructor(kind: ApiErrorKind, message: string) {
     super(message);
     this.kind = kind;
@@ -52,9 +36,7 @@ async function readDetail(response: Response): Promise<string> {
   try {
     const body = (await response.json()) as { detail?: unknown };
     if (typeof body.detail === 'string') return body.detail;
-  } catch {
-    // no JSON body; fall through to a generic message.
-  }
+  } catch {}
   return `Request failed with status ${response.status}`;
 }
 
@@ -77,16 +59,7 @@ function buildQueryString(query: RequestOptions['query']): string {
   return encoded ? `?${encoded}` : '';
 }
 
-// P2C-MUTATION-FULL-UI-C3B1 (SPEC R16): the single typed request primitive -
-// method/body/query/AbortSignal, bearer auth preserved, no automatic retry.
-// 401 clears the tab-scoped session (the caller still receives the thrown
-// ApiError so it can redirect); 403/404/409/422 map to their controlled
-// kind; a network-level rejection that is NOT the caller's own abort maps to
-// 'outcome_unknown' rather than 'network', because a fetch-level rejection
-// after a body was sent cannot distinguish "never reached the server" from
-// "reached it but the response was lost" — never logs the token, body or raw
-// transport exception.
-async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, query, signal } = options;
   const token = getToken();
   const headers: Record<string, string> = {};
@@ -101,7 +74,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
       signal,
       body: body !== undefined ? JSON.stringify(body) : undefined
     });
-  } catch (cause) {
+  } catch {
     if (signal?.aborted) throw new ApiError('cancelled', 'Request was cancelled');
     throw new ApiError('outcome_unknown', 'Unable to confirm the request outcome; refresh before retrying');
   }
@@ -136,6 +109,7 @@ export async function login(username: string, password: string): Promise<TokenRe
 
 export const api = {
   health: () => request<{ status: string; mode: string }>('/health'),
+  me: (signal?: AbortSignal) => request<{ user_id: string; role: string; expires_at: string }>('/auth/me', { signal }),
   listShifts: (signal?: AbortSignal) => request<Shift[]>('/shifts', { signal }),
   listEvents: (shiftId: string, signal?: AbortSignal) =>
     request<OperationalEvent[]>('/events', { query: { shift_id: shiftId }, signal }),
@@ -145,8 +119,6 @@ export const api = {
     request<Incident[]>('/incidents', { query: { shift_id: shiftId }, signal }),
   listHandovers: (shiftId: string, signal?: AbortSignal) =>
     request<Handover[]>('/handovers', { query: { from_shift_id: shiftId }, signal }),
-  // P2C-MUTATION-FULL-UI-C3B1 (SPEC R11): browser-required reads added by
-  // C3b1. No React feature calls these yet - C3c consumes them.
   listMessages: (shiftId: string, signal?: AbortSignal) =>
     request<Message[]>('/messages', { query: { shift_id: shiftId }, signal }),
   listTasks: (shiftId: string, signal?: AbortSignal) =>
