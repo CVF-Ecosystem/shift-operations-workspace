@@ -6,8 +6,8 @@
 - Checkpoint: `C3d`
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
-- Active role: `AUTHORIZATION_REVIEWER`
-- Status: `WORK_ORDER_REVIEW_PASS_APPROVED_PENDING_PUSH_AND_PREBUILD`
+- Active role: `SESSION_SYNC_STEWARD`
+- Status: `PREBUILD_CHECKPOINT_READY_FOR_G6`
 
 ## Settled predecessor
 
@@ -46,6 +46,16 @@ checkpoint may authorize worker source edits.
 
 P2-C remains open. P2-D, full-shift exit, Phase 2 closure and the parked post-
 Phase-2 sequence remain blocked.
+
+## Pre-BUILD acknowledgment
+
+Authorization package `7d65f6cfaa6df1e9ef23c806f2b8dc551c5c79f7` is
+`REVIEW_PASS / APPROVED` and pushed. This continuity-only successor is the
+separate C3d pre-BUILD checkpoint required by the Work Order. The receiving
+`IMPLEMENTATION_WORKER` must rehydrate this handoff, verify clean
+`HEAD == origin/main` at the checkpoint commit, run G6 from scratch and record
+the acknowledgment before its first source edit. Any G6 failure is
+`BLOCKED_G6`; no partial BUILD or provider call is allowed.
 
 ## Role route
 
