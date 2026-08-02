@@ -144,6 +144,14 @@
     "claim_boundary": "P2-C UI is CLOSED_BOUNDED only for the reviewed single-workspace assignment-scoped operator/supervisor workflows over existing APIs. No offline/realtime activation, tenant/provider data_scope, production/managed PostgreSQL, external channel, P2-D, full-shift-exit or Phase-2-completion claim.",
     "next_governed_move": "Fresh P2-D INTAKE for offline queue and realtime. No BUILD or provider-call authority carries forward."
   },
+  "p2d_offline_realtime_authorization": {
+    "governance_disposition": "WORK_ORDER REVIEW_PASS / APPROVED (2026-08-02); BUILD not started.",
+    "source_baseline": "1f3646aba7d2bc4becea6c156475360331133f29",
+    "authorized_ceiling": "Exactly 49 frontend/evidence BUILD paths; backend, OpenAPI, migrations, dependencies/lockfile, CI, roadmap and continuity are protected.",
+    "design_boundary": "Navigation-only service worker; actor-bound 50-item/24-hour queue for exactly task/customer-request/incident CAS transitions; per-tab fail-stop replay; serialized authenticated foreground polling. No push, cross-tab/request exactly-once or full-offline claim.",
+    "authorization_review": "Independent REVIEW_PASS after P2D-AUTH-F1 through F5 and P2D-AUTH-REREVIEW-F6 closed without waiver. The repairs distinguish applied_stale from outcome_unknown, forbid CAS-rewrite retry, define strict persisted state/error invariants, cover all necessary regression/evidence paths, narrow single-flight to per-tab and fail-stop HTTP 5xx as blocked/server.",
+    "next_governed_move": "Commit/push the authorization package, then a separate clean pre-BUILD checkpoint and fresh G6. No source edit or provider call before those gates. P2-D, full-shift exit and Phase 2 remain open."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",
