@@ -220,10 +220,15 @@ LIVE_SUITE_TARGETS = (
     "tests/integration/test_c3b2_postgres_live.py",
 )
 
+PHASE2_FULL_SHIFT_EXIT_TARGET = "tests/integration/test_phase2_full_shift_exit_postgres_live.py"
+
 def run_live_suite(database_url: str) -> subprocess.CompletedProcess:
     env = os.environ.copy()
     env[LIVE_URL_ENV] = database_url
-    return _run([sys.executable, "-m", "pytest", "-v", *LIVE_SUITE_TARGETS], cwd=str(REPO_ROOT), env=env)
+    return _run(
+        [sys.executable, "-m", "pytest", "-v", *LIVE_SUITE_TARGETS, PHASE2_FULL_SHIFT_EXIT_TARGET],
+        cwd=str(REPO_ROOT), env=env,
+    )
 
 
 def run_once(database_url: str, container_name: str, port: int, password: str) -> dict:
@@ -271,7 +276,6 @@ def run_once(database_url: str, container_name: str, port: int, password: str) -
         summary["failure"] = failure
     return summary
 
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Disposable PostgreSQL 16 live round-trip")
     parser.add_argument("--json", action="store_true", help="print a machine-readable summary")
@@ -291,7 +295,6 @@ def main(argv: list[str] | None = None) -> int:
 
     print(json.dumps(summary, indent=2) if args.json else "\n".join(f"{k}: {v}" for k, v in summary.items() if k != "live_suite_tail"))
     return 0 if not summary.get("failure") and summary.get("container_absent_after_cleanup") else 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
