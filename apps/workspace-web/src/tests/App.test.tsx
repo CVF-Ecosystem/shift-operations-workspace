@@ -4,8 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { App } from '../app/App';
 import { setToken } from '../features/authentication/session';
 
-const jsonResponse = (status: number, body: unknown): Response =>
-  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+const jsonResponse = (status: number, body: unknown): Response => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
 const shift = (id: string, name: string) => ({ shift_id: id, name, starts_at: '2026-07-29T00:00:00Z', ends_at: '2026-07-29T08:00:00Z', status: 'OPEN', version: 1, created_at: '2026-07-29T00:00:00Z' });
 const event = (id: string, shiftId: string, title: string, state = 'CONFIRMED') => ({ event_id: id, shift_id: shiftId, event_type: 'x', title, description: null, risk_class: 'R1', state, starts_at: null, ends_at: null, owner_id: null, evidence: [], version: 1 });
@@ -19,6 +18,8 @@ function mockReads(fetchMock: ReturnType<typeof vi.fn>, overrides: ReadOverrides
   const pending = new Map<string, (value: Response) => void>();
   const defer = overrides.deferShiftId;
   fetchMock.mockImplementation((url: string) => {
+    // C3D: staffing 403 by default; matched before /shifts (substring overlap).
+    if (url.includes('/staffing/')) return Promise.resolve(jsonResponse(403, { detail: 'requires shift_supervisor or higher' }));
     if (url.includes('/shifts') && !url.includes('open-work')) return Promise.resolve(jsonResponse(200, SHIFTS));
     if (defer && url.includes(`/events?shift_id=${defer}`)) return new Promise<Response>((r) => pending.set(defer, r));
     if (defer && url.includes(`/shifts/${defer}/open-work`)) return new Promise<Response>((r) => pending.set(`${defer}-open-work`, r));
@@ -41,7 +42,6 @@ function mockReads(fetchMock: ReturnType<typeof vi.fn>, overrides: ReadOverrides
   });
   return pending;
 }
-
 let fetchMock: ReturnType<typeof vi.fn>;
 async function signInWithSession(overrides?: ReadOverrides) {
   setToken('existing-token');
@@ -54,7 +54,6 @@ async function signInWithSession(overrides?: ReadOverrides) {
 describe('App', () => {
   beforeEach(() => { sessionStorage.clear(); fetchMock = vi.fn(); vi.stubGlobal('fetch', fetchMock); });
   afterEach(() => vi.unstubAllGlobals());
-
   it('shows a pending login state, rejects invalid credentials without echoing them, then stores the token only in sessionStorage', async () => {
     render(<App />);
     expect(screen.getByRole('form', { name: 'Sign in' })).toBeInTheDocument();
@@ -117,12 +116,14 @@ describe('App', () => {
 
     mockReads(fetchMock, { events: { s2: [event('e2', 's2', 'Night event')] }, ...readOverrides });
     await userEvent.selectOptions(screen.getByLabelText('Shift'), 's2');
-    await screen.findByText('Night event');
+    // C3D: supervisor Event list also renders the title; scope to timeline.
+    const timeline = screen.getByLabelText('Shift timeline');
+    await within(timeline).findByText('Night event');
 
     pending.get('s1')?.(jsonResponse(200, [event('e1', 's1', 'Stale day event')]));
     pending.get('s1-open-work')?.(jsonResponse(200, emptyOpenWork('s1')));
-    await waitFor(() => expect(screen.getByText('Night event')).toBeInTheDocument());
-    expect(screen.queryByText('Stale day event')).not.toBeInTheDocument();
+    await waitFor(() => expect(within(timeline).getByText('Night event')).toBeInTheDocument());
+    expect(within(timeline).queryByText('Stale day event')).not.toBeInTheDocument();
     expect(within(screen.getByLabelText('Incident summary')).getByText('R3: 1')).toBeInTheDocument();
     expect(within(screen.getByLabelText('Handover summary')).getByText('REVIEWED')).toBeInTheDocument();
   });
@@ -191,8 +192,9 @@ describe('App', () => {
     const intentCalls = fetchMock.mock.calls.filter((c) => String(c[0]).includes('creation-intents'));
     expect(intentCalls).toHaveLength(2); // one for s1, one fresh for s2
 
-    // Operator mutation controls render on s2 too; zero supervisor controls.
+    // Operator mutation controls render on s2 too.
     expect(screen.getByRole('form', { name: 'Create event' })).toBeInTheDocument();
-    for (const t of ['Confirm event', 'Freeze shift', 'Acknowledge incident']) expect(screen.queryByRole('button', { name: t })).not.toBeInTheDocument();
+    // C3D: staffing 403 means no supervisor authority, so the supervisor subtree is absent.
+    expect(screen.queryByRole('button', { name: 'Freeze shift' })).not.toBeInTheDocument();
   });
 });

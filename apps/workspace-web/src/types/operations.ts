@@ -1,3 +1,7 @@
+// P2C-MUTATION-FULL-UI-C3D: these operational domain types are now shared by
+// both the operator surface (features/operator-actions) and the supervisor
+// surface (features/supervisor-actions). Staffing-only types live separately
+// in types/supervisorContracts.ts and never merge into this file.
 export type ShiftStatus = 'OPEN' | 'HANDOVER_PENDING' | 'CLOSED' | 'FROZEN';
 
 export type DataState =

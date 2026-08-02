@@ -1,6 +1,10 @@
 """Unit/Integration test for C3c Web Evidence Runner module (no browser
 launch: proves command construction, readiness timeout, subprocess failure
-propagation, child-tree cleanup and artifact cleanup only)."""
+propagation, child-tree cleanup and artifact cleanup only).
+
+P2C-MUTATION-FULL-UI-C3D: also proves run_harness's new checkpoint/
+playwright_grep parameters default to exact prior C3c-only behavior (no
+regression from the parameterization consumed by run_c3d_web_evidence.py)."""
 
 import os
 from unittest.mock import MagicMock, patch
@@ -145,3 +149,60 @@ def test_run_harness_propagates_seed_subprocess_failure_without_raw_output(mock_
     printed = capsys.readouterr().out
     assert "JWT_SECRET_KEY=leak" not in printed
     assert "[redacted]" in printed
+
+
+def test_run_harness_defaults_checkpoint_to_c3c():
+    """P2C-MUTATION-FULL-UI-C3D: the new checkpoint parameter defaults to
+    exact prior behavior - direct C3c invocation is unchanged."""
+    with patch("scripts.testing.run_c3c_web_evidence.remove_owned_artifacts"), \
+         patch("scripts.testing.run_c3c_web_evidence.kill_process_tree"), \
+         patch("subprocess.run") as mock_sub_run:
+        mock_sub_run.return_value = MagicMock(returncode=1, stdout="", stderr="")
+        with patch("subprocess.Popen"):
+            evidence_holder = {}
+            original_finish = runner._finish
+
+            def capture(evidence, success, as_json):
+                evidence_holder.update(evidence)
+                return original_finish(evidence, success, as_json)
+
+            with patch("scripts.testing.run_c3c_web_evidence._finish", side_effect=capture):
+                runner.run_harness(as_json=True)
+    assert evidence_holder["checkpoint"] == "C3c"
+
+
+def test_run_harness_accepts_checkpoint_c3d_label_in_evidence():
+    with patch("scripts.testing.run_c3c_web_evidence.remove_owned_artifacts"), \
+         patch("scripts.testing.run_c3c_web_evidence.kill_process_tree"), \
+         patch("subprocess.run") as mock_sub_run:
+        mock_sub_run.return_value = MagicMock(returncode=1, stdout="", stderr="")
+        evidence_holder = {}
+        original_finish = runner._finish
+
+        def capture(evidence, success, as_json):
+            evidence_holder.update(evidence)
+            return original_finish(evidence, success, as_json)
+
+        with patch("scripts.testing.run_c3c_web_evidence._finish", side_effect=capture):
+            runner.run_harness(as_json=True, checkpoint="C3d")
+    assert evidence_holder["checkpoint"] == "C3d"
+
+
+@patch("scripts.testing.run_c3c_web_evidence.remove_owned_artifacts")
+@patch("scripts.testing.run_c3c_web_evidence.kill_process_tree")
+@patch("subprocess.Popen")
+@patch("subprocess.run")
+@patch("scripts.testing.run_c3c_web_evidence.static_asset_smoke", return_value=(True, ["/assets/index.js"]))
+@patch("scripts.testing.run_c3c_web_evidence.wait_for_port", return_value=True)
+def test_run_harness_playwright_grep_appends_escaped_flag_to_command(
+    mock_wait, mock_smoke, mock_sub_run, mock_sub_popen, mock_kill, mock_remove
+):
+    mock_sub_run.return_value = MagicMock(returncode=0, stdout="", stderr="")
+    mock_sub_popen.side_effect = [MagicMock(), MagicMock()]
+
+    runner.run_harness(as_json=True, checkpoint="C3d", playwright_grep="Supervisor")
+
+    pw_call = [c for c in mock_sub_run.call_args_list if "playwright test" in str(c)]
+    assert pw_call, "expected a playwright test subprocess.run call"
+    cmd_str = str(pw_call[-1])
+    assert "--grep 'Supervisor'" in cmd_str

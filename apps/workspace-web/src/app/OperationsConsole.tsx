@@ -1,6 +1,14 @@
 // P2C-MUTATION-FULL-UI-C3C (SPEC R18/R19/D6): OperationsConsole is a coordinator.
 // Delegates data fetching to useOperationsData and operator actions to OperatorActions.
 // All mutation state is ephemeral React state (SPEC R19/AC-27).
+//
+// P2C-MUTATION-FULL-UI-C3D (SPEC R2, C3D-WO-REV-F4): also wires
+// useSupervisorData (staffing, deliberately separate from operational state)
+// and SupervisorActions. Staffing/assignment success refreshes the ordinary
+// assignment-scoped shift list; if that refreshed list no longer contains
+// the selected shift (including a self-revoke), selection is cleared so
+// useOperationsData's own effect clears retained operational state instead
+// of leaving a stale disclosure on screen.
 import { useCallback, useEffect, useState } from 'react';
 import { api, ApiError, type ApiErrorKind } from '../services/api';
 import { clearSession } from '../features/authentication/session';
@@ -10,7 +18,9 @@ import { OpenWorkPanel } from '../features/open-work/OpenWorkPanel';
 import { IncidentSummary } from '../features/incident-room/IncidentSummary';
 import { HandoverSummary } from '../features/shift-handover/HandoverSummary';
 import { useOperationsData } from './useOperationsData';
+import { useSupervisorData } from './useSupervisorData';
 import { OperatorActions } from '../features/operator-actions/OperatorActions';
+import { SupervisorActions } from '../features/supervisor-actions/SupervisorActions';
 import type { Shift } from '../types/operations';
 
 export interface OperationsConsoleProps {
@@ -81,6 +91,15 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
     try {
       const result = await api.listShifts();
       setShifts(result);
+      // C3D-WO-REV-F4: if the currently selected shift is no longer in the
+      // refreshed ordinary assignment-scoped list (e.g. a supervisor
+      // self-revoked their own assignment), clear selection so the
+      // operational hook's own effect clears retained records instead of
+      // leaving a stale disclosure on screen.
+      setSelectedShiftId((current) => {
+        if (current && !result.some((s) => s.shift_id === current)) return null;
+        return current;
+      });
     } catch (cause) {
       handleFailure(cause);
       throw cause;
@@ -88,11 +107,16 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
   }, [handleFailure]);
 
   const dataState = useOperationsData(selectedShiftId, handleFailure);
+  const supervisorState = useSupervisorData(handleFailure);
   const selectedShift = shifts.find((s) => s.shift_id === selectedShiftId) ?? null;
 
   const refreshAll = useCallback(async (): Promise<void> => {
     await Promise.all([dataState.refresh(), refreshShifts()]);
   }, [dataState, refreshShifts]);
+
+  const refreshStaffingAndShifts = useCallback(async (): Promise<void> => {
+    await Promise.all([supervisorState.refresh(), refreshShifts()]);
+  }, [supervisorState, refreshShifts]);
 
   const connectionState = deriveConnectionState(
     shiftsLoading || dataState.loading,
@@ -120,7 +144,7 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
       />
       {selectedShiftId && (
         <div className="operations-console__panels">
-          <ShiftTimeline events={dataState.events} loading={dataState.loading} errorKind={dataState.errorKind} />
+          <ShiftTimeline events={dataState.confirmedEvents} loading={dataState.loading} errorKind={dataState.errorKind} />
           <OpenWorkPanel openWork={dataState.openWork} loading={dataState.loading} errorKind={dataState.errorKind} />
           <IncidentSummary incidents={dataState.incidents} loading={dataState.loading} errorKind={dataState.errorKind} />
           <HandoverSummary handovers={dataState.handovers} loading={dataState.loading} errorKind={dataState.errorKind} />
@@ -133,7 +157,7 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
         // task intent_id, useMutationControl lock/feedback state) instead of
         // reusing component instances across a shift boundary they were
         // never scoped to.
-        key={selectedShiftId ?? 'no-shift'}
+        key={`operator-${selectedShiftId ?? 'no-shift'}`}
         selectedShiftId={selectedShiftId}
         selectedShift={selectedShift}
         shifts={shifts}
@@ -144,8 +168,22 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
         handovers={dataState.handovers}
         reports={dataState.reports}
         capabilities={dataState.capabilities}
-        onShiftCreated={(s) => { setSelectedShiftId(s.shift_id); void refreshShifts(); }}
+        onShiftCreated={(s) => { setSelectedShiftId(s.shift_id); void refreshStaffingAndShifts(); }}
         onRefresh={refreshAll}
+      />
+      <SupervisorActions
+        key={`supervisor-${selectedShiftId ?? 'no-shift'}`}
+        selectedShiftId={selectedShiftId}
+        selectedShift={selectedShift}
+        events={dataState.events}
+        incidents={dataState.incidents}
+        handovers={dataState.handovers}
+        reports={dataState.reports}
+        staffingShifts={supervisorState.staffingShifts}
+        staffingUsers={supervisorState.staffingUsers}
+        staffingAvailable={supervisorState.available}
+        onStaffingRefresh={refreshStaffingAndShifts}
+        onOperationalRefresh={refreshAll}
       />
     </main>
   );

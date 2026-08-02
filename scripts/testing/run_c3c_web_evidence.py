@@ -3,6 +3,13 @@
 Spawns disposable SQLite DB, seeds test operator user, starts FastAPI backend & Vite preview,
 runs static HTTP smoke & Playwright Chromium E2E tests, and cleans up owned resources
 (child process trees, temp DB directory, generated test-results/tsbuildinfo artifacts).
+
+P2C-MUTATION-FULL-UI-C3D: `run_harness` now accepts an optional `checkpoint`
+label and `playwright_grep` filter so scripts/testing/run_c3d_web_evidence.py
+can reuse this exact command construction/readiness/cleanup contract for the
+combined operator+supervisor Playwright suite, instead of forking it. Calling
+this module directly (checkpoint="C3c") is unchanged: it still runs only the
+default Playwright project with no grep filter.
 """
 
 from __future__ import annotations
@@ -122,9 +129,9 @@ def offline_queue_clean(playwright_passed: bool) -> bool:
     return playwright_passed
 
 
-def run_harness(as_json: bool = False) -> int:
-    tmp_dir = tempfile.mkdtemp(prefix="c3c_web_evidence_")
-    db_path = os.path.join(tmp_dir, "test_c3c.db").replace('\\', '/')
+def run_harness(as_json: bool = False, checkpoint: str = "C3c", playwright_grep: str | None = None) -> int:
+    tmp_dir = tempfile.mkdtemp(prefix=f"{checkpoint.lower()}_web_evidence_")
+    db_path = os.path.join(tmp_dir, f"test_{checkpoint.lower()}.db").replace('\\', '/')
     api_port = find_free_port()
     vite_port = find_free_port()
 
@@ -132,7 +139,7 @@ def run_harness(as_json: bool = False) -> int:
     vite_proc: subprocess.Popen | None = None
     success = False
     evidence: dict[str, object] = {
-        "checkpoint": "C3c",
+        "checkpoint": checkpoint,
         "api_port": api_port,
         "vite_port": vite_port,
         "static_smoke": False,
@@ -155,7 +162,7 @@ def run_harness(as_json: bool = False) -> int:
             python_paths.append(existing_pp)
         env["PYTHONPATH"] = os.path.pathsep.join(python_paths)
         env["DATABASE_URL"] = f"sqlite:///{db_path}"
-        env["JWT_SECRET_KEY"] = "c3c-test-evidence-secret-key-32bytes!!"
+        env["JWT_SECRET_KEY"] = f"{checkpoint.lower()}-test-evidence-secret-key-32bytes!!"
         env["VITE_API_URL"] = f"http://127.0.0.1:{api_port}"
         env["VITE_PREVIEW_URL"] = f"http://127.0.0.1:{vite_port}"
 
@@ -214,11 +221,15 @@ def run_harness(as_json: bool = False) -> int:
             evidence["error"] = "Static asset smoke failed: built entry or a referenced local JS/CSS asset did not return HTTP 200"
             return _finish(evidence, False, as_json)
 
+        pw_test_cmd = "pnpm --dir apps/workspace-web exec playwright test"
+        if playwright_grep:
+            escaped_grep = playwright_grep.replace("'", "''")
+            pw_test_cmd += f" --grep '{escaped_grep}'"
         pw_cmd = [
             "powershell", "-ExecutionPolicy", "Bypass", "-Command",
-            f"$env:VITE_PREVIEW_URL='http://127.0.0.1:{vite_port}'; pnpm --dir apps/workspace-web exec playwright test"
+            f"$env:VITE_PREVIEW_URL='http://127.0.0.1:{vite_port}'; {pw_test_cmd}"
         ]
-        pw_res = subprocess.run(pw_cmd, cwd=WORK_DIR, env=env, capture_output=True, text=True, timeout=300)
+        pw_res = subprocess.run(pw_cmd, cwd=WORK_DIR, env=env, capture_output=True, text=True, timeout=600)
         evidence["playwright_pass"] = pw_res.returncode == 0
         evidence["offline_queue_clean"] = offline_queue_clean(evidence["playwright_pass"])
         if pw_res.returncode != 0:
@@ -238,7 +249,7 @@ def _finish(evidence: dict[str, object], success: bool, as_json: bool) -> int:
     if as_json:
         print(json.dumps(evidence, indent=2))
     else:
-        print(f"C3c Web Evidence Result: {'PASS' if success else 'FAIL'}")
+        print(f"{evidence['checkpoint']} Web Evidence Result: {'PASS' if success else 'FAIL'}")
         if not success:
             print(json.dumps(evidence, indent=2))
     return 0 if success else 1

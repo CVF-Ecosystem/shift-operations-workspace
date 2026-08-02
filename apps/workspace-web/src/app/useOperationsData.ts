@@ -8,6 +8,12 @@
 // superseded/cancelled outcome, since a newer effect run already owns the
 // canonical state. Stale-response suppression via requestToken and
 // AbortSignal cancellation on shift change are preserved.
+//
+// P2C-MUTATION-FULL-UI-C3D (SPEC R3): `events` now retains the COMPLETE
+// selected-shift event collection (including unconfirmed) so supervisor
+// confirm/correction target selection can see every event and its current
+// stored version. Only the derived `confirmedEvents` projection stays
+// timeline-visible; existing C3c timeline behavior does not regress.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api, ApiError, type ApiErrorKind } from '../services/api';
 import { operatorApi, type ReportEntry } from '../services/operatorApi';
@@ -16,6 +22,7 @@ import type { Message } from '../types/backendContracts';
 
 export interface OperationsDataState {
   events: OperationalEvent[];
+  confirmedEvents: OperationalEvent[];
   openWork: OpenWorkResponse | null;
   incidents: Incident[];
   handovers: Handover[];
@@ -31,6 +38,7 @@ export interface OperationsDataState {
 
 const EMPTY_DATA = {
   events: [] as OperationalEvent[],
+  confirmedEvents: [] as OperationalEvent[],
   openWork: null as OpenWorkResponse | null,
   incidents: [] as Incident[],
   handovers: [] as Handover[],
@@ -78,7 +86,11 @@ export function useOperationsData(
       if (requestToken.current !== token) throw new Superseded('refresh superseded before it could commit');
       const [events, openWork, incidents, handovers, messages, tasks, customerRequests, capRes, reports] = results;
       setData({
-        events: events.filter((e) => e.state === 'CONFIRMED'),
+        // C3D SPEC R3: retain the complete collection for supervisor target
+        // selection; the timeline stays confirmed-only via the derived
+        // projection below (unchanged C3c behavior).
+        events,
+        confirmedEvents: events.filter((e) => e.state === 'CONFIRMED'),
         openWork,
         incidents,
         handovers,

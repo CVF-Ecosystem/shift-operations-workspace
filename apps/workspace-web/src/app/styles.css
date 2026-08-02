@@ -40,6 +40,11 @@ button { border: 0; border-radius: 8px; padding: 10px 14px; cursor: pointer; bac
 
 /* Operator Actions Styling */
 .operator-actions { padding: 16px; display: grid; gap: 20px; border-top: 1px solid #e5e7eb; }
+
+/* P2C-MUTATION-FULL-UI-C3D: Supervisor Actions Styling, parallel to
+   .operator-actions - the two are visually distinct sections but share
+   .action-section/.action-form/.form-* primitives above. */
+.supervisor-actions { padding: 16px; display: grid; gap: 20px; border-top: 2px solid #93c5fd; }
 .action-section { background: #f9fafb; padding: 16px; border-radius: 8px; border: 1px solid #e5e7eb; }
 .section-heading { margin-top: 0; margin-bottom: 12px; font-size: 1.1em; color: #1f2937; }
 .form-legend { font-weight: 600; margin-bottom: 8px; display: block; font-size: 1em; }
