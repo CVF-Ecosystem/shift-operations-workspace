@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` repair (Amendment 3, G6-R3 first)
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_3_REPAIR_RESUMED_G6_R3_REQUIRED`
+- Control-chain phase: `WORK_ORDER` (Amendment 4 authorization review)
+- Active role: `SESSION_SYNC_STEWARD`
+- Status: `AMENDMENT_4_AUTHORIZATION_RE_REVIEW_PASS_GOVERNANCE_PUSH_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -173,3 +173,27 @@ pushed and HEAD equals origin/main. This separate exact four-path checkpoint
 acknowledges repair transfer. Run G6-R3 before editing the same eight BUILD
 paths. Only G6-R3 PASS permits structured-semantic/v4 source repair; repository
 migration, provider calls and new human R2 acknowledgment remain later gates.
+
+## Amendment 3 live failure and Amendment 4 draft
+
+After all Amendment 3 gates and fresh human R2 approval, the runner was invoked
+once. FT-1 is ACCEPTED/1; FT-2 is FAILED/1 solely because its public-safe
+candidate used observed `WORK_ORDER` while the private evaluator required
+fallback `INTAKE`; FT-3..FT-4 remain UNUSED/0. No rerun occurred or is allowed.
+Post-call focused 74, full 1452/128 and repository/doctor gates passed with
+residue/staged zero.
+
+Pinned v4 evidence is receipt `80883` /
+`5ab461564c942785806354019ee5f7f795872672ff9d63261d221a5cad9d5cc3` and
+state `394267` /
+`3a8d6f66477939631b9a6bc0f32e0da2eacdd0c0e295e427f2e00e25cc3c85db`.
+Amendment 4 defines one global observed-phase/governed-next semantic, preserves
+v4 recursively in v5, invalidates replacement3, creates fresh replacement4
+and sets exact final ceiling 12/8/4. Independent authorization review is the
+only next move; no BUILD, migration, provider or Git write is authorized.
+
+Independent authorization re-review passed without finding or waiver after
+closing F1–F3 continuity drift. Exact v4 pins, phase semantics, preservation,
+8/8/0→12/8/4 accounting and 8/3/7/4 boundaries are approved. Push exactly the
+seven governance paths next; only a separate pushed four-path resume transfers
+to REPAIR_WORKER/G6-R4.
