@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER` (Amendment 3 authorization review)
-- Active role: `SESSION_SYNC_STEWARD`
-- Status: `AMENDMENT_3_AUTHORIZATION_PASS_GOVERNANCE_PUSH_REQUIRED`
+- Control-chain phase: `BUILD` repair (Amendment 3, G6-R3 first)
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_3_REPAIR_RESUMED_G6_R3_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -167,3 +167,9 @@ fresh lineages, exact 8 BUILD / 3 runtime / 7 governance / 4 resume paths and
 the complete G6-R3/pre-call/new-human-R2 chain. Commit/push exactly the seven
 governance paths next, leaving BUILD unstaged; only a separate pushed four-path
 resume may transfer to REPAIR_WORKER.
+
+Governance authorization `777dbf1e350abdc9da1e5f1f78dbf7f34464a0ae` is
+pushed and HEAD equals origin/main. This separate exact four-path checkpoint
+acknowledges repair transfer. Run G6-R3 before editing the same eight BUILD
+paths. Only G6-R3 PASS permits structured-semantic/v4 source repair; repository
+migration, provider calls and new human R2 acknowledgment remain later gates.
