@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `COMMIT_STEWARD -> REPAIR_WORKER`
-- Status: `AMENDMENT_7_FRESH_R2_ACCEPTED_PENDING_ACK_CHECKPOINT`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_8_AUTHORIZATION_REVIEW_PASS_PENDING_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -225,6 +225,42 @@ REPAIR_WORKER runs the ordered Amendment 7 continuation once, stops at the
 first non-zero command or contract failure, does not retry and makes zero
 provider/network/remote-ingest calls. No BUILD commit, self-review, FREEZE or
 later-lane authority.
+
+## Consumed Amendment 7 invocation and failure
+
+Acknowledgment checkpoint `9742c3bede7658ab9c56724ad0ad58d23a9a5e9d`
+was pushed. Amendment 7 preflight passed actual authority lineage, artifact
+hashes, staged-empty and exact 10/25/28 bindings. The next stdin probe collected
+test node ids but stopped before executing any test case because its guessed
+selector could not find a node containing `zero_quality`. It was not retried.
+No repair edit, test case or later gate ran; zero provider/network/
+remote-ingest calls occurred during the invocation.
+
+Amendment 7/R2 are consumed. Amendment 8 at
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_8.md` SHA-256
+`4401af42da2f4da8c0f1bb856e624684f4309eb6c00f6f0407270331d1dd3347`
+replaces guessed selectors with an exact direct seven-case stdin probe. It
+retains unchanged exact-28 `c9e021d3…183d4e`, source/test-10
+`addb052c…b7352`, protected-25 `513ba54f…6dda1`, exactly three repair paths,
+final exact 28 and the remaining gates. Independent authorization review,
+authority checkpoint and fresh exact R2 are mandatory before continuation.
+
+## Amendment 8 authorization review PASS
+
+Independent REVIEWER returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_8_AUTHORIZATION_REVIEW.md`
+SHA-256 `6c324b4931947b7ee55068140524dce8575a47b2f7797c7db2635b8815e9fd87`.
+The review reproduced the consumed Amendment 7 truth, exact-28/source-test-10/
+protected-25 digests, three repair-surface hashes and empty staged set. It
+inspected immutable source/tests and confirmed all seven direct cases are
+distinct, executable, ordered, counted and disclosure-safe with required
+restoration. Findings and waivers are `NONE`.
+
+COMMIT_STEWARD must commit/push only Amendment 8, its review and four
+continuity paths while preserving all exact 28 BUILD paths unstaged. Then stop
+for fresh exact R2. No continuation, BUILD commit, self-review, FREEZE or
+later-lane authority yet.
 
 ## Intake boundary
 
