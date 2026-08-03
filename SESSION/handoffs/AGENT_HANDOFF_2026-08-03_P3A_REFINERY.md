@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_3_FRESH_R2_ACCEPTED_ACKNOWLEDGMENT_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_4_AUTHORIZATION_REVIEW_PASS_PENDING_AUTHORITY_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -18,6 +18,40 @@ provenance, data-quality and fallback results; submodules have no runtime code
 or tests. `data_scope` is callable but has no runtime caller and does not verify
 minimization evidence. The existing normalized fixture invents an unsupported
 `11h40 → 23:40` conversion and is not golden truth.
+
+## Corrected independent BUILD review and Amendment 4
+
+Independent review artifact
+`docs/decisions/P3A_REFINERY_BUILD_INDEPENDENT_REVIEW.md` SHA-256
+`ccc6c4c25fc00000be34d443ffdb4d59c665f1436641e3f89b06b4906480b405`
+returns `REVIEW_CHANGES_REQUIRED`, no waiver. Its original manifest-drift F1
+is explicitly retracted: typed ordinal reproduction passes exact 28 BUILD / 26
+retained paths and digest `c7c1761c…01b8`; focused tests pass 31. The corrected
+failure is a public-invariant probe that accepts zero-quality ready output, an
+unbound candidate fingerprint and invalid offsets. The review also retains the
+non-executable R27 label matrix, missing fail-stop paths, safe-boundary gaps and
+unrelated `cvf-application-profile` catalog mutation findings.
+
+First authorization review `42eb1c29…03ef8` failed only because the initial
+Amendment candidate recorded a culture-sensitive protected-15 digest while
+promising ordinal sorting; it otherwise found the 13-path scope sufficient and
+non-expansive. No waiver. Corrected Work Order Amendment 4 binds the retained
+exact-28 manifest `e43e53e4…c4eae`, protects 15 paths under typed ordinal
+digest `ce531fb7…44784`, and authorizes exactly 13 repair paths while final BUILD
+remains exact 28. It permits zero provider/network/remote-ingest calls.
+DESIGN/SPEC remain unchanged. Fresh independent authorization re-review and a
+fresh exact human R2 literal are mandatory before repair; no candidate edit,
+stage, commit, push, self-review or FREEZE authority exists yet.
+
+Fresh authorization re-review updated the review artifact to SHA-256
+`e18217e6c41a958fdd3dc38f0e334c9153e4521929ca1b8758f33a7f856bb320`
+and returned `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no open findings
+and no waiver. Corrected Amendment SHA-256 is
+`0f79fcc75ae468c0c56a2db39d821738e0b863bf94710f2eebcbf845020fd0dd`.
+COMMIT_STEWARD must commit/push only the corrected BUILD review, Amendment 4,
+its authorization review and four continuity paths while preserving all 28
+BUILD paths unstaged. Then stop for the fresh exact R2 literal; repair remains
+prohibited until that acknowledgment is accepted.
 
 ## Intake boundary
 
@@ -309,6 +343,35 @@ changes. REPAIR_WORKER then runs Amendment 3 in exact order, stops first
 failure, makes zero provider/network/remote-ingest calls and yields at most a
 dirty exact 28-path candidate pending independent BUILD review. No BUILD
 commit, self-review, FREEZE or later-lane authority.
+
+## Amendment 3 continuation PASS
+
+Acknowledgment checkpoint `3972bbb7202af63c60e49c44b3038b753bc976ac`
+was pushed before continuation. Preflight reproduced exact immutable 26-path
+digest `c7c1761c…01b8`, registry `d3b84850…9f38`, catalog
+`6b5ad6a2…3e92`, both `partial`, and empty staged set.
+
+REPAIR_WORKER changed exactly `knowledge/PROJECT_CONTEXT.md` and
+`knowledge/manifest.json`. Only the two authorized project-context source-pin
+digests changed in the manifest. Ordered evidence passed once each:
+
+- project knowledge validator: PASS;
+- focused Knowledge Pack suite and local disposable helper: `86 passed`;
+- catalog check without write: PASS;
+- full non-live suite: `1571 passed, 128 skipped`;
+- session-state, file-size and repository validators: PASS;
+- JSON/YAML parse, forbidden import/I/O, secret and diff checks: PASS;
+- final exact audit: 28 BUILD paths, two repair paths, immutable-26 digest
+  unchanged, context 29 lines and staged set empty.
+
+No provider/network/remote-ingest call or retry occurred. The output is only a
+dirty deterministic local BUILD candidate pending independent review. It has
+no runtime caller and proves no P3-A closure, provider/ingest/persistence,
+`data_scope` enforcement, retrieval/RAG, learning, production or Phase 3
+completion.
+
+ORCHESTRATOR must transfer the exact candidate to independent REVIEWER. No
+BUILD edit, stage, commit, push, self-review, FREEZE or later-lane authority.
 
 ## Fresh Amendment 2 human R2 acknowledgment
 
