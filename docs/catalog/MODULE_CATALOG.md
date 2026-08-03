@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-02T15:03:08.996568+00:00_
+_Last generated: 2026-08-03T08:28:17.443773+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-02T15:03:08.996568+00:00_
 
 ## Totals
 
-- Modules: **20**
+- Modules: **21**
 - Code LOC (py/ts/tsx): **18697**
 - Code files: **214**
-- By status: contract-only=6, enforced=2, partial=6, stub=6
+- By status: contract-only=7, enforced=2, partial=6, stub=6
 
 ## Status legend
 
@@ -41,6 +41,7 @@ _Last generated: 2026-08-02T15:03:08.996568+00:00_
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
+| `operate-shift-workspace` | skills/operate-shift-workspace | contract-only | 0 | — | Provider-neutral navigation over current project continuity, phase/role routing, exact-path work orders, evidence review and bounded closure. |
 | `refinery-bridge` | packages/refinery-bridge | contract-only | 0 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `workspace-contracts` | packages/workspace-contracts | contract-only | 0 | — | Canonical JSON Schemas that form the stable boundary between core, providers, channels, Refinery and CVF. |
 | `channel-adapters` | packages/channel-adapters | stub | 0 | — | Concrete adapters for internal PWA, customer portal, generic webhook, Zalo, WhatsApp, email, SMS, and mocks. |
@@ -195,6 +196,18 @@ _Last generated: 2026-08-02T15:03:08.996568+00:00_
 - **Tests:** —
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Decide whether this stays a contract or is superseded by cvf-runtime.
+
+### `operate-shift-workspace` — contract-only
+
+- **Path:** `skills/operate-shift-workspace` (skill)
+- **Purpose:** Provider-neutral navigation over current project continuity, phase/role routing, exact-path work orders, evidence review and bounded closure.
+- **CVF controls:** —
+- **Enforcement:** None. This skill is guidance over current repository authority; it grants no permission and does not enforce governance.
+- **Contract:** skills/operate-shift-workspace/SKILL.md
+- **Depends on:** —
+- **Tests:** `tests/unit/test_project_operations_skill_contract.py`, `tests/unit/test_project_operations_skill_live_evidence.py`
+- **Metrics:** 0 LOC across 0 code file(s)
+- **Next step:** Keep repository source uninstalled until a separate post-FREEZE installation tranche is explicitly authorized. Fresh PROJECT-KNOWLEDGE-PACK INTAKE is next.
 
 ### `refinery-bridge` — contract-only
 

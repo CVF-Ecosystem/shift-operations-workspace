@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` repair (Amendment 4, G6-R4 first)
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_4_REPAIR_RESUMED_G6_R4_REQUIRED`
+- Control-chain phase: `FREEZE`
+- Active role: `CLOSER / SESSION_SYNC_STEWARD / COMMIT_STEWARD`
+- Status: `CLOSED_BOUNDED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -202,3 +202,29 @@ Governance authorization `6e25887eb9bfc0b7de5a61de978979c43166e42c` is
 pushed and HEAD equals origin/main. This separate exact four-path checkpoint
 acknowledges repair transfer. Run G6-R4 before editing the same eight BUILD
 paths; migration/provider/human R2 remain later gates.
+
+## Amendment 4 BUILD and C4 closure candidate
+
+G6-R4, phase-semantics/v5 repair, zero-call migration and all pre-call gates
+passed. A fresh human R2 acknowledgment authorized exactly one runner
+invocation with at most four real-provider calls, fail-fast and no retry. The
+invocation returned replacement 4 `4 physical / 4 accepted`; total history is
+exactly `12 physical / 8 invalidated / 4 accepted`. No thirteenth call exists.
+
+Post-call focused `76`, full `1454/128`, skill/repository/doctor gates and
+exact-parent `1378/128` rehearsal passed. Independent final review returned
+PASS without finding/waiver. Exact eight-path BUILD `ad7e037` is pushed.
+
+Separate C4 authorization `d953b18` is pushed after four authorization
+findings closed without waiver. The exact eight closure paths received
+independent FREEZE re-review PASS after `C4-FREEZE-REV-F1` corrected
+candidate-state residue to final post-push truth; no waiver. Protected
+BUILD/evidence bytes, continuity/catalog truth, zero provider/runtime/staged
+residue and the bounded claim all passed.
+
+The bounded claim is only that four separately initialized real-provider
+sessions followed the reviewed repository-owned navigation skill for four
+synthetic fixtures. It is not prompt enforcement, universal compliance,
+production governance, installation or Phase 3 progress. Fresh
+`PROJECT-KNOWLEDGE-PACK` INTAKE is the sole next authority; later queue items
+remain parked.
