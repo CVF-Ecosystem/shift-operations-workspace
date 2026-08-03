@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `COMMIT_STEWARD -> REPAIR_WORKER`
-- Status: `AMENDMENT_6_FRESH_R2_ACCEPTED_PENDING_ACK_CHECKPOINT`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_7_AUTHORIZATION_REVIEW_PASS_PENDING_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -173,6 +173,41 @@ REPAIR_WORKER runs the ordered Amendment 6 continuation once, stops at the
 first non-zero command or contract failure, does not retry and makes zero
 provider/network/remote-ingest calls. No BUILD commit, self-review, FREEZE or
 later-lane authority.
+
+## Consumed Amendment 6 invocation and failure
+
+Acknowledgment checkpoint `65b47e4a1b42d4ad41424f4c616bfb3f65790e0f`
+was pushed. The one Amendment 6 invocation stopped at its first preflight
+assertion because the worker hard-coded incorrect full SHA
+`65b47e4e36e3f42f07b615e9cddeeb969f9afae1` instead of the actual checkpoint.
+The failed preflight was not retried. No probe, repair edit, test or later gate
+ran. The exact dirty candidate is unchanged, the staged set is empty, and zero
+provider/network/remote-ingest calls occurred during the invocation.
+
+Amendment 6/R2 are consumed. Amendment 7 at
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_7.md` SHA-256
+`8712b18a43a35555573bce36f3fe6afd1b91b9709036dce1f1663dddd4c5c965`
+corrects only the acknowledgment-lineage binding. It retains exact-28
+`c9e021d3…183d4e`, immutable source/test-10 `addb052c…b7352`, protected-25
+`513ba54f…6dda1`, exactly three repair paths, final exact 28 and the corrected
+probe environment/remaining gates. Independent authorization review,
+authority checkpoint and fresh exact R2 are mandatory before any continuation.
+
+## Amendment 7 authorization review PASS
+
+Independent REVIEWER returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_7_AUTHORIZATION_REVIEW.md`
+SHA-256 `4f55a537bfb356f399ab3722b71af56771091049f8b2b7e2851fac1dd4fe72fc`.
+The review reproduced the actual acknowledgment/authority lineage, unchanged
+exact-28/source-test-10/protected-25 digests, all three repair-surface hashes,
+empty staged set, corrected probe environment, ordered remaining gates and
+zero-call/no-retry boundary. Findings and waivers are `NONE`.
+
+COMMIT_STEWARD must commit/push only Amendment 7, its review and the four
+continuity paths while preserving all exact 28 BUILD paths unstaged. Then stop
+for fresh exact R2. No continuation, BUILD commit, self-review, FREEZE or
+later-lane authority yet.
 
 ## Intake boundary
 
