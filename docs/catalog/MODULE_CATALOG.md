@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-03T08:28:17.443773+00:00_
+_Last generated: 2026-08-03T12:08:05.846812+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-03T08:28:17.443773+00:00_
 
 ## Totals
 
-- Modules: **21**
+- Modules: **22**
 - Code LOC (py/ts/tsx): **18697**
 - Code files: **214**
-- By status: contract-only=7, enforced=2, partial=6, stub=6
+- By status: contract-only=7, enforced=2, partial=7, stub=6
 
 ## Status legend
 
@@ -34,6 +34,7 @@ _Last generated: 2026-08-03T08:28:17.443773+00:00_
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
+| `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
@@ -112,6 +113,18 @@ _Last generated: 2026-08-03T08:28:17.443773+00:00_
 - **Tests:** `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_incident_vertical.py`, `tests/cvf/test_handover_vertical.py`
 - **Metrics:** 818 LOC across 5 code file(s)
 - **Next step:** Incident, handover, operational Report and the Phase 2 full-shift exit gate are CLOSED_BOUNDED; do not reopen them. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next. Approval/Audit ownership and any split of central models.py remain separate future tranches; do not claim operations-domain enforced.
+
+### `project-knowledge-pack` — partial
+
+- **Path:** `knowledge` (package)
+- **Purpose:** Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries.
+- **CVF controls:** —
+- **Enforcement:** Local validator checks exact schema and types, source pins, citations, freshness, path containment, bounded secret patterns and residue. It does not enforce access, data minimization, external ingest, retrieval, automatic context injection or AI/provider behavior.
+- **Contract:** knowledge/manifest.json
+- **Depends on:** —
+- **Tests:** `tests/unit/test_project_knowledge_pack.py`, `tests/integration/test_project_knowledge_ingest_rehearsal.py`
+- **Metrics:** 0 LOC across 0 code file(s)
+- **Next step:** Fresh P3-A Refinery INTAKE only; retrieval, RAG and learning remain parked.
 
 ### `workspace-api` — partial
 

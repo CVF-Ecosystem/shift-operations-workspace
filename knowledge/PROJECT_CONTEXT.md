@@ -13,10 +13,10 @@ stub surfaces; those labels must not be rounded up into production readiness.
 
 Phase 1 is complete under its reviewed local/disposable infrastructure
 boundary. Phase 2 is closed bounded for the reviewed start-to-freeze lineage.
-The Project Operations Skill is also closed bounded. The Project Knowledge
-Pack is the current governed tranche, while Refinery, retrieval-ready
-contracts, governed retrieval, RAG, and learning runtime remain later work in
-the recorded business sequence.
+The Project Operations Skill and Project Knowledge Pack are closed bounded.
+Fresh P3-A Refinery INTAKE is the sole next governed move, while
+retrieval-ready contracts, governed retrieval, RAG, and learning runtime
+remain later work in the recorded business sequence.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

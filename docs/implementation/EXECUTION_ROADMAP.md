@@ -395,10 +395,10 @@ Trigger đã thỏa tại BUILD `d02186a` + C4. Orchestrator kích hoạt đúng
    `d953b18` đã push; independent C4 FREEZE re-review PASS sau một continuity
    finding đóng không waiver. Claim chỉ bốn synthetic fixtures theo skill navigation đã review;
    không prompt enforcement, production governance, installation hay Phase 3.
-2. **PROJECT-KNOWLEDGE-PACK — NEXT / FRESH INTAKE ONLY:** chuẩn hóa knowledge nguồn, owner, provenance,
-   freshness/retention và ingestion boundary cho chính dự án;
-3. **P3-A Refinery:** normalize, dedupe, redact, classify, quarantine,
-   provenance và data-quality trước khi dữ liệu thành context candidate;
+2. **PROJECT-KNOWLEDGE-PACK — FREEZE / CLOSED_BOUNDED:** BUILD `bb3e336` đúng tám path, independent `FINAL_REVIEW_PASS`, F1-F4 đóng không waiver;
+   BUILD validator/focused 86/full 1540/128/repository gates/doctor 24/1 PASS, zero provider/network/POST; C4 exact 10 paths qua `c32b5c5`/`ffd548e`/`5c50706`, zero provider/helper/POST và chỉ bounded git-governance network. Claim chỉ INTERNAL advisory pack, deterministic local validator và disposable local helper transform;
+   không remote ingest, retrieval, automatic injection, provider behavior, Refinery/RAG/production.
+3. **P3-A Refinery — NEXT / FRESH INTAKE ONLY:** normalize, dedupe, redact, classify, quarantine, provenance và data-quality trước khi dữ liệu thành context candidate;
 4. **P3-C retrieval-ready contract → P4-A1 governed retrieval → P4-A2 RAG**;
 5. **governed learning runtime:** chỉ mở sau Refinery, authorization/
    data-scope, provenance và retrieval gates hoạt động thật; learning không
@@ -567,7 +567,7 @@ gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
 **2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
-**Bước kế tiếp duy nhất:** fresh `PROJECT-KNOWLEDGE-PACK` INTAKE; không có BUILD/provider authority kế thừa và các tranche sau vẫn chờ đúng thứ tự tự động đã ghi.
+**Bước kế tiếp duy nhất:** fresh `P3-A Refinery` INTAKE; không có BUILD/helper/provider/network/POST authority kế thừa, còn P3-C/retrieval/RAG/learning vẫn chờ đúng thứ tự tự động đã ghi.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),
