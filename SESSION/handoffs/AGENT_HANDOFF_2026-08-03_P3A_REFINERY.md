@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_2_FRESH_R2_ACCEPTED_ACKNOWLEDGMENT_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `WORK_ORDER_AUTHOR`
+- Status: `WORK_ORDER_AMENDMENT_3_REVIEW_PASS_AUTHORITY_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -310,3 +310,55 @@ Amendment 2 in exact order, runs every remaining command once, stops first
 failure, makes zero provider/network/remote-ingest calls and yields at most a
 dirty exact 28-path candidate pending independent BUILD review. No BUILD
 commit, self-review, FREEZE or later-lane authority.
+
+## Consumed Amendment 2 continuation and failure
+
+Acknowledgment checkpoint `78ea4e58d61f75cd90ef153f5ea9f7396884bfe1`
+was pushed before continuation. Preflight confirmed authority lineage, all
+immutable hashes, empty staged set, exact 26-path candidate digest
+`a90307c7…e9d2` and protected-24 digest `d61bd541…d2bec2`.
+
+The one authorized registry edit changed only `refinery-bridge.status` from
+`contract-only` to `partial`. The catalog generator then ran once and returned
+PASS. The immediately ordered verification wrapper returned non-zero because
+PowerShell rejected its script at parse time (`foreach` missing whitespace),
+before any verification check executed.
+
+Execution stopped there. The verification command was not retried.
+`knowledge/PROJECT_CONTEXT.md` and `knowledge/manifest.json` were not touched;
+Knowledge validator/focused tests, catalog check, full suite and later gates
+were NOT RUN. Zero provider/network/remote-ingest calls occurred during the
+invocation, and no BUILD commit/push occurred.
+
+Amendment 2 and its R2 are consumed. WORK_ORDER_AUTHOR must bind the retained
+exact post-generator 26-path candidate in a fresh amendment that authorizes
+only the unrun verification/knowledge/gate sequence. Independent review,
+authority checkpoint and fresh exact R2 are mandatory.
+
+## Work Order Amendment 3 candidate
+
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_3.md` SHA-256
+`30896c92b12beb8b5f6d153eb8ea4cc642b80004a0c4b400cd61f91dccc6e0f4`
+binds exact post-generator 26-path digest `c7c1761c…01b8`, registry
+`d3b84850…9f38` and catalog `6b5ad6a2…3e92`. Both catalog surfaces carry
+`refinery-bridge: partial`.
+
+All 26 candidate paths are byte-immutable. Amendment 3 prohibits catalog
+`--write` and authorizes exactly `knowledge/PROJECT_CONTEXT.md` plus
+`knowledge/manifest.json`; final BUILD diff remains exact 28 paths. It then
+runs only never-run knowledge/catalog/full/repository gates, once each,
+stop-first/no-retry and zero provider/network/remote-ingest.
+
+Independent authorization review returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_3_AUTHORIZATION_REVIEW.md`
+SHA-256 `13635fd1b58ac8f4a9a8cdf329d35ea294f55d103157a6f0bf9ab837480a9ad6`.
+It reproduced all retained hashes/digest and confirmed two repair paths, final
+exact 28, two pin strings only, catalog-write prohibition, ordered gates and
+zero-call/no-retry as sufficient and non-expansive.
+
+COMMIT_STEWARD must stage/commit/push only Amendment 3, its review and the four
+continuity paths while preserving all 26 BUILD paths unstaged. Then stop for
+fresh literal R2 bound to Amendment SHA `30896c92…e0f4`, two repair paths and
+final exact 28 BUILD paths. No continuation/rerun/provider/network/
+remote-ingest or later-lane authority yet.
