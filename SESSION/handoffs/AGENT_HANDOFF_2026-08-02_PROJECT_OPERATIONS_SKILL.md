@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `SPEC`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `ORCHESTRATOR / SESSION_SYNC_STEWARD`
-- Status: `SPEC_RE_REVIEW_PASS_READY_FOR_WORK_ORDER`
+- Status: `AUTHORIZATION_RE_REVIEW_PASS_PRE_BUILD_CHECKPOINT_NEXT`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -46,6 +46,25 @@ waiver was taken.
 
 ## Next governed move
 
-SPEC repair 1 received independent `SPEC_RE_REVIEW_PASS`; the HIGH cardinality
-finding is closed without waiver. Draft an exact-path WORK_ORDER only.
-Knowledge-pack and later queue items stay inactive.
+`docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER.md` proposes an exact
+eight-path BUILD, separate authorization/pre-BUILD checkpoints, initializer
+use, static and live harness contracts, four durable FT lineages, G6,
+independent review and commit/C4 ownership. It is now independently approved;
+BUILD/provider/install remain unauthorized pending checkpoint and G6.
+
+## Authorization review history
+
+Initial review returned five accepted findings, no waiver: Windows lock/temp
+authority; evidence-bundle invalidation; exact provider config precedence;
+canonical request/response and fail-on-redaction semantics; and missing
+SPEC/WORK_ORDER in machine required reads. Repair 1 adds exact runtime-only
+lock/temp paths while retaining eight final BUILD paths, a uniform six-path
+bundle digest, exact read-only Alibaba sources, canonical JSON evidence and the
+corrected dependency read order. Final verdict is
+`AUTHORIZATION_RE_REVIEW_PASS`; all five findings are closed without waiver.
+
+## Next governed move after authorization push
+
+Record and push a separate pre-BUILD role/authority acknowledgment only. No
+source edit or provider call until that checkpoint is pushed and G6 passes.
+Later queue items remain inactive.
