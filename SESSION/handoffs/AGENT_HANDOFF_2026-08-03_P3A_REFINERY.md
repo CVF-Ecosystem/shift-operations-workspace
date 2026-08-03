@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `FRESH_R2_ACCEPTED_ACKNOWLEDGMENT_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `WORK_ORDER_AUTHOR`
+- Status: `WORK_ORDER_AMENDMENT_2_REVIEW_PASS_AUTHORITY_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -234,3 +234,60 @@ in exact order, stops at the first failure, makes zero provider/network/
 remote-ingest calls and yields at most a dirty 28-path candidate pending
 independent BUILD review. No BUILD commit, self-review, FREEZE or later-lane
 authority.
+
+## Consumed Amendment 1 continuation and failure
+
+Acknowledgment checkpoint `7b4cadb8ac01e3fd4f2284b76416a83dc8cd5277`
+was pushed before the continuation. Preflight confirmed HEAD/origin, immutable
+baseline ancestry, parent/Amendment/SPEC hashes, empty staged set, exact 25-path
+candidate digest `58e4685e…8484da` and protected-24 digest
+`d61bd541…d2bec2`.
+
+The single authorized generator run exited 0 and changed only
+`docs/catalog/MODULE_REGISTRY.json` plus generated
+`docs/catalog/MODULE_CATALOG.md`. The immediately required semantic check then
+failed: `refinery-bridge.status` remained `contract-only`; Amendment 1 required
+the generator to set computed truth to `partial`. Protected-24 digest remained
+unchanged and the dirty BUILD set became exactly 26 paths.
+
+Execution stopped at that first contract failure. `knowledge/PROJECT_CONTEXT.md`
+and `knowledge/manifest.json` were not touched. Knowledge validator/focused
+tests, catalog check, full suite and every later gate were NOT RUN. A subsequent
+read-only snapshot command had a PowerShell parse error before reading/writing
+files and was not retried. The invocation made zero provider/network/
+remote-ingest calls and no retry, commit or push.
+
+Amendment 1 and its R2 acknowledgment are consumed. The next move is a fresh
+WORK_ORDER amendment that binds the retained exact 26-path candidate and
+authorizes only the minimal catalog-status correction plus the still-unrun
+knowledge/gate sequence. It requires independent review and fresh exact R2.
+
+## Work Order Amendment 2 candidate
+
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_2.md` SHA-256
+`0f47068a71d59dc553ffdf459e52c5e622325fabff9015a16db73249ea3614c4`
+binds the exact retained 26-path candidate digest `a90307c7…e9d2`, registry
+`23273fb2…65b8`, generated catalog `f814040d…e8e6` and protected-24 digest
+`d61bd541…d2bec2`.
+
+It corrects the newly proven ownership defect only: edit the single
+`refinery-bridge.status` value from `contract-only` to `partial` before one
+catalog render. The repair-touch ceiling remains exactly registry, catalog,
+Project Context and knowledge manifest; final BUILD diff remains exact 28
+paths. It then runs only the still-unrun knowledge/catalog/full/repository
+gates, once each, stop-first/no-retry and zero provider/network/remote-ingest.
+
+Independent authorization review returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_2_AUTHORIZATION_REVIEW.md`
+SHA-256 `42026b238140d3519cc083dbc02e97f1935cf7ed2ce66e86010e5cad92eda904`.
+It independently reproduced the 26-path, protected-24, registry and catalog
+digests; confirmed generator behavior; and accepted the one-field correction,
+four repair paths, final exact 28 paths, ordered gates and zero-call/no-retry
+boundary as sufficient and non-expansive.
+
+COMMIT_STEWARD must stage/commit/push only Amendment 2, its review and the four
+continuity paths while preserving all 26 BUILD paths unstaged. Then stop for
+fresh literal R2 bound to Amendment SHA `0f47068a…14c4`, four repair paths and
+final exact 28 BUILD paths. No continuation/rerun/provider/network/
+remote-ingest or later-lane authority yet.
