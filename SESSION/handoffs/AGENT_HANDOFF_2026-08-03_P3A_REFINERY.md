@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `WORK_ORDER_AUTHOR`
-- Status: `WORK_ORDER_AMENDMENT_3_REVIEW_PASS_AUTHORITY_CHECKPOINT_PENDING`
+- Control-chain phase: `BUILD`
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_3_FRESH_R2_ACCEPTED_ACKNOWLEDGMENT_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -291,6 +291,24 @@ continuity paths while preserving all 26 BUILD paths unstaged. Then stop for
 fresh literal R2 bound to Amendment SHA `0f47068a…14c4`, four repair paths and
 final exact 28 BUILD paths. No continuation/rerun/provider/network/
 remote-ingest or later-lane authority yet.
+
+## Fresh Amendment 3 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-03:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-3-2026-08-03,
+> Work Order Amendment SHA-256
+> 30896c92b12beb8b5f6d153eb8ea4cc642b80004a0c4b400cd61f91dccc6e0f4,
+> đúng 2 repair paths và final exact 28 BUILD paths, zero
+> provider/network/remote-ingest calls.
+
+It binds one continuation with no retry. COMMIT_STEWARD must commit/push only
+this four-path checkpoint while preserving all 26 BUILD paths unstaged. The
+acknowledgment is consumed only after that push and the first knowledge path
+changes. REPAIR_WORKER then runs Amendment 3 in exact order, stops first
+failure, makes zero provider/network/remote-ingest calls and yields at most a
+dirty exact 28-path candidate pending independent BUILD review. No BUILD
+commit, self-review, FREEZE or later-lane authority.
 
 ## Fresh Amendment 2 human R2 acknowledgment
 
