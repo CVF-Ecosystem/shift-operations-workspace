@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `DESIGN`
-- Active role: `ORCHESTRATOR / DESIGN_AUTHOR / SESSION_SYNC_STEWARD`
-- Status: `DESIGN_REVIEW_PASS_READY_FOR_SPEC`
+- Control-chain phase: `SPEC`
+- Active role: `ORCHESTRATOR / SESSION_SYNC_STEWARD`
+- Status: `SPEC_RE_REVIEW_PASS_READY_FOR_WORK_ORDER`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -26,12 +26,26 @@ No skill files, installation, provider call, external write, DESIGN/SPEC/Work
 Order or BUILD are authorized by this INTAKE. The skill-creator guidance was
 read to frame examples, progressive disclosure, path decisions and validation.
 
+## SPEC candidate
+
+`docs/specs/PROJECT_OPERATIONS_SKILL_SPEC.md` converts D1-D7 into the exact
+two-file skill shape, frontmatter/metadata contracts, R1-R8 procedures and
+refusals, four synthetic forward-test scenarios, four separately initialized
+durable real-provider lineages, AC-01..AC-14, candidate path families and stop
+conditions. It authorizes no source, installation, BUILD, provider call,
+commit or FREEZE.
+
+## SPEC review history
+
+The initial PASS was withdrawn after a clarification audit found a HIGH
+cardinality conflict: four fresh-agent behavioral scenarios could not coexist
+with one total provider call. Repair 1 requires four separate FT lineages,
+exactly one non-mocked call per lineage, no batch/shared context/retry, durable
+reservation and aggregate `4 physical / 4 accepted` closure accounting. No
+waiver was taken.
+
 ## Next governed move
 
-DESIGN received independent `REVIEW_PASS` with no waiver. ADR
-`ADR_2026-08-03_PROJECT_OPERATIONS_SKILL.md`
-chooses repo-owned `skills/operate-shift-workspace/`, separate post-FREEZE
-installation authority, minimal `SKILL.md` + generated `agents/openai.yaml`,
-dynamic canonical-truth routing, existing-script reuse and four-layer
-validation including real-provider evidence for any behavior claim. The sole
-next move is SPEC; knowledge-pack and later queue items stay inactive.
+SPEC repair 1 received independent `SPEC_RE_REVIEW_PASS`; the HIGH cardinality
+finding is closed without waiver. Draft an exact-path WORK_ORDER only.
+Knowledge-pack and later queue items stay inactive.
