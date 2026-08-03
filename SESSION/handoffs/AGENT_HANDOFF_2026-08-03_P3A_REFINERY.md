@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `SPEC`
 - Active role: `SPEC_AUTHOR`
-- Status: `DESIGN_REVIEW_PASS_READY_FOR_SPEC`
+- Status: `DESIGN_AMENDMENT_1_REVIEW_PASS_READY_FOR_SPEC`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -64,5 +64,11 @@ Any ADR byte change requires fresh review.
 
 ## Next governed move
 
-Author a testable SPEC from the immutable reviewed ADR. No WORK_ORDER, BUILD,
-provider call or later-queue authority exists yet.
+Review Design Amendment 1. It moves dedupe after redaction and separates exact
+source, source-free dedupe-content and final-candidate fingerprints. Only a
+pass returns to SPEC_AUTHOR. No WORK_ORDER, BUILD, provider call or later-queue
+authority exists.
+
+Independent review returned `DESIGN_AMENDMENT_REVIEW_PASS`, no waiver, bound to
+parent ADR `57ec06fc…e696e` and Amendment 1 `dc091f2b…f0e4a`. SPEC authoring may
+resume with the corrected nine-stage order; later authority remains absent.

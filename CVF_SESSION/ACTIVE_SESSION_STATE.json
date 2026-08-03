@@ -8,9 +8,9 @@
   "phaseModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-03_P3A_REFINERY.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "P3-A repaired ADR SHA-256 57ec06fc received independent DESIGN_REVIEW_PASS; F1-F4 closed without waiver. SPEC_AUTHOR may translate the immutable design into testable requirements. No WORK_ORDER, provider or BUILD authority.",
-  "parkedOperatorCheckpoint": "P3_A_REFINERY_SPEC_AUTHORING_P3B_P3C_RETRIEVAL_RAG_LEARNING_PARKED",
+  "syncReceipt": "P3-A parent ADR plus Design Amendment 1 independently passed. Corrected nine-stage order and three typed fingerprints now bind resumed SPEC authoring. No WORK_ORDER, provider, BUILD or later authority.",
+  "parkedOperatorCheckpoint": "P3_A_REFINERY_SPEC_AUTHORING_AFTER_DESIGN_AMENDMENT_1_PASS_LATER_SEQUENCE_PARKED",
   "activeRole": "SPEC_AUTHOR",
-  "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_REVIEW_FAIL_TO_DESIGN_REPAIR_AUTHOR_TO_INDEPENDENT_DESIGN_REREVIEWER_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR",
+  "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR",
   "updatedAt": "2026-08-03"
 }
