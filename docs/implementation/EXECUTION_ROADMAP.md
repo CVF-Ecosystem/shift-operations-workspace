@@ -389,9 +389,9 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
 
 Trigger đã thỏa tại BUILD `d02186a` + C4. Orchestrator kích hoạt đúng mục đầu tiên dưới đây ở mức fresh INTAKE; các mục sau chưa có BUILD authority:
 
-1. **PROJECT-OPERATIONS-SKILL — INTAKE:** đóng gói workflow vận hành dự án/CVF
-   thành skill dùng lại được, dựa trên implementation truth đã freeze; DESIGN
-   là bước kế tiếp duy nhất, chưa có BUILD/install authority;
+1. **PROJECT-OPERATIONS-SKILL — DESIGN REVIEW_PASS:** source portable trong
+   repo, install tách riêng, dynamic truth routing và layered validation đã
+   được thiết kế và review độc lập; SPEC là bước kế tiếp, BUILD chưa có authority;
 2. **PROJECT-KNOWLEDGE-PACK:** chuẩn hóa knowledge nguồn, owner, provenance,
    freshness/retention và ingestion boundary cho chính dự án;
 3. **P3-A Refinery:** normalize, dedupe, redact, classify, quarantine,

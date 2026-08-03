@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `INTAKE`
-- Active role: `ORCHESTRATOR / INTAKE_AUTHOR / SESSION_SYNC_STEWARD`
-- Status: `INTAKE_CAPTURED_PENDING_DESIGN`
+- Control-chain phase: `DESIGN`
+- Active role: `ORCHESTRATOR / DESIGN_AUTHOR / SESSION_SYNC_STEWARD`
+- Status: `DESIGN_REVIEW_PASS_READY_FOR_SPEC`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -28,6 +28,10 @@ read to frame examples, progressive disclosure, path decisions and validation.
 
 ## Next governed move
 
-DESIGN only: resolve portable source/installation boundary, architecture,
-reference routing, script reuse, validation/forward-test strategy and claim
-boundary. Knowledge-pack and every later automatic-queue item remain inactive.
+DESIGN received independent `REVIEW_PASS` with no waiver. ADR
+`ADR_2026-08-03_PROJECT_OPERATIONS_SKILL.md`
+chooses repo-owned `skills/operate-shift-workspace/`, separate post-FREEZE
+installation authority, minimal `SKILL.md` + generated `agents/openai.yaml`,
+dynamic canonical-truth routing, existing-script reuse and four-layer
+validation including real-provider evidence for any behavior claim. The sole
+next move is SPEC; knowledge-pack and later queue items stay inactive.
