@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_5_R2_ACCEPTED_PENDING_ACK_CHECKPOINT_THEN_ONE_CONTINUATION`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_6_AUTHORIZATION_REVIEW_PASS_PENDING_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -119,6 +119,43 @@ authorized repair edit. REPAIR_WORKER then follows Amendment 5 in exact order,
 does not run or replace the failed Amendment 4 inventory command, stops at the
 first failure and makes zero provider/network/remote-ingest calls. No BUILD
 commit, self-review, FREEZE or later-lane authority.
+
+## Consumed Amendment 5 continuation and failure
+
+Checkpoint `0e809031f69ef497e8bfc411c5ce0ed0b37e7871` was pushed.
+Preflight passed. The source/test repair step completed, and the focused
+Refinery suite passed `53`. The next dedicated stdin probe returned non-zero
+before running cases because plain `python -` lacked pytest's configured
+package path and could not import `refinery_bridge`. It was not retried.
+Catalog, knowledge, full-suite and later gates were NOT_RUN. Zero provider/
+network/remote-ingest calls and no BUILD commit/push occurred.
+
+Amendment 5/R2 are consumed. Amendment 6 binds exact-28 `c9e021d3…183d4e`,
+immutable source/test `addb052c…b7352`, protected-25 `513ba54f…6dda1`, and
+authorizes only registry/catalog/knowledge-manifest touches. Independent review,
+authority checkpoint and fresh exact R2 are mandatory before the corrected
+probe or any remaining gate.
+
+## Amendment 6 authorization review PASS
+
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_6.md` SHA-256
+`57c8322d82126b4202bbbe5bbbd6df6b3a3aae27ba5a28e1e67b8e6832fe4317`
+binds the retained exact-28 digest `c9e021d3…183d4e`, immutable source/test-10
+digest `addb052c…b7352`, protected-25 digest `513ba54f…6dda1`, exactly three
+repair paths and final exact 28 BUILD paths. It corrects only the environment
+for the never-executed seven-case probe, retains the focused `53 passed`, then
+bounds the registry/catalog/knowledge-manifest repair and remaining local
+gates. It permits zero provider/network/remote-ingest calls and no retry.
+
+Independent REVIEWER returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_6_AUTHORIZATION_REVIEW.md`
+SHA-256 `cd85418046d45acc261f42595cb1e215350b91235c763f829545896ca8548250`.
+
+COMMIT_STEWARD may commit/push only Amendment 6, its review and the four
+continuity paths while preserving all exact 28 BUILD paths unstaged. Then stop
+for fresh exact R2. No corrected probe, catalog/knowledge edit, test/gate,
+BUILD commit, self-review, FREEZE or later-lane authority yet.
 
 ## Intake boundary
 
