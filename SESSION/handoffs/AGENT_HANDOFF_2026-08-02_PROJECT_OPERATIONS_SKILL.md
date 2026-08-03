@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` (G6 gate first)
-- Active role: `IMPLEMENTATION_WORKER`
-- Status: `PRE_BUILD_ACKNOWLEDGED_G6_REQUIRED`
+- Control-chain phase: `WORK_ORDER` amendment review
+- Active role: `ORCHESTRATOR / SESSION_SYNC_STEWARD`
+- Status: `AMENDMENT_1_AUTHORIZATION_RE_REVIEW_PASS_RESUME_CHECKPOINT_NEXT`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -70,3 +70,35 @@ is pushed and this separate checkpoint acknowledges the role transfer. Run G6
 from the clean pushed checkpoint. Only G6 PASS unlocks the exact eight BUILD
 paths and later four-call live step; installation/staging/commit/self-review/
 FREEZE remain unauthorized. Later queue items remain inactive.
+
+## BUILD review disposition
+
+G6 passed; BUILD produced the exact eight unstaged paths, focused `19`, full
+`1397/128`, repository/doctor gates, rollback rehearsal and one live run at
+bundle `a5ac9cc...` with four physical/four mechanically accepted responses.
+Independent review returned `REVIEW_CHANGES_REQUIRED` with F1-F5: answer
+leakage, pre-finish crash accounting, incomplete state integrity, bool/int
+coercion and incomplete zero-call preflight tests. All are accepted without
+waiver. The four-call bundle is retained `INVALIDATED_BY_REVIEW_FAIL` and
+governance-accepted behavior count is zero; no retry authority remains.
+
+## Amendment 1
+
+The review-repair ADR addendum, SPEC Amendment 1 and Work Order Amendment 1
+separate public fixtures/private expectations, add durable DISPATCHED
+accounting, exact state/receipt validation, strict types, complete preflight
+tests, immutable original evidence and at most four replacement calls. Exact
+eight final paths remain. Independent amendment authorization review only is
+next; no repair/provider call before pushed approval, resume checkpoint, G6-R.
+
+Initial amendment review returned three further findings, repaired without
+waiver: F1 proof now uses structural noninterference/private canaries rather
+than impossible generic-literal exclusion; original receipt/state are pinned
+at `39659`/`42044` bytes and exact SHA-256 values with prefix/base64-snapshot
+preservation; required reads now follow design dependency order. Independent
+amendment re-review is next.
+
+Final amendment verdict is `AMENDMENT_1_AUTHORIZATION_RE_REVIEW_PASS`; all
+three authorization findings and F1-F5 repair scope are approved without
+waiver. Push exactly the nine governance paths, then record a separate
+repair-resume checkpoint. No repair/provider call before that push and G6-R.

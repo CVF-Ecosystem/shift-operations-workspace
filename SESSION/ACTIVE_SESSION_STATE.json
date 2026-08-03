@@ -8,8 +8,11 @@
   "required_reads": [
     "docs/decisions/INTAKE_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
     "docs/decisions/ADR_2026-08-03_PROJECT_OPERATIONS_SKILL.md",
+    "docs/decisions/ADR_2026-08-03_PROJECT_OPERATIONS_SKILL_REVIEW_REPAIR_ADDENDUM.md",
     "docs/specs/PROJECT_OPERATIONS_SKILL_SPEC.md",
+    "docs/specs/PROJECT_OPERATIONS_SKILL_SPEC_AMENDMENT_1.md",
     "docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER.md",
+    "docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER_AMENDMENT_1.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
     "docs/decisions/PHASE2_FULL_SHIFT_EXIT_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AMENDMENT_1.md",
@@ -163,10 +166,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "PROJECT_OPERATIONS_SKILL_PRE_BUILD_ACKNOWLEDGED_G6_THEN_EXACT_EIGHT_PATH_BUILD",
+    "currentAuthority": "PROJECT_OPERATIONS_SKILL_AMENDMENT_1_AUTHORIZATION_RE_REVIEW_PASS_RESUME_CHECKPOINT_ONLY",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Pre-BUILD role/authority acknowledgment recorded after pushed authorization e1da12b. Run G6 from the clean pushed checkpoint; only PASS unlocks exact eight-path BUILD. Provider calls remain final-step-only; install/stage/commit/self-review/FREEZE remain blocked.",
+  "next_allowed_move": "Amendment 1 AUTHORIZATION_RE_REVIEW_PASS with no waiver. Push exactly nine governance paths while keeping eight BUILD paths unstaged, then record a separate repair-resume checkpoint. No repair/replacement call before checkpoint push and G6-R.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -377,17 +380,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "BUILD",
-    "activePhaseNote": "PROJECT-OPERATIONS-SKILL pre-BUILD transfer is acknowledged after authorization e1da12b. G6 must pass before any source edit; BUILD is exact eight final paths.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "PROJECT-OPERATIONS-SKILL Amendment 1 received AUTHORIZATION_RE_REVIEW_PASS. Separate repair-resume checkpoint and G6-R remain mandatory.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the pushed pre-BUILD acknowledgment and G6-first authority.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records BUILD review failure, invalidated retained evidence and Amendment-1-review-only authority.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "PROJECT_KNOWLEDGE_PACK_AND_LATER_SEQUENCE_WAITING_FOR_PROJECT_OPERATIONS_SKILL_FREEZE",
-    "activeRole": "IMPLEMENTATION_WORKER",
-    "activeRoleNote": "Role transfer acknowledged. Run G6 first; after PASS implement only the exact eight BUILD paths. No install/stage/commit/self-review/FREEZE.",
-    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
+    "activeRole": "ORCHESTRATOR_SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Amendment approved. Push governance-only commit then record separate repair-resume checkpoint; repair begins only after G6-R.",
+    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_ORCHESTRATOR_TO_AMENDMENT_AUTHORS_TO_INDEPENDENT_AMENDMENT_REVIEWER_TO_AMENDMENT_REPAIR_WORKER_TO_INDEPENDENT_AMENDMENT_RE_REVIEWER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-08-03"
   }
 }

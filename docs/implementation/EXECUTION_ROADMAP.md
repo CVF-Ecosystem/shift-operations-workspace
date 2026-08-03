@@ -389,11 +389,13 @@ Gate gốc: hoàn thành một ca 12 giờ start→freeze khi AI và external ch
 
 Trigger đã thỏa tại BUILD `d02186a` + C4. Orchestrator kích hoạt đúng mục đầu tiên dưới đây ở mức fresh INTAKE; các mục sau chưa có BUILD authority:
 
-1. **PROJECT-OPERATIONS-SKILL — PRE-BUILD ACKNOWLEDGED:** SPEC và Work Order đã
-   RE_REVIEW_PASS; authorization `e1da12b` đã push; exact tám final path + ba
-   runtime-only lock/temp, uniform bundle digest, provider precedence và
-   canonical evidence đã khóa; G6 phải PASS trước source edit, provider chỉ ở
-   live step cuối;
+1. **PROJECT-OPERATIONS-SKILL — BUILD REVIEW_FAIL / AMENDMENT 1:** exact tám
+   path và non-live gates PASS, nhưng bundle bốn call `a5ac9cc...` bị invalidate
+   vì answer leakage cùng F2-F5; amendment giữ lịch sử, sửa evaluator/state/
+   types/preflight và chỉ xin tối đa bốn replacement calls; amendment repair
+   thêm private canary, pinned original byte preservation và dependency order.
+   Amendment AUTHORIZATION_RE_REVIEW_PASS không waiver; governance-only push,
+   repair-resume checkpoint và G6-R là bước kế tiếp; chưa có repair/retry authority;
 2. **PROJECT-KNOWLEDGE-PACK:** chuẩn hóa knowledge nguồn, owner, provenance,
    freshness/retention và ingestion boundary cho chính dự án;
 3. **P3-A Refinery:** normalize, dedupe, redact, classify, quarantine,
