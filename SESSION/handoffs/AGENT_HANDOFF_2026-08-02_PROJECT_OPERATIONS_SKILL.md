@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER` (Amendment 4 authorization review)
-- Active role: `SESSION_SYNC_STEWARD`
-- Status: `AMENDMENT_4_AUTHORIZATION_RE_REVIEW_PASS_GOVERNANCE_PUSH_REQUIRED`
+- Control-chain phase: `BUILD` repair (Amendment 4, G6-R4 first)
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_4_REPAIR_RESUMED_G6_R4_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -197,3 +197,8 @@ closing F1–F3 continuity drift. Exact v4 pins, phase semantics, preservation,
 8/8/0→12/8/4 accounting and 8/3/7/4 boundaries are approved. Push exactly the
 seven governance paths next; only a separate pushed four-path resume transfers
 to REPAIR_WORKER/G6-R4.
+
+Governance authorization `6e25887eb9bfc0b7de5a61de978979c43166e42c` is
+pushed and HEAD equals origin/main. This separate exact four-path checkpoint
+acknowledges repair transfer. Run G6-R4 before editing the same eight BUILD
+paths; migration/provider/human R2 remain later gates.
