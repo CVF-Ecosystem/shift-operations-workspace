@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `COMMIT_STEWARD -> REPAIR_WORKER`
-- Status: `AMENDMENT_8_FRESH_R2_ACCEPTED_PENDING_ACK_CHECKPOINT`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_9_AUTHORIZATION_REVIEW_PASS_PENDING_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -278,6 +278,42 @@ REPAIR_WORKER runs the ordered Amendment 8 continuation once, stops at the
 first non-zero command or contract failure, does not retry and makes zero
 provider/network/remote-ingest calls. No BUILD commit, self-review, FREEZE or
 later-lane authority.
+
+## Consumed Amendment 8 invocation and failure
+
+Acknowledgment checkpoint `132003c80fa073b28ebe7026e201ac1db5537eb0`
+was pushed. Preflight, exact direct probe 7/7, the three-path catalog/knowledge
+repair, knowledge validator, focused Knowledge Pack `86`, catalog check, full
+non-live `1593 passed, 128 skipped` and session-state all passed. The next
+command used nonexistent `scripts/check_file_sizes.py` and returned non-zero
+before file-size/repository/JSON-YAML/import-I/O/secret/diff/final gates. It
+was not retried. Zero provider/network/remote-ingest calls occurred.
+
+Amendment 8/R2 are consumed. Amendment 9 at
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_9.md` SHA-256
+`417a11af86915cca0249e3559236f498fc96f7e60c8363376b4493f26aefca0e`
+binds immutable post-repair exact-28 `267232b3…0791`, source/test-10
+`addb052c…b7352`, protected-25 `513ba54f…6dda1`, all completed repair hashes,
+zero repair paths and the singular tracked `scripts/check_file_size.py` plus
+remaining static/final gates. Independent authorization review, authority
+checkpoint and fresh exact R2 are mandatory before continuation.
+
+## Amendment 9 authorization review PASS
+
+Independent REVIEWER returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in `docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_9_AUTHORIZATION_REVIEW.md`
+SHA-256 `6b7819f41d769c0304b495d26319d64619944b5d869fd92ee0fc9115f3786c46`.
+The review reproduced retained Amendment 8 evidence, immutable post-repair
+exact-28/source-test-10/protected-25 and repair hashes, empty staged set, zero
+repair paths, the singular tracked file-size script, repository validator,
+inline static contract and zero-call/no-retry boundary. Findings and waivers
+are `NONE`.
+
+COMMIT_STEWARD must commit/push only Amendment 9, its review and four
+continuity paths while preserving all exact 28 BUILD paths unstaged. Then stop
+for fresh exact R2. No verification continuation, BUILD commit, self-review,
+FREEZE or later-lane authority yet.
 
 ## Intake boundary
 
