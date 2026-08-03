@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` repair (Amendment 2, G6-R2 first)
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_2_REPAIR_RESUMED_G6_R2_REQUIRED`
+- Control-chain phase: `WORK_ORDER` (Amendment 3 authorization review)
+- Active role: `SESSION_SYNC_STEWARD`
+- Status: `AMENDMENT_3_AUTHORIZATION_PASS_GOVERNANCE_PUSH_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -136,3 +136,34 @@ separate four-path checkpoint acknowledges repair transfer. Run G6-R2 before
 editing the same eight BUILD paths. Only G6-R2 PASS permits public-enum/v3
 repair; evidence migration, provider calls and human R2 acknowledgment remain
 later gates.
+
+## Amendment 2 live failure and Amendment 3 draft
+
+The public-action repair, v3 migration and all pre-call gates independently
+passed. The authorized runner was invoked once. Replacement-2 FT-1 passed
+strict schema/type/public-enum validation but failed private semantic
+evaluation; it is durably `FAILED/1`, FT-2..FT-4 remain `UNUSED/0`, rerun is
+zero-call, and post-call focused `64`, full `1442/128` plus repository gates
+passed. Independent review requires Amendment 3; no retry or diagnostic call.
+
+The complete failed v3 checkpoint is pinned: receipt `60182` bytes / SHA-256
+`d6b92e9ff84215e472e111b78feef87ddd22ee1ff3f1dc18bba4c72bb649775f`;
+state `268577` bytes / SHA-256
+`95b7ceb737bd549027eac8ad7e74dfb7f2fb66eef87544f4ebb284630f92155b`.
+History is physical 6 / invalidated-so-far 5 / accepted 0; Amendment 3 will
+invalidate replacement 2, making the migrated start 6/6/0.
+
+ADR/SPEC/Work Order Amendment 3 define one public structured semantic language
+for all FTs, deterministic private equivalence rules, bounded safe parsed
+candidate retention on semantic failure, recursive v3/v2/v1 preservation,
+fresh `replacement3` lineages and exact final ceiling 10/6/4. Independent
+authorization review is the only next move. No BUILD edit, migration, provider
+call, stage, commit or push is authorized from these drafts.
+
+Independent authorization review returned `AUTHORIZATION_REVIEW_PASS` with no
+finding or waiver. It verified exact v3/v2/v1 pins, 6/6/0 migration and final
+10/6/4 accounting, public/private noninterference, bounded candidate retention,
+fresh lineages, exact 8 BUILD / 3 runtime / 7 governance / 4 resume paths and
+the complete G6-R3/pre-call/new-human-R2 chain. Commit/push exactly the seven
+governance paths next, leaving BUILD unstaged; only a separate pushed four-path
+resume may transfer to REPAIR_WORKER.
