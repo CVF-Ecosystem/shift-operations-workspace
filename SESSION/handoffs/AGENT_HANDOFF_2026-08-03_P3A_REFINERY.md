@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `IMPLEMENTATION_WORKER`
-- Status: `FRESH_R2_ACK_ACCEPTED_PREBUILD_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `WORK_ORDER_AMENDMENT_1_REVIEW_PASS_AUTHORITY_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -155,9 +155,71 @@ the worktree was clean at acceptance. The acknowledgment is not consumed until
 this four-path continuity checkpoint is committed/pushed and the first BUILD
 path is changed. No retry, provider/network/remote-ingest call or expansion.
 
+## Consumed BUILD invocation and failure
+
+Pre-BUILD checkpoint `b93e403cf0ab6d659de0706c058d1cd7250e75d0` was clean and
+pushed. The acknowledgment was consumed when the first authorized BUILD path
+changed. BUILD remained at zero provider/network/remote-ingest calls.
+
+- Gate 1 models/canonical/contract: PASS, 15 tests.
+- Gate 2 pipeline/adversarial: PASS, 16 tests.
+- Gate 3 full non-live suite: FAIL, 3 failed / 1560 passed / 128 skipped / 8 errors.
+- Gate 4 and all later gates: NOT RUN by stop-first/no-retry rule.
+- BUILD diff at stop: 25 of 26 authorized paths; generated
+  `docs/catalog/MODULE_CATALOG.md` was correctly not written after gate 3 failed.
+
+The failure exposes two Work Order defects, not authority to repair them:
+
+1. full suite includes catalog-drift enforcement but the Work Order orders
+   catalog generation only after the full suite, making that test fail before
+   the authorized generator step;
+2. changing `IMPLEMENTATION_STATUS.json` invalidates the closed Knowledge Pack's
+   `PROJECT_CONTEXT.md` eligibility/source pin, while the Work Order includes no
+   knowledge manifest/context repair paths.
+
+The dirty failed candidate is retained exactly. No test rerun, catalog write,
+source-pin repair, commit or push occurred after failure.
+
+## Work Order Amendment 1 candidate
+
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_1.md` binds the exact
+25-path failed candidate manifest digest `58e4685e…8484da`, keeps 24 paths
+byte-immutable, and permits exactly four repair touches: registry, generated
+catalog, Project Context and knowledge manifest. Final BUILD diff is exactly 28
+paths. Corrected order generates catalog and refreshes the two changed source
+pins before Knowledge Pack checks and the single full-suite rerun.
+
+The prior independent review returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, but its assertion that
+`dd6e2d5c…eef5d` reproduced a case-sensitive sort is invalidated. Pre-stage
+COMMIT_STEWARD validation reproduced `dd6e2d5c…eef5d` only with case-insensitive
+ordering and reproduced `58e4685e…8484da` with the stated Unicode-code-point,
+case-sensitive ordering. No BUILD path changed. Amendment 1 now carries the
+correct digest and new SHA-256
+`587412712cc6d98b6c7e85cba99d9d650d38097ed316e09992243d07ea965546`.
+Fresh independent re-review returned
+`WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no waiver,
+in artifact SHA-256
+`ff85f3cc4d2b694755a0855e5b596648fc8a5fb3b92ba6f248779a356ee50174`.
+It independently reproduced the exact case-sensitive 25-path digest and
+re-confirmed the four repair touches, 24 protected paths, final exact 28 paths,
+corrected order, zero-call and no-retry boundaries.
+
+## Pre-stage authority validation finding
+
+- Session state: PASS.
+- File-size guard: PASS.
+- `git diff --check`: PASS.
+- Dirty set: exact 31 paths = six authority candidates + unchanged 25-path
+  failed BUILD candidate; staged set remained empty.
+- Finding: prior review's digest statement and bound value were inconsistent.
+- Disposition: prior Amendment 1 review PASS invalidated, no waiver; no stage,
+  commit, push, repair, test rerun, provider or remote-ingest action occurred.
+
 ## Next governed move
 
-Commit and push exactly this four-path acknowledgment checkpoint. Then consume
-the accepted acknowledgment for one BUILD invocation changing exactly 26 paths.
-Run gates in order, stop at the first failure and do not retry. Zero
-provider/network/remote-ingest calls; no later-lane authority.
+COMMIT_STEWARD must stage/commit/push only Amendment 1, its re-review and the
+four continuity paths while preserving all 25 failed BUILD paths unstaged.
+Then stop for fresh literal R2 bound to Amendment SHA `58741271…65546`, four
+repair paths and final exact 28 BUILD paths. No repair/rerun/provider/network/
+remote-ingest or later-lane authority yet.
