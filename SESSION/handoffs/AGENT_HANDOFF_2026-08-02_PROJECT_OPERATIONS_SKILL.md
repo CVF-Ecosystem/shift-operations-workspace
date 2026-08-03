@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `BUILD` repair (G6-R first)
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_1_REPAIR_RESUMED_G6_R_REQUIRED`
+- Control-chain phase: `WORK_ORDER` (Amendment 2 authorization review)
+- Active role: `SESSION_SYNC_STEWARD`
+- Status: `AMENDMENT_2_AUTHORIZATION_RE_REVIEW_PASS_GOVERNANCE_PUSH_PENDING`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -103,3 +103,30 @@ three authorization findings and F1-F5 repair scope are approved without
 waiver. Authorization `64d5f7f` plus mandatory size-gate correction `27926c3`
 are pushed. This separate checkpoint resumes REPAIR_WORKER. Run G6-R before
 repair; replacement calls remain blocked until all amended pre-call gates pass.
+
+## Amendment 1 live failure and Amendment 2 draft
+
+F1-F5 and all residual pre-call findings closed without waiver; focused 60,
+full 1438/128, repository gates and independent `PRE_CALL_REVIEW_PASS` all
+passed. Evidence migrated with zero call and preserved the original v1 pins.
+The one authorized runner invocation stopped after FT-1 returned an invalid
+action label: FT-1 is `FAILED/physical 1`; FT-2..FT-4 are `UNUSED/0` and may
+not run. Current history is `5 physical / 4 invalidated / 0 final accepted`.
+Post-call gates passed and independent review returned
+`REVIEW_CHANGES_REQUIRED — AMENDMENT_REQUIRED`.
+
+The failed checkpoint is pinned at receipt `49817` bytes / SHA-256
+`9334ab2e6b51bcbd7017c75628e1b0e723d2089463ea352c9dbe51b5874f2c6a`
+and state `110062` bytes / SHA-256
+`71e4f42fbf921561f52066d707b98464599c02a11da2d0706eb33a561f7e6c8c`.
+ADR/SPEC/WORK_ORDER Amendment 2 drafts preserve it, expose the global action
+enum without private per-FT answers, create a fresh final four-lineage set and
+raise the exact historical ceiling to nine. Independent authorization review
+is the only next move. No BUILD edit, migration, provider call, stage, commit,
+push or FREEZE is authorized from the drafts.
+
+Independent Amendment 2 authorization re-review returned PASS with no waiver
+after closing dependency/authority drift, lineage-formula ambiguity and commit
+set ambiguity. The exact seven governance paths must now be committed/pushed;
+all eight BUILD paths remain unstaged. A separate exact four-continuity-path
+resume commit is required before G6-R2 and any BUILD repair.

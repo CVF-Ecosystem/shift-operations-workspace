@@ -9,10 +9,13 @@
     "docs/decisions/INTAKE_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
     "docs/decisions/ADR_2026-08-03_PROJECT_OPERATIONS_SKILL.md",
     "docs/decisions/ADR_2026-08-03_PROJECT_OPERATIONS_SKILL_REVIEW_REPAIR_ADDENDUM.md",
+    "docs/decisions/ADR_2026-08-03_PROJECT_OPERATIONS_SKILL_LIVE_FAILURE_AMENDMENT_2.md",
     "docs/specs/PROJECT_OPERATIONS_SKILL_SPEC.md",
     "docs/specs/PROJECT_OPERATIONS_SKILL_SPEC_AMENDMENT_1.md",
+    "docs/specs/PROJECT_OPERATIONS_SKILL_SPEC_AMENDMENT_2.md",
     "docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER.md",
     "docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER_AMENDMENT_1.md",
+    "docs/work_orders/PROJECT_OPERATIONS_SKILL_WORK_ORDER_AMENDMENT_2.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
     "docs/decisions/PHASE2_FULL_SHIFT_EXIT_AMENDMENT_1_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/PHASE2_FULL_SHIFT_EXIT_WORK_ORDER_AMENDMENT_1.md",
@@ -166,10 +169,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "PROJECT_OPERATIONS_SKILL_AMENDMENT_1_REPAIR_RESUMED_G6_R_THEN_SAME_EIGHT_PATHS",
+    "currentAuthority": "PROJECT_OPERATIONS_SKILL_AMENDMENT_2_AUTHORIZED_GOVERNANCE_PUSH_THEN_SEPARATE_RESUME_NO_BUILD_OR_PROVIDER_YET",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Repair-resume acknowledged after pushed Amendment 1 lineage 64d5f7f + 27926c3. Run G6-R; only PASS permits F1-F5 repair in the same eight paths. Exactly four replacement calls remain blocked until all amended pre-call gates pass.",
+  "next_allowed_move": "Amendment 2 authorization re-review passed without waiver. Stage/commit/push exactly the seven governance-authoring paths, excluding all eight BUILD paths. Then create a separate exact four-continuity-path resume checkpoint. No BUILD migration/provider call before pushed resume and G6-R2.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -380,17 +383,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "BUILD",
-    "activePhaseNote": "PROJECT-OPERATIONS-SKILL Amendment 1 repair is resumed after pushed authorization/correction. G6-R first; same eight paths only.",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "PROJECT-OPERATIONS-SKILL Amendment 2 authorization re-review passed. Exact seven-path governance push then separate four-path resume/G6-R2; no BUILD/provider authority yet.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records repair-resume authority, retained invalid evidence and G6-R-first next move.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the failed Amendment 1 set, pinned evidence and Amendment 2 authorization-only next move.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "PROJECT_KNOWLEDGE_PACK_AND_LATER_SEQUENCE_WAITING_FOR_PROJECT_OPERATIONS_SKILL_FREEZE",
-    "activeRole": "REPAIR_WORKER",
-    "activeRoleNote": "Run G6-R before any repair. Then change only same eight BUILD paths; replacement provider calls only after all amended pre-call gates.",
-    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_ORCHESTRATOR_TO_AMENDMENT_AUTHORS_TO_INDEPENDENT_AMENDMENT_REVIEWER_TO_AMENDMENT_REPAIR_WORKER_TO_INDEPENDENT_AMENDMENT_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_REPAIR_WORKER",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Commit/push exactly seven governance-authoring paths; then a separate exact four-path resume. Exclude all BUILD paths.",
+    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_BUILD_REVIEWER_TO_ORCHESTRATOR_TO_AMENDMENT_AUTHORS_TO_INDEPENDENT_AMENDMENT_REVIEWER_TO_AMENDMENT_REPAIR_WORKER_TO_INDEPENDENT_AMENDMENT_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_REPAIR_WORKER_TO_INDEPENDENT_PRE_CALL_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_POST_CALL_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_SPEC_AUTHOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-08-03"
   }
 }
