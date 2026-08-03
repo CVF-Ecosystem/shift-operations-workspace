@@ -1,0 +1,4 @@
+interface:
+  display_name: "Operate Shift Workspace"
+  short_description: "Run governed shift-workspace delivery safely"
+  default_prompt: "Use $operate-shift-workspace to resume this project from canonical continuity and identify the next authorized move."
