@@ -1,26 +1,26 @@
-# Project Knowledge
+# Project Knowledge Pack
 
-Place `.md` files in this folder to inject project-specific context into CVF-governed AI runs.
+This folder contains a small, advisory context pack for the Shift Operations
+Workspace. Canonical repository sources remain authoritative; the curated
+documents only help humans and locally governed agents orient themselves.
 
-## How it works
+The downstream project currently implements neither remote knowledge ingest
+nor retrieval, context injection, RAG, or learning memory. The pinned public
+CVF-core helper can transform the three eligible Markdown files into chunks in
+a disposable local directory. Its output contains host- and time-specific
+metadata, is never committed, and is not evidence of model behavior.
 
-1. Add `.md` files describing your project's specs, decisions, or domain terms.
-2. Run `scripts/ingest_cvf_downstream_knowledge.ps1` (from the CVF core) to index them into `knowledge/_index.json`.
-3. CVF-governed `/api/execute` calls that include your `knowledgeCollectionId` will automatically
-   retrieve relevant chunks and inject them into the AI system prompt.
+Run the read-only validator from the project root:
 
-## What to put here
+```powershell
+python scripts/check_project_knowledge.py
+```
 
-- Architecture decisions and rationale
-- Domain terminology and definitions
-- Project specs, requirements, or acceptance criteria
-- Process guides or runbooks your team follows
+Only `PROJECT_CONTEXT.md`, `OPERATIONS_GLOSSARY.md`, and
+`GOVERNANCE_BOUNDARIES.md` are eligible for the local rehearsal. This README
+and `manifest.json` are excluded. Do not place credentials, provider payloads,
+customer or production records, or RESTRICTED material here. Static screening
+is a bounded safety check, not DLP or data minimization.
 
-## What NOT to put here
-
-- Secrets, API keys, or credentials (never - governance enforcement will reject these)
-- Binary files or non-markdown formats (not supported in this wave)
-
-## Reference
-
-CVF core: W116-T1 Downstream Knowledge Pipeline.
+Remote collection creation, POST operations, provider calls, and use of this
+pack as production governance evidence require separate authority and proof.

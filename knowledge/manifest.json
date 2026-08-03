@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "shift-operations-project-knowledge",
+  "classification": "INTERNAL",
+  "reviewedAt": "2026-08-03",
+  "entries": [
+    {
+      "id": "project-context",
+      "path": "PROJECT_CONTEXT.md",
+      "owner": "ORCHESTRATOR",
+      "classification": "INTERNAL",
+      "disposition": "ACTIVE",
+      "dispositionReason": null,
+      "purpose": "Local advisory orientation to implemented status, module inventory, and the business sequence.",
+      "allowedConsumers": [
+        "LOCAL_GOVERNED_AGENT",
+        "HUMAN_OPERATOR"
+      ],
+      "sourcePins": [
+        {
+          "path": "IMPLEMENTATION_STATUS.json",
+          "sha256": "db3a59b96661cc5080504b18f2705a2793d8a3ff736b981725609afeddca07c3"
+        },
+        {
+          "path": "docs/catalog/MODULE_REGISTRY.json",
+          "sha256": "1c04d35908f3b20339d88f89b26e5359713e0ad47a22d8ab9eab8292c0ce0510"
+        },
+        {
+          "path": "docs/implementation/EXECUTION_ROADMAP.md",
+          "sha256": "abe5640ba8809b4593828e9a3fa086cc977e75afcc26b10a4c73f6bae4b26147"
+        }
+      ],
+      "reviewedAt": "2026-08-03",
+      "refreshTriggers": [
+        "SOURCE_SHA256_CHANGE",
+        "OWNER_WITHDRAWAL",
+        "SECURITY_RECLASSIFICATION",
+        "CONTINUITY_OR_BOOTSTRAP_CHANGE",
+        "REVIEW_FINDING"
+      ],
+      "retentionPolicy": "RETAIN_WHILE_SOURCES_ARE_CURRENT_AND_OWNER_MAINTAINS_ENTRY",
+      "correctionPolicy": "REVIEWED_COMMIT_OR_AUTHORIZED_R2_WITHDRAWAL",
+      "eligibleForLocalIndex": true
+    },
+    {
+      "id": "operations-glossary",
+      "path": "OPERATIONS_GLOSSARY.md",
+      "owner": "SPEC_AUTHOR",
+      "classification": "INTERNAL",
+      "disposition": "ACTIVE",
+      "dispositionReason": null,
+      "purpose": "Local advisory definitions for stable operations-domain terms and ownership boundaries.",
+      "allowedConsumers": [
+        "LOCAL_GOVERNED_AGENT",
+        "HUMAN_OPERATOR"
+      ],
+      "sourcePins": [
+        {
+          "path": "packages/operations-domain/README.md",
+          "sha256": "e1c967a194ded12f302eec6773bc35065edb7dad2a4fb6372e66b13991d4dc58"
+        },
+        {
+          "path": "packages/operations-domain/src/operations_domain/models.py",
+          "sha256": "a5e70e7ab48354b3087f5c0070ad1328df91812f4101e492c49a454353a6ebb4"
+        },
+        {
+          "path": "packages/operations-domain/src/operations_domain/lifecycle.py",
+          "sha256": "d5a26e99343c1969508146e92cd38e3b91977d6d8cf9974217d6dabd9b04309a"
+        },
+        {
+          "path": "packages/operations-domain/src/operations_domain/assignment_models.py",
+          "sha256": "f1454bd24904b00eebd61a577c0037da66cc47ccd71acd100175b3cd7bd6b8fd"
+        },
+        {
+          "path": "packages/operations-domain/src/operations_domain/report_models.py",
+          "sha256": "67ce6c73fc9a42e752690b786c24e9282c93acb9aa05c5069cfe47cbe6864093"
+        },
+        {
+          "path": "packages/workspace-contracts/README.md",
+          "sha256": "1333aca990d855e52288c9262a9d744e828e93e7548e96eec30c9e153055ef2f"
+        }
+      ],
+      "reviewedAt": "2026-08-03",
+      "refreshTriggers": [
+        "SOURCE_SHA256_CHANGE",
+        "OWNER_WITHDRAWAL",
+        "SECURITY_RECLASSIFICATION",
+        "CONTINUITY_OR_BOOTSTRAP_CHANGE",
+        "REVIEW_FINDING"
+      ],
+      "retentionPolicy": "RETAIN_WHILE_SOURCES_ARE_CURRENT_AND_OWNER_MAINTAINS_ENTRY",
+      "correctionPolicy": "REVIEWED_COMMIT_OR_AUTHORIZED_R2_WITHDRAWAL",
+      "eligibleForLocalIndex": true
+    },
+    {
+      "id": "governance-boundaries",
+      "path": "GOVERNANCE_BOUNDARIES.md",
+      "owner": "SESSION_SYNC_STEWARD",
+      "classification": "INTERNAL",
+      "disposition": "ACTIVE",
+      "dispositionReason": null,
+      "purpose": "Local advisory guidance for continuity, phase, evidence, data handling, and claim boundaries.",
+      "allowedConsumers": [
+        "LOCAL_GOVERNED_AGENT",
+        "HUMAN_OPERATOR"
+      ],
+      "sourcePins": [
+        {
+          "path": "AGENTS.md",
+          "sha256": "c36e22ea9ab31750ce4b9ce43bb09a471893a4f0d8dd3da68ad9054639d149fa"
+        },
+        {
+          "path": ".cvf/manifest.json",
+          "sha256": "16ee4caea555252c1a4c8fa5eb35daebb237a6445534f5f7eab50fa97ed68e2d"
+        },
+        {
+          "path": ".cvf/policy.json",
+          "sha256": "c8a28fb11accc2ae3d21054636f6c32046e1547203be8b4044901f658ed3a863"
+        },
+        {
+          "path": "docs/cvf/CONTEXT_CONTROL.md",
+          "sha256": "7ebda16f48e113c1e39cecdf5b557ca1f4285271bd5313afdb311ac832f208f2"
+        },
+        {
+          "path": "docs/cvf/EVIDENCE_AND_TRUTH.md",
+          "sha256": "095a43e2dae2dc921ef2a720ce3e2c9a6a6ff0a95d2cc2fa19b11e96d3476a20"
+        },
+        {
+          "path": "docs/cvf/PROVIDER_GOVERNANCE.md",
+          "sha256": "17705afda16bca001c27752121705e58764dcde83bf7ddd9761cb08976d78dc7"
+        },
+        {
+          "path": "docs/cvf/RISK_AND_APPROVAL.md",
+          "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
+        }
+      ],
+      "reviewedAt": "2026-08-03",
+      "refreshTriggers": [
+        "SOURCE_SHA256_CHANGE",
+        "OWNER_WITHDRAWAL",
+        "SECURITY_RECLASSIFICATION",
+        "CONTINUITY_OR_BOOTSTRAP_CHANGE",
+        "REVIEW_FINDING"
+      ],
+      "retentionPolicy": "RETAIN_WHILE_SOURCES_ARE_CURRENT_AND_OWNER_MAINTAINS_ENTRY",
+      "correctionPolicy": "REVIEWED_COMMIT_OR_AUTHORIZED_R2_WITHDRAWAL",
+      "eligibleForLocalIndex": true
+    }
+  ]
+}
