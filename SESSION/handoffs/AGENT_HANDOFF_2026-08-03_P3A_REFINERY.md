@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_4_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT_THEN_ONE_REPAIR_INVOCATION`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_5_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -71,6 +71,36 @@ the first authorized repair path changes. REPAIR_WORKER then follows Amendment
 remote-ingest calls and yields at most a dirty exact 28-path candidate pending
 fresh independent BUILD review. No BUILD commit, self-review, FREEZE or
 later-lane authority.
+
+## Consumed Amendment 4 continuation and failure
+
+Acknowledgment checkpoint `9dd0900486d961f53bf673a22133bd78f7cccbad`
+was pushed. Preflight reproduced exact-28 `e43e53e4…c4eae`, protected-15
+`ce531fb7…44784`, all authority hashes, HEAD/origin and empty staged set.
+
+REPAIR_WORKER changed exactly the five authorized source paths named in
+Amendment 5. Before any focused test, a read-only inventory command returned
+non-zero because the Windows `rg` invocation passed unsupported literal glob
+`tests/unit/test_refinery*`. Stop-first/no-retry was honored. No focused test,
+probe, catalog write, knowledge update, full suite or later gate ran. Zero
+provider/network/remote-ingest calls occurred; no BUILD commit/push occurred.
+
+Amendment 4 and its R2 are consumed. Amendment 5 binds the retained exact-28
+digest `c785597e…ce17a`, unchanged protected-15 `ce531fb7…44784`, the same
+exact 13 repair paths and final exact 28 paths. Independent authorization
+review, authority checkpoint and fresh exact R2 are mandatory before further
+BUILD edits or tests.
+
+Independent Amendment 5 authorization review SHA-256
+`3b5d9a01b6c96f8f84f5010d583c0f36433bd8ffba51ff1a50a5e312e96fd7f8`
+returned `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no findings and no
+waiver, bound to Amendment SHA-256
+`44c2576895356e8cb83a7df1d99c945e3a5a354a11e7655521e5288e54e07726`.
+It reproduced exact-28/protected-15 and all five partial-source hashes, and
+confirmed the same 13-path scope, ordered gates, no retry of the failed `rg`
+command and zero-call boundary. COMMIT_STEWARD must commit/push only Amendment
+5, its review and four continuity paths while BUILD stays unstaged, then stop
+for fresh exact R2. No further BUILD edit/test or closure authority yet.
 
 ## Intake boundary
 
