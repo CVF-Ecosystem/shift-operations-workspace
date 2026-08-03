@@ -5,9 +5,11 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `INTAKE`
-- Active role: `ORCHESTRATOR / INTAKE_AUTHOR`
-- Status: `OPEN_FOR_INTAKE_REVIEW`
+- Control-chain phase: `SPEC`
+- Active role: `SPEC_AUTHOR`
+- Status: `DESIGN_REVIEW_PASS_READY_FOR_SPEC`
+- INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
+- INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
 ## Current truth
 
@@ -33,9 +35,34 @@ claims may use contract/unit evidence. Any future claim about actual AI/provider
 governance requires a separately approved real-provider call and sanitized
 receipt under AGENTS.md.
 
+## Design candidate
+
+ADR `docs/decisions/ADR_2026-08-03_P3A_REFINERY.md` resolves the eight INTAKE
+decisions with a pure local package, versioned text-field provenance, fixed
+fail-closed stages, syntax-only normalization, caller-scoped advisory dedupe,
+separate sensitivity/topic fields, versioned redaction, typed no-candidate
+outcomes, strict 100/100 control-coverage admission and minimal
+`ContextCandidateV1`. The current fixture remains a negative case.
+
+## Retained DESIGN review
+
+Independent review returned `REVIEW_FAIL`, no waiver:
+
+- F1 dedupe tuple/window/collision mechanics underspecified;
+- F2 quarantine/source ownership and no-sink semantics underspecified;
+- F3 stage failure/quality/disposition mapping ambiguous;
+- F4 candidate schema and digest preimage not reproducible.
+
+The ADR repairs all four: fingerprints are SHA-256+SHA-512+length over bounded
+scope/window records; quarantine has explicit distinct owners/route and closed
+reasons; nine receipts plus precedence make candidate absence total; and
+ContextCandidateV1 has an exact canonical JSON preimage/fingerprint.
+
+Independent re-review returned `DESIGN_REVIEW_PASS`, no waiver, bound to ADR
+SHA-256 `57ec06fc72e6ec2baad95079cdeff7eabfe7eb2837841dfc7c11cdba256e696e`.
+Any ADR byte change requires fresh review.
+
 ## Next governed move
 
-Review `docs/decisions/INTAKE_2026-08-03_P3A_REFINERY.md` and resolve its eight
-design decisions. No DESIGN, SPEC, WORK_ORDER, BUILD or later-queue authority
-is inherited from the Project Knowledge Pack closure.
-
+Author a testable SPEC from the immutable reviewed ADR. No WORK_ORDER, BUILD,
+provider call or later-queue authority exists yet.
