@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `WORK_ORDER_AUTHORIZATION_REVIEW_PASS_AUTHORITY_CHECKPOINT_PENDING`
+- Control-chain phase: `BUILD`
+- Active role: `IMPLEMENTATION_WORKER`
+- Status: `FRESH_R2_ACK_ACCEPTED_PREBUILD_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -141,9 +141,23 @@ bound to Work Order `3a2bf12e…bcd3c5`. It confirms the 26-path split is
 sufficient/non-expansive and the zero-call/no-retry boundary is executable. This
 pass is not BUILD authority.
 
+## Fresh human R2 acknowledgment
+
+Accepted verbatim on 2026-08-03:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-2026-08-03, Work Order SHA-256
+> 3a2bf12e7a207510a2779b68b7548afe4db2aa8fb6738eb08ca505f840bcd3c5,
+> đúng 26 BUILD paths, zero provider/network/remote-ingest calls.
+
+It binds exactly one invocation. Clean pushed authority baseline is
+`72a712d51ad53c2de38f0784b257c42428f80738`; Work Order/SPEC hashes match and
+the worktree was clean at acceptance. The acknowledgment is not consumed until
+this four-path continuity checkpoint is committed/pushed and the first BUILD
+path is changed. No retry, provider/network/remote-ingest call or expansion.
+
 ## Next governed move
 
-As `COMMIT_STEWARD`, validate exactly 12 current authority paths, commit them as
-one P3-A authorization checkpoint and push to `origin/main`. Then stop for the
-literal fresh R2 acknowledgment bound to `3a2bf12e…bcd3c5`, exactly 26 BUILD
-paths and zero provider/network/remote-ingest calls. No BUILD/later authority.
+Commit and push exactly this four-path acknowledgment checkpoint. Then consume
+the accepted acknowledgment for one BUILD invocation changing exactly 26 paths.
+Run gates in order, stop at the first failure and do not retry. Zero
+provider/network/remote-ingest calls; no later-lane authority.
