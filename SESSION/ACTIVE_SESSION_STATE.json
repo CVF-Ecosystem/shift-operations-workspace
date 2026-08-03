@@ -226,10 +226,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "P3_A_REFINERY_WORK_ORDER_AMENDMENT_1_CORRECTED_REVIEW_PASS_COMMIT_STEWARD_THEN_FRESH_R2_REQUIRED",
+    "currentAuthority": "P3_A_REFINERY_BUILD_REPAIR_AMENDMENT_1_FRESH_R2_ACCEPTED_ONE_INVOCATION",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "COMMIT_STEWARD must stage, commit and push only the six corrected Amendment 1 authority paths while preserving all 25 failed BUILD candidate paths unstaged. Then stop for fresh literal human R2 bound to Amendment SHA 58741271, exactly four repair paths and final exact 28 BUILD paths. No repair/rerun before acknowledgment.",
+  "next_allowed_move": "COMMIT_STEWARD must commit/push only this four-path fresh-R2 continuity checkpoint while preserving all 25 BUILD paths unstaged. Then REPAIR_WORKER may consume exactly one Amendment 1 continuation invocation: verify lineage/hashes/digest, touch only four repair paths in the reviewed order, stop at first failure, no retry and zero provider/network/remote-ingest calls. Passing output remains a dirty 28-path candidate pending independent BUILD review.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -440,17 +440,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Corrected Amendment 1 independently re-reviewed PASS, no waiver, bound to SHA 58741271 and reproducible case-sensitive candidate digest 58e4685e. Authority checkpoint and fresh exact R2 remain required.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "Fresh exact human R2 accepted for one corrected Amendment 1 continuation invocation. It is consumed only after this four-path acknowledgment checkpoint is pushed and the first repair path changes; stop-first/no-retry and zero provider/network/remote-ingest remain binding.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-03_P3A_REFINERY.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records corrected Amendment 1 re-review PASS and the selective six-path authority checkpoint boundary.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the fresh exact R2 acknowledgment and one-invocation repair boundary.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "P3_A_REFINERY_CORRECTED_AMENDMENT_1_AUTHORITY_CHECKPOINT_THEN_FRESH_R2_P3B_P3C_RETRIEVAL_RAG_LEARNING_PARKED",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Commit/push only six corrected authority paths, preserve 25 failed BUILD paths unstaged, then stop for fresh exact R2 bound to Amendment SHA 58741271. No repair/rerun/provider authority.",
-    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_FAIL_TO_SPEC_AUTHOR_REPAIR_TO_INDEPENDENT_SPEC_REREVIEWER_FAIL_TO_DESIGN_AMENDMENT_2_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_2_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_FINAL_SPEC_REVIEWER_PASS_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER_FAIL_GATE_3_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REVIEWER_PASS_TO_COMMIT_STEWARD_DIGEST_VALIDATION_FAIL_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REREVIEWER_PASS_TO_COMMIT_STEWARD",
+    "parkedOperatorCheckpoint": "P3_A_REFINERY_REPAIR_INVOCATION_THEN_INDEPENDENT_BUILD_REVIEW_P3B_P3C_RETRIEVAL_RAG_LEARNING_PARKED",
+    "activeRole": "REPAIR_WORKER",
+    "activeRoleNote": "After the acknowledgment checkpoint is pushed, run exactly one Amendment 1 continuation. Four repair paths only, final exact 28 BUILD paths, stop-first/no-retry and zero provider/network/remote-ingest. No commit or self-review authority.",
+    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_FAIL_TO_SPEC_AUTHOR_REPAIR_TO_INDEPENDENT_SPEC_REREVIEWER_FAIL_TO_DESIGN_AMENDMENT_2_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_2_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_FINAL_SPEC_REVIEWER_PASS_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER_FAIL_GATE_3_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REVIEWER_PASS_TO_COMMIT_STEWARD_DIGEST_VALIDATION_FAIL_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER",
     "updatedAt": "2026-08-03"
   }
 }
