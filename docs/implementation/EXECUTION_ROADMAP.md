@@ -394,7 +394,7 @@ Trigger đã thỏa tại BUILD `d02186a` + C4. Orchestrator kích hoạt đúng
    vì answer leakage cùng F2-F5; amendment giữ lịch sử, sửa evaluator/state/
    types/preflight và chỉ xin tối đa bốn replacement calls; amendment repair
    thêm private canary, pinned original byte preservation và dependency order.
-   Amendment AUTHORIZATION_RE_REVIEW_PASS; tiếp theo repair-resume + G6-R, chưa có retry authority;
+   Amendment/correction đã push; repair-resume checkpoint yêu cầu G6-R trước sửa, replacement calls chỉ ở live step cuối;
 2. **PROJECT-KNOWLEDGE-PACK:** chuẩn hóa knowledge nguồn, owner, provenance,
    freshness/retention và ingestion boundary cho chính dự án;
 3. **P3-A Refinery:** normalize, dedupe, redact, classify, quarantine,

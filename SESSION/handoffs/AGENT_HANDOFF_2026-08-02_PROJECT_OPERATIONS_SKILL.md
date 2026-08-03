@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER` amendment review
-- Active role: `ORCHESTRATOR / SESSION_SYNC_STEWARD`
-- Status: `AMENDMENT_1_AUTHORIZATION_RE_REVIEW_PASS_RESUME_CHECKPOINT_NEXT`
+- Control-chain phase: `BUILD` repair (G6-R first)
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_1_REPAIR_RESUMED_G6_R_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -100,5 +100,6 @@ amendment re-review is next.
 
 Final amendment verdict is `AMENDMENT_1_AUTHORIZATION_RE_REVIEW_PASS`; all
 three authorization findings and F1-F5 repair scope are approved without
-waiver. Push exactly the nine governance paths, then record a separate
-repair-resume checkpoint. No repair/provider call before that push and G6-R.
+waiver. Authorization `64d5f7f` plus mandatory size-gate correction `27926c3`
+are pushed. This separate checkpoint resumes REPAIR_WORKER. Run G6-R before
+repair; replacement calls remain blocked until all amended pre-call gates pass.
