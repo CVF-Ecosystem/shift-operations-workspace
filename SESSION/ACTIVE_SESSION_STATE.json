@@ -163,10 +163,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "PROJECT_OPERATIONS_SKILL_AUTHORIZATION_RE_REVIEW_PASS_PRE_BUILD_CHECKPOINT_ONLY",
+    "currentAuthority": "PROJECT_OPERATIONS_SKILL_PRE_BUILD_ACKNOWLEDGED_G6_THEN_EXACT_EIGHT_PATH_BUILD",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Authorization RE_REVIEW_PASS with all five findings closed. Push this package, then record a separate pre-BUILD acknowledgment only. No source edit or provider call before that checkpoint is pushed and G6 passes.",
+  "next_allowed_move": "Pre-BUILD role/authority acknowledgment recorded after pushed authorization e1da12b. Run G6 from the clean pushed checkpoint; only PASS unlocks exact eight-path BUILD. Provider calls remain final-step-only; install/stage/commit/self-review/FREEZE remain blocked.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -377,17 +377,17 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "PROJECT-OPERATIONS-SKILL WORK_ORDER received AUTHORIZATION_RE_REVIEW_PASS. Separate pushed pre-BUILD acknowledgment and G6 remain mandatory.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "PROJECT-OPERATIONS-SKILL pre-BUILD transfer is acknowledged after authorization e1da12b. G6 must pass before any source edit; BUILD is exact eight final paths.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-02_PROJECT_OPERATIONS_SKILL.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records authorization RE_REVIEW_PASS and pre-BUILD-checkpoint-only next move.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records the pushed pre-BUILD acknowledgment and G6-first authority.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "PROJECT_KNOWLEDGE_PACK_AND_LATER_SEQUENCE_WAITING_FOR_PROJECT_OPERATIONS_SKILL_FREEZE",
-    "activeRole": "ORCHESTRATOR_SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Authorization is approved after repair 1. Record the separate pre-BUILD acknowledgment; IMPLEMENTATION_WORKER begins only after its push and G6 PASS.",
-    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "IMPLEMENTATION_WORKER",
+    "activeRoleNote": "Role transfer acknowledged. Run G6 first; after PASS implement only the exact eight BUILD paths. No install/stage/commit/self-review/FREEZE.",
+    "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_SPEC_REPAIR_WORKER_TO_INDEPENDENT_SPEC_RE_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_WORK_ORDER_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_RE_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_IMPLEMENTATION_WORKER",
     "updatedAt": "2026-08-03"
   }
 }

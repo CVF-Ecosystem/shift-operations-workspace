@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `ORCHESTRATOR / SESSION_SYNC_STEWARD`
-- Status: `AUTHORIZATION_RE_REVIEW_PASS_PRE_BUILD_CHECKPOINT_NEXT`
+- Control-chain phase: `BUILD` (G6 gate first)
+- Active role: `IMPLEMENTATION_WORKER`
+- Status: `PRE_BUILD_ACKNOWLEDGED_G6_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -65,6 +65,8 @@ corrected dependency read order. Final verdict is
 
 ## Next governed move after authorization push
 
-Record and push a separate pre-BUILD role/authority acknowledgment only. No
-source edit or provider call until that checkpoint is pushed and G6 passes.
-Later queue items remain inactive.
+Authorization commit `e1da12b641ca516bc915fbdc4dc7c05fa2ba194f`
+is pushed and this separate checkpoint acknowledges the role transfer. Run G6
+from the clean pushed checkpoint. Only G6 PASS unlocks the exact eight BUILD
+paths and later four-call live step; installation/staging/commit/self-review/
+FREEZE remain unauthorized. Later queue items remain inactive.
