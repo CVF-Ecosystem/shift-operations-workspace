@@ -4,9 +4,9 @@
 
 - Tranche: `PROJECT-OPERATIONS-SKILL-2026-08-02`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER` (Amendment 2 authorization review)
-- Active role: `SESSION_SYNC_STEWARD`
-- Status: `AMENDMENT_2_AUTHORIZATION_RE_REVIEW_PASS_GOVERNANCE_PUSH_PENDING`
+- Control-chain phase: `BUILD` repair (Amendment 2, G6-R2 first)
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_2_REPAIR_RESUMED_G6_R2_REQUIRED`
 - Parent: Phase 2 C4 `0a29192dacf7380ee565a13bc48a164eb79e65a9`
 
 ## Settled predecessor
@@ -130,3 +130,9 @@ after closing dependency/authority drift, lineage-formula ambiguity and commit
 set ambiguity. The exact seven governance paths must now be committed/pushed;
 all eight BUILD paths remain unstaged. A separate exact four-continuity-path
 resume commit is required before G6-R2 and any BUILD repair.
+
+Governance authorization `7656ca8` is pushed and `HEAD == origin/main`. This
+separate four-path checkpoint acknowledges repair transfer. Run G6-R2 before
+editing the same eight BUILD paths. Only G6-R2 PASS permits public-enum/v3
+repair; evidence migration, provider calls and human R2 acknowledgment remain
+later gates.
