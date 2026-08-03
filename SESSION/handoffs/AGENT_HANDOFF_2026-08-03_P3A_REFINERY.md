@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_5_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
+- Control-chain phase: `BUILD`
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_5_R2_ACCEPTED_PENDING_ACK_CHECKPOINT_THEN_ONE_CONTINUATION`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -101,6 +101,24 @@ confirmed the same 13-path scope, ordered gates, no retry of the failed `rg`
 command and zero-call boundary. COMMIT_STEWARD must commit/push only Amendment
 5, its review and four continuity paths while BUILD stays unstaged, then stop
 for fresh exact R2. No further BUILD edit/test or closure authority yet.
+
+## Fresh Amendment 5 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-03:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-5-2026-08-03,
+> Work Order Amendment SHA-256
+> 44c2576895356e8cb83a7df1d99c945e3a5a354a11e7655521e5288e54e07726,
+> đúng 13 repair paths và final exact 28 BUILD paths, zero
+> provider/network/remote-ingest calls.
+
+It binds one continuation invocation with no retry. COMMIT_STEWARD must
+commit/push only this four-path acknowledgment checkpoint while BUILD remains
+unstaged. The acknowledgment is consumed only after that push and the first
+authorized repair edit. REPAIR_WORKER then follows Amendment 5 in exact order,
+does not run or replace the failed Amendment 4 inventory command, stops at the
+first failure and makes zero provider/network/remote-ingest calls. No BUILD
+commit, self-review, FREEZE or later-lane authority.
 
 ## Intake boundary
 
