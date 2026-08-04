@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `COMMIT_STEWARD -> REPAIR_WORKER`
-- Status: `AMENDMENT_9_FRESH_R2_ACCEPTED_PENDING_ACK_CHECKPOINT`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_10_AUTHORIZATION_REREVIEW_2_PASS_PENDING_AUTHORITY_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -331,6 +331,50 @@ acknowledgment checkpoint, then REPAIR_WORKER runs Amendment 9 once, stops at
 the first failure and does not retry. Any finding routes to a fresh scoped
 amendment, independent review and fresh R2. No BUILD edit/commit, self-review,
 FREEZE or later-lane authority.
+
+## Consumed Amendment 9 invocation and file-size findings
+
+Acknowledgment checkpoint `be63d4505e8b79e96e849090f34462b9918ed550`
+was pushed and exact immutable preflight passed. The fresh file-size gate then
+failed on `pipeline.py` 304/300, session memory 616/600 and this active handoff
+724/600. Execution stopped; no retry or later gate ran, and zero provider/
+network/remote-ingest calls occurred.
+
+Per the operator's proactive-finding instruction, the Amendment 10 candidate
+at `docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_10.md` authorizes
+exactly six repair paths/final exact 32 BUILD/continuity paths: a
+semantic-preserving helper move plus lossless continuity rotation into two
+bounded archives. It uses no waiver or debt entry. Independent authorization
+review, authority checkpoint and fresh exact R2 are mandatory before repair.
+
+Initial independent review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_10_AUTHORIZATION_REVIEW.md`
+SHA-256 `43dad00859cb906e446c1e6875dafedbc522e1374c070da195adcf22aa947a14`
+returned only `A10-AUTH-F1`: the memory/handoff pre-hashes were stale and
+self-referential because pending continuity embedded A10's own SHA. The
+pending entries now omit that SHA. Their final raw hashes must be bound into
+the Work Order and receive fresh independent re-review before checkpoint/R2.
+
+Fresh re-review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_10_AUTHORIZATION_REREVIEW.md`
+SHA-256 `4ed7b30f48f876337cbedd63074098104f6f9b4f1a979e4a54d3fd532f546b7f`
+closed F1 but returned residual `A10-AUTH-F2`: a mandatory future R2 append
+changes the raw whole-file handoff hash before BUILD. A10 now binds only the
+normalized UTF-8 archive-source blocks by fixed markers: memory 331 lines SHA
+`d7d902ea…348e`, handoff 390 lines SHA `d8b6f8d8…ec14`. Review/R2 preamble
+append cannot change those blocks; any drift within history to be archived
+still fails. Git lineage continues to restrict authority/R2 checkpoint paths.
+Fresh independent re-review is required before checkpoint/R2.
+
+Independent authorization re-review 2
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_10_AUTHORIZATION_REREVIEW_2.md`
+SHA-256 `f06ca38053b6315922513b0f646c7c5e8cda69f9beb0ad072d4fc21409c23944`
+returns `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no finding/waiver,
+for amended Work Order SHA `6c396f1fc6faad345a5ae12d3d928e515d4c5bbf46a14b9743015740e1b2634b`.
+F1/F2 are closed. COMMIT_STEWARD must commit/push only the Work Order, three
+review artifacts and four continuity paths while exact-28 BUILD remains
+unstaged and both archive-source block digests remain unchanged. Then stop for
+the exact fresh Amendment 10 R2; no repair, gate, BUILD commit or FREEZE yet.
 
 ## Intake boundary
 
