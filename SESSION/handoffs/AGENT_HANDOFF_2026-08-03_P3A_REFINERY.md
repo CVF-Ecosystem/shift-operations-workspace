@@ -5,15 +5,16 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_17_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
+- Control-chain phase: `BUILD`
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_17_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## A17 authorization PASS
-A17 `01e6392d…a7c` / review `a0c670c6…519d`: PASS, no finding/waiver.
-Push exact six governance paths, preserve exact32 unstaged, then fresh R2.
+## Fresh A17 R2
+Accepted verbatim for A17 `01e6392d…a7c`, exact9/final32, zero provider/
+network/remote-ingest. Authority `6ab30561…f6ba` pushed; push only four
+acknowledgment paths, then run once/no retry/stop first failure.
 
 ## Amendment 16 consumed / Amendment 17 candidate
 
