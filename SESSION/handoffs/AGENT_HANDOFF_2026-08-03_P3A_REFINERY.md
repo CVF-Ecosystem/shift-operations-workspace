@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_10_AUTHORIZATION_REREVIEW_2_PASS_PENDING_AUTHORITY_CHECKPOINT_AND_FRESH_R2`
+- Status: `AMENDMENT_10_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -375,6 +375,24 @@ F1/F2 are closed. COMMIT_STEWARD must commit/push only the Work Order, three
 review artifacts and four continuity paths while exact-28 BUILD remains
 unstaged and both archive-source block digests remain unchanged. Then stop for
 the exact fresh Amendment 10 R2; no repair, gate, BUILD commit or FREEZE yet.
+
+## Fresh Amendment 10 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-04:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-10-2026-08-04,
+> Work Order Amendment SHA-256
+> 6c396f1fc6faad345a5ae12d3d928e515d4c5bbf46a14b9743015740e1b2634b,
+> đúng 6 repair paths và final exact 32 BUILD/continuity paths, zero
+> provider/network/remote-ingest calls.
+
+Authority checkpoint `14139b9b38d18f31d34a2a2e9c1a2a02415b47af` is pushed.
+This R2 binds exactly one ordered continuation with no retry. COMMIT_STEWARD
+must push only this four-path acknowledgment checkpoint while exact-28 BUILD
+remains unstaged. REPAIR_WORKER then verifies the exact Amendment 10 preflight,
+performs only the six-path repair and runs each ordered gate once, stopping on
+the first failure with zero provider/network/remote-ingest calls. No BUILD
+commit, self-review, FREEZE or later-lane authority.
 
 ## Intake boundary
 
