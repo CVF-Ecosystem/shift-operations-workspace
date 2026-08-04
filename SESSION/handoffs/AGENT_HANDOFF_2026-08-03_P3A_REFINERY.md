@@ -5,11 +5,30 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_15_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_16_AUTHORIZATION_REREVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
+
+## Amendment 16 authorization re-review PASS
+
+Fresh review `e6ffe5e0c45abdd9eeaa2fb4e1ba031260243c8a34df748d55cc8feb49c44879`
+passes amended A16 `076032a3…3162`; `A16-AUTH-F1` is closed without waiver,
+no finding remains. Push exact six governance paths, then stop for fresh R2.
+
+## Amendment 15 consumed / Amendment 16 candidate
+
+Acknowledgment checkpoint `a6e82e1696825e966fe3164854b56a6d05fdbed9`
+was pushed. Preflight passed lineage/artifacts/exact32/staged0/stable30/
+protected21/nine pre-hashes, then stopped before repair on a nonexistent
+memory-archive literal. No retry, repair or later gate; zero calls. A15/R2 are
+consumed. Amended A16 SHA `076032a3f1c5ed3943c574a894dff90cb887ec8b36d78af37e7d3f96427f3162`
+corrects only that literal to
+`SESSION/archive/SESSION_MEMORY_2026-07-22_TO_2026-07-31.md`, retaining exact9/
+final32 and every binding. Initial review `f74b3af9…6728` found only 602-line
+handoff F1, no waiver; the governance preamble is below 600 with stable suffix and
+file-size PASS. Fresh re-review/checkpoint/R2 remain mandatory.
 
 ## Fresh Amendment 15 human R2 acknowledgment
 
@@ -22,31 +41,15 @@ Accepted verbatim on 2026-08-04:
 > provider/network/remote-ingest calls.
 
 Authority checkpoint `13b6f2052a4930fc3adef1ca1a9f63100cebf691` is pushed.
-COMMIT_STEWARD must push only this four-path acknowledgment checkpoint while
-the exact32 candidate remains wholly unstaged. After that push, REPAIR_WORKER
-runs the ordered Amendment 15 continuation once, stops at the first non-zero
-command or contract failure, does not retry and makes zero provider/network/
-remote-ingest calls. No BUILD commit, self-review, FREEZE or later-lane
-authority.
+The four-path acknowledgment was pushed at `a6e82e16…bed9`; its one no-retry
+invocation is consumed by the preflight failure above. No BUILD commit/FREEZE.
 
 ## Amendment 15 authorization finding closed / exact-seven checkpoint
 
-Initial authorization review SHA
-`4330c756ed2f4c725f58f4e8034e49aeda5e4aa94672012d1b6dc62920fd3094`
-returned PASS but incorrectly omitted the still-untracked causal final BUILD
-review from its exact-six checkpoint. Bounded independent audit returned
-`A15-AUTH-F1`, changes required, no waiver. Corrected fresh re-review at
-`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_15_AUTHORIZATION_REVIEW.md`
-SHA `738a08b767b730c0efe2ee42cc124538f470e073d930b1f6b62b3e4a6275dadb`
-returns `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`; F1 is
-`CLOSED_WITHOUT_WAIVER`, with no open finding or waiver.
-
-Amendment 15 remains SHA `19e1369d…d28c`, exact nine repair paths/final exact32
-and protected21 `68cbd243…6070`. COMMIT_STEWARD must partial-stage/push exactly
-seven governance paths: failed final review, A15, corrected review, canonical
-state, mirror and only these new memory/handoff governance hunks. Preserve the
-entire exact32 candidate dirty/unstaged, then stop for fresh exact A15 R2. No
-repair, BUILD commit, FREEZE or later-lane authority exists yet.
+Initial review `4330c756…3094` omitted the causal final review. Corrected
+re-review `738a08b7…dadb` closed `A15-AUTH-F1` without waiver and authorized
+exact7 authority paths while preserving A15 `19e1369d…d28c`, exact9/final32
+and protected21 `68cbd243…6070`. Authority `13b6f205…bf691` is pushed.
 
 ## Current truth
 
