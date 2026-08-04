@@ -5,11 +5,19 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_16_AUTHORIZATION_REREVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
+- Control-chain phase: `BUILD`
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_16_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
+
+## Fresh Amendment 16 R2
+
+Accepted verbatim for A16 `076032a3f1c5ed3943c574a894dff90cb887ec8b36d78af37e7d3f96427f3162`:
+exact nine repair paths/final exact32 BUILD/continuity paths, zero provider/
+network/remote-ingest. Authority `fa3237b5582ecfd5d0e3169d8718192305bc9ed3`
+is pushed. Push only four acknowledgment paths, then run once with no retry;
+stop first failure. No BUILD commit/FREEZE.
 
 ## Amendment 16 authorization re-review PASS
 
