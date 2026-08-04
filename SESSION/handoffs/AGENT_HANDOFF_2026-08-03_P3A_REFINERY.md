@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_13_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
+- Status: `AMENDMENT_13_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -479,6 +479,14 @@ returns PASS, no finding/waiver, for A13 SHA
 `332895d89799ec724031057cf265b1c84e6a62a8510b6f86363a4fe309f9da50`.
 Push only A13, review and four continuity paths with BUILD unstaged, then stop
 for fresh exact A13 R2. No repair/gate/BUILD commit/FREEZE yet.
+
+## Fresh Amendment 13 human R2 acknowledgment
+
+Accepted verbatim for Amendment
+`332895d89799ec724031057cf265b1c84e6a62a8510b6f86363a4fe309f9da50`,
+exactly six repair/final exact 32 BUILD/continuity paths, zero provider/network/
+remote-ingest. Authority `af691d049ca37288d99a09ac0df790018e3fc31c` is
+pushed. Push only four acknowledgment paths, then one no-retry continuation.
 
 ## Intake boundary
 
