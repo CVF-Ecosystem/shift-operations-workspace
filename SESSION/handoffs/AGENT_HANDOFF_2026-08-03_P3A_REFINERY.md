@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_19_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_19_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -16,10 +16,11 @@
 A18 ack `8caaaa83…f713` pushed. Preflight, atomic exact9, probe 4/4, Refinery
 57, Knowledge validator/86 and file-size PASS. Catalog check then failed on
 the expected +8 Refinery LOC drift; full/later gates NOT_RUN, no retry/calls.
-A19 `3b78afc6…e11f7` binds exact3 registry/catalog/knowledge-pin repair and
-final exact32. Independent review `329c3454…276d` PASS, no findings/waivers;
-deterministic outputs and stable30/protected27 reproduce. Push only exact-six
-governance paths, then stop for fresh exact R2; no repair authority yet.
+A19 `3b78afc6…e11f7` review `329c3454…276d` PASS and authority
+`e802d1ba…a9f6` are pushed. Fresh exact R2 accepted for exact3/final32/zero
+calls. Push only four acknowledgment paths with candidate unstaged, then run
+one deterministic invocation, no retry, stop first failure. No BUILD commit,
+self-review, FREEZE or later-lane authority.
 
 ## Amendment 16 authorization re-review PASS
 
