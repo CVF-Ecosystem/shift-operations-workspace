@@ -5,24 +5,26 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
-- Active role: `REPAIR_WORKER`
-- Status: `AMENDMENT_17_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Control-chain phase: `WORK_ORDER`
+- Active role: `WORK_ORDER_AUTHOR`
+- Status: `AMENDMENT_18_AUTH_FINDINGS_REPAIRED_PENDING_REREVIEW`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Fresh A17 R2
-Accepted verbatim for A17 `01e6392d…a7c`, exact9/final32, zero provider/
-network/remote-ingest. Authority `6ab30561…f6ba` pushed; push only four
-acknowledgment paths, then run once/no retry/stop first failure.
+## Amendment 17 consumed / Amendment 18 candidate
 
-## Amendment 16 consumed / Amendment 17 candidate
-
-A16 ack `2141f306…91b5` pushed; first command failed parsing at compressed
-`foreach($p in$a)` before assertions/files. No retry/repair/later gate; zero
-calls. A17 `01e6392dfc72c257d121091466e221431e5cb43c2ed8e2dd211499dddcef1a7c`
-changes only canonical multiline syntax and retains exact9/final32/bindings.
-Independent review/checkpoint/fresh R2 required.
+A17 authority `6ab30561…f6ba` and R2 ack `f775b7c4…5764` are pushed. Its
+canonical preflight passed; first post-preflight read-inventory command failed
+parsing at `foreach($p in$paths)` before reading files. Stop-first/no-retry:
+0/9 repair touches, later gates NOT_RUN and zero calls. A17/R2 are consumed.
+A18 removes inventory from the invocation and allows only preflight, one
+precomputed atomic exact9 patch and explicit direct gates. Final exact32 and
+all immutable bindings remain unchanged. Independent review/checkpoint/fresh
+exact A18 R2 required; no repair authority exists yet.
+Final REREVIEW_2 `b9faf354…4553` is PASS; F1/F2/F3 closed, no waiver.
+A18 `2b11f819…0d2a` and sheet `deff7d1a…e2f3` retain exact-nine lineage.
+Push only exact-nine governance paths with exact32 staged-excluded, then stop
+for fresh exact R2; no repair authority yet.
 
 ## Amendment 16 authorization re-review PASS
 
