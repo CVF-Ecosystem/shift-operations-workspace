@@ -5,24 +5,23 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_21_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_22_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 20 consumed / Amendment 21 candidate
+## Amendment 21 consumed / Amendment 22 candidate
 
-A20 authority `227a385…ccf6` and ack `d5e4a7bb…0bc5` are pushed. Git lineage
-passed, then Python preflight stopped before normalization because its runner
-guessed the wrong full ack hash `d5e4a7b78…`. Exact2 remains at reviewed CRLF
-pre-hashes; no retry/later gate/call. Initial A21 review `4d9f5f91…8d49`
-returned only self-hash finding F1, no waiver. A21 now verifies dynamic HEAD/
-origin/parent/exact committed R2 state without a future literal and retains
-exact2/final32. Fresh rereview is mandatory; no BUILD/FREEZE authority.
-Fresh rereview `98874fb2…53abe` passes amended A21 `f6fa72b3…040c`; F1 is
-closed without waiver and findings are NONE. Push only exact-six governance
-paths with exact32 unstaged, then stop for fresh exact A21 R2.
+A21 authority `e78317f…ab32` and ack `7daf89e7…3cad` are pushed. Dynamic Git
+topology/status passed, then direct Vietnamese-literal equality failed before
+normalization due stdin transport; canonical value is correct. Exact2 remains
+at CRLF pre-hashes; no retry/later gate/call. A22 `59ba66ea…15e3e` replaces
+only that assertion with ASCII UTF-8 digest `c8a976f2…d10c`, retaining exact2/
+final32. Independent review/checkpoint/fresh R2 required; no BUILD/FREEZE.
+Independent review `8da89d4f…4dff` passes A22 `59ba66ea…15e3e`, findings/
+waivers NONE; exact R2 UTF-8 SHA `c8a976f2…d10c` reproduces. Push exact-six
+governance paths with exact32 unstaged, then stop for fresh exact A22 R2.
 
 ## Amendment 16 authorization re-review PASS
 
