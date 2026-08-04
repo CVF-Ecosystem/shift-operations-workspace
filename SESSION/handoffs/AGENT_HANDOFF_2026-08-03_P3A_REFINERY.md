@@ -6,10 +6,29 @@
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
-- Active role: `ORCHESTRATOR`
-- Status: `EXACT32_BUILD_CANDIDATE_PENDING_INDEPENDENT_BUILD_REVIEW`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_15_AUTHORIZATION_REREVIEW_PASS_EXACT7_AUTHORITY_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
+
+## Amendment 15 authorization finding closed / exact-seven checkpoint
+
+Initial authorization review SHA
+`4330c756ed2f4c725f58f4e8034e49aeda5e4aa94672012d1b6dc62920fd3094`
+returned PASS but incorrectly omitted the still-untracked causal final BUILD
+review from its exact-six checkpoint. Bounded independent audit returned
+`A15-AUTH-F1`, changes required, no waiver. Corrected fresh re-review at
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_15_AUTHORIZATION_REVIEW.md`
+SHA `738a08b767b730c0efe2ee42cc124538f470e073d930b1f6b62b3e4a6275dadb`
+returns `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`; F1 is
+`CLOSED_WITHOUT_WAIVER`, with no open finding or waiver.
+
+Amendment 15 remains SHA `19e1369d…d28c`, exact nine repair paths/final exact32
+and protected21 `68cbd243…6070`. COMMIT_STEWARD must partial-stage/push exactly
+seven governance paths: failed final review, A15, corrected review, canonical
+state, mirror and only these new memory/handoff governance hunks. Preserve the
+entire exact32 candidate dirty/unstaged, then stop for fresh exact A15 R2. No
+repair, BUILD commit, FREEZE or later-lane authority exists yet.
 
 ## Current truth
 
