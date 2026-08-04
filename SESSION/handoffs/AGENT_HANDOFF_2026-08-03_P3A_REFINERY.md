@@ -5,11 +5,29 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_15_AUTHORIZATION_REREVIEW_PASS_EXACT7_AUTHORITY_CHECKPOINT_PENDING`
+- Control-chain phase: `BUILD`
+- Active role: `REPAIR_WORKER`
+- Status: `AMENDMENT_15_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
+
+## Fresh Amendment 15 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-04:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-15-2026-08-04,
+> Work Order Amendment SHA-256
+> 19e1369d52d1fa65a5bff674fe8a24116767ffcbcf7b84de7340d2fccaced28c,
+> đúng 9 repair paths và final exact 32 BUILD/continuity paths, zero
+> provider/network/remote-ingest calls.
+
+Authority checkpoint `13b6f2052a4930fc3adef1ca1a9f63100cebf691` is pushed.
+COMMIT_STEWARD must push only this four-path acknowledgment checkpoint while
+the exact32 candidate remains wholly unstaged. After that push, REPAIR_WORKER
+runs the ordered Amendment 15 continuation once, stops at the first non-zero
+command or contract failure, does not retry and makes zero provider/network/
+remote-ingest calls. No BUILD commit, self-review, FREEZE or later-lane
+authority.
 
 ## Amendment 15 authorization finding closed / exact-seven checkpoint
 
