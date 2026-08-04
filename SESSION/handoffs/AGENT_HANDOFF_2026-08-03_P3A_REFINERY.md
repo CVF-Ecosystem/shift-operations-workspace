@@ -5,26 +5,21 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `WORK_ORDER_AUTHOR`
-- Status: `AMENDMENT_18_AUTH_FINDINGS_REPAIRED_PENDING_REREVIEW`
+- Control-chain phase: `BUILD`
+- Active role: `COMMIT_STEWARD`
+- Status: `AMENDMENT_18_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 17 consumed / Amendment 18 candidate
+## Amendment 18 fresh R2 accepted
 
-A17 authority `6ab30561…f6ba` and R2 ack `f775b7c4…5764` are pushed. Its
-canonical preflight passed; first post-preflight read-inventory command failed
-parsing at `foreach($p in$paths)` before reading files. Stop-first/no-retry:
-0/9 repair touches, later gates NOT_RUN and zero calls. A17/R2 are consumed.
-A18 removes inventory from the invocation and allows only preflight, one
-precomputed atomic exact9 patch and explicit direct gates. Final exact32 and
-all immutable bindings remain unchanged. Independent review/checkpoint/fresh
-exact A18 R2 required; no repair authority exists yet.
-Final REREVIEW_2 `b9faf354…4553` is PASS; F1/F2/F3 closed, no waiver.
-A18 `2b11f819…0d2a` and sheet `deff7d1a…e2f3` retain exact-nine lineage.
-Push only exact-nine governance paths with exact32 staged-excluded, then stop
-for fresh exact R2; no repair authority yet.
+A17 stopped at its first post-preflight parse failure with 0/9 touches and zero
+calls. A18 `2b11f819…0d2a`, sheet `deff7d1a…e2f3` and final review
+`b9faf354…4553` are pushed at authority checkpoint `e9090f96…cf29`.
+Fresh exact R2 is accepted verbatim for exact9/final32 and zero calls. Push
+only four acknowledgment continuity paths with exact32 unstaged; then execute
+one ordered invocation, no retry, stop at first failure. Finding handling is
+limited to exact9; no BUILD commit, self-review, FREEZE or later-lane authority.
 
 ## Amendment 16 authorization re-review PASS
 
