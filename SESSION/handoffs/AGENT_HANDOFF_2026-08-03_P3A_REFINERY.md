@@ -5,23 +5,22 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_23_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_24_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 22 consumed / Amendment 23 candidate
+## Amendment 23 consumed / Amendment 24 candidate
 
-A22 ack `e3da80bc…b1d1` pushed. Its one runner hit the 120s outer ceiling while
-pytest output was active (exit124/OSError22); no result retained or retried.
-Post-stop exact2 is unchanged at CRLF pre-hashes, exact32/staged0, no pytest
-process/calls. A23 `98825deb…00d63` retains exact2/final32 but requires a
-minimum 600s unbuffered runner. Independent review/checkpoint/fresh R2 are
-mandatory; no BUILD commit/FREEZE/later-lane authority.
-Independent review `af32aff2…d2ce8` passes A23 `98825deb…00d63`, no findings/
-waivers. Exact2/final32 and actual outer timeout >=600s/unbuffered markers are
-accepted. Push exact-six governance paths, then stop for fresh exact A23 R2.
+A23 ack `9a62662f…bd8e` pushed. Preflight, exact2/post, Knowledge, focused86 and
+catalog PASS; full failed 2/1587/128/8 because catalog-drift fixture restored LF
+through Windows text mode, causing Project Context pin drift. Later gates
+NOT_RUN, no retry/calls. A24 `cc4d481d…ef51a` authorizes generator newline
+stability, byte-preserving fixture and exact2 normalization: exact4/final34.
+Independent review/checkpoint/fresh R2 required; no BUILD/FREEZE authority.
+Independent review `00a93584…53d69` passes A24 `cc4d481d…ef51a`, no findings/
+waivers. Push exact-six governance paths, then stop for fresh exact A24 R2.
 
 ## Amendment 16 authorization re-review PASS
 
