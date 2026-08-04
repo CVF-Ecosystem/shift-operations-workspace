@@ -42,13 +42,13 @@ def _run(*args: str) -> subprocess.CompletedProcess:
 def restore_catalog_files():
     """Snapshot the real registry + Markdown, restore them after the test -
     every negative probe here mutates the actual repo files temporarily."""
-    registry_backup = REGISTRY_PATH.read_text(encoding="utf-8")
-    markdown_backup = CATALOG_MD_PATH.read_text(encoding="utf-8")
+    registry_backup = REGISTRY_PATH.read_bytes()
+    markdown_backup = CATALOG_MD_PATH.read_bytes()
     try:
         yield
     finally:
-        REGISTRY_PATH.write_text(registry_backup, encoding="utf-8")
-        CATALOG_MD_PATH.write_text(markdown_backup, encoding="utf-8")
+        REGISTRY_PATH.write_bytes(registry_backup)
+        CATALOG_MD_PATH.write_bytes(markdown_backup)
 
 
 def test_check_passes_on_unmodified_repository():

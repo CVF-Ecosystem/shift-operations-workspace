@@ -56,7 +56,8 @@ pythonpath = [
   "apps/integration-edge/src",
   "packages/cvf-runtime/src",
   "packages/operations-ledger/src",
-  "packages/operations-domain/src"
+  "packages/operations-domain/src",
+  "packages/refinery-bridge/src"
 ]
 testpaths = ["tests", "apps"]
 

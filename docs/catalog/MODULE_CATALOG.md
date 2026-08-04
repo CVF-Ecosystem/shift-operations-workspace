@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-03T12:08:05.846812+00:00_
+_Last generated: 2026-08-04T00:00:00+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-08-03T12:08:05.846812+00:00_
 ## Totals
 
 - Modules: **22**
-- Code LOC (py/ts/tsx): **18697**
-- Code files: **214**
-- By status: contract-only=7, enforced=2, partial=7, stub=6
+- Code LOC (py/ts/tsx): **20266**
+- Code files: **225**
+- By status: contract-only=6, enforced=2, partial=8, stub=6
 
 ## Status legend
 
@@ -35,6 +35,7 @@ _Last generated: 2026-08-03T12:08:05.846812+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
+| `refinery-bridge` | packages/refinery-bridge | partial | 1569 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
@@ -43,7 +44,6 @@ _Last generated: 2026-08-03T12:08:05.846812+00:00_
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
 | `operate-shift-workspace` | skills/operate-shift-workspace | contract-only | 0 | — | Provider-neutral navigation over current project continuity, phase/role routing, exact-path work orders, evidence review and bounded closure. |
-| `refinery-bridge` | packages/refinery-bridge | contract-only | 0 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `workspace-contracts` | packages/workspace-contracts | contract-only | 0 | — | Canonical JSON Schemas that form the stable boundary between core, providers, channels, Refinery and CVF. |
 | `channel-adapters` | packages/channel-adapters | stub | 0 | — | Concrete adapters for internal PWA, customer portal, generic webhook, Zalo, WhatsApp, email, SMS, and mocks. |
 | `conversation-routing` | packages/conversation-routing | stub | 0 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
@@ -125,6 +125,18 @@ _Last generated: 2026-08-03T12:08:05.846812+00:00_
 - **Tests:** `tests/unit/test_project_knowledge_pack.py`, `tests/integration/test_project_knowledge_ingest_rehearsal.py`
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Fresh P3-A Refinery INTAKE only; retrieval, RAG and learning remain parked.
+
+### `refinery-bridge` — partial
+
+- **Path:** `packages/refinery-bridge` (package)
+- **Purpose:** Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates.
+- **CVF controls:** data_scope
+- **Enforcement:** Deterministic local V1 boundary with strict pre-admission, nine fail-stop receipts, typed dedupe, redaction, quarantine/fallback and 100/100 candidate admission; no runtime caller.
+- **Contract:** packages/refinery-bridge/contracts/refinery_contract.yaml
+- **Depends on:** `shared-kernel`
+- **Tests:** `tests/unit/test_refinery_models.py`, `tests/unit/test_refinery_canonical.py`, `tests/unit/test_refinery_pipeline.py`, `tests/unit/test_refinery_adversarial.py`, `tests/unit/test_refinery_contract.py`
+- **Metrics:** 1569 LOC across 11 code file(s)
+- **Next step:** Independent BUILD review and bounded P3-A freeze. No runtime caller, provider, remote ingest, data_scope enforcement, retrieval/RAG or production claim.
 
 ### `workspace-api` — partial
 
@@ -221,18 +233,6 @@ _Last generated: 2026-08-03T12:08:05.846812+00:00_
 - **Tests:** `tests/unit/test_project_operations_skill_contract.py`, `tests/unit/test_project_operations_skill_live_evidence.py`
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Keep repository source uninstalled until a separate post-FREEZE installation tranche is explicitly authorized. Fresh PROJECT-KNOWLEDGE-PACK INTAKE is next.
-
-### `refinery-bridge` — contract-only
-
-- **Path:** `packages/refinery-bridge` (package)
-- **Purpose:** Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates.
-- **CVF controls:** data_scope
-- **Enforcement:** contracts/refinery_contract.yaml only; no runtime bridge.
-- **Contract:** packages/refinery-bridge/contracts/refinery_contract.yaml
-- **Depends on:** `shared-kernel`
-- **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
-- **Next step:** Implement the refinery boundary before any LLM context is built.
 
 ### `workspace-contracts` — contract-only
 

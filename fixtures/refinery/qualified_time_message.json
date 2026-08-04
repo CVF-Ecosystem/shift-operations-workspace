@@ -1,0 +1,22 @@
+{
+  "case_id": "qualified-time-positive",
+  "input": {
+    "schema_version": "1.0",
+    "source_id": "msg-qualified-001",
+    "source_version": "v1",
+    "source_link": "fixture:msg-qualified-001",
+    "source_type": "EXTERNAL_UNTRUSTED_FIXTURE",
+    "raw_text": "QC03 stopped at 2026-07-21T23:40:00Z due to sensor fault.",
+    "received_at": "2026-07-21T23:41:00Z",
+    "declared_sensitivity": "INTERNAL",
+    "source_owner_id": "fixture-owner",
+    "source_fingerprint": {
+      "sha256": "1b373779b3ae5cbf312d18c3f6398511dc7062325faf8503c29ac394de67195c",
+      "sha512": "c3b0a5d69646433a8108198ba88b3421a40fa425b308248277d05d121d59b7e836180ec405f14a2fb2415382f44664e545243ca6641eacde6e6b0edb2d3858ea",
+      "byte_length": 57
+    }
+  },
+  "expected_disposition": "CANDIDATE_READY",
+  "expected_sensitivity": "INTERNAL",
+  "expected_topics": ["equipment_downtime"]
+}

@@ -1,8 +1,45 @@
+schema_version: "1.0"
+boundary: RefineryBoundaryOutputV1
+execution: deterministic_local
+precondition: valid_ControlBundleV1
 input:
-  required: [source_id, raw_text, source_type, received_at]
-output:
-  required: [normalized_text, terminology_matches, duplicate_status, redactions, classifications, conflicts, context_candidates, source_link]
+  arbitrary_envelope_payload: true
+  admitted_schema: RefineryEnvelopeV1
+output_union: [PreAdmissionRejectionV1, RefineryResultV1]
+stages:
+  - ENVELOPE
+  - NORMALIZATION
+  - TERMINOLOGY
+  - CLASSIFICATION
+  - CONFLICT
+  - REDACTION
+  - DEDUPE
+  - QUALITY
+  - CANDIDATE_ADMISSION
+stage_outcomes: [PASS, FAIL, NOT_RUN]
+receipt_language: [PASS_x9, PASS_star_FAIL_NOT_RUN_star]
+dispositions:
+  - CANDIDATE_READY
+  - NO_CANDIDATE_DUPLICATE
+  - NO_CANDIDATE_QUARANTINED
+  - NO_CANDIDATE_FALLBACK
+sensitivity: [PUBLIC, INTERNAL, CONFIDENTIAL, RESTRICTED]
+fingerprints:
+  fields: [sha256, sha512, byte_length]
+  types: [source_fingerprint, dedupe_content_fingerprint, candidate_fingerprint]
+  cross_type_comparison: forbidden
+quality:
+  components: [provenance, normalization, protection, integrity]
+  component_points: 25
+  admission_threshold: 100
 constraints:
   preserve_source: true
   invent_missing_values: false
-  external_transfer: policy_controlled
+  raw_text_in_public_output: false
+  provider_calls: 0
+  network_calls: 0
+  remote_ingest_calls: 0
+  persistence: false
+  runtime_caller: false
+  data_scope_enforcement_claim: false
+  retrieval_or_rag_claim: false

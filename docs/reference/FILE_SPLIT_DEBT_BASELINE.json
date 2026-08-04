@@ -11,7 +11,7 @@
   "debt": [
     {
       "path": "scripts/generate_catalog.py",
-      "sha256": "fff6229dde57a174935b87eb8319ef7e6d1bdd882580f74e672c81054739c93b",
+      "sha256": "6a04502d0ef35e69225a5cb1fbd652c18db4d23814219c0e0cdb27792735b9b6",
       "lineCount": 313,
       "hardLimit": 300,
       "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",

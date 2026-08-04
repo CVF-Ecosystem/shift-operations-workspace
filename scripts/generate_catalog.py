@@ -244,9 +244,9 @@ def main(argv: list[str]) -> int:
     if args.write:
         registry = enrich_metrics(registry)
         REGISTRY_PATH.write_text(
-            json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
         )
-        CATALOG_MD_PATH.write_text(render_markdown(registry), encoding="utf-8")
+        CATALOG_MD_PATH.write_text(render_markdown(registry), encoding="utf-8", newline="\n")
         totals = registry["metrics"]["totals"]
         print("CATALOG VERIFY: PASS")
         print(
