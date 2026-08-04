@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
+- Control-chain phase: `BUILD`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_23_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_23_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
