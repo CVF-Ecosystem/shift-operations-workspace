@@ -5,22 +5,26 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_19_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_20_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 18 consumed / Amendment 19 candidate
+## Amendment 19 consumed / Amendment 20 candidate
 
-A18 ack `8caaaa83…f713` pushed. Preflight, atomic exact9, probe 4/4, Refinery
-57, Knowledge validator/86 and file-size PASS. Catalog check then failed on
-the expected +8 Refinery LOC drift; full/later gates NOT_RUN, no retry/calls.
-A19 `3b78afc6…e11f7` review `329c3454…276d` PASS and authority
-`e802d1ba…a9f6` are pushed. Fresh exact R2 accepted for exact3/final32/zero
-calls. Push only four acknowledgment paths with candidate unstaged, then run
-one deterministic invocation, no retry, stop first failure. No BUILD commit,
-self-review, FREEZE or later-lane authority.
+A19 ack `f3539a9d…dfa` pushed. Preflight and three-path write completed, then
+the first post-hash assertion failed: Windows text-mode output translated all
+registry/catalog LF bytes to CRLF. Read-only diagnosis proves their normalized
+LF bytes exactly equal the reviewed hashes; manifest is already final. No
+retry/later gate/call. A20 `58b576d7…a38d4` permits only binary LF
+normalization of those exact two paths, final exact32. Independent review,
+bounded checkpoint and fresh exact R2 are mandatory before repair. No BUILD
+commit, self-review, FREEZE or later-lane authority.
+Independent review `87111381…fbc4` passes A20 `58b576d7…a38d4`, findings and
+waivers NONE. Exact-two binary normalization, final exact32, stable30/
+protected28 and stop-first/zero-call constraints reproduce. Push only exact-six
+governance paths with BUILD unstaged, then stop for fresh exact A20 R2.
 
 ## Amendment 16 authorization re-review PASS
 
