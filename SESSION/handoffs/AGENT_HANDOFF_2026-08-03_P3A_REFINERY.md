@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_28_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Control-chain phase: `REVIEW`
+- Active role: `REVIEWER`
+- Status: `AMENDMENT_28_INVOCATION_PASS_EXACT35_REVIEW_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -19,7 +19,8 @@ of ten leading spaces. Later gates NOT_RUN; no retry/calls. A28
 `793dfe4f…8db0` authorizes only the two-space manifest repair in one path,
 retains final exact35. Independent review `ed94ff31…947a` PASS, no findings or
 waivers. Authority `e06d248…08f6` pushed; fresh exact R2 accepted. Push exact4
-acknowledgment paths/hunks, then one helper-run stop-first/no-retry invocation.
+ack checkpoint `c3ac460…262e`; exact1 repair and all remaining gates PASS,
+including Knowledge `86`, with staged0/no retry/calls. Review exact35 next.
 
 ## Amendment 16 authorization re-review PASS
 
