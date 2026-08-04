@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_11_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
+- Status: `AMENDMENT_12_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -436,6 +436,24 @@ Accepted verbatim on 2026-08-04:
 Authority checkpoint `c88a752734fe2cc87b6b1028c3efb5cc702340fd` is pushed.
 This R2 binds one ordered continuation and no retry. Push only this four-path
 acknowledgment checkpoint with BUILD unstaged, then transfer to REPAIR_WORKER.
+
+## Amendment 11 consumed and Amendment 12 candidate
+
+Acknowledgment `f56456f1bdeed4874dfc81378073d4eacf4de2b8` was pushed.
+The first preflight command failed PowerShell parsing on `foreach($x in$p)`.
+No assertion, repair or later gate ran; no retry and zero calls. Amendment 12
+at `docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_12.md` SHA-256
+`a16c32a5c351d4fabb06ad64f24d0f3ad3bcc3dda5194e978d8abf1e3b627918`
+retains exact six/final32 and corrects only canonical multi-line preflight
+syntax. Independent review/checkpoint/fresh R2 required; no repair authority.
+
+Independent Amendment 12 review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_12_AUTHORIZATION_REVIEW.md`
+SHA-256 `6b807775c665c98d089be047ab81d6dd9a953759cca1906b6a32474c53aa9d32`
+returns authorization PASS, no finding/waiver, for A12 SHA
+`a16c32a5c351d4fabb06ad64f24d0f3ad3bcc3dda5194e978d8abf1e3b627918`.
+Push only A12, review and four continuity paths with BUILD unstaged, then stop
+for fresh exact A12 R2. No repair/gate/BUILD commit/FREEZE yet.
 
 ## Intake boundary
 
