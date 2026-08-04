@@ -5,9 +5,9 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `WORK_ORDER`
-- Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_9_AUTHORIZATION_REVIEW_PASS_PENDING_FRESH_R2`
+- Control-chain phase: `BUILD`
+- Active role: `COMMIT_STEWARD -> REPAIR_WORKER`
+- Status: `AMENDMENT_9_FRESH_R2_ACCEPTED_PENDING_ACK_CHECKPOINT`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -314,6 +314,23 @@ COMMIT_STEWARD must commit/push only Amendment 9, its review and four
 continuity paths while preserving all exact 28 BUILD paths unstaged. Then stop
 for fresh exact R2. No verification continuation, BUILD commit, self-review,
 FREEZE or later-lane authority yet.
+
+## Fresh Amendment 9 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-04:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-9-2026-08-04,
+> Work Order Amendment SHA-256
+> 417a11af86915cca0249e3559236f498fc96f7e60c8363376b4493f26aefca0e,
+> đúng 0 repair paths và final exact 28 BUILD paths, zero
+> provider/network/remote-ingest calls.
+
+The operator also requested proactive finding handling. This does not expand
+the zero-path invocation: COMMIT_STEWARD must push only this four-path
+acknowledgment checkpoint, then REPAIR_WORKER runs Amendment 9 once, stops at
+the first failure and does not retry. Any finding routes to a fresh scoped
+amendment, independent review and fresh R2. No BUILD edit/commit, self-review,
+FREEZE or later-lane authority.
 
 ## Intake boundary
 
