@@ -5,23 +5,23 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_22_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_23_AUTHORIZATION_REVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 21 consumed / Amendment 22 candidate
+## Amendment 22 consumed / Amendment 23 candidate
 
-A21 authority `e78317f…ab32` and ack `7daf89e7…3cad` are pushed. Dynamic Git
-topology/status passed, then direct Vietnamese-literal equality failed before
-normalization due stdin transport; canonical value is correct. Exact2 remains
-at CRLF pre-hashes; no retry/later gate/call. A22 `59ba66ea…15e3e` replaces
-only that assertion with ASCII UTF-8 digest `c8a976f2…d10c`, retaining exact2/
-final32. Independent review/checkpoint/fresh R2 required; no BUILD/FREEZE.
-Independent review `8da89d4f…4dff` passes A22 `59ba66ea…15e3e`, findings/
-waivers NONE; exact R2 UTF-8 SHA `c8a976f2…d10c` reproduces. Push exact-six
-governance paths with exact32 unstaged, then stop for fresh exact A22 R2.
+A22 ack `e3da80bc…b1d1` pushed. Its one runner hit the 120s outer ceiling while
+pytest output was active (exit124/OSError22); no result retained or retried.
+Post-stop exact2 is unchanged at CRLF pre-hashes, exact32/staged0, no pytest
+process/calls. A23 `98825deb…00d63` retains exact2/final32 but requires a
+minimum 600s unbuffered runner. Independent review/checkpoint/fresh R2 are
+mandatory; no BUILD commit/FREEZE/later-lane authority.
+Independent review `af32aff2…d2ce8` passes A23 `98825deb…00d63`, no findings/
+waivers. Exact2/final32 and actual outer timeout >=600s/unbuffered markers are
+accepted. Push exact-six governance paths, then stop for fresh exact A23 R2.
 
 ## Amendment 16 authorization re-review PASS
 
