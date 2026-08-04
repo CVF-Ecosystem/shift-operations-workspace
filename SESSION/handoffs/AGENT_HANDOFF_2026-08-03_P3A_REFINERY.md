@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_14_AUTHORIZATION_REVIEW_PASS_PENDING_PARTIAL_CHECKPOINT_AND_FRESH_R2`
+- Status: `AMENDMENT_14_FRESH_R2_ACCEPTED_PENDING_PARTIAL_ACKNOWLEDGMENT_CHECKPOINT`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -508,6 +508,14 @@ Push exact six authority paths using partial staging for only memory/handoff
 governance hunks; preserve all exact32 repair hunks dirty/unstaged. Then stop
 for fresh exact A14 R2. No continuation/BUILD commit/FREEZE yet.
 
+## Fresh Amendment 14 human R2 acknowledgment
+
+Accepted verbatim for Amendment
+`a1a76cbfa979855cf64d650ccca5ede807470b12bf5e9930a7cc7a1cb15bbe17`,
+zero repair paths/final exact32 BUILD/continuity paths, zero provider/network/
+remote-ingest. Authority `5990efe44162ed2aa7c5bec39bfd57c740efecef` is
+pushed. Push only four governance paths via partial staging, then one no-retry
+verification continuation. No BUILD commit/FREEZE authority.
 
 ## Intake boundary
 
