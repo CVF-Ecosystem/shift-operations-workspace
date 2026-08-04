@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_11_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
+- Status: `AMENDMENT_11_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -422,6 +422,20 @@ bindings and accepts the corrected independently decoded/verified UTF-8/base64
 transport before one atomic six-path patch. COMMIT_STEWARD must push only A11,
 its review and four continuity paths with BUILD unstaged, then stop for fresh
 exact Amendment 11 R2. No repair/gate/BUILD commit/FREEZE yet.
+
+## Fresh Amendment 11 human R2 acknowledgment
+
+Accepted verbatim on 2026-08-04:
+
+> Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-11-2026-08-04,
+> Work Order Amendment SHA-256
+> fe59ef90d61fddba14f15f61d7f69260542b4d8852a9b2110d80e0ef5dd84287,
+> đúng 6 repair paths và final exact 32 BUILD/continuity paths, zero
+> provider/network/remote-ingest calls.
+
+Authority checkpoint `c88a752734fe2cc87b6b1028c3efb5cc702340fd` is pushed.
+This R2 binds one ordered continuation and no retry. Push only this four-path
+acknowledgment checkpoint with BUILD unstaged, then transfer to REPAIR_WORKER.
 
 ## Intake boundary
 
