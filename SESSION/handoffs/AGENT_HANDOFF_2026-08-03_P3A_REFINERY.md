@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_13_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
+- Status: `AMENDMENT_14_AUTHORIZATION_REVIEW_PASS_PENDING_PARTIAL_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -487,6 +487,27 @@ Accepted verbatim for Amendment
 exactly six repair/final exact 32 BUILD/continuity paths, zero provider/network/
 remote-ingest. Authority `af691d049ca37288d99a09ac0df790018e3fc31c` is
 pushed. Push only four acknowledgment paths, then one no-retry continuation.
+
+## Amendment 13 consumed and Amendment 14 candidate
+
+Ack `20f3f73c5fdd9d3704823c8191f067f57422be76` pushed. Preflight,
+atomic six-path repair and file-size gate passed. A read-only `rg` inventory
+then failed on Windows-invalid wildcard literals; no retry, later gates not
+run and zero calls. Amendment 14 at
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_14.md` SHA
+`a1a76cbfa979855cf64d650ccca5ede807470b12bf5e9930a7cc7a1cb15bbe17`
+authorizes zero repair touches/final exact32 and explicit five-file focused
+suite. Independent review, partial-staged checkpoint and fresh R2 required.
+
+Independent Amendment 14 review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_14_AUTHORIZATION_REVIEW.md`
+SHA `f50ffde1259973cca317d091e8ce13bc8622a9cf44265b9de4d9207e34d916d1`
+returns PASS, no finding/waiver, for A14 SHA
+`a1a76cbfa979855cf64d650ccca5ede807470b12bf5e9930a7cc7a1cb15bbe17`.
+Push exact six authority paths using partial staging for only memory/handoff
+governance hunks; preserve all exact32 repair hunks dirty/unstaged. Then stop
+for fresh exact A14 R2. No continuation/BUILD commit/FREEZE yet.
+
 
 ## Intake boundary
 

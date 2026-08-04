@@ -6,6 +6,8 @@
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-03_P3A_REFINERY.md",
   "last_updated": "2026-08-04",
   "required_reads": [
+    "docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_14_AUTHORIZATION_REVIEW.md",
+    "docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_14.md",
     "docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_13_AUTHORIZATION_REVIEW.md",
     "docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_13.md",
     "docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_12_AUTHORIZATION_REVIEW.md",
@@ -248,10 +250,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "P3_A_REFINERY_AMENDMENT_13_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT",
+    "currentAuthority": "P3_A_REFINERY_AMENDMENT_14_AUTHORIZATION_REVIEW_PASS_PENDING_PARTIAL_CHECKPOINT_AND_FRESH_R2",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Push only four Amendment 13 R2 acknowledgment paths with exact-28 BUILD unstaged; then REPAIR_WORKER runs one no-retry exact6/final32 continuation with zero provider/network/remote-ingest.",
+  "next_allowed_move": "COMMIT_STEWARD must push exact six A14 authority paths using partial staging for only memory/handoff governance hunks; preserve exact32 repair hunks dirty/unstaged and stable30/suffix bindings. Then stop for fresh exact A14 R2 (0 repair/final32, zero calls). No continuation before R2.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -463,7 +465,7 @@
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
     "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Amendment 13 authority af691d0 pushed and fresh exact R2 accepted, pending acknowledgment checkpoint.",
+    "activePhaseNote": "Amendment 14 a1a76cbf received independent authorization PASS f50ffde1, pending partial-staged checkpoint and fresh R2.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-03_P3A_REFINERY.md",
