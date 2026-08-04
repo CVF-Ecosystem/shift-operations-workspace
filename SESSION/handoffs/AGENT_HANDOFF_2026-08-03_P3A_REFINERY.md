@@ -7,19 +7,19 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_25_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_26_AUTHORIZATION_REVIEW_PASS_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
 ## Amendment 24 consumed / Amendment 25 candidate
 
-A24 retained exact4/post, catalog5, Knowledge/86, catalog, full `1597/128`, and
-session PASS, then repository validation stopped on stale generator debt SHA;
-no retry/calls. Initial A25 review `5a222a06…29f6` found only `A25-AUTH-F1`, no
-waiver. Corrected A25 `ff2671a0…e33cf7` preserves 29 CRLF and binds literal-only
-`a647cb49…9f4e`; re-review `007c08f6…1b65` PASS closes F1. Exact1/final35/
-protected32 `9399529a…9cac`. Push exact7 governance paths/hunks, then fresh R2;
-debt path remains clean.
+A25 ack `81c2c5f…1e2f3` pushed. Preflight PASS and exact-one pin patch ran;
+immediate posthash assertion failed because the patch engine retained 28 CRLF
+but emitted LF on the changed line (`ae9ed0df…c5132`). Later gates NOT_RUN;
+no retry/calls. A26 `61a609c9…c42feb` authorizes zero repairs, retains exact35
+and stable33 `4d0ba0a8…661a`, then runs only remaining gates. Independent review
+`4c392421…302ce` PASS, findings/waivers NONE. Push exact6 governance paths/
+hunks, then fresh exact R2; no candidate write or gate is authorized yet.
 
 ## Amendment 16 authorization re-review PASS
 
