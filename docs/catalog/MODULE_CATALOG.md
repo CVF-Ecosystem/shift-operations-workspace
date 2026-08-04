@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-04T00:00:00+00:00_
+_Last generated: 2026-08-04T13:40:57.809205+00:00_
 
 ## How to use this catalog
 
@@ -136,7 +136,7 @@ _Last generated: 2026-08-04T00:00:00+00:00_
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/unit/test_refinery_models.py`, `tests/unit/test_refinery_canonical.py`, `tests/unit/test_refinery_pipeline.py`, `tests/unit/test_refinery_adversarial.py`, `tests/unit/test_refinery_contract.py`
 - **Metrics:** 1569 LOC across 11 code file(s)
-- **Next step:** Independent BUILD review and bounded P3-A freeze. No runtime caller, provider, remote ingest, data_scope enforcement, retrieval/RAG or production claim.
+- **Next step:** P3-A is CLOSED_BOUNDED at reviewed BUILD a6cf978. Module remains partial until a separately governed runtime caller; no provider, remote ingest, data_scope enforcement, retrieval/RAG or production claim.
 
 ### `workspace-api` — partial
 

@@ -14,9 +14,9 @@ stub surfaces; those labels must not be rounded up into production readiness.
 Phase 1 is complete under its reviewed local/disposable infrastructure
 boundary. Phase 2 is closed bounded for the reviewed start-to-freeze lineage.
 The Project Operations Skill and Project Knowledge Pack are closed bounded.
-P3-A currently has a deterministic local Refinery
-`BUILD_CANDIDATE_PENDING_INDEPENDENT_REVIEW`; this is not P3-A closure and
-does not complete Phase 3. The candidate has no runtime application caller and
+P3-A Refinery is `CLOSED_BOUNDED` at independently reviewed BUILD `a6cf978`.
+This closes only the deterministic local boundary and does not complete Phase
+3. The package has no runtime application caller and
 does not prove provider behavior, remote ingest, persistence, `data_scope`
 enforcement, retrieval, RAG, learning, production readiness, or confirmed
 truth. Those capabilities remain later governed work in the recorded business
