@@ -7,19 +7,18 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_27_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_28_AUTHORIZATION_REVIEW_PASS_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 24 consumed / Amendment 25 candidate
+## Amendment 27 consumed / Amendment 28 candidate
 
-A25 ack `81c2c5f…1e2f3` pushed. Preflight PASS and exact-one pin patch ran;
-immediate posthash assertion failed because the patch engine retained 28 CRLF
-but emitted LF on the changed line (`ae9ed0df…c5132`). Later gates NOT_RUN;
-no retry/calls. A26 `61a609c9…c42feb` authorizes zero repairs, retains exact35
-and stable33 `4d0ba0a8…661a`, then runs only remaining gates. Independent review
-`4c392421…302ce` PASS, findings/waivers NONE. Push exact6 governance paths/
-hunks, then fresh exact R2; no candidate write or gate is authorized yet.
+A27 ack `bbf02b6…35a` pushed. Preflight and exact2 patch ran; status post-hash
+passed, then manifest post-hash failed because the pin line had eight instead
+of ten leading spaces. Later gates NOT_RUN; no retry/calls. A28
+`793dfe4f…8db0` authorizes only the two-space manifest repair in one path,
+retains final exact35. Independent review `ed94ff31…947a` PASS, no findings or
+waivers. Push bounded authority paths/hunks, then stop for fresh exact A28 R2.
 
 ## Amendment 16 authorization re-review PASS
 
