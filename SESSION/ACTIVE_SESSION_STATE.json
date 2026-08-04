@@ -807,15 +807,15 @@
     ]
   },
   "p3a_amendment_26_authority": {
-    "freshR2Accepted": false,
-    "freshR2Acknowledgment": null,
-    "authorityCheckpointCommit": null,
-    "acknowledgmentCheckpointStatus": "NOT_AUTHORIZED",
+    "freshR2Accepted": true,
+    "freshR2Acknowledgment": "Tôi phê duyệt R2 cho P3-A-REFINERY-BUILD-REPAIR-AMENDMENT-26-2026-08-04, Work Order Amendment SHA-256 61a609c9addfc5fc16f1141320121ae04d5da1b9e93aa5c99a400dd680c42feb, đúng 0 repair paths và final exact 35 BUILD/continuity paths, zero provider/network/remote-ingest calls.",
+    "authorityCheckpointCommit": "113549482a30873ea33238159966cf5f88131573",
+    "acknowledgmentCheckpointStatus": "PENDING_COMMIT_PUSH",
     "invocationConsumed": false,
     "workOrderPath": "docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_26.md",
     "workOrderSha256": "61a609c9addfc5fc16f1141320121ae04d5da1b9e93aa5c99a400dd680c42feb",
     "requiredFreshR2Utf8Sha256": "491c42bedff7c5e9c88047133d0f6f04b23c3ada7b607ae4327cbdbb24127f62",
-    "status": "AUTHORIZATION_REVIEW_PASS_CHECKPOINT_PENDING",
+    "status": "FRESH_EXACT_R2_ACCEPTED_ACK_CHECKPOINT_PENDING",
     "reviewPath": "docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_26_AUTHORIZATION_REVIEW.md",
     "reviewSha256": "4c39242145a5d4c93ca7422535b2cfbd30de20a6641f5867f20cd0c985b302ce",
     "findings": "NONE",
@@ -914,10 +914,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "P3_A_REFINERY_AMENDMENT_26_AUTHORIZATION_REVIEW_PASS_CHECKPOINT_PENDING",
+    "currentAuthority": "P3_A_REFINERY_AMENDMENT_26_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "COMMIT_STEWARD must push only six A26 governance authority paths/hunks while exact35 remains unstaged. Then stop for fresh exact A26 R2; no gate run yet.",
+  "next_allowed_move": "COMMIT_STEWARD must push only four A26 acknowledgment paths while exact35 remains unstaged. Then REPAIR_WORKER runs one zero-write/final35 invocation, stop first/no retry/calls.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -1128,16 +1128,16 @@
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "cvf_enforcement_buildout",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "A26 zero-repair/final35 retained-output continuation received independent authorization review PASS; governance-only checkpoint is pending.",
+    "activePhase": "BUILD",
+    "activePhaseNote": "Fresh exact A26 R2 accepted after pushed authority 1135494; four-path acknowledgment checkpoint is pending before one zero-write/final35 invocation.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-03_P3A_REFINERY.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly. It records A26 authorization review PASS and governance-only checkpoint pending.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly. It records fresh exact A26 R2 and four-path acknowledgment checkpoint pending.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "P3_A_REFINERY_EXACT32_INDEPENDENT_BUILD_REVIEW_THEN_BUILD_COMMIT_AND_FREEZE_P3B_P3C_RETRIEVAL_RAG_LEARNING_PARKED",
     "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Push only six A26 governance paths/hunks; preserve exact35 unstaged, then stop for fresh exact R2.",
+    "activeRoleNote": "Push only four A26 acknowledgment paths/hunks; preserve exact35 unstaged, then transfer to REPAIR_WORKER.",
     "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_FAIL_TO_SPEC_AUTHOR_REPAIR_TO_INDEPENDENT_SPEC_REREVIEWER_FAIL_TO_DESIGN_AMENDMENT_2_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_2_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_FINAL_SPEC_REVIEWER_PASS_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER_FAIL_GATE_3_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REVIEWER_PASS_TO_COMMIT_STEWARD_DIGEST_VALIDATION_FAIL_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FAIL_STEP_2_TO_WORK_ORDER_AUTHOR_AMENDMENT_2_TO_INDEPENDENT_AMENDMENT_2_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_VERIFY_PARSE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_3_TO_INDEPENDENT_AMENDMENT_3_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PASS_TO_ORCHESTRATOR_TO_INDEPENDENT_BUILD_REVIEWER_CHANGES_REQUIRED_TO_WORK_ORDER_AUTHOR_AMENDMENT_4_TO_INDEPENDENT_AMENDMENT_4_REVIEWER_FAIL_TO_WORK_ORDER_AUTHOR_DIGEST_CORRECTION_TO_INDEPENDENT_AMENDMENT_4_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_TO_WORK_ORDER_AUTHOR_AMENDMENT_5_TO_INDEPENDENT_AMENDMENT_5_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FOCUSED_PASS_PROBE_IMPORT_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_6_TO_INDEPENDENT_AMENDMENT_6_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_LINEAGE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_7_TO_INDEPENDENT_AMENDMENT_7_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_PASS_PROBE_SELECTOR_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_8_TO_INDEPENDENT_AMENDMENT_8_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_DIRECT_PROBE_REPAIR_KNOWLEDGE_FOCUSED_CATALOG_FULL_SESSION_PASS_FILE_SIZE_PATH_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_9_TO_INDEPENDENT_AMENDMENT_9_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER",
     "updatedAt": "2026-08-04"
   }
