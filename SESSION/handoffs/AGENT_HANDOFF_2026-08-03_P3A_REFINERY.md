@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_10_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
+- Status: `AMENDMENT_11_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -393,6 +393,35 @@ remains unstaged. REPAIR_WORKER then verifies the exact Amendment 10 preflight,
 performs only the six-path repair and runs each ordered gate once, stopping on
 the first failure with zero provider/network/remote-ingest calls. No BUILD
 commit, self-review, FREEZE or later-lane authority.
+
+## Amendment 10 consumed and Amendment 11 candidate
+
+Acknowledgment checkpoint `9b1e34df7661a6a9877046ac65f770c772d1495b`
+was pushed. Amendment 10 preflight passed. Before any repair edit, local atomic
+patch construction raised `TypeError: Cannot read properties of undefined
+(reading 'split')` while expanding `data.memoryBlock`; `apply_patch` was never
+called. Execution stopped without retry. All 28 retained BUILD paths are
+unchanged, both archives remain absent, every post-repair gate is `NOT_RUN`,
+and provider/network/remote-ingest calls are zero.
+
+Amendment 11 at
+`docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_11.md` SHA-256
+`fe59ef90d61fddba14f15f61d7f69260542b4d8852a9b2110d80e0ef5dd84287`
+retains exact six repair paths/final exact 32 and corrects only patch transport:
+each block must be read independently as UTF-8/base64, decoded and verified
+before one atomic `apply_patch`. Independent authorization review, bounded
+checkpoint and fresh exact R2 are required. No repair/gate/BUILD commit/
+FREEZE or later-lane authority exists yet.
+
+Independent Amendment 11 authorization review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_11_AUTHORIZATION_REVIEW.md`
+SHA-256 `4979d8b607b1605da378fab6ed6fb5db798e6977c577e5dea7a8954f8ca61503`
+returns `WORK_ORDER_AMENDMENT_AUTHORIZATION_REVIEW_PASS`, no finding/waiver.
+It reproduces consumed Amendment 10 truth, exact28/protected26/Python/block
+bindings and accepts the corrected independently decoded/verified UTF-8/base64
+transport before one atomic six-path patch. COMMIT_STEWARD must push only A11,
+its review and four continuity paths with BUILD unstaged, then stop for fresh
+exact Amendment 11 R2. No repair/gate/BUILD commit/FREEZE yet.
 
 ## Intake boundary
 
