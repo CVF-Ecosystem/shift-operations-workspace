@@ -5,22 +5,21 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_24_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_25_AUTHORIZATION_REREVIEW_PASS_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 23 consumed / Amendment 24 candidate
+## Amendment 24 consumed / Amendment 25 candidate
 
-A23 ack `9a62662f…bd8e` pushed. Preflight, exact2/post, Knowledge, focused86 and
-catalog PASS; full failed 2/1587/128/8 because catalog-drift fixture restored LF
-through Windows text mode, causing Project Context pin drift. Later gates
-NOT_RUN, no retry/calls. A24 `cc4d481d…ef51a` authorizes generator newline
-stability, byte-preserving fixture and exact2 normalization: exact4/final34.
-Independent review/checkpoint/fresh R2 required; no BUILD/FREEZE authority.
-Independent review `00a93584…53d69` passes A24 `cc4d481d…ef51a`, no findings/
-waivers. Push exact-six governance paths, then stop for fresh exact A24 R2.
+A24 retained exact4/post, catalog5, Knowledge/86, catalog, full `1597/128`, and
+session PASS, then repository validation stopped on stale generator debt SHA;
+no retry/calls. Initial A25 review `5a222a06…29f6` found only `A25-AUTH-F1`, no
+waiver. Corrected A25 `ff2671a0…e33cf7` preserves 29 CRLF and binds literal-only
+`a647cb49…9f4e`; re-review `007c08f6…1b65` PASS closes F1. Exact1/final35/
+protected32 `9399529a…9cac`. Push exact7 governance paths/hunks, then fresh R2;
+debt path remains clean.
 
 ## Amendment 16 authorization re-review PASS
 
