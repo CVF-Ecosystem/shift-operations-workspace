@@ -7,7 +7,7 @@
 - Risk: `R2`
 - Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_12_FRESH_R2_ACCEPTED_PENDING_ACKNOWLEDGMENT_CHECKPOINT`
+- Status: `AMENDMENT_13_AUTHORIZATION_REVIEW_PASS_PENDING_CHECKPOINT_AND_FRESH_R2`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
@@ -461,6 +461,24 @@ Accepted verbatim: Amendment `a16c32a5c351d4fabb06ad64f24d0f3ad3bcc3dda5194e978d
 exactly 6 repair paths/final exact 32 BUILD/continuity paths, zero provider/
 network/remote-ingest. Authority `82071ee8f8fb0615e763d20789c52c7db7a5b594`
 is pushed. Push only four acknowledgment paths, then one no-retry continuation.
+
+## Amendment 12 consumed and Amendment 13 candidate
+
+Ack `bf9daaf3feb108c8f9fd63352e5d80ddfec7e717` pushed; preflight PASS.
+Step 2 verified both base64 blocks but V8 lacked `TextDecoder`, so `apply_patch`
+was never called. No retry, 0/6 touches, archives absent and zero calls.
+Amendment 13 at `docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_13.md`
+SHA `332895d89799ec724031057cf265b1c84e6a62a8510b6f86363a4fe309f9da50`
+retains exact6/final32 and substitutes strict pure-JS UTF-8 scalar decoding.
+Independent review/checkpoint/fresh R2 required; no repair authority.
+
+Independent Amendment 13 authorization review
+`docs/decisions/P3A_REFINERY_WORK_ORDER_AMENDMENT_13_AUTHORIZATION_REVIEW.md`
+SHA `c9719ab585e33f6b74f9ea0e3e182e681ffa1a5f9fa952e73892294e502d36a7`
+returns PASS, no finding/waiver, for A13 SHA
+`332895d89799ec724031057cf265b1c84e6a62a8510b6f86363a4fe309f9da50`.
+Push only A13, review and four continuity paths with BUILD unstaged, then stop
+for fresh exact A13 R2. No repair/gate/BUILD commit/FREEZE yet.
 
 ## Intake boundary
 
