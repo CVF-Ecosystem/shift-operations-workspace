@@ -5,26 +5,24 @@
 - Tranche: `P3-A-REFINERY-2026-08-03`
 - Parent: Project Knowledge Pack closure `107c8fa`
 - Risk: `R2`
-- Control-chain phase: `BUILD`
+- Control-chain phase: `WORK_ORDER`
 - Active role: `COMMIT_STEWARD`
-- Status: `AMENDMENT_20_FRESH_R2_ACCEPTED_ACK_CHECKPOINT_PENDING`
+- Status: `AMENDMENT_21_AUTHORIZATION_REREVIEW_PASS_EXACT6_CHECKPOINT_PENDING`
 - INTAKE commit: `32cb7f233f40fcfb3736f0f26487a36231c7d24e`
 - INTAKE review: `INTAKE_REVIEW_PASS` at `558b193`
 
-## Amendment 19 consumed / Amendment 20 candidate
+## Amendment 20 consumed / Amendment 21 candidate
 
-A19 ack `f3539a9d…dfa` pushed. Preflight and three-path write completed, then
-the first post-hash assertion failed: Windows text-mode output translated all
-registry/catalog LF bytes to CRLF. Read-only diagnosis proves their normalized
-LF bytes exactly equal the reviewed hashes; manifest is already final. No
-retry/later gate/call. A20 `58b576d7…a38d4` permits only binary LF
-normalization of those exact two paths, final exact32. Independent review,
-bounded checkpoint and fresh exact R2 are mandatory before repair. No BUILD
-commit, self-review, FREEZE or later-lane authority.
-Independent review `87111381…fbc4` passes A20 `58b576d7…a38d4`, findings and
-waivers NONE. Exact-two binary normalization, final exact32, stable30/
-protected28 and stop-first/zero-call constraints reproduce. Push only exact-six
-governance paths with BUILD unstaged, then stop for fresh exact A20 R2.
+A20 authority `227a385…ccf6` and ack `d5e4a7bb…0bc5` are pushed. Git lineage
+passed, then Python preflight stopped before normalization because its runner
+guessed the wrong full ack hash `d5e4a7b78…`. Exact2 remains at reviewed CRLF
+pre-hashes; no retry/later gate/call. Initial A21 review `4d9f5f91…8d49`
+returned only self-hash finding F1, no waiver. A21 now verifies dynamic HEAD/
+origin/parent/exact committed R2 state without a future literal and retains
+exact2/final32. Fresh rereview is mandatory; no BUILD/FREEZE authority.
+Fresh rereview `98874fb2…53abe` passes amended A21 `f6fa72b3…040c`; F1 is
+closed without waiver and findings are NONE. Push only exact-six governance
+paths with exact32 unstaged, then stop for fresh exact A21 R2.
 
 ## Amendment 16 authorization re-review PASS
 
