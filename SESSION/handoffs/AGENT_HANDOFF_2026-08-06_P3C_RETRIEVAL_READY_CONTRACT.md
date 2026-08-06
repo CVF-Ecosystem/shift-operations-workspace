@@ -3,9 +3,9 @@
 - Tranche: `P3-C-RETRIEVAL-READY-DATA-CONTRACT-2026-08-06`
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
-- Current phase: `INTAKE`
-- Status: `INTAKE_REVIEW_PENDING`
-- Active role: `INDEPENDENT_INTAKE_REVIEWER`
+- Current phase: `DESIGN`
+- Status: `DESIGN_REVIEW_PENDING`
+- Active role: `INDEPENDENT_DESIGN_REVIEWER`
 
 ## Startup acknowledgment
 
@@ -92,6 +92,34 @@ Role transition: `INDEPENDENT_INTAKE_REVIEWER` to `DESIGN_AUTHOR`.
 Next move: resolve all ten accepted decisions in one bounded ADR and stop for
 independent DESIGN review. No SPEC, WORK_ORDER, BUILD, provider/helper/product-
 network/POST call or retrieval authority exists.
+
+## DESIGN author return - 2026-08-06
+
+The DESIGN author created:
+
+`docs/decisions/ADR_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md`
+
+Frozen pre-review SHA-256:
+
+`288ebab12f64c036a23ef765c6230a48b2bff04d70ffd591529cad5757ff318b`
+
+The ADR resolves all ten accepted decisions in one pass. It selects
+`workspace-contracts/retrieval` as the existing owner surface; defines exact
+canonical/advisory source eligibility and version forms; uses one deterministic
+field-bound chunk per P3-A candidate; records no-tenant scope explicitly;
+requires use-time lifecycle/correction/freeze revalidation; admits only active
+owner-asserted retention; binds a closed provenance chain; leaves minimization
+and placement not evaluated; and returns a strict ready/non-admission union.
+
+No source, schema, runtime, test, provider/product-network/POST or retrieval
+action was performed. The rejected runner branch remains isolated.
+
+Role transition: `DESIGN_AUTHOR` to `INDEPENDENT_DESIGN_REVIEWER`.
+
+Next move: one consolidated independent DESIGN review. Return exactly one of
+`DESIGN_REVIEW_PASS`, `DESIGN_REVIEW_CHANGES_REQUIRED`, or
+`DESIGN_BLOCKED_SOURCE_OR_OWNER`. Only PASS may transfer to `SPEC_AUTHOR`.
+No SPEC drafting or BUILD authority exists.
 
 ## Claim boundary
 
