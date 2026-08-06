@@ -75,6 +75,24 @@ Obtain the independent INTAKE review. Only `INTAKE_REVIEW_PASS` may transfer
 the ten bounded decisions to `DESIGN_AUTHOR`. No later-phase authority carries
 forward.
 
+## INTAKE review return - 2026-08-06
+
+The corrected independent review targeted the exact project repository,
+commit `072624d0ed49db1fdd8412d7d0cda40939b391e7` and frozen INTAKE SHA-256
+`83ba292fe751b88e3be490e6e9dec687ef187d9cbf723ba15b41c0367fe1c8c3`.
+
+Disposition: `INTAKE_REVIEW_PASS`. Findings: `NONE`. Waivers: `NONE`.
+
+The earlier wrong-repository `INTAKE_BLOCKED_SOURCE_OR_OWNER` return is invalid
+surface evidence and does not block P3-C. The authoritative review record is
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_INTAKE_REVIEW.md`.
+
+Role transition: `INDEPENDENT_INTAKE_REVIEWER` to `DESIGN_AUTHOR`.
+
+Next move: resolve all ten accepted decisions in one bounded ADR and stop for
+independent DESIGN review. No SPEC, WORK_ORDER, BUILD, provider/helper/product-
+network/POST call or retrieval authority exists.
+
 ## Claim boundary
 
 P3-C is not designed or built. No retrieval-ready schema, tenant isolation,

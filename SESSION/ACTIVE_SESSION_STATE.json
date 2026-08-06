@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p3c_intake_review_pending",
+  "mode": "p3c_design_ready",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-06_P3C_RETRIEVAL_READY_CONTRACT.md",
   "last_updated": "2026-08-06",
   "required_reads": [
@@ -1015,13 +1015,17 @@
     "resumeCondition": "Only a fresh bounded INTAKE with an identified capability-enforcement owner may reconsider the runner; never reuse the prior R2 or retroactively approve this BUILD."
   },
   "p3c_retrieval_ready_contract_authority": {
-    "status": "INTAKE_REVIEW_PENDING",
+    "status": "INTAKE_REVIEW_PASS_DESIGN_AUTHORIZED",
     "risk": "R2",
     "executionBase": "c81bf7e9607464cc3456f343feed5796b1435987",
     "intakePath": "docs/decisions/INTAKE_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md",
     "intakeSha256": "83ba292fe751b88e3be490e6e9dec687ef187d9cbf723ba15b41c0367fe1c8c3",
     "designDecisionCount": 10,
-    "currentAuthority": "INDEPENDENT_INTAKE_REVIEW_ONLY",
+    "intakeReviewPath": "docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_INTAKE_REVIEW.md",
+    "intakeReviewDisposition": "INTAKE_REVIEW_PASS",
+    "intakeReviewFindings": "NONE",
+    "intakeReviewWaivers": "NONE",
+    "currentAuthority": "DESIGN_AUTHOR_DOCUMENTATION_ONLY",
     "calls": "provider=0; product-api=0; POST=0; governance-network=workspace-doctor public-core freshness fetch only",
     "buildAuthorized": false,
     "parkedLanes": "P3-B; P4-A1; P4-A2; provider; retrieval runtime; persistence; vector/index; learning; runner evidence branch",
@@ -1042,7 +1046,7 @@
     "currentAuthority": "P3C_FRESH_INTAKE_ONLY_NO_BUILD",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Obtain one consolidated independent review of docs/decisions/INTAKE_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md at SHA-256 83ba292fe751b88e3be490e6e9dec687ef187d9cbf723ba15b41c0367fe1c8c3. Only INTAKE_REVIEW_PASS may transfer the bounded ten-decision packet to DESIGN_AUTHOR. No DESIGN drafting, BUILD, provider, network, POST or retrieval authority exists.",
+  "next_allowed_move": "INTAKE_REVIEW_PASS permits DESIGN_AUTHOR to resolve the accepted ten-decision P3-C packet in one bounded ADR, then stop for independent DESIGN review. No SPEC, WORK_ORDER, BUILD, provider, product-network, POST or retrieval authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -1252,17 +1256,17 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p3c_intake_review_pending",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "P3-C bounded INTAKE is authored and frozen for one consolidated independent review. The runner remains isolated at 99789c0; no DESIGN or BUILD authority exists.",
+    "currentMode": "p3c_design_ready",
+    "activePhase": "DESIGN",
+    "activePhaseNote": "P3-C INTAKE received independent INTAKE_REVIEW_PASS with findings/waivers NONE. One bounded ADR may resolve the ten accepted decisions; no SPEC or BUILD authority exists.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-06_P3C_RETRIEVAL_READY_CONTRACT.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly and routes one consolidated independent P3-C INTAKE review.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly; the handoff records INTAKE_REVIEW_PASS and routes one bounded ADR to DESIGN_AUTHOR.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "P3C_INTAKE_REVIEW_PENDING_NO_DESIGN_OR_BUILD",
-    "activeRole": "INDEPENDENT_INTAKE_REVIEWER",
-    "activeRoleNote": "Review the frozen P3-C INTAKE in one consolidated pass; do not design, build or call provider/network surfaces.",
+    "parkedOperatorCheckpoint": "P3C_DESIGN_AUTHORING_NO_SPEC_OR_BUILD",
+    "activeRole": "DESIGN_AUTHOR",
+    "activeRoleNote": "Resolve the accepted ten-decision packet in one ADR and stop for independent DESIGN review.",
     "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_FAIL_TO_SPEC_AUTHOR_REPAIR_TO_INDEPENDENT_SPEC_REREVIEWER_FAIL_TO_DESIGN_AMENDMENT_2_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_2_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_FINAL_SPEC_REVIEWER_PASS_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER_FAIL_GATE_3_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REVIEWER_PASS_TO_COMMIT_STEWARD_DIGEST_VALIDATION_FAIL_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FAIL_STEP_2_TO_WORK_ORDER_AUTHOR_AMENDMENT_2_TO_INDEPENDENT_AMENDMENT_2_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_VERIFY_PARSE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_3_TO_INDEPENDENT_AMENDMENT_3_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PASS_TO_ORCHESTRATOR_TO_INDEPENDENT_BUILD_REVIEWER_CHANGES_REQUIRED_TO_WORK_ORDER_AUTHOR_AMENDMENT_4_TO_INDEPENDENT_AMENDMENT_4_REVIEWER_FAIL_TO_WORK_ORDER_AUTHOR_DIGEST_CORRECTION_TO_INDEPENDENT_AMENDMENT_4_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_TO_WORK_ORDER_AUTHOR_AMENDMENT_5_TO_INDEPENDENT_AMENDMENT_5_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FOCUSED_PASS_PROBE_IMPORT_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_6_TO_INDEPENDENT_AMENDMENT_6_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_LINEAGE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_7_TO_INDEPENDENT_AMENDMENT_7_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_PASS_PROBE_SELECTOR_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_8_TO_INDEPENDENT_AMENDMENT_8_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_DIRECT_PROBE_REPAIR_KNOWLEDGE_FOCUSED_CATALOG_FULL_SESSION_PASS_FILE_SIZE_PATH_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_9_TO_INDEPENDENT_AMENDMENT_9_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER",
     "updatedAt": "2026-08-06"
   }
