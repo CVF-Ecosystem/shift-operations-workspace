@@ -203,6 +203,15 @@
     "claim_boundary": "CLOSED_BOUNDED deterministic local Refinery package with typed fail-closed receipts and synthetic fixtures. No runtime application caller, provider or remote ingestion, persistence, load-bearing data_scope, retrieval/RAG, learning, confirmed truth, production readiness or Phase 3 completion claim.",
     "next_governed_move": "Fresh INTAKE for the requested deterministic governed-plan runner that removes ad-hoc shell fragility; P3-B/P3-C and later lanes remain parked until separately authorized."
   },
+  "p3c_retrieval_ready_contract": {
+    "build_candidate_status": "REPAIR_COMPLETE_PENDING_REVIEW",
+    "execution_base": "aea7544fb28cb9c14dfe7149822d2b38e1918ef7",
+    "authority": "P3-C Work Order SHA-256 0e83fc03660f10640bd15f3edab1696d66299fe29ba64ec779aa07f8e1855e9f and parent SPEC SHA-256 0e2388623857423091aa76ba49e1338d57f6fd504aebd47bd1062e2b13356ed8; independently passed Amendments 1 and 2 expand only knowledge/manifest.json pin maintenance, yielding the final exact 23-path candidate.",
+    "implemented_boundary": "A new pure retrieval-contracts package provides strict V1 source/scope/lifecycle/retention/provenance/result models, deterministic canonical bytes/chunk/revalidation hashes and a total zero-I/O constructor. P3-A adds only the reviewed CANONICAL_OPERATIONAL_RECORD source token.",
+    "fail_closed_boundary": "Canonical Event, Task, CustomerRequest, Incident, Handover and Report candidates return SOURCE_DIGEST_OWNER_MISSING because neither allowed dependency exposes a reviewed public digest owner. Private ReportContent helpers and application helpers remain forbidden. Message and pinned project-knowledge inputs are advisory evidence only.",
+    "claim_boundary": "Uncommitted BUILD candidate pending independent review. No runtime caller, retrieval/query/vector/index, persistence, provider/network/POST call, tenant authorization, minimization/placement enforcement, RAG, production or Phase 3 completion claim.",
+    "next_governed_move": "Independent BUILD re-review of the repaired exact 23-path unstaged candidate; worker must not commit or self-approve."
+  },
   "cvf_core_pin": {
     "scope_note": "This block records a GOVERNANCE/TOOLING tranche, not a roadmap feature. It changes no phase status, no module status, and no roadmap item. The `status` field at the top of this file is deliberately unchanged by it.",
     "governance_disposition": "FREEZE / CLOSED_BOUNDED (2026-07-23, tranche CVF-CORE-PIN-2026-07-23).",

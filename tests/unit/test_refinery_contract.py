@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from refinery_bridge.enums import Sensitivity
+from refinery_bridge.enums import Sensitivity, SourceType
 from refinery_bridge.input_models import RefineryEnvelopeV1
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,6 +20,7 @@ def test_yaml_contract_matches_closed_boundary() -> None:
         "REDACTION", "DEDUPE", "QUALITY", "CANDIDATE_ADMISSION",
     ]
     assert contract["sensitivity"] == [item.value for item in Sensitivity]
+    assert contract["source_types"] == [item.value for item in SourceType]
     assert contract["constraints"]["provider_calls"] == 0
     assert contract["constraints"]["network_calls"] == 0
     assert contract["constraints"]["runtime_caller"] is False

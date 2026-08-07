@@ -1,0 +1,1003 @@
+{
+  "$defs": {
+    "CandidateFingerprintV1": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_length": {
+          "minimum": 0,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "sha512": {
+          "pattern": "^[0-9a-f]{128}$",
+          "title": "Sha512",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sha256",
+        "sha512",
+        "byte_length"
+      ],
+      "title": "CandidateFingerprintV1",
+      "type": "object"
+    },
+    "CorrectionLineageV1": {
+      "additionalProperties": false,
+      "properties": {
+        "correction_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Correction Id",
+          "type": "string"
+        },
+        "new_version": {
+          "minimum": 2,
+          "title": "New Version",
+          "type": "integer"
+        },
+        "previous_version": {
+          "minimum": 1,
+          "title": "Previous Version",
+          "type": "integer"
+        },
+        "record_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        },
+        "record_type": {
+          "$ref": "#/$defs/RecordType"
+        }
+      },
+      "required": [
+        "correction_id",
+        "record_type",
+        "record_id",
+        "previous_version",
+        "new_version"
+      ],
+      "title": "CorrectionLineageV1",
+      "type": "object"
+    },
+    "DataScopeEvidenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "minimization_evidence_status": {
+          "const": "NOT_PROVEN",
+          "default": "NOT_PROVEN",
+          "title": "Minimization Evidence Status",
+          "type": "string"
+        },
+        "placement_enforcement_status": {
+          "const": "NOT_EVALUATED",
+          "default": "NOT_EVALUATED",
+          "title": "Placement Enforcement Status",
+          "type": "string"
+        },
+        "runtime_caller_status": {
+          "const": "NO_LOAD_BEARING_CALLER",
+          "default": "NO_LOAD_BEARING_CALLER",
+          "title": "Runtime Caller Status",
+          "type": "string"
+        },
+        "status": {
+          "const": "NOT_EVALUATED",
+          "default": "NOT_EVALUATED",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "title": "DataScopeEvidenceV1",
+      "type": "object"
+    },
+    "DedupeStatus": {
+      "enum": [
+        "UNIQUE",
+        "EXACT_SOURCE_MATCH",
+        "REDACTED_TEXT_MATCH",
+        "DIGEST_COLLISION_SUSPECTED",
+        "INSUFFICIENT_CONTEXT"
+      ],
+      "title": "DedupeStatus",
+      "type": "string"
+    },
+    "LifecycleObservationV1": {
+      "additionalProperties": false,
+      "properties": {
+        "correction_lineage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CorrectionLineageV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parent_shift_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Shift Id"
+        },
+        "parent_shift_status": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Shift Status"
+        },
+        "parent_shift_version": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Shift Version"
+        },
+        "report_snapshot_digest": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Report Snapshot Digest"
+        },
+        "report_status": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Report Status"
+        },
+        "requires_use_time_revalidation": {
+          "const": true,
+          "default": true,
+          "title": "Requires Use Time Revalidation",
+          "type": "boolean"
+        },
+        "revalidation_token": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Revalidation Token",
+          "type": "string"
+        },
+        "source_status": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Status",
+          "type": "string"
+        },
+        "source_version": {
+          "$ref": "#/$defs/VersionBindingV1"
+        }
+      },
+      "required": [
+        "source_status",
+        "source_version",
+        "parent_shift_id",
+        "parent_shift_version",
+        "parent_shift_status",
+        "report_status",
+        "report_snapshot_digest",
+        "correction_lineage",
+        "revalidation_token"
+      ],
+      "title": "LifecycleObservationV1",
+      "type": "object"
+    },
+    "NonAdmissionReason": {
+      "enum": [
+        "REFINERY_RESULT_NOT_READY",
+        "CANDIDATE_BINDING_MISMATCH",
+        "UNKNOWN_SOURCE_TYPE",
+        "SOURCE_NOT_ELIGIBLE",
+        "SOURCE_VERSION_INVALID",
+        "SOURCE_DIGEST_OWNER_MISSING",
+        "SOURCE_DIGEST_MISMATCH",
+        "SOURCE_PROJECTION_MISMATCH",
+        "SCOPE_INVALID",
+        "TENANT_SCOPE_NOT_MODELED",
+        "LIFECYCLE_INVALID",
+        "STALE_SOURCE",
+        "RETENTION_OWNER_NOT_FOUND",
+        "RETENTION_NOT_ACTIVE",
+        "PROVENANCE_INVALID",
+        "DATA_SCOPE_EVIDENCE_INVALID",
+        "CONTRACT_VERSION_UNSUPPORTED",
+        "INVARIANT_VIOLATION"
+      ],
+      "title": "NonAdmissionReason",
+      "type": "string"
+    },
+    "ProvenanceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_fingerprint": {
+          "$ref": "#/$defs/CandidateFingerprintV1"
+        },
+        "classification_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Classification Rules Version",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "field_selector": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Selector",
+          "type": "string"
+        },
+        "normalization_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Normalization Rules Version",
+          "type": "string"
+        },
+        "quality_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Quality Rules Version",
+          "type": "string"
+        },
+        "redaction_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Redaction Rules Version",
+          "type": "string"
+        },
+        "retention_evidence_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Retention Evidence Id",
+          "type": "string"
+        },
+        "retention_policy_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Retention Policy Version",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "$ref": "#/$defs/SourceFingerprintV1"
+        },
+        "source_reference_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Reference Digest",
+          "type": "string"
+        },
+        "source_reference_version": {
+          "$ref": "#/$defs/VersionBindingV1"
+        },
+        "stage_receipts": {
+          "items": {
+            "$ref": "#/$defs/StageReceiptV1"
+          },
+          "maxItems": 9,
+          "minItems": 9,
+          "title": "Stage Receipts",
+          "type": "array"
+        },
+        "terminology_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Terminology Rules Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_fingerprint",
+        "candidate_fingerprint",
+        "stage_receipts",
+        "normalization_rules_version",
+        "terminology_rules_version",
+        "classification_rules_version",
+        "redaction_rules_version",
+        "quality_rules_version",
+        "source_reference_digest",
+        "source_reference_version",
+        "field_selector",
+        "retention_evidence_id",
+        "retention_policy_version"
+      ],
+      "title": "ProvenanceV1",
+      "type": "object"
+    },
+    "RecordType": {
+      "enum": [
+        "OperationalEvent",
+        "Task",
+        "CustomerRequest",
+        "Incident",
+        "Handover",
+        "Report",
+        "Message",
+        "PROJECT_KNOWLEDGE"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    },
+    "RetentionAssertionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "checked_at_utc": {
+          "format": "date-time",
+          "title": "Checked At Utc",
+          "type": "string"
+        },
+        "disposition": {
+          "$ref": "#/$defs/RetentionDisposition"
+        },
+        "erased_at_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Erased At Utc"
+        },
+        "expires_at_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At Utc"
+        },
+        "owner_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Owner Id"
+        },
+        "policy_version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Policy Version"
+        },
+        "source_evidence_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Evidence Id"
+        }
+      },
+      "required": [
+        "disposition",
+        "owner_id",
+        "policy_version",
+        "checked_at_utc",
+        "source_evidence_id"
+      ],
+      "title": "RetentionAssertionV1",
+      "type": "object"
+    },
+    "RetentionDisposition": {
+      "enum": [
+        "OWNER_ASSERTED_ACTIVE",
+        "OWNER_ASSERTED_EXPIRED",
+        "OWNER_ASSERTED_ERASED",
+        "OWNER_NOT_FOUND"
+      ],
+      "title": "RetentionDisposition",
+      "type": "string"
+    },
+    "RetrievalNonAdmissionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "kind": {
+          "const": "NOT_ADMITTED",
+          "default": "NOT_ADMITTED",
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "$ref": "#/$defs/NonAdmissionReason"
+        },
+        "safe_record_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Safe Record Id"
+        },
+        "safe_source_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Safe Source Id"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "RetrievalNonAdmissionV1",
+      "type": "object"
+    },
+    "RetrievalReadyV1": {
+      "additionalProperties": false,
+      "properties": {
+        "chunk_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Chunk Id",
+          "type": "string"
+        },
+        "content_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Digest Sha256",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "data_scope_evidence": {
+          "$ref": "#/$defs/DataScopeEvidenceV1"
+        },
+        "field_selector": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Selector",
+          "type": "string"
+        },
+        "kind": {
+          "const": "RETRIEVAL_READY",
+          "default": "RETRIEVAL_READY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/LifecycleObservationV1"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceV1"
+        },
+        "redacted_normalized_text": {
+          "maxLength": 65536,
+          "minLength": 1,
+          "title": "Redacted Normalized Text",
+          "type": "string"
+        },
+        "retention": {
+          "$ref": "#/$defs/RetentionAssertionV1"
+        },
+        "scope": {
+          "$ref": "#/$defs/ScopeV1"
+        },
+        "source_reference": {
+          "$ref": "#/$defs/SourceReferenceV1"
+        },
+        "truth_class": {
+          "$ref": "#/$defs/TruthClass"
+        }
+      },
+      "required": [
+        "truth_class",
+        "field_selector",
+        "redacted_normalized_text",
+        "content_digest_sha256",
+        "chunk_id",
+        "source_reference",
+        "scope",
+        "lifecycle",
+        "retention",
+        "provenance",
+        "data_scope_evidence"
+      ],
+      "title": "RetrievalReadyV1",
+      "type": "object"
+    },
+    "ScopeV1": {
+      "additionalProperties": false,
+      "properties": {
+        "effective_from_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Effective From Utc"
+        },
+        "effective_to_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Effective To Utc"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "shift_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Shift Ids",
+          "type": "array"
+        },
+        "tenant_scope_status": {
+          "const": "NOT_MODELED",
+          "default": "NOT_MODELED",
+          "title": "Tenant Scope Status",
+          "type": "string"
+        },
+        "workspace_scope": {
+          "const": "shift-operations-workspace",
+          "default": "shift-operations-workspace",
+          "title": "Workspace Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shift_ids",
+        "effective_from_utc",
+        "effective_to_utc",
+        "observed_at_utc"
+      ],
+      "title": "ScopeV1",
+      "type": "object"
+    },
+    "SourceFingerprintV1": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_length": {
+          "minimum": 0,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "sha512": {
+          "pattern": "^[0-9a-f]{128}$",
+          "title": "Sha512",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sha256",
+        "sha512",
+        "byte_length"
+      ],
+      "title": "SourceFingerprintV1",
+      "type": "object"
+    },
+    "SourceReferenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_fingerprint": {
+          "$ref": "#/$defs/CandidateFingerprintV1"
+        },
+        "classification_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Classification Rules Version",
+          "type": "string"
+        },
+        "correction_lineage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CorrectionLineageV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "normalization_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Normalization Rules Version",
+          "type": "string"
+        },
+        "observed_at_utc": {
+          "format": "date-time",
+          "title": "Observed At Utc",
+          "type": "string"
+        },
+        "quality_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Quality Rules Version",
+          "type": "string"
+        },
+        "record_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Record Id"
+        },
+        "record_type": {
+          "$ref": "#/$defs/RecordType"
+        },
+        "redaction_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Redaction Rules Version",
+          "type": "string"
+        },
+        "source_class": {
+          "$ref": "#/$defs/TruthClass"
+        },
+        "source_cutoff_utc": {
+          "format": "date-time",
+          "title": "Source Cutoff Utc",
+          "type": "string"
+        },
+        "source_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Digest Sha256",
+          "type": "string"
+        },
+        "source_fingerprint": {
+          "$ref": "#/$defs/SourceFingerprintV1"
+        },
+        "source_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "terminology_rules_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Terminology Rules Version",
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionBindingV1"
+        }
+      },
+      "required": [
+        "source_class",
+        "record_type",
+        "record_id",
+        "source_digest_sha256",
+        "version",
+        "observed_at_utc",
+        "source_cutoff_utc",
+        "correction_lineage",
+        "source_id",
+        "source_version",
+        "source_fingerprint",
+        "candidate_fingerprint",
+        "normalization_rules_version",
+        "terminology_rules_version",
+        "classification_rules_version",
+        "redaction_rules_version",
+        "quality_rules_version"
+      ],
+      "title": "SourceReferenceV1",
+      "type": "object"
+    },
+    "Stage": {
+      "enum": [
+        "ENVELOPE",
+        "NORMALIZATION",
+        "TERMINOLOGY",
+        "CLASSIFICATION",
+        "CONFLICT",
+        "REDACTION",
+        "DEDUPE",
+        "QUALITY",
+        "CANDIDATE_ADMISSION"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "StageOutcome": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_RUN"
+      ],
+      "title": "StageOutcome",
+      "type": "string"
+    },
+    "StageReason": {
+      "enum": [
+        "STAGE_PASS",
+        "PROVENANCE_MISMATCH",
+        "UNSUPPORTED_TRANSFORM",
+        "POLICY_DRIFT",
+        "AMBIGUOUS_LOCAL_TIME",
+        "AMBIGUOUS_ACTION_STATE",
+        "CONFLICT_DETECTED",
+        "REDACTION_FAILED",
+        "REDACTION_RESIDUE",
+        "DEDUPE_CONTEXT_INVALID",
+        "EXACT_SOURCE_MATCH",
+        "DIGEST_COLLISION_SUSPECTED",
+        "INSUFFICIENT_CONTEXT",
+        "QUALITY_INCOMPLETE",
+        "STAGE_UNAVAILABLE",
+        "STAGE_INVARIANT_ERROR",
+        "PRIOR_STAGE_FAILED"
+      ],
+      "title": "StageReason",
+      "type": "string"
+    },
+    "StageReceiptV1": {
+      "additionalProperties": false,
+      "properties": {
+        "control_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Control Version",
+          "type": "string"
+        },
+        "dedupe_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DedupeStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "outcome": {
+          "$ref": "#/$defs/StageOutcome"
+        },
+        "reason_codes": {
+          "items": {
+            "$ref": "#/$defs/StageReason"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "safe_counts": {
+          "additionalProperties": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxProperties": 64,
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Safe Counts",
+          "type": "object"
+        },
+        "safe_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 64,
+          "title": "Safe Ids",
+          "type": "array"
+        },
+        "safe_offsets": {
+          "default": [],
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Safe Offsets",
+          "type": "array"
+        },
+        "stage": {
+          "$ref": "#/$defs/Stage"
+        }
+      },
+      "required": [
+        "stage",
+        "control_version",
+        "outcome",
+        "reason_codes"
+      ],
+      "title": "StageReceiptV1",
+      "type": "object"
+    },
+    "TruthClass": {
+      "enum": [
+        "CANONICAL_OPERATIONAL_RECORD",
+        "ADVISORY_SOURCE_EVIDENCE"
+      ],
+      "title": "TruthClass",
+      "type": "string"
+    },
+    "VersionBindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "integer_version": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Integer Version"
+        },
+        "kind": {
+          "$ref": "#/$defs/VersionKind"
+        },
+        "source_version_string": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Version String"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "VersionBindingV1",
+      "type": "object"
+    },
+    "VersionKind": {
+      "enum": [
+        "INTEGER_VERSION",
+        "SOURCE_VERSION_STRING",
+        "UNVERSIONED"
+      ],
+      "title": "VersionKind",
+      "type": "string"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "NOT_ADMITTED": "#/$defs/RetrievalNonAdmissionV1",
+      "RETRIEVAL_READY": "#/$defs/RetrievalReadyV1"
+    },
+    "propertyName": "kind"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/RetrievalReadyV1"
+    },
+    {
+      "$ref": "#/$defs/RetrievalNonAdmissionV1"
+    }
+  ]
+}

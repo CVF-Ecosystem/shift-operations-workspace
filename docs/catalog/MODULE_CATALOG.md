@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-04T13:40:57.809205+00:00_
+_Last generated: 2026-08-07T10:18:07.945270+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-04T13:40:57.809205+00:00_
 
 ## Totals
 
-- Modules: **22**
-- Code LOC (py/ts/tsx): **20266**
-- Code files: **225**
-- By status: contract-only=6, enforced=2, partial=8, stub=6
+- Modules: **23**
+- Code LOC (py/ts/tsx): **21296**
+- Code files: **232**
+- By status: contract-only=6, enforced=2, partial=9, stub=6
 
 ## Status legend
 
@@ -35,7 +35,8 @@ _Last generated: 2026-08-04T13:40:57.809205+00:00_
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
-| `refinery-bridge` | packages/refinery-bridge | partial | 1569 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
+| `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
+| `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
 | `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
@@ -135,8 +136,20 @@ _Last generated: 2026-08-04T13:40:57.809205+00:00_
 - **Contract:** packages/refinery-bridge/contracts/refinery_contract.yaml
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/unit/test_refinery_models.py`, `tests/unit/test_refinery_canonical.py`, `tests/unit/test_refinery_pipeline.py`, `tests/unit/test_refinery_adversarial.py`, `tests/unit/test_refinery_contract.py`
-- **Metrics:** 1569 LOC across 11 code file(s)
+- **Metrics:** 1570 LOC across 11 code file(s)
 - **Next step:** P3-A is CLOSED_BOUNDED at reviewed BUILD a6cf978. Module remains partial until a separately governed runtime caller; no provider, remote ingest, data_scope enforcement, retrieval/RAG or production claim.
+
+### `retrieval-contracts` — partial
+
+- **Path:** `packages/retrieval-contracts` (package)
+- **Purpose:** Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence.
+- **CVF controls:** data_scope
+- **Enforcement:** Strict V1 models and a total zero-I/O constructor. Message and project-knowledge advisory evidence can become retrieval-ready when every explicit input is valid; canonical operational records fail closed until a separately reviewed public source-owned digest contract exists. No runtime caller, retrieval, tenant model or placement enforcement.
+- **Contract:** packages/retrieval-contracts/contracts/retrieval_contract.schema.json
+- **Depends on:** `refinery-bridge`, `operations-domain`
+- **Tests:** `tests/unit/test_p3c_retrieval_contract_models.py`, `tests/unit/test_p3c_retrieval_contract_constructor.py`, `tests/unit/test_p3c_retrieval_contract_adversarial.py`, `tests/unit/test_p3c_retrieval_contract_digest_guards.py`, `tests/contract/test_p3c_retrieval_contract_schema.py`
+- **Metrics:** 1029 LOC across 7 code file(s)
+- **Next step:** Independent BUILD re-review of the repaired exact 23-path no-commit P3-C candidate. No runtime retrieval, provider, vector/index, tenant authorization, load-bearing data_scope, placement or production claim.
 
 ### `workspace-api` — partial
 

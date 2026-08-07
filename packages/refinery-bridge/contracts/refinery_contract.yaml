@@ -24,6 +24,11 @@ dispositions:
   - NO_CANDIDATE_QUARANTINED
   - NO_CANDIDATE_FALLBACK
 sensitivity: [PUBLIC, INTERNAL, CONFIDENTIAL, RESTRICTED]
+source_types:
+  - PROJECT_KNOWLEDGE
+  - INTERNAL_MESSAGE
+  - CANONICAL_OPERATIONAL_RECORD
+  - EXTERNAL_UNTRUSTED_FIXTURE
 fingerprints:
   fields: [sha256, sha512, byte_length]
   types: [source_fingerprint, dedupe_content_fingerprint, candidate_fingerprint]
