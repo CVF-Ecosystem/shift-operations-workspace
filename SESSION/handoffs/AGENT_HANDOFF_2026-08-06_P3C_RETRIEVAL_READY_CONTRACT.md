@@ -156,3 +156,23 @@ authority exists.
 P3-C is not designed or built. No retrieval-ready schema, tenant isolation,
 retention/erasure enforcement, load-bearing data-scope control, retrieval,
 RAG, provider behavior or production readiness is claimed.
+
+## DESIGN R1 re-review return - 2026-08-07
+
+Independent re-review targeted commit `6641d9419c38829b57fd5949b627287b526578f5`
+and revised ADR SHA-256
+`f7c78d3e2e3a6e1de462b64e2b906a0cbb7e35e9f2d521b3e528aba6b2ea05f2`.
+
+Disposition: `DESIGN_REVIEW_PASS`. Findings: `NONE`. Waivers: `NONE`.
+
+The authoritative re-review record is
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_DESIGN_REREVIEW.md`.
+`P3C-DESIGN-F1` is closed: the owner is an explicit new sibling
+`packages/retrieval-contracts/` with one-way dependencies into
+`refinery-bridge` and `operations-domain`; Decisions 2-10 remain unchanged.
+
+Role transition: `INDEPENDENT_DESIGN_REREVIEWER` to `SPEC_AUTHOR`.
+
+Next move: author one bounded testable SPEC, freeze it at a SHA-256 and stop
+for independent SPEC review. No WORK_ORDER, BUILD, provider/helper/product-
+network/POST call, retrieval, persistence or vector/index authority exists.
