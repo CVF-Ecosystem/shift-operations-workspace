@@ -3,9 +3,9 @@
 - Tranche: `P3-C-RETRIEVAL-READY-DATA-CONTRACT-2026-08-06`
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
-- Current phase: `DESIGN`
-- Status: `DESIGN_R1_REREVIEW_PENDING`
-- Active role: `INDEPENDENT_DESIGN_REREVIEWER`
+- Current phase: `SPEC`
+- Status: `SPEC_REVIEW_PENDING`
+- Active role: `INDEPENDENT_SPEC_REVIEWER`
 
 ## Startup acknowledgment
 
@@ -176,3 +176,32 @@ Role transition: `INDEPENDENT_DESIGN_REREVIEWER` to `SPEC_AUTHOR`.
 Next move: author one bounded testable SPEC, freeze it at a SHA-256 and stop
 for independent SPEC review. No WORK_ORDER, BUILD, provider/helper/product-
 network/POST call, retrieval, persistence or vector/index authority exists.
+
+## SPEC author return - 2026-08-07
+
+The SPEC author created:
+
+`docs/specs/P3C_RETRIEVAL_READY_DATA_CONTRACT_SPEC.md`
+
+Frozen pre-review SHA-256:
+
+`cdb00667cf8f8fd16fa5e0dfd3cd07eb149ddac6938ed5e1db71d70abad53558`
+
+The SPEC defines 23 normative requirements and 12 acceptance criteria. It
+reuses the exact P3-A envelope/result/candidate classes, closes source/version/
+projection/scope/lifecycle/retention/provenance schemas, defines independent
+digest/chunk/revalidation hashing and uses a strict ready/non-admission union.
+
+Source verification found current application digest helpers, but they live
+under forbidden `workspace_api`. No public generic digest owner exists in the
+two allowed dependency packages. The SPEC therefore requires canonical types
+to return `SOURCE_DIGEST_OWNER_MISSING` unless a separately reviewed source
+change adds an allowed owner; it does not invent a generic Pydantic digest.
+
+Role transition: `SPEC_AUTHOR` to `INDEPENDENT_SPEC_REVIEWER`.
+
+Next move: one consolidated independent SPEC review against exact commit and
+hash. Return `SPEC_REVIEW_PASS`, `SPEC_REVIEW_CHANGES_REQUIRED`, or
+`SPEC_BLOCKED_SOURCE_OR_OWNER`. Only PASS transfers to `WORK_ORDER_AUTHOR`.
+No WORK_ORDER drafting, BUILD, provider/helper/product-network/POST call,
+retrieval, persistence or vector/index authority exists.
