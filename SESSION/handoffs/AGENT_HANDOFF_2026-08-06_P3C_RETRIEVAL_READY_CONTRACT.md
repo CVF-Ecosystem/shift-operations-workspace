@@ -3,9 +3,9 @@
 - Tranche: `P3-C-RETRIEVAL-READY-DATA-CONTRACT-2026-08-06`
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
-- Current phase: `WORK_ORDER`
-- Status: `WORK_ORDER_AUTHORIZATION_REVIEW_PENDING`
-- Active role: `INDEPENDENT_AUTHORIZATION_REVIEWER`
+- Current phase: `BUILD`
+- Status: `BUILD_DISPATCHED_SEPARATE_WORKER`
+- Active role: `IMPLEMENTATION_WORKER`
 
 ## Startup acknowledgment
 
@@ -280,3 +280,25 @@ Role transition: `WORK_ORDER_AUTHOR` to
 Next move: independent Work Order authorization review. Only
 `WORK_ORDER_AUTHORIZATION_REVIEW_PASS` may open a separate BUILD baseline
 checkpoint. No BUILD or call authority exists from the candidate alone.
+
+## Work Order authorization and BUILD dispatch - 2026-08-07
+
+Independent authorization review targeted commit `5b6221e` and Work Order
+SHA-256 `0e83fc03660f10640bd15f3edab1696d66299fe29ba64ec779aa07f8e1855e9f`.
+
+Disposition: `WORK_ORDER_AUTHORIZATION_REVIEW_PASS`. Findings: `NONE`.
+Waivers: `NONE`. Review record commit: `22fb1d6`.
+
+The review record is
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_WORK_ORDER_AUTHORIZATION_REVIEW.md`.
+
+Operator role instruction: the root agent holds
+`INDEPENDENT_BUILD_REVIEWER`; a separate agent holds
+`IMPLEMENTATION_WORKER`. The reviewer must not author or repair candidate
+code. Worker mode is `WORKER_MUST_NOT_COMMIT`, exact 22 paths, zero provider/
+product-network/POST calls.
+
+The worker captures current pushed checkpoint HEAD as `executionBaseHead`,
+runs the Work Order pre-BUILD gate, implements and returns
+`COMPLETE_PENDING_REVIEW`. Same-scope defects return to the worker; root
+independently reviews source, diff, tests and evidence.
