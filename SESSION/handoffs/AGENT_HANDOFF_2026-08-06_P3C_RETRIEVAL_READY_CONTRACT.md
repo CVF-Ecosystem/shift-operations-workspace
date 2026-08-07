@@ -4,8 +4,8 @@
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
 - Current phase: `DESIGN`
-- Status: `DESIGN_REVIEW_PENDING`
-- Active role: `INDEPENDENT_DESIGN_REVIEWER`
+- Status: `DESIGN_R1_REREVIEW_PENDING`
+- Active role: `INDEPENDENT_DESIGN_REREVIEWER`
 
 ## Startup acknowledgment
 
@@ -120,6 +120,36 @@ Next move: one consolidated independent DESIGN review. Return exactly one of
 `DESIGN_REVIEW_PASS`, `DESIGN_REVIEW_CHANGES_REQUIRED`, or
 `DESIGN_BLOCKED_SOURCE_OR_OWNER`. Only PASS may transfer to `SPEC_AUTHOR`.
 No SPEC drafting or BUILD authority exists.
+
+## DESIGN review and R1 repair - 2026-08-07
+
+Independent review of commit `85052cf` and ADR SHA-256 `288ebab1...318b`
+returned `DESIGN_REVIEW_CHANGES_REQUIRED`, finding `P3C-DESIGN-F1`, waiver
+`NONE`. The review record is:
+
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_DESIGN_REVIEW.md`
+
+F1 correctly found that schema-only `packages/workspace-contracts/` is not an
+existing wired Python package. Same-scope R1 repairs Decision 1 and its direct
+consequence text only:
+
+- owner is now an explicit new sibling `packages/retrieval-contracts/`;
+- it follows the existing package-local `pyproject.toml` and `src/` pattern;
+- it receives an explicit root test `pythonpath` entry during future authorized
+  BUILD;
+- dependency direction is `retrieval-contracts` importing
+  `refinery-bridge` and `operations-domain`;
+- reverse imports and app/ledger/runtime/provider imports remain forbidden;
+- schema-only `workspace-contracts` is not widened or reclassified.
+
+Decisions 2-10 remain unchanged and passed review as written. Revised ADR
+SHA-256:
+
+`f7c78d3e2e3a6e1de462b64e2b906a0cbb7e35e9f2d521b3e528aba6b2ea05f2`
+
+Next role: `INDEPENDENT_DESIGN_REREVIEWER`. Re-review F1 and regression-check
+Decisions 2-10. Only `DESIGN_REVIEW_PASS` may open SPEC. No BUILD or call
+authority exists.
 
 ## Claim boundary
 

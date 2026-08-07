@@ -6,7 +6,7 @@
 - INTAKE review: `INTAKE_REVIEW_PASS`, findings/waivers `NONE/NONE`
 - Risk: `R2`
 - Control-chain phase: `DESIGN`
-- Status: `DESIGN_CANDIDATE_PENDING_INDEPENDENT_REVIEW`
+- Status: `DESIGN_R1_CANDIDATE_PENDING_INDEPENDENT_REREVIEW`
 - Provider/product-API/POST calls: `0/0/0`
 
 ## Context
@@ -21,19 +21,47 @@ P3-C must define the stable local contract before P4-A1 may implement search or
 indexing. The design must not make contract work depend on a vector database,
 provider call, runtime retrieval service or a new tenant subsystem.
 
-## Decision 1 - One owner in `workspace-contracts`
+## DESIGN R1 repair note
 
-The P3-C schema and deterministic reference constructor belong under
-`packages/workspace-contracts/retrieval/`. This reuses the existing package
-whose declared purpose is stable boundaries between the workspace, Refinery,
-providers and channels.
+Independent review returned `DESIGN_REVIEW_CHANGES_REQUIRED` with one finding,
+`P3C-DESIGN-F1`: Decision 1 incorrectly described schema-only
+`workspace-contracts` as an existing wired Python package. R1 replaces only
+that owner/dependency decision and its direct consequence text. Decisions 2-10
+remain unchanged and passed review as written. No waiver is used.
 
-The future bounded implementation may make `workspace-contracts` a small
-Python package containing strict immutable models and a pure constructor. It
-may depend on `refinery-bridge` and `operations-domain`. Neither dependency may
-import `workspace-contracts`, so dependency direction remains acyclic:
+## Decision 1 - New bounded sibling Python owner `retrieval-contracts`
 
-`operations-domain` + `refinery-bridge` -> `workspace-contracts retrieval`
+Current `packages/workspace-contracts/` is a schema-only directory: it has no
+`pyproject.toml`, Python source tree or root `pythonpath` entry, and tests read
+its JSON files directly. P3-C will not silently convert that surface into a
+Python package.
+
+The P3-C models, exported schema and deterministic reference constructor belong
+to one explicit new sibling package:
+
+`packages/retrieval-contracts/`
+
+It follows the established package pattern used by `refinery-bridge` and
+`operations-domain`:
+
+- package-local `pyproject.toml`;
+- `src/retrieval_contracts/` Python namespace;
+- explicit root test `pythonpath` entry;
+- package-local contract/schema export and tests;
+- one new module-registry entry created only during an authorized BUILD.
+
+`retrieval-contracts` may import the existing `refinery_bridge` result models
+and `operations_domain` canonical models. The dependency direction is exactly:
+
+`retrieval-contracts` -> `refinery-bridge`
+
+`retrieval-contracts` -> `operations-domain`
+
+Neither existing package currently imports `retrieval_contracts`; future
+boundary tests must keep both reverse imports forbidden. The new package must
+not import `workspace-api`, `operations-ledger`, `cvf-runtime`, provider or
+retrieval runtime modules. This makes the proposed direction acyclic without
+reclassifying a schema directory as an existing Python package.
 
 The constructor accepts explicit in-memory values only. It performs no ledger,
 database, filesystem discovery, environment, network, provider or policy
@@ -43,8 +71,10 @@ Rejected alternatives:
 
 - adding retrieval semantics to P3-A pipeline stages, because Refinery must
   remain source-cleaning and non-retrieval;
-- creating a retrieval service/package now, because no query/index runtime is
-  authorized;
+- placing the constructor in schema-only `workspace-contracts`, because that
+  would silently widen its current source class and wiring;
+- creating a retrieval service/runtime now, because no query/index behavior is
+  authorized; the new package is a contract/constructor boundary only;
 - duplicating operational models inside a standalone schema-only package.
 
 ## Decision 2 - Two truth classes and an exact source eligibility matrix
@@ -271,7 +301,7 @@ authorized real-provider evidence.
 
 Benefits:
 
-- one existing owner surface, no retrieval service or vector store;
+- one explicit bounded Python owner, no retrieval service or vector store;
 - explicit source truth and no invented tenant/retention authority;
 - stale/corrected/erased material fails closed;
 - P4-A1 receives a deterministic contract and revalidation obligation.
@@ -279,7 +309,8 @@ Benefits:
 Costs:
 
 - current owner gaps intentionally prevent a broad positive ready fixture;
-- `workspace-contracts` gains bounded Python model/constructor responsibility;
+- one new sibling package, root pythonpath entry and module-registry record are
+  required instead of silently widening schema-only `workspace-contracts`;
 - canonical operational sources need a source-verified additive P3-A mapping;
 - P4-A1 must still implement current authorization and revalidation.
 

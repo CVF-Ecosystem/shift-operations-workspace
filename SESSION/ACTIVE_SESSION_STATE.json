@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p3c_design_review_pending",
+  "mode": "p3c_design_r1_rereview_pending",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-06_P3C_RETRIEVAL_READY_CONTRACT.md",
-  "last_updated": "2026-08-06",
+  "last_updated": "2026-08-07",
   "required_reads": [
     "docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_18.md",
     "docs/work_orders/P3A_REFINERY_WORK_ORDER_AMENDMENT_18_EXECUTION_SHEET.md",
@@ -1015,7 +1015,7 @@
     "resumeCondition": "Only a fresh bounded INTAKE with an identified capability-enforcement owner may reconsider the runner; never reuse the prior R2 or retroactively approve this BUILD."
   },
   "p3c_retrieval_ready_contract_authority": {
-    "status": "DESIGN_REVIEW_PENDING",
+    "status": "DESIGN_R1_REREVIEW_PENDING",
     "risk": "R2",
     "executionBase": "c81bf7e9607464cc3456f343feed5796b1435987",
     "intakePath": "docs/decisions/INTAKE_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md",
@@ -1026,14 +1026,21 @@
     "intakeReviewFindings": "NONE",
     "intakeReviewWaivers": "NONE",
     "designPath": "docs/decisions/ADR_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md",
-    "designSha256": "288ebab12f64c036a23ef765c6230a48b2bff04d70ffd591529cad5757ff318b",
+    "designSha256": "f7c78d3e2e3a6e1de462b64e2b906a0cbb7e35e9f2d521b3e528aba6b2ea05f2",
     "designDecisionCount": 10,
-    "designStatus": "DESIGN_CANDIDATE_PENDING_INDEPENDENT_REVIEW",
-    "currentAuthority": "INDEPENDENT_DESIGN_REVIEW_ONLY",
+    "designStatus": "DESIGN_R1_CANDIDATE_PENDING_INDEPENDENT_REREVIEW",
+    "designReviewPath": "docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_DESIGN_REVIEW.md",
+    "designReviewDisposition": "DESIGN_REVIEW_CHANGES_REQUIRED",
+    "designReviewFindings": "P3C-DESIGN-F1",
+    "designReviewWaivers": "NONE",
+    "designRepairRound": 1,
+    "designRepairDisposition": "F1_REPAIRED_NEW_SIBLING_RETRIEVAL_CONTRACTS_OWNER_DECISIONS_2_TO_10_UNCHANGED",
+    "currentAuthority": "INDEPENDENT_DESIGN_R1_REREVIEW_ONLY",
     "calls": "provider=0; product-api=0; POST=0; governance-network=workspace-doctor public-core freshness fetch only",
     "buildAuthorized": false,
     "parkedLanes": "P3-B; P4-A1; P4-A2; provider; retrieval runtime; persistence; vector/index; learning; runner evidence branch",
-    "reviewDispositions": ["INTAKE_REVIEW_PASS", "INTAKE_REVIEW_CHANGES_REQUIRED", "INTAKE_BLOCKED_SOURCE_OR_OWNER"]
+    "intakeReviewDispositions": ["INTAKE_REVIEW_PASS", "INTAKE_REVIEW_CHANGES_REQUIRED", "INTAKE_BLOCKED_SOURCE_OR_OWNER"],
+    "designReviewDispositions": ["DESIGN_REVIEW_PASS", "DESIGN_REVIEW_CHANGES_REQUIRED", "DESIGN_BLOCKED_SOURCE_OR_OWNER"]
   },
   "post_phase2_automatic_sequence": {
     "trigger": "P2-C and P2-D are independently closed, the full-shift exit gate is REVIEW_PASS, and Phase 2 is CLOSED_BOUNDED",
@@ -1047,10 +1054,10 @@
       "P4-A2 governed RAG",
       "governed learning runtime"
     ],
-    "currentAuthority": "P3C_FRESH_INTAKE_ONLY_NO_BUILD",
+    "currentAuthority": "P3C_DESIGN_R1_REREVIEW_ONLY_NO_SPEC_BUILD",
     "learningRuntimeStatus": "NOT_BUILT_BLOCKED_ON_REFINERY_AUTHORIZATION_DATA_SCOPE_PROVENANCE_AND_RETRIEVAL"
   },
-  "next_allowed_move": "Obtain one consolidated independent review of docs/decisions/ADR_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md at SHA-256 288ebab12f64c036a23ef765c6230a48b2bff04d70ffd591529cad5757ff318b. Only DESIGN_REVIEW_PASS may transfer the exact decisions to SPEC_AUTHOR. No SPEC drafting, WORK_ORDER, BUILD, provider, product-network, POST or retrieval authority exists.",
+  "next_allowed_move": "Obtain an independent DESIGN R1 re-review of docs/decisions/ADR_2026-08-06_P3C_RETRIEVAL_READY_DATA_CONTRACT.md at SHA-256 f7c78d3e2e3a6e1de462b64e2b906a0cbb7e35e9f2d521b3e528aba6b2ea05f2. Verify only P3C-DESIGN-F1 owner/dependency repair plus regression of Decisions 2-10. Only DESIGN_REVIEW_PASS may transfer to SPEC_AUTHOR. No SPEC drafting, WORK_ORDER, BUILD, provider, product-network, POST or retrieval authority exists.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. Customer_request repair 0429c4a and bootstrap-continuity acc5d09 are the retained example of separate commits for separate batches. cd36b27 (P2-B) is retained as historical evidence of an unauthorized build candidate and must NOT be rewritten, squashed, amended, or force-pushed - corrective work lands in new commits only.",
   "blocked_work": [
     "Rewriting or combining committed customer_request repair 0429c4a and bootstrap-continuity acc5d09; they are separate reviewed commits.",
@@ -1260,18 +1267,18 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below were added 2026-07-22 to satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, verification_snapshot) was renamed, removed, or reinterpreted; active_handoff/next_allowed_move/blocked_work were subsequently updated in place on 2026-07-22 (second pass) to reflect two real pending uncommitted batches, per an independent review's Finding 4 - this is a content correction to keep continuity accurate, not a removal of prior history (superseded handoffs remain in SESSION/handoffs/). See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the full reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p3c_design_review_pending",
+    "currentMode": "p3c_design_r1_rereview_pending",
     "activePhase": "DESIGN",
-    "activePhaseNote": "P3-C ten-decision ADR is frozen for one consolidated independent DESIGN review. INTAKE passed without findings/waivers; no SPEC or BUILD authority exists.",
+    "activePhaseNote": "P3-C DESIGN review found only F1 owner/source mismatch. R1 replaces Decision 1 with an explicit new sibling retrieval-contracts package; Decisions 2-10 remain review-passed. Independent R1 re-review is pending; no SPEC or BUILD authority exists.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-06_P3C_RETRIEVAL_READY_CONTRACT.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly; the handoff records the frozen ADR and routes one consolidated independent DESIGN review.",
+    "activeHandoffNote": "Mirrors active_handoff above exactly; the handoff records F1 and the frozen R1 repair for independent re-review.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "P3C_DESIGN_REVIEW_PENDING_NO_SPEC_OR_BUILD",
-    "activeRole": "INDEPENDENT_DESIGN_REVIEWER",
-    "activeRoleNote": "Review the frozen ten-decision ADR against INTAKE and current source in one consolidated pass; do not draft SPEC or build.",
+    "parkedOperatorCheckpoint": "P3C_DESIGN_R1_REREVIEW_PENDING_NO_SPEC_OR_BUILD",
+    "activeRole": "INDEPENDENT_DESIGN_REREVIEWER",
+    "activeRoleNote": "Re-review F1 owner/dependency repair and regression-check Decisions 2-10; do not draft SPEC or build.",
     "roleRoute": "PHASE2_CLOSER_TO_PROJECT_OPERATIONS_SKILL_CLOSED_TO_PROJECT_KNOWLEDGE_PACK_CLOSED_TO_P3_A_REFINERY_INTAKE_DESIGN_REVIEW_PASS_TO_SPEC_AUTHOR_TO_DESIGN_AMENDMENT_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_FAIL_TO_SPEC_AUTHOR_REPAIR_TO_INDEPENDENT_SPEC_REREVIEWER_FAIL_TO_DESIGN_AMENDMENT_2_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_2_REVIEWER_PASS_TO_SPEC_AUTHOR_TO_INDEPENDENT_FINAL_SPEC_REVIEWER_PASS_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_IMPLEMENTATION_WORKER_FAIL_GATE_3_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REVIEWER_PASS_TO_COMMIT_STEWARD_DIGEST_VALIDATION_FAIL_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AMENDMENT_1_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FAIL_STEP_2_TO_WORK_ORDER_AUTHOR_AMENDMENT_2_TO_INDEPENDENT_AMENDMENT_2_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_VERIFY_PARSE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_3_TO_INDEPENDENT_AMENDMENT_3_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PASS_TO_ORCHESTRATOR_TO_INDEPENDENT_BUILD_REVIEWER_CHANGES_REQUIRED_TO_WORK_ORDER_AUTHOR_AMENDMENT_4_TO_INDEPENDENT_AMENDMENT_4_REVIEWER_FAIL_TO_WORK_ORDER_AUTHOR_DIGEST_CORRECTION_TO_INDEPENDENT_AMENDMENT_4_REREVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_TO_WORK_ORDER_AUTHOR_AMENDMENT_5_TO_INDEPENDENT_AMENDMENT_5_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_FOCUSED_PASS_PROBE_IMPORT_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_6_TO_INDEPENDENT_AMENDMENT_6_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_LINEAGE_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_7_TO_INDEPENDENT_AMENDMENT_7_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_PREFLIGHT_PASS_PROBE_SELECTOR_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_8_TO_INDEPENDENT_AMENDMENT_8_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER_DIRECT_PROBE_REPAIR_KNOWLEDGE_FOCUSED_CATALOG_FULL_SESSION_PASS_FILE_SIZE_PATH_FAIL_TO_WORK_ORDER_AUTHOR_AMENDMENT_9_TO_INDEPENDENT_AMENDMENT_9_REVIEWER_PASS_TO_COMMIT_STEWARD_TO_REPAIR_WORKER",
-    "updatedAt": "2026-08-06"
+    "updatedAt": "2026-08-07"
   }
 }
