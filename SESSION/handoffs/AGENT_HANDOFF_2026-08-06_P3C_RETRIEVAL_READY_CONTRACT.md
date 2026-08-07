@@ -3,9 +3,9 @@
 - Tranche: `P3-C-RETRIEVAL-READY-DATA-CONTRACT-2026-08-06`
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
-- Current phase: `SPEC`
-- Status: `SPEC_R1_REREVIEW_PENDING`
-- Active role: `INDEPENDENT_SPEC_REREVIEWER`
+- Current phase: `WORK_ORDER`
+- Status: `WORK_ORDER_AUTHORING`
+- Active role: `WORK_ORDER_AUTHOR`
 
 ## Startup acknowledgment
 
@@ -233,3 +233,22 @@ Revised SPEC SHA-256:
 Next role: `INDEPENDENT_SPEC_REREVIEWER`. Re-review only F1 closure and
 regression-check unchanged requirements. Only `SPEC_REVIEW_PASS` may transfer
 to `WORK_ORDER_AUTHOR`. No Work Order, BUILD or call authority exists.
+
+## SPEC R1 re-review return - 2026-08-07
+
+Independent re-review targeted commit
+`7431b388f781cddcde634d429abd7b5e3d61346e` and revised SPEC SHA-256
+`0e2388623857423091aa76ba49e1338d57f6fd504aebd47bd1062e2b13356ed8`.
+
+Disposition: `SPEC_REVIEW_PASS`. Findings: `NONE`. Waivers: `NONE`.
+
+The authoritative re-review record is
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_SPEC_REREVIEW.md`.
+`P3C-SPEC-F1` is closed and all other requirements retain their reviewed
+meaning.
+
+Role transition: `INDEPENDENT_SPEC_REREVIEWER` to `WORK_ORDER_AUTHOR`.
+
+Next move: author one exact-path Work Order and stop for independent
+authorization review. No BUILD, provider/helper/product-network/POST call,
+retrieval, persistence or vector/index authority exists.
