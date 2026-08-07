@@ -302,3 +302,42 @@ The worker captures current pushed checkpoint HEAD as `executionBaseHead`,
 runs the Work Order pre-BUILD gate, implements and returns
 `COMPLETE_PENDING_REVIEW`. Same-scope defects return to the worker; root
 independently reviews source, diff, tests and evidence.
+
+## BUILD review, commit and FREEZE - 2026-08-07
+
+The separate worker produced the exact 23-path candidate under the original
+Work Order plus two independently passed knowledge-pin amendments. The root
+remained independent from all BUILD source/test repairs.
+
+Initial independent BUILD review returned F1-F6, waiver `NONE`: stale path
+truth, hostile-payload totality/disclosure, incomplete identifier validation,
+fixed-precedence defects, retention-state contradictions and circular/missing
+R23 evidence. Repair round 1 closed them. Re-review found one F4 precedence
+residue; round 2 closed it. Final review found a distinct parse-state versus
+binding-state root cause, F7; bounded round 3 introduced the required tri-state
+and closed it. No fourth repair round or open-ended tuning occurred.
+
+Final review record:
+
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_BUILD_INDEPENDENT_REVIEW.md`
+
+Disposition: `BUILD_REVIEW_PASS`. Findings: `NONE`. Waivers: `NONE`.
+Review commit: `9ade13dc444a9dc3d6fd933cc7c9e70ad10b34a2`.
+Exact 23-path BUILD commit: `4cc0691d88fd1480f250829b024ce0292036bb43`.
+
+Independent evidence: P3-C `94`, Project Knowledge `86`, retained P3-A `57`,
+full non-live `1691 passed / 128 skipped`, source pins `16/16`, exact23,
+staged0, catalog/session/file-size/repository gates PASS and doctor PASS WITH
+NOTE `24/1` for the unchanged bounded legacy-catalog warning. Provider,
+product-network, POST, secret, config, database and runtime-filesystem calls
+were all zero.
+
+P3-C is `FREEZE / CLOSED_BOUNDED`. The claim is only a tested deterministic
+local contract package and strict schema. It does not prove a retrieval caller,
+tenant authorization, placement enforcement, vector/index, persistence,
+provider behavior, RAG, production readiness or Phase 3 completion.
+
+Next role: `INTAKE_AUTHOR`. Next move: one fresh P4-A1 governed-retrieval
+INTAKE that dependency-maps remaining P3-B data_scope/cost/termination runtime
+wiring. P4-A1 DESIGN/BUILD, P4-A2 RAG, provider calls, persistence,
+vector/index, learning and the parked runner evidence remain unauthorized.

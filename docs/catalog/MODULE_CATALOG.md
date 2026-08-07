@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-07T10:18:07.945270+00:00_
+_Last generated: 2026-08-07T10:32:17.250213+00:00_
 
 ## How to use this catalog
 
@@ -149,7 +149,7 @@ _Last generated: 2026-08-07T10:18:07.945270+00:00_
 - **Depends on:** `refinery-bridge`, `operations-domain`
 - **Tests:** `tests/unit/test_p3c_retrieval_contract_models.py`, `tests/unit/test_p3c_retrieval_contract_constructor.py`, `tests/unit/test_p3c_retrieval_contract_adversarial.py`, `tests/unit/test_p3c_retrieval_contract_digest_guards.py`, `tests/contract/test_p3c_retrieval_contract_schema.py`
 - **Metrics:** 1029 LOC across 7 code file(s)
-- **Next step:** Independent BUILD re-review of the repaired exact 23-path no-commit P3-C candidate. No runtime retrieval, provider, vector/index, tenant authorization, load-bearing data_scope, placement or production claim.
+- **Next step:** P3-C is CLOSED_BOUNDED at reviewed BUILD 4cc0691. Fresh P4-A1 governed-retrieval INTAKE is next; no runtime retrieval, provider, vector/index, tenant authorization, load-bearing data_scope, placement or production claim carries forward.
 
 ### `workspace-api` — partial
 

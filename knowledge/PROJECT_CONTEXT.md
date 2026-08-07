@@ -15,12 +15,13 @@ Phase 1 is complete under its reviewed local/disposable infrastructure
 boundary. Phase 2 is closed bounded for the reviewed start-to-freeze lineage.
 The Project Operations Skill and Project Knowledge Pack are closed bounded.
 P3-A Refinery is `CLOSED_BOUNDED` at independently reviewed BUILD `a6cf978`.
-This closes only the deterministic local boundary and does not complete Phase
-3. The package has no runtime application caller and
-does not prove provider behavior, remote ingest, persistence, `data_scope`
-enforcement, retrieval, RAG, learning, production readiness, or confirmed
-truth. Those capabilities remain later governed work in the recorded business
-sequence.
+P3-C retrieval-ready contracts are `CLOSED_BOUNDED` at independently reviewed
+BUILD `4cc0691`. These close only deterministic local contract boundaries and
+do not complete Phase 3. Neither package has a runtime retrieval caller or
+proves provider behavior, remote ingest, persistence, tenant authorization,
+`data_scope` placement enforcement, retrieval, RAG, learning, production
+readiness, or confirmed truth. Fresh P4-A1 governed-retrieval INTAKE is next;
+later capabilities remain separately governed work.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
