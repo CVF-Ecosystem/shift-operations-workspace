@@ -4,8 +4,8 @@
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
 - Current phase: `WORK_ORDER`
-- Status: `WORK_ORDER_AUTHORING`
-- Active role: `WORK_ORDER_AUTHOR`
+- Status: `WORK_ORDER_AUTHORIZATION_REVIEW_PENDING`
+- Active role: `INDEPENDENT_AUTHORIZATION_REVIEWER`
 
 ## Startup acknowledgment
 
@@ -252,3 +252,31 @@ Role transition: `INDEPENDENT_SPEC_REREVIEWER` to `WORK_ORDER_AUTHOR`.
 Next move: author one exact-path Work Order and stop for independent
 authorization review. No BUILD, provider/helper/product-network/POST call,
 retrieval, persistence or vector/index authority exists.
+
+## Work Order author return - 2026-08-07
+
+The Work Order author created:
+
+`docs/work_orders/P3C_RETRIEVAL_READY_DATA_CONTRACT_WORK_ORDER.md`
+
+Frozen pre-review SHA-256:
+
+`0e83fc03660f10640bd15f3edab1696d66299fe29ba64ec779aa07f8e1855e9f`
+
+The candidate fixes an exact 22-path BUILD ceiling: a new bounded
+`retrieval-contracts` package, additive P3-A source token/contract test, five
+P3-C test surfaces and bounded catalog/status truth. It keeps canonical records
+fail-closed without a public digest owner and explicitly protects private/app
+digest helpers. Worker mode is `WORKER_MUST_NOT_COMMIT`; all external call
+budgets are zero.
+
+Routine defects inside the 22 paths are worker-owned repairs, not repeated
+operator checkpoints. Objective/path/risk/external-effect/secret/provider/
+destructive/public/commit-owner changes still require escalation.
+
+Role transition: `WORK_ORDER_AUTHOR` to
+`INDEPENDENT_AUTHORIZATION_REVIEWER`.
+
+Next move: independent Work Order authorization review. Only
+`WORK_ORDER_AUTHORIZATION_REVIEW_PASS` may open a separate BUILD baseline
+checkpoint. No BUILD or call authority exists from the candidate alone.
