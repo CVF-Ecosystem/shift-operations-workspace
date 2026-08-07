@@ -4,8 +4,8 @@
 - Execution base: `c81bf7e9607464cc3456f343feed5796b1435987`
 - Risk: `R2`
 - Current phase: `SPEC`
-- Status: `SPEC_REVIEW_PENDING`
-- Active role: `INDEPENDENT_SPEC_REVIEWER`
+- Status: `SPEC_R1_REREVIEW_PENDING`
+- Active role: `INDEPENDENT_SPEC_REREVIEWER`
 
 ## Startup acknowledgment
 
@@ -205,3 +205,31 @@ hash. Return `SPEC_REVIEW_PASS`, `SPEC_REVIEW_CHANGES_REQUIRED`, or
 `SPEC_BLOCKED_SOURCE_OR_OWNER`. Only PASS transfers to `WORK_ORDER_AUTHOR`.
 No WORK_ORDER drafting, BUILD, provider/helper/product-network/POST call,
 retrieval, persistence or vector/index authority exists.
+
+## SPEC review and R1 repair - 2026-08-07
+
+Independent review of commit `9317cfa` and SPEC SHA-256
+`cdb00667cf8f8fd16fa5e0dfd3cd07eb149ddac6938ed5e1db71d70abad53558`
+returned `SPEC_REVIEW_CHANGES_REQUIRED`, finding `P3C-SPEC-F1`, waiver
+`NONE`. The review record is:
+
+`docs/decisions/P3C_RETRIEVAL_READY_DATA_CONTRACT_SPEC_REVIEW.md`
+
+F1 found two reachable but private helpers in the allowed operations-domain
+dependency that the SPEC had not explicitly guarded against generic reuse:
+
+- `operations_domain.report_models._canonical_bytes`;
+- `operations_domain.report_models._recompute_record_digest`.
+
+R1 names their existing internal ReportContent-validation role in the source
+table and R8, forbids retrieval-contract imports/aliases/access/wrappers/calls
+in R20 static tests, and adds the matching R23 negative fixture. No other
+requirement or acceptance boundary is reopened.
+
+Revised SPEC SHA-256:
+
+`0e2388623857423091aa76ba49e1338d57f6fd504aebd47bd1062e2b13356ed8`
+
+Next role: `INDEPENDENT_SPEC_REREVIEWER`. Re-review only F1 closure and
+regression-check unchanged requirements. Only `SPEC_REVIEW_PASS` may transfer
+to `WORK_ORDER_AUTHOR`. No Work Order, BUILD or call authority exists.

@@ -7,7 +7,7 @@
 - DESIGN disposition: `DESIGN_REVIEW_PASS`, findings/waivers `NONE/NONE`
 - Risk: `R2`
 - Control-chain phase: `SPEC`
-- Status: `SPEC_CANDIDATE_PENDING_INDEPENDENT_REVIEW`
+- Status: `SPEC_R1_CANDIDATE_PENDING_INDEPENDENT_REREVIEW`
 - Provider/product-API/POST calls: `0/0/0`
 
 ## Scope and normative language
@@ -28,7 +28,7 @@ its creation requires a separately reviewed Work Order and BUILD.
 | P3-A admitted envelope/candidate/result | `packages/refinery-bridge/src/refinery_bridge/input_models.py`; `packages/refinery-bridge/src/refinery_bridge/output_models.py` | `RefineryEnvelopeV1`, `ContextCandidateV1`, `RefineryResultV1` | Reuse exact classes; do not duplicate |
 | P3-A source types | `packages/refinery-bridge/src/refinery_bridge/enums.py` | `SourceType` | Additive `CANONICAL_OPERATIONAL_RECORD` is new and requires BUILD authority |
 | Canonical operational models | `packages/operations-domain/src/operations_domain/models.py` | `OperationalEvent`, `Task`, `CustomerRequest`, `Incident`, `Handover`, `Message`, `Correction`, `Shift` | Reuse exact classes |
-| Report snapshot model | `packages/operations-domain/src/operations_domain/report_models.py` | `Report`, `ReportContent.snapshot_digest`, `_canonical_bytes` | Stored digest shape is validated; no allowed public recomputation owner exists |
+| Report snapshot model/internals | `packages/operations-domain/src/operations_domain/report_models.py` | `Report`, `ReportContent.snapshot_digest`, `_canonical_bytes`, `_recompute_record_digest` | Stored digest shape is validated; private helpers validate already-canonical Report dict records and are not a public generic owner |
 | Current application digest helpers | `apps/workspace-api/src/workspace_api/application/report_snapshot.py`; `apps/workspace-api/src/workspace_api/application/handover_service.py` | `compute_source_digest` | Exact existing helpers, but importing `workspace_api` is forbidden by the passed dependency design |
 | Allowed-package generic record digest owner | repository search at SPEC base `42d12af` | no public owner in `operations_domain` or `refinery_bridge` for Event, Task, CustomerRequest, Incident, Handover, Report or Message | Return `SOURCE_DIGEST_OWNER_MISSING` unless an exact owner is added by a separately reviewed source change |
 | Report manifest record digests | `packages/operations-domain/src/operations_domain/report_models.py` | `ReportSourceRef.source_digest`, `ReportContent._manifest_matches_records_exactly` | Valid only inside the matching immutable Report snapshot |
@@ -185,6 +185,11 @@ direction. At the current source base:
   alone MUST NOT admit the Report;
 - current application `compute_source_digest` helpers MUST NOT be imported or
   copied into `retrieval_contracts` merely to bypass the dependency boundary;
+- `operations_domain.report_models._canonical_bytes` and
+  `operations_domain.report_models._recompute_record_digest` are private
+  ReportContent-validation helpers, not public digest-owner contracts;
+  `retrieval_contracts` MUST NOT import, call, alias, wrap or copy either helper
+  as a generic digest shortcut;
 - a `ReportSourceRef.source_digest` may be used only for the exact record inside
   that same validated Report snapshot, never as a global record digest;
 - `HandoverItem.source_digest` MUST NOT be used as the Handover digest.
@@ -356,6 +361,11 @@ The proposed package MUST have its own `pyproject.toml` and
 `retrieval_contracts`. The new package MUST NOT import `workspace_api`,
 `operations_ledger`, `cvf_runtime`, FastAPI, SQLAlchemy, provider, vector/index
 or retrieval runtime modules. Static import tests MUST enforce both directions.
+The same tests MUST inspect imports and attribute access and fail if any
+`retrieval_contracts` module imports, aliases, accesses, wraps or calls
+`operations_domain.report_models._canonical_bytes` or
+`operations_domain.report_models._recompute_record_digest`. Their existing
+internal use inside `operations_domain.report_models` remains unchanged.
 
 ### R21 - I/O and external-effect prohibition
 
@@ -384,7 +394,10 @@ Repository-owned synthetic fixtures MUST independently cover at least:
 6. stored Report snapshot digest shape plus missing allowed recomputation owner;
 7. missing digest owner for Event, Task, CustomerRequest, Incident, Handover
    and Report;
-8. forbidden generic Pydantic-dump digest substitution;
+8. forbidden generic Pydantic-dump digest substitution and a static negative
+   fixture proving `retrieval_contracts` cannot import, alias, access, wrap or
+   call `operations_domain.report_models._canonical_bytes` or
+   `_recompute_record_digest`;
 9. Message exact linkage and text mismatch;
 10. Project Knowledge current and stale pins;
 11. all R6 selectors, including missing Handover item;
