@@ -446,15 +446,16 @@ dưới đạt milestone Phase 4. Vì vậy phase vẫn là `NOT STARTED`, khôn
 
 - [ ] **P4-A:** AI Gateway (`ai-gateway`): model router, context builder,
       structured output, budget, fallback, kill switch — gọi cvf-runtime gates.
-- [ ] **P4-A1:** Governed retrieval foundation: deterministic filtered search
-      trên confirmed records, authorization + data-scope trước retrieval,
-      citation/source-version bắt buộc và context budget. Triển khai trước
-      generation; chưa cần vector database nếu lexical/structured retrieval
-      đáp ứng nhu cầu ban đầu.
+- [x] **P4-A1 — CLOSED_BOUNDED:** Governed retrieval foundation đã có local
+      deterministic lexical search, verified identity/permission/assignment,
+      bounded evidence projection, source/version/hash và ephemeral receipt.
+      Chỉ Project Knowledge INTERNAL/LOCAL_ONLY là positive; hai operational
+      corpora còn dependency-blocked; không provider/RAG/API/UI/production.
 - [ ] **P4-A2:** Governed RAG khi AI integration đủ sâu: hybrid retrieval,
       rerank, prompt-injection isolation, context lineage, stale-index
       detection và output citation validation. Provider không được trở thành
       nguồn sự thật hay bypass ledger/CVF gates.
+**Cross-repository reference coordination:** `LPCI1-REF` is non-blocking for P4-A1 but is an entry gate before P4-A/P4-A2 DESIGN; it requires separate CVF authority and is neither a Phase 4 milestone nor a runtime dependency. Canonical coordination record: [`P4_CROSS_REPOSITORY_REFERENCE_COORDINATION.md`](P4_CROSS_REPOSITORY_REFERENCE_COORDINATION.md).
 - [ ] **P4-A3:** Application memory theo lớp: session/working memory trước,
       episodic/semantic memory sau; mỗi entry có owner, purpose, provenance,
       TTL/retention, correction/delete path và scope. Chat history hoặc
@@ -566,7 +567,7 @@ gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
 **2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
-**Bước kế tiếp duy nhất:** fresh P4-A1 governed-retrieval INTAKE từ P3-C reviewed BUILD `4cc0691`; không DESIGN/BUILD/provider/network authority carry forward. P3-B runtime wiring phải được dependency-map trong INTAKE; P4-A2/RAG/learning và runner evidence branch vẫn parked.
+**Next governed move:** P4-A1 is `CLOSED_BOUNDED` after exact36 independent rereview `d56b835d...ef22`. Stop after mapping: P4-A/P4-A2, LPCI1-REF, provider/RAG/vector, durable audit/persistence, API/UI/deployment, digest owners and deeper project work remain parked pending fresh authority.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic
 (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration
 Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5),

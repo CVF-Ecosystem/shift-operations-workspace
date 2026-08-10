@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-07T10:32:17.250213+00:00_
+_Last generated: 2026-08-10T15:33:41.801893+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-07T10:32:17.250213+00:00_
 
 ## Totals
 
-- Modules: **23**
-- Code LOC (py/ts/tsx): **21296**
-- Code files: **232**
-- By status: contract-only=6, enforced=2, partial=9, stub=6
+- Modules: **24**
+- Code LOC (py/ts/tsx): **24407**
+- Code files: **248**
+- By status: contract-only=6, enforced=2, partial=10, stub=6
 
 ## Status legend
 
@@ -29,15 +29,16 @@ _Last generated: 2026-08-07T10:32:17.250213+00:00_
 
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
-| `cvf-runtime` | packages/cvf-runtime | enforced | 900 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
+| `cvf-runtime` | packages/cvf-runtime | enforced | 907 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
+| `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
-| `workspace-api` | apps/workspace-api | partial | 6393 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-api` | apps/workspace-api | partial | 7816 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
@@ -64,7 +65,7 @@ _Last generated: 2026-08-07T10:32:17.250213+00:00_
 - **Contract:** packages/cvf-application-profile/*.yaml
 - **Depends on:** `cvf-application-profile`
 - **Tests:** `tests/cvf/test_gates_unit.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_remaining_controls.py`, `tests/cvf/test_approval_known_principals.py`
-- **Metrics:** 900 LOC across 13 code file(s)
+- **Metrics:** 907 LOC across 13 code file(s)
 - **Next step:** P2B approver-identity reconciliation is already FREEZE / CLOSED_BOUNDED: known-principals.yaml is no longer runtime authority, and authenticated durable six-field approval receipts are load-bearing within the reviewed boundary. Remaining cvf-runtime work is to wire data_scope, budget/cost and termination into a real AI runtime caller, and to implement refusal routing/recording; neither is load-bearing yet.
 
 ### `operations-ledger` — enforced
@@ -90,6 +91,18 @@ _Last generated: 2026-08-07T10:32:17.250213+00:00_
 - **Tests:** `tests/unit/test_alibaba_model_selector.py`
 - **Metrics:** 102 LOC across 1 code file(s)
 - **Next step:** Keep the Alibaba quota snapshot current; integrate provider adapters through the Phase 4 AI gateway later. Implement NO_AI + RULES_ONLY + mock providers before production AI routing.
+
+### `governed-retrieval` — partial
+
+- **Path:** `packages/governed-retrieval` (package)
+- **Purpose:** Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition.
+- **CVF controls:** data_scope, evidence, termination
+- **Enforcement:** Strict local V1 request, corpus, lexical, projection, receipt and result contracts. The separately owned workspace-api application composition verifies token identity, permission and assignment before source reads; Project Knowledge is the sole positive INTERNAL/LOCAL_ONLY corpus and operational corpora fail closed. No provider, API route, durable audit/persistence, semantic/vector RAG or production deployment.
+- **Contract:** packages/governed-retrieval/contracts/governed_retrieval.schema.json
+- **Depends on:** `retrieval-contracts`
+- **Tests:** `tests/unit/test_p4a1_retrieval_models.py`, `tests/unit/test_p4a1_retrieval_lexical.py`, `tests/unit/test_p4a1_retrieval_projection.py`, `tests/unit/test_p4a1_retrieval_receipts.py`, `tests/unit/test_p4a1_retrieval_dependencies.py`, `tests/cvf/test_p4a1_governed_retrieval.py`, `tests/cvf/test_p4a1_governed_retrieval_boundaries.py`, `tests/cvf/test_p4a1_retrieval_authorization.py`, `tests/cvf/test_p4a1_retrieval_authorization_ordering.py`, `tests/integration/test_p4a1_retrieval_ledger_parity.py`, `tests/integration/test_p4a1_retrieval_project_knowledge.py`, `tests/contract/test_p4a1_governed_retrieval_schema.py`, `tests/contract/test_p4a1_governed_retrieval_source_limits.py`
+- **Metrics:** 1681 LOC across 11 code file(s)
+- **Next step:** P4-A1 is CLOSED_BOUNDED and parked after mapping. Operational digest owners, LPCI1-REF, P4-A/P4-A2, provider/RAG, API/UI, durable audit/persistence and deployment require fresh authority.
 
 ### `integration-edge` — partial
 
@@ -160,7 +173,7 @@ _Last generated: 2026-08-07T10:32:17.250213+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 6393 LOC across 75 code file(s)
+- **Metrics:** 7816 LOC across 80 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial

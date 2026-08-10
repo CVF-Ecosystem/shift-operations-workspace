@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-08-03",
+  "reviewedAt": "2026-08-10",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "d394c7614b49caf0cb5d3abad1b45fe501b1ad8db896fdff2216ab1ad3d93a4e"
+          "sha256": "afab67dfd75b65e74c49d24e2de2721c0dcbd72d910fb52712375ca1b31b1ee1"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "543256a66f849bc2f0ea318d18fb592bdb93e6736cdea1039d4df47f73c2f6e4"
+          "sha256": "c444905e32fc75fde831a2af8cfe2f1be7791fc639ee9a7e308a80b99cc561d2"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "516a59b915d11e31ce468112222d92fd7248d4fb2529f0d37b732a426f07b287"
+          "sha256": "84ecbd3451b50a1d0385279d1e1dac11c6acb5cb748866b6a638a8df13ac2fca"
         }
       ],
-      "reviewedAt": "2026-08-03",
+      "reviewedAt": "2026-08-10",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

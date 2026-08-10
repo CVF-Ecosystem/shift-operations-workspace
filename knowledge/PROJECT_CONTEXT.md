@@ -17,11 +17,16 @@ The Project Operations Skill and Project Knowledge Pack are closed bounded.
 P3-A Refinery is `CLOSED_BOUNDED` at independently reviewed BUILD `a6cf978`.
 P3-C retrieval-ready contracts are `CLOSED_BOUNDED` at independently reviewed
 BUILD `4cc0691`. These close only deterministic local contract boundaries and
-do not complete Phase 3. Neither package has a runtime retrieval caller or
-proves provider behavior, remote ingest, persistence, tenant authorization,
-`data_scope` placement enforcement, retrieval, RAG, learning, production
-readiness, or confirmed truth. Fresh P4-A1 governed-retrieval INTAKE is next;
-later capabilities remain separately governed work.
+do not complete Phase 3. P4-A1 governed retrieval is `CLOSED_BOUNDED` after
+exact36 independent rereview: verified identity, permission and assignment
+precede local deterministic retrieval; evidence projections, citations,
+source/version hashes and ephemeral receipts are bounded. Only Project
+Knowledge INTERNAL/LOCAL_ONLY is positive; both operational corpora remain
+dependency-blocked. This proves no provider/LLM answer, API/UI, durable audit
+or persistence, restricted/confidential or full-document access, vector/
+semantic RAG, deployment, production readiness or confirmed truth. The
+separately governed `LPCI1-REF` lane and P4-A/P4-A2 remain parked behind fresh
+authority and are not downstream runtime dependencies.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
