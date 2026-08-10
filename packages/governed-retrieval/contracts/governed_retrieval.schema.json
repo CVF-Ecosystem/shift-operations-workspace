@@ -1,0 +1,1278 @@
+{
+  "$defs": {
+    "AccessDeniedV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "ACCESS_DENIED",
+          "default": "ACCESS_DENIED",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "AccessDeniedV1",
+      "type": "object"
+    },
+    "CitationV1": {
+      "additionalProperties": false,
+      "description": "Receipt contract appendix - rejects unknown fields; a path alone or a\nmissing digest/version is invalid (enforced by required, non-optional\nfields below).",
+      "properties": {
+        "chunk_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Chunk Id",
+          "type": "string"
+        },
+        "content_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Digest Sha256",
+          "type": "string"
+        },
+        "field_selector": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Selector",
+          "type": "string"
+        },
+        "record_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Record Id"
+        },
+        "record_type": {
+          "$ref": "#/$defs/RecordType"
+        },
+        "revalidation_token": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Revalidation Token",
+          "type": "string"
+        },
+        "snippet_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snippet Digest Sha256",
+          "type": "string"
+        },
+        "snippet_end_codepoint": {
+          "minimum": 0,
+          "title": "Snippet End Codepoint",
+          "type": "integer"
+        },
+        "snippet_start_codepoint": {
+          "minimum": 0,
+          "title": "Snippet Start Codepoint",
+          "type": "integer"
+        },
+        "source_cutoff_utc": {
+          "format": "date-time",
+          "title": "Source Cutoff Utc",
+          "type": "string"
+        },
+        "source_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Digest Sha256",
+          "type": "string"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        },
+        "truth_class": {
+          "$ref": "#/$defs/TruthClass"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionBindingV1"
+        }
+      },
+      "required": [
+        "chunk_id",
+        "content_digest_sha256",
+        "source_digest_sha256",
+        "version",
+        "truth_class",
+        "record_type",
+        "field_selector",
+        "revalidation_token",
+        "source_cutoff_utc",
+        "snippet_digest_sha256",
+        "snippet_start_codepoint",
+        "snippet_end_codepoint"
+      ],
+      "title": "CitationV1",
+      "type": "object"
+    },
+    "ContextBudgetExceededV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "CONTEXT_BUDGET_EXCEEDED",
+          "default": "CONTEXT_BUDGET_EXCEEDED",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "ContextBudgetExceededV1",
+      "type": "object"
+    },
+    "ContextBudgetV1": {
+      "additionalProperties": false,
+      "description": "R2 - client-requested ceilings, each positive and <= the R8 server\nmaximum for that field.",
+      "properties": {
+        "max_estimated_input_tokens": {
+          "minimum": 1,
+          "title": "Max Estimated Input Tokens",
+          "type": "integer"
+        },
+        "max_projection_records": {
+          "minimum": 1,
+          "title": "Max Projection Records",
+          "type": "integer"
+        },
+        "max_serialized_utf8_bytes": {
+          "minimum": 1,
+          "title": "Max Serialized Utf8 Bytes",
+          "type": "integer"
+        },
+        "max_snippet_codepoints": {
+          "minimum": 1,
+          "title": "Max Snippet Codepoints",
+          "type": "integer"
+        },
+        "max_snippet_utf8_bytes": {
+          "minimum": 1,
+          "title": "Max Snippet Utf8 Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_projection_records",
+        "max_snippet_codepoints",
+        "max_snippet_utf8_bytes",
+        "max_serialized_utf8_bytes",
+        "max_estimated_input_tokens"
+      ],
+      "title": "ContextBudgetV1",
+      "type": "object"
+    },
+    "CorpusId": {
+      "description": "R4 - the exact three server-registry corpus ids.",
+      "enum": [
+        "SHIFT_CONFIRMED_OPERATIONS_V1",
+        "SHIFT_ADVISORY_MESSAGES_V1",
+        "PROJECT_KNOWLEDGE_LOCAL_V1"
+      ],
+      "title": "CorpusId",
+      "type": "string"
+    },
+    "CorpusUnavailableV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "CORPUS_UNAVAILABLE",
+          "default": "CORPUS_UNAVAILABLE",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "CorpusUnavailableV1",
+      "type": "object"
+    },
+    "EvidenceAvailableV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "future_context_handoff": {
+          "$ref": "#/$defs/FutureContextHandoffV1"
+        },
+        "outcome": {
+          "const": "EVIDENCE_AVAILABLE",
+          "default": "EVIDENCE_AVAILABLE",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "projections": {
+          "items": {
+            "$ref": "#/$defs/EvidenceProjectionV1"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Projections",
+          "type": "array"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt",
+        "projections",
+        "future_context_handoff"
+      ],
+      "title": "EvidenceAvailableV1",
+      "type": "object"
+    },
+    "EvidenceProjectionV1": {
+      "additionalProperties": false,
+      "description": "SPEC R8 - rejects unknown fields; nested citation values must match\nthe projection's own duplicated fields exactly.",
+      "properties": {
+        "citation": {
+          "$ref": "#/$defs/CitationV1"
+        },
+        "content_snippet": {
+          "title": "Content Snippet",
+          "type": "string"
+        },
+        "field_selector": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Selector",
+          "type": "string"
+        },
+        "projection_complete": {
+          "title": "Projection Complete",
+          "type": "boolean"
+        },
+        "sensitivity": {
+          "title": "Sensitivity",
+          "type": "string"
+        },
+        "snippet_digest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Snippet Digest Sha256",
+          "type": "string"
+        },
+        "snippet_end_codepoint": {
+          "minimum": 0,
+          "title": "Snippet End Codepoint",
+          "type": "integer"
+        },
+        "snippet_start_codepoint": {
+          "minimum": 0,
+          "title": "Snippet Start Codepoint",
+          "type": "integer"
+        },
+        "truth_class": {
+          "$ref": "#/$defs/TruthClass"
+        }
+      },
+      "required": [
+        "citation",
+        "truth_class",
+        "field_selector",
+        "sensitivity",
+        "content_snippet",
+        "snippet_start_codepoint",
+        "snippet_end_codepoint",
+        "snippet_digest_sha256",
+        "projection_complete"
+      ],
+      "title": "EvidenceProjectionV1",
+      "type": "object"
+    },
+    "FinalOutcome": {
+      "description": "R11 - the exact ten closed final-outcome discriminators (two literals\nshare one RetrievalStoppedV1 variant per the SPEC R11 table).",
+      "enum": [
+        "EVIDENCE_AVAILABLE",
+        "NO_EVIDENCE",
+        "ACCESS_DENIED",
+        "CORPUS_UNAVAILABLE",
+        "STALE_EVIDENCE",
+        "RETRIEVAL_LIMIT_EXCEEDED",
+        "RETRIEVAL_TIMEOUT",
+        "RETRIEVAL_CANCELLED",
+        "CONTEXT_BUDGET_EXCEEDED",
+        "INVALID_REQUEST",
+        "INVARIANT_FAILURE"
+      ],
+      "title": "FinalOutcome",
+      "type": "string"
+    },
+    "FutureContextHandoffV1": {
+      "additionalProperties": false,
+      "description": "SPEC R10 - exact fields; evidence for a future context builder, not\nP3-B satisfaction.",
+      "properties": {
+        "applied_limits": {
+          "$ref": "#/$defs/RetrievalLimitsV1"
+        },
+        "cancelled": {
+          "title": "Cancelled",
+          "type": "boolean"
+        },
+        "citation_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Citation Ids",
+          "type": "array"
+        },
+        "classifications": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Classifications",
+          "type": "array"
+        },
+        "configured_timeout_ms": {
+          "minimum": 1,
+          "title": "Configured Timeout Ms",
+          "type": "integer"
+        },
+        "elapsed_ms": {
+          "minimum": 0,
+          "title": "Elapsed Ms",
+          "type": "integer"
+        },
+        "estimated_input_tokens": {
+          "minimum": 0,
+          "title": "Estimated Input Tokens",
+          "type": "integer"
+        },
+        "evidence_set_hash_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Set Hash Sha256",
+          "type": "string"
+        },
+        "minimization_evidence_status": {
+          "default": "NOT_PROVEN",
+          "pattern": "^NOT_PROVEN$",
+          "title": "Minimization Evidence Status",
+          "type": "string"
+        },
+        "placement_enforcement_status": {
+          "default": "NOT_EVALUATED",
+          "pattern": "^NOT_EVALUATED$",
+          "title": "Placement Enforcement Status",
+          "type": "string"
+        },
+        "projection_count": {
+          "minimum": 1,
+          "title": "Projection Count",
+          "type": "integer"
+        },
+        "provider_attempt_authorized": {
+          "default": false,
+          "title": "Provider Attempt Authorized",
+          "type": "boolean"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "retrieval_receipt_hash_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Retrieval Receipt Hash Sha256",
+          "type": "string"
+        },
+        "runtime_caller_status": {
+          "default": "NO_LOAD_BEARING_CALLER",
+          "pattern": "^NO_LOAD_BEARING_CALLER$",
+          "title": "Runtime Caller Status",
+          "type": "string"
+        },
+        "sensitivities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Sensitivities",
+          "type": "array"
+        },
+        "serialized_context_bytes": {
+          "minimum": 0,
+          "title": "Serialized Context Bytes",
+          "type": "integer"
+        },
+        "snippet_codepoints": {
+          "minimum": 0,
+          "title": "Snippet Codepoints",
+          "type": "integer"
+        },
+        "timed_out": {
+          "title": "Timed Out",
+          "type": "boolean"
+        },
+        "token_estimate_method": {
+          "default": "UTF8_BYTES_DIV_2_ESTIMATE_V1",
+          "pattern": "^UTF8_BYTES_DIV_2_ESTIMATE_V1$",
+          "title": "Token Estimate Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "retrieval_receipt_hash_sha256",
+        "evidence_set_hash_sha256",
+        "citation_ids",
+        "classifications",
+        "sensitivities",
+        "serialized_context_bytes",
+        "snippet_codepoints",
+        "projection_count",
+        "estimated_input_tokens",
+        "applied_limits",
+        "elapsed_ms",
+        "configured_timeout_ms",
+        "timed_out",
+        "cancelled"
+      ],
+      "title": "FutureContextHandoffV1",
+      "type": "object"
+    },
+    "GovernedRetrievalRequestV1": {
+      "additionalProperties": false,
+      "description": "R2 - the exact external request body. Rejects unknown fields.\n\n``correlation_id`` is deliberately absent: the SPEC forbids the client\nfrom supplying one. The application layer generates the server-side\n``retrieval_correlation_id``.",
+      "properties": {
+        "context_budget": {
+          "$ref": "#/$defs/ContextBudgetV1"
+        },
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "corpus_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Corpus Id",
+          "type": "string"
+        },
+        "filters": {
+          "$ref": "#/$defs/RetrievalFiltersV1"
+        },
+        "query": {
+          "minLength": 1,
+          "title": "Query",
+          "type": "string"
+        },
+        "result_limit": {
+          "default": 10,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Result Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query",
+        "corpus_id",
+        "context_budget"
+      ],
+      "title": "GovernedRetrievalRequestV1",
+      "type": "object"
+    },
+    "InvalidRequestV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "INVALID_REQUEST",
+          "default": "INVALID_REQUEST",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "InvalidRequestV1",
+      "type": "object"
+    },
+    "InvariantFailureV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "INVARIANT_FAILURE",
+          "default": "INVARIANT_FAILURE",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "InvariantFailureV1",
+      "type": "object"
+    },
+    "NoEvidenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "NO_EVIDENCE",
+          "default": "NO_EVIDENCE",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "NoEvidenceV1",
+      "type": "object"
+    },
+    "RecordType": {
+      "enum": [
+        "OperationalEvent",
+        "Task",
+        "CustomerRequest",
+        "Incident",
+        "Handover",
+        "Report",
+        "Message",
+        "PROJECT_KNOWLEDGE"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    },
+    "RetrievalCountsV1": {
+      "additionalProperties": false,
+      "description": "Receipt contract appendix - exactly these seven non-negative ints.",
+      "properties": {
+        "candidates_admitted": {
+          "minimum": 0,
+          "title": "Candidates Admitted",
+          "type": "integer"
+        },
+        "matches_ranked": {
+          "minimum": 0,
+          "title": "Matches Ranked",
+          "type": "integer"
+        },
+        "projections_budget_omitted": {
+          "minimum": 0,
+          "title": "Projections Budget Omitted",
+          "type": "integer"
+        },
+        "projections_emitted": {
+          "minimum": 0,
+          "title": "Projections Emitted",
+          "type": "integer"
+        },
+        "selected_for_revalidation": {
+          "minimum": 0,
+          "title": "Selected For Revalidation",
+          "type": "integer"
+        },
+        "source_records_read": {
+          "minimum": 0,
+          "title": "Source Records Read",
+          "type": "integer"
+        },
+        "stale_omitted": {
+          "minimum": 0,
+          "title": "Stale Omitted",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source_records_read",
+        "candidates_admitted",
+        "matches_ranked",
+        "selected_for_revalidation",
+        "stale_omitted",
+        "projections_emitted",
+        "projections_budget_omitted"
+      ],
+      "title": "RetrievalCountsV1",
+      "type": "object"
+    },
+    "RetrievalFiltersV1": {
+      "additionalProperties": false,
+      "description": "R2 - exactly four closed narrowing filters.",
+      "properties": {
+        "lifecycle_statuses": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Lifecycle Statuses",
+          "type": "array"
+        },
+        "record_types": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RecordType"
+          },
+          "title": "Record Types",
+          "type": "array"
+        },
+        "shift_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Shift Ids",
+          "type": "array"
+        },
+        "truth_classes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/TruthClass"
+          },
+          "title": "Truth Classes",
+          "type": "array"
+        }
+      },
+      "title": "RetrievalFiltersV1",
+      "type": "object"
+    },
+    "RetrievalLimitExceededV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "RETRIEVAL_LIMIT_EXCEEDED",
+          "default": "RETRIEVAL_LIMIT_EXCEEDED",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "RetrievalLimitExceededV1",
+      "type": "object"
+    },
+    "RetrievalLimitsV1": {
+      "additionalProperties": false,
+      "description": "Receipt contract appendix - result_limit plus the five R2\ncontext-budget fields.",
+      "properties": {
+        "max_estimated_input_tokens": {
+          "minimum": 1,
+          "title": "Max Estimated Input Tokens",
+          "type": "integer"
+        },
+        "max_projection_records": {
+          "minimum": 1,
+          "title": "Max Projection Records",
+          "type": "integer"
+        },
+        "max_serialized_utf8_bytes": {
+          "minimum": 1,
+          "title": "Max Serialized Utf8 Bytes",
+          "type": "integer"
+        },
+        "max_snippet_codepoints": {
+          "minimum": 1,
+          "title": "Max Snippet Codepoints",
+          "type": "integer"
+        },
+        "max_snippet_utf8_bytes": {
+          "minimum": 1,
+          "title": "Max Snippet Utf8 Bytes",
+          "type": "integer"
+        },
+        "result_limit": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Result Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "result_limit",
+        "max_projection_records",
+        "max_snippet_codepoints",
+        "max_snippet_utf8_bytes",
+        "max_serialized_utf8_bytes",
+        "max_estimated_input_tokens"
+      ],
+      "title": "RetrievalLimitsV1",
+      "type": "object"
+    },
+    "RetrievalReceiptV1": {
+      "additionalProperties": false,
+      "description": "SPEC R9 / receipt contract appendix - exact receipt field set.",
+      "properties": {
+        "applied_limits": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetrievalLimitsV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorization_scope_digest_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Authorization Scope Digest Sha256"
+        },
+        "citation_ids": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Citation Ids",
+          "type": "array"
+        },
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "corpus_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CorpusId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "counts": {
+          "$ref": "#/$defs/RetrievalCountsV1"
+        },
+        "elapsed_ms": {
+          "minimum": 0,
+          "title": "Elapsed Ms",
+          "type": "integer"
+        },
+        "evidence_set_hash_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evidence Set Hash Sha256"
+        },
+        "final_outcome": {
+          "$ref": "#/$defs/FinalOutcome"
+        },
+        "finished_at_utc": {
+          "format": "date-time",
+          "title": "Finished At Utc",
+          "type": "string"
+        },
+        "receipt_hash_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Receipt Hash Sha256",
+          "type": "string"
+        },
+        "receipt_id": {
+          "format": "uuid",
+          "title": "Receipt Id",
+          "type": "string"
+        },
+        "requested_limits": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetrievalLimitsV1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieval_correlation_id": {
+          "format": "uuid",
+          "title": "Retrieval Correlation Id",
+          "type": "string"
+        },
+        "source_cutoff_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Cutoff Utc"
+        },
+        "stages": {
+          "items": {
+            "$ref": "#/$defs/RetrievalStageReceiptV1"
+          },
+          "maxItems": 11,
+          "minItems": 11,
+          "title": "Stages",
+          "type": "array"
+        },
+        "started_at_utc": {
+          "format": "date-time",
+          "title": "Started At Utc",
+          "type": "string"
+        },
+        "termination": {
+          "$ref": "#/$defs/TerminationFactsV1"
+        }
+      },
+      "required": [
+        "receipt_id",
+        "retrieval_correlation_id",
+        "started_at_utc",
+        "finished_at_utc",
+        "source_cutoff_utc",
+        "elapsed_ms",
+        "corpus_id",
+        "authorization_scope_digest_sha256",
+        "stages",
+        "final_outcome",
+        "requested_limits",
+        "applied_limits",
+        "counts",
+        "termination",
+        "citation_ids",
+        "evidence_set_hash_sha256",
+        "receipt_hash_sha256"
+      ],
+      "title": "RetrievalReceiptV1",
+      "type": "object"
+    },
+    "RetrievalStage": {
+      "description": "Receipt appendix - the exact eleven ordered stage names.",
+      "enum": [
+        "REQUEST_VALIDATED",
+        "AUTHENTICATED",
+        "PERMISSION_AUTHORIZED",
+        "ASSIGNMENT_AUTHORIZED",
+        "CORPUS_RESOLVED",
+        "SOURCES_READ",
+        "P3C_ADMITTED",
+        "MATCHED_AND_RANKED",
+        "REVALIDATED",
+        "PROJECTED",
+        "RECEIPT_EMITTED"
+      ],
+      "title": "RetrievalStage",
+      "type": "string"
+    },
+    "RetrievalStageReceiptV1": {
+      "additionalProperties": false,
+      "description": "Receipt contract appendix - one stage's outcome, reason, and safe\ncumulative counts.",
+      "properties": {
+        "outcome": {
+          "$ref": "#/$defs/StageOutcome"
+        },
+        "reason_code": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StageReasonCode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "safe_counts": {
+          "$ref": "#/$defs/RetrievalCountsV1"
+        },
+        "stage": {
+          "$ref": "#/$defs/RetrievalStage"
+        }
+      },
+      "required": [
+        "stage",
+        "outcome",
+        "reason_code",
+        "safe_counts"
+      ],
+      "title": "RetrievalStageReceiptV1",
+      "type": "object"
+    },
+    "RetrievalStoppedV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "RETRIEVAL_TIMEOUT",
+            "RETRIEVAL_CANCELLED"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt",
+        "outcome"
+      ],
+      "title": "RetrievalStoppedV1",
+      "type": "object"
+    },
+    "StageOutcome": {
+      "description": "Receipt appendix - the exact four closed stage outcomes.",
+      "enum": [
+        "PASS",
+        "DENY",
+        "FAIL",
+        "NOT_RUN"
+      ],
+      "title": "StageOutcome",
+      "type": "string"
+    },
+    "StageReasonCode": {
+      "description": "Receipt appendix - reason codes allowed for DENY/FAIL stages: the\neight R2 request-failure codes, AUTHENTICATION_FAILED, ACCESS_DENIED, and\nevery negative R11 outcome literal other than INVALID_REQUEST.",
+      "enum": [
+        "REQUEST_SHAPE_INVALID",
+        "QUERY_INVALID",
+        "QUERY_LIMIT_EXCEEDED",
+        "CORPUS_ID_INVALID",
+        "FILTER_INVALID",
+        "FILTER_WIDENS_SCOPE",
+        "RESULT_LIMIT_INVALID",
+        "CONTEXT_BUDGET_INVALID",
+        "AUTHENTICATION_FAILED",
+        "ACCESS_DENIED",
+        "CORPUS_UNAVAILABLE",
+        "STALE_EVIDENCE",
+        "RETRIEVAL_LIMIT_EXCEEDED",
+        "RETRIEVAL_TIMEOUT",
+        "RETRIEVAL_CANCELLED",
+        "CONTEXT_BUDGET_EXCEEDED",
+        "INVARIANT_FAILURE",
+        "NO_EVIDENCE"
+      ],
+      "title": "StageReasonCode",
+      "type": "string"
+    },
+    "StaleEvidenceV1": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "1.0",
+          "pattern": "^1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "outcome": {
+          "const": "STALE_EVIDENCE",
+          "default": "STALE_EVIDENCE",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "provider_attempts": {
+          "default": 0,
+          "maximum": 0,
+          "minimum": 0,
+          "title": "Provider Attempts",
+          "type": "integer"
+        },
+        "receipt": {
+          "$ref": "#/$defs/RetrievalReceiptV1"
+        }
+      },
+      "required": [
+        "receipt"
+      ],
+      "title": "StaleEvidenceV1",
+      "type": "object"
+    },
+    "TerminationFactsV1": {
+      "additionalProperties": false,
+      "description": "Receipt contract appendix - positive timeout plus two booleans that\ncannot both be true.",
+      "properties": {
+        "cancelled": {
+          "title": "Cancelled",
+          "type": "boolean"
+        },
+        "configured_timeout_ms": {
+          "minimum": 1,
+          "title": "Configured Timeout Ms",
+          "type": "integer"
+        },
+        "timed_out": {
+          "title": "Timed Out",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "configured_timeout_ms",
+        "timed_out",
+        "cancelled"
+      ],
+      "title": "TerminationFactsV1",
+      "type": "object"
+    },
+    "TruthClass": {
+      "enum": [
+        "CANONICAL_OPERATIONAL_RECORD",
+        "ADVISORY_SOURCE_EVIDENCE"
+      ],
+      "title": "TruthClass",
+      "type": "string"
+    },
+    "VersionBindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "integer_version": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Integer Version"
+        },
+        "kind": {
+          "$ref": "#/$defs/VersionKind"
+        },
+        "source_version_string": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Version String"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "VersionBindingV1",
+      "type": "object"
+    },
+    "VersionKind": {
+      "enum": [
+        "INTEGER_VERSION",
+        "SOURCE_VERSION_STRING",
+        "UNVERSIONED"
+      ],
+      "title": "VersionKind",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "receipt": {
+      "$ref": "#/$defs/RetrievalReceiptV1"
+    },
+    "request": {
+      "$ref": "#/$defs/GovernedRetrievalRequestV1"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceAvailableV1"
+        },
+        {
+          "$ref": "#/$defs/NoEvidenceV1"
+        },
+        {
+          "$ref": "#/$defs/AccessDeniedV1"
+        },
+        {
+          "$ref": "#/$defs/CorpusUnavailableV1"
+        },
+        {
+          "$ref": "#/$defs/StaleEvidenceV1"
+        },
+        {
+          "$ref": "#/$defs/RetrievalLimitExceededV1"
+        },
+        {
+          "$ref": "#/$defs/RetrievalStoppedV1"
+        },
+        {
+          "$ref": "#/$defs/ContextBudgetExceededV1"
+        },
+        {
+          "$ref": "#/$defs/InvalidRequestV1"
+        },
+        {
+          "$ref": "#/$defs/InvariantFailureV1"
+        }
+      ],
+      "title": "Result"
+    }
+  },
+  "required": [
+    "request",
+    "result",
+    "receipt"
+  ],
+  "title": "GovernedRetrievalV1",
+  "type": "object"
+}

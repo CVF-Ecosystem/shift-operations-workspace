@@ -90,6 +90,13 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # manage staffing for ANY shift (the bounded staffing control-plane
     # exception), but that authority is narrow to staffing alone.
     "shift.assignment.manage": "shift_supervisor",
+    # P4-A1 governed retrieval (P4A1-GOVERNED-RETRIEVAL-2026-08-10, SPEC R3):
+    # a read-only, permission-explicit gate for governed_retrieval.query. An
+    # assigned viewer may already read; this makes that authority an
+    # explicit, separately checkable permission stage rather than an
+    # implicit consequence of assignment alone - same bar as viewer's
+    # existing read authority, no new capability is granted.
+    "retrieval.query": "viewer",
 }
 
 

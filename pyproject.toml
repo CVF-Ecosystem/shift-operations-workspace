@@ -58,7 +58,8 @@ pythonpath = [
   "packages/operations-ledger/src",
   "packages/operations-domain/src",
   "packages/refinery-bridge/src",
-  "packages/retrieval-contracts/src"
+  "packages/retrieval-contracts/src",
+  "packages/governed-retrieval/src"
 ]
 testpaths = ["tests", "apps"]
 

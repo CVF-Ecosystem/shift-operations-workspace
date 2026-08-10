@@ -41,7 +41,7 @@ def has(result: set[str], prefix: str) -> bool:
 
 
 def test_repository_pack_passes_with_exact_eligible_set() -> None:
-    result = validate_pack(ROOT, today=date(2026, 8, 3))
+    result = validate_pack(ROOT, today=date(2026, 8, 10))
     assert result.ok
     assert set(result.eligible) == DOCS
 
