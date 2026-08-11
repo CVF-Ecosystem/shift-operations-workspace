@@ -9,6 +9,7 @@ principal, transaction order, one-unit reuse), F2 (stage ordering), RR1-F1
 from __future__ import annotations
 
 import ast
+import base64
 import sys
 from datetime import timedelta
 from pathlib import Path
@@ -86,12 +87,32 @@ def test_require_action_still_fails_closed_for_unknown_actions() -> None:
 # --- F1: forged/unverified principal is rejected; only a verified bearer
 # token is ever trusted ---
 
+def _b64url_decode(segment: str) -> bytes:
+    return base64.urlsafe_b64decode(segment + "=" * (-len(segment) % 4))
+
+
+def _flip_decoded_signature_byte(token: str) -> str:
+    """Amendment 1 (SOPR-CP1-A1): the JWT's final base64url character encodes
+    only unused padding bits for a 32-byte HS256 signature, so the original
+    `token[:-1] + "A"/"B"` mutation could change the text while leaving the
+    decoded signature bytes identical. This flips a real decoded byte."""
+    header_b64, payload_b64, signature_b64 = token.split(".")
+    sig = bytearray(_b64url_decode(signature_b64))
+    sig[0] ^= 0xFF
+    tampered_b64 = base64.urlsafe_b64encode(bytes(sig)).rstrip(b"=").decode("ascii")
+    return f"{header_b64}.{payload_b64}.{tampered_b64}"
+
+
 def test_forged_or_tampered_credential_is_rejected_not_trusted() -> None:
     """F1: any non-verified credential (forged, empty, garbage, or a real
     token with a byte-flipped signature) is refused at AUTHENTICATED."""
     ws = AssignedWorkspace()
     token = ws.bearer_token()
-    tampered = token[:-1] + ("A" if token[-1] != "A" else "B")
+    tampered = _flip_decoded_signature_byte(token)
+    assert tampered != token, "tampered token text must differ from the original"
+    assert _b64url_decode(tampered.split(".")[2]) != _b64url_decode(token.split(".")[2]), (
+        "tampered token must decode to different signature bytes, not just different text"
+    )
     body = request_body(shift_ids=(str(ws.shift.shift_id),))
     for forged in ("not-a-real-jwt", "", "op1:viewer", "Bearer op1", tampered):
         result = execute_governed_retrieval(

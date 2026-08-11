@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "active_continuity_read_cost_t3_closed_bounded_parked",
-  "activeHandoff": "SESSION/handoffs/T3_ACTIVE_CONTINUITY_READ_COST_2026-08-11.md",
-  "nextAllowedMove": "ACRC-T3 is CLOSED_BOUNDED after independent review. Return to the private CVF Core for separate roadmap/session closure sync. Do not open another downstream project lane without fresh authority; see SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full current text.",
-  "parkedOperatorCheckpoint": "ACRC_T3_CLOSED_BOUNDED_NO_DOWNSTREAM_REOPEN_WITHOUT_FRESH_AUTHORITY",
+  "currentMode": "shift_operations_core_pin_reconciliation_closed_bounded_parked",
+  "activeHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
+  "nextAllowedMove": "SOPR-CP1 core-pin reconciliation is CLOSED_BOUNDED / REVIEWER_ACCEPTED. Manifest and AGENTS carrier pin exact hidden public Core commit 2103a38fda01ee827e9fc6c3be38a824fa5d54ad. Return to the private CVF Core for separate closure/session synchronization; see SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full current text.",
+  "parkedOperatorCheckpoint": "SOPR_CP1_CLOSED_BOUNDED_NO_DOWNSTREAM_LANE_AUTHORIZED",
   "requiredReads": [
-    "SESSION/handoffs/T3_ACTIVE_CONTINUITY_READ_COST_2026-08-11.md",
+    "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
     "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
     "SESSION/SESSION_MEMORY.md",
     "SESSION/handoffs/AGENT_HANDOFF_2026-08-10_P4A1_GOVERNED_RETRIEVAL_CLOSURE.md",
@@ -21,7 +21,8 @@
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
-    "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json"
+    "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
+    "priorActiveHandoff": "SESSION/handoffs/T3_ACTIVE_CONTINUITY_READ_COST_2026-08-11.md"
   },
   "updatedAt": "2026-08-11"
 }
