@@ -45,15 +45,25 @@ Before performing ANY action on this project, you MUST:
 
 4. Read each document listed in `requiredDocs`.
 
-5. Resolve project continuity in this order (this project predates the newer
+5. Resolve project continuity progressively (this project predates the newer
    naming convention; `CVF_SESSION/ACTIVE_SESSION_STATE.json` is only a
    compatibility mirror):
-   - `SESSION/SESSION_MEMORY.md` (canonical session memory)
-   - `SESSION/ACTIVE_SESSION_STATE.json` (canonical machine-readable state)
-   - the active handoff named there, under `SESSION/handoffs/`
-   - `IMPLEMENTATION_STATUS.json`
-   - `docs/INDEX.md`
-   - `docs/implementation/EXECUTION_ROADMAP.md`
+   - Read `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json` first. It is a
+     compact current-state projection (schemaVersion, canonicalSource,
+     currentMode, activeHandoff, nextAllowedMove, parkedOperatorCheckpoint,
+     requiredReads, historyIndex, updatedAt) bounded to at most 4096 bytes.
+   - Read `SESSION/SESSION_MEMORY.md` (canonical session memory, current
+     pointers only) and `SESSION/ACTIVE_SESSION_STATE.json` (canonical
+     machine-readable state, at most 12 current `required_reads`) - these
+     remain the source of truth if they ever disagree with the bootstrap.
+   - Read the active handoff named there, under `SESSION/handoffs/`.
+   - Read `IMPLEMENTATION_STATUS.json`, `docs/INDEX.md`, and
+     `docs/implementation/EXECUTION_ROADMAP.md`.
+   - Only when a current fact is missing, contradictory, or the task
+     explicitly requires historical evidence, follow the canonical state's
+     `history_index` pointers to the full byte-exact archives under
+     `SESSION/archive/`. Full state/history is a targeted lookup, not a
+     default startup read.
 
 6. Declare your operating context before your first substantive action:
 
@@ -84,10 +94,11 @@ again before material work whenever any of these triggers occurs:
 - responsibility moves to another agent or role;
 - the active state or active handoff changed since the last acknowledgment.
 
-At every trigger, re-read `SESSION/SESSION_MEMORY.md`,
-`SESSION/ACTIVE_SESSION_STATE.json`, the active handoff named there,
-`IMPLEMENTATION_STATUS.json`, and `docs/INDEX.md`. Do not rely on chat history,
-provider-local memory, or a previous session declaration as a substitute.
+At every trigger, re-read `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`,
+`SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json`, the active
+handoff named there, `IMPLEMENTATION_STATUS.json`, and `docs/INDEX.md`.
+Do not rely on chat history, provider-local memory, or a previous session
+declaration as a substitute.
 
 Before the first material action in that session or tranche, emit a fresh
 `CVF Agent Declaration` using current file values. For a tranche transition,
@@ -203,8 +214,10 @@ Before taking action, read:
 3. `../WORKSPACE_RULES.md` — workspace container and isolation rules
 4. `docs/CVF_BOOTSTRAP_LOG_2026-07-22.md` and the latest
    `docs/CVF_BOOTSTRAP_LOG_*.md` - reconciliation records
-5. `SESSION/SESSION_MEMORY.md` and `SESSION/ACTIVE_SESSION_STATE.json` -
-   canonical project continuity
+5. `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json` - compact current-state
+   projection, read first; `SESSION/SESSION_MEMORY.md` and
+   `SESSION/ACTIVE_SESSION_STATE.json` - canonical project continuity, source
+   of truth if it ever disagrees with the bootstrap
 6. `<cvfCorePath>/AGENT_HANDOFF.md` - public-core continuation
 7. `<cvfCorePath>/AGENTS.md` - public-core governance rules
 8. `knowledge/` folder when project context is required

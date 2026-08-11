@@ -130,3 +130,90 @@ def test_canonical_top_level_handoff_drift_is_detected(isolated_checker):
     canonical["active_handoff"] = "SESSION/handoffs/AGENT_HANDOFF_2026-07-22_P2A_CUSTOMER_REQUEST.md"
     problems = module.verify_mirror_drift(canonical)
     assert any("activeHandoff" in p and "canonical continuity drift" in p for p in problems)
+
+
+def test_bootstrap_check_passes_on_unmodified_repository(isolated_checker):
+    """T3: the real committed bootstrap must validate against the real canonical state."""
+    module, canonical, _ = isolated_checker
+    problems = module.verify_bootstrap(canonical)
+    assert problems == [], problems
+
+
+def test_bootstrap_check_fails_when_bootstrap_is_missing(isolated_checker, monkeypatch):
+    module, canonical, _ = isolated_checker
+    monkeypatch.setattr(module, "BOOTSTRAP_PATH", module.REPO_ROOT / "SESSION" / "does_not_exist.json")
+    problems = module.verify_bootstrap(canonical)
+    assert any("missing required bootstrap read model" in p for p in problems)
+
+
+def test_bootstrap_check_fails_when_oversized(isolated_checker, monkeypatch, tmp_path):
+    module, canonical, _ = isolated_checker
+    real = json.loads(module.BOOTSTRAP_PATH.read_text(encoding="utf-8"))
+    real["padding"] = "x" * module.MAX_BOOTSTRAP_BYTES
+    oversized = tmp_path / "bootstrap.json"
+    oversized.write_text(json.dumps(real), encoding="utf-8")
+    monkeypatch.setattr(module, "BOOTSTRAP_PATH", oversized)
+    problems = module.verify_bootstrap(canonical)
+    assert any("exceeds size budget" in p for p in problems)
+
+
+def test_bootstrap_check_fails_when_required_reads_drift_from_canonical(isolated_checker, monkeypatch, tmp_path):
+    module, canonical, _ = isolated_checker
+    real = json.loads(module.BOOTSTRAP_PATH.read_text(encoding="utf-8"))
+    real["requiredReads"] = ["SESSION/SESSION_MEMORY.md"]
+    drifted = tmp_path / "bootstrap.json"
+    drifted.write_text(json.dumps(real), encoding="utf-8")
+    monkeypatch.setattr(module, "BOOTSTRAP_PATH", drifted)
+    problems = module.verify_bootstrap(canonical)
+    assert any("requiredReads does not match canonical" in p for p in problems)
+
+
+def test_bootstrap_check_fails_when_required_reads_exceed_budget(isolated_checker, monkeypatch, tmp_path):
+    module, canonical, _ = isolated_checker
+    real = json.loads(module.BOOTSTRAP_PATH.read_text(encoding="utf-8"))
+    real["requiredReads"] = real["requiredReads"] + ["SESSION/SESSION_MEMORY.md"] * 5
+    over_budget = tmp_path / "bootstrap.json"
+    over_budget.write_text(json.dumps(real), encoding="utf-8")
+    monkeypatch.setattr(module, "BOOTSTRAP_PATH", over_budget)
+    problems = module.verify_bootstrap(canonical)
+    assert any("exceeds budget" in p for p in problems)
+
+
+def test_required_reads_over_budget_is_detected(isolated_checker, monkeypatch, tmp_path):
+    """Canonical required_reads must stay at or under the 12-entry T3 ceiling."""
+    module, canonical, _ = isolated_checker
+    canonical["required_reads"] = canonical["required_reads"] + ["AGENTS.md"] * 5
+    over_budget = tmp_path / "ACTIVE_SESSION_STATE.json"
+    over_budget.write_text(json.dumps(canonical), encoding="utf-8")
+    monkeypatch.setattr(module, "STATE_PATH", over_budget)
+    problems = module.verify()
+    assert any("required_reads exceeds budget" in p for p in problems)
+
+
+def test_history_index_missing_archive_pointer_is_detected(isolated_checker):
+    module, canonical, _ = isolated_checker
+    problems = module._verify_history_index({"broken": "SESSION/archive/does_not_exist.md"}, "history_index")
+    assert any("points at missing archive file" in p for p in problems)
+
+
+def test_history_index_note_key_is_not_treated_as_a_pointer(isolated_checker):
+    """Regression: the human-readable 'note' field must never be resolved as a file path."""
+    module, _, _ = isolated_checker
+    problems = module._verify_history_index(
+        {"note": "free text explaining the archive, not a path"}, "history_index"
+    )
+    assert problems == []
+
+
+def test_history_index_empty_is_detected(isolated_checker):
+    module, _, _ = isolated_checker
+    problems = module._verify_history_index({}, "history_index")
+    assert any("missing or empty" in p for p in problems)
+
+
+def test_full_verify_passes_on_unmodified_repository(isolated_checker):
+    """End-to-end: verify() must PASS against the real, current committed continuity
+    files (canonical state, mirror, bootstrap, memory, archives all agree)."""
+    module, _, _ = isolated_checker
+    problems = module.verify()
+    assert problems == [], problems

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-08-10",
+  "reviewedAt": "2026-08-11",
   "entries": [
     {
       "id": "project-context",
@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "afab67dfd75b65e74c49d24e2de2721c0dcbd72d910fb52712375ca1b31b1ee1"
+          "sha256": "98e78b46f1467757629c37fd4e21ecda1a23dc79d3aed535b23aadbb8a21b80c"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
@@ -30,7 +30,7 @@
           "sha256": "84ecbd3451b50a1d0385279d1e1dac11c6acb5cb748866b6a638a8df13ac2fca"
         }
       ],
-      "reviewedAt": "2026-08-10",
+      "reviewedAt": "2026-08-11",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -107,11 +107,11 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "a29efc0f7a79d659a8982ec5f391b0bbcd9d588891299658ce894e15d0b9e7a0"
+          "sha256": "ce358a2be211404184dbc979365549832530b4cc051d47217bacae48865c0f3f"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "617bb281aea622790c30b2e65204f7fa7b4d3a5923b8ca3a0995daa051fa1867"
+          "sha256": "955fe3cf98db1be1d9137722ce4d0f3e54112f0323b66468c2da23835eca90a7"
         },
         {
           "path": ".cvf/policy.json",
@@ -134,7 +134,7 @@
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-08-03",
+      "reviewedAt": "2026-08-11",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

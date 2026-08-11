@@ -20,6 +20,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = REPO_ROOT / "SESSION" / "ACTIVE_SESSION_STATE.json"
 MIRROR_PATH = REPO_ROOT / "CVF_SESSION" / "ACTIVE_SESSION_STATE.json"
+BOOTSTRAP_PATH = REPO_ROOT / "SESSION" / "ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json"
+MEMORY_PATH = REPO_ROOT / "SESSION" / "SESSION_MEMORY.md"
+
+MAX_REQUIRED_READS = 12
+MAX_BOOTSTRAP_BYTES = 4096
+MAX_MEMORY_BYTES = 4096
+_BOOTSTRAP_REQUIRED_FIELDS = (
+    "schemaVersion", "canonicalSource", "currentMode", "activeHandoff",
+    "nextAllowedMove", "parkedOperatorCheckpoint", "requiredReads",
+    "historyIndex", "updatedAt",
+)
 
 # CVF_SESSION/ACTIVE_SESSION_STATE.json is a non-canonical compatibility
 # mirror (see docs/CVF_BOOTSTRAP_LOG_2026-07-22.md and that file's own
@@ -148,6 +159,79 @@ def verify_mirror_drift(canonical: dict) -> list[str]:
     return problems
 
 
+def verify_bootstrap(canonical: dict) -> list[str]:
+    """Bootstrap read model must exist, be small, valid JSON, complete, and
+    agree with the canonical required_reads list (same paths, <=12, no dup)."""
+    problems: list[str] = []
+
+    if not BOOTSTRAP_PATH.is_file():
+        return ["missing required bootstrap read model: SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json"]
+
+    raw = BOOTSTRAP_PATH.read_bytes()
+    if len(raw) > MAX_BOOTSTRAP_BYTES:
+        problems.append(f"bootstrap exceeds size budget: {len(raw)} bytes > {MAX_BOOTSTRAP_BYTES}")
+
+    try:
+        bootstrap = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        problems.append(f"bootstrap is not valid UTF-8 JSON: {exc}")
+        return problems
+
+    if not isinstance(bootstrap, dict):
+        return problems + ["bootstrap root must be a JSON object"]
+
+    for field in _BOOTSTRAP_REQUIRED_FIELDS:
+        if field not in bootstrap:
+            problems.append(f"bootstrap missing required field: {field!r}")
+
+    if bootstrap.get("canonicalSource") != "SESSION/ACTIVE_SESSION_STATE.json":
+        problems.append(
+            "bootstrap drift: canonicalSource="
+            f"{bootstrap.get('canonicalSource')!r}, expected "
+            "'SESSION/ACTIVE_SESSION_STATE.json'"
+        )
+
+    for field in ("currentMode", "activeHandoff"):
+        canonical_field = "mode" if field == "currentMode" else "active_handoff"
+        if bootstrap.get(field) != canonical.get(canonical_field):
+            problems.append(
+                f"bootstrap drift: {field!r} mismatch - bootstrap="
+                f"{bootstrap.get(field)!r}, canonical ({canonical_field})="
+                f"{canonical.get(canonical_field)!r}"
+            )
+
+    bootstrap_reads = bootstrap.get("requiredReads")
+    if isinstance(bootstrap_reads, list):
+        if len(bootstrap_reads) > MAX_REQUIRED_READS:
+            problems.append(f"bootstrap requiredReads exceeds budget: {len(bootstrap_reads)} > {MAX_REQUIRED_READS}")
+        if len(set(bootstrap_reads)) != len(bootstrap_reads):
+            problems.append("bootstrap requiredReads contains duplicates")
+        if list(bootstrap_reads) != list(canonical.get("required_reads", [])):
+            problems.append("bootstrap drift: requiredReads does not match canonical required_reads")
+    else:
+        problems.append("bootstrap requiredReads must be a list")
+
+    problems.extend(_verify_history_index(bootstrap.get("historyIndex"), "bootstrap historyIndex"))
+
+    return problems
+
+
+_HISTORY_INDEX_NON_POINTER_KEYS = {"note"}
+
+
+def _verify_history_index(history_index, label: str) -> list[str]:
+    """Pointer values (any key except 'note') must resolve to files on disk."""
+    if not isinstance(history_index, dict) or not history_index:
+        return [f"{label} is missing or empty (no archive pointers recorded)"]
+    problems: list[str] = []
+    for key, pointer in history_index.items():
+        if key in _HISTORY_INDEX_NON_POINTER_KEYS:
+            continue
+        if not isinstance(pointer, str) or not (REPO_ROOT / pointer).is_file():
+            problems.append(f"{label} points at missing archive file: {pointer!r}")
+    return problems
+
+
 def verify() -> list[str]:
     problems: list[str] = []
 
@@ -168,6 +252,10 @@ def verify() -> list[str]:
     required = state.get("required_reads", [])
     if not required:
         problems.append("required_reads is empty")
+    if len(required) > MAX_REQUIRED_READS:
+        problems.append(f"required_reads exceeds budget: {len(required)} > {MAX_REQUIRED_READS}")
+    if len(set(required)) != len(required):
+        problems.append("required_reads contains duplicates")
     for rel in required:
         if not (REPO_ROOT / rel).exists():
             problems.append(f"required_reads missing on disk: {rel}")
@@ -178,11 +266,15 @@ def verify() -> list[str]:
     if not state.get("blocked_work"):
         problems.append("blocked_work is empty (no guardrails recorded)")
 
-    # SESSION_MEMORY companion should exist alongside the machine state.
-    if not (REPO_ROOT / "SESSION" / "SESSION_MEMORY.md").is_file():
+    # SESSION_MEMORY companion should exist and stay within its byte budget.
+    if not MEMORY_PATH.is_file():
         problems.append("missing: SESSION/SESSION_MEMORY.md")
+    elif MEMORY_PATH.stat().st_size > MAX_MEMORY_BYTES:
+        problems.append(f"SESSION/SESSION_MEMORY.md exceeds size budget: {MEMORY_PATH.stat().st_size} bytes > {MAX_MEMORY_BYTES}")
 
+    problems.extend(_verify_history_index(state.get("history_index"), "history_index"))
     problems.extend(verify_mirror_drift(state))
+    problems.extend(verify_bootstrap(state))
 
     return problems
 
