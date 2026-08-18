@@ -1,17 +1,17 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "shift_operations_core_pin_reconciliation_closed_bounded_parked",
-  "activeHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
-  "nextAllowedMove": "SOPR-CP1 core-pin reconciliation is CLOSED_BOUNDED / REVIEWER_ACCEPTED. Manifest and AGENTS carrier pin exact hidden public Core commit 2103a38fda01ee827e9fc6c3be38a824fa5d54ad. Return to the private CVF Core for separate closure/session synchronization; see SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full current text.",
-  "parkedOperatorCheckpoint": "SOPR_CP1_CLOSED_BOUNDED_NO_DOWNSTREAM_LANE_AUTHORIZED",
+  "currentMode": "p3b_gate_wiring_intake_review_pending",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
+  "nextAllowedMove": "P3-B gate-wiring INTAKE is OPEN_FOR_INTAKE_REVIEW; see SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full current text.",
+  "parkedOperatorCheckpoint": "P3B_INTAKE_OPEN_NO_DESIGN_AUTHORITY_YET",
   "requiredReads": [
-    "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
+    "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
+    "docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md",
     "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-08-10_P4A1_GOVERNED_RETRIEVAL_CLOSURE.md",
-    "SESSION/handoffs/AGENT_HANDOFF_2026-08-10_P4A1_GOVERNED_RETRIEVAL_WORK_ORDER.md",
-    "docs/decisions/P4A1_GOVERNED_RETRIEVAL_WORK_ORDER_AUTHORIZATION_REVIEW.md",
+    "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
+    "docs/decisions/INTAKE_2026-08-10_P4A1_GOVERNED_RETRIEVAL.md",
     "IMPLEMENTATION_STATUS.json",
     "AGENTS.md",
     ".cvf/manifest.json",
@@ -22,7 +22,7 @@
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "priorActiveHandoff": "SESSION/handoffs/T3_ACTIVE_CONTINUITY_READ_COST_2026-08-11.md"
+    "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-11"
+  "updatedAt": "2026-08-18"
 }
