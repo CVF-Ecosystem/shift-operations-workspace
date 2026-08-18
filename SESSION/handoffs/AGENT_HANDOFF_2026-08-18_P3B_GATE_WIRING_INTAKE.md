@@ -5,8 +5,8 @@
 - Branch: `main`
 - Intake execution base: `da85889`
 - Current phase: `INTAKE`
-- Current mode: `p3b_gate_wiring_intake_review_pass_design_pending`
-- Active role: `DESIGN_AUTHOR`
+- Current mode: `p3b_option_b_claim_boundary_correction_closed_bounded`
+- Active role: `CLOSER` (tranche closed)
 - Risk: `R2`
 - Provider/product-API/POST calls in this intake: `0/0/0`
 - Runtime/database/source changes: `NONE`
@@ -23,11 +23,18 @@ Frozen SHA-256:
 
 `d2b825b9629d63873f218aeddc728b5ba3d10f322a662e67a4a892e5aec59b33`
 
-Status is `INTAKE_REVIEW_PASS` (see
-`docs/decisions/INTAKE_2026-08-18_P3B_INDEPENDENT_REVIEW.md`, findings NONE).
-This handoff grants `DESIGN_AUTHOR` authority to open DESIGN on the Option
-A/B packet. No SPEC, WORK_ORDER, BUILD, provider, network, database, product
-API or runtime authority exists.
+Status is **`CLOSED_BOUNDED`**. The full control chain executed on
+`2026-08-18`:
+
+| Phase | Artifact | Outcome |
+| --- | --- | --- |
+| INTAKE | `docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md` | `INTAKE_REVIEW_PASS`, findings NONE |
+| DESIGN | `docs/decisions/DESIGN_2026-08-18_P3B_OPTION_B_CLAIM_BOUNDARY_CORRECTION.md` | `DESIGN_REVIEW_PASS`, `P3B-DESIGN-F1` closed no waiver |
+| BUILD/REVIEW/FREEZE | `docs/decisions/BUILD_2026-08-18_P3B_OPTION_B_REVIEW_AND_CLOSURE.md` | `REVIEW_PASS`, `P3B-BUILD-F1` closed no waiver |
+
+Operator selected **Option B** on `2026-08-18`: P3-B recorded as
+`BLOCKED_PENDING_P4A_AUTHORITY`; **Phase 4 was not opened**. No further
+governed move is authorized without fresh operator authority.
 
 ## Canonical source chain
 
