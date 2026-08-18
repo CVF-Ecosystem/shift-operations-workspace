@@ -5,8 +5,8 @@
 - Branch: `main`
 - Intake execution base: `da85889`
 - Current phase: `INTAKE`
-- Current mode: `p3b_gate_wiring_intake_review_pending`
-- Active role: `INDEPENDENT_INTAKE_REVIEWER`
+- Current mode: `p3b_gate_wiring_intake_review_pass_design_pending`
+- Active role: `DESIGN_AUTHOR`
 - Risk: `R2`
 - Provider/product-API/POST calls in this intake: `0/0/0`
 - Runtime/database/source changes: `NONE`
@@ -23,9 +23,11 @@ Frozen SHA-256:
 
 `d2b825b9629d63873f218aeddc728b5ba3d10f322a662e67a4a892e5aec59b33`
 
-Status is `OPEN_FOR_INTAKE_REVIEW`. This handoff grants independent INTAKE
-review only. No DESIGN, SPEC, WORK_ORDER, BUILD, provider, network, database,
-product API or runtime authority exists.
+Status is `INTAKE_REVIEW_PASS` (see
+`docs/decisions/INTAKE_2026-08-18_P3B_INDEPENDENT_REVIEW.md`, findings NONE).
+This handoff grants `DESIGN_AUTHOR` authority to open DESIGN on the Option
+A/B packet. No SPEC, WORK_ORDER, BUILD, provider, network, database, product
+API or runtime authority exists.
 
 ## Canonical source chain
 

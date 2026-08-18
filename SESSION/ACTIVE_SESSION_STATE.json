@@ -2,16 +2,16 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p3b_gate_wiring_intake_review_pending",
+  "mode": "p3b_gate_wiring_intake_review_pass_design_pending",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
   "last_updated": "2026-08-18",
   "required_reads": [
     "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
     "docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md",
+    "docs/decisions/INTAKE_2026-08-18_P3B_INDEPENDENT_REVIEW.md",
     "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
     "SESSION/SESSION_MEMORY.md",
     "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
-    "docs/decisions/INTAKE_2026-08-10_P4A1_GOVERNED_RETRIEVAL.md",
     "IMPLEMENTATION_STATUS.json",
     "AGENTS.md",
     ".cvf/manifest.json",
@@ -20,7 +20,7 @@
     "docs/INDEX.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P3-B gate-wiring INTAKE is OPEN_FOR_INTAKE_REVIEW at docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md (SHA-256 d2b825b9629d63873f218aeddc728b5ba3d10f322a662e67a4a892e5aec59b33). It frames two DESIGN options (open a minimal P4-A slice as a real call site, or re-word the roadmap so P3-B is not independently closeable) without pre-deciding between them. Obtain one consolidated independent INTAKE review; only INTAKE_REVIEW_PASS may transfer authority to DESIGN_AUTHOR. SOPR-CP1 core-pin reconciliation remains CLOSED_BOUNDED / REVIEWER_ACCEPTED and pushed to origin/main. All other downstream lanes (P4-A2, LPCI1-REF, provider/RAG/vector, durable audit/persistence, API/UI/deployment, operational digest owners) remain parked pending their own fresh authority.",
+  "next_allowed_move": "P3-B gate-wiring INTAKE received independent review INTAKE_REVIEW_PASS (docs/decisions/INTAKE_2026-08-18_P3B_INDEPENDENT_REVIEW.md, findings NONE). The bounded Option A (open a minimal P4-A slice as a real call site) vs Option B (re-word roadmap so P3-B is not independently closeable) decision packet at docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md now transfers to DESIGN_AUTHOR. No SPEC, WORK_ORDER, BUILD, provider, network, database or product API authority exists yet. SOPR-CP1 core-pin reconciliation remains CLOSED_BOUNDED / REVIEWER_ACCEPTED and pushed to origin/main. All other downstream lanes (P4-A2, LPCI1-REF, provider/RAG/vector, durable audit/persistence, API/UI/deployment, operational digest owners) remain parked pending their own fresh authority.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Opening any downstream project lane after SOPR-CP1 closure without fresh authority (SOPR_CP1_CLOSED_BOUNDED_NO_DOWNSTREAM_LANE_AUTHORIZED).",
@@ -37,18 +37,18 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p3b_gate_wiring_intake_review_pending",
+    "currentMode": "p3b_gate_wiring_intake_review_pass_design_pending",
     "activePhase": "INTAKE",
-    "activePhaseNote": "P3-B gate-wiring INTAKE (data_scope/cost/termination) is OPEN_FOR_INTAKE_REVIEW. It documents that no real AI call site exists in this codebase (ai-gateway is scaffold-only, governed-retrieval/P4-A1 is deliberately provider-free) and frames two DESIGN options without pre-deciding: open a minimal P4-A slice, or re-word the roadmap so P3-B is not independently closeable. SOPR-CP1 and Amendment 1 remain CLOSED_BOUNDED / REVIEWER_ACCEPTED and pushed to origin/main. ACRC-T3 and P4-A1 accepted closure truth remain unchanged.",
+    "activePhaseNote": "P3-B gate-wiring INTAKE (data_scope/cost/termination) received independent review INTAKE_REVIEW_PASS with zero findings. It documents that no real AI call site exists in this codebase (ai-gateway is scaffold-only, governed-retrieval/P4-A1 is deliberately provider-free) and frames two DESIGN options without pre-deciding: open a minimal P4-A slice, or re-word the roadmap so P3-B is not independently closeable. DESIGN_AUTHOR may now open DESIGN. SOPR-CP1 and Amendment 1 remain CLOSED_BOUNDED / REVIEWER_ACCEPTED and pushed to origin/main. ACRC-T3 and P4-A1 accepted closure truth remain unchanged.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly. Rotates forward from CORE_PIN_RECONCILIATION_2026-08-11.md, retained as a history pointer.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "P3B_INTAKE_OPEN_NO_DESIGN_AUTHORITY_YET",
-    "activeRole": "INDEPENDENT_INTAKE_REVIEWER",
-    "activeRoleNote": "Next role must independently review the frozen P3-B INTAKE artifact against current project source and return one disposition (INTAKE_REVIEW_PASS / INTAKE_REVIEW_CHANGES_REQUIRED / INTAKE_BLOCKED_SOURCE_OR_OWNER). Only PASS transfers authority to DESIGN_AUTHOR.",
-    "roleRoute": "SOPR_CP1_CLOSER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER",
+    "parkedOperatorCheckpoint": "P3B_INTAKE_PASSED_DESIGN_NOT_YET_OPENED",
+    "activeRole": "DESIGN_AUTHOR",
+    "activeRoleNote": "INTAKE_REVIEW_PASS transferred the Option A/B decision packet to DESIGN_AUTHOR. DESIGN must choose between Option A (open a minimal, explicitly-scoped P4-A slice as a real call site) and Option B (re-word the roadmap so P3-B is not independently closeable) and resolve the twelve decisions listed in the INTAKE if Option A is selected.",
+    "roleRoute": "SOPR_CP1_CLOSER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_DESIGN_AUTHOR",
     "updatedAt": "2026-08-18"
   }
 }
