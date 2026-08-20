@@ -2,7 +2,7 @@
 
 - Record class: `PLANNING_POINTER`
 - Date: `2026-08-10`
-- Status: `P4A1_CLOSED_BOUNDED_REFERENCE_LANE_PARKED`
+- Status: `P4A_PROJECT_NATIVE_ALTERNATIVE_APPROVED_LPCI1_REF_REMAINS_PARKED`
 - Owning project: `shift-operations-workspace`
 - Runtime authority: `NONE`
 - Provider/network authority: `NONE`
@@ -47,6 +47,19 @@ P4-A1 deterministic provider-free retrieval is now `CLOSED_BOUNDED` without
 LPCI1-REF closure. P4-A and P4-A2 DESIGN remain parked and must not open until
 accepted LPCI1-REF evidence is available or a fresh operator-approved
 alternative reference plan explicitly replaces the entry gate.
+
+## P4-A alternative disposition — 2026-08-20
+
+The operator opened P4-A and delegated the bounded reference-plan decision to
+the acting project orchestrator. For `P4A-AI-GATEWAY-2026-08-20`, the
+orchestrator approved a project-native plan based only on the reviewed local
+P4-A1 contracts/receipts, the pinned public CVF Core as read-only governance
+guidance, and existing secret-safe live-evidence patterns. This explicitly
+replaces the `LPCI1-REF` entry gate for P4-A only.
+
+`LPCI1-REF` itself remains unexecuted and requires separate CVF authority. The
+replacement imports no external repository code, truth, configuration,
+deployment, database, or secret, and it does not apply to P4-A2.
 
 ## Repository boundary
 
