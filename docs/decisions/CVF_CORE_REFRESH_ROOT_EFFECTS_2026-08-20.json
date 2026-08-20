@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "1.0",
+  "tranche": "CVF-CORE-REFRESH-2026-08-20",
+  "frozenTarget": "7d9f360a3df11ac998972728000785799399c02b",
+  "timestamps": {
+    "preimage": "2026-08-20T11:36:30+07:00",
+    "reconciliation": "2026-08-20T11:36:41+07:00"
+  },
+  "workspaceRoot": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace",
+  "preimageRoot": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\workspace-root-preimages-20260820-113630",
+  "coreBackup": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\.Controlled-Vibe-Framework-CVF-20260820-113641",
+  "beforeCoreHead": "2103a38fda01ee827e9fc6c3be38a824fa5d54ad",
+  "afterCoreHead": "7d9f360a3df11ac998972728000785799399c02b",
+  "afterOriginMain": "7d9f360a3df11ac998972728000785799399c02b",
+  "manifestPin": "7d9f360a3df11ac998972728000785799399c02b",
+  "bindingBefore": "27137db4d9aa2aea931ddd2507185d5c24943080",
+  "bindingAfter": "7d9f360a3df11ac998972728000785799399c02b",
+  "bindingIgnored": true,
+  "activeProfileBeforeAfter": "operator-local",
+  "allowedNetworkOperations": [
+    {
+      "operation": "git clone",
+      "endpoint": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git",
+      "credentialUsed": false,
+      "observedTip": "7d9f360a3df11ac998972728000785799399c02b"
+    },
+    {
+      "operation": "git fetch origin main",
+      "endpoint": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git",
+      "credentialUsed": false,
+      "observedTip": "7d9f360a3df11ac998972728000785799399c02b"
+    }
+  ],
+  "before": [
+    {"path":"WORKSPACE_RULES.md","existed":true,"sha256":"6a4c406d823e9615fcdba0055bd07b101d68dccbfca335ff61009865d28206d2"},
+    {"path":"New-CVF-Governed-Project.ps1","existed":true,"sha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1"},
+    {"path":"Run-CVF-NewProject-Enforcement.ps1","existed":true,"sha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f"},
+    {"path":"Update-CVF-Workspace.ps1","existed":true,"sha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77"},
+    {"path":"Update-CVF-Workspace-Public-Profile.ps1","existed":true,"sha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee"},
+    {"path":"Test-CVF-Workspace.ps1","existed":true,"sha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41"},
+    {"path":"Repair-CVF-Workspace.ps1","existed":true,"sha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b"},
+    {"path":"Manage-CVF-Workspace.ps1","existed":true,"sha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c"},
+    {"path":".agents/workflows/cvf-onboard.md","existed":true,"sha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80"},
+    {"path":".agents/workflows/pre-commit-check.md","existed":true,"sha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039"},
+    {"path":"CVF_WORKSPACE_USER_GUIDE.md","existed":true,"sha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1"},
+    {"path":"CVF_WORKSPACE_HUONG_DAN_SU_DUNG.md","existed":true,"sha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4"},
+    {"path":"CVF_WORKSPACE_CLASSIFICATION_GUIDE.md","existed":true,"sha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360"},
+    {"path":"WORKSPACE_PROJECT_ENFORCEMENT_BASELINE.json","existed":true,"sha256":"c7e5889b6ffa25ad09abbb0ca688df84957b5bef02f04d13ed5a5c26209fde2f"},
+    {"path":"Get-CVF-Workspace-OverlayProfiles.ps1","existed":false,"sha256":null},
+    {"path":"Update-CVF-Workspace-Overlay.ps1","existed":false,"sha256":null},
+    {"path":"CVF_WORKSPACE_OVERLAY_STATUS.json","existed":false,"sha256":null}
+  ],
+  "after": [
+    {"path":"WORKSPACE_RULES.md","existed":true,"sha256":"afa9fd680cc21c487f4d59a6ea8bbf4a106205ab356e680c810ff97200f95f2f"},
+    {"path":"New-CVF-Governed-Project.ps1","existed":true,"sha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1"},
+    {"path":"Run-CVF-NewProject-Enforcement.ps1","existed":true,"sha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f"},
+    {"path":"Update-CVF-Workspace.ps1","existed":true,"sha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77"},
+    {"path":"Update-CVF-Workspace-Public-Profile.ps1","existed":true,"sha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee"},
+    {"path":"Test-CVF-Workspace.ps1","existed":true,"sha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41"},
+    {"path":"Repair-CVF-Workspace.ps1","existed":true,"sha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b"},
+    {"path":"Manage-CVF-Workspace.ps1","existed":true,"sha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c"},
+    {"path":".agents/workflows/cvf-onboard.md","existed":true,"sha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80"},
+    {"path":".agents/workflows/pre-commit-check.md","existed":true,"sha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039"},
+    {"path":"CVF_WORKSPACE_USER_GUIDE.md","existed":true,"sha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1"},
+    {"path":"CVF_WORKSPACE_HUONG_DAN_SU_DUNG.md","existed":true,"sha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4"},
+    {"path":"CVF_WORKSPACE_CLASSIFICATION_GUIDE.md","existed":true,"sha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360"},
+    {"path":"WORKSPACE_PROJECT_ENFORCEMENT_BASELINE.json","existed":true,"sha256":"c7e5889b6ffa25ad09abbb0ca688df84957b5bef02f04d13ed5a5c26209fde2f"},
+    {"path":"Get-CVF-Workspace-OverlayProfiles.ps1","existed":false,"sha256":null},
+    {"path":"Update-CVF-Workspace-Overlay.ps1","existed":false,"sha256":null},
+    {"path":"CVF_WORKSPACE_OVERLAY_STATUS.json","existed":false,"sha256":null}
+  ],
+  "commands": [
+    {"name":"sanctioned reconciler","exitCode":0},
+    {"name":"scripts/initialize_cvf_clone.ps1","exitCode":0},
+    {"name":"workspace doctor via initializer","exitCode":0,"result":"PASS WITH NOTE (24 passed, 1 bounded warning)"},
+    {"name":"python scripts/check_session_state.py","exitCode":0},
+    {"name":"python scripts/check_project_knowledge.py","exitCode":0,"repair":"refreshed stale roadmap source pin inside already-authorized knowledge/manifest.json"},
+    {"name":"python scripts/check_file_size.py","exitCode":0},
+    {"name":"python scripts/testing/validate_repository.py","exitCode":0},
+    {"name":"exact json.loads parse over 8 named JSON files","exitCode":0},
+    {"name":"git diff --check","exitCode":0},
+    {"name":"workspace doctor final worker run","exitCode":0,"result":"PASS WITH NOTE (24 passed, 1 bounded warning)"},
+    {"name":"exact 17-path and staged-zero comparison","exitCode":0},
+    {"name":"four-way Core/origin/manifest/binding equality","exitCode":0}
+  ],
+  "rollback": {"triggered":false,"reason":"all frozen-target and post-reconcile checks passed"},
+  "workerStageChangedSet": {"expectedCount":17,"actualCount":17,"match":true},
+  "stagedCount": 0
+}

@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p3b_option_b_claim_boundary_correction_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
-  "nextAllowedMove": "P3B-GATE-WIRING-2026-08-18 is CLOSED_BOUNDED (Option B: P3-B recorded BLOCKED_PENDING_P4A_AUTHORITY, Phase 4 not opened). Next roadmap-advancing move needs fresh operator authority. See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full current text.",
-  "parkedOperatorCheckpoint": "P3B_CLOSED_BOUNDED_PHASE_4_NOT_AUTHORIZED",
+  "currentMode": "cvf_core_refresh_closed_bounded",
+  "activeHandoff": "SESSION/handoffs/CVF_CORE_REFRESH_2026-08-20.md",
+  "nextAllowedMove": "CVF-CORE-REFRESH-2026-08-20 is CLOSED_BOUNDED / REVIEW_PASS at frozen Core 7d9f360a.... COMMIT_STEWARD may create the reviewed local commit; push and P4 remain parked pending fresh authority.",
+  "parkedOperatorCheckpoint": "CVF_CORE_REFRESH_CLOSED_BOUNDED_P4_NOT_AUTHORIZED",
   "requiredReads": [
-    "SESSION/handoffs/AGENT_HANDOFF_2026-08-18_P3B_GATE_WIRING_INTAKE.md",
-    "docs/decisions/INTAKE_2026-08-18_P3B_DATA_SCOPE_COST_TERMINATION_WIRING.md",
-    "docs/decisions/DESIGN_2026-08-18_P3B_OPTION_B_CLAIM_BOUNDARY_CORRECTION.md",
+    "SESSION/handoffs/CVF_CORE_REFRESH_2026-08-20.md",
+    "docs/decisions/INTAKE_2026-08-20_CVF_CORE_REFRESH.md",
+    "docs/decisions/INTAKE_REVIEW_2026-08-20_CVF_CORE_REFRESH.md",
+    "docs/decisions/DESIGN_2026-08-20_CVF_CORE_REFRESH.md",
+    "docs/decisions/AUTHORIZATION_REVIEW_2026-08-20_CVF_CORE_REFRESH.md",
+    "docs/specs/CVF_CORE_REFRESH_SPEC.md",
+    "docs/work_orders/CVF_CORE_REFRESH_WORK_ORDER.md",
     "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
     "SESSION/SESSION_MEMORY.md",
-    "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md",
     "IMPLEMENTATION_STATUS.json",
     "AGENTS.md",
-    ".cvf/manifest.json",
-    "knowledge/manifest.json",
-    "docs/implementation/EXECUTION_ROADMAP.md",
-    "docs/INDEX.md"
+    ".cvf/manifest.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-18"
+  "updatedAt": "2026-08-20"
 }
