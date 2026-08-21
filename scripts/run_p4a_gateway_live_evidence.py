@@ -52,7 +52,7 @@ from _p4a_gateway_live_evidence_support import (  # noqa: E402
     scan_for_secrets,
     sha256_hex,
 )
-from ai_gateway.models import ProviderRequest, ProviderResult  # noqa: E402
+from ai_gateway.models import Placement, ProviderRequest, ProviderResult  # noqa: E402
 from ai_gateway.registry import ProviderRegistry  # noqa: E402
 from ai_gateway.service import AIGateway  # noqa: E402
 from ai_gateway.usage import UsageLedger  # noqa: E402
@@ -234,7 +234,10 @@ def main() -> int:
     budget.reserve()
     provider = _LiveDashScopeProvider(budget, key_env_name)
     registry = ProviderRegistry()
-    registry.register(provider, (model_id,))
+    # A1-F3: register truthfully as EXTERNAL - this adapter physically
+    # dispatches to a real external HTTPS endpoint - matching the identical
+    # value build_canary_request() declares on the dispatched GatewayRequest.
+    registry.register(provider, (model_id,), placement=Placement.EXTERNAL)
     origin = safe_origin(endpoint())
     gateway = AIGateway(registry, UsageLedger(), endpoint_origin=origin)
 

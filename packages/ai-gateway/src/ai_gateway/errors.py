@@ -95,6 +95,17 @@ class PlacementDeniedError(GatewayError):
     reason_code = "PLACEMENT_DENIED"
 
 
+class ProviderPlacementMismatchError(GatewayError):
+    """Request ``placement`` disagrees with the registered provider's own
+    immutable ``Placement`` (P4A2-REV-F3/Amendment 1). Registry-owned:
+    refused BEFORE context admission/data-scope, zero attempts, no
+    reservation - a caller cannot relabel a provider's true placement. An
+    unregistered provider/model keeps its distinct, later, unchanged
+    refusal; this fires only when registered and placements disagree."""
+
+    reason_code = "PROVIDER_PLACEMENT_MISMATCH"
+
+
 class BudgetUnavailableError(GatewayError):
     """Reservation refused, or ``assert_within_budget`` refused the request."""
 

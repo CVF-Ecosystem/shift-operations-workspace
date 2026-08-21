@@ -1,17 +1,19 @@
 """AIGateway.execute - the sole authorized provider-dispatch point (SPEC R3).
 
 DESIGN order, implemented literally: (1) request/schema validation, (2)
-AI-mode/evidence/context checks, (3) context-digest binding + classification/
-minimization admission, (4) ``assert_placement_allowed``, (5) reserve then
-``assert_within_budget``, (6) ``assert_not_terminated``, (7) resolve a
-registered provider/model, (8) count the attempt immediately before dispatch,
-(9) timeout + best-effort cancel, (10) provider-identity check + exact-schema
-validation, (11) commit or release and emit a sanitized receipt or fallback.
-
-The three CVF gates are imported from ``cvf_runtime`` and called directly, so a
-dependency test can assert this module is a real call site rather than a
-re-implementation. Every pre-dispatch refusal returns ``provider_attempts=0``.
-Post-dispatch failures preserve exactly one attempt and never retry.
+AI-mode/evidence/context checks, (2b) registry-owned placement binding check
+(P4A2-REV-F3/Amendment 1: a REGISTERED provider's own immutable placement
+must equal the request's, before any context/data-scope work), (3)
+context-digest binding + classification/minimization admission, (4)
+``assert_placement_allowed``, (5) reserve then ``assert_within_budget``, (6)
+``assert_not_terminated``, (7) resolve a registered provider/model, (8) count
+the attempt immediately before dispatch, (9) timeout + best-effort cancel,
+(10) provider-identity check + exact-schema validation, (11) commit or
+release and emit a sanitized receipt or fallback. The three CVF gates are
+imported from ``cvf_runtime`` and called directly, so a dependency test can
+assert this module is a real call site rather than a re-implementation.
+Every pre-dispatch refusal returns ``provider_attempts=0``; post-dispatch
+failures preserve exactly one attempt and never retry.
 """
 
 from __future__ import annotations
@@ -44,6 +46,7 @@ from .errors import (
     PlacementDeniedError,
     ProviderDispatchError,
     ProviderIdentityMismatchError,
+    ProviderPlacementMismatchError,
     ProviderTimeoutError,
     ReceiptBuilder,
     TerminatedError,
@@ -56,6 +59,7 @@ from .validation import validate_output
 
 GATE_REQUEST = "request_validation"
 GATE_AI_MODE = "ai_mode"
+GATE_PLACEMENT_BINDING = "registry.provider_placement_binding"
 GATE_CONTEXT = "context_admission"
 GATE_PLACEMENT = "data_scope.assert_placement_allowed"
 GATE_BUDGET = "cost.assert_within_budget"
@@ -90,24 +94,15 @@ class AIGateway:
         gates = GateRecorder()
         gates.passed(GATE_REQUEST)  # strict models validated at construction
 
-        request_digest = digest_of(
-            {
-                "task_type": request.task_type,
-                "provider_id": request.provider_id,
-                "model_id": request.model_id,
-                "placement": request.placement.value,
-                "ai_mode": request.ai_mode.value,
-                "max_output_tokens": request.max_output_tokens,
-                "timeout_seconds": request.timeout_seconds,
-            }
-        )
+        request_digest = digest_of({
+            "task_type": request.task_type, "provider_id": request.provider_id,
+            "model_id": request.model_id, "placement": request.placement.value,
+            "ai_mode": request.ai_mode.value, "max_output_tokens": request.max_output_tokens,
+            "timeout_seconds": request.timeout_seconds,
+        })
         receipts = ReceiptBuilder(
-            request,
-            gates,
-            endpoint_origin=self._endpoint_origin,
-            request_digest=request_digest,
-            schema_digest=digest_of(request.output_schema),
-            started_at=_now(),
+            request, gates, endpoint_origin=self._endpoint_origin, request_digest=request_digest,
+            schema_digest=digest_of(request.output_schema), started_at=_now(),
         )
 
         def _refuse(gate: str, reason_code: str, *, reservation_id: str = "") -> GatewayResult:
@@ -121,6 +116,15 @@ class AIGateway:
             return _refuse(GATE_AI_MODE, AIModeDisabledError.reason_code)
         gates.passed(GATE_AI_MODE)
 
+        # 2b - P4A2-REV-F3/Amendment 1: registry-owned placement binding,
+        # before context admission/data-scope. Only fires when registered
+        # AND its bound placement disagrees; unregistered keeps its existing
+        # later GATE_REGISTRY refusal. Zero calls/reservations either way.
+        registered_placement = self._registry.registered_placement(request.provider_id)
+        if registered_placement is not None and registered_placement is not request.placement:
+            return _refuse(GATE_PLACEMENT_BINDING, ProviderPlacementMismatchError.reason_code)
+        gates.passed(GATE_PLACEMENT_BINDING)
+
         # 3 - bind context_digest to the actual context (P4A-REV-F3), then
         # classification/minimization admission.
         try:
@@ -133,8 +137,7 @@ class AIGateway:
         # 4 - the data-scope gate itself.
         try:
             assert_placement_allowed(
-                profile=CvfProfileView(),
-                classification=request.context_facts.classification.value,
+                profile=CvfProfileView(), classification=request.context_facts.classification.value,
                 placement=request.placement.value,
             )
         except CvfDenied:
@@ -145,8 +148,7 @@ class AIGateway:
         # releases the reservation so a refusal can never leak one.
         try:
             reservation = self._ledger.reserve(
-                request.budget_facts,
-                estimated_tokens=request.context_facts.estimated_input_tokens,
+                request.budget_facts, estimated_tokens=request.context_facts.estimated_input_tokens,
             )
         except GatewayError as exc:
             return _refuse(GATE_BUDGET, exc.reason_code)
@@ -154,9 +156,7 @@ class AIGateway:
 
         # P4A-REV-F2: state.spent_* is USD (not millis) and includes this
         # ledger's own committed+reserved cost, not just caller-supplied spend.
-        ledger_total_millis = (
-            self._ledger.committed_cost_usd_millis + self._ledger.reserved_cost_usd_millis
-        )
+        ledger_total_millis = self._ledger.committed_cost_usd_millis + self._ledger.reserved_cost_usd_millis
         try:
             budget_action = assert_within_budget(
                 cost_policy=cost_policy_of(request),

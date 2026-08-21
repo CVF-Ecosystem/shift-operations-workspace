@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/schemas/p4a2/governed_rag.schema.json",
+  "title": "P4-A2 Governed RAG receipt contract",
+  "description": "Sanitized evidence of one governed RAG execution. Contains digests, safe identifiers, counts, outcomes and reason codes only: never a query, prompt, evidence/minimized/output body, raw exception, endpoint credential, token, authorization header, or secret.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "normalized_query_digest_sha256",
+    "retrieval_receipt_hash_sha256",
+    "retrieval_evidence_set_hash_sha256",
+    "authorization_scope_digest_sha256",
+    "corpus_id",
+    "encoder_id",
+    "encoder_version",
+    "lexicon_digest_sha256",
+    "score_policy_digest_sha256",
+    "pre_injection_citation_ids",
+    "post_injection_citation_ids",
+    "injection_omissions",
+    "minimization_retained_count",
+    "minimization_omitted_count",
+    "stages",
+    "final_outcome",
+    "physical_attempt_count",
+    "receipt_hash_sha256"
+  ],
+  "properties": {
+    "contract_version": { "type": "string", "pattern": "^1\\.0$" },
+    "normalized_query_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "retrieval_receipt_hash_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "retrieval_evidence_set_hash_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "authorization_scope_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "corpus_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "index_build_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "encoder_id": { "type": "string", "pattern": "^PROJECT_CONCEPT_FEATURE_VECTOR_V1$" },
+    "encoder_version": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "lexicon_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "score_policy_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "pre_injection_citation_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "post_injection_citation_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "injection_omissions": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["citation_id", "reason_codes"],
+        "properties": {
+          "citation_id": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "reason_codes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 6,
+            "items": {
+              "type": "string",
+              "enum": [
+                "CONTROL_CHARACTER",
+                "ROLE_MARKER",
+                "DELIMITER_ESCAPE",
+                "TOOL_INSTRUCTION",
+                "SECRET_EXFILTRATION",
+                "PROMPT_OVERRIDE"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "minimization_ruleset_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "minimization_input_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "minimization_output_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "minimization_retained_count": { "type": "integer", "minimum": 0 },
+    "minimization_omitted_count": { "type": "integer", "minimum": 0 },
+    "context_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "output_schema_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "gateway_request_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "gateway_receipt_output_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "provider_response_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "validated_answer_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "stages": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["stage", "outcome"],
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": [
+              "REQUEST_VALIDATED",
+              "RETRIEVAL_BOUND",
+              "INDEX_VALIDATED",
+              "RANKED",
+              "INJECTION_SCREENED",
+              "MINIMIZED",
+              "CONTEXT_ASSEMBLED",
+              "GATEWAY_DISPATCHED",
+              "ANSWER_VALIDATED"
+            ]
+          },
+          "outcome": { "type": "string", "enum": ["PASS", "FAIL", "NOT_RUN"] },
+          "reason_code": { "type": "string", "maxLength": 64 }
+        }
+      }
+    },
+    "final_outcome": {
+      "type": "string",
+      "enum": [
+        "ANSWERED",
+        "ABSTAINED",
+        "RETRIEVAL_NOT_POSITIVE",
+        "BINDING_MISMATCH",
+        "SCOPE_MISMATCH",
+        "SCOPE_WIDENING_REJECTED",
+        "STALE_INDEX",
+        "INJECTION_BLOCKED",
+        "MINIMIZATION_FAILED",
+        "CONTEXT_BUDGET_EXCEEDED",
+        "PLACEMENT_REFUSED",
+        "GATEWAY_NOT_ACCEPTED",
+        "OUTPUT_VALIDATION_FAILED",
+        "REQUEST_INVALID"
+      ]
+    },
+    "reason_code": { "type": "string", "maxLength": 64 },
+    "physical_attempt_count": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "receipt_hash_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

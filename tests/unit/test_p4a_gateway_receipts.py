@@ -117,7 +117,7 @@ def _request(**overrides) -> GatewayRequest:
 
 def _gateway(provider: _FakeProvider) -> tuple[AIGateway, UsageLedger]:
     registry = ProviderRegistry()
-    registry.register(provider, ("model-a",))
+    registry.register(provider, ("model-a",), placement=Placement.EXTERNAL)
     ledger = UsageLedger()
     return AIGateway(registry, ledger, endpoint_origin="https://example.invalid"), ledger
 

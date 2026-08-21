@@ -2,7 +2,7 @@
 
 - Record class: `PLANNING_POINTER`
 - Date: `2026-08-10`
-- Status: `P4A_PROJECT_NATIVE_ALTERNATIVE_APPROVED_LPCI1_REF_REMAINS_PARKED`
+- Status: `P4A_AND_P4A2_PROJECT_NATIVE_ALTERNATIVES_APPROVED_LPCI1_REF_REMAINS_PARKED`
 - Owning project: `shift-operations-workspace`
 - Runtime authority: `NONE`
 - Provider/network authority: `NONE`
@@ -60,6 +60,37 @@ replaces the `LPCI1-REF` entry gate for P4-A only.
 `LPCI1-REF` itself remains unexecuted and requires separate CVF authority. The
 replacement imports no external repository code, truth, configuration,
 deployment, database, or secret, and it does not apply to P4-A2.
+
+## P4-A2 alternative disposition — 2026-08-21
+
+The operator separately approved a P4-A2-specific project-native alternative
+for `P4A2-GOVERNED-RAG-2026-08-21`. For P4-A2 DESIGN only, the accepted local
+P4-A1/P4-A contracts, receipts and independent reviews plus the pinned public
+CVF Core's read-only guidance replace the `LPCI1-REF` entry gate. The mapping
+is bounded as follows:
+
+| Required reference property | Approved project-native source |
+|---|---|
+| Clean retrieval mechanics and authorization-before-read boundaries | Reviewed P4-A1 contracts, source tests, receipts and FREEZE closure |
+| Structured output and exact citation-membership validation | P4-A strict-schema boundary plus the P4-A2 INTAKE requirement to validate membership against the granted P4-A1 evidence set |
+| Source/content/evidence/response hash semantics | P3-C/P4-A1 identity and receipt contracts plus P4-A request/response receipt bindings |
+| No-valid-evidence and refusal paths with zero provider attempts | P4-A1 negative-result variants and P4-A zero-attempt refusal tests/live-evidence pattern |
+| Safe errors, timeout, cancellation and provider-attempt accounting | Reviewed P4-A gateway contracts, tests, receipts and completion review |
+| Real-provider governance proof | P4-A replacement receipt is a pattern only; any later P4-A2 governance claim requires a fresh P4-A2 real-provider proof |
+| Bounded public claim | P4-A1 and P4-A closure claim boundaries; neither is widened into a RAG, application, persistence, deployment or production claim |
+| Provider-neutral RAG guidance | Local provider-neutral contracts plus read-only public Core retrieval-boundary, RAG-skill and hierarchical-governance guidance |
+
+No public-Core or external code, runtime, configuration, database, secret or
+deployment artifact may be imported. Public-Core material is design guidance,
+not downstream implementation authority or source of runtime truth; any older
+path-oriented examples must not weaken the project's reviewed corpus/source/
+content/chunk/version/hash and citation identities. `LPCI1-REF` remains parked
+and separately governed.
+
+P4-A2 later completed BUILD, repaired review findings, received independent
+final `REVIEW_PASS`, and reached `FREEZE / CLOSED_BOUNDED` with a fresh
+P4-A2-specific live receipt. That closure does not execute, import or close
+`LPCI1-REF`; the external lane remains parked under separate CVF authority.
 
 ## Repository boundary
 

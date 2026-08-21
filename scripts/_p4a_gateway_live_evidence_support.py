@@ -280,7 +280,10 @@ def run_refusals(model_id: str, budget: CallBudget, provider_factory) -> list[di
     for case in REFUSAL_CASES:
         provider = provider_factory(budget)
         registry = ProviderRegistry()
-        registry.register(provider, (model_id,))
+        # A1-F3: register truthfully as EXTERNAL - the real placement this
+        # evidence-only adapter is deployed at - matching every refusal
+        # request's own declared placement built by build_canary_request().
+        registry.register(provider, (model_id,), placement=Placement.EXTERNAL)
         gateway = AIGateway(registry, UsageLedger(), endpoint_origin=safe_origin(endpoint()))
         result = asyncio.run(gateway.execute(refusal_request(case, model_id)))
         results.append(

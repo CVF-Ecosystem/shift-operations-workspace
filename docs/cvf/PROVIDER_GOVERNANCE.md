@@ -38,13 +38,39 @@ caller thật**: `ai_gateway.service.AIGateway.execute` gọi trực tiếp
 theo đúng thứ tự trước khi dispatch — chứng minh bằng
 `tests/unit/test_p4a_gateway_dependency_boundaries.py` (identity check với hàm
 gốc `cvf_runtime`) và một live evidence run thật
-(`docs/decisions/P4A_AI_GATEWAY_LIVE_EVIDENCE_RECEIPT.md`). Đây vẫn là **library
-call site có giới hạn rõ**: chưa có application/API caller nào trong
-`apps/workspace-api` gọi gateway này; `ai-providers` (production adapter) vẫn
-stub — P4-B còn mở. Không claim RAG (P4-A2), durable usage accounting, hay
-production readiness. Xem [CVF_CONTROL_MAPPING.md](CVF_CONTROL_MAPPING.md).
+(`docs/decisions/P4A_AI_GATEWAY_LIVE_EVIDENCE_RECEIPT.md`). `ai-providers`
+(production adapter) vẫn stub — P4-B còn mở. Xem
+[CVF_CONTROL_MAPPING.md](CVF_CONTROL_MAPPING.md).
 
 P4-A đã nhận independent final `REVIEW_PASS` và `CLOSED_BOUNDED` sau
 replacement live proof trên Python 3.13.12/Pydantic 2.10.6; sáu refusal case
 zero-call và đúng một provider attempt HTTP 200. Closure này không nâng
 library caller thành application/production caller.
+
+P4-A2 governed RAG (`packages/governed-rag` +
+`workspace_api.application.governed_rag.execute_governed_rag`, tranche
+`P4A2-GOVERNED-RAG-2026-08-21`) is now the first real application caller of
+`AIGateway`: it consumes only P4-A1's positive evidence, builds/validates a
+deterministic ephemeral hybrid index, screens for prompt injection, applies
+independently-provable extractive minimization, and dispatches the injected
+gateway at most once, with strict post-dispatch citation-membership
+validation. `GovernedRAG` now binds `placement` at construction from the
+real adapter wiring (P4A2-REV-F3 repair) rather than hardcoding it, and
+independently re-verifies corpus/authorization-scope equality (F4), context
+byte/token facts from the canonical dispatched structure (F5), receipt
+integrity/terminal-grammar via the model's own validator (F6), and deep
+P4-A1 nested-model recomputation (F7) - see the worker-return document for
+the full per-finding evidence. Independent final review returned `REVIEW_PASS`
+without finding or waiver and status is `FREEZE / CLOSED_BOUNDED`. Replacement
+live proof recorded six zero-call refusals followed by exactly one external
+HTTPS POST at HTTP 200, outcome `ABSTAINED`, and secret scan NONE. This
+still does not claim a public API/UI route, general embeddings,
+operational-corpus RAG, durable usage accounting, or production readiness;
+see `docs/specs/P4A2_GOVERNED_RAG_SPEC.md` and
+`docs/decisions/DESIGN_2026-08-21_P4A2_GOVERNED_RAG.md` for the exact claim
+boundary. The current live-evidence receipt is
+`docs/decisions/P4A2_GOVERNED_RAG_LIVE_EVIDENCE_RECEIPT.md`; raw SHA-256 is
+`e41549c912020d74e141dbb695da07da0e676f69b7fdf063a4c5b1aba293fb83`
+and universal-newline LF SHA-256 is
+`7bdf8739c85ccfe216baccd8c1004e7d67068d7ac94b0545949b473239d55bf7`.
+No additional provider call is authorized.

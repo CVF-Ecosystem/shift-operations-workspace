@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-20T08:38:22.602364+00:00_
+_Last generated: 2026-08-21T13:48:53.255232+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-20T08:38:22.602364+00:00_
 
 ## Totals
 
-- Modules: **24**
-- Code LOC (py/ts/tsx): **26005**
-- Code files: **258**
-- By status: contract-only=5, enforced=2, partial=11, stub=6
+- Modules: **25**
+- Code LOC (py/ts/tsx): **28593**
+- Code files: **271**
+- By status: contract-only=5, enforced=2, partial=12, stub=6
 
 ## Status legend
 
@@ -31,15 +31,16 @@ _Last generated: 2026-08-20T08:38:22.602364+00:00_
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 907 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
-| `ai-gateway` | packages/ai-gateway | partial | 1620 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
+| `ai-gateway` | packages/ai-gateway | partial | 1663 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
+| `governed-rag` | packages/governed-rag | partial | 2442 | data_scope, evidence, cost, termination | Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
-| `workspace-api` | apps/workspace-api | partial | 7816 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-api` | apps/workspace-api | partial | 7919 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -85,12 +86,12 @@ _Last generated: 2026-08-20T08:38:22.602364+00:00_
 - **Path:** `packages/ai-gateway` (package)
 - **Purpose:** Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts.
 - **CVF controls:** cost, termination, data_scope
-- **Enforcement:** AIGateway.execute is the sole provider-dispatch point and invokes cvf_runtime.assert_placement_allowed, assert_within_budget and assert_not_terminated before dispatch; every pre-dispatch refusal yields provider_attempts=0. Bounded library call site only: no application/API caller, no durable usage store, no production provider adapter (P4-B open), no RAG (P4-A2 open), no deployment.
+- **Enforcement:** AIGateway.execute is the sole provider-dispatch point and invokes cvf_runtime.assert_placement_allowed, assert_within_budget and assert_not_terminated before dispatch; every pre-dispatch refusal yields provider_attempts=0. P4-A2 now supplies a reviewed bounded no-route application composition caller. No public API caller, durable usage store, production provider adapter (P4-B open) or deployment.
 - **Contract:** packages/ai-gateway/contracts/ai_gateway.schema.json
 - **Depends on:** `cvf-runtime`
 - **Tests:** `tests/unit/test_p4a_gateway_models.py`, `tests/unit/test_p4a_gateway_registry.py`, `tests/unit/test_p4a_gateway_usage.py`, `tests/unit/test_p4a_gateway_context.py`, `tests/unit/test_p4a_gateway_validation.py`, `tests/unit/test_p4a_gateway_receipts.py`, `tests/unit/test_p4a_gateway_dependency_boundaries.py`, `tests/contract/test_p4a_ai_gateway_schema.py`, `tests/integration/test_p4a_gateway_live_evidence_support.py`
-- **Metrics:** 1620 LOC across 11 code file(s)
-- **Next step:** P4-B production provider adapter and an authorized application caller; durable usage/audit persistence remains a separate tranche.
+- **Metrics:** 1663 LOC across 11 code file(s)
+- **Next step:** P4-B production provider adapter, public API/UI wiring and durable usage/audit persistence remain separate fresh-authority tranches. P4-A2's bounded no-route application composition is CLOSED_BOUNDED.
 
 ### `ai-providers` — partial
 
@@ -103,6 +104,18 @@ _Last generated: 2026-08-20T08:38:22.602364+00:00_
 - **Tests:** `tests/unit/test_alibaba_model_selector.py`
 - **Metrics:** 102 LOC across 1 code file(s)
 - **Next step:** Keep the Alibaba quota snapshot current; integrate provider adapters through the Phase 4 AI gateway later. Implement NO_AI + RULES_ONLY + mock providers before production AI routing.
+
+### `governed-rag` — partial
+
+- **Path:** `packages/governed-rag` (package)
+- **Purpose:** Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt.
+- **CVF controls:** data_scope, evidence, cost, termination
+- **Enforcement:** governed_rag.GovernedRAG.execute implements DESIGN steps 4-13: independent SPEC R5 re-verification of every P4-A1 receipt/handoff/projection/citation binding (never trusts caller relabeling), fresh ephemeral index build+self-validation with STALE_INDEX fail-closed, deterministic 45/55 integer lexical+semantic fusion via the local PROJECT_CONCEPT_FEATURE_VECTOR_V1 substrate, versioned injection screening with INJECTION_BLOCKED fail-closed, MINIMIZATION_EXTRACTIVE_V1 with an independently recomputable proof, closed instruction/evidence context assembly bound to a recomputed context_digest, at most one dispatch of the injected ai_gateway.service.AIGateway, and post-dispatch citation-membership validation against the exact post-omission granted set. workspace_api.application.governed_rag.execute_governed_rag is the sole application composition owner (calls P4-A1 then this package; opens no HTTP route; persists nothing). No provider SDK, HTTP client, environment, database or hidden-Core import anywhere in the pure package.
+- **Contract:** packages/governed-rag/contracts/governed_rag.schema.json
+- **Depends on:** `governed-retrieval`, `retrieval-contracts`, `ai-gateway`
+- **Tests:** `tests/unit/test_p4a2_rag_models.py`, `tests/unit/test_p4a2_rag_hashing.py`, `tests/unit/test_p4a2_rag_semantic.py`, `tests/unit/test_p4a2_rag_index.py`, `tests/unit/test_p4a2_rag_injection.py`, `tests/unit/test_p4a2_rag_minimization.py`, `tests/unit/test_p4a2_rag_context.py`, `tests/unit/test_p4a2_rag_validation.py`, `tests/unit/test_p4a2_rag_receipts.py`, `tests/unit/test_p4a2_rag_service.py`, `tests/unit/test_p4a2_rag_dependency_boundaries.py`, `tests/contract/test_p4a2_governed_rag_schema.py`, `tests/integration/test_p4a2_rag_application_composition.py`, `tests/integration/test_p4a2_rag_live_evidence_support.py`, `tests/cvf/test_p4a2_rag_governance_boundaries.py`
+- **Metrics:** 2442 LOC across 12 code file(s)
+- **Next step:** P4-A2 is FREEZE / CLOSED_BOUNDED for the reviewed synthetic/local Project Knowledge, ephemeral-index and no-route application-composition boundary. Operational-corpus RAG, general embeddings, durable index/audit/memory, a public API/UI, P4-A3, P4-B production provider adapter, deployment and production readiness remain open.
 
 ### `governed-retrieval` — partial
 
@@ -185,7 +198,7 @@ _Last generated: 2026-08-20T08:38:22.602364+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 7816 LOC across 80 code file(s)
+- **Metrics:** 7919 LOC across 81 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-08-20",
+  "reviewedAt": "2026-08-21",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "f5be2f884cd510dcd379d036a1cc6db4569210dfc0b652a28552c5f5ffd9a59d"
+          "sha256": "3dd58192c08e764aff7248a7a5af16ea8d0cdd9446ab9a9182cb8731a9b15039"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "6da02a9b9124e84676fedc42f5eb8954bb7a4b73ef37454dba8380e7b09b4522"
+          "sha256": "7857f3ec6f6d44ed8461864571f18bb4b276eca1a39fd08988fca0c34162fcf7"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "16ecf5a547743e4a2fcdb0e842830b89179c29664a72624015f8c5f503c562fc"
+          "sha256": "24da373bb923efa52427ab585ea73ab8aa1c9839fbe9b3af2311ddb342480266"
         }
       ],
-      "reviewedAt": "2026-08-20",
+      "reviewedAt": "2026-08-21",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -127,14 +127,14 @@
         },
         {
           "path": "docs/cvf/PROVIDER_GOVERNANCE.md",
-          "sha256": "820b89ea9e177b130bffc632a29ac148ae0dbaea0612a5308e6aaf9f9f691f20"
+          "sha256": "8db566ab6294805507b4e3bbe477c782db0dd795b4535cf909cd7916326903ee"
         },
         {
           "path": "docs/cvf/RISK_AND_APPROVAL.md",
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-08-20",
+      "reviewedAt": "2026-08-21",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

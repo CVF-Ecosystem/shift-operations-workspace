@@ -1,0 +1,13 @@
+[project]
+name = "governed-rag"
+version = "0.1.0"
+description = "Pure P4-A2 governed RAG composition layer over P4-A1 evidence and the P4-A gateway"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.10.6", "governed-retrieval", "retrieval-contracts", "ai-gateway"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
