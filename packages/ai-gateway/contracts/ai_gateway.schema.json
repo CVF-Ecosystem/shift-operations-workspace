@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/schemas/p4a/ai_gateway.schema.json",
+  "title": "P4-A AI Gateway receipt contract",
+  "description": "Sanitized evidence of one governed gateway execution. Contains digests and safe identifiers only: never prompt text, context body, output body, authorization header, credential, or raw provider error text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_type",
+    "provider_id",
+    "model_id",
+    "ai_mode",
+    "classification",
+    "placement",
+    "request_digest",
+    "context_digest",
+    "output_schema_digest",
+    "gates",
+    "final_outcome",
+    "provider_attempts",
+    "started_at",
+    "finished_at"
+  ],
+  "properties": {
+    "task_type": { "type": "string", "minLength": 1 },
+    "provider_id": { "type": "string", "minLength": 1 },
+    "model_id": { "type": "string", "minLength": 1 },
+    "endpoint_origin": { "type": "string", "maxLength": 200 },
+    "ai_mode": { "type": "string", "enum": ["NO_AI", "RULES_ONLY", "EXTERNAL_AI"] },
+    "classification": {
+      "type": "string",
+      "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]
+    },
+    "placement": { "type": "string", "enum": ["external", "enterprise", "local"] },
+    "request_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "context_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "output_schema_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "output_digest": { "type": "string", "pattern": "^$|^[0-9a-f]{64}$" },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate", "outcome"],
+        "properties": {
+          "gate": { "type": "string", "minLength": 1 },
+          "outcome": { "type": "string", "enum": ["PASS", "FAIL", "NOT_REACHED"] },
+          "reason_code": { "type": "string", "maxLength": 64 }
+        }
+      }
+    },
+    "final_outcome": {
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "REFUSED_PRE_DISPATCH",
+        "FAILED_POST_DISPATCH",
+        "FALLBACK_RULES"
+      ]
+    },
+    "reason_code": { "type": "string", "maxLength": 64 },
+    "reserved_tokens": { "type": "integer", "minimum": 0 },
+    "reserved_cost_usd_millis": { "type": "integer", "minimum": 0 },
+    "actual_tokens": { "type": "integer", "minimum": 0 },
+    "actual_cost_usd_millis": { "type": "integer", "minimum": 0 },
+    "usage_committed": { "type": "boolean" },
+    "reservation_released": { "type": "boolean" },
+    "timed_out": { "type": "boolean" },
+    "cancel_attempted": { "type": "boolean" },
+    "provider_attempts": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "started_at": { "type": "string", "minLength": 1 },
+    "finished_at": { "type": "string", "minLength": 1 }
+  }
+}

@@ -25,8 +25,8 @@ _Cập nhật: 2026-08-02, sau Phase 2 full-shift exit BUILD `d02186a` nhận in
 | P0 governance foundation | ✅ `DONE` (6/6) | runtime gates, catalog/session/boundary/file-size guard | Duy trì gate; không có milestone mở |
 | Phase 1 Foundation and Contracts | ✅ `DONE` (7/7) | domain/contracts/ledger, SQLite và disposable PostgreSQL 16 proof | Production/managed PostgreSQL, HA/load/backup không thuộc claim đã đóng |
 | Phase 2 Core Operations | ✅ `CLOSED_BOUNDED` | P2-A/P2-B/P2-R/P2-C/P2-D + full-shift exit gate | Chỉ giới hạn ngoài claim: production/managed, soak, push/exactly-once, full-offline |
-| Phase 3 Governance and Refinery | 🟡 `PARTIAL` (5/6) | policy gates, approval quorum, P3-A Refinery và P3-C retrieval-ready contract | runtime wiring cho data_scope/cost/termination — `BLOCKED_PENDING_P4A_AUTHORITY`, không đóng được trong Phase 3 |
-| Phase 4 AI and Channels | ⬜ `NOT STARTED` (0/8 milestone) | Chỉ có contract/scaffold và webhook verify/dedup nền | AI Gateway, retrieval/RAG/memory, provider modes, Integration Edge đầy đủ, adapters, identity/routing |
+| Phase 3 Governance and Refinery | ✅ `CLOSED_BOUNDED` (6/6) | policy gates, approval quorum, P3-A Refinery, P3-B gateway call-site wiring và P3-C retrieval-ready contract | application-level AI caller, durable accounting và production wiring nằm ngoài boundary đã đóng |
+| Phase 4 AI and Channels | 🟡 `PARTIAL` (1/8 milestone) | P4-A AI Gateway `CLOSED_BOUNDED`; contract/scaffold và webhook verify/dedup nền | P4-A2 RAG/memory, P4-B production adapters, application callers, Integration Edge đầy đủ, identity/routing |
 | Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
 
 **Phase 2 đã đóng bounded:** exit gate `start → updates → tasks → handover → report → freeze` PASS tại reviewed/pushed BUILD `d02186a` và C4 này. Claim chỉ cho scheduled 12-hour lineage trên real Chromium/FastAPI/JWT và disposable PostgreSQL 16; không phải wall-clock soak hay production readiness.
@@ -411,7 +411,7 @@ runtime vẫn `NOT_BUILT`.
 
 ---
 
-## Phase 3 — CVF Governance and Refinery — 🟡 PARTIAL (5/6, mục còn lại bị chặn bởi Phase 4)
+## Phase 3 — CVF Governance and Refinery — ✅ CLOSED_BOUNDED (6/6)
 
 Gate gốc: protected actions đi qua policy, R3/R4 không bypass, Refinery lỗi có
 fallback.
@@ -423,37 +423,46 @@ fallback.
       redact, classify, quarantine, provenance và data-quality score trước khi
       dữ liệu được phép thành context candidate; fallback về rules khi lỗi.
       Đây là lớp làm sạch bắt buộc trước retrieval/LLM, chưa phải RAG.
-- [ ] **P3-B — `BLOCKED_PENDING_P4A_AUTHORITY` (2026-08-18):** Wire các gate
-      data_scope/cost/termination vào một điểm gọi thật. **Không đóng được bên
-      trong Phase 3** — đây là dependency của Phase 4, không phải việc còn sót
-      của Phase 3. Ba gate đã có implement + unit test nhưng **zero runtime
-      caller**, và **không có điểm gọi AI thật nào trong codebase**:
-      `ai-gateway` chỉ là scaffold, `governed-retrieval` (P4-A1) cố ý
-      provider-free và INTAKE của chính nó đã từ chối đóng P3-B. Chỉ mở lại
-      sau khi P4-A mở dưới authority riêng. Chi tiết + quyết định Option B của
-      operator: [`DESIGN_2026-08-18_P3B_...`](../decisions/DESIGN_2026-08-18_P3B_OPTION_B_CLAIM_BOUNDARY_CORRECTION.md).
+- [x] **P3-B — `CLOSED_BOUNDED` (2026-08-20):**
+      Wire data_scope/cost/termination vào điểm gọi thật. Operator mở fresh P4-A
+      authority; worker đã BUILD `packages/ai-gateway` — `AIGateway.execute` gọi
+      trực tiếp ba hàm gốc `cvf_runtime` đúng thứ tự trước dispatch (identity-check
+      test, không reimplementation). Independent final `REVIEW_PASS`; closure
+      chỉ là gateway/live-evidence library boundary, chưa có application caller. Xem
+      [`DESIGN_2026-08-18_P3B_...`](../decisions/DESIGN_2026-08-18_P3B_OPTION_B_CLAIM_BOUNDARY_CORRECTION.md)
+      và [`P4A_AI_GATEWAY_WORKER_RETURN_2026-08-20.md`](../decisions/P4A_AI_GATEWAY_WORKER_RETURN_2026-08-20.md).
 - [x] **P3-C:** Retrieval-ready data contract `FREEZE / CLOSED_BOUNDED` at reviewed
       BUILD `4cc0691`; canonical records remain fail-closed without a public digest
       owner, and no runtime retrieval, tenant/placement enforcement or vectorization is claimed.
 
-**Exit gate:** protected action đi qua policy; Refinery lỗi có fallback về
-rules; R3/R4 không bypass được. **Giới hạn (2026-08-18):** chỉ thỏa cho năm
-mục đã đóng; Phase 3 closure đầy đủ hoãn sau P4-A (xem P3-B).
+**Exit gate: ĐẠT / CLOSED_BOUNDED.** Protected action đi qua policy; Refinery
+lỗi có fallback về rules; R3/R4 không bypass được; P3-B có real gateway library
+call site và replacement provider evidence sau independent `REVIEW_PASS`.
+`6/6` không phải application-level AI integration hay production readiness.
 
 ---
 
-## Phase 4 — AI and Channel Capabilities — ⬜ NOT STARTED (0/8 milestone)
+## Phase 4 — AI and Channel Capabilities — 🟡 PARTIAL (1/8 milestone)
 
 Gate gốc: thay provider/channel không sửa core; invalid schema bị reject;
 external prompt injection không vượt trust boundary.
 
 `ai-providers` và `integration-edge` có scaffold/contract hoặc capability nền
-(quota/config evidence; webhook verify + dedup), nhưng chưa work item nào bên
-dưới đạt milestone Phase 4. Vì vậy phase vẫn là `NOT STARTED`, không phải
-`PARTIAL`.
+(quota/config evidence; webhook verify + dedup); P4-A đã `CLOSED_BOUNDED`.
 
-- [ ] **P4-A:** AI Gateway (`ai-gateway`): model router, context builder,
-      structured output, budget, fallback, kill switch — gọi cvf-runtime gates.
+- [x] **P4-A — `CLOSED_BOUNDED` (2026-08-20):** AI Gateway
+      (`ai-gateway`): pure library, `AIGateway.execute` sole dispatch point
+      (registry, context admission, atomic usage ledger, JSON-schema output
+      validation, rules fallback, kill-switch/timeout/cancel, sanitized
+      receipts) — gọi trực tiếp `cvf_runtime.data_scope/budget/termination`
+      đúng thứ tự trước dispatch. BUILD tại base `a1aeb60`; final focused
+      210 pass, full 2054/128 trên Python 3.13.12/Pydantic 2.10.6; replacement
+      live PUBLIC canary qua Alibaba DashScope (6/6 refusal zero-call,
+      đúng 1 physical attempt) — receipt tại
+      `docs/decisions/P4A_AI_GATEWAY_LIVE_EVIDENCE_RECEIPT.md`; independent
+      final `REVIEW_PASS`, findings/waivers `NONE/NONE`. Claim chỉ dừng ở
+      library call site — không application caller, durable accounting, P4-B
+      adapter, RAG (P4-A2), deployment hay production readiness.
 - [x] **P4-A1 — CLOSED_BOUNDED:** Governed retrieval foundation đã có local
       deterministic lexical search, verified identity/permission/assignment,
       bounded evidence projection, source/version/hash và ephemeral receipt.
@@ -575,15 +584,14 @@ gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
 **2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
-**Next governed move (2026-08-18):** P3B-GATE-WIRING `CLOSED_BOUNDED` (Option B — P3-B ghi `BLOCKED_PENDING_P4A_AUTHORITY`, không mở Phase 4). Mọi lane tiếp theo — P4-A/P4-A2, LPCI1-REF, provider/RAG/vector, durable audit/persistence, API/UI/deployment, digest owners — parked chờ fresh authority. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
+**Next governed move (2026-08-20):** P4A-AI-GATEWAY `BUILD_COMPLETE_PENDING_REVIEW` — worker BUILD done, awaiting independent REVIEW. P4-A2, LPCI1-REF, provider/RAG/vector, durable audit/persistence, API/UI/deployment, digest owners remain parked. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5), governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B), tách operations-domain (P1-B), authenticated scope-bound approval receipts (P2B approver-identity reconciliation), repository-enforced file-split guard (CVF-FILE-SPLIT-GUARD-HARDENING), PostgreSQL migration-created-schema live round-trip và Phase 1 exit gate (P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical (P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`), governed handover vertical (P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`), governed internal message admission (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, C3 `ab92f51`), governed operational Report and audited `report_approved` freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30, C3 `18e24e5`), P2-C assignment foundation/enforcement (`ec90c78`, `95b66b1`).
-**Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination chưa có
-runtime caller (P3-B `BLOCKED_PENDING_P4A_AUTHORITY` từ 2026-08-18 — không đóng
-được trong Phase 3); refusal routing/recording chưa implement; PostgreSQL mới
-chỉ chứng minh trong disposable local PostgreSQL 16, chưa production/managed
-deployment; retrieval/RAG/application memory/proactive forecasting mới chỉ nằm
-trong roadmap; P2-B chưa có refresh token/revocation hay admin flow cấp user
-thật — xem `blocked_work` trong `ACTIVE_SESSION_STATE.json`.
+**Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination có real
+library caller từ 2026-08-20 (P4-A BUILD, chờ REVIEW) nhưng chưa có application
+caller; refusal routing/recording chưa implement; PostgreSQL mới chỉ chứng
+minh disposable local 16, chưa production/managed; retrieval/RAG/application
+memory/proactive forecasting mới nằm trong roadmap; P2-B chưa có refresh
+token/revocation hay admin flow cấp user thật — xem `blocked_work`.
 
 ## Cách dùng roadmap này
 

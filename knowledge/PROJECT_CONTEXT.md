@@ -24,9 +24,15 @@ source/version hashes and ephemeral receipts are bounded. Only Project
 Knowledge INTERNAL/LOCAL_ONLY is positive; both operational corpora remain
 dependency-blocked. This proves no provider/LLM answer, API/UI, durable audit
 or persistence, restricted/confidential or full-document access, vector/
-semantic RAG, deployment, production readiness or confirmed truth. The
-separately governed `LPCI1-REF` lane and P4-A/P4-A2 remain parked behind fresh
-authority and are not downstream runtime dependencies.
+semantic RAG, deployment, production readiness or confirmed truth. P4-A AI
+Gateway is `CLOSED_BOUNDED` after independent final `REVIEW_PASS`: its
+pure-library `AIGateway.execute` calls the real `cvf_runtime` data_scope/cost/
+termination gates before dispatch, and replacement live PUBLIC-canary evidence
+passed through Alibaba DashScope. P3-B and Phase 3 are closed only for this
+reviewed library call-site boundary (`6/6`); there is still no application/API
+caller, durable usage accounting, production provider adapter or RAG. The
+separately governed `LPCI1-REF` lane and P4-A2/P4-B remain parked behind their
+own fresh authority and are not downstream runtime dependencies.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

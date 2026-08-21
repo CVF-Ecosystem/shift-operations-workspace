@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-10T15:33:41.801893+00:00_
+_Last generated: 2026-08-20T08:38:22.602364+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-08-10T15:33:41.801893+00:00_
 ## Totals
 
 - Modules: **24**
-- Code LOC (py/ts/tsx): **24407**
-- Code files: **248**
-- By status: contract-only=6, enforced=2, partial=10, stub=6
+- Code LOC (py/ts/tsx): **26005**
+- Code files: **258**
+- By status: contract-only=5, enforced=2, partial=11, stub=6
 
 ## Status legend
 
@@ -31,6 +31,7 @@ _Last generated: 2026-08-10T15:33:41.801893+00:00_
 |---|---|---|---:|---|---|
 | `cvf-runtime` | packages/cvf-runtime | enforced | 907 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
 | `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `ai-gateway` | packages/ai-gateway | partial | 1620 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
@@ -41,7 +42,6 @@ _Last generated: 2026-08-10T15:33:41.801893+00:00_
 | `workspace-api` | apps/workspace-api | partial | 7816 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
-| `ai-gateway` | packages/ai-gateway | contract-only | 22 | cost, termination, data_scope | Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
@@ -79,6 +79,18 @@ _Last generated: 2026-08-10T15:33:41.801893+00:00_
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_schema_parity_users.py`, `tests/integration/test_evidence_persistence.py`, `tests/integration/test_sql_ledger_postgres_live.py`, `tests/integration/test_postgres_live_runner.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_schema_parity_handovers.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/integration/test_handover_postgres_live.py`, `tests/cvf/test_handover_vertical.py`, `tests/integration/test_handover_ledger_parity.py`, `tests/integration/test_message_sqlite.py`, `tests/integration/test_message_postgres_live.py`
 - **Metrics:** 2688 LOC across 19 code file(s)
 - **Next step:** PostgreSQL live round-trip is now reviewed and passing (bounded to a disposable local container - see enforcement note above). Messages persistence is implemented (see enforcement note above); it is no longer remaining work. Remaining pre-ship items: production deployment/load/concurrency/HA/backup verification, and mapping the remaining migration table (reports) into tables.py/SqlLedger as a tranche needs it. Phase 1 closure itself is a separate, independently-reviewed decision (SPEC AC-20), not implied by this entry.
+
+### `ai-gateway` — partial
+
+- **Path:** `packages/ai-gateway` (package)
+- **Purpose:** Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts.
+- **CVF controls:** cost, termination, data_scope
+- **Enforcement:** AIGateway.execute is the sole provider-dispatch point and invokes cvf_runtime.assert_placement_allowed, assert_within_budget and assert_not_terminated before dispatch; every pre-dispatch refusal yields provider_attempts=0. Bounded library call site only: no application/API caller, no durable usage store, no production provider adapter (P4-B open), no RAG (P4-A2 open), no deployment.
+- **Contract:** packages/ai-gateway/contracts/ai_gateway.schema.json
+- **Depends on:** `cvf-runtime`
+- **Tests:** `tests/unit/test_p4a_gateway_models.py`, `tests/unit/test_p4a_gateway_registry.py`, `tests/unit/test_p4a_gateway_usage.py`, `tests/unit/test_p4a_gateway_context.py`, `tests/unit/test_p4a_gateway_validation.py`, `tests/unit/test_p4a_gateway_receipts.py`, `tests/unit/test_p4a_gateway_dependency_boundaries.py`, `tests/contract/test_p4a_ai_gateway_schema.py`, `tests/integration/test_p4a_gateway_live_evidence_support.py`
+- **Metrics:** 1620 LOC across 11 code file(s)
+- **Next step:** P4-B production provider adapter and an authorized application caller; durable usage/audit persistence remains a separate tranche.
 
 ### `ai-providers` — partial
 
@@ -199,18 +211,6 @@ _Last generated: 2026-08-10T15:33:41.801893+00:00_
 - **Tests:** —
 - **Metrics:** 18 LOC across 6 code file(s)
 - **Next step:** Implement job modules once their owning packages exist.
-
-### `ai-gateway` — contract-only
-
-- **Path:** `packages/ai-gateway` (package)
-- **Purpose:** Provider-neutral model routing, context control, budget, structured output, validation, fallback, kill switch.
-- **CVF controls:** cost, termination, data_scope
-- **Enforcement:** contracts/provider_interface.py defines the LLM contract; no router implementation.
-- **Contract:** packages/ai-gateway/contracts/provider_interface.py
-- **Depends on:** `ai-providers`, `refinery-bridge`
-- **Tests:** —
-- **Metrics:** 22 LOC across 1 code file(s)
-- **Next step:** Implement model router + budget/kill-switch when an AI mode beyond NO_AI is enabled.
 
 ### `channel-sdk` — contract-only
 

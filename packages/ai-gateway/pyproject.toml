@@ -1,0 +1,13 @@
+[project]
+name = "ai-gateway"
+version = "0.1.0"
+description = "Pure P4-A provider-neutral AI gateway with pre-dispatch CVF gates"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.10.6"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
