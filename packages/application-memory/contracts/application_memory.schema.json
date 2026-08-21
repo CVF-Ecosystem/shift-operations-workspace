@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "application_memory.schema.json",
+  "title": "ApplicationMemoryReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "pattern": "^1\\.0$"
+    },
+    "operation": {
+      "$ref": "#/$defs/MemoryOperation"
+    },
+    "final_outcome": {
+      "$ref": "#/$defs/MemoryFinalOutcome"
+    },
+    "reason_code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "owner_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "shift_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "authorization_scope_digest_sha256": {
+      "$ref": "#/$defs/Digest"
+    },
+    "layer": {
+      "anyOf": [
+        { "$ref": "#/$defs/MemoryLayer" },
+        { "type": "null" }
+      ]
+    },
+    "purpose": {
+      "anyOf": [
+        { "$ref": "#/$defs/MemoryPurpose" },
+        { "type": "null" }
+      ]
+    },
+    "classification": {
+      "anyOf": [
+        { "$ref": "#/$defs/MemoryClassification" },
+        { "type": "null" }
+      ]
+    },
+    "entry_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "entry_digest_sha256": {
+      "anyOf": [
+        { "$ref": "#/$defs/Digest" },
+        { "type": "null" }
+      ]
+    },
+    "predecessor_entry_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "tombstoned_entry_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "tombstone_reason": {
+      "anyOf": [
+        { "$ref": "#/$defs/TombstoneReason" },
+        { "type": "null" }
+      ]
+    },
+    "source_content_digest_sha256": {
+      "anyOf": [
+        { "$ref": "#/$defs/Digest" },
+        { "type": "null" }
+      ]
+    },
+    "provenance_digest_sha256": {
+      "anyOf": [
+        { "$ref": "#/$defs/Digest" },
+        { "type": "null" }
+      ]
+    },
+    "expires_at_utc": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    },
+    "returned_entry_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "returned_entry_digests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Digest"
+      }
+    },
+    "omitted_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "appended_entries": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "appended_tombstones": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "receipt_hash_sha256": {
+      "$ref": "#/$defs/Digest"
+    }
+  },
+  "required": [
+    "contract_version",
+    "operation",
+    "final_outcome",
+    "reason_code",
+    "owner_id",
+    "shift_id",
+    "authorization_scope_digest_sha256",
+    "omitted_count",
+    "appended_entries",
+    "appended_tombstones",
+    "created_at_utc",
+    "receipt_hash_sha256"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "ADMITTED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "properties": { "operation": { "const": "ADMIT" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "READ_COMPLETE" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "properties": { "operation": { "const": "READ" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "CORRECTED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "properties": { "operation": { "const": "CORRECT" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "DELETED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "properties": { "operation": { "const": "DELETE" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "ADMITTED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "required": [
+          "layer", "purpose", "classification", "entry_id", "entry_digest_sha256",
+          "source_content_digest_sha256", "provenance_digest_sha256", "expires_at_utc"
+        ],
+        "properties": {
+          "layer": { "$ref": "#/$defs/MemoryLayer" },
+          "purpose": { "$ref": "#/$defs/MemoryPurpose" },
+          "classification": { "$ref": "#/$defs/MemoryClassification" },
+          "entry_id": { "type": "string", "format": "uuid" },
+          "entry_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "source_content_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "provenance_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "expires_at_utc": { "type": "string", "format": "date-time" },
+          "appended_entries": { "const": 1 },
+          "appended_tombstones": { "const": 0 },
+          "omitted_count": { "const": 0 },
+          "predecessor_entry_id": { "type": "null" },
+          "tombstoned_entry_id": { "type": "null" },
+          "tombstone_reason": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "READ_COMPLETE" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "properties": {
+          "entry_id": { "type": "null" },
+          "entry_digest_sha256": { "type": "null" },
+          "layer": { "type": "null" },
+          "purpose": { "type": "null" },
+          "classification": { "type": "null" },
+          "source_content_digest_sha256": { "type": "null" },
+          "provenance_digest_sha256": { "type": "null" },
+          "expires_at_utc": { "type": "null" },
+          "predecessor_entry_id": { "type": "null" },
+          "tombstoned_entry_id": { "type": "null" },
+          "tombstone_reason": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "CORRECTED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "required": [
+          "layer", "purpose", "classification", "entry_id", "entry_digest_sha256",
+          "source_content_digest_sha256", "provenance_digest_sha256", "expires_at_utc",
+          "predecessor_entry_id", "tombstoned_entry_id"
+        ],
+        "properties": {
+          "layer": { "$ref": "#/$defs/MemoryLayer" },
+          "purpose": { "$ref": "#/$defs/MemoryPurpose" },
+          "classification": { "$ref": "#/$defs/MemoryClassification" },
+          "entry_id": { "type": "string", "format": "uuid" },
+          "entry_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "source_content_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "provenance_digest_sha256": { "$ref": "#/$defs/Digest" },
+          "expires_at_utc": { "type": "string", "format": "date-time" },
+          "predecessor_entry_id": { "type": "string", "format": "uuid" },
+          "tombstoned_entry_id": { "type": "string", "format": "uuid" },
+          "tombstone_reason": { "const": "CORRECTED" },
+          "appended_entries": { "const": 1 },
+          "appended_tombstones": { "const": 1 },
+          "omitted_count": { "const": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "final_outcome": { "const": "DELETED" } },
+        "required": ["final_outcome"]
+      },
+      "then": {
+        "required": ["tombstoned_entry_id"],
+        "properties": {
+          "tombstone_reason": { "const": "DELETED" },
+          "appended_entries": { "const": 0 },
+          "appended_tombstones": { "const": 1 },
+          "omitted_count": { "const": 0 },
+          "entry_id": { "type": "null" },
+          "entry_digest_sha256": { "type": "null" },
+          "layer": { "type": "null" },
+          "purpose": { "type": "null" },
+          "classification": { "type": "null" },
+          "source_content_digest_sha256": { "type": "null" },
+          "provenance_digest_sha256": { "type": "null" },
+          "expires_at_utc": { "type": "null" },
+          "predecessor_entry_id": { "type": "null" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "Digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "MemoryLayer": {
+      "type": "string",
+      "enum": ["SESSION", "WORKING"]
+    },
+    "MemoryPurpose": {
+      "type": "string",
+      "enum": ["ACTIVE_TASK_CONTEXT", "HANDOVER_CONTEXT", "OPERATOR_WORKING_NOTE"]
+    },
+    "MemoryClassification": {
+      "type": "string",
+      "enum": ["PUBLIC", "INTERNAL"]
+    },
+    "SourceType": {
+      "type": "string",
+      "enum": [
+        "OPERATIONAL_EVENT",
+        "TASK",
+        "CUSTOMER_REQUEST",
+        "INCIDENT",
+        "HANDOVER",
+        "REPORT",
+        "MESSAGE",
+        "PROJECT_KNOWLEDGE"
+      ]
+    },
+    "SourceRevalidationOutcome": {
+      "type": "string",
+      "enum": ["VALID", "STALE", "NOT_FOUND", "INVALID"]
+    },
+    "TombstoneReason": {
+      "type": "string",
+      "enum": ["CORRECTED", "DELETED"]
+    },
+    "MemoryOperation": {
+      "type": "string",
+      "enum": ["ADMIT", "READ", "CORRECT", "DELETE"]
+    },
+    "MemoryFinalOutcome": {
+      "type": "string",
+      "enum": [
+        "ADMITTED",
+        "READ_COMPLETE",
+        "CORRECTED",
+        "DELETED",
+        "REQUEST_INVALID",
+        "UNSUPPORTED_PURPOSE",
+        "CLASSIFICATION_REJECTED",
+        "AUTHORIZATION_SCOPE_MISMATCH",
+        "SOURCE_REVALIDATION_FAILED",
+        "DUPLICATE_ENTRY",
+        "ENTRY_NOT_FOUND",
+        "ENTRY_NOT_ACTIVE",
+        "ENTRY_EXPIRED",
+        "CORRECTION_LINEAGE_INVALID",
+        "BUDGET_BREACH",
+        "RESULT_LIMIT_INVALID"
+      ]
+    },
+    "SourceRefV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_type": { "$ref": "#/$defs/SourceType" },
+        "source_id": {
+          "anyOf": [
+            { "type": "string", "minLength": 1, "maxLength": 128 },
+            { "type": "null" }
+          ]
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_content_digest_sha256": { "$ref": "#/$defs/Digest" },
+        "provenance_digest_sha256": { "$ref": "#/$defs/Digest" }
+      },
+      "required": [
+        "source_type",
+        "source_version",
+        "source_content_digest_sha256",
+        "provenance_digest_sha256"
+      ]
+    },
+    "MemoryEntryV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": { "type": "string", "format": "uuid" },
+        "layer": { "$ref": "#/$defs/MemoryLayer" },
+        "purpose": { "$ref": "#/$defs/MemoryPurpose" },
+        "owner_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "shift_id": { "type": "string", "format": "uuid" },
+        "authorization_scope_digest_sha256": { "$ref": "#/$defs/Digest" },
+        "classification": { "$ref": "#/$defs/MemoryClassification" },
+        "source": { "$ref": "#/$defs/SourceRefV1" },
+        "content": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "content_digest_sha256": { "$ref": "#/$defs/Digest" },
+        "created_at_utc": { "type": "string", "format": "date-time" },
+        "expires_at_utc": { "type": "string", "format": "date-time" },
+        "policy_version": { "type": "string", "pattern": "^1\\.0$" },
+        "predecessor_id": {
+          "anyOf": [
+            { "type": "string", "format": "uuid" },
+            { "type": "null" }
+          ]
+        },
+        "entry_digest_sha256": { "$ref": "#/$defs/Digest" }
+      },
+      "required": [
+        "entry_id",
+        "layer",
+        "purpose",
+        "owner_id",
+        "shift_id",
+        "authorization_scope_digest_sha256",
+        "classification",
+        "source",
+        "content",
+        "content_digest_sha256",
+        "created_at_utc",
+        "expires_at_utc",
+        "policy_version",
+        "entry_digest_sha256"
+      ]
+    }
+  }
+}

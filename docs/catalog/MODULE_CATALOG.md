@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-21T13:48:53.255232+00:00_
+_Last generated: 2026-08-21T16:14:24.315122+00:00_
 
 ## How to use this catalog
 
@@ -12,10 +12,10 @@ _Last generated: 2026-08-21T13:48:53.255232+00:00_
 
 ## Totals
 
-- Modules: **25**
-- Code LOC (py/ts/tsx): **28593**
-- Code files: **271**
-- By status: contract-only=5, enforced=2, partial=12, stub=6
+- Modules: **26**
+- Code LOC (py/ts/tsx): **30032**
+- Code files: **280**
+- By status: contract-only=5, enforced=2, partial=13, stub=6
 
 ## Status legend
 
@@ -33,6 +33,7 @@ _Last generated: 2026-08-21T13:48:53.255232+00:00_
 | `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-gateway` | packages/ai-gateway | partial | 1663 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
 | `ai-providers` | packages/ai-providers | partial | 102 | provider_authorization | Adapters for NO_AI, RULES_ONLY, OpenAI-compatible, non-compatible, local, enterprise, subscription, and mock providers. Includes a non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
+| `application-memory` | packages/application-memory | partial | 1254 | data_scope, evidence | Pure P4-A3 session/working application memory: strict immutable contracts, deterministic SESSION/WORKING layer policy, a process-local append-only store with correction/tombstone lineage, use-time scope/TTL/source revalidation and sanitized receipts. |
 | `governed-rag` | packages/governed-rag | partial | 2442 | data_scope, evidence, cost, termination | Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
 | `integration-edge` | apps/integration-edge | partial | 60 | data_scope, refusal | Channel Integration Edge: webhook gateway with signature verification, dedup, raw-payload preservation before any business system sees external input. |
@@ -40,7 +41,7 @@ _Last generated: 2026-08-21T13:48:53.255232+00:00_
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
-| `workspace-api` | apps/workspace-api | partial | 7919 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-api` | apps/workspace-api | partial | 8104 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 12 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
@@ -104,6 +105,18 @@ _Last generated: 2026-08-21T13:48:53.255232+00:00_
 - **Tests:** `tests/unit/test_alibaba_model_selector.py`
 - **Metrics:** 102 LOC across 1 code file(s)
 - **Next step:** Keep the Alibaba quota snapshot current; integrate provider adapters through the Phase 4 AI gateway later. Implement NO_AI + RULES_ONLY + mock providers before production AI routing.
+
+### `application-memory` — partial
+
+- **Path:** `packages/application-memory` (package)
+- **Purpose:** Pure P4-A3 session/working application memory: strict immutable contracts, deterministic SESSION/WORKING layer policy, a process-local append-only store with correction/tombstone lineage, use-time scope/TTL/source revalidation and sanitized receipts.
+- **CVF controls:** data_scope, evidence
+- **Enforcement:** application_memory.ApplicationMemory implements fixed admission/read/correct/delete flows over InMemoryApplicationMemoryStore. Entries are immutable, frozen and deep-copy isolated; admission requires authenticated owner/shift/scope and a positive source-revalidation result bound to source type/id/version/content/provenance digests; correction atomically appends a successor and tombstones its predecessor; delete atomically appends a tombstone; every refusal reports zero mutations. workspace_api.application.application_memory.build_application_memory is the sole application composition owner (verifies assignment, computes the exact authorization-scope digest, injects store/clock/revalidator; opens no route, persists nothing, and never recalls memory implicitly into P4-A2). No provider SDK, HTTP client, environment, database or hidden-Core import anywhere in the pure package.
+- **Contract:** packages/application-memory/contracts/application_memory.schema.json
+- **Depends on:** `retrieval-contracts`
+- **Tests:** `tests/unit/test_p4a3_memory_models.py`, `tests/unit/test_p4a3_memory_hashing.py`, `tests/unit/test_p4a3_memory_policy.py`, `tests/unit/test_p4a3_memory_store.py`, `tests/unit/test_p4a3_memory_receipts.py`, `tests/unit/test_p4a3_memory_service.py`, `tests/unit/test_p4a3_memory_dependency_boundaries.py`, `tests/contract/test_p4a3_application_memory_schema.py`, `tests/integration/test_p4a3_memory_application_composition.py`, `tests/integration/test_p4a3_memory_live_evidence_support.py`, `tests/cvf/test_p4a3_memory_governance_boundaries.py`
+- **Metrics:** 1254 LOC across 8 code file(s)
+- **Next step:** P4-A3 is FREEZE / CLOSED_BOUNDED after independent review and separately authorized one-call synthetic live evidence. P4-B requires a fresh control chain. Episodic/semantic memory, durable persistence, public API/UI, production provider adapter, deployment and production readiness remain out of scope.
 
 ### `governed-rag` — partial
 
@@ -198,7 +211,7 @@ _Last generated: 2026-08-21T13:48:53.255232+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 7919 LOC across 81 code file(s)
+- **Metrics:** 8104 LOC across 82 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial

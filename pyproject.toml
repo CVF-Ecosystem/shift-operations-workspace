@@ -54,6 +54,7 @@ pythonpath = [
   "apps/workspace-api/src",
   "apps/workspace-worker/src",
   "apps/integration-edge/src",
+  "packages/application-memory/src",
   "packages/cvf-runtime/src",
   "packages/operations-ledger/src",
   "packages/operations-domain/src",

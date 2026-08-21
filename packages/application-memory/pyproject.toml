@@ -1,0 +1,13 @@
+[project]
+name = "application-memory"
+version = "0.1.0"
+description = "Pure P4-A3 session/working application memory layer"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.10.6", "retrieval-contracts"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

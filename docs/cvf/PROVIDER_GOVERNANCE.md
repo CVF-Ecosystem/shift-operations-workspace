@@ -74,3 +74,16 @@ boundary. The current live-evidence receipt is
 and universal-newline LF SHA-256 is
 `7bdf8739c85ccfe216baccd8c1004e7d67068d7ac94b0545949b473239d55bf7`.
 No additional provider call is authorized.
+
+P4-A3 application memory (`packages/application-memory`, tranche
+`P4A3-APPLICATION-MEMORY-2026-08-21`) is provider-neutral: the package imports
+no provider SDK and performs zero provider/network calls. BUILD made no call.
+After non-consuming review passed, separate operator authority opened the
+existing `scripts/run_p4a3_application_memory_live_evidence.py` for exactly
+one synthetic call. It proved seven memory and six inherited P4-A2 refusals
+zero-call, then one admitted/re-read entry gated exactly one external HTTPS
+POST through P4-A2/AIGateway: HTTP 200, physical/adapter/gateway `1/1/1`,
+ABSTAINED, all nine stages PASS, secret scan NONE. Receipt:
+`docs/decisions/P4A3_APPLICATION_MEMORY_LIVE_EVIDENCE_RECEIPT.md`. Authority
+is exhausted; this is explicit-caller evidence, not implicit recall or a
+production provider adapter. See `docs/specs/P4A3_APPLICATION_MEMORY_SPEC.md`.

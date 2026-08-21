@@ -243,3 +243,33 @@ def test_no_package_imports_the_application_layer():
                     if alias.name.startswith("workspace_api"):
                         offenders.append(f"{path.relative_to(REPO_ROOT)}:{node.lineno}")
     assert offenders == [], f"packages/** must not import the application layer: {offenders}"
+
+
+def test_application_memory_package_imports_no_other_project_package():
+    """P4-A3: the new pure application-memory package imports only stdlib,
+    pydantic and retrieval_contracts - never workspace_api, operations_ledger,
+    operations_domain, refinery_bridge, cvf_runtime, governed_retrieval,
+    ai_gateway, governed_rag, fastapi or sqlalchemy."""
+    forbidden = {
+        "workspace_api", "operations_ledger", "operations_domain", "refinery_bridge",
+        "cvf_runtime", "governed_retrieval", "ai_gateway", "governed_rag",
+        "fastapi", "sqlalchemy",
+    }
+    package_root = REPO_ROOT / "packages" / "application-memory" / "src" / "application_memory"
+    offenders = []
+    for path in sorted(package_root.rglob("*.py")):
+        if "__pycache__" in path.parts:
+            continue
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                names = [a.name for a in node.names]
+            elif isinstance(node, ast.ImportFrom):
+                names = [node.module or ""]
+            else:
+                continue
+            for name in names:
+                root = name.split(".")[0]
+                if root in forbidden:
+                    offenders.append(f"{path.relative_to(REPO_ROOT)}:{node.lineno} -> {name}")
+    assert offenders == [], f"application-memory must not import project/framework code: {offenders}"

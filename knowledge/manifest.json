@@ -19,15 +19,15 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "3dd58192c08e764aff7248a7a5af16ea8d0cdd9446ab9a9182cb8731a9b15039"
+          "sha256": "1eec22656ab1bb7e4f31be0332bb2b2fb68db396347219ec49fd51f012269c5f"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "7857f3ec6f6d44ed8461864571f18bb4b276eca1a39fd08988fca0c34162fcf7"
+          "sha256": "8858cdff8b18fec3755937d33c6fd030c28693b31618c858a4cdb69af77e7732"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "24da373bb923efa52427ab585ea73ab8aa1c9839fbe9b3af2311ddb342480266"
+          "sha256": "e997a5ffd7f6ef854d0e9c5cab83102630623f99e15c11ba0a5ae70ecd52cfd8"
         }
       ],
       "reviewedAt": "2026-08-21",
@@ -119,7 +119,7 @@
         },
         {
           "path": "docs/cvf/CONTEXT_CONTROL.md",
-          "sha256": "7ebda16f48e113c1e39cecdf5b557ca1f4285271bd5313afdb311ac832f208f2"
+          "sha256": "ddd64465825160cb18c069f88fc205c4fef653960325cfe4ccf5562b8e873154"
         },
         {
           "path": "docs/cvf/EVIDENCE_AND_TRUTH.md",
@@ -127,7 +127,7 @@
         },
         {
           "path": "docs/cvf/PROVIDER_GOVERNANCE.md",
-          "sha256": "8db566ab6294805507b4e3bbe477c782db0dd795b4535cf909cd7916326903ee"
+          "sha256": "5326f29d7016a51de18d7bbfe59dc89b130a9b3552085454c87a943c34772f72"
         },
         {
           "path": "docs/cvf/RISK_AND_APPROVAL.md",
