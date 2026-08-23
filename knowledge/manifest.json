@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "8592242527d6ddb0adbe8190a82c66319184ef5f9ebbb638ad68c03dabf0c180"
+          "sha256": "ed04d07f829e61fcf61aa86db7e5b934b8c632ff52358bae15827f1d4a97286a"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
@@ -27,7 +27,7 @@
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "8b8eafa0112e4c7e9d5a369176df7b553030edcf1524992e8d12037a0ac5764a"
+          "sha256": "eb7f847de76cf2f7b1c7d43926ed7b6f0b23bd84b33fcdafba8861c6d3649daa"
         }
       ],
       "reviewedAt": "2026-08-23",
@@ -57,19 +57,19 @@
       "sourcePins": [
         {
           "path": "packages/operations-domain/README.md",
-          "sha256": "e1c967a194ded12f302eec6773bc35065edb7dad2a4fb6372e66b13991d4dc58"
+          "sha256": "37c5c0c63b717b9d530c9c5dc0d4c0ffb163a2446ffd7e66bd1d7537cde11285"
         },
         {
           "path": "packages/operations-domain/src/operations_domain/models.py",
-          "sha256": "a5e70e7ab48354b3087f5c0070ad1328df91812f4101e492c49a454353a6ebb4"
+          "sha256": "75a6b8a9d4c1b7feca8df4059b8a86827fb4957d846519a6861c70c29299d284"
         },
         {
           "path": "packages/operations-domain/src/operations_domain/lifecycle.py",
-          "sha256": "d5a26e99343c1969508146e92cd38e3b91977d6d8cf9974217d6dabd9b04309a"
+          "sha256": "1c149715f5ed680b12e6a647c190fce4c352d04bb975d819d6ab76f9579cbae9"
         },
         {
           "path": "packages/operations-domain/src/operations_domain/assignment_models.py",
-          "sha256": "f1454bd24904b00eebd61a577c0037da66cc47ccd71acd100175b3cd7bd6b8fd"
+          "sha256": "24901038d619fcd4f82b1652b84d3676f92224089e641e515fcf8c6e92584e29"
         },
         {
           "path": "packages/operations-domain/src/operations_domain/report_models.py",
@@ -107,11 +107,11 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "917e108f2a006e50d77d4dab2e68c096b32d77482484c942ff3269f6f1f64dc7"
+          "sha256": "f15573973c7bfb8932a59e5db2a4a858c434929370ea3a8170ba31578c19786b"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "ff7f0b1cc42a4b70795771a91cf982e2ea3d91b0fd0656a4e8dff9964481d5bc"
+          "sha256": "2136cfa940fff99032be5d14f4624e677932db87d8ea06875b40f28f52abe37f"
         },
         {
           "path": ".cvf/policy.json",
@@ -127,7 +127,7 @@
         },
         {
           "path": "docs/cvf/PROVIDER_GOVERNANCE.md",
-          "sha256": "ee8e5e8fe62dccdc1750f1306f252efbf596b2b4ff216195991b1c1ab8886efc"
+          "sha256": "e92abac12ebe6c1cf08994370492e1ee0149aff8b2356ce3d66f11045fe0868c"
         },
         {
           "path": "docs/cvf/RISK_AND_APPROVAL.md",
