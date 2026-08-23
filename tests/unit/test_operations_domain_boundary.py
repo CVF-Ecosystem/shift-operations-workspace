@@ -245,17 +245,9 @@ def test_no_package_imports_the_application_layer():
     assert offenders == [], f"packages/** must not import the application layer: {offenders}"
 
 
-def test_application_memory_package_imports_no_other_project_package():
-    """P4-A3: the new pure application-memory package imports only stdlib,
-    pydantic and retrieval_contracts - never workspace_api, operations_ledger,
-    operations_domain, refinery_bridge, cvf_runtime, governed_retrieval,
-    ai_gateway, governed_rag, fastapi or sqlalchemy."""
-    forbidden = {
-        "workspace_api", "operations_ledger", "operations_domain", "refinery_bridge",
-        "cvf_runtime", "governed_retrieval", "ai_gateway", "governed_rag",
-        "fastapi", "sqlalchemy",
-    }
-    package_root = REPO_ROOT / "packages" / "application-memory" / "src" / "application_memory"
+def _forbidden_import_offenders(package_root: Path, forbidden: set[str]) -> list[str]:
+    """Shared AST scan: every top-level import root under ``package_root``
+    that appears in ``forbidden``, as ``path:lineno -> name`` strings."""
     offenders = []
     for path in sorted(package_root.rglob("*.py")):
         if "__pycache__" in path.parts:
@@ -272,4 +264,35 @@ def test_application_memory_package_imports_no_other_project_package():
                 root = name.split(".")[0]
                 if root in forbidden:
                     offenders.append(f"{path.relative_to(REPO_ROOT)}:{node.lineno} -> {name}")
+    return offenders
+
+
+def test_application_memory_package_imports_no_other_project_package():
+    """P4-A3: the new pure application-memory package imports only stdlib,
+    pydantic and retrieval_contracts - never workspace_api, operations_ledger,
+    operations_domain, refinery_bridge, cvf_runtime, governed_retrieval,
+    ai_gateway, governed_rag, fastapi or sqlalchemy."""
+    forbidden = {
+        "workspace_api", "operations_ledger", "operations_domain", "refinery_bridge",
+        "cvf_runtime", "governed_retrieval", "ai_gateway", "governed_rag",
+        "fastapi", "sqlalchemy",
+    }
+    package_root = REPO_ROOT / "packages" / "application-memory" / "src" / "application_memory"
+    offenders = _forbidden_import_offenders(package_root, forbidden)
     assert offenders == [], f"application-memory must not import project/framework code: {offenders}"
+
+
+def test_ai_providers_package_imports_no_other_project_package_except_ai_gateway():
+    """P4-B: the new pure ai_providers package imports only stdlib, pydantic
+    and ai_gateway (for the canonical types it reuses) - never workspace_api,
+    operations_ledger, operations_domain, refinery_bridge, cvf_runtime,
+    governed_retrieval, governed_rag, application_memory, fastapi or
+    sqlalchemy."""
+    forbidden = {
+        "workspace_api", "operations_ledger", "operations_domain", "refinery_bridge",
+        "cvf_runtime", "governed_retrieval", "governed_rag", "application_memory",
+        "fastapi", "sqlalchemy",
+    }
+    package_root = REPO_ROOT / "packages" / "ai-providers" / "src" / "ai_providers"
+    offenders = _forbidden_import_offenders(package_root, forbidden)
+    assert offenders == [], f"ai_providers must not import project/framework code: {offenders}"

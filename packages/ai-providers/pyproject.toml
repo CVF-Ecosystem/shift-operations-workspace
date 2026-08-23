@@ -1,0 +1,13 @@
+[project]
+name = "ai-providers"
+version = "0.1.0"
+description = "Pure P4-B provider-mode foundation: zero-call NO_AI, deterministic local RULES_ONLY, test-only mock and at-most-once EXTERNAL_AI delegation to an injected P4-A AIGateway"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.10.6", "ai-gateway"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

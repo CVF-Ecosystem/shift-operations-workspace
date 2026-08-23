@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/schemas/p4b/provider_modes.schema.json",
+  "title": "P4-B provider-mode receipt contract",
+  "description": "Sanitized evidence of one ProviderModeService.execute call. Contains digests and safe identifiers only: never facts, context, rule output, prompt, provider output, a credential, an authorization header, an endpoint query, or a raw exception.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "policy_version",
+    "request_digest",
+    "output_schema_digest",
+    "ai_mode",
+    "outcome",
+    "rules_evaluated",
+    "gateway_calls",
+    "provider_attempts",
+    "started_at",
+    "finished_at",
+    "receipt_hash_sha256"
+  ],
+  "properties": {
+    "request_id": { "type": "string", "minLength": 1 },
+    "policy_version": { "type": "string", "minLength": 1 },
+    "request_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "output_schema_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "ruleset_digest": { "type": "string", "pattern": "^$|^[0-9a-f]{64}$" },
+    "output_digest": { "type": "string", "pattern": "^$|^[0-9a-f]{64}$" },
+    "ai_mode": { "type": "string", "enum": ["NO_AI", "RULES_ONLY", "EXTERNAL_AI", "UNKNOWN"] },
+    "provider_id": { "type": "string", "maxLength": 200 },
+    "model_id": { "type": "string", "maxLength": 200 },
+    "rule_id": { "type": "string", "maxLength": 200 },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "AI_MODE_DISABLED",
+        "RULES_MATCHED",
+        "RULES_NO_MATCH",
+        "RULES_SCHEMA_INVALID",
+        "EXTERNAL_IDENTITY_MISMATCH",
+        "EXTERNAL_ACCEPTED",
+        "EXTERNAL_NOT_ACCEPTED",
+        "REQUEST_INVALID"
+      ]
+    },
+    "reason_code": { "type": "string", "maxLength": 64 },
+    "rules_evaluated": { "type": "integer", "minimum": 0 },
+    "gateway_calls": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "provider_attempts": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "started_at": { "type": "string", "minLength": 1 },
+    "finished_at": { "type": "string", "minLength": 1 },
+    "receipt_hash_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "allOf": [
+    {
+      "$comment": "P4B-REV-F5-R2: one complete general grammar mirroring ai_providers.errors.assert_receipt_grammar, keyed by outcome-FAMILY (EXTERNAL_*/RULES_*), not per-shape patches.",
+      "if": { "properties": { "outcome": { "const": "AI_MODE_DISABLED" } } },
+      "then": {
+        "properties": {
+          "ai_mode": { "const": "NO_AI" },
+          "rules_evaluated": { "const": 0 },
+          "gateway_calls": { "const": 0 },
+          "provider_attempts": { "const": 0 },
+          "rule_id": { "const": "" }, "output_digest": { "const": "" }, "ruleset_digest": { "const": "" },
+          "provider_id": { "const": "" }, "model_id": { "const": "" }
+        }
+      }
+    },
+    {
+      "$comment": "Rule: every EXTERNAL_* outcome carries zero rule facts/counters - rules and external are mutually exclusive paths.",
+      "if": { "properties": { "outcome": { "pattern": "^EXTERNAL_" } } },
+      "then": {
+        "properties": {
+          "rules_evaluated": { "const": 0 }, "rule_id": { "const": "" }, "ruleset_digest": { "const": "" }
+        }
+      }
+    },
+    {
+      "$comment": "Rule: a non-accepted external outcome never carries output_digest.",
+      "if": { "properties": { "outcome": { "enum": ["EXTERNAL_IDENTITY_MISMATCH", "EXTERNAL_NOT_ACCEPTED"] } } },
+      "then": { "properties": { "output_digest": { "const": "" } } }
+    },
+    {
+      "$comment": "Rule: every RULES_* outcome requires the always-computed ruleset_digest and forbids provider/model ids and gateway/provider calls.",
+      "if": { "properties": { "outcome": { "pattern": "^RULES_" } } },
+      "then": {
+        "properties": {
+          "ai_mode": { "const": "RULES_ONLY" },
+          "gateway_calls": { "const": 0 }, "provider_attempts": { "const": 0 },
+          "provider_id": { "const": "" }, "model_id": { "const": "" },
+          "ruleset_digest": { "pattern": "^[0-9a-f]{64}$" }
+        },
+        "required": ["ruleset_digest"]
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "RULES_MATCHED" } } },
+      "then": {
+        "properties": {
+          "rule_id": { "minLength": 1 },
+          "output_digest": { "pattern": "^[0-9a-f]{64}$" },
+          "rules_evaluated": { "minimum": 1 }
+        },
+        "required": ["rule_id", "output_digest"]
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "RULES_NO_MATCH" } } },
+      "then": { "properties": { "rule_id": { "const": "" }, "output_digest": { "const": "" } } }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "RULES_SCHEMA_INVALID" } } },
+      "then": {
+        "properties": {
+          "rule_id": { "minLength": 1 }, "output_digest": { "const": "" }, "rules_evaluated": { "minimum": 1 }
+        },
+        "required": ["rule_id"]
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "EXTERNAL_IDENTITY_MISMATCH" } } },
+      "then": {
+        "properties": {
+          "ai_mode": { "const": "EXTERNAL_AI" },
+          "gateway_calls": { "const": 0 },
+          "provider_attempts": { "const": 0 }
+        },
+        "$comment": "provider_id/model_id are both-present-or-both-absent as a pair.",
+        "anyOf": [
+          { "properties": { "provider_id": { "const": "" }, "model_id": { "const": "" } } },
+          { "properties": { "provider_id": { "minLength": 1 }, "model_id": { "minLength": 1 } } }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": { "enum": ["EXTERNAL_ACCEPTED", "EXTERNAL_NOT_ACCEPTED"] }
+        }
+      },
+      "then": {
+        "properties": {
+          "ai_mode": { "const": "EXTERNAL_AI" },
+          "gateway_calls": { "const": 1 },
+          "provider_id": { "minLength": 1 },
+          "model_id": { "minLength": 1 }
+        },
+        "required": ["provider_id", "model_id"]
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "EXTERNAL_ACCEPTED" } } },
+      "then": {
+        "properties": {
+          "output_digest": { "pattern": "^[0-9a-f]{64}$" },
+          "provider_id": { "minLength": 1 },
+          "model_id": { "minLength": 1 },
+          "provider_attempts": { "const": 1 }
+        },
+        "required": ["output_digest", "provider_id", "model_id", "provider_attempts"]
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "REQUEST_INVALID" } } },
+      "then": {
+        "properties": {
+          "ai_mode": { "const": "UNKNOWN" },
+          "rules_evaluated": { "const": 0 },
+          "gateway_calls": { "const": 0 },
+          "provider_attempts": { "const": 0 },
+          "rule_id": { "const": "" }, "output_digest": { "const": "" }, "ruleset_digest": { "const": "" },
+          "provider_id": { "const": "" }, "model_id": { "const": "" }
+        }
+      }
+    }
+  ]
+}
