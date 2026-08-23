@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-08-21",
+  "reviewedAt": "2026-08-23",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "1eec22656ab1bb7e4f31be0332bb2b2fb68db396347219ec49fd51f012269c5f"
+          "sha256": "8592242527d6ddb0adbe8190a82c66319184ef5f9ebbb638ad68c03dabf0c180"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "8858cdff8b18fec3755937d33c6fd030c28693b31618c858a4cdb69af77e7732"
+          "sha256": "3505654ae154ebca22daea6fbe632d365a648902bac1f459a245de4aa5e30e36"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "e997a5ffd7f6ef854d0e9c5cab83102630623f99e15c11ba0a5ae70ecd52cfd8"
+          "sha256": "8b8eafa0112e4c7e9d5a369176df7b553030edcf1524992e8d12037a0ac5764a"
         }
       ],
-      "reviewedAt": "2026-08-21",
+      "reviewedAt": "2026-08-23",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -107,7 +107,7 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "ea41042f396d570272cf99be333b51be02f7cfb78cf26389703b2a27305892ac"
+          "sha256": "917e108f2a006e50d77d4dab2e68c096b32d77482484c942ff3269f6f1f64dc7"
         },
         {
           "path": ".cvf/manifest.json",
@@ -127,14 +127,14 @@
         },
         {
           "path": "docs/cvf/PROVIDER_GOVERNANCE.md",
-          "sha256": "5326f29d7016a51de18d7bbfe59dc89b130a9b3552085454c87a943c34772f72"
+          "sha256": "ee8e5e8fe62dccdc1750f1306f252efbf596b2b4ff216195991b1c1ab8886efc"
         },
         {
           "path": "docs/cvf/RISK_AND_APPROVAL.md",
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-08-21",
+      "reviewedAt": "2026-08-23",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/invariant-family.schema.json",
+  "title": "CVF Invariant Family Matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "familyId", "title", "ownerRole", "risk", "lifecycle",
+    "applicabilityTriggers", "contractSources", "representationSurfaces",
+    "parityMode", "closedTopLevelObject", "outcomes", "mutationPolicy",
+    "ownershipBindings", "emitterAdapter", "evidenceTestPaths", "boundedClaim"
+  ],
+  "properties": {
+    "schemaVersion": {"type": "string", "minLength": 1},
+    "familyId": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "ownerRole": {"type": "string", "minLength": 1},
+    "risk": {"type": "string", "enum": ["R0", "R1", "R2", "R3"]},
+    "lifecycle": {"type": "string", "enum": ["ACTIVE", "WAIVED_LEGACY"]},
+    "waiver": {"$ref": "#/$defs/waiver"},
+    "applicabilityTriggers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "contractSources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/contractSource"},
+      "uniqueItems": true
+    },
+    "representationSurfaces": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "parityMode": {"type": "string", "enum": ["APPLICABLE", "NOT_APPLICABLE"]},
+    "parityReason": {"type": "string", "minLength": 1},
+    "closedTopLevelObject": {"type": "boolean"},
+    "outcomes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/outcome"}
+    },
+    "mutationPolicy": {"$ref": "#/$defs/mutationPolicy"},
+    "ownershipBindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/ownershipBinding"}
+    },
+    "emitterAdapter": {"$ref": "#/$defs/emitterAdapter"},
+    "evidenceTestPaths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/repoPath"}
+    },
+    "boundedClaim": {"type": "string", "minLength": 1}
+  },
+  "if": {
+    "properties": {"lifecycle": {"const": "ACTIVE"}}
+  },
+  "then": {
+    "not": {"required": ["waiver"]}
+  },
+  "else": {
+    "required": ["waiver"]
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_][A-Za-z0-9_./-]*$",
+      "not": {"pattern": "(^[A-Za-z]:|\\\\|(^|/)\\.\\.(/|$)|(^|/)\\.(/|$)|(^|/)(/|$))"}
+    },
+    "sha256Hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "waiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["familyId", "owner", "missingObligation", "reason", "approvalArtifact", "expiryOrRemovalTrigger"],
+      "properties": {
+        "familyId": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "missingObligation": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "approvalArtifact": {"$ref": "#/$defs/repoPath"},
+        "expiryOrRemovalTrigger": {"type": "string", "minLength": 1}
+      }
+    },
+    "contractSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "canonicalization"],
+      "properties": {
+        "path": {"$ref": "#/$defs/repoPath"},
+        "sha256": {"$ref": "#/$defs/sha256Hex"},
+        "canonicalization": {"type": "string", "enum": ["UTF8_UNIVERSAL_NEWLINE"]}
+      }
+    },
+    "fieldDomain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {"type": "string", "enum": ["STRING", "INTEGER", "BOOLEAN", "NUMBER", "NESTED_OBJECT"]},
+        "const": {},
+        "enum": {"type": "array", "minItems": 1, "uniqueItems": true},
+        "minLength": {"type": "integer", "minimum": 0},
+        "pattern": {"type": "string"},
+        "nestedShapeId": {"type": "string", "minLength": 1}
+      },
+      "if": {"properties": {"type": {"const": "NESTED_OBJECT"}}},
+      "then": {"required": ["nestedShapeId"]}
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relationId", "kind"],
+      "properties": {
+        "relationId": {"type": "string", "minLength": 1},
+        "kind": {"type": "string", "enum": ["DIGEST_EQUALITY", "COUNTER_EQUALITY", "FIELD_EQUALITY"]},
+        "sourceField": {"type": "string", "minLength": 1},
+        "targetField": {"type": "string", "minLength": 1},
+        "function": {"type": "string", "minLength": 1},
+        "field": {"type": "string", "minLength": 1},
+        "value": {"type": "integer"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"kind": {"const": "DIGEST_EQUALITY"}}},
+          "then": {"required": ["sourceField", "targetField", "function"]}
+        },
+        {
+          "if": {"properties": {"kind": {"const": "COUNTER_EQUALITY"}}},
+          "then": {"required": ["field", "value"]}
+        },
+        {
+          "if": {"properties": {"kind": {"const": "FIELD_EQUALITY"}}},
+          "then": {"required": ["sourceField", "targetField"]}
+        }
+      ]
+    },
+    "conditionalRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "controllingField", "controllingValue", "presence"],
+      "properties": {
+        "field": {"type": "string", "minLength": 1},
+        "controllingField": {"type": "string", "minLength": 1},
+        "controllingValue": {},
+        "presence": {"type": "string", "enum": ["REQUIRED_WHEN_MATCH", "FORBIDDEN_WHEN_MATCH"]}
+      }
+    },
+    "shape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shapeId", "requiredFields", "forbiddenFields", "conditionalRules", "fieldDomains", "relations"],
+      "properties": {
+        "shapeId": {"type": "string", "minLength": 1},
+        "requiredFields": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "forbiddenFields": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "conditionalRules": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/conditionalRule"}
+        },
+        "fieldDomains": {
+          "type": "object",
+          "propertyNames": {"minLength": 1},
+          "additionalProperties": {"$ref": "#/$defs/fieldDomain"}
+        },
+        "relations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/relation"}
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcomeId", "shapes"],
+      "properties": {
+        "outcomeId": {"type": "string", "minLength": 1},
+        "shapes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/shape"}
+        }
+      }
+    },
+    "mutationExclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operator", "shapeId", "reason", "independentReviewRequired"],
+      "properties": {
+        "operator": {"type": "string", "minLength": 1},
+        "shapeId": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "independentReviewRequired": {"type": "boolean"}
+      }
+    },
+    "mutationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["excludedOperators"],
+      "properties": {
+        "excludedOperators": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/mutationExclusion"}
+        }
+      }
+    },
+    "ownershipConsumer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["consumerPath", "strategy"],
+      "properties": {
+        "consumerPath": {"$ref": "#/$defs/repoPath"},
+        "strategy": {
+          "type": "string",
+          "enum": ["DIRECT_IDENTITY", "JSON_REFERENCE", "CANONICAL_DIGEST", "ADAPTER_ASSERTION"]
+        },
+        "digestSymbol": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+        "jsonPointer": {"type": "string", "minLength": 1},
+        "identitySymbol": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+        "adapterTestPath": {"$ref": "#/$defs/repoPath"},
+        "assertionFunction": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"strategy": {"const": "CANONICAL_DIGEST"}}},
+          "then": {"required": ["digestSymbol"]}
+        },
+        {
+          "if": {"properties": {"strategy": {"const": "JSON_REFERENCE"}}},
+          "then": {"required": ["jsonPointer"]}
+        },
+        {
+          "if": {"properties": {"strategy": {"const": "DIRECT_IDENTITY"}}},
+          "then": {"required": ["identitySymbol"]}
+        },
+        {
+          "if": {"properties": {"strategy": {"const": "ADAPTER_ASSERTION"}}},
+          "then": {"required": ["adapterTestPath", "assertionFunction"]}
+        }
+      ]
+    },
+    "ownershipBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bindingId", "ownerPath", "consumers"],
+      "properties": {
+        "bindingId": {"type": "string", "minLength": 1},
+        "ownerPath": {"$ref": "#/$defs/repoPath"},
+        "ownerIdentitySymbol": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+        "consumers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/ownershipConsumer"}
+        }
+      }
+    },
+    "emitterAdapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "kind"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "kind": {"type": "string", "enum": ["SYNTHETIC_DETERMINISTIC", "REAL_SERVICE_EMITTER"]}
+      }
+    },
+    "registryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["familyId", "matrixPath", "ownerRole", "risk", "lifecycle", "applicabilityMode"],
+      "properties": {
+        "familyId": {"type": "string", "minLength": 1},
+        "matrixPath": {"$ref": "#/$defs/repoPath"},
+        "ownerRole": {"type": "string", "minLength": 1},
+        "risk": {"type": "string", "enum": ["R0", "R1", "R2", "R3"]},
+        "lifecycle": {"type": "string", "enum": ["ACTIVE", "WAIVED_LEGACY"]},
+        "applicabilityMode": {"type": "string", "minLength": 1}
+      }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "families"],
+      "properties": {
+        "schemaVersion": {"type": "string", "minLength": 1},
+        "families": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/registryEntry"}
+        }
+      }
+    }
+  }
+}

@@ -164,6 +164,21 @@ Mock providers are allowed only for:
 - UI rendering tests (layout, navigation, static badges)
 - Component-level tests that do not assert governance decisions
 
+## Invariant-Family Standard
+
+Before SPEC for a new or materially changed R2/R3 tranche, check
+`docs/cvf/INVARIANT_FAMILY_STANDARD.md` for mandatory applicability triggers
+(shared receipt/model contracts across outcomes, outcome-controlled required/
+forbidden/conditional fields, exact counter relations, multiple validator
+surfaces for one contract, coupled prompt/schema or contract/fixture
+artifacts, or a prior finding exposing an adjacent invariant-family member).
+If triggered, register a family in `docs/cvf/invariants/registry.json`
+against `docs/cvf/invariants/invariant-family.schema.json` and reference its
+matrix id/digest from the Work Order and review using
+`docs/templates/INVARIANT_FAMILY_PROOF.md`; do not copy matrix rules into
+this file, the skill, or any other document. `scripts/check_invariant_families.py`
+is the deterministic repository guard.
+
 ## Workspace Isolation Rule
 
 This project must remain isolated from the CVF core repository:

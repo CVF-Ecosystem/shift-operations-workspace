@@ -442,7 +442,7 @@ call site và replacement provider evidence sau independent `REVIEW_PASS`.
 
 ---
 
-## Phase 4 — AI and Channel Capabilities — 🟡 PARTIAL (1/8 milestone)
+## Phase 4 — AI and Channel Capabilities — 🟡 PARTIAL (4/8 milestones)
 
 Gate gốc: thay provider/channel không sửa core; invalid schema bị reject;
 external prompt injection không vượt trust boundary.
@@ -477,7 +477,7 @@ external prompt injection không vượt trust boundary.
       episodic/semantic memory sau; mỗi entry có owner, purpose, provenance,
       TTL/retention, correction/delete path và scope. Chat history hoặc
       provider-local memory không phải canonical operational truth. Exact-50 BUILD + hai repair round nhận review pass (`NONE/NONE`); live proof: 7+6 refusals zero-call, đúng một HTTP 200 (`1/1/1`, ABSTAINED), post-call 182/2494. Exact 52 paths; không durable/public route/production/deployment.
-- [ ] **P4-B:** AI providers (`ai-providers`): NO_AI, RULES_ONLY, mock trước.
+- [x] **P4-B — `FREEZE / CLOSED_BOUNDED` (2026-08-22):** All source findings closed without waiver. First live attempt remains retained BLOCKED; after independently reviewed prompt/schema repair, four fresh refusal cases were zero-call and exactly one replacement call returned HTTP 200 `EXTERNAL_ACCEPTED` with `1/1/1/1` counters and secret scan NONE. Target/focused/full 20/237/2732 passed. Boundary excludes production adapter/routing, durable usage/audit, public API/UI and deployment.
 - [ ] **P4-C:** Integration Edge đầy đủ: raw_payload, quarantine, rate_limit,
       routing, outbound (hiện chỉ có webhook verify + dedup).
 - [ ] **P4-D:** Channel adapters: generic webhook + mock Zalo/WhatsApp.
@@ -584,7 +584,7 @@ gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
 **2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
-**Next governed move (2026-08-21):** P4-A3 reached `FINAL_REVIEW_PASS` and `FREEZE / CLOSED_BOUNDED`, findings/waivers `NONE/NONE`, exact 52 paths. `COMMIT_STEWARD` is authorized for one exact local closure commit; no amend/push. After commit, STOP. P4-B or any new tranche requires fresh INTAKE authority. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
+**Next governed move (2026-08-23):** `CROSS-AGENT-INVARIANT-LEARNING-2026-08-22` is `FREEZE / CLOSED_BOUNDED` after independent round-10 PASS (`NONE/NONE`); fresh P4-C INTAKE only. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5), governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B), tách operations-domain (P1-B), authenticated scope-bound approval receipts (P2B approver-identity reconciliation), repository-enforced file-split guard (CVF-FILE-SPLIT-GUARD-HARDENING), PostgreSQL migration-created-schema live round-trip và Phase 1 exit gate (P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical (P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`), governed handover vertical (P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`), governed internal message admission (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, C3 `ab92f51`), governed operational Report and audited `report_approved` freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30, C3 `18e24e5`), P2-C assignment foundation/enforcement (`ec90c78`, `95b66b1`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination có
 reviewed real library caller từ P4-A nhưng chưa có application caller; refusal

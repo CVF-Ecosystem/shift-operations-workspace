@@ -69,6 +69,27 @@ advisory SESSION/WORKING memory with explicit recall only. One exact local
 closure commit is authorized; no amend/push. No durable memory, public route,
 production adapter, install, database or deployment.
 
+P4-B AI provider foundation is `FREEZE / CLOSED_BOUNDED`, base `319c6a8`.
+All findings closed without waiver. The first HTTP 200 attempt remains retained
+BLOCKED after prompt/schema drift; after independent repair review, four fresh
+refusals were zero-call and exactly one replacement call returned HTTP 200
+`EXTERNAL_ACCEPTED` with `1/1/1/1` counters and secret scan NONE. Verification
+20/237/2732 passed. Boundary excludes production adapter/routing, durable
+usage/audit, public API/UI and deployment. Cross-agent invariant learning is
+its governed successor and is now closed bounded as described below.
+
+`CROSS-AGENT-INVARIANT-LEARNING-2026-08-22` is `FREEZE / CLOSED_BOUNDED`.
+Amendment 2 ratified the exact-30 worker union; independent rereview round 10
+returned `REVIEW_PASS_ROUND_10`, findings/waivers `NONE/NONE`. The accepted
+boundary is a repository-native invariant standard, closed schemas/matrices,
+independent mutation obligations, ownership/provenance binding, synthetic
+emitter, deterministic guard and shared agent-routing guidance. Focused
+`77 passed, 2 skipped`; full `2809 passed, 130 skipped`; repository and doctor
+gates passed with the retained bounded legacy-catalog note. No provider call,
+credential, install, database or deployment occurred. This does not prove that
+any AI agent consumed, remembered or complied with the guidance. Roadmap-next
+P4-C requires fresh INTAKE; no later-phase authority carries forward.
+
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
 canonical files instead of treating this summary as fresh continuity.

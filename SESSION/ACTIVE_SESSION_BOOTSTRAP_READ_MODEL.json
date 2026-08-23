@@ -1,22 +1,22 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p4a3_application_memory_freeze_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/P4A3_APPLICATION_MEMORY_2026-08-21.md",
-  "nextAllowedMove": "COMMIT_STEWARD is authorized for one exact 52-path local P4-A3 closure commit; no amend/push. After that commit STOP. P4-B or any new tranche requires fresh INTAKE authority.",
-  "parkedOperatorCheckpoint": "P4A3_EXACT_LOCAL_CLOSURE_COMMIT_AUTHORIZED",
+  "currentMode": "cross_agent_invariant_learning_closed_bounded",
+  "activeHandoff": "SESSION/handoffs/CROSS_AGENT_INVARIANT_LEARNING_2026-08-22.md",
+  "nextAllowedMove": "Fresh INTAKE for roadmap-next P4-C only; no later-phase authority carries forward.",
+  "parkedOperatorCheckpoint": "NONE",
   "requiredReads": [
-    "docs/decisions/P4A3_APPLICATION_MEMORY_COMPLETION_REVIEW_2026-08-21.md",
-    "docs/decisions/P4A3_APPLICATION_MEMORY_LIVE_EVIDENCE_RECEIPT.md",
-    "docs/decisions/P4A3_APPLICATION_MEMORY_WORKER_RETURN_2026-08-21.md",
-    "docs/work_orders/P4A3_APPLICATION_MEMORY_WORK_ORDER.md",
-    "docs/specs/P4A3_APPLICATION_MEMORY_SPEC.md",
-    "docs/decisions/P4A3_APPLICATION_MEMORY_DESIGN_REVIEW_2026-08-21.md",
-    "docs/decisions/DESIGN_2026-08-21_P4A3_APPLICATION_MEMORY.md",
-    "SESSION/handoffs/P4A3_APPLICATION_MEMORY_2026-08-21.md",
-    "docs/decisions/P4A2_GOVERNED_RAG_COMPLETION_REVIEW_2026-08-21.md",
+    "docs/decisions/CROSS_AGENT_INVARIANT_LEARNING_COMPLETION_REVIEW_2026-08-23.md",
+    "docs/decisions/CROSS_AGENT_INVARIANT_LEARNING_WORKER_RETURN_2026-08-23.md",
+    "SESSION/handoffs/CROSS_AGENT_INVARIANT_LEARNING_2026-08-22.md",
+    "docs/specs/CROSS_AGENT_INVARIANT_LEARNING_SPEC.md",
+    "docs/work_orders/CROSS_AGENT_INVARIANT_LEARNING_WORK_ORDER.md",
+    "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "SESSION/SESSION_MEMORY.md",
     "IMPLEMENTATION_STATUS.json",
+    "docs/INDEX.md",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "knowledge/PROJECT_CONTEXT.md",
     "AGENTS.md"
   ],
   "historyIndex": {
@@ -24,5 +24,5 @@
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-21"
+  "updatedAt": "2026-08-23"
 }

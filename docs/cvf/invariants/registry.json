@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0",
+  "families": [
+    {
+      "familyId": "SYNTHETIC-TERMINAL-OUTCOME",
+      "matrixPath": "docs/cvf/invariants/synthetic-terminal-outcome.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "NEW_OR_MATERIALLY_CHANGED_TRIGGERED_FAMILIES"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "SYNTHETIC-TERMINAL-OUTCOME",
+  "title": "Bootstrap synthetic terminal-outcome family (mechanics proof only)",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/specs/CROSS_AGENT_INVARIANT_LEARNING_SPEC.md",
+      "sha256": "2b90376b450cc08db577c34d34d3ba93325834ad01e5a6676821a8182e3e2f0c",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": ["PYTHON_CONTRACT"],
+  "parityMode": "NOT_APPLICABLE",
+  "parityReason": "Bootstrap family declares exactly one representation surface (PYTHON_CONTRACT); parity requires two or more declared surfaces per SPEC R9.",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "ACCEPTED",
+      "shapes": [
+        {
+          "shapeId": "ACCEPTED_VALID",
+          "requiredFields": ["outcome", "payload", "provider_attempts", "output_digest"],
+          "forbiddenFields": ["reason"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {"type": "STRING", "const": "ACCEPTED"},
+            "payload": {"type": "STRING", "minLength": 1},
+            "provider_attempts": {"type": "INTEGER", "const": 1},
+            "output_digest": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"}
+          },
+          "relations": [
+            {
+              "relationId": "OUTPUT_DIGEST_EQUALS_SHA256_PAYLOAD",
+              "kind": "DIGEST_EQUALITY",
+              "sourceField": "payload",
+              "targetField": "output_digest",
+              "function": "SHA256_HEX"
+            },
+            {
+              "relationId": "ACCEPTED_PROVIDER_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "provider_attempts",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "REFUSED",
+      "shapes": [
+        {
+          "shapeId": "REFUSED_VALID",
+          "requiredFields": ["outcome", "reason", "provider_attempts"],
+          "forbiddenFields": ["payload", "output_digest"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {"type": "STRING", "const": "REFUSED"},
+            "reason": {"type": "STRING", "enum": ["POLICY_BLOCKED", "INPUT_INVALID"]},
+            "provider_attempts": {"type": "INTEGER", "const": 0}
+          },
+          "relations": [
+            {
+              "relationId": "REFUSED_PROVIDER_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "provider_attempts",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "ACCEPTED_VALID",
+        "reason": "Bootstrap synthetic shapes are flat; no governed nested object exists to recurse into.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "REFUSED_VALID",
+        "reason": "Bootstrap synthetic shapes are flat; no governed nested object exists to recurse into.",
+        "independentReviewRequired": true
+      }
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "SYNTHETIC_MATRIX_DIGEST_BINDING",
+      "ownerPath": "docs/cvf/invariants/synthetic-terminal-outcome.json",
+      "consumers": [
+        {
+          "consumerPath": "scripts/invariant_family_synthetic_emitter.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "OWNER_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "scripts.invariant_family_synthetic_emitter:emit_synthetic_terminal_outcome",
+    "kind": "SYNTHETIC_DETERMINISTIC"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Proves generic invariant-family mechanics only. Makes zero provider calls. Is not P4-B, provider governance, a production receipt, or real model/schema parity."
+}

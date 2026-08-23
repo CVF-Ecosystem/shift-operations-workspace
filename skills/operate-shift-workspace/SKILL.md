@@ -92,6 +92,11 @@ criteria. Define negative cases, claim boundary, evidence type, cleanup,
 rollback, and failure semantics. Require a real provider API call for every
 claim that governance controls AI/agent behavior; mock evidence is UI-only.
 
+Check `docs/cvf/INVARIANT_FAMILY_STANDARD.md` applicability triggers for a
+new or materially changed R2/R3 contract surface. Declare a registered
+family id or a reviewable `NOT_APPLICABLE` reason; never restate matrix
+rules here.
+
 ### WORK_ORDER
 
 Authorize an exact changed set with no wildcard or hidden reserve. Name:
@@ -106,6 +111,10 @@ Authorize an exact changed set with no wildcard or hidden reserve. Name:
 Require independent authorization review. Invocation of this skill never
 grants BUILD, provider-call, installation, commit, push, approval, self-review,
 or FREEZE authority.
+
+If a family was registered at SPEC, complete
+`docs/templates/INVARIANT_FAMILY_PROOF.md` with matrix id/digest, adapter/
+test paths, exclusions, and exact commands; do not copy matrix content.
 
 ### BUILD
 
@@ -132,6 +141,11 @@ Return actionable findings with severity and exact repair. Retain failed or
 invalidated evidence. A repair worker may change only the accepted repair set;
 new paths, provider calls, or broader claims require a reviewed amendment.
 Re-review until `REVIEW_PASS` or a truthful blocker remains.
+
+When a family was registered, the reviewer independently recomputes the
+matrix digest and reruns the full corpus via `docs/templates/
+INVARIANT_FAMILY_PROOF.md`; closing only reviewer-supplied probes is
+forbidden.
 
 ### FREEZE
 

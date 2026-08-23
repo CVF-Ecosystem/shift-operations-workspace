@@ -74,6 +74,18 @@ if size_check.returncode != 0:
     errors.append(size_check.stdout.strip())
     errors.append(size_check.stderr.strip())
 
+# Invariant-family guard: closed registry/matrix declarations, mutation
+# basis and ownership bindings must stay structurally sound repository-wide.
+invariant_check = subprocess.run(
+    [sys.executable, str(root / "scripts" / "check_invariant_families.py")],
+    capture_output=True,
+    text=True,
+)
+if invariant_check.returncode != 0:
+    errors.append("invariant-families: guard failed")
+    errors.append(invariant_check.stdout.strip())
+    errors.append(invariant_check.stderr.strip())
+
 if errors:
     raise SystemExit("\n".join(e for e in errors if e))
-print("repository validation passed (catalog + session state + file-size checks)")
+print("repository validation passed (catalog + session state + file-size + invariant-family checks)")

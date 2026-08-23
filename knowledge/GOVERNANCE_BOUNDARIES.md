@@ -33,4 +33,10 @@ and RESTRICTED content are excluded from this pack. Corrections preserve
 history; withdrawal, reclassification, or deletion follows explicit R2
 authority and does not imply Git history erasure.
 
+A new or materially changed R2/R3 contract surface follows
+`docs/cvf/INVARIANT_FAMILY_STANDARD.md` as repository-native guidance. This
+pack does not restate its per-outcome rules; executable truth remains in
+`docs/cvf/invariants/`, `scripts/check_invariant_families.py`, and their
+tests.
+
 Sources: `AGENTS.md`; `.cvf/manifest.json`; `.cvf/policy.json`; `docs/cvf/CONTEXT_CONTROL.md`; `docs/cvf/EVIDENCE_AND_TRUTH.md`; `docs/cvf/PROVIDER_GOVERNANCE.md`; `docs/cvf/RISK_AND_APPROVAL.md`

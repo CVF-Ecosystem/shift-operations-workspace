@@ -1,10 +1,14 @@
-# Session Memory — human companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral for every agent and human; full chronological history lives in the archive below. _Last updated: 2026-08-21 (P4-A3 FREEZE / CLOSED_BOUNDED)_
+# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-23 (cross-agent invariant learning CLOSED_BOUNDED)_
 
-**2026-08-21 (P4A3-APPLICATION-MEMORY / FREEZE / CLOSED_BOUNDED):** Exact-50 BUILD plus two repair rounds received independent non-consuming review pass; all findings closed without waiver. Separately authorized live proof recorded seven memory and six P4-A2 zero-call refusals, then exactly one HTTP 200 P4-A3-gated P4-A2/AIGateway call (`1/1/1`, ABSTAINED, nine stages PASS, secret scan NONE). Post-call focused 182 and full 2494/128 passed. Exact 52 paths, staged zero, HEAD `422661f`; no install/database/commit/push/deployment. One exact local closure commit is authorized; no amend/push. Then STOP pending fresh INTAKE authority.
+**2026-08-22 (P4-B / CLOSED_BOUNDED):** First call retained BLOCKED; independently reviewed repair then replacement PASS (4 zero-call + one HTTP 200, `EXTERNAL_ACCEPTED`, `1/1/1/1`, secret NONE). Verification 20/237/2732; findings/waivers NONE/NONE.
+
+**2026-08-23 (CROSS-AGENT-INVARIANT-LEARNING / FREEZE / CLOSED_BOUNDED):** Amendment 2 ratified exact-30. Independent rereview round 10 returned `REVIEW_PASS_ROUND_10`, findings/waivers `NONE/NONE`, after the final same-root provenance repair closed wildcard-import and nested/class assertion-function false passes. Focused 77/2 skipped; full 2809/130 skipped; repository gates PASS; zero provider/credential/install/database/deployment. Boundary is deterministic repository learning, not proof that any AI agent consumed or obeyed it.
+
+**2026-08-21 (P4A3 / CLOSED_BOUNDED):** Review/live proof passed (`NONE/NONE`), 7+6 zero-call refusals then one HTTP 200 (`1/1/1`, ABSTAINED); focused/full 182/2494. Exact-52 commit/push `319c6a8`.
 
 **2026-08-21 (P4A2-GOVERNED-RAG / FREEZE / CLOSED_BOUNDED):** Final review and live proof passed; exact local closure commit `422661f`; no push. Full detail in its completion review and handoff. `LPCI1-REF` remains parked.
 
-**2026-08-20/21 (P4A-AI-GATEWAY / FREEZE / CLOSED_BOUNDED):** Operator-ratified Amendment 2 received independent final `REVIEW_PASS`, findings/waivers `NONE/NONE`: exact 42 paths, validation 63, focused 210, full 2054/128 on Python 3.13.12/Pydantic 2.10.6, replacement Alibaba live proof one-call/HTTP 200 with six zero-call refusals, repository gates and doctor PASS. P3-B and Phase 3 close only for the reviewed gateway library boundary; no application caller, durable accounting, production adapter, RAG, deployment or production claim. Current `COMMIT_STEWARD` owns the exact local closure commit; afterward STOP, push unauthorized.
+**2026-08-20/21 (P4-A / CLOSED_BOUNDED):** Final review `NONE/NONE`; exact 42, focused/full 210/2054, six zero-call refusals then one HTTP 200. Gateway library only; no production adapter/deployment.
 
 **2026-08-20 (CVF-CORE-REFRESH / CLOSED_BOUNDED):** Reconciled stale Core/pins to public `7d9f360a...`; old Core/root preimages preserved. Independent R1–R12 PASS, findings/waivers NONE/NONE; doctor 24 + one bounded warning. Exact-18 local commit `a1aeb60`; no push or AI-governance claim.
 
