@@ -1,4 +1,4 @@
-"""Unit tests for scripts/invariant_family_contract.py baseline coverage
+"""Unit tests for invariant families, including P4-C registered matrices.
 (SPEC R3-R16, R15; round-0/round-1). Covers AC-02, AC-04, AC-05: duplicate
 JSON key rejection, path safety, digest canonicalization, mutation basis
 completeness, shape matching. Repair round 2 additions (F1-R1 through

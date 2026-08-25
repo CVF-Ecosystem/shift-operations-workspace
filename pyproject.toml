@@ -34,6 +34,7 @@ dependencies = [
   "SQLAlchemy>=2.0",
   "PyJWT>=2.9",
   "bcrypt>=4.0",
+  "cryptography>=43.0",
 ]
 
 # psycopg is only needed to connect to a real PostgreSQL DATABASE_URL; install
@@ -54,6 +55,7 @@ pythonpath = [
   "apps/workspace-api/src",
   "apps/workspace-worker/src",
   "apps/integration-edge/src",
+  "packages/channel-sdk/src",
   "packages/application-memory/src",
   "packages/cvf-runtime/src",
   "packages/operations-ledger/src",

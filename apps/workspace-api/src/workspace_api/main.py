@@ -13,6 +13,7 @@ from workspace_api.api.incidents.router import router as incidents_router
 from workspace_api.api.handovers.router import router as handovers_router
 from workspace_api.api.reports.router import router as reports_router
 from workspace_api.api.staffing.router import router as staffing_router
+from workspace_api.external_ingress.router import router as external_ingress_router
 from workspace_api.config import settings
 from workspace_api.middleware.request_id import RequestIdMiddleware
 
@@ -37,3 +38,4 @@ app.include_router(incidents_router)
 app.include_router(handovers_router)
 app.include_router(reports_router)
 app.include_router(staffing_router)
+app.include_router(external_ingress_router)

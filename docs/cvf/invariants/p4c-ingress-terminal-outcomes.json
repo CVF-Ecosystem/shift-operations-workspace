@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P4C-INGRESS-TERMINAL-OUTCOMES",
+  "title": "P4-C ingress terminal outcomes and exact attempt counters",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_RECEIPT_MODEL",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS",
+    "TRIGGER_4_MULTIPLE_VALIDATOR_SURFACES"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/decisions/DESIGN_2026-08-23_P4C_INTEGRATION_EDGE.md",
+      "sha256": "b141320a5a4fc828c7d2b6d0a318009ce131e844e24537222c9174ae391a2137",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": ["PYTHON_MODEL", "JSON_SCHEMA", "SQL_STATE"],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "PREAUTH_REFUSED",
+      "shapes": [{
+        "shapeId": "PREAUTH_REFUSED_VALID",
+        "requiredFields": ["outcome", "reason", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["raw_envelope_id", "quarantine_id"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "PREAUTH_REFUSED"},
+          "reason": {"type": "STRING", "enum": ["RATE_LIMITED", "UNTRUSTED_PEER", "OVERSIZED"]},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 0},
+          "route_attempts": {"type": "INTEGER", "const": 0}
+        },
+        "relations": [
+          {"relationId": "PREAUTH_REFUSED_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "PREAUTH_REFUSED_POSTAUTH_ZERO", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 0},
+          {"relationId": "PREAUTH_REFUSED_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}
+        ]
+      }]
+    },
+    {
+      "outcomeId": "AUTH_REFUSED",
+      "shapes": [{
+        "shapeId": "AUTH_REFUSED_VALID",
+        "requiredFields": ["outcome", "reason", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["raw_envelope_id", "quarantine_id"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "AUTH_REFUSED"},
+          "reason": {"type": "STRING", "enum": ["MISSING_SIGNATURE", "INVALID_SIGNATURE", "STALE_SIGNATURE"]},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 0},
+          "route_attempts": {"type": "INTEGER", "const": 0}
+        },
+        "relations": [
+          {"relationId": "AUTH_REFUSED_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "AUTH_REFUSED_POSTAUTH_ZERO", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 0},
+          {"relationId": "AUTH_REFUSED_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}
+        ]
+      }]
+    },
+    {
+      "outcomeId": "DUPLICATE",
+      "shapes": [{
+        "shapeId": "DUPLICATE_VALID",
+        "requiredFields": ["outcome", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["reason", "quarantine_id"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "DUPLICATE"},
+          "raw_envelope_id": {"type": "STRING", "minLength": 1},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 1},
+          "route_attempts": {"type": "INTEGER", "const": 0}
+        },
+        "relations": [
+          {"relationId": "DUPLICATE_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "DUPLICATE_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1},
+          {"relationId": "DUPLICATE_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}
+        ]
+      }]
+    },
+    {
+      "outcomeId": "COLLISION_QUARANTINED",
+      "shapes": [{
+        "shapeId": "COLLISION_QUARANTINED_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "quarantine_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": [],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "COLLISION_QUARANTINED"},
+          "reason": {"type": "STRING", "const": "KEY_COLLISION"},
+          "raw_envelope_id": {"type": "STRING", "minLength": 1},
+          "quarantine_id": {"type": "STRING", "minLength": 1},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 1},
+          "route_attempts": {"type": "INTEGER", "const": 0}
+        },
+        "relations": [
+          {"relationId": "COLLISION_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "COLLISION_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1},
+          {"relationId": "COLLISION_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}
+        ]
+      }]
+    },
+    {
+      "outcomeId": "POSTAUTH_RATE_REFUSED",
+      "shapes": [{
+        "shapeId": "POSTAUTH_RATE_REFUSED_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["quarantine_id"], "conditionalRules": [],
+        "fieldDomains": {"outcome": {"type": "STRING", "const": "POSTAUTH_RATE_REFUSED"}, "reason": {"type": "STRING", "const": "RATE_LIMITED"}, "raw_envelope_id": {"type": "STRING", "minLength": 1}, "preauth_count": {"type": "INTEGER", "const": 1}, "postauth_count": {"type": "INTEGER", "const": 1}, "route_attempts": {"type": "INTEGER", "const": 0}},
+        "relations": [{"relationId": "POSTAUTH_RATE_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1}, {"relationId": "POSTAUTH_RATE_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1}, {"relationId": "POSTAUTH_RATE_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "RESERVATION_CONFLICT",
+      "shapes": [{
+        "shapeId": "RESERVATION_CONFLICT_VALID",
+        "requiredFields": ["outcome", "reason", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["raw_envelope_id", "quarantine_id"], "conditionalRules": [],
+        "fieldDomains": {"outcome": {"type": "STRING", "const": "RESERVATION_CONFLICT"}, "reason": {"type": "STRING", "const": "ACTIVE_RESERVATION"}, "preauth_count": {"type": "INTEGER", "const": 1}, "postauth_count": {"type": "INTEGER", "const": 1}, "route_attempts": {"type": "INTEGER", "const": 0}},
+        "relations": [{"relationId": "RESERVATION_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1}, {"relationId": "RESERVATION_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1}, {"relationId": "RESERVATION_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "QUARANTINED",
+      "shapes": [{
+        "shapeId": "QUARANTINED_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "quarantine_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": [], "conditionalRules": [],
+        "fieldDomains": {"outcome": {"type": "STRING", "const": "QUARANTINED"}, "reason": {"type": "STRING", "enum": ["MALFORMED_SCHEMA", "UNSUPPORTED_TYPE", "AMBIGUOUS_CONTENT", "UNSAFE_ATTACHMENT", "SCAN_UNAVAILABLE", "POLICY_DRIFT", "ROUTE_POLICY_REFUSED"]}, "raw_envelope_id": {"type": "STRING", "minLength": 1}, "quarantine_id": {"type": "STRING", "minLength": 1}, "preauth_count": {"type": "INTEGER", "const": 1}, "postauth_count": {"type": "INTEGER", "const": 1}, "route_attempts": {"type": "INTEGER", "const": 0}},
+        "relations": [{"relationId": "QUARANTINED_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1}, {"relationId": "QUARANTINED_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1}, {"relationId": "QUARANTINED_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "QUARANTINE_PERSISTENCE_FAILED",
+      "shapes": [{
+        "shapeId": "QUARANTINE_PERSISTENCE_FAILED_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["quarantine_id"], "conditionalRules": [],
+        "fieldDomains": {"outcome": {"type": "STRING", "const": "QUARANTINE_PERSISTENCE_FAILED"}, "reason": {"type": "STRING", "const": "QUARANTINE_SINK_UNAVAILABLE"}, "raw_envelope_id": {"type": "STRING", "minLength": 1}, "preauth_count": {"type": "INTEGER", "const": 1}, "postauth_count": {"type": "INTEGER", "const": 1}, "route_attempts": {"type": "INTEGER", "const": 0}},
+        "relations": [{"relationId": "QUARANTINE_FAILURE_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1}, {"relationId": "QUARANTINE_FAILURE_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1}, {"relationId": "QUARANTINE_FAILURE_ROUTE_ZERO", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "ROUTE_REFUSED",
+      "shapes": [{
+        "shapeId": "ROUTE_REFUSED_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["quarantine_id"], "conditionalRules": [],
+        "fieldDomains": {"outcome": {"type": "STRING", "const": "ROUTE_REFUSED"}, "reason": {"type": "STRING", "enum": ["DOWNSTREAM_REFUSED", "SERVICE_ASSERTION_REFUSED"]}, "raw_envelope_id": {"type": "STRING", "minLength": 1}, "preauth_count": {"type": "INTEGER", "const": 1}, "postauth_count": {"type": "INTEGER", "const": 1}, "route_attempts": {"type": "INTEGER", "const": 1}},
+        "relations": [{"relationId": "ROUTE_REFUSED_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1}, {"relationId": "ROUTE_REFUSED_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1}, {"relationId": "ROUTE_REFUSED_ATTEMPT_ONE", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 1}]
+      }]
+    },
+    {
+      "outcomeId": "ROUTED",
+      "shapes": [{
+        "shapeId": "ROUTED_VALID",
+        "requiredFields": ["outcome", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["reason", "quarantine_id"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "ROUTED"},
+          "raw_envelope_id": {"type": "STRING", "minLength": 1},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 1},
+          "route_attempts": {"type": "INTEGER", "const": 1}
+        },
+        "relations": [
+          {"relationId": "ROUTED_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "ROUTED_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1},
+          {"relationId": "ROUTED_ATTEMPT_ONE", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 1}
+        ]
+      }]
+    },
+    {
+      "outcomeId": "ROUTE_OUTCOME_UNKNOWN",
+      "shapes": [{
+        "shapeId": "ROUTE_OUTCOME_UNKNOWN_VALID",
+        "requiredFields": ["outcome", "reason", "raw_envelope_id", "preauth_count", "postauth_count", "route_attempts"],
+        "forbiddenFields": ["quarantine_id"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "ROUTE_OUTCOME_UNKNOWN"},
+          "reason": {"type": "STRING", "const": "AMBIGUOUS_TRANSPORT"},
+          "raw_envelope_id": {"type": "STRING", "minLength": 1},
+          "preauth_count": {"type": "INTEGER", "const": 1},
+          "postauth_count": {"type": "INTEGER", "const": 1},
+          "route_attempts": {"type": "INTEGER", "const": 1}
+        },
+        "relations": [
+          {"relationId": "UNKNOWN_PREAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "preauth_count", "value": 1},
+          {"relationId": "UNKNOWN_POSTAUTH_ONE", "kind": "COUNTER_EQUALITY", "field": "postauth_count", "value": 1},
+          {"relationId": "UNKNOWN_ATTEMPT_ONE", "kind": "COUNTER_EQUALITY", "field": "route_attempts", "value": 1}
+        ]
+      }]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "PREAUTH_REFUSED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "AUTH_REFUSED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "DUPLICATE_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "COLLISION_QUARANTINED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "POSTAUTH_RATE_REFUSED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "RESERVATION_CONFLICT_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "QUARANTINED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "QUARANTINE_PERSISTENCE_FAILED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "ROUTE_REFUSED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "ROUTED_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true},
+      {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "ROUTE_OUTCOME_UNKNOWN_VALID", "reason": "Flat receipt shape.", "independentReviewRequired": true}
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P4C_MATRIX_ID_REFERENCE",
+      "ownerPath": "docs/cvf/invariants/p4c-ingress-terminal-outcomes.json",
+      "consumers": [{
+        "consumerPath": "docs/specs/p4c_invariant_pins.py",
+        "strategy": "CANONICAL_DIGEST",
+        "digestSymbol": "P4C_INGRESS_MATRIX_CANONICAL_DIGEST"
+      }]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "integration_edge.invariants:emit_ingress_terminal_receipt",
+    "kind": "REAL_SERVICE_EMITTER"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Defines P4-C ingress receipt shapes and exact per-request counters only; no provider call, production adapter, deployment, or business-truth claim."
+}

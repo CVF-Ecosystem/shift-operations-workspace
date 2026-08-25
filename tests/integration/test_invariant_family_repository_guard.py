@@ -1,4 +1,4 @@
-"""Integration tests for scripts/check_invariant_families.py against a
+"""Integration guard tests including the registered P4-C matrix ownership.
 disposable repository fixture (SPEC R9, R11-R13, R15; round-0/round-1
 baseline). Proves the guard fails closed on representative mutations and
 passes the committed repository; proves conformance-summary cleanup (R12)

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/contracts/channel/service-assertion.schema.json",
+  "title": "ServiceAssertionV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version", "key_id", "issuer", "subject", "audience", "operation",
+    "method", "path", "issued_at", "expires_at", "nonce", "body_sha256",
+    "idempotency_key", "correlation_id", "signature"
+  ],
+  "properties": {
+    "version": {"const": "1"},
+    "key_id": {"type": "string", "minLength": 1, "maxLength": 128},
+    "issuer": {"type": "string", "minLength": 1, "maxLength": 128},
+    "subject": {"type": "string", "minLength": 1, "maxLength": 128},
+    "audience": {"type": "string", "minLength": 1, "maxLength": 128},
+    "operation": {"enum": ["external_ingress.propose", "outbound.deliver"]},
+    "method": {"enum": ["POST", "PUT", "PATCH", "DELETE"]},
+    "path": {"type": "string", "pattern": "^/", "maxLength": 512},
+    "issued_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "nonce": {"type": "string", "minLength": 16, "maxLength": 256},
+    "body_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "idempotency_key": {"type": "string", "minLength": 1, "maxLength": 256},
+    "correlation_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "signature": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

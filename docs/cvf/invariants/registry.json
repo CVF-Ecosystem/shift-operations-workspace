@@ -8,6 +8,30 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "NEW_OR_MATERIALLY_CHANGED_TRIGGERED_FAMILIES"
+    },
+    {
+      "familyId": "P4C-INGRESS-TERMINAL-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4c-ingress-terminal-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SHARED_RECEIPT_COUNTER_SCHEMA_PARITY"
+    },
+    {
+      "familyId": "P4C-OUTBOUND-TERMINAL-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4c-outbound-terminal-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SHARED_RECEIPT_COUNTER_SCHEMA_PARITY"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-EVIDENCE-CONTRACT",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-evidence-contract.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SHARED_EVIDENCE_OUTCOMES_MULTI_VALIDATOR_ADJACENT_FINDINGS"
     }
   ]
 }

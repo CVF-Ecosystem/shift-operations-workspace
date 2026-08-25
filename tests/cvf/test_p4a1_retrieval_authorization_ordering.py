@@ -92,7 +92,7 @@ def test_identity_and_start_time_allocated_before_r2_even_on_invalid_request() -
 
     def counting_utc_now():
         clock_calls.append(1)
-        return datetime(2026, 8, 10, 12, 0, tzinfo=timezone.utc)
+        return datetime(2026, 8, 10, 12, 0, tzinfo=timezone.utc) + timedelta(microseconds=len(clock_calls))
 
     body = request_body(query="")  # invalid: empty query -> R2 must fail
     result = execute_governed_retrieval(

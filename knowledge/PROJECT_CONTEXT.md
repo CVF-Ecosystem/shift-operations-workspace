@@ -87,8 +87,10 @@ emitter, deterministic guard and shared agent-routing guidance. Focused
 `77 passed, 2 skipped`; full `2809 passed, 130 skipped`; repository and doctor
 gates passed with the retained bounded legacy-catalog note. No provider call,
 credential, install, database or deployment occurred. This does not prove that
-any AI agent consumed, remembered or complied with the guidance. Roadmap-next
-P4-C requires fresh INTAKE; no later-phase authority carries forward.
+any AI agent consumed, remembered or complied with the guidance. P4-C later
+reached `FREEZE / CLOSED_BOUNDED` on 2026-08-25 within its local Integration
+Edge boundary; roadmap-next P4-D requires fresh INTAKE and no authority carries
+forward. XR1 sibling historical-object debt remains unresolved.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
