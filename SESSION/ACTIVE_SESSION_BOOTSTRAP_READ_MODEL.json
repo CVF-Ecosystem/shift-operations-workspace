@@ -1,28 +1,27 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cross_agent_invariant_learning_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/CROSS_AGENT_INVARIANT_LEARNING_2026-08-22.md",
-  "nextAllowedMove": "Fresh INTAKE for roadmap-next P4-C only; no later-phase authority carries forward.",
-  "parkedOperatorCheckpoint": "NONE",
+  "currentMode": "p4d_channel_adapters_intake_accepted",
+  "activeHandoff": "SESSION/handoffs/P4D_CHANNEL_ADAPTERS_2026-08-26.md",
+  "nextAllowedMove": "After the operator-authorized bounded Git publication, explicit P4-D DESIGN phase transition only; SPEC and later phases remain unauthorized.",
+  "parkedOperatorCheckpoint": "XR1 sibling historical-object debt remains unresolved and outside P4-C closure.",
   "requiredReads": [
-    "docs/decisions/CROSS_AGENT_INVARIANT_LEARNING_COMPLETION_REVIEW_2026-08-23.md",
-    "docs/decisions/CROSS_AGENT_INVARIANT_LEARNING_WORKER_RETURN_2026-08-23.md",
-    "SESSION/handoffs/CROSS_AGENT_INVARIANT_LEARNING_2026-08-22.md",
-    "docs/specs/CROSS_AGENT_INVARIANT_LEARNING_SPEC.md",
-    "docs/work_orders/CROSS_AGENT_INVARIANT_LEARNING_WORK_ORDER.md",
+    "docs/decisions/INTAKE_2026-08-26_P4D_CHANNEL_ADAPTERS.md",
+    "docs/decisions/P4D_CHANNEL_ADAPTERS_INTAKE_REVIEW_2026-08-26.md",
+    "SESSION/handoffs/P4D_CHANNEL_ADAPTERS_2026-08-26.md",
+    "SESSION/handoffs/P4C_INTEGRATION_EDGE_2026-08-23.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
+    ".cvf/manifest.json",
+    ".cvf/policy.json",
     "SESSION/SESSION_MEMORY.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/INDEX.md",
-    "docs/implementation/EXECUTION_ROADMAP.md",
-    "knowledge/PROJECT_CONTEXT.md",
-    "AGENTS.md"
+    "docs/implementation/EXECUTION_ROADMAP.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-23"
+  "updatedAt": "2026-08-26"
 }

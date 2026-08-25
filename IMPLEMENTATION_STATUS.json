@@ -359,6 +359,13 @@
     "claim_boundary": "Local provider-neutral Integration Edge foundation only. No deployable channel/provider adapter, real outbound send, provider call, production/managed database, deployment, P4-E identity/conversation mapping, commit or push. XR1 sibling historical-object debt remains unresolved and is not claimed passing.",
     "next_governed_move": "Fresh P4-D Channel Adapters INTAKE only; no later-phase authority carries forward. Commit/push remain separately unauthorized."
   },
+  "p4d_channel_adapters": {
+    "scope_note": "Roadmap P4-D INTAKE only: proposed generic outbound webhook adapter behind the existing P4-C port plus deterministic non-production Zalo/WhatsApp conformance mocks; P4-E mapping remains separate.",
+    "governance_disposition": "INTAKE / INTAKE_REVIEW_PASS (2026-08-26); F1-F3 CLOSED, findings/waivers NONE/NONE; no BUILD authority.",
+    "what_changed": "Documentation and continuity only; no product source, provider, credential, network, install or deployment effect. The operator separately authorized bounded Git publication after review.",
+    "claim_boundary": "No concrete adapter exists yet and mocks cannot prove live delivery or CVF governance behavior.",
+    "next_governed_move": "Explicit P4-D DESIGN phase transition only. SPEC and later phases remain unauthorized."
+  },
   "notes": [
     "Module-level status (enforced/partial/contract-only/stub) lives in docs/catalog/MODULE_REGISTRY.json.",
     "Zalo and WhatsApp are mock/conformance skeletons until official credentials and API approval are available.",

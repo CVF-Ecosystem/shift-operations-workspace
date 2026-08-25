@@ -1,14 +1,21 @@
-# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-23 (cross-agent invariant learning CLOSED_BOUNDED)_
+# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-26 (P4-D INTAKE review)_
+
+**2026-08-26 (P4-D / INTAKE accepted):** Minimum channel-adapter boundary:
+generic outbound webhook plus non-production Zalo/WhatsApp mocks. Independent
+rereview closed F1-F3, `NONE/NONE`, `INTAKE_REVIEW_PASS`. The operator later
+authorized bounded publication of reviewed artifacts. Explicit DESIGN
+transition is next; no BUILD/provider/credential/deployment authority.
+
+**2026-08-25 (P4-C / FREEZE / CLOSED_BOUNDED):** Final review `NONE/NONE`;
+exact 68; isolated/file 1/3; amended full 2836/132/1; guards PASS. Local Edge
+foundation only; XR1 debt unresolved; P4-D fresh INTAKE is next.
+
+**2026-08-24 (P4-C / BUILD):** Exact-66 material complete; BUILD stopped because
+mandatory catalog delta requires out-of-ceiling Knowledge pin path 67.
 
 **2026-08-22 (P4-B / CLOSED_BOUNDED):** First call retained BLOCKED; independently reviewed repair then replacement PASS (4 zero-call + one HTTP 200, `EXTERNAL_ACCEPTED`, `1/1/1/1`, secret NONE). Verification 20/237/2732; findings/waivers NONE/NONE.
 
 **2026-08-23 (CROSS-AGENT-INVARIANT-LEARNING / FREEZE / CLOSED_BOUNDED):** Amendment 2 ratified exact-30. Independent rereview round 10 returned `REVIEW_PASS_ROUND_10`, findings/waivers `NONE/NONE`, after the final same-root provenance repair closed wildcard-import and nested/class assertion-function false passes. Focused 77/2 skipped; full 2809/130 skipped; repository gates PASS; zero provider/credential/install/database/deployment. Boundary is deterministic repository learning, not proof that any AI agent consumed or obeyed it.
-
-**2026-08-21 (P4A3 / CLOSED_BOUNDED):** Review/live proof passed (`NONE/NONE`), 7+6 zero-call refusals then one HTTP 200 (`1/1/1`, ABSTAINED); focused/full 182/2494. Exact-52 commit/push `319c6a8`.
-
-**2026-08-21 (P4A2-GOVERNED-RAG / FREEZE / CLOSED_BOUNDED):** Final review and live proof passed; exact local closure commit `422661f`; no push. Full detail in its completion review and handoff. `LPCI1-REF` remains parked.
-
-**2026-08-20/21 (P4-A / CLOSED_BOUNDED):** Final review `NONE/NONE`; exact 42, focused/full 210/2054, six zero-call refusals then one HTTP 200. Gateway library only; no production adapter/deployment.
 
 **2026-08-20 (CVF-CORE-REFRESH / CLOSED_BOUNDED):** Reconciled stale Core/pins to public `7d9f360a...`; old Core/root preimages preserved. Independent R1–R12 PASS, findings/waivers NONE/NONE; doctor 24 + one bounded warning. Exact-18 local commit `a1aeb60`; no push or AI-governance claim.
 
