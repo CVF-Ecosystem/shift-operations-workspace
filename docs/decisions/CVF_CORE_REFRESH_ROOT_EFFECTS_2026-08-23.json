@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "observedAt": "2026-08-24",
+  "workOrderSha256": "563cffe51d4764b01d7644027a497366c6ef5647b8e3e7c07d80248839b74412",
+  "targetCoreCommit": "864c4e0e6139f3e32067dea41f43f240e505c0d8",
+  "workspaceRoot": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace",
+  "evidenceRoot": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF_CORE_REFRESH_PIN_CARRIER_BUILD_20260823T175402170Z",
+  "targetCount": 17,
+  "changedCount": 1,
+  "effects": [
+    {"path":"WORKSPACE_RULES.md","before":{"exists":true,"sha256":"a26d7112b8f7c15a0dc6fbd3bce7ea3de7f0352921ca06c63318c008cdb3ba48"},"after":{"exists":true,"sha256":"51fc5a167b099679b7a9fecfbdda6065fe2aed74065b313630e41538d74c9264"},"changed":true},
+    {"path":"New-CVF-Governed-Project.ps1","before":{"exists":true,"sha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1"},"after":{"exists":true,"sha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1"},"changed":false},
+    {"path":"Run-CVF-NewProject-Enforcement.ps1","before":{"exists":true,"sha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f"},"after":{"exists":true,"sha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f"},"changed":false},
+    {"path":"Update-CVF-Workspace.ps1","before":{"exists":true,"sha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77"},"after":{"exists":true,"sha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77"},"changed":false},
+    {"path":"Update-CVF-Workspace-Public-Profile.ps1","before":{"exists":true,"sha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee"},"after":{"exists":true,"sha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee"},"changed":false},
+    {"path":"Test-CVF-Workspace.ps1","before":{"exists":true,"sha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41"},"after":{"exists":true,"sha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41"},"changed":false},
+    {"path":"Repair-CVF-Workspace.ps1","before":{"exists":true,"sha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b"},"after":{"exists":true,"sha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b"},"changed":false},
+    {"path":"Manage-CVF-Workspace.ps1","before":{"exists":true,"sha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c"},"after":{"exists":true,"sha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c"},"changed":false},
+    {"path":".agents/workflows/cvf-onboard.md","before":{"exists":true,"sha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80"},"after":{"exists":true,"sha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80"},"changed":false},
+    {"path":".agents/workflows/pre-commit-check.md","before":{"exists":true,"sha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039"},"after":{"exists":true,"sha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039"},"changed":false},
+    {"path":"CVF_WORKSPACE_USER_GUIDE.md","before":{"exists":true,"sha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1"},"after":{"exists":true,"sha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1"},"changed":false},
+    {"path":"CVF_WORKSPACE_HUONG_DAN_SU_DUNG.md","before":{"exists":true,"sha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4"},"after":{"exists":true,"sha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4"},"changed":false},
+    {"path":"CVF_WORKSPACE_CLASSIFICATION_GUIDE.md","before":{"exists":true,"sha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360"},"after":{"exists":true,"sha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360"},"changed":false},
+    {"path":"WORKSPACE_PROJECT_ENFORCEMENT_BASELINE.json","before":{"exists":true,"sha256":"35e4b4efc773639dda19851eeabdcccece1b612c6d36f8b31c2a26a05723890c"},"after":{"exists":true,"sha256":"35e4b4efc773639dda19851eeabdcccece1b612c6d36f8b31c2a26a05723890c"},"changed":false},
+    {"path":"Get-CVF-Workspace-OverlayProfiles.ps1","before":{"exists":false,"sha256":null},"after":{"exists":false,"sha256":null},"changed":false},
+    {"path":"Update-CVF-Workspace-Overlay.ps1","before":{"exists":false,"sha256":null},"after":{"exists":false,"sha256":null},"changed":false},
+    {"path":"CVF_WORKSPACE_OVERLAY_STATUS.json","before":{"exists":false,"sha256":null},"after":{"exists":false,"sha256":null},"changed":false}
+  ]
+}
