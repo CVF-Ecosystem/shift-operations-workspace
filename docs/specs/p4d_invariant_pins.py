@@ -1,0 +1,4 @@
+"""Machine-enforced canonical pins for the P4-D SPEC invariant matrices."""
+
+P4D_ADAPTER_RESULT_MATRIX_CANONICAL_DIGEST = "f09811c29e94de7a93300a1dc4aa8ed6eae3a9bd83418840089c5156224bfb6d"
+P4C_OUTBOUND_MATRIX_CANONICAL_DIGEST = "41f42d0b2585201a41fbed3b9f2d7e6bfd9f2adf4f2f587890addc0a7d4604a6"

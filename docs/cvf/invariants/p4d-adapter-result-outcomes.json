@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P4D-ADAPTER-RESULT-OUTCOMES",
+  "title": "P4-D adapter terminal results and exact physical-attempt facts",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_RECEIPT_MODEL",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_4_MULTIPLE_VALIDATOR_SURFACES"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/decisions/DESIGN_2026-08-26_P4D_CHANNEL_ADAPTERS.md",
+      "sha256": "1f9288b6d4158bc815347050bf76e40b2b5089bcc7ee05949061ed9860ab1a22",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "CHANNEL_SDK_PYTHON_MODEL",
+    "CHANNEL_JSON_SCHEMA",
+    "GENERIC_WEBHOOK_ADAPTER",
+    "ZALO_CONFORMANCE_MOCK",
+    "WHATSAPP_CONFORMANCE_MOCK",
+    "INTEGRATION_EDGE_MAPPING",
+    "INDEPENDENT_CONFORMANCE_TESTS"
+  ],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "NOT_ATTEMPTED",
+      "shapes": [
+        {
+          "shapeId": "NOT_ATTEMPTED_VALID",
+          "requiredFields": ["status", "transport_attempted", "reason"],
+          "forbiddenFields": ["delivery_id"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "status": {"type": "STRING", "const": "NOT_ATTEMPTED"},
+            "transport_attempted": {"type": "BOOLEAN", "const": false},
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "INVALID_REQUEST",
+                "CONFIGURATION_INVALID",
+                "ENDPOINT_NOT_AUTHORIZED",
+                "RESOLUTION_NOT_AUTHORIZED",
+                "CONNECTION_NOT_AUTHORIZED",
+                "SIGNING_UNAVAILABLE",
+                "TRANSPORT_UNAVAILABLE"
+              ]
+            }
+          },
+          "relations": []
+        }
+      ]
+    },
+    {
+      "outcomeId": "SENT_ACCEPTED",
+      "shapes": [
+        {
+          "shapeId": "SENT_ACCEPTED_VALID",
+          "requiredFields": ["status", "transport_attempted", "delivery_id"],
+          "forbiddenFields": ["reason"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "status": {"type": "STRING", "const": "SENT_ACCEPTED"},
+            "transport_attempted": {"type": "BOOLEAN", "const": true},
+            "delivery_id": {"type": "STRING", "pattern": "^gwv1-[0-9a-f]{64}$"}
+          },
+          "relations": []
+        }
+      ]
+    },
+    {
+      "outcomeId": "PROVIDER_REFUSED",
+      "shapes": [
+        {
+          "shapeId": "PROVIDER_REFUSED_VALID",
+          "requiredFields": ["status", "transport_attempted", "reason"],
+          "forbiddenFields": ["delivery_id"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "status": {"type": "STRING", "const": "PROVIDER_REFUSED"},
+            "transport_attempted": {"type": "BOOLEAN", "const": true},
+            "reason": {"type": "STRING", "const": "PROVIDER_REFUSED"}
+          },
+          "relations": []
+        }
+      ]
+    },
+    {
+      "outcomeId": "TERMINAL_FAILED",
+      "shapes": [
+        {
+          "shapeId": "TERMINAL_FAILED_VALID",
+          "requiredFields": ["status", "transport_attempted", "reason"],
+          "forbiddenFields": ["delivery_id"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "status": {"type": "STRING", "const": "TERMINAL_FAILED"},
+            "transport_attempted": {"type": "BOOLEAN", "const": true},
+            "reason": {"type": "STRING", "enum": ["INVALID_RESPONSE", "NONRETRYABLE_ERROR"]}
+          },
+          "relations": []
+        }
+      ]
+    },
+    {
+      "outcomeId": "OUTCOME_UNKNOWN",
+      "shapes": [
+        {
+          "shapeId": "OUTCOME_UNKNOWN_VALID",
+          "requiredFields": ["status", "transport_attempted", "reason"],
+          "forbiddenFields": ["delivery_id"],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "status": {"type": "STRING", "const": "OUTCOME_UNKNOWN"},
+            "transport_attempted": {"type": "BOOLEAN", "const": true},
+            "reason": {"type": "STRING", "const": "AMBIGUOUS_TRANSPORT"}
+          },
+          "relations": []
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "NOT_ATTEMPTED_VALID",
+        "reason": "Flat adapter-result shape.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "SENT_ACCEPTED_VALID",
+        "reason": "Flat adapter-result shape.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "PROVIDER_REFUSED_VALID",
+        "reason": "Flat adapter-result shape.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "TERMINAL_FAILED_VALID",
+        "reason": "Flat adapter-result shape.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "OUTCOME_UNKNOWN_VALID",
+        "reason": "Flat adapter-result shape.",
+        "independentReviewRequired": true
+      }
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P4D_ADAPTER_RESULT_MATRIX_DIGEST_BINDING",
+      "ownerPath": "docs/cvf/invariants/p4d-adapter-result-outcomes.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/p4d_invariant_pins.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P4D_ADAPTER_RESULT_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "channel_adapters.conformance:emit_adapter_result",
+    "kind": "SYNTHETIC_DETERMINISTIC"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Defines P4-D adapter-local terminal result shapes and exact physical-attempt facts only. It does not issue or replace P4-C receipts and proves no network call, provider delivery, vendor conformance, governance behavior, production readiness or deployment."
+}

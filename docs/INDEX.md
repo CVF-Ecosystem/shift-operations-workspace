@@ -101,6 +101,32 @@
 - Independent P4-D INTAKE review (final `INTAKE_REVIEW_PASS`; F1-F3 closed,
   findings/waivers `NONE/NONE`):
   [`P4D_CHANNEL_ADAPTERS_INTAKE_REVIEW_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_INTAKE_REVIEW_2026-08-26.md)
+- P4-D Channel Adapters DESIGN (`READY_FOR_INDEPENDENT_DESIGN_REVIEW`):
+  [`DESIGN_2026-08-26_P4D_CHANNEL_ADAPTERS.md`](decisions/DESIGN_2026-08-26_P4D_CHANNEL_ADAPTERS.md)
+- Independent P4-D DESIGN review (final `DESIGN_REVIEW_PASS`; F1-F4 closed,
+  findings/waivers `NONE/NONE`):
+  [`P4D_CHANNEL_ADAPTERS_DESIGN_REVIEW_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_DESIGN_REVIEW_2026-08-26.md)
+- P4-D Channel Adapters SPEC and invariant matrix (amended R3;
+  `SPEC_AMENDMENT_REVIEW_PASS`):
+  [`P4D_CHANNEL_ADAPTERS_SPEC.md`](specs/P4D_CHANNEL_ADAPTERS_SPEC.md),
+  [`p4d-adapter-result-outcomes.json`](cvf/invariants/p4d-adapter-result-outcomes.json)
+- Independent P4-D SPEC review (original `SPEC_REVIEW_PASS`, amended R3
+  `SPEC_AMENDMENT_REVIEW_PASS`; findings/waivers `NONE/NONE`):
+  [`P4D_CHANNEL_ADAPTERS_SPEC_REVIEW_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_SPEC_REVIEW_2026-08-26.md)
+- P4-D bounded Work Order (exact 54; amended closure sequencing;
+  `AMENDMENT_AUTHORIZATION_REVIEW_PASS`):
+  [`P4D_CHANNEL_ADAPTERS_WORK_ORDER.md`](work_orders/P4D_CHANNEL_ADAPTERS_WORK_ORDER.md)
+- Independent P4-D Work Order authorization review (original
+  `AUTHORIZATION_REVIEW_PASS`, amendment
+  `AMENDMENT_AUTHORIZATION_REVIEW_PASS`; F1 closed, findings/waivers
+  `NONE/NONE`):
+  [`P4D_CHANNEL_ADAPTERS_WORK_ORDER_AUTHORIZATION_REVIEW_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_WORK_ORDER_AUTHORIZATION_REVIEW_2026-08-26.md)
+- P4-D BUILD worker return (exact worker paths 9–40; deterministic
+  zero-network evidence):
+  [`P4D_CHANNEL_ADAPTERS_WORKER_RETURN_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_WORKER_RETURN_2026-08-26.md)
+- Independent P4-D completion review (all findings closed; final
+  `FINAL_REVIEW_PASS`, findings/waivers `NONE/NONE`):
+  [`P4D_CHANNEL_ADAPTERS_COMPLETION_REVIEW_2026-08-26.md`](decisions/P4D_CHANNEL_ADAPTERS_COMPLETION_REVIEW_2026-08-26.md)
 - Active P4-D handoff:
   [`P4D_CHANNEL_ADAPTERS_2026-08-26.md`](../SESSION/handoffs/P4D_CHANNEL_ADAPTERS_2026-08-26.md)
 - Predecessor learning INTAKE:

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cvf.local/contracts/channel/adapter-delivery.schema.json",
+  "title": "P4-D typed adapter delivery contract",
+  "oneOf": [
+    {"$ref": "#/$defs/AdapterDeliveryRequestV1"},
+    {"$ref": "#/$defs/AdapterDeliveryResultV1"}
+  ],
+  "$defs": {
+    "AdapterDeliveryRequestV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "command_id", "idempotency_key", "correlation_id",
+        "workspace_digest", "record_digest", "action_digest", "content_digest",
+        "recipient_digest", "channel_digest", "record_version", "policy_version",
+        "prerequisite_receipt_refs"
+      ],
+      "properties": {
+        "version": {"const": "1"},
+        "command_id": {"type": "string", "minLength": 1, "maxLength": 256},
+        "idempotency_key": {"type": "string", "minLength": 1, "maxLength": 256},
+        "correlation_id": {"type": "string", "minLength": 1, "maxLength": 256},
+        "workspace_digest": {"$ref": "#/$defs/Sha256"},
+        "record_digest": {"$ref": "#/$defs/Sha256"},
+        "action_digest": {"$ref": "#/$defs/Sha256"},
+        "content_digest": {"$ref": "#/$defs/Sha256"},
+        "recipient_digest": {"$ref": "#/$defs/Sha256"},
+        "channel_digest": {"$ref": "#/$defs/Sha256"},
+        "record_version": {"type": "integer", "minimum": 1},
+        "policy_version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "prerequisite_receipt_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 256}
+        }
+      }
+    },
+    "AdapterDeliveryResultV1": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "transport_attempted", "reason"],
+          "properties": {
+            "status": {"const": "NOT_ATTEMPTED"},
+            "transport_attempted": {"const": false},
+            "reason": {"enum": ["INVALID_REQUEST", "CONFIGURATION_INVALID", "ENDPOINT_NOT_AUTHORIZED", "RESOLUTION_NOT_AUTHORIZED", "CONNECTION_NOT_AUTHORIZED", "SIGNING_UNAVAILABLE", "TRANSPORT_UNAVAILABLE"]}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "transport_attempted", "delivery_id"],
+          "properties": {
+            "status": {"const": "SENT_ACCEPTED"},
+            "transport_attempted": {"const": true},
+            "delivery_id": {"type": "string", "pattern": "^gwv1-[0-9a-f]{64}$"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "transport_attempted", "reason"],
+          "properties": {
+            "status": {"const": "PROVIDER_REFUSED"},
+            "transport_attempted": {"const": true},
+            "reason": {"const": "PROVIDER_REFUSED"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "transport_attempted", "reason"],
+          "properties": {
+            "status": {"const": "TERMINAL_FAILED"},
+            "transport_attempted": {"const": true},
+            "reason": {"enum": ["INVALID_RESPONSE", "NONRETRYABLE_ERROR"]}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "transport_attempted", "reason"],
+          "properties": {
+            "status": {"const": "OUTCOME_UNKNOWN"},
+            "transport_attempted": {"const": true},
+            "reason": {"const": "AMBIGUOUS_TRANSPORT"}
+          }
+        }
+      ]
+    },
+    "Sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -2,4 +2,4 @@
 name="integration-edge"
 version="0.1.0"
 requires-python=">=3.12"
-dependencies=["fastapi>=0.115","uvicorn[standard]>=0.30","pydantic>=2.10","pydantic-settings>=2.5","cryptography>=43.0","SQLAlchemy>=2.0","channel-sdk>=0.1.0"]
+dependencies=["fastapi>=0.115","uvicorn[standard]>=0.30","pydantic>=2.10","pydantic-settings>=2.5","cryptography>=43.0","SQLAlchemy>=2.0","channel-sdk>=0.1.0","channel-adapters>=0.1.0"]

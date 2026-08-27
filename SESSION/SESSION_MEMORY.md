@@ -1,17 +1,18 @@
-# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-26 (P4-D INTAKE review)_
+# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-28 (P4-D FREEZE)_
 
-**2026-08-26 (P4-D / INTAKE accepted):** Minimum channel-adapter boundary:
-generic outbound webhook plus non-production Zalo/WhatsApp mocks. Independent
-rereview closed F1-F3, `NONE/NONE`, `INTAKE_REVIEW_PASS`. The operator later
-authorized bounded publication of reviewed artifacts. Explicit DESIGN
-transition is next; no BUILD/provider/credential/deployment authority.
+**2026-08-28 (P4-D / FREEZE / CLOSED_BOUNDED):** Independent final audit
+returned `FINAL_REVIEW_PASS`, findings/waivers `NONE/NONE`: exact 54, focused
+74, invariant 37/2 plus guard, full 2898/132/1, doctor 24 plus bounded note.
+Core target `a7a797d`; prerequisite commits `604addc`/`b3f2431`. Boundary is
+deterministic digest-only webhook and zero-I/O mocks, not live/vendor/
+governance/production/P4-E evidence. Next: exact-54 commit/push, then fresh P4-E INTAKE.
+
+**2026-08-26 (P4-D / BUILD):** Exact-54 Work Order authorization passed after
+one mechanical F1 repair, `NONE/NONE`. Separate IMPLEMENTATION_WORKER owns
+paths 9-40; deterministic zero-network BUILD is active.
 
 **2026-08-25 (P4-C / FREEZE / CLOSED_BOUNDED):** Final review `NONE/NONE`;
-exact 68; isolated/file 1/3; amended full 2836/132/1; guards PASS. Local Edge
-foundation only; XR1 debt unresolved; P4-D fresh INTAKE is next.
-
-**2026-08-24 (P4-C / BUILD):** Exact-66 material complete; BUILD stopped because
-mandatory catalog delta requires out-of-ceiling Knowledge pin path 67.
+exact 68; amended full 2836/132/1; guards PASS. Local Edge only; XR1 debt open.
 
 **2026-08-22 (P4-B / CLOSED_BOUNDED):** First call retained BLOCKED; independently reviewed repair then replacement PASS (4 zero-call + one HTTP 200, `EXTERNAL_ACCEPTED`, `1/1/1/1`, secret NONE). Verification 20/237/2732; findings/waivers NONE/NONE.
 

@@ -26,6 +26,14 @@
       "applicabilityMode": "R2_SHARED_RECEIPT_COUNTER_SCHEMA_PARITY"
     },
     {
+      "familyId": "P4D-ADAPTER-RESULT-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4d-adapter-result-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SHARED_RESULT_ATTEMPT_SCHEMA_MAPPING_PARITY"
+    },
+    {
       "familyId": "CVF-CORE-REFRESH-EVIDENCE-CONTRACT",
       "matrixPath": "docs/cvf/invariants/cvf-core-refresh-evidence-contract.json",
       "ownerRole": "SPEC_AUTHOR",

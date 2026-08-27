@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-25T15:10:58.590051+00:00_
+_Last generated: 2026-08-27T23:21:58.907079+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 ## Totals
 
 - Modules: **26**
-- Code LOC (py/ts/tsx): **32804**
-- Code files: **318**
-- By status: contract-only=5, enforced=2, partial=13, stub=6
+- Code LOC (py/ts/tsx): **33609**
+- Code files: **327**
+- By status: contract-only=5, enforced=2, partial=14, stub=5
 
 ## Status legend
 
@@ -34,9 +34,10 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 | `ai-gateway` | packages/ai-gateway | partial | 1663 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
 | `ai-providers` | packages/ai-providers | partial | 1417 | provider_authorization | P4-B provider-mode foundation (packages/ai-providers/src/ai_providers): ProviderModeService.execute is the sole mode-selection entry point for zero-call NO_AI, deterministic local RULES_ONLY, a default-denied evidence-ineligible MockProviderAdapter, ProviderAdapterRegistry-owned metadata, and EXTERNAL_AI delegation at most once to an injected P4-A AIGateway. Also retains the pre-existing non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `application-memory` | packages/application-memory | partial | 1254 | data_scope, evidence | Pure P4-A3 session/working application memory: strict immutable contracts, deterministic SESSION/WORKING layer policy, a process-local append-only store with correction/tombstone lineage, use-time scope/TTL/source revalidation and sanitized receipts. |
+| `channel-adapters` | packages/channel-adapters | partial | 514 | — | Digest-only generic outbound webhook adapter plus deterministic provider-neutral conformance mocks. |
 | `governed-rag` | packages/governed-rag | partial | 2442 | data_scope, evidence, cost, termination | Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
-| `integration-edge` | apps/integration-edge | partial | 1261 | data_scope, refusal | Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports and bounded outbound receipts. |
+| `integration-edge` | apps/integration-edge | partial | 1379 | data_scope, refusal | Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports, bounded outbound receipts, and digest-only generic-webhook composition. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
@@ -44,12 +45,11 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 | `workspace-api` | apps/workspace-api | partial | 8247 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
-| `channel-sdk` | packages/channel-sdk | contract-only | 125 | — | Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh. |
+| `channel-sdk` | packages/channel-sdk | contract-only | 298 | — | Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
 | `operate-shift-workspace` | skills/operate-shift-workspace | contract-only | 0 | — | Provider-neutral navigation over current project continuity, phase/role routing, exact-path work orders, evidence review and bounded closure. |
 | `workspace-contracts` | packages/workspace-contracts | contract-only | 0 | — | Canonical JSON Schemas that form the stable boundary between core, providers, channels, Refinery and CVF. |
-| `channel-adapters` | packages/channel-adapters | stub | 0 | — | Concrete adapters for internal PWA, customer portal, generic webhook, Zalo, WhatsApp, email, SMS, and mocks. |
 | `conversation-routing` | packages/conversation-routing | stub | 0 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
 | `identity-mapping` | packages/identity-mapping | stub | 0 | identity | Map external identities to internal users/customer contacts with human confirmation. |
 | `notification-engine` | packages/notification-engine | stub | 0 | — | In-app, push, email, SMS, outbound channels and escalation. |
@@ -118,6 +118,18 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 - **Metrics:** 1254 LOC across 8 code file(s)
 - **Next step:** P4-A3 is FREEZE / CLOSED_BOUNDED after independent review and separately authorized one-call synthetic live evidence. P4-B requires a fresh control chain. Episodic/semantic memory, durable persistence, public API/UI, production provider adapter, deployment and production readiness remain out of scope.
 
+### `channel-adapters` — partial
+
+- **Path:** `packages/channel-adapters` (package)
+- **Purpose:** Digest-only generic outbound webhook adapter plus deterministic provider-neutral conformance mocks.
+- **CVF controls:** —
+- **Enforcement:** P4-D implements one DEPLOYABLE generic-webhook adapter with immutable endpoint configuration, complete-set DNS authorization, bound peer/TLS checks, audience-scoped HMAC v1, one-send/no-retry classification and secret-free result handling. Zalo and WhatsApp implementations are permanently CONFORMANCE_ONLY, zero-I/O deterministic mocks and are rejected by runtime composition. Evidence is zero-network and proves no live delivery, vendor protocol conformance, receiver replay enforcement, governance behavior, production or deployment.
+- **Contract:** packages/channel-sdk/src/channel_sdk and contracts/channel/adapter-delivery.schema.json
+- **Depends on:** `channel-sdk`
+- **Tests:** `tests/unit/test_p4d_generic_webhook.py`, `tests/security/test_p4d_webhook_egress.py`, `tests/security/test_p4d_webhook_hmac.py`, `tests/unit/test_p4d_conformance_mocks.py`, `tests/unit/test_p4d_dependency_boundary.py`
+- **Metrics:** 514 LOC across 6 code file(s)
+- **Next step:** P4-D is FREEZE / CLOSED_BOUNDED. Any real channel/vendor protocol, credential use, receiver enforcement, deployment or production claim requires fresh authority and evidence.
+
 ### `governed-rag` — partial
 
 - **Path:** `packages/governed-rag` (package)
@@ -145,14 +157,14 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 ### `integration-edge` — partial
 
 - **Path:** `apps/integration-edge` (app)
-- **Purpose:** Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports and bounded outbound receipts.
+- **Purpose:** Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports, bounded outbound receipts, and digest-only generic-webhook composition.
 - **CVF controls:** data_scope, refusal
-- **Enforcement:** P4-C local boundary implements dual admission budgets, versioned HMAC, AES-256-GCM raw evidence, replay/collision/quarantine state, actor-neutral proposals, signed ports and matrix-conformant receipts on memory/SQLite boundaries; no deployable adapter or provider send.
-- **Contract:** packages/channel-sdk/src/channel_sdk plus contracts/channel closed schemas
-- **Depends on:** `channel-sdk`
-- **Tests:** `tests/security/test_hmac.py`, `tests/unit/test_p4c_invariant_emitters.py`, `tests/integration/test_p4c_inmemory_edge.py`, `tests/integration/test_p4c_sqlite_edge.py`
-- **Metrics:** 1261 LOC across 34 code file(s)
-- **Next step:** P4-C is CLOSED_BOUNDED after independent final review. Fresh P4-D INTAKE may define deployable generic/mock channel adapters; P4-E retains identity and conversation mapping.
+- **Enforcement:** P4-C remains the receipt/state owner for dual admission budgets, versioned HMAC, encrypted raw evidence, replay/collision/quarantine state, actor-neutral proposals, signed ports and matrix-conformant receipts. P4-D adds the sole concrete-adapter composition in integration_edge.main:create_app, exact workspace/channel/policy/prerequisite scope binding, typed digest-only request projection and total adapter-result-to-receipt mapping with no retry. Generic HTTP 2xx means SENT_ACCEPTED only; deterministic evidence proves no live send, vendor conformance, governance behavior, production or deployment.
+- **Contract:** packages/channel-sdk/src/channel_sdk plus contracts/channel closed schemas, including contracts/channel/adapter-delivery.schema.json
+- **Depends on:** `channel-sdk`, `channel-adapters`
+- **Tests:** `tests/security/test_hmac.py`, `tests/unit/test_p4c_invariant_emitters.py`, `tests/integration/test_p4c_inmemory_edge.py`, `tests/integration/test_p4c_sqlite_edge.py`, `tests/unit/test_p4d_outbound_mapping.py`, `tests/integration/test_p4d_composition.py`, `tests/unit/test_p4d_dependency_boundary.py`
+- **Metrics:** 1379 LOC across 35 code file(s)
+- **Next step:** P4-D is FREEZE / CLOSED_BOUNDED after FINAL_REVIEW_PASS with findings/waivers NONE/NONE. P4-E identity and conversation routing may open only as a fresh INTAKE after the exact-54 commit/push.
 
 ### `operations-domain` — partial
 
@@ -241,14 +253,14 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 ### `channel-sdk` — contract-only
 
 - **Path:** `packages/channel-sdk` (package)
-- **Purpose:** Shared interface for channel adapters: verify, parse, attachments, send, delivery status, health, credential refresh.
+- **Purpose:** Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery.
 - **CVF controls:** —
-- **Enforcement:** src/channel_sdk defines the closed ServiceAssertionV1 and narrow CoreIngressPort/OutboundAdapterPort/AttachmentScanPort protocols; it contains no concrete adapter.
-- **Contract:** packages/channel-sdk/src/channel_sdk
+- **Enforcement:** src/channel_sdk defines closed frozen delivery request/result/authorized-endpoint models, the DEPLOYABLE versus CONFORMANCE_ONLY mode contract, pinned P4-D result invariants and narrow CoreIngressPort/OutboundAdapterPort/ResolvedHttpsTransportPort/AttachmentScanPort protocols. It contains no concrete adapter; the legacy adapter-interface path remains untouched and non-authoritative.
+- **Contract:** packages/channel-sdk/src/channel_sdk plus contracts/channel/adapter-delivery.schema.json
 - **Depends on:** —
-- **Tests:** `tests/unit/test_p4c_service_assertion.py`, `tests/unit/test_p4c_dependency_boundary.py`
-- **Metrics:** 125 LOC across 4 code file(s)
-- **Next step:** Independent P4-C contract review; concrete provider adapters remain separately authorized P4-D work.
+- **Tests:** `tests/unit/test_p4c_service_assertion.py`, `tests/unit/test_p4c_dependency_boundary.py`, `tests/unit/test_p4d_channel_sdk.py`, `tests/contract/test_p4d_adapter_schema.py`, `tests/unit/test_p4d_adapter_invariants.py`, `tests/unit/test_p4d_dependency_boundary.py`
+- **Metrics:** 298 LOC across 6 code file(s)
+- **Next step:** Retain the frozen packaged SDK as the sole authoritative runtime contract after P4-D FREEZE / CLOSED_BOUNDED; changes require fresh governed scope.
 
 ### `cvf-application-profile` — contract-only
 
@@ -297,18 +309,6 @@ _Last generated: 2026-08-25T15:10:58.590051+00:00_
 - **Tests:** `tests/contract/test_contract_files.py`
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Keep schemas authoritative as domains are implemented.
-
-### `channel-adapters` — stub
-
-- **Path:** `packages/channel-adapters` (package)
-- **Purpose:** Concrete adapters for internal PWA, customer portal, generic webhook, Zalo, WhatsApp, email, SMS, and mocks.
-- **CVF controls:** —
-- **Enforcement:** None yet.
-- **Contract:** packages/channel-sdk
-- **Depends on:** `channel-sdk`
-- **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
-- **Next step:** Implement generic-webhook + mock adapters first; Zalo/WhatsApp remain mock until credentials.
 
 ### `conversation-routing` — stub
 
