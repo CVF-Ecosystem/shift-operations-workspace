@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "1.0",
+  "recordId": "CVF-CORE-REFRESH-TARGET-A7A797D-ROOT-EFFECTS-2026-08-28",
+  "tranche": "CVF-CORE-REFRESH-TARGET-A7A797D-2026-08-28",
+  "role": "IMPLEMENTATION_WORKER",
+  "completedAt": "2026-08-28T05:58:10.9410108+07:00",
+  "disposition": "READY_FOR_INDEPENDENT_COMPLETION_REVIEW",
+  "target": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+  "publicRemote": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git",
+  "resolvedTargets": {
+    "workspace": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace",
+    "project": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\shift-operations-workspace",
+    "core": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\.Controlled-Vibe-Framework-CVF"
+  },
+  "preflight": {
+    "result": "PASS",
+    "projectHead": "604addc93c7e971fa270d52d7ac562bfdf272ab8",
+    "projectOriginMain": "604addc93c7e971fa270d52d7ac562bfdf272ab8",
+    "projectStagedEmpty": true,
+    "coreHead": "a0ef5923d100b02c43294815ac9d01d8db20e8b8",
+    "coreOriginMain": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+    "coreClean": true,
+    "targetObjectAvailable": true,
+    "oldPinIsAncestorOfTarget": true,
+    "authorizationDisposition": "AUTHORIZATION_REVIEW_PASS",
+    "findings": "NONE",
+    "waivers": "NONE",
+    "frozenHashesMatched": true
+  },
+  "frozenHashes": {
+    "design": "0db70eb33acbfbe5e0e0a449846d370da43e8de71519b26885dfa539f6c877d8",
+    "spec": "427453a64940bf926f74ec0e2a09736823f3394f6492d7bdf925cc12de0683b3",
+    "parentWorkOrder": "30022a03f3ff72489a0959a72effc31b238230e2bb9c6251d70f21b95a98c81a",
+    "priorPatternAmendment": "dd0d43f12f61a7c97cadc0852420e3473b874d23c4c67f18824471bf4f439e7a",
+    "amendment": "6f4d252519a34517b369f44b1eaef82c98da43869831bc99caae53db62a291ec",
+    "reconciler": "96ac0cce3bf9df5733ffe2c6f5a7850db0ccfdc4403daaa70fdb6981dc58196c",
+    "initializer": "bb37b16256a693853bddfdbcb40c2f7211e6984a90a972da83899962fae209c8"
+  },
+  "backup": {
+    "containmentResult": "PASS",
+    "evidenceDirectory": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\shift-operations-a7a797d-worker-20260828-001",
+    "oldCoreCopy": "old-core",
+    "oldCoreCopyHead": "a0ef5923d100b02c43294815ac9d01d8db20e8b8",
+    "oldCoreCopyClean": true,
+    "reconcilerOldCoreBackup": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\.Controlled-Vibe-Framework-CVF-20260828-055629",
+    "reconcilerOldCoreBackupHead": "a0ef5923d100b02c43294815ac9d01d8db20e8b8",
+    "rootPresentPreimagesCopied": 14,
+    "rootAbsentPreimagesRecorded": 3,
+    "projectCarrierPreimagesCopied": 3,
+    "p4dPreimagesCopied": 54
+  },
+  "commands": [
+    {
+      "ordinal": 1,
+      "command": "powershell -ExecutionPolicy Bypass -File <core>\\scripts\\update_cvf_workspace_public_core.ps1 -WorkspaceRoot <workspace-root>",
+      "optionalFlags": [],
+      "exitCode": 0,
+      "transcript": "reconciler-transcript.txt"
+    },
+    {
+      "ordinal": 2,
+      "command": "powershell -ExecutionPolicy Bypass -File scripts/initialize_cvf_clone.ps1",
+      "optionalFlags": [],
+      "exitCode": 0,
+      "transcript": "initializer-transcript.txt"
+    }
+  ],
+  "networkGraph": [
+    "reconciler-owned unauthenticated public Git clone",
+    "initializer-owned unauthenticated public Git fetch",
+    "initializer doctor-owned unauthenticated public Git fetch"
+  ],
+  "pinPatch": {
+    "method": "apply_patch",
+    "manifestReplacementCount": 1,
+    "agentsReplacementCount": 1,
+    "parseResult": "PASS",
+    "manifestPreSha256": "52a4592aeed7ffbd44f144ba3a4958abdbe1e7b3748957ea43442e06cd473671",
+    "manifestPostSha256": "2ae342d650d3e74f61772502b56966ff3dbd4b5f2360730dc29f0e31d03ff3f6",
+    "agentsPreSha256": "278957874871c5e2aa4bcb51fca4303aa544979f25cf52cea65d973a18731414",
+    "agentsPostSha256": "175e46d0608fdeae983890e0b4ef930e704c1afb2282979d5b590b4c4bfbdf84"
+  },
+  "binding": {
+    "preExists": true,
+    "preSha256": "e9108e69322331a83c51dbfd4465ab32fff27f1877682d018ac97c9d4600cf2a",
+    "postExists": true,
+    "postSha256": "b0d4cf200198a35ccbab240c64976b9e43862637a0ff5d221d5a53708d3d72a1",
+    "resolvedCoreCommit": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+  },
+  "pinEquality": {
+    "result": "PASS",
+    "coreHead": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+    "coreOriginMain": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+    "manifest": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+    "agents": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6",
+    "binding": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+  },
+  "doctor": {
+    "owner": "initializer",
+    "exitCode": 0,
+    "result": "PASS_WITH_NOTE",
+    "passed": 24,
+    "warnings": 1,
+    "warningBoundary": "bounded legacy-catalog compatibility note"
+  },
+  "rootCeiling": {
+    "count": 17,
+    "actualChangedCount": 0,
+    "result": "PASS",
+    "observations": [
+      {"path":"WORKSPACE_RULES.md","preExists":true,"preSha256":"51fc5a167b099679b7a9fecfbdda6065fe2aed74065b313630e41538d74c9264","postExists":true,"postSha256":"51fc5a167b099679b7a9fecfbdda6065fe2aed74065b313630e41538d74c9264","changed":false},
+      {"path":"New-CVF-Governed-Project.ps1","preExists":true,"preSha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1","postExists":true,"postSha256":"c650d21f8491000f9d2d0dcc29afa6220eaf14d5c0ff90be5ac3dcdf2c5c89d1","changed":false},
+      {"path":"Run-CVF-NewProject-Enforcement.ps1","preExists":true,"preSha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f","postExists":true,"postSha256":"95632be706ef17ce3d93bd24efd071a129a5472431e638a062666e9117470f1f","changed":false},
+      {"path":"Update-CVF-Workspace.ps1","preExists":true,"preSha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77","postExists":true,"postSha256":"ceb8b9ff50f31bcb8a19db28b15e01a58f18de1bcc522ebf52bfb339cb6a4d77","changed":false},
+      {"path":"Update-CVF-Workspace-Public-Profile.ps1","preExists":true,"preSha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee","postExists":true,"postSha256":"8ae9de4a7fcf94bc8df6b3ab72d8b747db079df06d5a980e2f9c62d9ea5d7cee","changed":false},
+      {"path":"Test-CVF-Workspace.ps1","preExists":true,"preSha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41","postExists":true,"postSha256":"6d40d701d597a9d4d64dacf3e59b0c9855aafe0f84a486635d7400827a6c6c41","changed":false},
+      {"path":"Repair-CVF-Workspace.ps1","preExists":true,"preSha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b","postExists":true,"postSha256":"eecc44650f59e2923ae69f0e08af0fc3a6fcc13853cccda051157a85129cf39b","changed":false},
+      {"path":"Manage-CVF-Workspace.ps1","preExists":true,"preSha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c","postExists":true,"postSha256":"8eb098c6c6a8422e52f7beed9b32d1954b968db74e931fa79610b6e0ff2dd11c","changed":false},
+      {"path":".agents/workflows/cvf-onboard.md","preExists":true,"preSha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80","postExists":true,"postSha256":"d6a88de28c6585623fe8f74ae2db84849e743f984f17559914108f9da7192e80","changed":false},
+      {"path":".agents/workflows/pre-commit-check.md","preExists":true,"preSha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039","postExists":true,"postSha256":"2a749cac1286ff57601807b0176d52dc08a9b292894255e76a3fcbf4d2558039","changed":false},
+      {"path":"CVF_WORKSPACE_USER_GUIDE.md","preExists":true,"preSha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1","postExists":true,"postSha256":"022feace321ebd4f0075d4eccd1e6a2485f2967c73b9e29275a2e1b19346f9f1","changed":false},
+      {"path":"CVF_WORKSPACE_HUONG_DAN_SU_DUNG.md","preExists":true,"preSha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4","postExists":true,"postSha256":"375f3f1fd406e41a5e37edb485e3cbbbda92ecb18d2374f34f4422f8aaa5dbf4","changed":false},
+      {"path":"CVF_WORKSPACE_CLASSIFICATION_GUIDE.md","preExists":true,"preSha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360","postExists":true,"postSha256":"be1ffc5008684f8915c93305021866c790e750b716ea14084b20a350791ad360","changed":false},
+      {"path":"WORKSPACE_PROJECT_ENFORCEMENT_BASELINE.json","preExists":true,"preSha256":"35e4b4efc773639dda19851eeabdcccece1b612c6d36f8b31c2a26a05723890c","postExists":true,"postSha256":"35e4b4efc773639dda19851eeabdcccece1b612c6d36f8b31c2a26a05723890c","changed":false},
+      {"path":"Get-CVF-Workspace-OverlayProfiles.ps1","preExists":false,"preSha256":null,"postExists":false,"postSha256":null,"changed":false},
+      {"path":"Update-CVF-Workspace-Overlay.ps1","preExists":false,"preSha256":null,"postExists":false,"postSha256":null,"changed":false},
+      {"path":"CVF_WORKSPACE_OVERLAY_STATUS.json","preExists":false,"preSha256":null,"postExists":false,"postSha256":null,"changed":false}
+    ]
+  },
+  "projectCeiling": {
+    "authorizedCount": 7,
+    "workerObservedCountAfterReceipts": 6,
+    "workerObservedPaths": [
+      ".cvf/manifest.json",
+      "AGENTS.md",
+      "docs/work_orders/CVF_CORE_REFRESH_TARGET_A7A797D_AMENDMENT_2026-08-28.md",
+      "docs/decisions/CVF_CORE_REFRESH_TARGET_A7A797D_AUTHORIZATION_REVIEW_2026-08-28.md",
+      "docs/decisions/CVF_CORE_REFRESH_TARGET_A7A797D_ROOT_EFFECTS_2026-08-28.json",
+      "docs/decisions/CVF_CORE_REFRESH_TARGET_A7A797D_WORKER_RETURN_2026-08-28.md"
+    ],
+    "completionReviewPath": "absent until independent reviewer",
+    "result": "PASS"
+  },
+  "p4dPreservation": {
+    "count": 54,
+    "existence": "54/54 PASS",
+    "bytes": "54/54 PASS",
+    "status": "54/54 PASS",
+    "preAggregateSha256": "8490e537010cffb1119ad665a63d7bcbbfd3bfc1e90906454d903d40e6597a90",
+    "postAggregateSha256": "8490e537010cffb1119ad665a63d7bcbbfd3bfc1e90906454d903d40e6597a90",
+    "statusAggregateSha256": "f9c3189c581fe1a4831e300a97cadd6bb1bef1ab3e6ac464f975f46b259615a3",
+    "result": "PASS"
+  },
+  "directGuards": {
+    "sessionState": "PASS",
+    "projectKnowledge": "EXPECTED_FOLLOW_ON_STALE",
+    "projectKnowledgeDiagnostics": [
+      "KPK_CONTINUITY_CHANGED:GOVERNANCE_BOUNDARIES.md",
+      "KPK_ELIGIBILITY_MISMATCH:GOVERNANCE_BOUNDARIES.md"
+    ],
+    "projectKnowledgeBoundary": "knowledge/manifest.json is immutable P4-D exact-54 path 52 and still pins pre-refresh AGENTS.md/.cvf/manifest.json bytes; synchronize only in the later separately authorized P4-D closure flow",
+    "invariantFamilies": "PASS",
+    "catalog": "PASS",
+    "fileSize": "PASS"
+  },
+  "externalEffects": {
+    "providerApiCalls": 0,
+    "credentialReads": 0,
+    "dependencyInstalls": 0,
+    "databaseActions": 0,
+    "deployments": 0,
+    "commits": 0,
+    "pushes": 0,
+    "directGitFetchesOutsideSanctionedScripts": 0
+  },
+  "stagedEmpty": true,
+  "rollback": {
+    "required": false,
+    "result": "NOT_REQUIRED"
+  },
+  "claimBoundary": "Exact public-Core and pin-carrier alignment only. The expected P4-D-owned Knowledge source-pin follow-on is recorded without editing exact-54. This is not AI-governance, provider/vendor, P4-D completion, production or deployment evidence."
+}
