@@ -10,9 +10,10 @@ import re
 from pathlib import Path
 from typing import Any
 from invariant_family_contract import (
-    DuplicateKey, Diagnostic, _required_conditional_ids, canonical_digest,
-    find_shape, is_safe_regular_file, load_json_no_dup, rule_is_active, safe_repo_path,
+    DuplicateKey, Diagnostic, canonical_digest, is_safe_regular_file,
+    load_json_no_dup, safe_repo_path,
 )
+from invariant_family_mutation_oracle import required_mutation_ids
 _SYMBOL_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 def _diag(code: str, path: str, family_id: str, message: str) -> Diagnostic:
@@ -25,62 +26,6 @@ def extract_module_symbol(resolved: Path, symbol: str) -> str | None:
     pattern = re.compile(rf'(?m)^{re.escape(symbol)}\s*(?::\s*\w[\w\[\], ]*)?\s*=\s*([\'"])([0-9a-f]{{64}})\1\s*$')
     match = pattern.search(resolved.read_text(encoding="utf-8"))
     return match.group(2) if match else None
-
-
-def required_mutation_ids(matrix: dict[str, Any], shape_id: str, valid: dict[str, Any]) -> set[str]:
-    # F1-R4: independent closed obligation-id basis. Enumerates every
-    # applicable case as an exact mutationId, derived from shape semantics
-    # alone - never from generate_mutations output - so losing a single
-    # generator case cannot shrink this required basis.
-    excluded = {(e["operator"], e["shapeId"]) for e in matrix.get("mutationPolicy", {}).get("excludedOperators", [])}
-    shape = find_shape(matrix, shape_id)
-    ids: set[str] = set()
-
-    def add(operator: str, suffix: str) -> None:
-        if (operator, shape_id) not in excluded:
-            ids.add(f"{shape_id}::{operator}::{suffix}")
-
-    for f in shape["requiredFields"]:
-        add("DELETE_REQUIRED_FIELD", f)
-    for f in shape["forbiddenFields"]:
-        add("ADD_FORBIDDEN_FIELD", f)
-    add("ADD_UNKNOWN_FIELD", "closed_boundary")
-    owner = next(o["outcomeId"] for o in matrix["outcomes"] if any(s["shapeId"] == shape_id for s in o["shapes"]))
-    for sibling in (o["outcomeId"] for o in matrix["outcomes"] if o["outcomeId"] != owner):
-        add("REPLACE_DISCRIMINATOR", sibling)
-    add("REPLACE_DISCRIMINATOR", "unknown_value")
-    for f in shape["fieldDomains"]:
-        if f in valid:
-            add("ILLEGAL_VALUE", f)
-    for rule in shape["conditionalRules"]:
-        _required_conditional_ids(rule, valid, add)
-    for rel in shape["relations"]:
-        _required_relation_ids(rel, valid, add)
-    for f, domain in shape["fieldDomains"].items():
-        if domain.get("type") == "NESTED_OBJECT" and f in valid and isinstance(valid[f], dict):
-            for nested_id in required_mutation_ids(matrix, domain["nestedShapeId"], valid[f]):
-                add("RECURSE_NESTED_OBJECTS", f"{f}::{nested_id}")
-    return ids
-
-
-def _required_relation_ids(rel: dict[str, Any], valid: dict[str, Any], add) -> None:
-    kind = rel["kind"]
-    if kind == "COUNTER_EQUALITY":
-        f = rel["field"]
-        if f not in valid or not isinstance(valid[f], int):
-            return
-        zero_flip = 1 if valid[f] == 0 else 0
-        if zero_flip != valid[f]:
-            add("COUNTER_MUTATION", f"{f}_zero_or_nonzero")
-        add("COUNTER_MUTATION", f"{f}_minus_one")
-        add("COUNTER_MUTATION", f"{f}_plus_one")
-        add("COUNTER_MUTATION", f"{f}_wrong_type")
-    elif kind == "DIGEST_EQUALITY":
-        add("ONE_SIDE_RELATION_CHANGE", rel["relationId"])
-    elif kind == "FIELD_EQUALITY":
-        f = rel["targetField"] if rel["targetField"] in valid else rel["sourceField"]
-        if f in valid:
-            add("ONE_SIDE_RELATION_CHANGE", rel["relationId"])
 
 
 def _resolve_json_pointer(document: Any, pointer: str) -> tuple[bool, Any]:

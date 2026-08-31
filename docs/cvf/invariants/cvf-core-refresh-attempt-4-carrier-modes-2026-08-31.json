@@ -1,0 +1,1685 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31",
+  "title": "Attempt 4 retained carrier modes, receipts, counters and deterministic conformance corpus",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_RECEIPT_MODEL",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS",
+    "TRIGGER_4_MULTIPLE_VALIDATOR_SURFACES",
+    "TRIGGER_5_COUPLED_SOURCE_TEST_MATRIX_PIN",
+    "TRIGGER_6_ADJACENT_WRAPPER_FAILURE"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/decisions/INTAKE_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "sha256": "910ca62b6e7e13ea28cc5e28a1b867d80dd49f023a67cc18b3af425e962062e7",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/INTAKE_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "sha256": "f431793766683b249a9eb17d75fc2784896c8e215cb9261d04003e1903815307",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/DESIGN_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "sha256": "8f5ab09aac72a99ea706444e2f57d47a20a5bd928544cbccf799129333be3a95",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/DESIGN_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "sha256": "91d43cfa5e596312e3473bfbe8cbb1b170f13a81137dbeb352d52850c2ca07e7",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "POWERSHELL_CANONICAL_RECEIPT",
+    "PYTHON_INDEPENDENT_RECEIPT_VALIDATOR",
+    "RAW_TOKEN_MUTATION_CORPUS",
+    "STATIC_AST_CALL_CHILD_NETWORK_CLOSURE",
+    "FINITE_OBSERVATION_MANIFEST",
+    "AUTHORITY_SCHEMA_PROJECTION"
+  ],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "CONFORMANCE_CASE",
+      "shapes": [
+        {
+          "shapeId": "CONFORMANCE_CASE_VALID",
+          "requiredFields": [
+            "case_id",
+            "corpus_id",
+            "corpus_case_count",
+            "corpus_sha256"
+          ],
+          "forbiddenFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "case_id": {
+              "type": "STRING",
+              "enum": [
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_DYNAMIC_EDGE-DYNAMIC_MEMBER",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_DYNAMIC_EDGE-INVOKE_OPERATOR",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_DYNAMIC_EDGE-NESTED_SCRIPTBLOCK",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_PROCESS_EDGE-DIRECT_PROCESS_START",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_PROCESS_EDGE-START_PROCESS",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_REFLECTION_EDGE-REFLECTION",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_WRITE_EDGE-FILE_WRITE",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__AST-AST_NETWORK_EDGE-HTTP_CLIENT",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_DUPLICATE_KEY-NORMALIZED_DUPLICATE",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-ALIAS",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-CONDITIONAL_INCLUDE",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-CREDENTIAL_HELPER",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-EXTERNAL_FSMONITOR",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-HTTP_PROXY",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-PUSHURL",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_FORBIDDEN_KEY-URL_REWRITE",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_PROJECT_REMOTE_MISMATCH-CROSS_SWAPPED",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_REMOTE_SECRET-QUERY_TOKEN",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_REMOTE_SECRET-URI_USERINFO",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_REMOTE_SECRET-VALUE_TOKEN",
+                "DryRun__GIT_CONFIG_REFUSAL__CONFIG-CONFIG_REMOTE_TOPOLOGY-EXTRA_REMOTE",
+                "DryRun__LOCAL_QUERY_SEMANTIC_REFUSAL__DRYRUN-G1_SEMANTIC_REFUSAL-MULTILINE",
+                "DryRun__LOCAL_QUERY_SEMANTIC_REFUSAL__DRYRUN-G1_SEMANTIC_REFUSAL-PUBLIC_REMOTE_MISMATCH",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G2",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G3",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G4",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G5",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G6",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G7",
+                "DryRun__LOCAL_CHILD_NONZERO__DRYRUN-G_PREFIX_NONZERO-G8",
+                "DryRun__NONE__DRYRUN-SUCCESS-EXACT_G1_G8",
+                "DryRun__ENVIRONMENT_REFUSAL__ENV-ENV_FORBIDDEN_CHANNEL-ASKPASS",
+                "DryRun__ENVIRONMENT_REFUSAL__ENV-ENV_FORBIDDEN_CHANNEL-GIT_CONFIG_PARAMETERS",
+                "DryRun__ENVIRONMENT_REFUSAL__ENV-ENV_FORBIDDEN_CHANNEL-OBJECT_DIRECTORY",
+                "DryRun__ENVIRONMENT_REFUSAL__ENV-ENV_FORBIDDEN_CHANNEL-PROXY",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-AUTHORITY_HASH_DRIFT",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-FUTURE_PLACEHOLDER",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-NONFINAL_REVIEW",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-POSITIVE_CARRIER_TRANCHE",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-TEST_ONLY_TRANCHE",
+                "Execute__ACTIVATION_REFUSAL__EXECUTE-ACTIVATION_REFUSAL-TUPLE_DRIFT",
+                "DryRun__ARGV_DENIED__GATEWAY-ARGV_DENIED-FETCH",
+                "DryRun__ARGV_DENIED__GATEWAY-ARGV_DENIED-NONLITERAL_CONFIG",
+                "DryRun__ARGV_DENIED__GATEWAY-ARGV_DENIED-PUSH",
+                "DryRun__ARGV_DENIED__GATEWAY-ARGV_DENIED-REMOTE_HELPER",
+                "DryRun__ARGV_DENIED__GATEWAY-EXECUTABLE_DENIED-UNPINNED_GIT",
+                "ParseOnly__HASH_MISMATCH__HASH-HASH_MISMATCH-CARRIER",
+                "DryRun__HASH_MISMATCH__HASH-HASH_MISMATCH-GIT_EXE",
+                "ParseOnly__HOST_PRECONDITION_REFUSAL__HOST-HOST_SCHEMA_DRIFT-EXTRA_HOST_OPTION",
+                "ParseOnly__HOST_PRECONDITION_REFUSAL__HOST-HOST_SCHEMA_DRIFT-PROFILE_ENABLED",
+                "DryRun__ARTIFACT_SCHEMA_REFUSAL__JSON-JSON_DUPLICATE_KEY-WORK_ORDER",
+                "DryRun__ARTIFACT_SCHEMA_REFUSAL__JSON-JSON_NONCANONICAL-BOM",
+                "DryRun__ARTIFACT_SCHEMA_REFUSAL__JSON-JSON_NONCANONICAL-KEY_ORDER",
+                "DryRun__OBSERVATION_MEMBERSHIP_REFUSAL__MANIFEST-OBSERVATION_DRIFT-ADMIN_FILE",
+                "DryRun__OBSERVATION_MEMBERSHIP_REFUSAL__MANIFEST-OBSERVATION_DRIFT-HARDLINK_ALIAS_CONTENT",
+                "ParseOnly__PATH_OR_REPARSE_REFUSAL__PATH-PATH_CONTAINMENT-OUTSIDE_ROOT",
+                "ParseOnly__PATH_OR_REPARSE_REFUSAL__PATH-PATH_REPARSE-JUNCTION",
+                "ParseOnly__PATH_OR_REPARSE_REFUSAL__PATH-PATH_REPARSE-SYMLINK",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_DUPLICATE_OPTION-MODE",
+                "ParseOnly__VALUE_GRAMMAR_REFUSAL__RAW-RAW_EMPTY_VALUE-PROJECT_ROOT",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_EXTRA_OPTION-PROJECT_REMOTE",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_GENERIC_TERMINATOR-DOUBLE_DASH",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_NAME_CASE-MODE",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_NAME_CONFUSABLE-MODE",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_NAME_VALUE_FORM-MODE",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_ODD_LENGTH-MISSING_VALUE",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_OPTION_ABBREVIATION-PROJECT",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_REORDERED_OPTION-ROOTS",
+                "ParseOnly__RAW_TOKEN_REFUSAL__RAW-RAW_UNKNOWN_OPTION-UNKNOWN",
+                "Execute__AUTHORITY_PROJECTION_REFUSAL__SCHEMA-AUTHORITY_PROJECTION-DEFERRED_FIELD_EXTRA",
+                "Execute__AUTHORITY_PROJECTION_REFUSAL__SCHEMA-AUTHORITY_PROJECTION-DEFERRED_FIELD_REORDERED",
+                "Execute__AUTHORITY_PROJECTION_REFUSAL__SCHEMA-AUTHORITY_PROJECTION-SELF_HASH_PAIR_RETAINED",
+                "Execute__AUTHORITY_PROJECTION_REFUSAL__SCHEMA-AUTHORITY_PROJECTION-TEMPLATE_PLACEHOLDER",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__STATIC-CALL_GRAPH_DRIFT-UNRESOLVED_FUNCTION",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__STATIC-CHILD_GRAPH_DRIFT-DIRECT_CHILD",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__STATIC-NETWORK_GRAPH_DRIFT-DIRECT_SOCKET",
+                "ParseOnly__AST_OR_CALL_GRAPH_REFUSAL__STATIC-WRITE_GRAPH_DRIFT-COPY_ITEM"
+              ]
+            },
+            "corpus_id": {
+              "type": "STRING",
+              "const": "CVF_CARRIER_ATTEMPT_4_CONFORMANCE_V1"
+            },
+            "corpus_case_count": {
+              "type": "INTEGER",
+              "const": 77
+            },
+            "corpus_sha256": {
+              "type": "STRING",
+              "const": "adc38c814195f5f7acf463e13414d3d6cf252689caddf7596da4dbb2ad18d6cc"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "CORPUS_CASE_COUNT_77",
+              "kind": "COUNTER_EQUALITY",
+              "field": "corpus_case_count",
+              "value": 77
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "PARSE_ONLY_ACCEPTED",
+      "shapes": [
+        {
+          "shapeId": "PARSE_ONLY_ACCEPTED_VALID",
+          "requiredFields": [
+            "schema_version",
+            "family_id",
+            "mode",
+            "disposition",
+            "refusal_code",
+            "execution_id",
+            "input_hash_ledger_digest",
+            "check_ledger_digest",
+            "deferred_execute_only_fields_digest",
+            "observation_before_digest",
+            "observation_after_digest",
+            "child_ledger_digest",
+            "child_ledger_count",
+            "filesystem_write_attempt_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal",
+            "nonlaunched_refusal_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "schema_version": {
+              "type": "STRING",
+              "const": "CVF-CARRIER-RECEIPT-V1"
+            },
+            "family_id": {
+              "type": "STRING",
+              "const": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31"
+            },
+            "mode": {
+              "type": "STRING",
+              "const": "ParseOnly"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "ACCEPTED_NO_EFFECT"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "NONE"
+            },
+            "input_hash_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "check_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "deferred_execute_only_fields_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_before_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_after_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "filesystem_write_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PARSE_OBSERVATION_EQUAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "observation_before_digest",
+              "targetField": "observation_after_digest"
+            },
+            {
+              "relationId": "PARSE_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARSE_WRITE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "filesystem_write_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARSE_NETWORK_ATTEMPT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARSE_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARSE_LOCAL_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "PRELAUNCH_REFUSAL",
+      "shapes": [
+        {
+          "shapeId": "PRELAUNCH_REFUSAL_VALID",
+          "requiredFields": [
+            "schema_version",
+            "family_id",
+            "mode",
+            "disposition",
+            "refusal_code",
+            "execution_id",
+            "input_hash_ledger_digest",
+            "check_ledger_digest",
+            "deferred_execute_only_fields_digest",
+            "observation_before_digest",
+            "observation_after_digest",
+            "child_ledger_digest",
+            "child_ledger_count",
+            "filesystem_write_attempt_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal",
+            "nonlaunched_refusal_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "schema_version": {
+              "type": "STRING",
+              "const": "CVF-CARRIER-RECEIPT-V1"
+            },
+            "family_id": {
+              "type": "STRING",
+              "const": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31"
+            },
+            "mode": {
+              "type": "STRING",
+              "enum": [
+                "ParseOnly",
+                "DryRun",
+                "Execute"
+              ]
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "REFUSED_NO_EFFECT"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "enum": [
+                "RAW_TOKEN_REFUSAL",
+                "VALUE_GRAMMAR_REFUSAL",
+                "PATH_OR_REPARSE_REFUSAL",
+                "HASH_MISMATCH",
+                "ARTIFACT_SCHEMA_REFUSAL",
+                "AUTHORITY_PROJECTION_REFUSAL",
+                "HOST_PRECONDITION_REFUSAL",
+                "AST_OR_CALL_GRAPH_REFUSAL",
+                "GIT_ADMIN_TOPOLOGY_REFUSAL",
+                "GIT_CONFIG_REFUSAL",
+                "ENVIRONMENT_REFUSAL",
+                "ARGV_DENIED",
+                "OBSERVATION_MEMBERSHIP_REFUSAL",
+                "ACTIVATION_REFUSAL"
+              ]
+            },
+            "input_hash_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "check_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "deferred_execute_only_fields_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_before_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_after_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "filesystem_write_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PRELAUNCH_OBSERVATION_EQUAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "observation_before_digest",
+              "targetField": "observation_after_digest"
+            },
+            {
+              "relationId": "PRELAUNCH_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 0
+            },
+            {
+              "relationId": "PRELAUNCH_WRITE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "filesystem_write_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "PRELAUNCH_NETWORK_ATTEMPT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "PRELAUNCH_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "PRELAUNCH_LOCAL_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "DRYRUN_G_PREFIX_REFUSAL",
+      "shapes": [
+        {
+          "shapeId": "DRYRUN_G_PREFIX_REFUSAL_VALID",
+          "requiredFields": [
+            "schema_version",
+            "family_id",
+            "mode",
+            "disposition",
+            "refusal_code",
+            "execution_id",
+            "input_hash_ledger_digest",
+            "check_ledger_digest",
+            "deferred_execute_only_fields_digest",
+            "observation_before_digest",
+            "observation_after_digest",
+            "child_ledger_digest",
+            "child_ledger_count",
+            "filesystem_write_attempt_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "failed_child_ordinal"
+          ],
+          "forbiddenFields": [
+            "nonlaunched_refusal_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "schema_version": {
+              "type": "STRING",
+              "const": "CVF-CARRIER-RECEIPT-V1"
+            },
+            "family_id": {
+              "type": "STRING",
+              "const": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31"
+            },
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "REFUSED_AFTER_LOCAL_PREFIX"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "enum": [
+                "LOCAL_CHILD_NONZERO",
+                "LOCAL_QUERY_SEMANTIC_REFUSAL"
+              ]
+            },
+            "input_hash_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "check_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "deferred_execute_only_fields_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_before_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_after_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            "filesystem_write_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            "failed_child_ordinal": {
+              "type": "INTEGER",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_PREFIX_OBSERVATION_EQUAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "observation_before_digest",
+              "targetField": "observation_after_digest"
+            },
+            {
+              "relationId": "DRYRUN_PREFIX_CHILD_EQUALS_LOCAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "child_ledger_count",
+              "targetField": "local_child_count"
+            },
+            {
+              "relationId": "DRYRUN_PREFIX_FAILED_EQUALS_LOCAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "failed_child_ordinal",
+              "targetField": "local_child_count"
+            },
+            {
+              "relationId": "DRYRUN_PREFIX_WRITE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "filesystem_write_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_PREFIX_NETWORK_ATTEMPT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_PREFIX_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "DRYRUN_ACCEPTED",
+      "shapes": [
+        {
+          "shapeId": "DRYRUN_ACCEPTED_VALID",
+          "requiredFields": [
+            "schema_version",
+            "family_id",
+            "mode",
+            "disposition",
+            "refusal_code",
+            "execution_id",
+            "input_hash_ledger_digest",
+            "check_ledger_digest",
+            "deferred_execute_only_fields_digest",
+            "observation_before_digest",
+            "observation_after_digest",
+            "child_ledger_digest",
+            "child_ledger_count",
+            "filesystem_write_attempt_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal",
+            "nonlaunched_refusal_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "schema_version": {
+              "type": "STRING",
+              "const": "CVF-CARRIER-RECEIPT-V1"
+            },
+            "family_id": {
+              "type": "STRING",
+              "const": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31"
+            },
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "ACCEPTED_NO_EFFECT"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "NONE"
+            },
+            "input_hash_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "check_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "deferred_execute_only_fields_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_before_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_after_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 8
+            },
+            "filesystem_write_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 8
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_SUCCESS_OBSERVATION_EQUAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "observation_before_digest",
+              "targetField": "observation_after_digest"
+            },
+            {
+              "relationId": "DRYRUN_SUCCESS_CHILD_EIGHT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 8
+            },
+            {
+              "relationId": "DRYRUN_SUCCESS_LOCAL_EIGHT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 8
+            },
+            {
+              "relationId": "DRYRUN_SUCCESS_WRITE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "filesystem_write_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_SUCCESS_NETWORK_ATTEMPT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_SUCCESS_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "EXECUTE_ACTIVATION_REFUSAL",
+      "shapes": [
+        {
+          "shapeId": "EXECUTE_ACTIVATION_REFUSAL_VALID",
+          "requiredFields": [
+            "schema_version",
+            "family_id",
+            "mode",
+            "disposition",
+            "refusal_code",
+            "execution_id",
+            "input_hash_ledger_digest",
+            "check_ledger_digest",
+            "deferred_execute_only_fields_digest",
+            "observation_before_digest",
+            "observation_after_digest",
+            "child_ledger_digest",
+            "child_ledger_count",
+            "filesystem_write_attempt_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal",
+            "nonlaunched_refusal_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "schema_version": {
+              "type": "STRING",
+              "const": "CVF-CARRIER-RECEIPT-V1"
+            },
+            "family_id": {
+              "type": "STRING",
+              "const": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31"
+            },
+            "mode": {
+              "type": "STRING",
+              "const": "Execute"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "REFUSED_NO_EFFECT"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ACTIVATION_REFUSAL"
+            },
+            "input_hash_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "check_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "deferred_execute_only_fields_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_before_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "observation_after_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "filesystem_write_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXECUTE_NEGATIVE_OBSERVATION_EQUAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "observation_before_digest",
+              "targetField": "observation_after_digest"
+            },
+            {
+              "relationId": "EXECUTE_NEGATIVE_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 0
+            },
+            {
+              "relationId": "EXECUTE_NEGATIVE_WRITE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "filesystem_write_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "EXECUTE_NEGATIVE_NETWORK_ATTEMPT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 0
+            },
+            {
+              "relationId": "EXECUTE_NEGATIVE_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "EXECUTE_NEGATIVE_LOCAL_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "DENIED_CANDIDATE",
+      "shapes": [
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G0_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G0_LEDGER_1",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G0_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G0_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G0_LOCAL_0",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G0_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G1_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G1_LEDGER_2",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 2
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G1_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G1_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G1_LOCAL_1",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G1_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G2_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G2_LEDGER_3",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 3
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G2_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G2_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G2_LOCAL_2",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 2
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G2_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G3_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 4
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G3_LEDGER_4",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 4
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G3_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G3_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G3_LOCAL_3",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 3
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G3_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G4_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 5
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 4
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G4_LEDGER_5",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 5
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G4_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G4_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G4_LOCAL_4",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 4
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G4_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G5_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 6
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 5
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G5_LEDGER_6",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 6
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G5_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G5_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G5_LOCAL_5",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 5
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G5_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G6_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 7
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 6
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G6_LEDGER_7",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 7
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G6_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G6_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G6_LOCAL_6",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 6
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G6_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G7_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 8
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 7
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G7_LEDGER_8",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 8
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G7_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G7_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G7_LOCAL_7",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 7
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G7_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "DRYRUN_DENIED_CANDIDATE_AFTER_G8_VALID",
+          "requiredFields": [
+            "mode",
+            "disposition",
+            "refusal_code",
+            "child_ledger_count",
+            "network_attempt_count",
+            "network_child_count",
+            "local_child_count",
+            "nonlaunched_refusal_count"
+          ],
+          "forbiddenFields": [
+            "failed_child_ordinal"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "mode": {
+              "type": "STRING",
+              "const": "DryRun"
+            },
+            "disposition": {
+              "type": "STRING",
+              "const": "DENIED_BEFORE_CANDIDATE_LAUNCH"
+            },
+            "refusal_code": {
+              "type": "STRING",
+              "const": "ARGV_DENIED"
+            },
+            "child_ledger_count": {
+              "type": "INTEGER",
+              "const": 9
+            },
+            "network_attempt_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "network_child_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "local_child_count": {
+              "type": "INTEGER",
+              "const": 8
+            },
+            "nonlaunched_refusal_count": {
+              "type": "INTEGER",
+              "const": 1
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DRYRUN_DENIED_G8_LEDGER_9",
+              "kind": "COUNTER_EQUALITY",
+              "field": "child_ledger_count",
+              "value": 9
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G8_NETWORK_ATTEMPT_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_attempt_count",
+              "value": 1
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G8_NETWORK_CHILD_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_child_count",
+              "value": 0
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G8_LOCAL_8",
+              "kind": "COUNTER_EQUALITY",
+              "field": "local_child_count",
+              "value": 8
+            },
+            {
+              "relationId": "DRYRUN_DENIED_G8_NONLAUNCHED_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "nonlaunched_refusal_count",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": []
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026_08_31_MATRIX_DIGEST_BINDING",
+      "ownerPath": "docs/cvf/invariants/cvf-core-refresh-attempt-4-carrier-modes-2026-08-31.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/cvf_core_refresh_attempt_4_carrier_2026_08_31_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026_08_31_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_DETERMINISTIC_RECEIPT_V1",
+    "kind": "SYNTHETIC_DETERMINISTIC"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "This family owns ParseOnly, DryRun, and carrier-tranche negative Execute activation receipts plus the exact 77-case raw/static/config/manifest/authority conformance corpus. Later parent positive Execute and post-activation prefix outcomes are deferred to the separately governed parent invariant family. It proves no positive Execute, network effect, filesystem mutation, Core refresh, provider behavior, deployment, or production readiness."
+}

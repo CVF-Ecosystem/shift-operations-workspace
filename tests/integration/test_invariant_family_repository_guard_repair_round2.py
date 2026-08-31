@@ -122,7 +122,7 @@ def test_production_conformance_summary_fails_on_zero_mutation_corpus() -> None:
         for shape in outcome["shapes"]:
             starved["mutationPolicy"]["excludedOperators"] = starved["mutationPolicy"].get("excludedOperators", []) + [
                 {"operator": op, "shapeId": shape["shapeId"], "reason": "induced-empty-corpus-probe", "independentReviewRequired": True}
-                for op in ("DELETE_REQUIRED_FIELD", "ADD_FORBIDDEN_FIELD", "ADD_UNKNOWN_FIELD", "REPLACE_DISCRIMINATOR", "ILLEGAL_VALUE", "COUNTER_MUTATION")
+                for op in ("DELETE_REQUIRED_FIELD", "ADD_FORBIDDEN_FIELD", "ADD_UNKNOWN_FIELD", "REPLACE_DISCRIMINATOR", "WRONG_TYPE", "CONST_MISMATCH", "ENUM_MISMATCH", "MIN_LENGTH_VIOLATION", "PATTERN_MISMATCH", "COUNTER_MUTATION")
             ]
     summary = guard.build_conformance_summary(starved, ifc.canonical_digest(MATRIX_PATH), MATRIX_REL, _f3_emit)
     assert summary["result"] == "FAIL"

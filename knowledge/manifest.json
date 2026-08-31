@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-08-26",
+  "reviewedAt": "2026-08-30",
   "entries": [
     {
       "id": "project-context",
@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "b4baed1826db990afafee36bbbe535c889d827382b5618af8689a6d0e2db9265"
+          "sha256": "824bfea17d0eaab105ee4dc9644c627db2cdaad5e198b37ae95d0517918c49d8"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
@@ -27,10 +27,10 @@
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "e31132d4fc616ab4addade72c41d083390e739f81761f8c1911754e0a6b49fe3"
+          "sha256": "6aa13759ddd4ba4b43d96f3d67e964f7a5a59a14865fa547512fbb965549755d"
         }
       ],
-      "reviewedAt": "2026-08-26",
+      "reviewedAt": "2026-08-30",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

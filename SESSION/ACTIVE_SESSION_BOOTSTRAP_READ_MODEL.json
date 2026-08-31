@@ -1,27 +1,28 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p4d_channel_adapters_freeze",
-  "activeHandoff": "SESSION/handoffs/P4D_CHANNEL_ADAPTERS_2026-08-26.md",
-  "nextAllowedMove": "COMMIT_STEWARD stages exactly the 54 P4-D Work Order paths, verifies exact staged membership, commits once and pushes without amend or force; only after push may P4-E open as a fresh INTAKE.",
-  "parkedOperatorCheckpoint": "XR1 sibling historical-object debt remains unresolved and outside P4-C closure.",
+  "currentMode": "cvf_governance_control_loss_learning_2026_08_31_intake_review_pass_roadmap_parked",
+  "activeHandoff": "SESSION/handoffs/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_2026-08-31.md",
+  "nextAllowedMove": "Keep the roadmap parked; any DESIGN transition to institutionalize project or CVF Core learning requires a fresh explicit operator decision.",
+  "parkedOperatorCheckpoint": "All delivery roadmap work is parked; carrier is blocked at SPEC; parent attempt 4 and P4-E remain at DESIGN_REVIEW_PASS; XR1 remains open.",
   "requiredReads": [
-    "docs/work_orders/P4D_CHANNEL_ADAPTERS_WORK_ORDER.md",
-    "docs/decisions/P4D_CHANNEL_ADAPTERS_WORK_ORDER_AUTHORIZATION_REVIEW_2026-08-26.md",
-    "docs/decisions/P4D_CHANNEL_ADAPTERS_WORKER_RETURN_2026-08-26.md",
-    "docs/decisions/P4D_CHANNEL_ADAPTERS_COMPLETION_REVIEW_2026-08-26.md",
-    "SESSION/handoffs/P4D_CHANNEL_ADAPTERS_2026-08-26.md",
+    "docs/decisions/SPEC_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+    "docs/specs/CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026-08-31_SPEC.md",
+    "docs/decisions/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_RECORD_2026-08-31.md",
+    "docs/decisions/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_REVIEW_2026-08-31.md",
+    "docs/decisions/DESIGN_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+    "docs/decisions/DESIGN_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+    "SESSION/handoffs/CVF_CORE_REFRESH_TARGET_REBASE_0281E93_ATTEMPT_4_2026-08-31.md",
+    "SESSION/handoffs/CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026-08-31.md",
+    "SESSION/handoffs/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_2026-08-31.md",
     ".cvf/manifest.json",
-    ".cvf/policy.json",
-    "SESSION/SESSION_MEMORY.md",
-    "IMPLEMENTATION_STATUS.json",
-    "docs/INDEX.md",
-    "docs/implementation/EXECUTION_ROADMAP.md"
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "docs/cvf/invariants/registry.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-28"
+  "updatedAt": "2026-08-31"
 }

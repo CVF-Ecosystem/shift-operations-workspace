@@ -1,22 +1,28 @@
-# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-28 (P4-D FREEZE)_
+# Session Memory — companion to [`ACTIVE_SESSION_STATE.json`](ACTIVE_SESSION_STATE.json), provider-neutral; full history in the archive below. _Last updated: 2026-08-31 (governance learning parked)_
 
-**2026-08-28 (P4-D / FREEZE / CLOSED_BOUNDED):** Independent final audit
-returned `FINAL_REVIEW_PASS`, findings/waivers `NONE/NONE`: exact 54, focused
-74, invariant 37/2 plus guard, full 2898/132/1, doctor 24 plus bounded note.
-Core target `a7a797d`; prerequisite commits `604addc`/`b3f2431`. Boundary is
-deterministic digest-only webhook and zero-I/O mocks, not live/vendor/
-governance/production/P4-E evidence. Next: exact-54 commit/push, then fresh P4-E INTAKE.
+**2026-08-31 (control-loss learning / INTAKE REVIEW PASS):** The operator
+parked delivery. One project/CVF incident record passed independent review
+`NONE/NONE`; proposals remain unimplemented. Carrier is blocked at SPEC;
+parent rebase and P4-E remain parked. No BUILD or external effect is authorized.
 
-**2026-08-26 (P4-D / BUILD):** Exact-54 Work Order authorization passed after
-one mechanical F1 repair, `NONE/NONE`. Separate IMPLEMENTATION_WORKER owns
-paths 9-40; deterministic zero-network BUILD is active.
+**2026-08-30 (protocol DESIGN / blocked):** INTAKE passed, but DESIGN review
+found DR-F1..F4. Mandatory doctor itself fetched and moved local `origin/main`
+from `d786013` to `0281e93`; Core remains clean old pin `a7a797d`. The proposed
+zero-network/frozen-target exception is infeasible and no constitutional
+self-amend authority exists. No BUILD/activation/fixture repair/reconcile is
+authorized. Fresh exact-target external rebase authority is required next.
+
+**2026-08-29 (Core refresh / closed failure):** One reconciler observed target
+movement, stopped before pins/initializer, and restored Core/roots/pins/shared/
+binding. Outcome `FAILURE_ROLLED_BACK`; independent review `NONE/NONE`.
 
 **2026-08-25 (P4-C / FREEZE / CLOSED_BOUNDED):** Final review `NONE/NONE`;
 exact 68; amended full 2836/132/1; guards PASS. Local Edge only; XR1 debt open.
 
 **2026-08-22 (P4-B / CLOSED_BOUNDED):** First call retained BLOCKED; independently reviewed repair then replacement PASS (4 zero-call + one HTTP 200, `EXTERNAL_ACCEPTED`, `1/1/1/1`, secret NONE). Verification 20/237/2732; findings/waivers NONE/NONE.
 
-**2026-08-23 (CROSS-AGENT-INVARIANT-LEARNING / FREEZE / CLOSED_BOUNDED):** Amendment 2 ratified exact-30. Independent rereview round 10 returned `REVIEW_PASS_ROUND_10`, findings/waivers `NONE/NONE`, after the final same-root provenance repair closed wildcard-import and nested/class assertion-function false passes. Focused 77/2 skipped; full 2809/130 skipped; repository gates PASS; zero provider/credential/install/database/deployment. Boundary is deterministic repository learning, not proof that any AI agent consumed or obeyed it.
+**2026-08-23 (CROSS-AGENT-INVARIANT-LEARNING / CLOSED_BOUNDED):** Round 10
+`REVIEW_PASS`, `NONE/NONE`; repository guards only, not proof of agent behavior.
 
 **2026-08-20 (CVF-CORE-REFRESH / CLOSED_BOUNDED):** Reconciled stale Core/pins to public `7d9f360a...`; old Core/root preimages preserved. Independent R1–R12 PASS, findings/waivers NONE/NONE; doctor 24 + one bounded warning. Exact-18 local commit `a1aeb60`; no push or AI-governance claim.
 

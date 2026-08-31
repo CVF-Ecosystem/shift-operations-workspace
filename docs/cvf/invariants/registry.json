@@ -40,6 +40,46 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_SHARED_EVIDENCE_OUTCOMES_MULTI_VALIDATOR_ADJACENT_FINDINGS"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-OUTCOMES-2026-08-29",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-outcomes-2026-08-29.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_BOOTSTRAP_NATIVE_RECEIPT_OUTCOMES_COUNTERS_MULTI_VALIDATOR"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-TARGET-REBASE-OUTCOMES-2026-08-30",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-target-rebase-outcomes-2026-08-30.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_TARGET_REBASE_SHARED_RECEIPTS_OUTCOME_FIELDS_COUNTERS_MULTI_VALIDATOR"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-CONFORMANCE-FIXTURE-REPAIR-2026-08-30",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-conformance-fixture-repair-2026-08-30.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_COUPLED_FIXTURE_MULTI_VALIDATOR_PATTERN_MUTATION_REPAIR"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-TARGET-REBASE-0281E93-OUTCOMES-2026-08-30",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-target-rebase-0281e93-outcomes-2026-08-30.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_EXACT_TARGET_SHARED_RECEIPTS_OUTCOMES_COUNTERS_TEMPORAL_P0_MULTI_VALIDATOR"
+    },
+    {
+      "familyId": "CVF-CORE-REFRESH-ATTEMPT-4-CARRIER-MODES-2026-08-31",
+      "matrixPath": "docs/cvf/invariants/cvf-core-refresh-attempt-4-carrier-modes-2026-08-31.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_CARRIER_MODES_RAW_DISPATCH_COUNTER_PREFIX_MULTI_VALIDATOR"
     }
   ]
 }

@@ -1,0 +1,2372 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "CVF-CORE-REFRESH-TARGET-REBASE-0281E93-OUTCOMES-2026-08-30",
+  "title": "Exact-target 0281e93 bootstrap-native Core refresh and reviewer-movement outcomes",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_RECEIPT_MODEL",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS",
+    "TRIGGER_4_MULTIPLE_VALIDATOR_SURFACES",
+    "TRIGGER_6_PRIOR_ADJACENT_FAMILY_FINDING",
+    "PARKED_FIXTURE_STATE_CONTROLS_FREEZE_ELIGIBILITY",
+    "READ_ONLY_P0_ADAPTER_WITH_TEMPORAL_CROSS_PRODUCT"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/decisions/INTAKE_2026-08-30_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "28e1160993d2638554bdb810dd36f393eebb65db62b47b8f92b8049fc290ba53",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/INTAKE_REVIEW_2026-08-30_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "4c754b7cc47ef247453075e0633848534d121959aba7fb845d49f12975da1b8c",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/DESIGN_2026-08-30_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "1fc8c00dd19bfd08a4b185f1fdc41fbe58991a7006248a593a5fc6fc371cb8b5",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/decisions/DESIGN_REVIEW_2026-08-30_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "78eaf8c9e7e01af721c877ed6aaa89b6446baea40e3ef05df85f8772d1088c56",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "ZERO_EFFECT_PREFLIGHT_REFUSAL_PROJECTION",
+    "ROOT_EFFECTS_RECEIPT_TERMINAL_PROJECTION",
+    "INDEPENDENT_COMPLETION_REVIEW_PROJECTION",
+    "REVIEW_TARGET_MOVEMENT_ROLLBACK_RECORD_PROJECTION",
+    "INDEPENDENT_TERMINAL_REREVIEW_PROJECTION",
+    "READ_ONLY_P0_CONFORMANCE_PROJECTION",
+    "PARKED_FIXTURE_FREEZE_GATE_PROJECTION"
+  ],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "ZERO_EFFECT_PREFLIGHT_REFUSAL",
+      "shapes": [
+        {
+          "shapeId": "ZERO_EFFECT_PREFLIGHT_REFUSAL_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "operation_sequence",
+            "network_prefix_count",
+            "root_effect_count",
+            "reconciler_count",
+            "pin_bridge_count",
+            "initializer_count",
+            "worker_evidence_create_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "prior_attempt_artifact_update_count",
+            "p4e_checkpoint",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "preflight_refusal_reason",
+            "fixture_repair_status"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "rollback_complete",
+            "core_head",
+            "core_origin_main",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "reviewer_doctor_count",
+            "trigger",
+            "blocking_component"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "ZERO_EFFECT_PREFLIGHT_REFUSAL"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "ALL_SIX_ATTEMPT_3_PATHS_REMAIN_ABSENT"
+            },
+            "operation_sequence": {
+              "type": "STRING",
+              "const": "NONE"
+            },
+            "network_prefix_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "root_effect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciler_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "pin_bridge_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "initializer_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "worker_evidence_create_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "enum": [
+                "NOT_RUN",
+                "FAIL"
+              ]
+            },
+            "preflight_refusal_reason": {
+              "type": "STRING",
+              "enum": [
+                "TARGET_DRIFT",
+                "TOOL_OR_EFFECT_DRIFT",
+                "PATH_OR_COLLISION_FAILURE",
+                "PREIMAGE_INCOMPLETE",
+                "P0_CONFORMANCE_FAILED",
+                "FIXTURE_BYTE_DRIFT",
+                "PROTECTED_STATE_BOUNDARY",
+                "POLICY_PHASE_OR_ROLE_DRIFT"
+              ]
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "REFUSAL_NETWORK_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_prefix_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSAL_ROOT_EFFECT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "root_effect_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSAL_RECONCILER_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "reconciler_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSAL_PIN_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "pin_bridge_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSAL_INITIALIZER_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "initializer_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSAL_EVIDENCE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "worker_evidence_create_count",
+              "value": 0
+            },
+            {
+              "relationId": "ZERO_EFFECT_PREFLIGHT_REFUSAL_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "SUCCESS",
+      "shapes": [
+        {
+          "shapeId": "SUCCESS_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "operation_sequence",
+            "network_prefix_count",
+            "reconciler_count",
+            "pin_bridge_count",
+            "initializer_count",
+            "root_target_contract_count",
+            "root_accounted_count",
+            "worker_tracked_ceiling_count",
+            "worker_evidence_create_count",
+            "staged_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "self_hash_count",
+            "cross_hash_count",
+            "prior_attempt_artifact_update_count",
+            "core_head",
+            "core_origin_main",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "doctor_result",
+            "p4e_checkpoint",
+            "evidence_hash_owner",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_status",
+            "fixture_freeze_gate_status",
+            "freeze_disposition"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "rollback_complete",
+            "root_restore_count",
+            "reviewer_doctor_count",
+            "trigger",
+            "blocking_component"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "SUCCESS"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "WORKER_ARTIFACTS_CREATED_CONDITIONAL_ARTIFACTS_ABSENT"
+            },
+            "operation_sequence": {
+              "type": "STRING",
+              "const": "RECONCILER>PIN_BRIDGE>INITIALIZER"
+            },
+            "network_prefix_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reconciler_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "pin_bridge_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "initializer_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "root_accounted_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "worker_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 13
+            },
+            "worker_evidence_create_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "staged_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "self_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "cross_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "core_head": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "core_origin_main": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "manifest_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "agents_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "binding_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "doctor_result": {
+              "type": "STRING",
+              "const": "PASS_WITH_BOUNDED_LEGACY_WARNING"
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REVIEW"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_PASS"
+            },
+            "fixture_freeze_gate_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_PASS"
+            },
+            "freeze_disposition": {
+              "type": "STRING",
+              "const": "FREEZE_ELIGIBLE_IF_INDEPENDENT_REVIEW_ACCEPTS"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "SUCCESS_NETWORK_THREE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_prefix_count",
+              "value": 3
+            },
+            {
+              "relationId": "SUCCESS_RECONCILER_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "reconciler_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_PIN_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "pin_bridge_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_INITIALIZER_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "initializer_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_ROOT_ACCOUNTING",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "root_target_contract_count",
+              "targetField": "root_accounted_count"
+            },
+            {
+              "relationId": "SUCCESS_CORE_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "core_head"
+            },
+            {
+              "relationId": "SUCCESS_ORIGIN_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "core_origin_main"
+            },
+            {
+              "relationId": "SUCCESS_MANIFEST_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "manifest_pin"
+            },
+            {
+              "relationId": "SUCCESS_AGENTS_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "agents_pin"
+            },
+            {
+              "relationId": "SUCCESS_BINDING_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "binding_pin"
+            },
+            {
+              "relationId": "SUCCESS_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            },
+            {
+              "relationId": "SUCCESS_FIXTURE_FREEZE_GATE_MATCHES_STATUS",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "fixture_repair_status",
+              "targetField": "fixture_freeze_gate_status"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "BUILD_SUCCESS_FREEZE_BLOCKED_BY_PARKED_FIXTURE_REPAIR",
+      "shapes": [
+        {
+          "shapeId": "BUILD_SUCCESS_FREEZE_BLOCKED_BY_PARKED_FIXTURE_REPAIR_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "operation_sequence",
+            "network_prefix_count",
+            "reconciler_count",
+            "pin_bridge_count",
+            "initializer_count",
+            "root_target_contract_count",
+            "root_accounted_count",
+            "worker_tracked_ceiling_count",
+            "worker_evidence_create_count",
+            "staged_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "self_hash_count",
+            "cross_hash_count",
+            "prior_attempt_artifact_update_count",
+            "core_head",
+            "core_origin_main",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "doctor_result",
+            "p4e_checkpoint",
+            "evidence_hash_owner",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_status",
+            "fixture_freeze_gate_status",
+            "freeze_disposition",
+            "blocking_component",
+            "blocking_observation_state"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "rollback_complete",
+            "root_restore_count",
+            "reviewer_doctor_count",
+            "trigger"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "BUILD_SUCCESS_FREEZE_BLOCKED_BY_PARKED_FIXTURE_REPAIR"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "WORKER_ARTIFACTS_CREATED_CONDITIONAL_ARTIFACTS_ABSENT"
+            },
+            "operation_sequence": {
+              "type": "STRING",
+              "const": "RECONCILER>PIN_BRIDGE>INITIALIZER"
+            },
+            "network_prefix_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reconciler_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "pin_bridge_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "initializer_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "root_accounted_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "worker_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 13
+            },
+            "worker_evidence_create_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "staged_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "self_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "cross_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "core_head": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "core_origin_main": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "manifest_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "agents_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "binding_pin": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "doctor_result": {
+              "type": "STRING",
+              "const": "PASS_WITH_BOUNDED_LEGACY_WARNING"
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REVIEW"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            },
+            "fixture_freeze_gate_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            },
+            "freeze_disposition": {
+              "type": "STRING",
+              "const": "FREEZE_BLOCKED_BY_PARKED_FIXTURE_REPAIR"
+            },
+            "blocking_component": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_CONFORMANCE_FIXTURE_REPAIR"
+            },
+            "blocking_observation_state": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "SUCCESS_NETWORK_THREE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "network_prefix_count",
+              "value": 3
+            },
+            {
+              "relationId": "SUCCESS_RECONCILER_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "reconciler_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_PIN_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "pin_bridge_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_INITIALIZER_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "initializer_count",
+              "value": 1
+            },
+            {
+              "relationId": "SUCCESS_ROOT_ACCOUNTING",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "root_target_contract_count",
+              "targetField": "root_accounted_count"
+            },
+            {
+              "relationId": "SUCCESS_CORE_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "core_head"
+            },
+            {
+              "relationId": "SUCCESS_ORIGIN_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "core_origin_main"
+            },
+            {
+              "relationId": "SUCCESS_MANIFEST_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "manifest_pin"
+            },
+            {
+              "relationId": "SUCCESS_AGENTS_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "agents_pin"
+            },
+            {
+              "relationId": "SUCCESS_BINDING_TARGET",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "target",
+              "targetField": "binding_pin"
+            },
+            {
+              "relationId": "BUILD_SUCCESS_FREEZE_BLOCKED_BY_PARKED_FIXTURE_REPAIR_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            },
+            {
+              "relationId": "BUILD_SUCCESS_FREEZE_BLOCKED_FIXTURE_GATE_MATCHES_STATUS",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "fixture_repair_status",
+              "targetField": "fixture_freeze_gate_status"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "FAILURE_ROLLED_BACK",
+      "shapes": [
+        {
+          "shapeId": "FAILURE_ROLLED_BACK_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "failure_stage_prefix_pair",
+            "rollback_stage_sequence",
+            "rollback_verifier_state",
+            "root_target_contract_count",
+            "root_accounted_count",
+            "worker_tracked_ceiling_count",
+            "worker_evidence_create_count",
+            "staged_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "self_hash_count",
+            "cross_hash_count",
+            "prior_attempt_artifact_update_count",
+            "core_head",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "rollback_complete",
+            "root_restore_count",
+            "pin_carrier_restore_count",
+            "shared_carrier_restore_count",
+            "binding_restore_count",
+            "p4e_checkpoint",
+            "evidence_hash_owner",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_status"
+          ],
+          "forbiddenFields": [
+            "operation_sequence",
+            "network_prefix_count",
+            "core_origin_main",
+            "doctor_result",
+            "rollback_failure_verifier_pair",
+            "reviewer_doctor_count",
+            "trigger",
+            "blocking_component"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "FAILURE_ROLLED_BACK"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "WORKER_FAILURE_ARTIFACTS_CREATED_CONDITIONAL_ARTIFACTS_ABSENT"
+            },
+            "failure_stage_prefix_pair": {
+              "type": "STRING",
+              "enum": [
+                "RECONCILER_EXECUTION:P0",
+                "RECONCILER_EXECUTION:P1",
+                "RECONCILER_RETURN_CHECKPOINT:P1",
+                "PIN_BRIDGE:P1",
+                "INITIALIZER_EXECUTION:P1",
+                "INITIALIZER_EXECUTION:P2",
+                "INITIALIZER_EXECUTION:P3",
+                "POST_INITIALIZER_VALIDATION:P3",
+                "DOWNSTREAM_SYNCHRONIZATION:P3"
+              ]
+            },
+            "rollback_stage_sequence": {
+              "type": "STRING",
+              "const": "CONTAINMENT>PRESERVE_FAILED_STATE>CORE_RESTORE>ROOT_RESTORE>PIN_RESTORE>SHARED_RESTORE>BINDING_RESTORE>ROLLBACK_VERIFIER>FAILURE_EVIDENCE"
+            },
+            "rollback_verifier_state": {
+              "type": "STRING",
+              "const": "ONE_RECORDED"
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "root_accounted_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "worker_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 13
+            },
+            "worker_evidence_create_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "staged_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "self_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "cross_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "core_head": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "manifest_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "agents_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "binding_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "rollback_complete": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "root_restore_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "pin_carrier_restore_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "shared_carrier_restore_count": {
+              "type": "INTEGER",
+              "const": 9
+            },
+            "binding_restore_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REVIEW"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "FAILURE_ROOT_ACCOUNTING",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "root_target_contract_count",
+              "targetField": "root_accounted_count"
+            },
+            {
+              "relationId": "FAILURE_CORE_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "core_head"
+            },
+            {
+              "relationId": "FAILURE_MANIFEST_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "manifest_pin"
+            },
+            {
+              "relationId": "FAILURE_AGENTS_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "agents_pin"
+            },
+            {
+              "relationId": "FAILURE_BINDING_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "binding_pin"
+            },
+            {
+              "relationId": "FAILURE_ROOT_RESTORE_17",
+              "kind": "COUNTER_EQUALITY",
+              "field": "root_restore_count",
+              "value": 17
+            },
+            {
+              "relationId": "FAILURE_PIN_RESTORE_2",
+              "kind": "COUNTER_EQUALITY",
+              "field": "pin_carrier_restore_count",
+              "value": 2
+            },
+            {
+              "relationId": "FAILURE_SHARED_RESTORE_9",
+              "kind": "COUNTER_EQUALITY",
+              "field": "shared_carrier_restore_count",
+              "value": 9
+            },
+            {
+              "relationId": "FAILURE_BINDING_RESTORE_1",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binding_restore_count",
+              "value": 1
+            },
+            {
+              "relationId": "FAILURE_STAGED_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "staged_count",
+              "value": 0
+            },
+            {
+              "relationId": "FAILURE_SELF_HASH_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "self_hash_count",
+              "value": 0
+            },
+            {
+              "relationId": "FAILURE_CROSS_HASH_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "cross_hash_count",
+              "value": 0
+            },
+            {
+              "relationId": "FAILURE_ROLLED_BACK_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "FAILURE_ROLLBACK_INCOMPLETE",
+      "shapes": [
+        {
+          "shapeId": "FAILURE_ROLLBACK_INCOMPLETE_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "root_target_contract_count",
+            "worker_tracked_ceiling_count",
+            "root_effects_receipt_effect",
+            "worker_return_observation_state",
+            "staged_observation_state",
+            "p4e_observation_state",
+            "blocking_component",
+            "blocking_observation_state",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "prior_attempt_artifact_update_count",
+            "rollback_complete",
+            "evidence_hash_owner",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_observation_state"
+          ],
+          "forbiddenFields": [
+            "operation_sequence",
+            "network_prefix_count",
+            "core_head",
+            "core_origin_main",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "doctor_result",
+            "root_accounted_count",
+            "root_restore_count",
+            "pin_carrier_restore_count",
+            "shared_carrier_restore_count",
+            "binding_restore_count",
+            "p4e_checkpoint",
+            "worker_evidence_create_count",
+            "reviewer_doctor_count",
+            "trigger"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "FAILURE_ROLLBACK_INCOMPLETE"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "ROOT_RECEIPT_READABLE_WORKER_RETURN_OBSERVED_CONDITIONAL_ARTIFACTS_ABSENT"
+            },
+            "failure_stage_prefix_pair": {
+              "type": "STRING",
+              "enum": [
+                "RECONCILER_EXECUTION:P0",
+                "RECONCILER_EXECUTION:P1",
+                "RECONCILER_RETURN_CHECKPOINT:P1",
+                "PIN_BRIDGE:P1",
+                "INITIALIZER_EXECUTION:P1",
+                "INITIALIZER_EXECUTION:P2",
+                "INITIALIZER_EXECUTION:P3",
+                "POST_INITIALIZER_VALIDATION:P3",
+                "DOWNSTREAM_SYNCHRONIZATION:P3"
+              ]
+            },
+            "rollback_failure_verifier_pair": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINMENT_CHECK:NOT_RUN",
+                "FAILED_REPLACEMENT_PRESERVATION:NOT_RUN",
+                "CORE_RESTORE:NOT_RUN",
+                "ROOT_RESTORE:NOT_RUN",
+                "PIN_CARRIER_RESTORE:NOT_RUN",
+                "SHARED_CARRIER_RESTORE:NOT_RUN",
+                "BINDING_RESTORE:NOT_RUN",
+                "ROLLBACK_VERIFIER:NOT_RUN",
+                "ROLLBACK_VERIFIER:ONE_RECORDED",
+                "WORKER_RETURN_WRITE:ONE_RECORDED"
+              ]
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "worker_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 13
+            },
+            "root_effects_receipt_effect": {
+              "type": "STRING",
+              "const": "CREATE"
+            },
+            "worker_return_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE"
+              ]
+            },
+            "staged_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "ZERO",
+                "NONZERO",
+                "UNREADABLE",
+                "UNVERIFIED"
+              ]
+            },
+            "p4e_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED",
+                "UNVERIFIED"
+              ]
+            },
+            "blocking_component": {
+              "type": "STRING",
+              "enum": [
+                "CORE",
+                "ROOT_TARGET",
+                "MANIFEST_PIN",
+                "AGENTS_PIN",
+                "BINDING_PIN",
+                "SHARED_CARRIER",
+                "P4E_ARTIFACT",
+                "STAGED_SET",
+                "CONTAINMENT",
+                "HASH_CHECK",
+                "EVIDENCE_CARRIER"
+              ]
+            },
+            "blocking_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_UNRESTORED"
+              ]
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "rollback_complete": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REVIEW_IF_READABLE"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED",
+                "UNVERIFIED"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "INCOMPLETE_ROOT_CONTRACT_17",
+              "kind": "COUNTER_EQUALITY",
+              "field": "root_target_contract_count",
+              "value": 17
+            },
+            {
+              "relationId": "INCOMPLETE_WORKER_CEILING_13",
+              "kind": "COUNTER_EQUALITY",
+              "field": "worker_tracked_ceiling_count",
+              "value": 13
+            },
+            {
+              "relationId": "FAILURE_ROLLBACK_INCOMPLETE_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "REVIEW_TARGET_MOVEMENT",
+      "shapes": [
+        {
+          "shapeId": "REVIEW_TARGET_MOVEMENT_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "trigger",
+            "operation_sequence",
+            "original_worker_network_count",
+            "reviewer_doctor_count",
+            "root_target_contract_count",
+            "root_accounted_count",
+            "worker_tracked_ceiling_count",
+            "worker_evidence_create_count",
+            "completion_review_create_count",
+            "conditional_repair_record_create_count",
+            "conditional_rereview_create_count",
+            "immutable_prior_artifact_count",
+            "immutable_prior_artifact_preserved_count",
+            "original_worker_artifact_update_count",
+            "prior_attempt_artifact_update_count",
+            "conditional_rollback_record_path",
+            "conditional_rereview_path",
+            "conditional_rereview_prestate",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "p4e_checkpoint",
+            "evidence_hash_owner",
+            "root_effects_receipt_path",
+            "worker_return_path",
+            "completion_review_path",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_status"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "rollback_verifier_state",
+            "rollback_complete",
+            "core_head",
+            "manifest_pin",
+            "blocking_component"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "WORKER_ARTIFACTS_AND_MOVEMENT_REVIEW_IMMUTABLE_CONDITIONAL_ARTIFACTS_ABSENT"
+            },
+            "trigger": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT"
+            },
+            "operation_sequence": {
+              "type": "STRING",
+              "const": "RECONCILER>PIN_BRIDGE>INITIALIZER>REVIEWER_DOCTOR"
+            },
+            "original_worker_network_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reviewer_doctor_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "root_accounted_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "worker_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 13
+            },
+            "worker_evidence_create_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "completion_review_create_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "conditional_repair_record_create_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "conditional_rereview_create_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "immutable_prior_artifact_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "immutable_prior_artifact_preserved_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "original_worker_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "conditional_rereview_prestate": {
+              "type": "STRING",
+              "const": "ABSENT"
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REVIEW"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "MOVEMENT_WORKER_NETWORK_THREE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "original_worker_network_count",
+              "value": 3
+            },
+            {
+              "relationId": "MOVEMENT_REVIEWER_DOCTOR_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "reviewer_doctor_count",
+              "value": 1
+            },
+            {
+              "relationId": "MOVEMENT_ROOT_ACCOUNTING",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "root_target_contract_count",
+              "targetField": "root_accounted_count"
+            },
+            {
+              "relationId": "MOVEMENT_PRIOR_ARTIFACT_PRESERVATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "immutable_prior_artifact_count",
+              "targetField": "immutable_prior_artifact_preserved_count"
+            },
+            {
+              "relationId": "REVIEW_TARGET_MOVEMENT_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "REVIEW_TARGET_MOVEMENT_ROLLED_BACK",
+      "shapes": [
+        {
+          "shapeId": "REVIEW_TARGET_MOVEMENT_ROLLED_BACK_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "trigger",
+            "operation_sequence",
+            "original_worker_network_count",
+            "reviewer_doctor_count",
+            "rollback_stage_sequence",
+            "rollback_verifier_state",
+            "repair_mutable_tracked_carrier_count",
+            "conditional_repair_record_create_count",
+            "repair_tracked_ceiling_count",
+            "repair_local_effect_ceiling_count",
+            "immutable_prior_artifact_count",
+            "immutable_prior_artifact_preserved_count",
+            "root_effects_receipt_path",
+            "root_effects_receipt_pre_sha256",
+            "root_effects_receipt_post_sha256",
+            "worker_return_path",
+            "worker_return_pre_sha256",
+            "worker_return_post_sha256",
+            "completion_review_path",
+            "completion_review_pre_sha256",
+            "completion_review_post_sha256",
+            "conditional_rollback_record_path",
+            "conditional_rollback_record_effect",
+            "conditional_rereview_path",
+            "conditional_rereview_prestate",
+            "original_worker_artifact_update_count",
+            "completion_review_update_count",
+            "repair_markdown_create_count",
+            "repair_record_self_hash_count",
+            "prior_attempt_artifact_update_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "root_target_contract_count",
+            "staged_count",
+            "root_restore_count",
+            "pin_carrier_restore_count",
+            "shared_carrier_restore_count",
+            "binding_restore_count",
+            "core_head",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "rollback_complete",
+            "p4e_checkpoint",
+            "evidence_hash_owner",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_status"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "rollback_failure_verifier_pair",
+            "core_origin_main",
+            "doctor_result",
+            "blocking_component",
+            "blocking_observation_state",
+            "staged_observation_state",
+            "p4e_observation_state"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT_ROLLED_BACK"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "THREE_PRIOR_ARTIFACTS_IMMUTABLE_ROLLBACK_JSON_CREATED_REREVIEW_ABSENT"
+            },
+            "trigger": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT"
+            },
+            "operation_sequence": {
+              "type": "STRING",
+              "const": "RECONCILER>PIN_BRIDGE>INITIALIZER>REVIEWER_DOCTOR>ROLLBACK_ONLY>ROLLBACK_VERIFIER"
+            },
+            "original_worker_network_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reviewer_doctor_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "rollback_stage_sequence": {
+              "type": "STRING",
+              "const": "CONTAINMENT>PRESERVE_FAILED_STATE>CORE_RESTORE>ROOT_RESTORE>PIN_RESTORE>SHARED_RESTORE>BINDING_RESTORE>ROLLBACK_VERIFIER>SHARED_FAILURE_CONTINUITY>ROLLBACK_RECORD"
+            },
+            "rollback_verifier_state": {
+              "type": "STRING",
+              "const": "ONE_RECORDED"
+            },
+            "repair_mutable_tracked_carrier_count": {
+              "type": "INTEGER",
+              "const": 11
+            },
+            "conditional_repair_record_create_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "repair_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 12
+            },
+            "repair_local_effect_ceiling_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "immutable_prior_artifact_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "immutable_prior_artifact_preserved_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "root_effects_receipt_pre_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "root_effects_receipt_post_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "worker_return_pre_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "worker_return_post_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "completion_review_pre_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "completion_review_post_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "conditional_rollback_record_effect": {
+              "type": "STRING",
+              "const": "CREATE"
+            },
+            "conditional_rereview_prestate": {
+              "type": "STRING",
+              "const": "ABSENT"
+            },
+            "original_worker_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "completion_review_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "repair_markdown_create_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "repair_record_self_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "staged_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "root_restore_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "pin_carrier_restore_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "shared_carrier_restore_count": {
+              "type": "INTEGER",
+              "const": 9
+            },
+            "binding_restore_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "core_head": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "manifest_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "agents_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "binding_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "rollback_complete": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "p4e_checkpoint": {
+              "type": "STRING",
+              "const": "DESIGN_REVIEW_PASS"
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REREVIEW"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_status": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REREVIEW_CHANGES_REQUIRED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "REPAIR_PRIOR_ARTIFACT_PRESERVATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "immutable_prior_artifact_count",
+              "targetField": "immutable_prior_artifact_preserved_count"
+            },
+            {
+              "relationId": "REPAIR_SUCCESS_RECEIPT_IMMUTABLE",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "root_effects_receipt_pre_sha256",
+              "targetField": "root_effects_receipt_post_sha256"
+            },
+            {
+              "relationId": "REPAIR_WORKER_RETURN_IMMUTABLE",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "worker_return_pre_sha256",
+              "targetField": "worker_return_post_sha256"
+            },
+            {
+              "relationId": "REPAIR_COMPLETION_REVIEW_IMMUTABLE",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "completion_review_pre_sha256",
+              "targetField": "completion_review_post_sha256"
+            },
+            {
+              "relationId": "REPAIR_CORE_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "core_head"
+            },
+            {
+              "relationId": "REPAIR_MANIFEST_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "manifest_pin"
+            },
+            {
+              "relationId": "REPAIR_AGENTS_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "agents_pin"
+            },
+            {
+              "relationId": "REPAIR_BINDING_OLD",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "old_pin",
+              "targetField": "binding_pin"
+            },
+            {
+              "relationId": "REPAIR_ROOT_RESTORE_17",
+              "kind": "COUNTER_EQUALITY",
+              "field": "root_restore_count",
+              "value": 17
+            },
+            {
+              "relationId": "REPAIR_PIN_RESTORE_2",
+              "kind": "COUNTER_EQUALITY",
+              "field": "pin_carrier_restore_count",
+              "value": 2
+            },
+            {
+              "relationId": "REPAIR_SHARED_RESTORE_9",
+              "kind": "COUNTER_EQUALITY",
+              "field": "shared_carrier_restore_count",
+              "value": 9
+            },
+            {
+              "relationId": "REPAIR_BINDING_RESTORE_1",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binding_restore_count",
+              "value": 1
+            },
+            {
+              "relationId": "REPAIR_STAGED_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "staged_count",
+              "value": 0
+            },
+            {
+              "relationId": "REVIEW_TARGET_MOVEMENT_ROLLED_BACK_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "REVIEW_TARGET_MOVEMENT_ROLLBACK_INCOMPLETE",
+      "shapes": [
+        {
+          "shapeId": "REVIEW_TARGET_MOVEMENT_ROLLBACK_INCOMPLETE_VALID",
+          "requiredFields": [
+            "outcome",
+            "target",
+            "old_pin",
+            "evidence_directory",
+            "evidence_lifecycle",
+            "trigger",
+            "original_worker_network_count",
+            "reviewer_doctor_count",
+            "rollback_failure_verifier_pair",
+            "repair_mutable_tracked_carrier_count",
+            "conditional_repair_record_create_count",
+            "repair_tracked_ceiling_count",
+            "repair_local_effect_ceiling_count",
+            "immutable_prior_artifact_count",
+            "root_effects_receipt_path",
+            "root_effects_receipt_observation_state",
+            "worker_return_path",
+            "worker_return_observation_state",
+            "completion_review_path",
+            "completion_review_observation_state",
+            "conditional_rollback_record_path",
+            "conditional_rollback_record_effect",
+            "conditional_rereview_path",
+            "conditional_rereview_prestate",
+            "original_worker_artifact_update_count",
+            "completion_review_update_count",
+            "repair_markdown_create_count",
+            "repair_record_self_hash_count",
+            "prior_attempt_artifact_update_count",
+            "provider_call_count",
+            "reconciliation_retry_count",
+            "root_target_contract_count",
+            "staged_observation_state",
+            "p4e_observation_state",
+            "blocking_component",
+            "blocking_observation_state",
+            "rollback_complete",
+            "evidence_hash_owner",
+            "p0_adapter_identity",
+            "p0_conformance_state",
+            "protected_state_contact_count",
+            "fixture_repair_observation_state"
+          ],
+          "forbiddenFields": [
+            "failure_stage_prefix_pair",
+            "operation_sequence",
+            "rollback_verifier_state",
+            "core_head",
+            "core_origin_main",
+            "manifest_pin",
+            "agents_pin",
+            "binding_pin",
+            "doctor_result",
+            "root_restore_count",
+            "pin_carrier_restore_count",
+            "shared_carrier_restore_count",
+            "binding_restore_count",
+            "p4e_checkpoint",
+            "immutable_prior_artifact_preserved_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT_ROLLBACK_INCOMPLETE"
+            },
+            "target": {
+              "type": "STRING",
+              "const": "0281e93bab4a75083973eb7242fd2bc8f65055d3"
+            },
+            "old_pin": {
+              "type": "STRING",
+              "const": "a7a797d7111be472ef2cbd928cbeffc70ccb6bc6"
+            },
+            "evidence_directory": {
+              "type": "STRING",
+              "const": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\_cvf-core-backups\\CVF-CORE-REFRESH-TARGET-REBASE-0281E93-ATTEMPT-3-EVIDENCE"
+            },
+            "evidence_lifecycle": {
+              "type": "STRING",
+              "const": "ROLLBACK_JSON_READABLE_PRIOR_ARTIFACTS_OBSERVED_REREVIEW_ABSENT"
+            },
+            "trigger": {
+              "type": "STRING",
+              "const": "REVIEW_TARGET_MOVEMENT"
+            },
+            "original_worker_network_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reviewer_doctor_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "rollback_failure_verifier_pair": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINMENT_CHECK:NOT_RUN",
+                "FAILED_REPLACEMENT_PRESERVATION:NOT_RUN",
+                "CORE_RESTORE:NOT_RUN",
+                "ROOT_RESTORE:NOT_RUN",
+                "PIN_CARRIER_RESTORE:NOT_RUN",
+                "SHARED_CARRIER_RESTORE:NOT_RUN",
+                "BINDING_RESTORE:NOT_RUN",
+                "ROLLBACK_VERIFIER:NOT_RUN",
+                "ROLLBACK_VERIFIER:ONE_RECORDED",
+                "SHARED_FAILURE_CONTINUITY_WRITE:ONE_RECORDED"
+              ]
+            },
+            "repair_mutable_tracked_carrier_count": {
+              "type": "INTEGER",
+              "const": 11
+            },
+            "conditional_repair_record_create_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "repair_tracked_ceiling_count": {
+              "type": "INTEGER",
+              "const": 12
+            },
+            "repair_local_effect_ceiling_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "immutable_prior_artifact_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "root_effects_receipt_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED"
+              ]
+            },
+            "worker_return_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED"
+              ]
+            },
+            "completion_review_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED"
+              ]
+            },
+            "conditional_rollback_record_effect": {
+              "type": "STRING",
+              "const": "CREATE"
+            },
+            "conditional_rereview_prestate": {
+              "type": "STRING",
+              "const": "ABSENT"
+            },
+            "original_worker_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "completion_review_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "repair_markdown_create_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "repair_record_self_hash_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "prior_attempt_artifact_update_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "provider_call_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reconciliation_retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "root_target_contract_count": {
+              "type": "INTEGER",
+              "const": 17
+            },
+            "staged_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "ZERO",
+                "NONZERO",
+                "UNREADABLE",
+                "UNVERIFIED"
+              ]
+            },
+            "p4e_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED",
+                "UNVERIFIED"
+              ]
+            },
+            "blocking_component": {
+              "type": "STRING",
+              "enum": [
+                "CORE",
+                "ROOT_TARGET",
+                "MANIFEST_PIN",
+                "AGENTS_PIN",
+                "BINDING_PIN",
+                "SHARED_CARRIER",
+                "P4E_ARTIFACT",
+                "STAGED_SET",
+                "CONTAINMENT",
+                "HASH_CHECK",
+                "EVIDENCE_CARRIER"
+              ]
+            },
+            "blocking_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_UNRESTORED"
+              ]
+            },
+            "rollback_complete": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "evidence_hash_owner": {
+              "type": "STRING",
+              "const": "INDEPENDENT_COMPLETION_REREVIEW_IF_READABLE"
+            },
+            "root_effects_receipt_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_ROOT_EFFECTS_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "worker_return_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_WORKER_RETURN_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "completion_review_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_COMPLETION_REVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "conditional_rollback_record_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_ROLLBACK_2026-08-30_0281E93_ATTEMPT_3.json"
+            },
+            "conditional_rereview_path": {
+              "type": "STRING",
+              "const": "docs/decisions/CVF_CORE_REFRESH_REVIEW_TARGET_MOVEMENT_REREVIEW_2026-08-30_0281E93_ATTEMPT_3.md"
+            },
+            "p0_adapter_identity": {
+              "type": "STRING",
+              "const": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1"
+            },
+            "p0_conformance_state": {
+              "type": "STRING",
+              "const": "PASS"
+            },
+            "protected_state_contact_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fixture_repair_observation_state": {
+              "type": "STRING",
+              "enum": [
+                "PRESERVED",
+                "ABSENT",
+                "UNREADABLE",
+                "READABLE_CHANGED",
+                "UNVERIFIED"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "REPAIR_INCOMPLETE_WORKER_NETWORK_THREE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "original_worker_network_count",
+              "value": 3
+            },
+            {
+              "relationId": "REPAIR_INCOMPLETE_REVIEWER_DOCTOR_ONE",
+              "kind": "COUNTER_EQUALITY",
+              "field": "reviewer_doctor_count",
+              "value": 1
+            },
+            {
+              "relationId": "REPAIR_INCOMPLETE_CEILING_12",
+              "kind": "COUNTER_EQUALITY",
+              "field": "repair_tracked_ceiling_count",
+              "value": 12
+            },
+            {
+              "relationId": "REPAIR_INCOMPLETE_LOCAL_CEILING_1",
+              "kind": "COUNTER_EQUALITY",
+              "field": "repair_local_effect_ceiling_count",
+              "value": 1
+            },
+            {
+              "relationId": "REVIEW_TARGET_MOVEMENT_ROLLBACK_INCOMPLETE_VALID_PROTECTED_STATE_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "protected_state_contact_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": []
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_2026_08_30_MATRIX_DIGEST_BINDING",
+      "ownerPath": "docs/cvf/invariants/cvf-core-refresh-target-rebase-0281e93-outcomes-2026-08-30.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/cvf_core_refresh_target_rebase_0281e93_2026_08_30_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_2026_08_30_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "CVF_CORE_REFRESH_TARGET_REBASE_0281E93_READ_ONLY_P0_ADAPTER_V1",
+    "kind": "SYNTHETIC_DETERMINISTIC"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Deterministic parity for exact-target 0281e93 attempt-3 preflight, initial execution, success/freeze gating, completion review and reviewer-movement rollback only; no provider behavior, AI governance, arbitrary-untracked absence, fixture-repair closure, P4-E implementation, product runtime adoption, deployment or production-readiness claim."
+}

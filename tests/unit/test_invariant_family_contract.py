@@ -160,7 +160,8 @@ def test_mutation_basis_covers_all_required_operator_classes() -> None:
     operators = {m.operator for m in mutations}
     assert operators == {
         "DELETE_REQUIRED_FIELD", "ADD_FORBIDDEN_FIELD", "ADD_UNKNOWN_FIELD",
-        "REPLACE_DISCRIMINATOR", "ILLEGAL_VALUE", "COUNTER_MUTATION",
+        "REPLACE_DISCRIMINATOR", "WRONG_TYPE", "CONST_MISMATCH",
+        "MIN_LENGTH_VIOLATION", "PATTERN_MISMATCH", "COUNTER_MUTATION",
         "ONE_SIDE_RELATION_CHANGE",
     }
     # RECURSE_NESTED_OBJECTS is matrix-excluded; CONDITIONAL_FLIP has no rule

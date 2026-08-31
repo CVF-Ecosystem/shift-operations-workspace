@@ -365,7 +365,35 @@
     "what_changed": "Exact-54 tranche materialized frozen typed SDK delivery contracts and invariant pins, a closed adapter-delivery schema, one generic-webhook adapter with immutable endpoint authorization, complete DNS-set/peer/TLS checks, audience-bound HMAC v1 and one-send/no-retry classification, deterministic CONFORMANCE_ONLY Zalo/WhatsApp mocks, and the minimal Integration Edge scope/activation/result mapping. integration_edge.main:create_app is the sole concrete composition owner; P4-C remains receipt/state owner.",
     "evidence": "Independent final audit: exact 54/54; focused 74 passed; invariant command 37 passed, 2 skipped and invariant guard PASS; full regression 2898 passed, 132 skipped, 1 exact XR1 deselection; doctor 24 PASS plus the bounded legacy-catalog note; Knowledge, session, catalog and file-size guards PASS. Core target a7a797d7111be472ef2cbd928cbeffc70ccb6bc6; prerequisite project reconciliation commits 604addc and b3f2431. Findings/waivers NONE/NONE.",
     "claim_boundary": "Deterministic zero-network provider-neutral contract evidence only. No live send, Zalo/WhatsApp vendor conformance, receiver replay enforcement, CVF governance behavior, recipient identity/conversation mapping, production readiness or deployment.",
-    "next_governed_move": "COMMIT_STEWARD stages exactly the 54 Work Order paths, verifies the staged set, commits and pushes P4-D without amend or force. Only after push may P4-E identity/conversation routing open as a fresh INTAKE."
+    "next_governed_move": "Satisfied: exact-54 P4-D commit a8e2ad8199d700a238d7d74bdbf85329446228de was pushed to origin/main. Fresh P4-E identity/conversation routing INTAKE is now active."
+  },
+  "p4e_identity_conversation_routing": {
+    "scope_note": "Roadmap P4-E accepted DESIGN only: human-confirmed external identity linkage followed by deterministic conversation placement proposals. Identity linkage and route placement remain non-authenticating, non-authoritative and separate from operational truth.",
+    "governance_disposition": "DESIGN / DESIGN_REVIEW_PASS / PARKED_CORE_REFRESH_REQUIRED (2026-08-29); original findings P4E-DESIGN-REV-F1..F5 closed; final findings/waivers NONE/NONE; final doctor found pinned Core behind public origin/main; BUILD authority NOT GRANTED.",
+    "what_changed": "Documentation and continuity only. Accepted DESIGN defines the complete sender-identity namespace, fresh stored-role authorization, two-transaction durable proposal/placement-work ownership, privacy-safe two-human confirmation, distinct WORKSPACE/FALLBACK semantics, and three invariant families; no P4-E product source, model, schema, database or runtime behavior exists yet.",
+    "claim_boundary": "No implemented identity mapping or conversation placement; no provider call, credential, install, migration, deployment, commit or push; external proposals remain actor-neutral UNTRUSTED_EXTERNAL/RAW and cannot become authenticated authority or operational truth.",
+    "next_governed_move": "Fresh governed CVF Core reconciliation INTAKE before P4-E SPEC. Hidden-Core mutation, SPEC, WORK_ORDER, BUILD and external effects remain unauthorized pending fresh authority."
+  },
+  "cvf_core_refresh_2026_08_29": {
+    "scope_note": "Fresh R2 maintenance BUILD attempted only the frozen-target Core reconciliation contract before returning to parked P4-E DESIGN.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED_FAILURE_ROLLED_BACK (2026-08-30); independent completion review passed with findings/waivers NONE/NONE.",
+    "verified_trigger": "The reconciler ran once and cloned d7860138350130d6d105826ce186f1beeaba3c2d instead of frozen 06c3d040a3dc8fa22fa27f2f9c3e40739def075e. The worker stopped before pin edits and initializer, preserved the replacement, restored old Core a7a797d plus 17/17 roots, 2/2 pins, 9/9 shared carriers and 1/1 binding, then recorded one expected-failing stale-Core verifier.",
+    "claim_boundary": "Deterministic failure/rollback evidence only. No provider call, credential, install, product/database change, deployment, commit or push; no target rebase or retry; P4-E remains DESIGN_REVIEW_PASS.",
+    "next_governed_move": "Closed. Immutable evidence remains historical input to the separate 2026-08-30 target-rebase INTAKE."
+  },
+  "cvf_core_refresh_target_rebase_2026_08_30": {
+    "scope_note": "Fresh R2 SPEC and successor invariant family for a later, separately authorized reconciliation from restored Core a7a797d to frozen target d786013; P4-E remains parked.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED_FAILURE_ROLLED_BACK (2026-08-30); independent completion review PASS, findings/waivers NONE/NONE; target not adopted.",
+    "verified_trigger": "Exact Work Order df321b5e reached five-way d786013 equality and initializer doctor PASS, then fresh downstream-synchronization conformance found one repository-matcher versus independent-validator positive mismatch. No retry occurred; target state was preserved and old Core, 17 roots, 2 pins, 9 shared carriers and binding were restored; one stale-Core verifier recorded 23/25 with BEHIND_PUBLIC_REMOTE.",
+    "claim_boundary": "Deterministic failed target-rebase attempt and complete rollback only. No provider/credentials, install, product/database, deployment, commit/push, retry, P4-E SPEC, AI-governance behavior or production-readiness claim.",
+    "next_governed_move": "Any conformance-fixture repair or attempt 3 requires a fresh governed INTAKE and later external-effect approval."
+  },
+  "cvf_core_refresh_target_rebase_0281e93_2026_08_30": {
+    "scope_note": "Fresh R2 exact-target attempt 3 for proposed public-Core target 0281e93 from clean old pin a7a797d; predecessor target-rebase remains closed bounded and P4-E remains parked.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED_ZERO_EFFECT_PREFLIGHT_REFUSAL (2026-08-31); independent completion review PASS, findings/waivers NONE/NONE; target not adopted.",
+    "verified_trigger": "After accepted DESIGN/SPEC/Work Order and authorization review, the worker-authored temporary inline preflight wrapper parsed if as a command and stopped before P0. Network, reconciler, pin bridge, initializer, root, downstream and binding effects were zero; no rollback was required; completion review independently accepted the refusal.",
+    "claim_boundary": "Reviewed zero-effect refusal only. Core, manifest, AGENTS and binding remain at a7a797d while local origin/main remains 0281e93. No target adoption, doctor PASS, fixture repair, provider/credentials, install, product/database change, deployment, commit/push, AI-governance behavior or production-readiness claim.",
+    "next_governed_move": "Closed bounded. Any successor reconcile requires a fresh governed INTAKE and new collision-free lifecycle; no retry in this attempt."
   },
   "notes": [
     "Module-level status (enforced/partial/contract-only/stub) lives in docs/catalog/MODULE_REGISTRY.json.",
