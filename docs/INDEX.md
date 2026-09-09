@@ -2,7 +2,9 @@
 
 ## Start Here
 
-- Current P4-E SPEC and active handoff:
+- Current P4-E authorization packet and active handoff:
+  [`CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`](work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md),
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md`](implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md),
   [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md`](specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md),
   [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md`](../SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md)
 - Closed CVF provenance-inheritance recovery completion and handoff:
@@ -246,7 +248,7 @@
 - Independent P4-E DESIGN review and rereview (`DESIGN_REVIEW_PASS`; original
   findings F1-F5 closed; final findings/waivers `NONE/NONE`):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md)
-- P4-E draft-r1 SPEC (`REPAIRED_PENDING_INDEPENDENT_SPEC_REREVIEW`; BUILD unauthorized):
+- P4-E draft-r1 SPEC (independent `SPEC_REVIEW_PASS`; BUILD unauthorized):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md`](specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md)
 - Independent P4-E SPEC review Generation 1 (`SPEC_REVIEW_CHANGES_REQUIRED`;
   seven findings, zero waivers):
@@ -254,6 +256,14 @@
 - P4-E SPEC rework response (F1-F7 repaired pending independent rereview;
   accepted and qualified-disagreement positions recorded):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_REWORK_2026-09-09.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_REWORK_2026-09-09.md)
+- Independent P4-E SPEC rereview (`SPEC_REVIEW_PASS`; F1-F7 closed; 0 new,
+  0 waiver):
+  [`SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md`](decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md)
+- P4-E GC-018 baseline, exact 94-path manifest and bounded Work Order
+  (`READY_FOR_INDEPENDENT_AUTHORIZATION_REVIEW`; BUILD unauthorized):
+  [`CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`](baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md),
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md`](implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md),
+  [`CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`](work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md)
 - P4-E registered invariant matrices:
   [`mapping actions`](cvf/invariants/p4e-mapping-action-outcomes.json),
   [`identity resolution`](cvf/invariants/p4e-identity-resolution-outcomes.json), and
