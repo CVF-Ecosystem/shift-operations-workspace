@@ -3,22 +3,15 @@
 Core (not ORM) keeps the ledger a thin, explicit mapping over the SQL schema
 that already exists, so the migration remains the single schema authority.
 
-Dual-backend by design: ``Uuid`` is SQLAlchemy's generic UUID type - it renders
-as native ``uuid`` on PostgreSQL and as CHAR(32) on SQLite, so the same table
-definition works against both without a hand-written branch. ``JSON_TYPE``
-does the same for JSONB (native on PostgreSQL, plain JSON text elsewhere via
-``with_variant``). This lets the workspace ship with a zero-setup SQLite
-backend for evaluation/dev and switch to PostgreSQL for production by changing
-only ``DATABASE_URL`` - no schema or code change.
+Dual-backend by design: ``Uuid`` renders as native ``uuid`` on PostgreSQL and
+CHAR(32) on SQLite; ``JSON_TYPE`` does the same for JSONB (native on
+PostgreSQL, plain JSON text elsewhere via ``with_variant``) - one table
+definition, no schema/code change switching ``DATABASE_URL``.
 
 P1-POSTGRESQL-LIVE-ROUNDTRIP Amendment 1 (PG-REV-F1): the three migration
-``CREATE TYPE ... AS ENUM`` types (``data_state``, ``risk_class``,
-``shift_status``) are now mapped with the same ``with_variant`` pattern as
-``JSON_TYPE`` - portable ``String`` on SQLite, native ``postgresql.ENUM`` on
-PostgreSQL. A bare ``String`` column binds an explicit ``::VARCHAR`` cast that
-PostgreSQL refuses to implicitly convert to a native enum type.
-``create_type=False`` on every variant is mandatory: the migrations already
-ran ``CREATE TYPE``, so SQLAlchemy must never attempt to create/drop it."""
+``CREATE TYPE ... AS ENUM`` types use the same ``with_variant`` pattern -
+portable ``String`` on SQLite, native ``postgresql.ENUM`` on PostgreSQL,
+always with ``create_type=False`` (the migration's own ``CREATE TYPE`` ran)."""
 
 from __future__ import annotations
 
@@ -45,6 +38,7 @@ from operations_ledger._assignment_tables import build_shift_assignments_table
 from operations_ledger._handover_tables import build_handover_tables
 from operations_ledger._incident_tables import build_incidents_table
 from operations_ledger._report_tables import build_reports_table
+from operations_ledger.p4e_tables import build_p4e_tables
 
 metadata = MetaData()
 
@@ -114,13 +108,10 @@ operational_events = Table(
 )
 
 # Mirrors migration 001_foundation.sql (messages table). MESSAGE-ADMISSION-
-# TRUST-REPAIR-2026-07-30: add_message/get_message are now implemented (see
-# _message_store.py) for the bounded internal-message vertical - no evidence
-# column here by design (SqlLedger/InMemory both refuse non-empty evidence
-# rather than silently dropping it), and this Table object also lets
-# customer_requests.source_message_id REFERENCES messages(message_id) resolve
-# against this MetaData (SQLAlchemy raises NoReferencedTableError otherwise,
-# which breaks every metadata.create_all(engine) call across the test suite).
+# TRUST-REPAIR-2026-07-30: add_message/get_message live in _message_store.py -
+# no evidence column by design (both backends refuse non-empty evidence
+# rather than silently dropping it). This Table object also lets
+# customer_requests.source_message_id resolve its FK against this MetaData.
 messages = Table(
     "messages",
     metadata,
@@ -220,12 +211,10 @@ customer_requests = Table(
 )
 
 # Mirrors migration 003_users.sql (P2-B: real authentication). user_id is a
-# free-form text PRIMARY KEY (not uuid), reusing the same dev/test ids the
-# now-retired known-principals.yaml registry used to list (e.g. "op1",
-# "sup1") purely for fixture legibility. Since
-# P2B-APPROVER-IDENTITY-RECONCILIATION, this table is the single runtime
-# authority for approver identity/role/active-status (see approval_receipts
-# below) - known-principals.yaml no longer exists.
+# free-form text PRIMARY KEY (not uuid), reusing the dev/test ids the
+# now-retired known-principals.yaml registry once listed. Since
+# P2B-APPROVER-IDENTITY-RECONCILIATION, this is the single runtime authority
+# for approver identity/role/active-status (see approval_receipts below).
 users = Table(
     "users",
     metadata,
@@ -298,3 +287,14 @@ reports = build_reports_table(metadata, shifts, JSON_TYPE)
 # Table builder lives in _assignment_tables.py: wires the shared metadata/
 # shifts/users objects this module already owns.
 shift_assignments = build_shift_assignments_table(metadata, shifts, users)
+
+# Mirrors migration 011_p4e_identity_conversation_routing.sql. Table builder
+# lives in p4e_tables.py: wires the shared metadata/JSON_TYPE/users objects.
+_p4e_tables = build_p4e_tables(metadata, JSON_TYPE, users)
+external_identity_observations = _p4e_tables["external_identity_observations"]
+identity_mappings = _p4e_tables["identity_mappings"]
+route_bindings = _p4e_tables["route_bindings"]
+p4e_proposals = _p4e_tables["p4e_proposals"]
+p4e_placement_work = _p4e_tables["p4e_placement_work"]
+p4e_placement_decisions = _p4e_tables["p4e_placement_decisions"]
+p4e_action_receipts = _p4e_tables["p4e_action_receipts"]

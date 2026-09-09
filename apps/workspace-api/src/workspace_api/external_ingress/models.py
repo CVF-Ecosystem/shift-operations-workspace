@@ -4,6 +4,8 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from channel_sdk import SenderEvidenceV1
+
 
 class ExternalIngressProposalInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -12,6 +14,13 @@ class ExternalIngressProposalInput(BaseModel):
     external_id: str = Field(min_length=1)
     candidate: dict[str, Any]
     provenance_digest: str = Field(pattern=r"^[0-9a-f]{64}$")
+    # P4-E SPEC section 9/completion-review F2: rides the signed handoff
+    # alongside (never inside) the untrusted candidate; absent for legacy
+    # signature versions. Typed as the closed SenderEvidenceV1 carrier
+    # (channel_sdk owns it) - not an arbitrary dict, so raw sender fields
+    # and unknown/secret-bearing fields fail Pydantic validation before
+    # this model can even construct.
+    sender_evidence: SenderEvidenceV1 | None = None
 
 
 class ExternalIngressProposal(ExternalIngressProposalInput):

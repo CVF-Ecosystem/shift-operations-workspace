@@ -1,6 +1,7 @@
 """Request-scoped dependencies, including the CVF identity boundary."""
 
 from datetime import datetime
+from functools import lru_cache
 
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -13,6 +14,45 @@ from workspace_api.application.assignment_scope import AssignmentScope
 from workspace_api.infrastructure.ledger_factory import build_ledger
 
 _bearer_scheme = HTTPBearer(auto_error=False)
+
+# P4-E SPEC section 3/R21: deterministic BUILD closure. This process-local
+# key authority and disposable secret-store stub are test/local-only; a
+# separately authorized amendment supplies a real secret store before any
+# live/production sender-evidence claim. Never a real credential.
+_P4E_WORKSPACE_DIGEST = "0" * 64
+
+
+class _DisposableSecretStore:
+    def delete_wrapping_key(self, key_id: str, key_version: str) -> bool:
+        return True
+
+    def purge_cache(self, key_id: str, key_version: str) -> bool:
+        return True
+
+
+@lru_cache(maxsize=1)
+def _p4e_key_authority():
+    from integration_edge import SenderTokenKeyAuthority
+
+    authority = SenderTokenKeyAuthority(_DisposableSecretStore())
+    authority.activate("p4e-dev-key-1", "1", b"0" * 32)
+    return authority
+
+
+def get_p4e_key_port():
+    return _p4e_key_authority()
+
+
+def get_p4e_mapping_commands(ledger=Depends(lambda: build_ledger()), key_port=Depends(get_p4e_key_port)):
+    from workspace_api.application.p4e_commands import P4eMappingCommandService
+
+    return P4eMappingCommandService(ledger, key_port)
+
+
+def get_p4e_placement_commands(ledger=Depends(lambda: build_ledger())):
+    from workspace_api.application.p4e_placement import P4ePlacementCommandService
+
+    return P4ePlacementCommandService(ledger, _P4E_WORKSPACE_DIGEST)
 
 
 def get_ledger():

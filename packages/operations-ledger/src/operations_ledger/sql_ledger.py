@@ -16,6 +16,8 @@ from operations_ledger._handover_store import _HandoverStoreMixin
 from operations_ledger._incident_store import _IncidentStoreMixin
 from operations_ledger._message_store import _MessageStoreMixin
 from operations_ledger._report_store import _ReportStoreMixin
+from operations_ledger.p4e_store import _P4eStoreMixin
+from operations_ledger.p4e_transaction_store import _P4eTransactionStoreMixin
 from operations_ledger.tables import (
     audit_records,
     corrections,
@@ -54,14 +56,21 @@ def make_engine(database_url: str, **kwargs) -> Engine:
 
 class SqlLedger(
     _ApprovalStoreMixin, _AssignmentStoreMixin, _CustomerRequestStoreMixin, _IncidentStoreMixin,
-    _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin,
+    _HandoverStoreMixin, _MessageStoreMixin, _ReportStoreMixin, _P4eStoreMixin, _P4eTransactionStoreMixin,
 ):
-    def __init__(self, database_url: str, models, engine: Engine | None = None):
+    def __init__(self, database_url: str, models, engine: Engine | None = None, *, p4e_clock=None):
         # ``models`` exposes Shift, OperationalEvent, Correction, ShiftStatus.
         # If an engine is injected (tests), it must have been built with
         # make_engine() so SQLite FK enforcement is active.
         self.models = models
         self.engine = engine or make_engine(database_url)
+        # SPEC R19/completion-review F6: the ONE injected UTC clock for
+        # every P4-E governed path in _P4eStoreMixin - scoped to P4-E only
+        # (pre-existing non-P4-E ambient datetime.now calls elsewhere in
+        # this module are outside this repair's manifest paths).
+        from datetime import datetime as _dt, timezone as _tz
+
+        self._p4e_clock = p4e_clock or (lambda: _dt.now(_tz.utc))
 
     @contextmanager
     def transaction(self):

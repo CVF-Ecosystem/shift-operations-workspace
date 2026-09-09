@@ -114,3 +114,32 @@ class OutboundReceipt(ClosedModel):
 
         validate_outbound_terminal_receipt(self.model_dump(exclude_none=True))
         return self
+
+
+class SenderAwareIngressRequest(ClosedModel):
+    """P4-E SPEC R1: the new sender-aware ingress signature version input.
+    Legacy signature versions remain valid P4-C inputs but carry no P4-E
+    sender evidence (they reach only the unmapped fallback path)."""
+
+    signature_version: Literal["p4e-sender-v1"] = "p4e-sender-v1"
+    workspace_digest: Digest = Field(pattern=r"^[0-9a-f]{64}$")
+    endpoint_id: str = Field(min_length=1)
+    channel_id: str = Field(min_length=1)
+    provider_account_digest: Digest = Field(pattern=r"^[0-9a-f]{64}$")
+    subject_kind: str = Field(min_length=1)
+    extraction_policy_id: str = Field(min_length=1)
+    extraction_policy_version: str = Field(min_length=1)
+    verification_scheme: str = Field(min_length=1)
+    verification_version: str = Field(min_length=1)
+    external_message_id: str = Field(min_length=1)
+    timestamp: datetime
+    raw_sender: str = Field(min_length=1)
+    body_sha256: Digest = Field(pattern=r"^[0-9a-f]{64}$")
+    signature: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+    @field_validator("timestamp")
+    @classmethod
+    def require_aware_time(cls, value: datetime) -> datetime:
+        if value.tzinfo is None or value.utcoffset() is None:
+            raise ValueError("timestamp must be timezone-aware")
+        return value.astimezone(timezone.utc)

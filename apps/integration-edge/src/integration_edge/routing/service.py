@@ -10,7 +10,7 @@ class RoutingService:
     def __init__(self, core_port, assertion_signer, store) -> None:
         self.core_port, self.assertion_signer, self.store = core_port, assertion_signer, store
 
-    def route(self, *, envelope_id: str, channel: str, external_id: str, candidate: dict):
+    def route(self, *, envelope_id: str, channel: str, external_id: str, candidate: dict, sender_evidence=None):
         proposal = {
             "proposal_id": str(uuid4()), "envelope_id": envelope_id,
             "channel": channel, "external_id": external_id, "candidate": candidate,
@@ -19,6 +19,13 @@ class RoutingService:
             "actor_id": None, "assignment_id": None, "approval_id": None,
             "conversation_id": None, "confirmed": False,
         }
+        # P4-E SPEC section 3/9: the sender-evidence object rides the signed
+        # actor-neutral handoff alongside (never inside) the untrusted
+        # candidate. Absent for legacy signature versions or a missing/
+        # invalid/unavailable-key sender assertion - never a raw sender
+        # value, never inferred from candidate content.
+        if sender_evidence is not None:
+            proposal["sender_evidence"] = sender_evidence.model_dump(mode="json")
         body = _canonical_body(proposal)
         assertion = self.assertion_signer(
             audience="workspace-api", operation=self.operation, body=body,

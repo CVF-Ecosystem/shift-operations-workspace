@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-08-27T23:21:58.907079+00:00_
+_Last generated: 2026-09-09T19:24:11.004062+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 ## Totals
 
 - Modules: **26**
-- Code LOC (py/ts/tsx): **33609**
-- Code files: **327**
+- Code LOC (py/ts/tsx): **37823**
+- Code files: **354**
 - By status: contract-only=5, enforced=2, partial=14, stub=5
 
 ## Status legend
@@ -29,29 +29,29 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 
 | Module | Path | Status | LOC | CVF controls | Purpose |
 |---|---|---|---:|---|---|
-| `cvf-runtime` | packages/cvf-runtime | enforced | 907 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
-| `operations-ledger` | packages/operations-ledger | enforced | 2688 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
+| `cvf-runtime` | packages/cvf-runtime | enforced | 924 | identity, permission, domain_lock, data_scope, risk, approval, evidence, audit, cost, refusal, termination, freeze | Runtime enforcement of the CVF application profile: reads the profile YAML and exposes all 12 required_controls as callable gates. |
+| `operations-ledger` | packages/operations-ledger | enforced | 3544 | evidence, audit, freeze | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | `ai-gateway` | packages/ai-gateway | partial | 1663 | cost, termination, data_scope | Provider-neutral governed dispatch: AIGateway.execute calls data_scope, cost and termination gates before exactly one provider request; strict contracts, explicit registry, process-local usage reservations, structured-output validation, rules fallback and sanitized receipts. |
 | `ai-providers` | packages/ai-providers | partial | 1417 | provider_authorization | P4-B provider-mode foundation (packages/ai-providers/src/ai_providers): ProviderModeService.execute is the sole mode-selection entry point for zero-call NO_AI, deterministic local RULES_ONLY, a default-denied evidence-ineligible MockProviderAdapter, ProviderAdapterRegistry-owned metadata, and EXTERNAL_AI delegation at most once to an injected P4-A AIGateway. Also retains the pre-existing non-secret Alibaba free-quota model catalog and deterministic expiry/quota-aware selector for governed live evidence runs. |
 | `application-memory` | packages/application-memory | partial | 1254 | data_scope, evidence | Pure P4-A3 session/working application memory: strict immutable contracts, deterministic SESSION/WORKING layer policy, a process-local append-only store with correction/tombstone lineage, use-time scope/TTL/source revalidation and sanitized receipts. |
 | `channel-adapters` | packages/channel-adapters | partial | 514 | — | Digest-only generic outbound webhook adapter plus deterministic provider-neutral conformance mocks. |
 | `governed-rag` | packages/governed-rag | partial | 2442 | data_scope, evidence, cost, termination | Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
-| `integration-edge` | apps/integration-edge | partial | 1379 | data_scope, refusal | Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports, bounded outbound receipts, and digest-only generic-webhook composition. |
+| `integration-edge` | apps/integration-edge | partial | 1748 | data_scope, refusal | Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports, bounded outbound receipts, and digest-only generic-webhook composition. |
 | `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
-| `workspace-api` | apps/workspace-api | partial | 8247 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-api` | apps/workspace-api | partial | 9668 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
-| `channel-sdk` | packages/channel-sdk | contract-only | 298 | — | Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery. |
+| `channel-sdk` | packages/channel-sdk | contract-only | 451 | — | Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
 | `cvf-bridge` | packages/cvf-bridge | contract-only | 0 | approval, refusal, evidence, audit | Bridge to CVF policy evaluation, approval gates, refusal, evidence, audit and fallback. |
 | `operate-shift-workspace` | skills/operate-shift-workspace | contract-only | 0 | — | Provider-neutral navigation over current project continuity, phase/role routing, exact-path work orders, evidence review and bounded closure. |
 | `workspace-contracts` | packages/workspace-contracts | contract-only | 0 | — | Canonical JSON Schemas that form the stable boundary between core, providers, channels, Refinery and CVF. |
-| `conversation-routing` | packages/conversation-routing | stub | 0 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
-| `identity-mapping` | packages/identity-mapping | stub | 0 | identity | Map external identities to internal users/customer contacts with human confirmation. |
+| `conversation-routing` | packages/conversation-routing | stub | 454 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
+| `identity-mapping` | packages/identity-mapping | stub | 944 | identity | Map external identities to internal users/customer contacts with human confirmation. |
 | `notification-engine` | packages/notification-engine | stub | 0 | — | In-app, push, email, SMS, outbound channels and escalation. |
 | `reporting-engine` | packages/reporting-engine | stub | 0 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | `shared-kernel` | packages/shared-kernel | stub | 0 | — | Identifiers, time, errors, result, validation, observability and security primitives. |
@@ -67,7 +67,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** packages/cvf-application-profile/*.yaml
 - **Depends on:** `cvf-application-profile`
 - **Tests:** `tests/cvf/test_gates_unit.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_remaining_controls.py`, `tests/cvf/test_approval_known_principals.py`
-- **Metrics:** 907 LOC across 13 code file(s)
+- **Metrics:** 924 LOC across 13 code file(s)
 - **Next step:** P2B approver-identity reconciliation is already FREEZE / CLOSED_BOUNDED: known-principals.yaml is no longer runtime authority, and authenticated durable six-field approval receipts are load-bearing within the reviewed boundary. Remaining cvf-runtime work is to wire data_scope, budget/cost and termination into a real AI runtime caller, and to implement refusal routing/recording; neither is load-bearing yet.
 
 ### `operations-ledger` — enforced
@@ -79,7 +79,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** database/ (schema, migrations, views); operations_ledger.ledger.Ledger
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_schema_parity_users.py`, `tests/integration/test_evidence_persistence.py`, `tests/integration/test_sql_ledger_postgres_live.py`, `tests/integration/test_postgres_live_runner.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_schema_parity_handovers.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/integration/test_handover_postgres_live.py`, `tests/cvf/test_handover_vertical.py`, `tests/integration/test_handover_ledger_parity.py`, `tests/integration/test_message_sqlite.py`, `tests/integration/test_message_postgres_live.py`
-- **Metrics:** 2688 LOC across 19 code file(s)
+- **Metrics:** 3544 LOC across 23 code file(s)
 - **Next step:** PostgreSQL live round-trip is now reviewed and passing (bounded to a disposable local container - see enforcement note above). Messages persistence is implemented (see enforcement note above); it is no longer remaining work. Remaining pre-ship items: production deployment/load/concurrency/HA/backup verification, and mapping the remaining migration table (reports) into tables.py/SqlLedger as a tranche needs it. Phase 1 closure itself is a separate, independently-reviewed decision (SPEC AC-20), not implied by this entry.
 
 ### `ai-gateway` — partial
@@ -163,7 +163,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** packages/channel-sdk/src/channel_sdk plus contracts/channel closed schemas, including contracts/channel/adapter-delivery.schema.json
 - **Depends on:** `channel-sdk`, `channel-adapters`
 - **Tests:** `tests/security/test_hmac.py`, `tests/unit/test_p4c_invariant_emitters.py`, `tests/integration/test_p4c_inmemory_edge.py`, `tests/integration/test_p4c_sqlite_edge.py`, `tests/unit/test_p4d_outbound_mapping.py`, `tests/integration/test_p4d_composition.py`, `tests/unit/test_p4d_dependency_boundary.py`
-- **Metrics:** 1379 LOC across 35 code file(s)
+- **Metrics:** 1748 LOC across 36 code file(s)
 - **Next step:** P4-D is FREEZE / CLOSED_BOUNDED after FINAL_REVIEW_PASS with findings/waivers NONE/NONE. P4-E identity and conversation routing may open only as a fresh INTAKE after the exact-54 commit/push.
 
 ### `operations-domain` — partial
@@ -223,7 +223,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 8247 LOC across 88 code file(s)
+- **Metrics:** 9668 LOC across 97 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial
@@ -259,7 +259,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** packages/channel-sdk/src/channel_sdk plus contracts/channel/adapter-delivery.schema.json
 - **Depends on:** —
 - **Tests:** `tests/unit/test_p4c_service_assertion.py`, `tests/unit/test_p4c_dependency_boundary.py`, `tests/unit/test_p4d_channel_sdk.py`, `tests/contract/test_p4d_adapter_schema.py`, `tests/unit/test_p4d_adapter_invariants.py`, `tests/unit/test_p4d_dependency_boundary.py`
-- **Metrics:** 298 LOC across 6 code file(s)
+- **Metrics:** 451 LOC across 7 code file(s)
 - **Next step:** Retain the frozen packaged SDK as the sole authoritative runtime contract after P4-D FREEZE / CLOSED_BOUNDED; changes require fresh governed scope.
 
 ### `cvf-application-profile` — contract-only
@@ -319,7 +319,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** packages/workspace-contracts
 - **Depends on:** `operations-domain`
 - **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
+- **Metrics:** 454 LOC across 5 code file(s)
 - **Next step:** Implement after operations-domain and identity-mapping.
 
 ### `identity-mapping` — stub
@@ -331,7 +331,7 @@ _Last generated: 2026-08-27T23:21:58.907079+00:00_
 - **Contract:** packages/workspace-contracts
 - **Depends on:** `shared-kernel`
 - **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
+- **Metrics:** 944 LOC across 7 code file(s)
 - **Next step:** Implement when external channels are integrated.
 
 ### `notification-engine` — stub
