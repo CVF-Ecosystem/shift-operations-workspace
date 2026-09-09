@@ -15,13 +15,13 @@
   ],
   "contractSources": [
     {
-      "path": "docs/decisions/DESIGN_2026-08-30_CVF_CORE_REFRESH_CONFORMANCE_FIXTURE_REPAIR.md",
-      "sha256": "80e105495d02b62856dd8c98109b6edaddb682f5b4a16b48bcb6a31166990050",
+      "path": "docs/decisions/AUTHORIZATION_REREVIEW_2026-08-31_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "f40c43dc131f03c2e216681dcd587858db3d2d7794934b70d68c90227028433b",
       "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
     },
     {
-      "path": "docs/decisions/DESIGN_REVIEW_2026-08-30_CVF_CORE_REFRESH_CONFORMANCE_FIXTURE_REPAIR.md",
-      "sha256": "63e82afd881575b3510d426d97ad7134dcc6477ea7dc1b93166fbc06e3afae7a",
+      "path": "docs/decisions/SPEC_REVIEW_2026-08-30_CVF_CORE_REFRESH_TARGET_REBASE_0281E93.md",
+      "sha256": "82727d1b54acccc640a179bda09691d4f104feb968e06065d9bb6a0865884bba",
       "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
     },
     {

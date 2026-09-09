@@ -442,7 +442,7 @@ call site và replacement provider evidence sau independent `REVIEW_PASS`.
 
 ---
 
-## Phase 4 — AI and Channel Capabilities — 🟡 PARTIAL (6/8 milestones closed; P4-D final audit pending)
+## Phase 4 — AI and Channel Capabilities — 🟡 PARTIAL (7/8 milestones closed; P4-E at accepted DESIGN)
 
 Gate gốc: thay provider/channel không sửa core; invalid schema bị reject;
 external prompt injection không vượt trust boundary.
@@ -480,7 +480,7 @@ external prompt injection không vượt trust boundary.
 - [x] **P4-B — `FREEZE / CLOSED_BOUNDED` (2026-08-22):** All source findings closed without waiver. First live attempt remains retained BLOCKED; after independently reviewed prompt/schema repair, four fresh refusal cases were zero-call and exactly one replacement call returned HTTP 200 `EXTERNAL_ACCEPTED` with `1/1/1/1` counters and secret scan NONE. Target/focused/full 20/237/2732 passed. Boundary excludes production adapter/routing, durable usage/audit, public API/UI and deployment.
 - [x] **P4-C — `FREEZE / CLOSED_BOUNDED` (2026-08-25):** Integration Edge foundation: encrypted raw evidence, dual rate limits, replay/collision, quarantine, actor-neutral proposals, signed ports and bounded outbound receipts. Final review `NONE/NONE`; exact 68; focused 63/4; amended full 2836/132/1 bounded XR1 deselection. No deployable adapter/send, P4-E mapping, production or deployment.
 - [x] **P4-D — `FREEZE / CLOSED_BOUNDED` (2026-08-28):** Exact-54 deterministic boundary implements frozen typed SDK contracts, one digest-only generic webhook adapter, audience-bound HMAC, fail-closed resolver/peer/TLS checks, total P4-D-to-P4-C receipt mapping and zero-I/O `CONFORMANCE_ONLY` Zalo/WhatsApp mocks. Independent final audit returned `FINAL_REVIEW_PASS`, findings/waivers `NONE/NONE`; commit `a8e2ad8` is pushed. No live send, vendor conformance, receiver replay enforcement, governance behavior, P4-E, production or deployment is claimed.
-- [~] **P4-E — `DESIGN / DESIGN_REVIEW_PASS` (2026-08-29):** Human-confirmed internal-user mapping followed by deterministic non-truth workspace-triage/shift/incident placement. Five initial DESIGN findings were repaired and independently rereviewed closed; final findings/waivers `NONE/NONE`. Customer-contact/customer/vessel authority is deferred; no product source, provider call or BUILD authority exists.
+- [~] **P4-E — `DESIGN / DESIGN_REVIEW_PASS / READY_FOR_FRESH_SPEC_TRANSITION` (updated 2026-09-09):** Human-confirmed internal-user mapping followed by deterministic non-truth workspace-triage/shift/incident placement. Five initial DESIGN findings were repaired and independently rereviewed closed; final findings/waivers `NONE/NONE`. The former Core-refresh prerequisite is satisfied by the first-party provenance-inheritance recovery. Customer-contact/customer/vessel authority is deferred; no P4-E product source, provider call or BUILD authority exists.
 
 **Exit gate:** thay provider không sửa core; invalid schema reject; prompt injection từ channel không vượt trust boundary.
 
@@ -582,14 +582,15 @@ gồm offline/realtime, production, P2-D, full-shift exit hay Phase 2 closure.
 External/channel ingestion qua Integration Edge là Phase 4 riêng; internal `POST /messages` không chứng minh phần này.
 **2026-08-02 (P2-D offline/realtime):** `FREEZE / CLOSED_BOUNDED`; BUILD `6fc4359`, exact 49 path, independent final `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Chromium/FastAPI 6/6; Python 1356/127; PostgreSQL 117, migrations 29/0→25/4, exact cleanup; AC-29; repository gates; fresh refusal-zero-call rồi đúng một provider call HTTP 200.
 **2026-08-02 (Phase 2 full-shift exit):** `FREEZE / CLOSED_BOUNDED`; BUILD `d02186a`, exact 15 path, independent final post-call `REVIEW_PASS`, mọi finding đóng không waiver. Evidence: frontend 119/typecheck/build; Python 1378/128; real Chromium/FastAPI; PostgreSQL 118, migrations 29/0→25/4, exact cleanup; AC-14; repository gates; provider accounting physical 2/accepted 1 với first call retained invalidated và third call fail-closed. Phase 2 đóng chỉ trong scheduled-lineage boundary, không production/managed/soak/full-offline claim.
-**Next governed move (2026-08-30):** Attempt 2 reached `d7860138`, then an invalid disposable positive exposed a strict-versus-lenient conformance mismatch and correctly triggered no-retry rollback. Independent review passed the complete rollback `NONE/NONE`; old Core `a7a797d`, `17/17` roots, `2/2` pins, `9/9` shared carriers and binding are restored, target not adopted. Any fixture repair or attempt 3 requires fresh INTAKE and later external approval. Commit/push and P4-E SPEC remain unauthorized. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
+**Next governed move (2026-09-09):** CVF inheritance recovery is closed bounded with public Core `483c5e33d` and required operator-local/private-provenance rule pack `bee38695e`; repository and continuity gates pass. Resume P4-E only by recording a fresh explicit `DESIGN_REVIEW_PASS -> SPEC` transition, then authoring/reviewing SPEC and a bounded Work Order before BUILD. Phase 5 and external-repository absorption remain parked. Nguồn chuẩn: `next_allowed_move` trong `SESSION/ACTIVE_SESSION_STATE.json`.
 **Đã đóng, không lặp lại:** freeze bất biến thật (P-FIX-1), audit atomic (P-FIX-2), evidence persist + approval known-principal (P-FIX-3), migration Task.version + parity siết chặt (P-FIX-4), catalog `--check` thật (P-FIX-5), governed shift.close (P-FIX-6), customer_request domain nhân bản đầy đủ (P2-A-CUSTOMER-REQUEST), authentication thật qua JWT bearer token (P2-B), tách operations-domain (P1-B), authenticated scope-bound approval receipts (P2B approver-identity reconciliation), repository-enforced file-split guard (CVF-FILE-SPLIT-GUARD-HARDENING), PostgreSQL migration-created-schema live round-trip và Phase 1 exit gate (P1-POSTGRESQL-LIVE-ROUNDTRIP-2026-07-26), governed incident vertical (P2A-INCIDENT-VERTICAL-2026-07-26, C3 `eac28f9`), governed handover vertical (P2A-HANDOVER-VERTICAL-2026-07-26, C3 `8485ef9`), governed shift-create admission (SHIFT-CREATE-ADMISSION-REPAIR-2026-07-29, C3 `3f9e456`), governed internal message admission (MESSAGE-ADMISSION-TRUST-REPAIR-2026-07-30, C3 `ab92f51`), governed operational Report and audited `report_approved` freeze prerequisite (P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE-2026-07-30, C3 `18e24e5`), P2-C assignment foundation/enforcement (`ec90c78`, `95b66b1`).
 **Còn treo, không được tuyên bố đã sửa:** data_scope/cost/termination có
 reviewed real library caller từ P4-A nhưng chưa có application caller; refusal
-routing/recording chưa implement; PostgreSQL mới chỉ chứng
-minh disposable local 16, chưa production/managed; retrieval/RAG/application
-memory/proactive forecasting mới nằm trong roadmap; P2-B chưa có refresh
-token/revocation hay admin flow cấp user thật — xem `blocked_work`.
+routing/recording chưa implement; PostgreSQL mới chỉ chứng minh disposable
+local 16, chưa production/managed; proactive forecasting vẫn thuộc Phase 5;
+P2-B chưa có refresh token/revocation hay admin flow cấp user thật — xem
+`blocked_work`. Retrieval, governed RAG và application memory đã đóng bounded
+trong P4-A1/P4-A2/P4-A3, nhưng không được mở rộng thành production claim.
 
 ## Cách dùng roadmap này
 

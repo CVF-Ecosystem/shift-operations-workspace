@@ -76,6 +76,8 @@ def _disposable_repo() -> Path:
     shutil.copy(SPEC_PATH_REAL, tmp / "docs" / "specs" / "CROSS_AGENT_INVARIANT_LEARNING_SPEC.md")
     (tmp / "scripts").mkdir()
     shutil.copy(REPO_ROOT / "scripts" / "invariant_family_contract.py", tmp / "scripts")
+    shutil.copy(REPO_ROOT / "scripts" / "invariant_family_mutation_generator.py", tmp / "scripts")
+    shutil.copy(REPO_ROOT / "scripts" / "invariant_family_mutation_oracle.py", tmp / "scripts")
     shutil.copy(REPO_ROOT / "scripts" / "invariant_family_ownership.py", tmp / "scripts")
     shutil.copy(REPO_ROOT / "scripts" / "invariant_family_synthetic_emitter.py", tmp / "scripts")
     shutil.copy(GUARD, tmp / "scripts")

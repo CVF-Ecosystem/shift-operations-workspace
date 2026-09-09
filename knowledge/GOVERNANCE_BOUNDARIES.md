@@ -19,6 +19,12 @@ handoff, session memory, implementation status, documentation index, and
 roadmap. Conflicting continuity stops work rather than selecting a convenient
 source.
 
+This first-party operator project also inherits current private CVF controls
+through the workspace `operator-local` rule pack. The public hidden core remains
+the portable product carrier; private provenance remains read-only authority.
+Materialized provenance continuity is a refreshable projection and must not be
+treated as a new authority root owned by this project.
+
 Source and evidence must stay within classification, provenance, purpose, and
 data-scope boundaries. INTERNAL data is not automatically eligible for an
 external model; minimization and a separately authorized runtime gate remain

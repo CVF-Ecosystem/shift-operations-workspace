@@ -1,28 +1,27 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cvf_governance_control_loss_learning_2026_08_31_intake_review_pass_roadmap_parked",
-  "activeHandoff": "SESSION/handoffs/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_2026-08-31.md",
-  "nextAllowedMove": "Keep the roadmap parked; any DESIGN transition to institutionalize project or CVF Core learning requires a fresh explicit operator decision.",
-  "parkedOperatorCheckpoint": "All delivery roadmap work is parked; carrier is blocked at SPEC; parent attempt 4 and P4-E remain at DESIGN_REVIEW_PASS; XR1 remains open.",
+  "currentMode": "cvf_provenance_inheritance_recovery_closed_p4e_ready_for_fresh_spec",
+  "activeHandoff": "SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md",
+  "nextAllowedMove": "Resume P4-E from accepted DESIGN_REVIEW_PASS by recording a fresh explicit SPEC transition, then author and independently review its SPEC and bounded Work Order before BUILD. Keep Phase 5 and external-repository absorption parked.",
+  "parkedOperatorCheckpoint": "P4-E implementation is not authorized; Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked.",
   "requiredReads": [
-    "docs/decisions/SPEC_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
-    "docs/specs/CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026-08-31_SPEC.md",
-    "docs/decisions/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_RECORD_2026-08-31.md",
-    "docs/decisions/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_REVIEW_2026-08-31.md",
-    "docs/decisions/DESIGN_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
-    "docs/decisions/DESIGN_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
-    "SESSION/handoffs/CVF_CORE_REFRESH_TARGET_REBASE_0281E93_ATTEMPT_4_2026-08-31.md",
-    "SESSION/handoffs/CVF_CORE_REFRESH_ATTEMPT_4_CARRIER_2026-08-31.md",
-    "SESSION/handoffs/CVF_GOVERNANCE_CONTROL_LOSS_LEARNING_2026-08-31.md",
+    "SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md",
+    "docs/decisions/CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md",
+    "docs/CVF_BOOTSTRAP_LOG_20260909.md",
     ".cvf/manifest.json",
+    ".cvf/policy.json",
+    "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "docs/cvf/invariants/registry.json"
+    "IMPLEMENTATION_STATUS.json",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "docs/decisions/DESIGN_2026-08-29_P4E_IDENTITY_CONVERSATION_ROUTING.md",
+    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-08-31"
+  "updatedAt": "2026-09-09"
 }
