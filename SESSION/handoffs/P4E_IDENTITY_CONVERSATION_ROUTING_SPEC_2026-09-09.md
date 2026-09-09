@@ -1,9 +1,9 @@
 # Handoff - P4-E Identity Mapping and Conversation Routing
 
 - Tranche: `P4E-IDENTITY-CONVERSATION-ROUTING-2026-09-09`
-- Status: `WORK_ORDER / READY_FOR_INDEPENDENT_AUTHORIZATION_REVIEW`
+- Status: `WORK_ORDER / REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`
 - Risk: `R2`
-- Active role: `INDEPENDENT_AUTHORIZATION_REVIEWER`
+- Active role: `INDEPENDENT_AUTHORIZATION_REREVIEWER`
 - Branch: `docs/p4e-spec`
 - Updated: `2026-09-09`
 
@@ -47,19 +47,27 @@ has SHA-256
 and closes F1-F7 with zero new finding and zero waiver.
 
 Material commit `82e00a2` records that rereview and the separate Work Order
-authoring transition. The authorization packet consists of:
+authoring transition. Independent authorization review at SHA-256
+`96e0328720a78f45883cbb2298d695c79eda57ecd49d680a8cc7c126251a498d`
+returned three citation-integrity findings with no waiver. Material repair
+commit `64cf02c` corrects only the Work Order. The authorization packet now
+consists of:
 
 - `docs/baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`;
 - `docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md`, SHA-256
   `edb56012d87e7c4e9b3c715feba6d32a65a90b70064c9fa7d0d3b2abdc03a846`;
 - `docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`, SHA-256
-  `26418059877a6705e1205a8c41b91d9413959637f84e913efe9ef754a5fbf175`.
+  `21edaf285eb94812f922197c9737b2a54c01ae49cd80930fd7e4b29fd3c75530`.
 
 The packet fixes 94 exact paths and assigns worker ownership only to paths
 15-80. It makes customer/vessel scaffolds protected exclusions, requires a real
 import/composition probe for AC-16, and assigns
 `TOKEN_KEY_RETIREMENT_BLOCKED` solely to the Integration Edge sender-key
 authority. BUILD remains unauthorized.
+
+Authorization F1-F3 repairs are bounded to four corrected manifest ordinals,
+`93` to `94` in the Review Gate, and private-provenance annotations on two
+standards. The exact manifest and all three matrices remain byte-identical.
 
 ## Verification
 
@@ -81,19 +89,17 @@ authority. BUILD remains unauthorized.
   credential, deployment, or external effect was introduced
 
 These are deterministic authoring checks plus the retained independent SPEC
-rereview. They are not an independent Work Order authorization review and not
-runtime or governance-behavior proof.
+rereview and authorization changes-required review. They are not an
+authorization rereview PASS and not runtime or governance-behavior proof.
 
 ## Next allowed move
 
-Assign an `INDEPENDENT_AUTHORIZATION_REVIEWER` to review the GC-018 baseline,
-exact manifest, and Work Order against the accepted DESIGN/SPEC/rereview and
-current source. Recompute both packet hashes, verify all 94 unique paths and
-owner classes, and assess the three carry-forward controls, SQL atomicity,
-failure semantics, evidence commands, external-effect ceiling, and
-WORKER_MUST_NOT_COMMIT boundary. Only `AUTHORIZATION_REVIEW_PASS` with
-findings/waivers `NONE/NONE` may permit a separate IMPLEMENTATION_WORKER
-handoff. Do not start BUILD during authorization review.
+Assign an `INDEPENDENT_AUTHORIZATION_REREVIEWER` to verify only authorization
+findings F1-F3 against the repaired Work Order. Recompute its SHA-256, confirm
+the exact manifest and matrices are unchanged, and verify the repaired ordinal,
+94-path count, and private-provenance annotations. Only
+`AUTHORIZATION_REVIEW_PASS` with findings/waivers `NONE/NONE` may permit a
+separate IMPLEMENTATION_WORKER handoff. Do not start BUILD during rereview.
 
 ## Parked
 

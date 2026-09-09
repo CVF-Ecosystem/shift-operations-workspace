@@ -2,11 +2,12 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p4e_identity_conversation_routing_work_order_ready_for_independent_authorization_review",
+  "mode": "p4e_identity_conversation_routing_work_order_repaired_pending_independent_authorization_rereview",
   "active_handoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
   "last_updated": "2026-09-09",
   "required_reads": [
     "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
+    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_WORK_ORDER_AUTHORIZATION_REVIEW_2026-09-09.md",
     "docs/decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md",
     "docs/baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md",
     "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md",
@@ -18,7 +19,7 @@
     "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent P4-E Work Order authorization review only: verify the Work Order, paired GC-018 baseline, exact-manifest hash, 94-path owner map, source pins, three SPEC-rereview carry-forwards, evidence commands, and R2 boundaries. BUILD may start only after AUTHORIZATION_REVIEW_PASS with findings/waivers NONE/NONE and a separate IMPLEMENTATION_WORKER handoff.",
+  "next_allowed_move": "Independent P4-E Work Order authorization rereview only: verify repairs for authorization findings F1-F3, recompute the repaired Work Order hash, confirm the exact manifest and three matrices are byte-unchanged, and return AUTHORIZATION_REVIEW_PASS only with findings/waivers NONE/NONE. BUILD remains unauthorized until that PASS and a separate IMPLEMENTATION_WORKER handoff.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -37,18 +38,18 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p4e_identity_conversation_routing_work_order_ready_for_independent_authorization_review",
+    "currentMode": "p4e_identity_conversation_routing_work_order_repaired_pending_independent_authorization_rereview",
     "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Independent SPEC rereview closed F1-F7 with no new finding or waiver. Material commit 82e00a2 contains that rereview plus the GC-018 baseline, exact 94-path manifest, and Work Order. Product behavior is unchanged and BUILD is not authorized.",
+    "activePhaseNote": "Independent Work Order authorization review returned F1-F3. Material repair commit 64cf02c corrects only the Work Order citations and preserves the exact manifest and all matrices byte-identical. Product behavior is unchanged and BUILD is not authorized.",
     "controlChainModel": ["INTAKE", "DESIGN", "SPEC", "WORK_ORDER", "BUILD", "REVIEW", "FREEZE"],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
     "activeHandoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly; provenance recovery and earlier Core-refresh attempts remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "P4-E BUILD is not authorized; Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked.",
-    "activeRole": "INDEPENDENT_AUTHORIZATION_REVIEWER",
-    "activeRoleNote": "Review the Work Order and exact manifest independently. Do not implement, repair source, or grant BUILD unless the authorization review passes with no finding or waiver.",
-    "currentRoleTransition": "INDEPENDENT_SPEC_REREVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER",
+    "activeRole": "INDEPENDENT_AUTHORIZATION_REREVIEWER",
+    "activeRoleNote": "Rereview only authorization findings F1-F3 against the repaired Work Order. Do not implement, repair source, or grant BUILD unless rereview passes with no finding or waiver.",
+    "currentRoleTransition": "INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER",
 "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-09-09"
   }

@@ -259,11 +259,14 @@
 - Independent P4-E SPEC rereview (`SPEC_REVIEW_PASS`; F1-F7 closed; 0 new,
   0 waiver):
   [`SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md`](decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md)
-- P4-E GC-018 baseline, exact 94-path manifest and bounded Work Order
-  (`READY_FOR_INDEPENDENT_AUTHORIZATION_REVIEW`; BUILD unauthorized):
+- P4-E GC-018 baseline, exact 94-path manifest and repaired bounded Work Order
+  (`REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`; BUILD unauthorized):
   [`CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`](baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md),
   [`P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md`](implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md),
   [`CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`](work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md)
+- Independent P4-E Work Order authorization review
+  (`AUTHORIZATION_REVIEW_CHANGES_REQUIRED`; F1-F3 repaired pending rereview):
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_WORK_ORDER_AUTHORIZATION_REVIEW_2026-09-09.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_WORK_ORDER_AUTHORIZATION_REVIEW_2026-09-09.md)
 - P4-E registered invariant matrices:
   [`mapping actions`](cvf/invariants/p4e-mapping-action-outcomes.json),
   [`identity resolution`](cvf/invariants/p4e-identity-resolution-outcomes.json), and

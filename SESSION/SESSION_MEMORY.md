@@ -7,11 +7,12 @@ use the archive for a targeted historical lookup.
 ## Current checkpoint
 
 The first-party CVF provenance-inheritance recovery remains `FREEZE /
-CLOSED_BOUNDED`. Independent P4-E SPEC rereview closed F1-F7 with no new
-finding or waiver. Material commit `82e00a2` records the rereview plus a paired
-GC-018 baseline, pinned exact 94-path manifest, and Work Order. Disposition is
-now `WORK_ORDER / READY_FOR_INDEPENDENT_AUTHORIZATION_REVIEW`; no product BUILD
-occurred. The project pins portable public Core
+CLOSED_BOUNDED`. Independent P4-E Work Order authorization review returned
+three citation-integrity findings. Material repair commit `64cf02c` corrects
+only the Work Order; the exact 94-path manifest and three matrices remain
+byte-identical. Disposition is now `WORK_ORDER /
+REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`; no product BUILD occurred.
+The project pins portable public Core
 `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4` and requires the operator-local
 rule pack materialized from private provenance
 `bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Both repositories remain read-only
@@ -31,8 +32,8 @@ that schema migration is separately parked.
 ## Product roadmap
 
 Phases 0-3 are closed within their recorded boundaries. Phase 4 is 7/8; P4-E
-DESIGN and SPEC are independently accepted, and its bounded Work Order now
-awaits independent authorization review. BUILD requires
+DESIGN and SPEC are independently accepted, and its repaired bounded Work Order
+now awaits independent authorization rereview. BUILD requires
 `AUTHORIZATION_REVIEW_PASS` with no finding or waiver plus a separate worker
 handoff. Phase 5 and external-repository absorption remain parked.
 
