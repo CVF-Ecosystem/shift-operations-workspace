@@ -21,4 +21,3 @@
   "evidenceTestPaths": ["tests/unit/test_invariant_family_contract.py", "tests/integration/test_invariant_family_repository_guard.py"],
   "boundedClaim": "Defines P4-E identity-resolution result shapes only; RESOLVED is a current internal-user reference and never external-person authentication or authority."
 }
-
