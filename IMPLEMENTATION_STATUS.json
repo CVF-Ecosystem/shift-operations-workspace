@@ -377,11 +377,11 @@
     "next_governed_move": "Satisfied: exact-54 P4-D commit a8e2ad8199d700a238d7d74bdbf85329446228de was pushed to origin/main. Fresh P4-E identity/conversation routing INTAKE is now active."
   },
   "p4e_identity_conversation_routing": {
-    "scope_note": "Roadmap P4-E draft SPEC only: human-confirmed external identity linkage followed by deterministic conversation placement proposals. Identity linkage and route placement remain non-authenticating, non-authoritative and separate from operational truth.",
-    "governance_disposition": "SPEC / READY_FOR_INDEPENDENT_SPEC_REVIEW (updated 2026-09-09); accepted DESIGN findings/waivers NONE/NONE; three invariant matrices are registered and digest-pinned; BUILD authority is still NOT GRANTED.",
-    "what_changed": "Documentation, invariant contracts and continuity only. The draft SPEC defines sender-evidence namespace, fresh stored-role authorization, two-human confirmation, operations-ledger ownership, two-transaction durable inbox placement, privacy/retention, idempotency and exact terminal result shapes. No P4-E product source, runtime model, application schema, database migration or provider behavior exists yet.",
+    "scope_note": "Roadmap P4-E draft-r1 SPEC only: human-confirmed external identity linkage followed by deterministic conversation placement proposals. Identity linkage and route placement remain non-authenticating, non-authoritative and separate from operational truth.",
+    "governance_disposition": "SPEC / REPAIRED_PENDING_INDEPENDENT_SPEC_REREVIEW (updated 2026-09-09); Generation 1 review returned seven findings (3 MAJOR, 3 MINOR, 1 COSMETIC), 0 waivers; F1-F7 have author repairs but are not closed; BUILD authority is NOT GRANTED.",
+    "what_changed": "Documentation, invariant contracts and continuity only. Rework disambiguates terminal claim/digest refusals and privacy-delete reason handling, separates token-key retirement failures from mapping receipts, adds complete R-to-AC traceability and sole-store proof, locks unsupported customer/vessel scaffolds, normalizes applicability vocabulary, and re-pins all three matrices. No P4-E product source, runtime model, application schema, database migration or provider behavior exists yet.",
     "claim_boundary": "No implemented identity mapping or conversation placement; no provider call, credential, install, migration, deployment, commit or push; external proposals remain actor-neutral UNTRUSTED_EXTERNAL/RAW and cannot become authenticated authority or operational truth.",
-    "next_governed_move": "Independent SPEC review only. If it passes with every finding closed, author and independently review a bounded Work Order before any BUILD."
+    "next_governed_move": "Independent SPEC rereview of F1-F7 only. If it passes with every finding closed, author and independently review a bounded Work Order before any BUILD."
   },
   "cvf_core_refresh_2026_08_29": {
     "scope_note": "Fresh R2 maintenance BUILD attempted only the frozen-target Core reconciliation contract before returning to parked P4-E DESIGN.",

@@ -1,7 +1,7 @@
 # SPEC - P4-E Identity Mapping and Conversation Routing
 
 - Tranche: `P4E-IDENTITY-CONVERSATION-ROUTING-2026-09-09`
-- Version: `1.0-draft`
+- Version: `1.0-draft-r1`
 - Phase: `SPEC`
 - Risk ceiling: `R2`
 - Role: `SPEC_AUTHOR`
@@ -39,13 +39,13 @@ mutation/audit facts, and multiple validator surfaces.
 
 - `P4E-MAPPING-ACTION-OUTCOMES` is pinned by
   `P4E_MAPPING_ACTION_MATRIX_CANONICAL_DIGEST` at
-  `9edccf4d39a9b36438c2fde5e66020976f68e2ca46969493ec5e909b859b38ef`.
+  `ea2af8122016a7b8ee10d9a8aa097f1b692a168a4914425172c555cd4d003e1a`.
 - `P4E-IDENTITY-RESOLUTION-OUTCOMES` is pinned by
   `P4E_IDENTITY_RESOLUTION_MATRIX_CANONICAL_DIGEST` at
-  `a460f6d340a400776ae4ebe7f0f6e7d44885436d8800d0b96f63bf2da7e67036`.
+  `4ef64cf1f53633974b0e585018148a8f6bbe7a16ce4683329aa29d51c0000bdc`.
 - `P4E-CONVERSATION-PLACEMENT-OUTCOMES` is pinned by
   `P4E_PLACEMENT_MATRIX_CANONICAL_DIGEST` at
-  `e8500e6b32b5138e6bd99995fe96cfd6f2aa61e30b0537d00caa549a2913584c`.
+  `fd351b6670292e82835b4ec34c270768174758a6d8a3f1558e4e4b3a8ec8cc56`.
 
 The symbols live in `docs/specs/p4e_invariant_pins.py`. The matrices are the
 sole outcome-shape owners. Python models, JSON Schemas, SQL constraints,
@@ -223,8 +223,11 @@ A work item shall have `PENDING`, `CLAIMED`, or `COMPLETE` state, attempt count,
 claim token, claimed-at time, and version. Maximum local attempts are three.
 A claim older than five minutes may be recovered only by CAS using the exact
 proposal-lineage digest. Exhaustion produces terminal `REFUSED /
-RETRY_EXHAUSTED`; unknown claim state or digest mismatch refuses without a
-placement decision. No daemon, external queue, blind retry, or deployment is
+RETRY_EXHAUSTED`. Unknown claim state and proposal-lineage digest mismatch
+produce terminal persisted `REFUSED` decisions with reasons
+`UNKNOWN_CLAIM_STATE` and `LINEAGE_DIGEST_MISMATCH` respectively; each carries
+`decision_id`, `decision_count=1`, and `work_complete=true` as required by the
+placement matrix. No daemon, external queue, blind retry, or deployment is
 introduced by this SPEC.
 
 ## 6. Route bindings and deterministic placement
@@ -307,6 +310,13 @@ and a second contract owner are forbidden. P4-E shall not call internal
 `POST /messages` or create Message, Event, Task, CustomerRequest, Incident,
 Report, Approval, or other operational truth from external content.
 
+The pre-existing `packages/conversation-routing/customer-router/` and
+`packages/conversation-routing/vessel-router/` directories remain
+documentation-only scaffolds and are excluded from P4-E BUILD ownership. They
+must receive no runtime code, dependency, configuration, schema, or composition
+change. The P4-E identity-mapping boundary targets internal users only;
+customer-contact identity authority remains deferred.
+
 ### R19 - Privacy, retention, and disclosure
 
 Raw sender input is transient no-log data. Sender tokens are secret-adjacent
@@ -328,6 +338,11 @@ idempotency, and actor-bound audit. It removes optional display metadata and
 all sender-token lookup material while preserving only immutable record ids,
 closed outcome/reason, timestamps, and non-reversible lineage digests. Lookup
 and routing then refuse; reappearance requires a new two-human mapping.
+The operator-supplied deletion reason is a command input written only to the
+restricted actor-bound audit record. It is deliberately excluded from the
+sanitized `APPLIED` and `IDEMPOTENT_REPLAY` receipts to avoid disclosing
+privacy-request content; those receipt shapes therefore continue to forbid
+`reason`.
 
 Sender-evidence and token key rings accept only the current key version and the
 immediately previous version for a 24-hour dual-read window measured from the
@@ -338,8 +353,11 @@ two-human correction flow. At window expiry, the previous secret is
 cryptographically erased by deleting its wrapping-key reference and secret
 material from the configured secret store and purging process caches; only a
 non-secret key-id/version/destroyed-at audit record remains. Failure to erase
-or purge fails the rotation closed and blocks retirement. Storage overwrite is
-not claimed.
+or purge fails the rotation closed and blocks retirement. Rotation is a
+secret-authority operation, not a mapping action and not a P4-E management API
+operation. Its failure is reported as a sanitized
+`TOKEN_KEY_RETIREMENT_BLOCKED` secret-authority audit/readiness record, never as
+a `P4E-MAPPING-ACTION-OUTCOMES` receipt. Storage overwrite is not claimed.
 
 ### R20 - Representation parity
 
@@ -403,6 +421,36 @@ evidence only, provided the closure makes no provider-governance claim.
 - **AC-15:** Independent reviewer recomputes the DESIGN and matrix digests,
   checks every R/AC mapping, samples at least one raw positive per outcome,
   runs all deterministic mutations, and reports findings/waivers explicitly.
+- **AC-16:** Composition and negative-import tests prove
+  `InMemoryExternalIngressRepository` is test-only, the process-local P4-C
+  proposal repository is absent from production composition, and Operations
+  Ledger is the sole live proposal/placement persistence owner.
+
+### R-to-AC traceability
+
+| Requirement | Acceptance coverage |
+|---|---|
+| R1 | AC-02, AC-03 |
+| R2 | AC-02, AC-03, AC-13 |
+| R3 | AC-02, AC-03, AC-10 |
+| R4 | AC-02, AC-05 |
+| R5 | AC-03, AC-06, AC-13 |
+| R6 | AC-04, AC-05, AC-10 |
+| R7 | AC-04, AC-05, AC-12 |
+| R8 | AC-04 |
+| R9 | AC-01, AC-05 |
+| R10 | AC-06, AC-10, AC-11, AC-16 |
+| R11 | AC-06, AC-07 |
+| R12 | AC-07, AC-08 |
+| R13 | AC-05, AC-08, AC-10 |
+| R14 | AC-08, AC-12 |
+| R15 | AC-01, AC-07, AC-08 |
+| R16 | AC-09 |
+| R17 | AC-11, AC-12 |
+| R18 | AC-11, AC-16 |
+| R19 | AC-03, AC-13 |
+| R20 | AC-01, AC-10 |
+| R21 | AC-14, AC-15 |
 
 ## 9. Work Order constraints
 
@@ -414,6 +462,9 @@ one implementation worker and an independent reviewer, prohibit provider/live
 effects, and stop on path expansion, dependency installation, matrix drift, or
 unresolved SQL atomicity.
 
+The Work Order must explicitly exclude both customer/vessel scaffold
+directories named in R18 and must leave them documentation-only and unchanged.
+
 ## 10. Stop conditions
 
 Stop on contract ambiguity, missing source authority, need for customer/vessel
@@ -424,7 +475,7 @@ start BUILD before independent SPEC and Work Order review.
 
 ## 11. Disposition
 
-`READY_FOR_INDEPENDENT_SPEC_REVIEW`
+`READY_FOR_INDEPENDENT_SPEC_REREVIEW`
 
 WORK_ORDER, BUILD, provider/live execution, deployment, Phase 5, catalog schema
 migration, XR1 repair, and external-repository absorption remain unauthorized.

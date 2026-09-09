@@ -246,8 +246,14 @@
 - Independent P4-E DESIGN review and rereview (`DESIGN_REVIEW_PASS`; original
   findings F1-F5 closed; final findings/waivers `NONE/NONE`):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md)
-- P4-E draft SPEC (`READY_FOR_INDEPENDENT_SPEC_REVIEW`; BUILD unauthorized):
+- P4-E draft-r1 SPEC (`REPAIRED_PENDING_INDEPENDENT_SPEC_REREVIEW`; BUILD unauthorized):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md`](specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md)
+- Independent P4-E SPEC review Generation 1 (`SPEC_REVIEW_CHANGES_REQUIRED`;
+  seven findings, zero waivers):
+  [`SPEC_REVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md`](decisions/SPEC_REVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md)
+- P4-E SPEC rework response (F1-F7 repaired pending independent rereview;
+  accepted and qualified-disagreement positions recorded):
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_REWORK_2026-09-09.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_REWORK_2026-09-09.md)
 - P4-E registered invariant matrices:
   [`mapping actions`](cvf/invariants/p4e-mapping-action-outcomes.json),
   [`identity resolution`](cvf/invariants/p4e-identity-resolution-outcomes.json), and
