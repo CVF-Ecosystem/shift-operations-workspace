@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p4e_identity_conversation_routing_work_order_repaired_pending_independent_authorization_rereview",
+  "currentMode": "p4e_identity_conversation_routing_build_authorized_worker_handoff_ready",
   "activeHandoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
-  "nextAllowedMove": "Independent P4-E Work Order authorization rereview only: verify repairs for authorization findings F1-F3, recompute the repaired Work Order hash, confirm the exact manifest and three matrices are byte-unchanged, and return AUTHORIZATION_REVIEW_PASS only with findings/waivers NONE/NONE. BUILD remains unauthorized until that PASS and a separate IMPLEMENTATION_WORKER handoff.",
-  "parkedOperatorCheckpoint": "P4-E BUILD is not authorized; Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked.",
+  "nextAllowedMove": "Dispatch IMPLEMENTATION_WORKER for P4-E exact manifest paths 15-80 under WORKER_MUST_NOT_COMMIT. The worker must capture executionBaseHead, pass the pre-BUILD gate, implement R1-R21 and AC-01-AC-16, write path 80 worker return, leave staging empty, and release the lane to the independent completion reviewer.",
+  "parkedOperatorCheckpoint": "P4-E completion review, commit/closure, Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked until the worker return.",
   "requiredReads": [
     "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
     "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_WORK_ORDER_AUTHORIZATION_REVIEW_2026-09-09.md",

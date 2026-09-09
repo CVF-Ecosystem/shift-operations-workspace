@@ -378,10 +378,10 @@
   },
   "p4e_identity_conversation_routing": {
     "scope_note": "Roadmap P4-E accepted SPEC and bounded Work Order only: human-confirmed external identity linkage followed by deterministic conversation placement proposals. Identity linkage and route placement remain non-authenticating, non-authoritative and separate from operational truth.",
-    "governance_disposition": "WORK_ORDER / REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW (updated 2026-09-09); authorization review SHA-256 96e0328720a78f45883cbb2298d695c79eda57ecd49d680a8cc7c126251a498d returned 3 citation-integrity findings and 0 waivers. Material repair commit 64cf02c changes only the Work Order; BUILD authority is NOT GRANTED.",
+    "governance_disposition": "BUILD / AUTHORIZED_FOR_IMPLEMENTATION (updated 2026-09-09); authorization review SHA-256 96e0328720a78f45883cbb2298d695c79eda57ecd49d680a8cc7c126251a498d returned only 3 citation-integrity findings, repaired at 64cf02c. The operator explicitly accepted those mechanical repairs, waived rereview, and authorized exact BUILD in e7d480d under WORKER_MUST_NOT_COMMIT.",
     "what_changed": "Documentation and continuity only. Work Order ordinals now match manifest paths 76, 79, 71 and 67; the Review Gate now says 94 paths; two private-provenance-only standards are explicitly identified. The exact manifest and three matrices are byte-identical. No P4-E product source, runtime model, application schema, database migration or provider behavior exists yet.",
     "claim_boundary": "No implemented identity mapping or conversation placement; no provider call, credential, install, migration, deployment, commit or push; external proposals remain actor-neutral UNTRUSTED_EXTERNAL/RAW and cannot become authenticated authority or operational truth.",
-    "next_governed_move": "Independent Work Order authorization rereview of F1-F3 only. BUILD requires AUTHORIZATION_REVIEW_PASS with findings/waivers NONE/NONE and a separate IMPLEMENTATION_WORKER handoff."
+    "next_governed_move": "IMPLEMENTATION_WORKER executes exact manifest paths 15-80, writes path 80 worker return, leaves staging empty, and releases the lane to the independent completion reviewer."
   },
   "cvf_core_refresh_2026_08_29": {
     "scope_note": "Fresh R2 maintenance BUILD attempted only the frozen-target Core reconciliation contract before returning to parked P4-E DESIGN.",

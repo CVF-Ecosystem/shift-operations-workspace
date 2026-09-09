@@ -10,9 +10,10 @@ The first-party CVF provenance-inheritance recovery remains `FREEZE /
 CLOSED_BOUNDED`. Independent P4-E Work Order authorization review returned
 three citation-integrity findings. Material repair commit `64cf02c` corrects
 only the Work Order; the exact 94-path manifest and three matrices remain
-byte-identical. Disposition is now `WORK_ORDER /
-REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`; no product BUILD occurred.
-The project pins portable public Core
+byte-identical. The operator explicitly accepted those mechanical repairs,
+waived rereview, and authorized exact BUILD in `e7d480d`. Disposition is now
+`BUILD / AUTHORIZED_FOR_IMPLEMENTATION`; no product BUILD has occurred yet. The
+project pins portable public Core
 `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4` and requires the operator-local
 rule pack materialized from private provenance
 `bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Both repositories remain read-only
@@ -33,9 +34,9 @@ that schema migration is separately parked.
 
 Phases 0-3 are closed within their recorded boundaries. Phase 4 is 7/8; P4-E
 DESIGN and SPEC are independently accepted, and its repaired bounded Work Order
-now awaits independent authorization rereview. BUILD requires
-`AUTHORIZATION_REVIEW_PASS` with no finding or waiver plus a separate worker
-handoff. Phase 5 and external-repository absorption remain parked.
+is authorized for an implementation worker on exact paths 15-80 under
+`WORKER_MUST_NOT_COMMIT`. Completion review, Phase 5, and external-repository
+absorption remain parked.
 
 ## Guardrails
 

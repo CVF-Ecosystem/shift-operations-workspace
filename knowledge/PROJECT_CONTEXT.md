@@ -99,10 +99,10 @@ invariant 37/2 plus guard, full 2898/132/1 and doctor 24 plus the bounded
 legacy-catalog note. This proves no live send, vendor
 protocol conformance, receiver replay enforcement, CVF governance behavior,
 P4-E implementation, production readiness or deployment. P4-E is now at
-`WORK_ORDER / REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`; authorization
-review returned three citation-integrity findings, and material repair commit
-`64cf02c` corrects only the Work Order while preserving the exact manifest and
-matrices. Only independent rereview may grant a later BUILD handoff. No product BUILD exists. Public
+`BUILD / AUTHORIZED_FOR_IMPLEMENTATION`; authorization review returned three
+citation-integrity findings, and `64cf02c` repaired only the Work Order while
+preserving the exact manifest and matrices. The operator explicitly accepted
+those repairs and authorized paths 15-80 in `e7d480d`. No product BUILD exists yet. Public
 Core is pinned at `483c5e33d`; the operator-local rule pack is required and is
 materialized from private provenance `bee38695e`. Both are read-only authority
 for project work. Phase 5, external-repository absorption, and XR1 historical-

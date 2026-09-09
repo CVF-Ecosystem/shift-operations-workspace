@@ -1,9 +1,9 @@
 # Handoff - P4-E Identity Mapping and Conversation Routing
 
 - Tranche: `P4E-IDENTITY-CONVERSATION-ROUTING-2026-09-09`
-- Status: `WORK_ORDER / REPAIRED_PENDING_INDEPENDENT_AUTHORIZATION_REREVIEW`
+- Status: `BUILD / AUTHORIZED_FOR_IMPLEMENTATION`
 - Risk: `R2`
-- Active role: `INDEPENDENT_AUTHORIZATION_REREVIEWER`
+- Active role: `IMPLEMENTATION_WORKER`
 - Branch: `docs/p4e-spec`
 - Updated: `2026-09-09`
 
@@ -50,20 +50,23 @@ Material commit `82e00a2` records that rereview and the separate Work Order
 authoring transition. Independent authorization review at SHA-256
 `96e0328720a78f45883cbb2298d695c79eda57ecd49d680a8cc7c126251a498d`
 returned three citation-integrity findings with no waiver. Material repair
-commit `64cf02c` corrects only the Work Order. The authorization packet now
-consists of:
+commit `64cf02c` corrects only the Work Order. On 2026-09-09 the operator
+explicitly accepted those mechanical repairs, waived rereview, and directed
+handoff to the worker. Commit `e7d480d` records that authorization in the Work
+Order. The execution packet now consists of:
 
 - `docs/baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`;
 - `docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md`, SHA-256
   `edb56012d87e7c4e9b3c715feba6d32a65a90b70064c9fa7d0d3b2abdc03a846`;
 - `docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`, SHA-256
-  `21edaf285eb94812f922197c9737b2a54c01ae49cd80930fd7e4b29fd3c75530`.
+  `b83eef2bd29ce9a9e436e68050efaab0ed4d9174ee645a56b66a53c83bbe9891`.
 
 The packet fixes 94 exact paths and assigns worker ownership only to paths
 15-80. It makes customer/vessel scaffolds protected exclusions, requires a real
 import/composition probe for AC-16, and assigns
 `TOKEN_KEY_RETIREMENT_BLOCKED` solely to the Integration Edge sender-key
-authority. BUILD remains unauthorized.
+authority. BUILD is authorized only for implementation-worker paths 15-80
+under `WORKER_MUST_NOT_COMMIT` and the zero-external-effect ceiling.
 
 Authorization F1-F3 repairs are bounded to four corrected manifest ordinals,
 `93` to `94` in the Review Gate, and private-provenance annotations on two
@@ -89,21 +92,21 @@ standards. The exact manifest and all three matrices remain byte-identical.
   credential, deployment, or external effect was introduced
 
 These are deterministic authoring checks plus the retained independent SPEC
-rereview and authorization changes-required review. They are not an
-authorization rereview PASS and not runtime or governance-behavior proof.
+rereview, authorization review, mechanical repair, and explicit operator
+authorization. They are not implementation, completion-review, runtime, or
+governance-behavior proof.
 
 ## Next allowed move
 
-Assign an `INDEPENDENT_AUTHORIZATION_REREVIEWER` to verify only authorization
-findings F1-F3 against the repaired Work Order. Recompute its SHA-256, confirm
-the exact manifest and matrices are unchanged, and verify the repaired ordinal,
-94-path count, and private-provenance annotations. Only
-`AUTHORIZATION_REVIEW_PASS` with findings/waivers `NONE/NONE` may permit a
-separate IMPLEMENTATION_WORKER handoff. Do not start BUILD during rereview.
+Assign an `IMPLEMENTATION_WORKER` to execute the Work Order against exact
+manifest paths 15-80. The worker must capture the fresh execution base, verify
+clean staging and all pinned identities, run the pre-BUILD gate, implement the
+ordered plan, write path 80 worker return, and release the lane with all changes
+unstaged and uncommitted. Paths 1-14 and 81-94 remain read-only to the worker.
 
 ## Parked
 
-- P4-E BUILD pending independent Work Order authorization review
+- P4-E completion review, commit, closure and session sync pending worker return
 - Phase 5
 - external-repository absorption
 - governed-catalog schema migration
