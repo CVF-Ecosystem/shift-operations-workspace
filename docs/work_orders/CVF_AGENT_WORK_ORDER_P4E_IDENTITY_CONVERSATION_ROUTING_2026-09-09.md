@@ -98,7 +98,7 @@ not recreate the implementation.
 
 ## Semantic Convergence Outcome
 
-Standard: `docs/reference/semantic_convergence_control/CVF_SEMANTIC_CONVERGENCE_AND_ESCALATION_CONTROL_STANDARD.md`
+Standard: `docs/reference/semantic_convergence_control/CVF_SEMANTIC_CONVERGENCE_AND_ESCALATION_CONTROL_STANDARD.md` (private-provenance reference only; not present in this project working tree)
 
 ```json
 {
@@ -235,7 +235,7 @@ external-repository absorption, or workflow-chain coverage-index tranche.
 
 ## Agent Handoff Contract Control Block
 
-Contract source: `docs/reference/CVF_AHB_T2_AGENT_HANDOFF_CONTRACT_RATIFICATION_2026-06-16.md`
+Contract source: `docs/reference/CVF_AHB_T2_AGENT_HANDOFF_CONTRACT_RATIFICATION_2026-06-16.md` (private-provenance reference only; not present in this project working tree)
 
 | Field | Value |
 | --- | --- |
@@ -268,8 +268,8 @@ Contract source: `docs/reference/CVF_AHB_T2_AGENT_HANDOFF_CONTRACT_RATIFICATION_
 | Rereview carry-forward | Binding Work Order resolution | Required evidence |
 | --- | --- | --- |
 | Exclude customer/vessel scaffolds | `packages/conversation-routing/customer-router/README.md` and `packages/conversation-routing/vessel-router/README.md` are protected; no file may be created in either directory. | exact diff/path scan and dependency-import negative test |
-| AC-16 needs a real probe | path 75 must import the real Workspace API composition root, instantiate the production composition with injected stores, inspect the bound proposal/placement repository types, and fail if the process-local repository is reachable from production composition. A source-comment assertion is forbidden. | execution of `tests/integration/test_p4e_workspace_composition.py`, plus negative import test at path 78 |
-| Own retirement failure | `apps/integration-edge/src/integration_edge/verification/sender_keys.py` is the sole owner of `TokenKeyRetirementReadinessV1` and `SenderTokenKeyAuthority.retire_previous`; it emits sanitized `TOKEN_KEY_RETIREMENT_BLOCKED` readiness/audit evidence. Mapping services, management APIs, and all three P4-E invariant matrices must not emit it. | unit test at path 70, receipt negative scan, import-boundary test, reviewer source inspection |
+| AC-16 needs a real probe | path 76 must import the real Workspace API composition root, instantiate the production composition with injected stores, inspect the bound proposal/placement repository types, and fail if the process-local repository is reachable from production composition. A source-comment assertion is forbidden. | execution of `tests/integration/test_p4e_workspace_composition.py`, plus negative import test at path 79 |
+| Own retirement failure | `apps/integration-edge/src/integration_edge/verification/sender_keys.py` is the sole owner of `TokenKeyRetirementReadinessV1` and `SenderTokenKeyAuthority.retire_previous`; it emits sanitized `TOKEN_KEY_RETIREMENT_BLOCKED` readiness/audit evidence. Mapping services, management APIs, and all three P4-E invariant matrices must not emit it. | unit test at path 71, receipt negative scan, import-boundary test, reviewer source inspection |
 
 ## Exact Final Changed-Set Ceiling - 94 Paths
 
@@ -384,7 +384,7 @@ placeholder solely to satisfy the list is forbidden.
 - Emitters: `identity_mapping.invariants` and
   `conversation_routing.invariants`; each consumes the pinned matrices and does
   not restate outcome grammar.
-- Evidence: path 66 plus the existing generic invariant family contract and
+- Evidence: path 67 plus the existing generic invariant family contract and
   repository-guard tests.
 - Mutation: deterministic one-fact mutation for every field and closed outcome;
   no new exclusion or waiver.
@@ -514,7 +514,7 @@ Use `N/A with reason` for each non-applicable conditional block. Record:
 ## Review Gate
 
 The independent authorization reviewer must first verify exact source hashes,
-all 93 paths, package/import direction, SQL ownership/atomicity, the three
+all 94 paths, package/import direction, SQL ownership/atomicity, the three
 carry-forward resolutions, commands, failure semantics, and zero-external-
 effect boundary. BUILD requires `AUTHORIZATION_REVIEW_PASS` with zero findings
 and zero waivers.
