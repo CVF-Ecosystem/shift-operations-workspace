@@ -99,14 +99,16 @@ invariant 37/2 plus guard, full 2898/132/1 and doctor 24 plus the bounded
 legacy-catalog note. This proves no live send, vendor
 protocol conformance, receiver replay enforcement, CVF governance behavior,
 P4-E implementation, production readiness or deployment. P4-E is now at
-`BUILD / AUTHORIZED_FOR_IMPLEMENTATION`; authorization review returned three
-citation-integrity findings, and `64cf02c` repaired only the Work Order while
-preserving the exact manifest and matrices. The operator explicitly accepted
-those repairs and authorized paths 15-80 in `e7d480d`. No product BUILD exists yet. Public
-Core is pinned at `483c5e33d`; the operator-local rule pack is required and is
-materialized from private provenance `bee38695e`. Both are read-only authority
-for project work. Phase 5, external-repository absorption, and XR1 historical-
-object debt remain parked.
+`BUILD / AMENDMENT_1_REPAIR_READY`. Uncommitted implementation exists but is
+not accepted: completion-review round 3 retains F1-F4 across authentication,
+exact authority, complete CAS and evidence truthfulness. After CVF closeability
+learning, the operator authorized an exact fifteen-path expansion and one
+successor repair; independent Amendment 1 authorization review returned PASS
+with findings/waivers `NONE/NONE`. Public Core remains pinned at `483c5e33d`;
+the operator-local rule pack is required and is materialized from private
+provenance `fe62894f8`. Both are read-only authority for project work. Phase 5,
+external-repository absorption, closer catalog regeneration/final closure, and
+XR1 historical-object debt remain parked.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

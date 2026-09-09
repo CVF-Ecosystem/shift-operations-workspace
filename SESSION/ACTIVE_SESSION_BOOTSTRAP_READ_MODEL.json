@@ -1,27 +1,28 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p4e_identity_conversation_routing_build_authorized_worker_handoff_ready",
+  "currentMode": "p4e_identity_conversation_routing_amendment1_repair_ready",
   "activeHandoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
-  "nextAllowedMove": "Dispatch IMPLEMENTATION_WORKER for P4-E exact manifest paths 15-80 under WORKER_MUST_NOT_COMMIT. The worker must capture executionBaseHead, pass the pre-BUILD gate, implement R1-R21 and AC-01-AC-16, write path 80 worker return, leave staging empty, and release the lane to the independent completion reviewer.",
-  "parkedOperatorCheckpoint": "P4-E completion review, commit/closure, Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked until the worker return.",
+  "nextAllowedMove": "Dispatch exactly one Claude REPAIR_WORKER for successor cluster P4E-AMENDMENT1-CONSOLIDATED-F1-THROUGH-F4-2026-09-10 under the independently accepted Amendment 1; preserve current work, stay inside original paths 15-80 plus 95-109, resolve F1-F4, use local-image-only PostgreSQL, update path 80, leave staging empty, and do not commit or call a product provider.",
+  "parkedOperatorCheckpoint": "P4-E independent successor completion review, closer-owned catalog regeneration, final gates/commit and closure, Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked until the successor repair return.",
   "requiredReads": [
     "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
-    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_WORK_ORDER_AUTHORIZATION_REVIEW_2026-09-09.md",
-    "docs/decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md",
-    "docs/baselines/CVF_GC018_BASELINE_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md",
+    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_1_AUTHORIZATION_REVIEW_2026-09-10.md",
+    "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_1_2026-09-10.md",
+    "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_1_2026-09-10.md",
+    "docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_COMPLETION_2026-09-09.md",
+    "docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_WORKER_RETURN_2026-09-09.md",
     "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md",
     "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md",
     "docs/specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "docs/decisions/DESIGN_2026-08-29_P4E_IDENTITY_CONVERSATION_ROUTING.md",
-    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md"
+    "docs/decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
   },
-  "updatedAt": "2026-09-09"
+  "updatedAt": "2026-09-10"
 }

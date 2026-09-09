@@ -1,21 +1,64 @@
 # Handoff - P4-E Identity Mapping and Conversation Routing
 
 - Tranche: `P4E-IDENTITY-CONVERSATION-ROUTING-2026-09-09`
-- Status: `BUILD / AUTHORIZED_FOR_IMPLEMENTATION`
+- Status: `BUILD / AMENDMENT_1_REPAIR_READY`
 - Risk: `R2`
-- Active role: `IMPLEMENTATION_WORKER`
+- Active role: `REPAIR_WORKER`
 - Branch: `docs/p4e-spec`
-- Updated: `2026-09-09`
+- Updated: `2026-09-10`
+
+## 2026-09-10 Amendment 1 Activation
+
+Startup acknowledged: current mode=
+`p4e_identity_conversation_routing_amendment1_repair_ready`; active handoff=
+this file; next allowed move=dispatch exactly one Claude `REPAIR_WORKER` for
+the Amendment 1 successor cluster; parked checkpoint=independent successor
+completion review, closer catalog regeneration, final gates/commit, Phase 5,
+external absorption, governed-catalog schema migration, and XR1 debt.
+
+The first worker returned uncommitted implementation evidence and the
+independent completion-review chain reached round 3. Current open findings are
+`P4E-COMP-REREV2-F1` through `F4`: split signature/timestamp authentication,
+fifteen necessary paths outside the original ceiling, incomplete write-time
+CAS, and inaccurate worker-return evidence. The implementation is preserved
+but remains unaccepted.
+
+The operator required CVF learning absorption before project repair. Private
+Core material commit `3fcd426dc7c2c6d03fc915b884711df118a0563f`
+records the outcome-bounded agent-intelligence and first-return reviewer duty;
+continuity commit `fe62894f861c34a25a16c6267f557bf771ea9e2c` is now the
+operator-local provenance/rule-pack pin.
+
+The successor repair packet is:
+
+- exact-manifest Amendment 1 SHA-256
+  `921805758327226c77a0d238925b9dd2445b3d023bafd8386176042917a620d2`;
+- Work Order Amendment 1 SHA-256
+  `582a48f3296a4e32acf6ab1d98c082356826717d1884093a9528c010d26741ca`;
+- independent authorization review SHA-256
+  `bc510c1262d1f76bb8d7408a15763dcb18d3ccfd7c6573342db24601bf07d9e2`,
+  disposition `AUTHORIZATION_REVIEW_PASS`, findings/waivers `NONE/NONE`.
+
+Exactly one external Claude repair dispatch is authorized. The worker owns
+only original paths 15-80 plus amendment paths 95-109, must preserve useful
+earlier work, must make the PostgreSQL runner local-image-only/fail-closed, and
+must update existing path 80. It must not call Alibaba/a product provider,
+pull an image, install, use a shared database, edit paths 82-94, regenerate the
+catalog, stage, commit, push, deploy, or declare closure.
 
 ## Startup truth
 
 This first-party project inherits public CVF Core
 `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4` and the mandatory operator-local
 rule pack materialized from private provenance
-`bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Both sources remain read-only.
+`fe62894f861c34a25a16c6267f557bf771ea9e2c`. Both sources remain read-only.
 The prior provenance-inheritance recovery is closed bounded.
 
 ## Current authority
+
+The 2026-09-09 predecessor record below is retained for provenance. Where it
+describes the active worker ceiling, role, pin, or next move, the 2026-09-10
+Amendment 1 Activation above supersedes it.
 
 The operator explicitly advanced accepted P4-E DESIGN to SPEC on 2026-09-09.
 `docs/specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md` is now
@@ -98,15 +141,18 @@ governance-behavior proof.
 
 ## Next allowed move
 
-Assign an `IMPLEMENTATION_WORKER` to execute the Work Order against exact
-manifest paths 15-80. The worker must capture the fresh execution base, verify
-clean staging and all pinned identities, run the pre-BUILD gate, implement the
-ordered plan, write path 80 worker return, and release the lane with all changes
-unstaged and uncommitted. Paths 1-14 and 81-94 remain read-only to the worker.
+Dispatch exactly one Claude `REPAIR_WORKER` invocation under Work Order
+Amendment 1. The worker must capture the fresh activation commit as execution
+base while preserving the already uncommitted product changes, verify empty
+staging and all pins, resolve F1-F4, run the exact local/P4-E/PostgreSQL/gate
+commands, update path 80, and release the lane with all worker changes unstaged
+and uncommitted. Paths 1-14 and 81-94 remain read-only to the worker; additive
+paths 95-109 are authorized.
 
 ## Parked
 
-- P4-E completion review, commit, closure and session sync pending worker return
+- P4-E independent successor completion review, closer-owned catalog
+  regeneration, final full suite, commit, closure and final session sync
 - Phase 5
 - external-repository absorption
 - governed-catalog schema migration

@@ -1,22 +1,23 @@
 # Session Memory
 
 Provider-neutral companion to `ACTIVE_SESSION_STATE.json`. Last updated:
-2026-09-09. Read only the active handoff and current authority paths by default;
+2026-09-10. Read only the active handoff and current authority paths by default;
 use the archive for a targeted historical lookup.
 
 ## Current checkpoint
 
 The first-party CVF provenance-inheritance recovery remains `FREEZE /
-CLOSED_BOUNDED`. Independent P4-E Work Order authorization review returned
-three citation-integrity findings. Material repair commit `64cf02c` corrects
-only the Work Order; the exact 94-path manifest and three matrices remain
-byte-identical. The operator explicitly accepted those mechanical repairs,
-waived rereview, and authorized exact BUILD in `e7d480d`. Disposition is now
-`BUILD / AUTHORIZED_FOR_IMPLEMENTATION`; no product BUILD has occurred yet. The
-project pins portable public Core
+CLOSED_BOUNDED`. P4-E implementation and three review rounds now exist as
+uncommitted evidence, but completion remains rejected by round-3 findings
+`P4E-COMP-REREV2-F1` through `F4`. The operator first absorbed the closeability
+failure as CVF learning, then authorized one bounded successor repair. Exact-
+manifest Amendment 1 adds fifteen worker paths, fixes role/gate sequencing,
+and received independent `AUTHORIZATION_REVIEW_PASS` with no finding or waiver.
+Disposition is `BUILD / AMENDMENT_1_REPAIR_READY`; existing product work is not
+accepted or committed. The project pins portable public Core
 `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4` and requires the operator-local
 rule pack materialized from private provenance
-`bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Both repositories remain read-only
+`fe62894f861c34a25a16c6267f557bf771ea9e2c`. Both repositories remain read-only
 authority for application work; their content was not copied into this repo.
 
 The recovery refreshed the manifest, policy, AGENTS carrier, bootstrap record,
@@ -33,10 +34,11 @@ that schema migration is separately parked.
 ## Product roadmap
 
 Phases 0-3 are closed within their recorded boundaries. Phase 4 is 7/8; P4-E
-DESIGN and SPEC are independently accepted, and its repaired bounded Work Order
-is authorized for an implementation worker on exact paths 15-80 under
-`WORKER_MUST_NOT_COMMIT`. Completion review, Phase 5, and external-repository
-absorption remain parked.
+DESIGN and SPEC remain accepted. Exactly one Claude `REPAIR_WORKER` dispatch is
+now authorized for original worker paths 15-80 plus Amendment 1 paths 95-109,
+under `WORKER_MUST_NOT_COMMIT`. Independent successor completion review,
+closer-owned catalog regeneration, final gates/commit, Phase 5, and external-
+repository absorption remain parked.
 
 ## Guardrails
 
@@ -44,8 +46,11 @@ absorption remain parked.
   `CVF_SESSION/ACTIVE_SESSION_STATE.json` is only its compatibility mirror.
 - Do not mutate public Core or private provenance from project work.
 - Do not turn historical bounded evidence into production-readiness claims.
-- Do not start P4-E BUILD, Phase 5, catalog schema migration, XR1 repair, or
-  external-repository absorption without their stated fresh authority.
+- Do not expand the P4-E repair beyond its effective worker ceiling, make an
+  Alibaba/provider call, pull a Docker image, install a dependency, regenerate
+  closer-owned catalog paths, or stage/commit worker changes.
+- Do not start Phase 5, catalog schema migration, XR1 repair, or external-
+  repository absorption without fresh authority.
 - Run `python scripts/check_session_state.py` after changing continuity.
 
 ## History
