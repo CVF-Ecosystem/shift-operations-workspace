@@ -1,18 +1,18 @@
 # CVF Agent Work Order - P4-E Identity Mapping And Conversation Routing
 Memory class: governed-worker-dispatch
 docType: work_order
-Status: READY_FOR_REVIEW
+Status: APPROVED_FOR_EXECUTION
 Batch ID: P4E-IDENTITY-CONVERSATION-ROUTING
 Risk ceiling: R2
 Dispatch base head: e367bc996e6fceaff08d23af34c2d5d8dada0ded
 dispatchBaseHead: e367bc996e6fceaff08d23af34c2d5d8dada0ded
 Commit mode: WORKER_MUST_NOT_COMMIT
-BUILD authority: NOT_GRANTED_PENDING_INDEPENDENT_AUTHORIZATION_REVIEW
+BUILD authority: GRANTED_BY_EXPLICIT_OPERATOR_DECISION_2026-09-09
 
 ## Dispatch Prompt Envelope
 
-Role: IMPLEMENTATION_WORKER for `P4E-IDENTITY-CONVERSATION-ROUTING` only after
-an independent authorization review changes the packet to approved execution.
+Role: IMPLEMENTATION_WORKER for `P4E-IDENTITY-CONVERSATION-ROUTING` under the
+explicit operator authorization recorded after mechanical citation repair.
 
 Canonical packet: `docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md`
 
@@ -25,8 +25,8 @@ executionBaseHead: WORKER_MUST_CAPTURE_AT_START.
 Current-time note: artifact date is 2026-09-09; the worker must resolve current
 HEAD, branch, origin, continuity, and source hashes again at execution start.
 
-Do-not-misread note: READY_FOR_REVIEW authorizes only independent Work Order
-review. It does not authorize BUILD, install, provider/live/network use,
+Do-not-misread note: APPROVED_FOR_EXECUTION authorizes only exact paths 15-80.
+It does not authorize install, provider/live/network use,
 database mutation outside disposable tests, deployment, staging, commit, push,
 self-review, closure, Phase 5, XR1 repair, catalog migration, or repository
 absorption.
@@ -408,12 +408,12 @@ python -m pytest -q tests/unit/test_invariant_family_contract.py tests/integrati
 
 ## Pre-BUILD Gate
 
-The future implementation worker shall not edit source until all conditions
-below pass after authorization review:
+The implementation worker shall not edit source until all conditions below
+pass under the recorded operator authorization:
 
 1. continuity rehydrated; role declared as IMPLEMENTATION_WORKER;
-2. authorization review path 81 exists, matches this Work Order hash, and says
-   `AUTHORIZATION_REVIEW_PASS` with findings/waivers `NONE/NONE`;
+2. authorization review path 81 exists; its only F1-F3 citation findings were
+   repaired at `64cf02c`, and the operator explicitly waived rereview;
 3. current HEAD equals local `origin/docs/p4e-spec`, staging is empty, and the
    only pre-existing unstaged/untracked paths are explicitly accepted or none;
 4. SPEC, rereview, DESIGN, matrices, pins, and baseline hashes match;
@@ -513,11 +513,11 @@ Use `N/A with reason` for each non-applicable conditional block. Record:
 
 ## Review Gate
 
-The independent authorization reviewer must first verify exact source hashes,
-all 94 paths, package/import direction, SQL ownership/atomicity, the three
-carry-forward resolutions, commands, failure semantics, and zero-external-
-effect boundary. BUILD requires `AUTHORIZATION_REVIEW_PASS` with zero findings
-and zero waivers.
+The independent authorization review verified source hashes, all 94 paths,
+package/import direction, SQL ownership/atomicity, carry-forward resolutions,
+commands, failure semantics, and the zero-external-effect boundary. Its only
+F1-F3 citation findings were repaired at `64cf02c`; on 2026-09-09 the operator
+accepted those mechanical repairs, waived rereview, and authorized exact BUILD.
 
 The independent completion reviewer then evaluates returned evidence without
 recreating implementation. Focused reruns need a named contradiction,
