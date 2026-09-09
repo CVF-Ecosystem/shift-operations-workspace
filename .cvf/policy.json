@@ -1,10 +1,12 @@
 {
-  "policyVersion": "1.0",
-  "policyDate": "2026-07-22",
+  "policyVersion": "1.1-operator-local",
+  "policyDate": "2026-09-09",
   "liveGovernanceEvidenceRequired": true,
   "mockAllowedOnlyForUi": true,
   "workspaceIsolationRequired": true,
   "workspaceRulesRequired": true,
+  "operatorLocalProvenanceRequired": true,
+  "provenanceAuthorityMustRemainReadOnly": true,
   "phaseTransitionRequired": true,
   "explicitRoleTransitionRequired": true,
   "providerNeutralRolesRequired": true,
@@ -14,7 +16,10 @@
     "Use mock output as governance evidence",
     "Commit API keys or secrets to the repository",
     "Act outside the workspace isolation boundary",
+    "Treat copied provenance continuity as project-owned authority",
     "Ignore CVF policy constraints"
   ],
-  "cvfCoreRef": "../.Controlled-Vibe-Framework-CVF"
+  "cvfCoreRef": "../.Controlled-Vibe-Framework-CVF",
+  "operatorLocalRulePackRef": "../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json",
+  "provenanceRef": "../../Controlled-Vibe-Framework-CVF"
 }

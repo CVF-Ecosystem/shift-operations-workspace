@@ -18,6 +18,18 @@
       "approvedMaxLines": 900,
       "reason": "Frozen architecture baseline (Architecture & Scope Freeze). A single authoritative baseline document; splitting it would break the freeze reference.",
       "requiredFollowup": "Do not grow further; new architecture detail goes into docs/architecture/*.md, not this baseline."
+    },
+    {
+      "path": "docs/decisions/DESIGN_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "approvedMaxLines": 850,
+      "reason": "Frozen failed-attempt design evidence whose internal line and digest references must remain stable during inheritance recovery.",
+      "requiredFollowup": "Do not append. Put any successor design in a new bounded artifact and archive or split this record only under a dedicated historical-evidence migration."
+    },
+    {
+      "path": "docs/decisions/DESIGN_REVIEW_2026-08-31_CVF_CORE_REFRESH_ATTEMPT_4_CARRIER.md",
+      "approvedMaxLines": 725,
+      "reason": "Frozen multi-round independent review evidence whose order and cross-references must remain stable during inheritance recovery.",
+      "requiredFollowup": "Do not append. Put later review evidence in a new artifact and archive or split this record only under a dedicated historical-evidence migration."
     }
   ]
 }

@@ -2,6 +2,11 @@
 
 ## Start Here
 
+- Current CVF provenance-inheritance recovery completion and handoff:
+  [`CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md`](decisions/CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md),
+  [`CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md`](../SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md)
+- Current bootstrap reconciliation record:
+  [`CVF_BOOTSTRAP_LOG_20260909.md`](CVF_BOOTSTRAP_LOG_20260909.md)
 - Session front door (canonical): [`SESSION/SESSION_MEMORY.md`](../SESSION/SESSION_MEMORY.md)
 - Active state (canonical, machine): [`SESSION/ACTIVE_SESSION_STATE.json`](../SESSION/ACTIVE_SESSION_STATE.json)
 - Active handoff: file under [`SESSION/handoffs/`](../SESSION/handoffs/) named by
