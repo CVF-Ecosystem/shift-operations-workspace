@@ -2,7 +2,10 @@
 
 ## Start Here
 
-- Current CVF provenance-inheritance recovery completion and handoff:
+- Current P4-E SPEC and active handoff:
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md`](specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md),
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md`](../SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md)
+- Closed CVF provenance-inheritance recovery completion and handoff:
   [`CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md`](decisions/CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md),
   [`CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md`](../SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md)
 - Current bootstrap reconciliation record:
@@ -17,8 +20,8 @@
 - Contribution / workflow front door: [`CONTRIBUTING.md`](../CONTRIBUTING.md)
 - Agent operating contract: [`AGENTS.md`](../AGENTS.md)
 - Docs entry point (general orientation): [`docs/README.md`](README.md)
-- Accepted fresh CVF Core refresh INTAKE (target `06c3d040`;
-  `INTAKE_REVIEW_PASS`; P4-E parked):
+- Historical accepted CVF Core refresh INTAKE (target `06c3d040`;
+  `INTAKE_REVIEW_PASS`; P4-E was parked at that checkpoint):
   [`INTAKE_2026-08-29_CVF_CORE_REFRESH.md`](decisions/INTAKE_2026-08-29_CVF_CORE_REFRESH.md)
 - Independent fresh Core refresh INTAKE review (`PASS`; findings/waivers
   `NONE/NONE`):
@@ -243,8 +246,14 @@
 - Independent P4-E DESIGN review and rereview (`DESIGN_REVIEW_PASS`; original
   findings F1-F5 closed; final findings/waivers `NONE/NONE`):
   [`P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md`](decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md)
+- P4-E draft SPEC (`READY_FOR_INDEPENDENT_SPEC_REVIEW`; BUILD unauthorized):
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md`](specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md)
+- P4-E registered invariant matrices:
+  [`mapping actions`](cvf/invariants/p4e-mapping-action-outcomes.json),
+  [`identity resolution`](cvf/invariants/p4e-identity-resolution-outcomes.json), and
+  [`conversation placement`](cvf/invariants/p4e-placement-outcomes.json)
 - Active P4-E handoff:
-  [`P4E_IDENTITY_CONVERSATION_ROUTING_2026-08-29.md`](../SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_2026-08-29.md)
+  [`P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md`](../SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md)
 - Predecessor learning INTAKE:
   [`INTAKE_2026-08-22_CROSS_AGENT_INVARIANT_LEARNING.md`](decisions/INTAKE_2026-08-22_CROSS_AGENT_INVARIANT_LEARNING.md)
 - Independent learning INTAKE review (`PASS`, `NONE/NONE`):

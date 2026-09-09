@@ -6,8 +6,9 @@ use the archive for a targeted historical lookup.
 
 ## Current checkpoint
 
-The first-party CVF provenance-inheritance recovery is `FREEZE /
-CLOSED_BOUNDED`. The project pins portable public Core
+The first-party CVF provenance-inheritance recovery remains `FREEZE /
+CLOSED_BOUNDED`. P4-E has advanced from accepted DESIGN to `SPEC /
+READY_FOR_INDEPENDENT_SPEC_REVIEW`; no product BUILD occurred. The project pins portable public Core
 `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4` and requires the operator-local
 rule pack materialized from private provenance
 `bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Both repositories remain read-only
@@ -26,12 +27,11 @@ that schema migration is separately parked.
 
 ## Product roadmap
 
-Phases 0-3 are closed within their recorded boundaries. Phase 4 is 7/8; P4-E
-identity/conversation routing remains at independently accepted
-`DESIGN_REVIEW_PASS`. Its former Core-refresh prerequisite is now satisfied.
-The next allowed move is a fresh explicit transition to P4-E SPEC, followed by
-independent SPEC and Work Order review before any BUILD. Phase 5 and external-
-repository absorption remain parked.
+Phases 0-3 are closed within their recorded boundaries. Phase 4 is 7/8; the
+P4-E draft SPEC and three digest-pinned invariant families are authored. The
+next allowed move is independent SPEC review only. A Work Order may be authored
+only after `SPEC_REVIEW_PASS`, and BUILD requires its own independent
+authorization review. Phase 5 and external-repository absorption remain parked.
 
 ## Guardrails
 

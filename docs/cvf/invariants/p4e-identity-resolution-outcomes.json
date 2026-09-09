@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P4E-IDENTITY-RESOLUTION-OUTCOMES",
+  "title": "P4-E external identity resolution outcomes",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": ["TRIGGER_1_SHARED_RESULT_MODEL", "TRIGGER_2_OUTCOME_CONTROLS_FIELDS", "TRIGGER_4_MULTIPLE_VALIDATOR_SURFACES", "TRIGGER_5_ADJACENT_FAMILY_FINDINGS"],
+  "contractSources": [{"path": "docs/decisions/DESIGN_2026-08-29_P4E_IDENTITY_CONVERSATION_ROUTING.md", "sha256": "2d0975a301a15c7b8a85eba121410391ddca2f067b16d9c5089d79edb9c397b9", "canonicalization": "UTF8_UNIVERSAL_NEWLINE"}],
+  "representationSurfaces": ["PYTHON_MODEL", "JSON_SCHEMA", "SQL_STATE"],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {"outcomeId": "RESOLVED", "shapes": [{"shapeId": "P4E_IDENTITY_RESOLVED", "requiredFields": ["outcome", "mapping_id", "mapping_version", "target_user_id", "external_key_digest", "resolution_count"], "forbiddenFields": ["reason"], "conditionalRules": [], "fieldDomains": {"outcome": {"type": "STRING", "const": "RESOLVED"}, "mapping_id": {"type": "STRING", "minLength": 1}, "mapping_version": {"type": "INTEGER"}, "target_user_id": {"type": "STRING", "minLength": 1}, "external_key_digest": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"}, "resolution_count": {"type": "INTEGER", "const": 1}}, "relations": [{"relationId": "RESOLVED_COUNT_ONE", "kind": "COUNTER_EQUALITY", "field": "resolution_count", "value": 1}]}]},
+    {"outcomeId": "FALLBACK", "shapes": [{"shapeId": "P4E_IDENTITY_FALLBACK", "requiredFields": ["outcome", "reason", "resolution_count"], "forbiddenFields": ["mapping_id", "mapping_version", "target_user_id", "external_key_digest"], "conditionalRules": [], "fieldDomains": {"outcome": {"type": "STRING", "const": "FALLBACK"}, "reason": {"type": "STRING", "enum": ["LEGACY_SENDER_EVIDENCE", "NO_SENDER_EVIDENCE", "NO_MAPPING", "MAPPING_REJECTED", "MAPPING_REVOKED", "TARGET_USER_INACTIVE"]}, "resolution_count": {"type": "INTEGER", "const": 0}}, "relations": [{"relationId": "FALLBACK_COUNT_ZERO", "kind": "COUNTER_EQUALITY", "field": "resolution_count", "value": 0}]}]},
+    {"outcomeId": "REFUSED", "shapes": [{"shapeId": "P4E_IDENTITY_REFUSED", "requiredFields": ["outcome", "reason", "resolution_count"], "forbiddenFields": ["mapping_id", "mapping_version", "target_user_id", "external_key_digest"], "conditionalRules": [], "fieldDomains": {"outcome": {"type": "STRING", "const": "REFUSED"}, "reason": {"type": "STRING", "enum": ["KEY_MISMATCH", "MULTIPLE_CURRENT_MAPPINGS", "STALE_MAPPING_VERSION", "LINEAGE_COLLISION", "AUTHORITY_STORE_UNAVAILABLE", "CORRUPT_STATE"]}, "resolution_count": {"type": "INTEGER", "const": 0}}, "relations": [{"relationId": "REFUSED_COUNT_ZERO", "kind": "COUNTER_EQUALITY", "field": "resolution_count", "value": 0}]}]}
+  ],
+  "mutationPolicy": {"excludedOperators": [{"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "P4E_IDENTITY_RESOLVED", "reason": "Flat result shape.", "independentReviewRequired": true}, {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "P4E_IDENTITY_FALLBACK", "reason": "Flat result shape.", "independentReviewRequired": true}, {"operator": "RECURSE_NESTED_OBJECTS", "shapeId": "P4E_IDENTITY_REFUSED", "reason": "Flat result shape.", "independentReviewRequired": true}]},
+  "ownershipBindings": [{"bindingId": "P4E_IDENTITY_MATRIX_DIGEST", "ownerPath": "docs/cvf/invariants/p4e-identity-resolution-outcomes.json", "consumers": [{"consumerPath": "docs/specs/p4e_invariant_pins.py", "strategy": "CANONICAL_DIGEST", "digestSymbol": "P4E_IDENTITY_RESOLUTION_MATRIX_CANONICAL_DIGEST"}]}],
+  "emitterAdapter": {"identity": "p4e_spec_identity_positive_examples", "kind": "SYNTHETIC_DETERMINISTIC"},
+  "evidenceTestPaths": ["tests/unit/test_invariant_family_contract.py", "tests/integration/test_invariant_family_repository_guard.py"],
+  "boundedClaim": "Defines P4-E identity-resolution result shapes only; RESOLVED is a current internal-user reference and never external-person authentication or authority."
+}
+

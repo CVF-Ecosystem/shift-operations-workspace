@@ -80,6 +80,30 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_CARRIER_MODES_RAW_DISPATCH_COUNTER_PREFIX_MULTI_VALIDATOR"
+    },
+    {
+      "familyId": "P4E-MAPPING-ACTION-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4e-mapping-action-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_MAPPING_LIFECYCLE_SHARED_RECEIPT_COUNTER_SCHEMA_PARITY"
+    },
+    {
+      "familyId": "P4E-IDENTITY-RESOLUTION-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4e-identity-resolution-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_IDENTITY_RESOLUTION_OUTCOME_FIELD_MULTI_VALIDATOR"
+    },
+    {
+      "familyId": "P4E-CONVERSATION-PLACEMENT-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p4e-placement-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_PLACEMENT_TERMINAL_RETRY_COUNTER_SCHEMA_PARITY"
     }
   ]
 }
