@@ -167,7 +167,7 @@ repair or broaden P4-E scope.
 | SESSION_SYNC_STEWARD | existing paths 83-92 only | current closure-candidate state and exact source pins before final suite |
 | INDEPENDENT_COMPLETION_REVIEWER (pre-material) | existing path 82 only | conditional material-commit authorization after candidate gates |
 | INDEPENDENT_COMPLETION_REVIEWER (post-material) | existing path 82 only | terminal acceptance after actual-SHA finalization and final gates |
-| COMMIT_STEWARD | staging/commit only | material commit first, continuity commit second |
+| COMMIT_STEWARD | staging/commit only | material commit, exact path-82 terminal-review commit, then continuity commit |
 
 ## Required Sequence
 
@@ -198,8 +198,10 @@ git diff --cached --stat
    rerun the entire command sequence above, including the complete suite.
 8. Route post-material evidence to the independent completion reviewer for
    terminal acceptance on path 82, rerun knowledge/file/catalog/repository and
-   diff checks after that evidence-only update, then commit only paths 83-92.
-9. Verify clean staging/worktree, material and continuity commit identities,
+   diff checks after that evidence-only update, then commit exactly path 82 as
+   a terminal-review-evidence commit.
+9. Commit only paths 83-92 as the continuity commit.
+10. Verify clean staging/worktree, material, terminal-review-evidence, and continuity commit identities,
    and park P4-E at `FREEZE / CLOSED_BOUNDED`.
 
 ## Evidence And Claim Rules
@@ -220,8 +222,9 @@ The activation commit contains only paths 110-112. After final acceptance,
 the pre-material review may authorize the material commit conditionally on
 post-commit finalization. That material commit contains accepted P4-E product/
 evidence/catalog paths and excludes 83-92. After the actual material SHA is
-written and the final gates/review pass, the continuity commit follows and
-contains only 83-92. Never use broad staging commands.
+written and the final gates/review pass, an evidence-only commit records exact
+path 82; the continuity commit then follows and contains only 83-92. Never use
+broad staging commands.
 
 ## Agent Operation Trace Block
 
@@ -263,7 +266,8 @@ contains only 83-92. Never use broad staging commands.
 
 Stop on independent authorization failure, any product finding, any final
 suite failure after sync, any needed path outside the effective 112-path
-packet, or inability to preserve the exact commit split.
+packet, or inability to preserve the exact material/path-82/continuity commit
+split.
 
 ## Public Export Disposition
 

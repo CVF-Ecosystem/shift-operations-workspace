@@ -12,7 +12,7 @@ Date: 2026-09-10
 
 Review role: INDEPENDENT_AUTHORIZATION_REVIEWER
 
-Review round: 3
+Review round: 4 (post-activation closeability correction)
 
 Risk ceiling: R2
 
@@ -24,63 +24,75 @@ Waivers: NONE
 
 ## Purpose
 
-Rereview only the exact round-2 repairs for `P4E-AM2-AUTH-F2` and
-`P4E-AM2-AUTH-F3` in Amendment 2 paths 110-111. Earlier acceptance of the
-acyclic two-gate closure sequence and all P4-E product evidence is preserved.
-No product test, implementation review, stage, commit, push, or provider call
-was performed.
+Review only the post-activation closeability correction on Amendment 2 paths
+110-111 after material commit `131a38b`. Earlier authorization findings and
+P4-E product acceptance remain closed. This review decides whether path 82's
+terminal verdict now has an exact commit owner before the continuity-only
+commit. It performs no product test, continuity/product/path-82 edit, stage,
+commit, push, or provider call.
 
 ## Reviewed Artifacts
 
 | Path | SHA-256 | Result |
 | --- | --- | --- |
-| `docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_2_2026-09-10.md` | `289957c1f547212649feb2afbabc072e0155949eec814dba816e5013c7d20edf` | MATCH ROUND-3 DRAFT |
-| `docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_2026-09-10.md` | `a179613f3498811511368761520a4ba77a373d1df3e81c15ff3e5d1589296070` | MATCH ROUND-3 DRAFT |
-| Round-1 authorization review finding-set digest | `7b3c183745f2d62c871a308e763c4a723e8a24256c861596894b460f8e177bed` | EXACT WORK-ORDER BINDING |
+| `docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_2_2026-09-10.md` | `aa4ca3e76efc2b6a497e661443172708f0340016acd9739fa08093f60727f610` | MATCH CORRECTION |
+| `docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_2026-09-10.md` | `fc2b81d9001e2eb28d889db99afd0fd735730955e368bbbf7afd2e514f5b51b6` | MATCH CORRECTION |
 
 Any semantic change to paths 110-111 invalidates this acceptance and requires
 focused rereview.
 
-## Finding Closure
+## Prior Finding Status
 
-| Finding | Verified correction | Disposition |
-| --- | --- | --- |
-| `P4E-AM2-AUTH-F2` | `priorFindingSetDigest` is the exact 64-hex round-1 review digest; trigger is canonical `SOURCE_AUTHORITY_CONTRADICTION`; Source Verification has fact types; Epistemic Process has all four named subsections; trace has all five missing identity/manifest fields; the Role And Write Matrix names both path-82 review checkpoints | CLOSED WITHOUT WAIVER |
-| `P4E-AM2-AUTH-F3` | Manifest post-activation closure ceiling is paths 82-94 with exact reviewer/session-sync/closer ownership split | CLOSED WITHOUT WAIVER |
+| Finding | Status |
+| --- | --- |
+| `P4E-AM2-AUTH-F1` | CLOSED WITHOUT WAIVER |
+| `P4E-AM2-AUTH-F2` | CLOSED WITHOUT WAIVER |
+| `P4E-AM2-AUTH-F3` | CLOSED WITHOUT WAIVER |
 
-## Final Authorization Matrix
+## Post-Activation Closeability Decision
+
+The exact diff adds the missing owner transition consistently across the
+manifest choreography/stop condition and the Work Order role matrix/sequence/
+commit boundary/stop condition:
+
+1. Material commit `131a38b` remains settled.
+2. SESSION_SYNC_STEWARD finalizes only paths 83-92 with the actual material SHA.
+3. CLOSER runs the required post-material gates and complete suite without waiver.
+4. INDEPENDENT_COMPLETION_REVIEWER updates only path 82 with terminal verdict.
+5. COMMIT_STEWARD commits exactly path 82 as terminal-review evidence.
+6. SESSION_SYNC_STEWARD commits only paths 83-92 as continuity.
+
+The path-82 commit is evidence-only and cannot absorb product, catalog, or
+continuity files. It resolves the prior orphan-review problem without changing
+product behavior, accepted gate evidence, risk R2, or external-effect ceiling.
+The terminal review must truthfully classify the extra evidence commit in its
+Review Cost commit-plan telemetry, including an exception reason when required
+by the active standard.
+
+## Authorization Matrix
 
 | Dimension | Result | Evidence |
 | --- | --- | --- |
-| Additive ceiling | PASS | Paths 110-112 are exact, unique control-plane paths; no product path is added. |
-| Amendment 1 preservation | PASS | The accepted 109-path product packet, R2 ceiling, and product findings remain settled. |
-| Catalog ownership | PASS | CLOSER alone owns paths 93-94. |
-| Candidate synchronization | PASS | SESSION_SYNC_STEWARD alone may update paths 83-92 before the pre-material suite. |
-| Material authorization | PASS | A no-waiver pre-material full suite and independent conditional review on path 82 precede the material commit. |
-| Actual-SHA finalization | PASS | After material commit, only paths 83-92 may be finalized with its actual SHA. |
-| Terminal verification | PASS | The complete gate set and full suite rerun after finalization; no failure or waiver is accepted. |
-| Terminal review | PASS | Independent completion review records terminal acceptance on path 82 before continuity commit. |
-| Commit choreography | PASS | Activation commit is exact paths 110-112; accepted material commit excludes 83-92; continuity-only commit follows. |
-| Post-activation write boundary | PASS | Reviewer 82, session-sync 83-92, closer 93-94; no product repair is opened. |
-| External effects | PASS | No provider/Alibaba, push, network, install, shared database, deployment, or public action is authorized. |
-| Machine shape | PASS | Forward Review-Dispatch, one active SCEC, read-ahead, Source Verification, handoff, dual-agent, epistemic, trace, Delta, stop, and claim-boundary blocks are present and internally consistent for this bounded authorization decision. |
+| Exact diff | PASS | Only paths 110-111 change before this reviewer update. |
+| Path ownership | PASS | Reviewer 82; session-sync 83-92; closer 93-94; commit steward stages exact sets only. |
+| Commit order | PASS | Material, terminal-review evidence, then continuity. |
+| Final verification | PASS | Post-material full gate/suite precedes terminal review; no failure or waiver is accepted. |
+| Claim boundary | PASS | Terminal closure exists only after review evidence and continuity are committed. |
+| External effects | PASS | No provider/Alibaba, network, install, shared database, deployment, public action, or push. |
+| Product boundary | PASS | No product or catalog mutation is authorized by this correction. |
 
 ## Exhaustiveness Statement
 
-The round-3 rereview found no remaining authorization finding. The corrected
-sequence is acyclic: catalog generation, candidate continuity synchronization,
-pre-material gates/review, material commit, actual-SHA continuity finalization,
-post-material complete gates/full suite, terminal review, then continuity
-commit. Passing authorization does not substitute for either gate cycle and
-does not waive any failure.
+No authorization finding remains in the bounded correction. The sequence has
+an owner and exact commit destination for every remaining mutable artifact.
+This PASS does not substitute for the post-material gates or terminal review.
 
 ## Lane Release
 
-The `INDEPENDENT_AUTHORIZATION_REVIEWER` lane releases to `COMMIT_STEWARD` only
-for the exact paths 110-112 control-plane activation commit. Existing product,
-catalog, completion-review, and continuity changes remain unstaged. After the
-activation commit, roles must execute the Work Order sequence without widening
-paths or external effects.
+Release to `COMMIT_STEWARD` only for one exact post-activation correction commit
+containing paths 110-112. Continuity, product, catalog, and path 82 must remain
+untouched by that commit. The later path-82 evidence commit is authorized only
+after post-material gates and terminal independent review.
 
 ## External Effect Counters
 
@@ -101,32 +113,30 @@ paths or external effects.
 | --- | --- |
 | Actor | INDEPENDENT_AUTHORIZATION_REVIEWER |
 | Provider or surface | local first-party project workspace |
-| Session or invocation | Amendment 2 authorization rereview round 3, 2026-09-10 |
+| Session or invocation | Amendment 2 post-activation closeability correction review, 2026-09-10 |
 | Working directory | project repository root |
-| Command or tool surface | exact hash verification, bounded F2/F3 source inspection, apply-patch on path 112 |
+| Command or tool surface | exact target diff/hash inspection; apply-patch on path 112 |
 | Target paths | read paths 110-111; write path 112 only |
-| Allowed scope source | independent round-3 authorization assignment |
-| Before status evidence | corrected paths 110-111 at the hashes above; staging unchanged |
-| After status evidence | path 112 records PASS; paths 110-111 unchanged |
-| Diff evidence | reviewer mutation limited to path 112 |
-| Approval boundary | activation commit authority only |
-| Claim boundary | ordering-document authorization only; no product or closure acceptance |
+| Allowed scope source | independent post-activation correction review assignment |
+| Before status evidence | HEAD `131a38b0c817903df2148107078c25dbe50d5f38`; exact paths 110-111 modified; staging empty |
+| After status evidence | path 112 accepts the correction; no other reviewer mutation |
+| Diff evidence | correction commit set is exact paths 110-112 |
+| Approval boundary | exact paths 110-112 correction commit only |
+| Claim boundary | commit-owner choreography only; no product or closure acceptance |
 | Agent type | INDEPENDENT_AUTHORIZATION_REVIEWER |
-| Invocation ID | `p4e-amendment2-authorization-review-r3-2026-09-10` |
-| Expected manifest | path 112 only |
-| Actual changed set | path 112 only |
+| Invocation ID | `p4e-amendment2-post-activation-closeability-review-2026-09-10` |
+| Expected manifest | paths 110-112 only |
+| Actual changed set | paths 110-112 only |
 | Manifest delta | MATCH |
-| Deletion or rename disposition | N/A with reason - no deletion or rename |
 
 ## Public Export Disposition
 
 DEFERRED_PRIVATE_ONLY
 
-Reason: private project authorization review; no public export is authorized.
+Reason: private project closeability correction; no public export is authorized.
 
 ## Claim Boundary
 
-This review accepts only the two hash-pinned Amendment 2 control documents as
-a bounded, machine-closeable ordering correction. It authorizes only their
-exact activation commit with path 112; it makes no product, provider,
-deployment, production, public, final-gate, or P4-E closure claim.
+This review accepts only the exact post-activation commit-owner correction and
+releases its paths 110-112 commit. It makes no product, provider, deployment,
+production, public, post-material gate, terminal closure, or continuity claim.

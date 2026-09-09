@@ -65,13 +65,16 @@ WORK_ORDER_AUTHOR-owned. Path 112 is INDEPENDENT_AUTHORIZATION_REVIEWER-owned.
    because path 82 is not a Project Knowledge source pin, this evidence-only
    update does not invalidate the post-material full suite. File-size,
    knowledge, catalog, repository, and diff checks are rerun afterward.
-10. SESSION_SYNC_STEWARD creates one separate continuity commit containing
+10. COMMIT_STEWARD creates one evidence-only commit containing exactly path 82.
+    This commit records the terminal independent verdict and contains no
+    product, catalog, or continuity path.
+11. SESSION_SYNC_STEWARD creates one separate continuity commit containing
    only paths 83-92. Terminal closure exists only after this post-material gate
    cycle and continuity commit pass.
 
 This is an ordering correction only. It creates both a pre-material candidate
 gate and a post-material final gate; it does not waive any gate or combine the
-material and continuity commits.
+material, terminal-review-evidence, and continuity commits.
 
 ## Activation Preconditions
 
@@ -87,8 +90,8 @@ material and continuity commits.
 Stop on any requested product edit, path outside 82-94 after activation
 (reviewer only 82, session-sync only 83-92, closer only 93-94),
 non-continuity full-suite failure, provider/network/install/shared-database/
-deployment/public action, or inability to preserve exact two-commit material
-then continuity ordering.
+deployment/public action, or inability to preserve exact material, path-82
+terminal-review-evidence, then continuity commit ordering.
 
 ## Public Export Disposition
 
