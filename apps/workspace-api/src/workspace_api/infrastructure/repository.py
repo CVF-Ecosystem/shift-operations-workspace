@@ -31,15 +31,19 @@ from workspace_api.infrastructure._customer_request_repository import _CustomerR
 from workspace_api.infrastructure._handover_repository import _HandoverRepositoryMixin
 from workspace_api.infrastructure._incident_repository import _IncidentRepositoryMixin
 from workspace_api.infrastructure._message_repository import _MessageRepositoryMixin
+from workspace_api.infrastructure._p4e_repository import _InMemoryP4eRepositoryMixin
 from workspace_api.infrastructure._report_repository import _ReportRepositoryMixin
 
 class InMemoryLedger(
     _ApprovalStoreMixin, _AssignmentRepositoryMixin, _CustomerRequestRepositoryMixin,
     _IncidentRepositoryMixin, _HandoverRepositoryMixin, _MessageRepositoryMixin,
-    _ReportRepositoryMixin,
+    _ReportRepositoryMixin, _InMemoryP4eRepositoryMixin,
 ):
     def __init__(self):
         self._lock = RLock()
+        self._p4e_init()
+        from datetime import datetime as _dt, timezone as _tz
+        self._p4e_clock = lambda: _dt.now(_tz.utc)
         self.shifts: dict[UUID, Shift] = {}
         self.assignments: dict[UUID, ShiftAssignment] = {}
         self.messages: dict[UUID, Message] = {}
@@ -65,7 +69,7 @@ class InMemoryLedger(
         ``event.state = CONFIRMED``, before calling ``put_event``). Any
         exception restores the snapshot before propagating, matching
         SqlLedger's real transaction (P-FIX-2 / High Finding #5)."""
-        with self._lock:
+        with self._lock, self._p4e_lock:
             snapshot = copy.deepcopy(
                 (
                     self.shifts,
@@ -82,6 +86,13 @@ class InMemoryLedger(
                     self.task_creation_intents,
                     self.assignments,
                     self._audit.all(),
+                    self._p4e_observations,
+                    self._p4e_mappings,
+                    self._p4e_bindings,
+                    self._p4e_proposals,
+                    self._p4e_work,
+                    self._p4e_decisions,
+                    self._p4e_receipts,
                 )
             )
             try:
@@ -102,6 +113,13 @@ class InMemoryLedger(
                     self.task_creation_intents,
                     self.assignments,
                     entries,
+                    self._p4e_observations,
+                    self._p4e_mappings,
+                    self._p4e_bindings,
+                    self._p4e_proposals,
+                    self._p4e_work,
+                    self._p4e_decisions,
+                    self._p4e_receipts,
                 ) = snapshot
                 self._audit = AuditLog()
                 for entry in entries:

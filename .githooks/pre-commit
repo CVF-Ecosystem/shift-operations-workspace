@@ -21,6 +21,9 @@ fi
 echo "[pre-commit] module catalog --check"
 "$PY" scripts/generate_catalog.py --check
 
+echo "[pre-commit] CVF Core machine inheritance"
+"$PY" scripts/check_cvf_core_machine_inheritance.py --enforce
+
 echo "[pre-commit] session state check"
 "$PY" scripts/check_session_state.py
 

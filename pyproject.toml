@@ -56,6 +56,8 @@ pythonpath = [
   "apps/workspace-api/src",
   "apps/workspace-worker/src",
   "apps/integration-edge/src",
+  "packages/identity-mapping/src",
+  "packages/conversation-routing/src",
   "packages/channel-sdk/src",
   "packages/channel-adapters/src",
   "packages/application-memory/src",

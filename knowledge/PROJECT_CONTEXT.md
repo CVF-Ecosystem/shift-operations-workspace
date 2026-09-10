@@ -98,14 +98,22 @@ Zalo/WhatsApp mocks. Independent audit verified exact 54, focused 74,
 invariant 37/2 plus guard, full 2898/132/1 and doctor 24 plus the bounded
 legacy-catalog note. This proves no live send, vendor
 protocol conformance, receiver replay enforcement, CVF governance behavior,
-P4-E implementation, production readiness or deployment. P4-E itself remains
-at accepted `DESIGN_REVIEW_PASS`; after the 2026-09-09 first-party CVF
-inheritance recovery, its former Core-refresh prerequisite is satisfied and a
-fresh explicit SPEC transition is the next permitted governance move. Public
-Core is pinned at `483c5e33d`; the operator-local rule pack is required and is
-materialized from private provenance `bee38695e`. Both are read-only authority
-for project work. Phase 5, external-repository absorption, and XR1 historical-
-object debt remain parked.
+P4-E implementation, production readiness or deployment. P4-E is now at
+`FREEZE / CLOSED_BOUNDED`. Amendment 1 repair is independently technically
+accepted; all product findings including `P4E-AM1-REV-F1` are closed without
+waiver, focused tests passed 219/2, disposable PostgreSQL passed 12 with
+cleanup, and the module catalog is canonical. Amendment 2 independently passed
+authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
+Knowledge phase-order cycle and bind terminal review evidence ownership.
+Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
+accepted product/review/catalog packet; post-material complete gates, terminal
+review and continuity commit close the tranche. Public Core remains pinned at
+`483c5e33d`; the operator-local rule pack is materialized from private
+provenance `e4c055484` and its ADIF-0057 machine gate is bound to the project.
+Both cores are read-only. External-repository absorption is now
+`INTAKE_READY / SOURCE_SET_REQUIRED`; no repository has been scanned or
+absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
+remain parked.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

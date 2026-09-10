@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://cvf.local/contracts/identity/external-identity-mapping.schema.json",
+  "title":"P4-E mapping/binding action receipt and identity resolution result contracts",
+  "oneOf":[
+    {"$ref":"#/$defs/APPLIED"},{"$ref":"#/$defs/IDEMPOTENT_REPLAY"},{"$ref":"#/$defs/ACTION_REFUSED"},{"$ref":"#/$defs/CONFLICT"},
+    {"$ref":"#/$defs/RESOLVED"},{"$ref":"#/$defs/RESOLUTION_FALLBACK"},{"$ref":"#/$defs/RESOLUTION_REFUSED"}
+  ],
+  "$defs":{
+    "digest":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "action":{"enum":["PROPOSE","CONFIRM","REJECT","REVOKE","CORRECT","BIND","REPLACE_BINDING","PRIVACY_DELETE"]},
+    "APPLIED":{"type":"object","additionalProperties":false,"required":["outcome","action","aggregate_id","aggregate_version","audit_id","command_application_count","audit_count","replayed"],"properties":{"outcome":{"const":"APPLIED"},"action":{"$ref":"#/$defs/action"},"aggregate_id":{"type":"string","minLength":1},"aggregate_version":{"type":"integer"},"audit_id":{"type":"string","minLength":1},"command_application_count":{"const":1},"audit_count":{"const":1},"replayed":{"const":false}}},
+    "IDEMPOTENT_REPLAY":{"type":"object","additionalProperties":false,"required":["outcome","action","aggregate_id","aggregate_version","audit_id","command_application_count","audit_count","replayed"],"properties":{"outcome":{"const":"IDEMPOTENT_REPLAY"},"action":{"$ref":"#/$defs/action"},"aggregate_id":{"type":"string","minLength":1},"aggregate_version":{"type":"integer"},"audit_id":{"type":"string","minLength":1},"command_application_count":{"const":0},"audit_count":{"const":0},"replayed":{"const":true}}},
+    "ACTION_REFUSED":{"type":"object","additionalProperties":false,"required":["outcome","action","reason","command_application_count","audit_count","replayed"],"properties":{"outcome":{"const":"REFUSED"},"action":{"$ref":"#/$defs/action"},"reason":{"enum":["IDENTITY_REQUIRED","PERMISSION_DENIED","ACTOR_INACTIVE","ROLE_CHANGED","SCOPE_MISMATCH","SEPARATION_OF_DUTY","TARGET_INELIGIBLE","SENDER_MISMATCH","INVALID_LIFECYCLE","UNSUPPORTED_TARGET"]},"command_application_count":{"const":0},"audit_count":{"const":0},"replayed":{"const":false}}},
+    "CONFLICT":{"type":"object","additionalProperties":false,"required":["outcome","action","reason","command_application_count","audit_count","replayed"],"properties":{"outcome":{"const":"CONFLICT"},"action":{"$ref":"#/$defs/action"},"reason":{"enum":["VERSION_CONFLICT","IDEMPOTENCY_CONFLICT","CURRENT_MAPPING_CONFLICT","CURRENT_BINDING_CONFLICT","LINEAGE_COLLISION","CORRUPT_STATE"]},"command_application_count":{"const":0},"audit_count":{"const":0},"replayed":{"const":false}}},
+    "RESOLVED":{"type":"object","additionalProperties":false,"required":["outcome","mapping_id","mapping_version","target_user_id","external_key_digest","resolution_count"],"properties":{"outcome":{"const":"RESOLVED"},"mapping_id":{"type":"string","minLength":1},"mapping_version":{"type":"integer"},"target_user_id":{"type":"string","minLength":1},"external_key_digest":{"$ref":"#/$defs/digest"},"resolution_count":{"const":1}}},
+    "RESOLUTION_FALLBACK":{"type":"object","additionalProperties":false,"required":["outcome","reason","resolution_count"],"properties":{"outcome":{"const":"FALLBACK"},"reason":{"enum":["LEGACY_SENDER_EVIDENCE","NO_SENDER_EVIDENCE","NO_MAPPING","MAPPING_REJECTED","MAPPING_REVOKED","TARGET_USER_INACTIVE"]},"resolution_count":{"const":0}}},
+    "RESOLUTION_REFUSED":{"type":"object","additionalProperties":false,"required":["outcome","reason","resolution_count"],"properties":{"outcome":{"const":"REFUSED"},"reason":{"enum":["KEY_MISMATCH","MULTIPLE_CURRENT_MAPPINGS","STALE_MAPPING_VERSION","LINEAGE_COLLISION","AUTHORITY_STORE_UNAVAILABLE","CORRUPT_STATE"]},"resolution_count":{"const":0}}}
+  }
+}

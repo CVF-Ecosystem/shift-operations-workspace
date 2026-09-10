@@ -13,6 +13,12 @@ class EdgeConfig(BaseModel):
     raw_retention_days: int = Field(default=30, ge=1, le=30)
     ingress_operation: str = "external_ingress.propose"
     outbound_operation: str = "outbound.deliver"
+    # P4-E SPEC R1: the workspace digest bound into the sender-aware
+    # signature preimage and every derived ExternalIdentityKeyV1 - this
+    # deployment's single configured workspace, never a per-request value.
+    sender_evidence_workspace_digest: str | None = Field(
+        default=None, pattern=r"^[0-9a-f]{64}$"
+    )
 
     @field_validator("service_name")
     @classmethod

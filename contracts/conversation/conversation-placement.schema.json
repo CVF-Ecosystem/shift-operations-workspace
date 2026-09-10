@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://cvf.local/contracts/conversation/conversation-placement.schema.json",
+  "title":"P4-E deterministic proposal placement outcome contracts",
+  "oneOf":[
+    {"$ref":"#/$defs/PLACED"},{"$ref":"#/$defs/FALLBACK"},{"$ref":"#/$defs/REFUSED"},{"$ref":"#/$defs/RETRY_PENDING"}
+  ],
+  "$defs":{
+    "digest":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "targetKind":{"enum":["WORKSPACE","SHIFT","INCIDENT"]},
+    "PLACED":{"type":"object","additionalProperties":false,"required":["outcome","decision_id","proposal_id","mapping_id","binding_id","target_kind","target_id","conversation_key","decision_count","work_complete"],"properties":{"outcome":{"const":"PLACED"},"decision_id":{"type":"string","minLength":1},"proposal_id":{"type":"string","minLength":1},"mapping_id":{"type":"string","minLength":1},"binding_id":{"type":"string","minLength":1},"target_kind":{"$ref":"#/$defs/targetKind"},"target_id":{"type":"string","minLength":1},"conversation_key":{"$ref":"#/$defs/digest"},"decision_count":{"const":1},"work_complete":{"const":true}}},
+    "FALLBACK":{"type":"object","additionalProperties":false,"required":["outcome","reason","decision_id","proposal_id","decision_count","work_complete"],"properties":{"outcome":{"const":"FALLBACK"},"reason":{"enum":["LEGACY_SENDER_EVIDENCE","NO_SENDER_EVIDENCE","NO_MAPPING","MAPPING_REJECTED","MAPPING_REVOKED","TARGET_USER_INACTIVE","NO_BINDING","UNSUPPORTED_TARGET"]},"decision_id":{"type":"string","minLength":1},"proposal_id":{"type":"string","minLength":1},"decision_count":{"const":1},"work_complete":{"const":true}}},
+    "REFUSED":{"type":"object","additionalProperties":false,"required":["outcome","reason","decision_id","proposal_id","decision_count","work_complete"],"properties":{"outcome":{"const":"REFUSED"},"reason":{"enum":["LINEAGE_COLLISION","LINEAGE_DIGEST_MISMATCH","UNKNOWN_CLAIM_STATE","MULTIPLE_CURRENT_MAPPINGS","MULTIPLE_CURRENT_BINDINGS","STALE_MAPPING_VERSION","STALE_BINDING_VERSION","TARGET_STATE_AMBIGUOUS","ASSIGNMENT_INELIGIBLE","RETRY_EXHAUSTED","CORRUPT_STATE"]},"decision_id":{"type":"string","minLength":1},"proposal_id":{"type":"string","minLength":1},"decision_count":{"const":1},"work_complete":{"const":true}}},
+    "RETRY_PENDING":{"type":"object","additionalProperties":false,"required":["outcome","reason","proposal_id","decision_count","work_complete"],"properties":{"outcome":{"const":"RETRY_PENDING"},"reason":{"enum":["AUTHORITY_STORE_UNAVAILABLE","TARGET_STORE_UNAVAILABLE","TRANSACTION_ROLLED_BACK","CLAIM_RECOVERABLE"]},"proposal_id":{"type":"string","minLength":1},"decision_count":{"const":0},"work_complete":{"const":false}}}
+  }
+}

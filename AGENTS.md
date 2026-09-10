@@ -4,7 +4,8 @@
 > `../.Controlled-Vibe-Framework-CVF` at
 > `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4`. Private operator-local
 > provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `bee38695ebac452e0ea6b3487706ed5c84f5fc2e`. Bootstrap date: 2026-09-09.
+> `e4c055484f813b6d7bda6ed9249664908ccca087`. Bootstrap date: 2026-09-09;
+> operator-local governance learning refreshed: 2026-09-10.
 
 ## Mandatory Governance Proof
 
@@ -38,7 +39,11 @@ Before performing ANY action on this project, you MUST:
    named by that bootstrap. The private provenance surfaces are read-only
    authority; copied rule-pack files are refreshable projections, not new
    project-owned authority roots.
-5. Resolve project continuity progressively from
+5. Before dispatch, redispatch, review, or commit, run
+   `python scripts/check_cvf_core_machine_inheritance.py --enforce`. This
+   verifies the exact operator-local provenance/rule-pack pin and applies the
+   materialized ADIF-0057 closeability checker to this project worktree.
+6. Resolve project continuity progressively from
    `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`, then
    `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json`, and the
    active handoff under `SESSION/handoffs/`. `CVF_SESSION/ACTIVE_SESSION_STATE.json`
@@ -46,12 +51,12 @@ Before performing ANY action on this project, you MUST:
    `docs/INDEX.md`, and `docs/implementation/EXECUTION_ROADMAP.md`. Do a
    targeted full-history lookup only when a current fact is missing or
    contradictory.
-6. Declare your operating context before your first substantive action, as a
+7. Declare your operating context before your first substantive action, as a
    `CVF Agent Declaration` naming project, CVF core path and commit, phase,
    risk ceiling, live evidence required (YES), active role, active handoff,
    next allowed move, and parked checkpoint.
 
-If you cannot complete steps 1-6 because a file is missing or unreadable:
+If you cannot complete steps 1-7 because a file is missing or unreadable:
 -> **STOP. Report which file is missing. Do not proceed.**
 
 ## Mandatory Continuity Rehydration

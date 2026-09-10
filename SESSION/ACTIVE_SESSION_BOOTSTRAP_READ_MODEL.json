@@ -1,27 +1,24 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cvf_provenance_inheritance_recovery_closed_p4e_ready_for_fresh_spec",
-  "activeHandoff": "SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md",
-  "nextAllowedMove": "Resume P4-E from accepted DESIGN_REVIEW_PASS by recording a fresh explicit SPEC transition, then author and independently review its SPEC and bounded Work Order before BUILD. Keep Phase 5 and external-repository absorption parked.",
-  "parkedOperatorCheckpoint": "P4-E implementation is not authorized; Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked.",
+  "currentMode": "external_repository_absorption_intake_ready",
+  "activeHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
+  "nextAllowedMove": "Obtain the exact repository URL/path set and intended absorption outcome from the operator, then create a bounded source-intake/corpus receipt before any scan or absorption.",
+  "parkedOperatorCheckpoint": "Source repository set and absorption outcome are required. Phase 5, catalog schema migration and XR1 remain parked.",
   "requiredReads": [
-    "SESSION/handoffs/CVF_PROVENANCE_INHERITANCE_RECOVERY_2026-09-09.md",
-    "docs/decisions/CVF_PROVENANCE_INHERITANCE_RECOVERY_COMPLETION_2026-09-09.md",
-    "docs/CVF_BOOTSTRAP_LOG_20260909.md",
+    "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
+    "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
     ".cvf/manifest.json",
-    ".cvf/policy.json",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "IMPLEMENTATION_STATUS.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
-    "docs/decisions/DESIGN_2026-08-29_P4E_IDENTITY_CONVERSATION_ROUTING.md",
-    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_DESIGN_REVIEW_2026-08-29.md"
+    "docs/catalog/MODULE_REGISTRY.json",
+    "IMPLEMENTATION_STATUS.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "priorActiveHandoff": "SESSION/handoffs/CORE_PIN_RECONCILIATION_2026-08-11.md"
+    "priorActiveHandoff": "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md"
   },
-  "updatedAt": "2026-09-09"
+  "updatedAt": "2026-09-10"
 }

@@ -25,6 +25,14 @@ the portable product carrier; private provenance remains read-only authority.
 Materialized provenance continuity is a refreshable projection and must not be
 treated as a new authority root owned by this project.
 
+The operator-local ADIF-0057 responsibility-topology control is machine-bound
+to this repository through `scripts/check_cvf_core_machine_inheritance.py`.
+Before dispatch, redispatch, review, or commit, that guard verifies the exact
+private provenance and rule-pack pins, then runs the materialized closeability
+checker against this project root. The configured Git pre-commit hook invokes
+the same guard; out-of-band tools that bypass repository gates remain outside
+the enforcement claim.
+
 Source and evidence must stay within classification, provenance, purpose, and
 data-scope boundaries. INTERNAL data is not automatically eligible for an
 external model; minimization and a separately authorized runtime gate remain

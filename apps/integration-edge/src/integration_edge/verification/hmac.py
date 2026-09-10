@@ -107,3 +107,40 @@ def verify_hmac(
     except (TypeError, ValueError):
         return False
     return hmac.compare_digest(expected, supplied_signature.lower())
+
+
+def verify_sender_aware_signature(
+    supplied_signature: str,
+    secret: bytes,
+    *,
+    request,
+    normalized_sender_bytes: bytes,
+) -> bool:
+    """P4-E SPEC R1: verifies the sender-aware ingress signature over the
+    exact normalized bytes, using the ONE canonical preimage contract
+    channel_sdk owns (SPEC R18: never a second, locally-redefined framing)."""
+    from channel_sdk import sender_aware_signature_preimage
+
+    try:
+        preimage = sender_aware_signature_preimage(
+            signature_version=request.signature_version,
+            workspace_digest=request.workspace_digest,
+            endpoint_id=request.endpoint_id,
+            channel_id=request.channel_id,
+            provider_account_digest=request.provider_account_digest,
+            subject_kind=request.subject_kind,
+            extraction_policy_id=request.extraction_policy_id,
+            extraction_policy_version=request.extraction_policy_version,
+            verification_scheme=request.verification_scheme,
+            verification_version=request.verification_version,
+            external_message_id=request.external_message_id,
+            timestamp=request.timestamp,
+            normalized_sender_bytes=normalized_sender_bytes,
+            body_sha256=request.body_sha256,
+        )
+    except (TypeError, ValueError):
+        return False
+    if not isinstance(secret, bytes) or len(secret) < 32:
+        return False
+    expected = hmac.new(secret, preimage, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(expected, supplied_signature.lower())

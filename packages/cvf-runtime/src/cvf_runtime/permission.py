@@ -97,6 +97,23 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # implicit consequence of assignment alone - same bar as viewer's
     # existing read authority, no new capability is granted.
     "retrieval.query": "viewer",
+    # P4-E identity mapping and conversation routing (SPEC R7 exact table).
+    # These are the sole authority for their actions; no endpoint-local
+    # role comparison may restate this ordering (SPEC R7's explicit ban).
+    "external_identity_mapping.read": "operator",
+    "external_identity_mapping.propose": "operator",
+    "external_identity_mapping.confirm": "shift_supervisor",
+    "external_identity_mapping.reject": "shift_supervisor",
+    "external_identity_mapping.revoke": "shift_supervisor",
+    "external_identity_mapping.correct": "shift_supervisor",
+    "conversation_route.bind": "shift_supervisor",
+    "conversation_route.replace": "shift_supervisor",
+    "external_identity_mapping.privacy_delete": "responsible_manager",
+    # completion-review F4: the placement-work retry endpoint previously
+    # verified only a JWT dependency with no governed action at all - it
+    # recomputes deterministic state from durable data (no new authority
+    # is granted), so it sits at the same operator bar as the read action.
+    "conversation_route.retry_placement_work": "operator",
 }
 
 

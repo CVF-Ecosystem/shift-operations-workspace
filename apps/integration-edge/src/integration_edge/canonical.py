@@ -46,3 +46,10 @@ def envelope_aad(
             "version": "1",
         }
     )
+
+
+# P4-E completion-review F2 repair: the sender-aware signature preimage
+# moved to channel_sdk.sender_evidence.sender_aware_signature_preimage -
+# ONE canonical framing contract (8-byte length-prefixed, shared with
+# derive_sender_token), not a second, incompatible 4-byte scheme here.
+# Import from channel_sdk directly; this module defines it no more.
