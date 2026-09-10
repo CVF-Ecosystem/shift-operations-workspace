@@ -99,16 +99,19 @@ invariant 37/2 plus guard, full 2898/132/1 and doctor 24 plus the bounded
 legacy-catalog note. This proves no live send, vendor
 protocol conformance, receiver replay enforcement, CVF governance behavior,
 P4-E implementation, production readiness or deployment. P4-E is now at
-`BUILD / AMENDMENT_1_REPAIR_READY`. Uncommitted implementation exists but is
-not accepted: completion-review round 3 retains F1-F4 across authentication,
-exact authority, complete CAS and evidence truthfulness. After CVF closeability
-learning, the operator authorized an exact fifteen-path expansion and one
-successor repair; independent Amendment 1 authorization review returned PASS
-with findings/waivers `NONE/NONE`. Public Core remains pinned at `483c5e33d`;
-the operator-local rule pack is required and is materialized from private
-provenance `fe62894f8`. Both are read-only authority for project work. Phase 5,
-external-repository absorption, closer catalog regeneration/final closure, and
-XR1 historical-object debt remain parked.
+`FREEZE / CLOSED_BOUNDED`. Amendment 1 repair is independently technically
+accepted; all product findings including `P4E-AM1-REV-F1` are closed without
+waiver, focused tests passed 219/2, disposable PostgreSQL passed 12 with
+cleanup, and the module catalog is canonical. Amendment 2 independently passed
+authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
+Knowledge phase-order cycle and bind terminal review evidence ownership.
+Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
+accepted product/review/catalog packet; post-material complete gates, terminal
+review and continuity commit close the tranche. Public Core remains pinned at
+`483c5e33d`; the operator-local rule pack is materialized from private
+provenance `fe62894f8`. Both are read-only. Phase 5, external-repository
+absorption, catalog schema migration and XR1 historical-object debt remain
+parked.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

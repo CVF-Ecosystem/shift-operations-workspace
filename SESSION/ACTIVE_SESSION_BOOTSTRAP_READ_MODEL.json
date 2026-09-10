@@ -1,23 +1,23 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p4e_identity_conversation_routing_amendment1_repair_ready",
+  "currentMode": "p4e_identity_conversation_routing_closed_bounded",
   "activeHandoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
-  "nextAllowedMove": "Dispatch exactly one Claude REPAIR_WORKER for successor cluster P4E-AMENDMENT1-CONSOLIDATED-F1-THROUGH-F4-2026-09-10 under the independently accepted Amendment 1; preserve current work, stay inside original paths 15-80 plus 95-109, resolve F1-F4, use local-image-only PostgreSQL, update path 80, leave staging empty, and do not commit or call a product provider.",
-  "parkedOperatorCheckpoint": "P4-E independent successor completion review, closer-owned catalog regeneration, final gates/commit and closure, Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked until the successor repair return.",
+  "nextAllowedMove": "No further project mutation. Keep P4-E parked at FREEZE/CLOSED_BOUNDED; the operator's next governed move is in the CVF Core repository to open a separate tranche that raises ADIF-0057 from PARTIAL_CHECK to machine-enforced.",
+  "parkedOperatorCheckpoint": "P4-E and Phase 4 are parked closed bounded. Phase 5, external-repository absorption, governed-catalog schema migration and XR1 historical-object debt remain parked pending a fresh project instruction.",
   "requiredReads": [
     "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md",
-    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_1_AUTHORIZATION_REVIEW_2026-09-10.md",
-    "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_1_2026-09-10.md",
-    "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_1_2026-09-10.md",
+    "docs/decisions/P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_AUTHORIZATION_REVIEW_2026-09-10.md",
+    "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_2_2026-09-10.md",
+    "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_2026-09-10.md",
     "docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_COMPLETION_2026-09-09.md",
     "docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_WORKER_RETURN_2026-09-09.md",
-    "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_2026-09-09.md",
-    "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_2026-09-09.md",
+    "docs/implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_1_2026-09-10.md",
+    "docs/work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_1_2026-09-10.md",
     "docs/specs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "docs/decisions/SPEC_REREVIEW_2026-09-09_P4E_IDENTITY_CONVERSATION_ROUTING.md"
+    "docs/catalog/MODULE_REGISTRY.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

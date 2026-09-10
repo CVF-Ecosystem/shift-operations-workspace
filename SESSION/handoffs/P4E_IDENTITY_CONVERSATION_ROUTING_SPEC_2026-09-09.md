@@ -1,13 +1,40 @@
 # Handoff - P4-E Identity Mapping and Conversation Routing
 
 - Tranche: `P4E-IDENTITY-CONVERSATION-ROUTING-2026-09-09`
-- Status: `BUILD / AMENDMENT_1_REPAIR_READY`
+- Status: `FREEZE / CLOSED_BOUNDED`
 - Risk: `R2`
-- Active role: `REPAIR_WORKER`
+- Active role: `ORCHESTRATOR` (project parked after closure sequence)
 - Branch: `docs/p4e-spec`
 - Updated: `2026-09-10`
 
-## 2026-09-10 Amendment 1 Activation
+## 2026-09-10 Amendment 2 Finalization
+
+Amendment 1 repair is independently accepted without waiver. Successor finding
+`P4E-AM1-REV-F1` is closed at the SQL and InMemory write stores; focused tests
+passed `219/2`, disposable PostgreSQL passed `12`, and catalog paths 93-94 are
+canonical. Material commit
+`131a38b0c817903df2148107078c25dbe50d5f38` records the exact accepted
+79-path product/review/catalog set. No provider call, install, shared database,
+deployment, or push was performed.
+
+Catalog generation changed a Project Knowledge source pin while the prior
+choreography deferred paths 83-92 until after material commit, creating a
+machine-reproduced closeability cycle. Exact-manifest/Work Order Amendment 2
+received independent `AUTHORIZATION_REVIEW_PASS`, findings/waivers `NONE/NONE`,
+and was activated at `c82d9e0`; correction commit `9809852` binds the terminal
+path-82 evidence commit explicitly. It authorizes the pre-material
+continuity candidate, a complete candidate gate, conditional independent
+material-commit authorization, then post-material actual-SHA finalization,
+another complete gate/review, and a separate continuity commit.
+
+Final disposition: `FREEZE / CLOSED_BOUNDED` after the post-material complete
+gate, terminal independent review, exact path-82 evidence commit, and separate
+paths83-92 continuity commit. Next allowed move is no project mutation; the
+operator returns to CVF Core to open the ADIF-0057 machine-enforcement tranche.
+Phase 5, external absorption, catalog schema migration, and XR1 debt remain
+parked.
+
+## 2026-09-10 Amendment 1 Activation (superseded current-move text)
 
 Startup acknowledged: current mode=
 `p4e_identity_conversation_routing_amendment1_repair_ready`; active handoff=
