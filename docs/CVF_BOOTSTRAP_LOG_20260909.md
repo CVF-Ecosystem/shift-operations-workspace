@@ -75,3 +75,19 @@ named public Core and operator-local private provenance projection. It does not
 prove provider behavior, deployment, production readiness, or any new P4-E
 runtime capability. The retained catalog note requires a separate schema-
 migration tranche; it is not a failed mandatory doctor check.
+
+## 8. 2026-09-10 Machine-Inheritance Refresh
+
+- Private provenance pin refreshed to
+  `e4c055484f813b6d7bda6ed9249664908ccca087`.
+- Operator-local rule-pack refreshed from that commit with 31 selected
+  artifacts, including the ADIF-0057 standard, checker, and defect record.
+- `scripts/check_cvf_core_machine_inheritance.py` now fails closed on pin,
+  projection, or private-HEAD drift and applies the Core closeability checker
+  to this project through its explicit `--repo-root` adapter.
+- `.githooks/pre-commit` invokes the inheritance guard before project tests.
+- Positive proof reported zero binding and closeability violations. A temporary
+  untracked active Work Order without the required contract was rejected with
+  `contract_missing`; the probe file was then removed.
+- Live/provider execution: not applicable; this refresh proves static
+  repository governance binding only and makes no AI/provider behavior claim.
