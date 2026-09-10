@@ -1,18 +1,16 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cvf_core_machine_inheritance_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
-  "nextAllowedMove": "The project is eligible for the operator to select a fresh project tranche. P4-E remains closed; Phase 5, external-repository absorption, governed-catalog schema migration and XR1 debt remain parked until explicitly selected.",
-  "parkedOperatorCheckpoint": "Operator selection of the next project tranche; no parked item was implicitly opened by the inheritance refresh.",
+  "currentMode": "external_repository_absorption_intake_ready",
+  "activeHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
+  "nextAllowedMove": "Obtain the exact repository URL/path set and intended absorption outcome from the operator, then create a bounded source-intake/corpus receipt before any scan or absorption.",
+  "parkedOperatorCheckpoint": "Source repository set and absorption outcome are required. Phase 5, catalog schema migration and XR1 remain parked.",
   "requiredReads": [
+    "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
     "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
-    "docs/CVF_BOOTSTRAP_LOG_20260909.md",
     ".cvf/manifest.json",
-    "scripts/check_cvf_core_machine_inheritance.py",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_COMPLETION_2026-09-09.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/catalog/MODULE_REGISTRY.json",
     "IMPLEMENTATION_STATUS.json"
@@ -20,7 +18,7 @@
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "priorActiveHandoff": "SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md"
+    "priorActiveHandoff": "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md"
   },
   "updatedAt": "2026-09-10"
 }

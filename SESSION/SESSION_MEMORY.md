@@ -6,7 +6,12 @@ use the archive for a targeted historical lookup.
 
 ## Current checkpoint
 
-The operator-local ADIF-0057 machine-inheritance refresh is `FREEZE /
+External-repository absorption is `INTAKE_READY / SOURCE_SET_REQUIRED` after
+the operator selected return to that work. No repository URL/path set or
+intended absorption outcome is yet present in current authority, so no clone,
+fetch, enumeration, scan, absorption, or promotion has started.
+
+The preceding operator-local ADIF-0057 machine-inheritance refresh is `FREEZE /
 CLOSED_BOUNDED`. Private CVF provenance commit
 `e4c055484f813b6d7bda6ed9249664908ccca087` supplies the downstream-aware
 closeability checker and its standard/defect record through a refreshed
@@ -28,9 +33,9 @@ continuity commits. The inheritance refresh changed no product behavior.
 ## Product roadmap
 
 Phases 0-3 are closed within their recorded boundaries. Phase 4 is 8/8 and
-`CLOSED_BOUNDED`. The project is ready for the operator to select a fresh
-project tranche. Phase 5, external-repository absorption, governed-catalog
-schema migration, and XR1 debt remain parked until explicitly selected.
+`CLOSED_BOUNDED`. External-repository absorption INTAKE is open only to obtain
+the exact source set and desired outcome, then author a bounded corpus receipt.
+Phase 5, governed-catalog schema migration, and XR1 debt remain parked.
 
 ## Guardrails
 
@@ -43,19 +48,22 @@ schema migration, and XR1 debt remain parked until explicitly selected.
   interception or agent-comprehension claim.
 - Do not turn historical bounded evidence into production-readiness claims.
 - Do not reopen P4-E without a new admitted finding.
-- Do not start a parked tranche without explicit operator selection.
+- Do not clone, fetch, scan, or absorb until the exact repository source set,
+  desired outcome, and bounded corpus receipt are established.
+- Do not start any remaining parked tranche without explicit operator selection.
 - Run `python scripts/check_session_state.py` after changing continuity.
 
 ## Claim boundary
 
 This checkpoint proves static operator-local rule-pack binding and configured
-project repository enforcement. No Alibaba/provider call, product mutation,
-Docker/database action, dependency install, deployment, public sync, or push
-was performed.
+project repository enforcement. The closed eight-commit project range was
+pushed to `origin/docs/p4e-spec`. No Alibaba/provider call, product mutation,
+Docker/database action, dependency install, deployment, public-Core sync, or
+production action was performed.
 
 ## History
 
 The previous active handoff is
-`SESSION/handoffs/P4E_IDENTITY_CONVERSATION_ROUTING_SPEC_2026-09-09.md`.
+`SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md`.
 Full compacted history remains at
 `SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md`.
