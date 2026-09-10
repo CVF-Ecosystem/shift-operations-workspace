@@ -14,7 +14,7 @@ Review base / executionBaseHead: `23f63e1f0f736d2ed7d7467756111b245b593547`
 
 Reviewed branch: `docs/p4e-spec`
 
-Disposition: `MATERIAL_COMMIT_AUTHORIZED_PENDING_POST_COMMIT_CONTINUITY_FINALIZATION`
+Disposition: `FINAL_REVIEW_PASS`
 
 Review-Cost Telemetry: REQUIRED
 
@@ -30,16 +30,16 @@ SQLite.
 
 ## Decision
 
-`MATERIAL_COMMIT_AUTHORIZED_PENDING_POST_COMMIT_CONTINUITY_FINALIZATION`
+`FINAL_REVIEW_PASS`
 
 - Current findings/waivers: `NONE/NONE`.
 - Amendment 1 technical repair remains accepted without waiver.
-- Amendment 2 pre-material evidence is accepted: Project Knowledge, session,
-  file-size, invariant, catalog, repository, full suite, and diff gates pass;
-  staging is empty.
-- COMMIT_STEWARD may create only the material commit excluding paths 83-92 and
-  already committed activation paths 110-112. Terminal closure remains blocked
-  pending actual-SHA continuity finalization and the post-material gate/review.
+- Material `131a38b`, activation `c82d9e0`, and closeability correction
+  `9809852` are verified ancestors of current HEAD.
+- Post-material Project Knowledge, session, file-size, invariant, catalog,
+  repository, full-suite, and diff gates pass; findings/waivers are `NONE/NONE`.
+- Release only the exact path-82 terminal-review evidence commit, followed by
+  the continuity-only paths 83-92 commit. No further content repair is open.
 
 ## Independence And Review Boundary
 
@@ -447,48 +447,48 @@ evidence or a corrected counter.
 `tests/integration/test_p4e_webhook_sender_aware_ingress.py`;
 `tests/integration/test_p4e_webhook_sender_aware_negative.py`.
 
-## Amendment 2 Pre-Material Completion Checkpoint
+## Amendment 2 Terminal Completion Review
 
-Disposition:
-`MATERIAL_COMMIT_AUTHORIZED_PENDING_POST_COMMIT_CONTINUITY_FINALIZATION`.
+Disposition: `FINAL_REVIEW_PASS`; findings/waivers: `NONE/NONE`.
 
 Amendment 1 technical acceptance and closure of `P4E-AM1-REV-F1` remain
-unchanged. Amendment 2 is active at
-`c82d9e0eb0b75476fb95f7202f3feb7f73182929`; paths 83-92 are synchronized only
-as a closure candidate and catalog paths 93-94 are canonical.
+unchanged. Material commit `131a38b0c817903df2148107078c25dbe50d5f38`,
+Amendment 2 activation `c82d9e0`, and commit-owner correction
+`9809852e346d35f4f3997cb6671f8efdfc643827` are present in the reviewed range.
+Paths 83-92 carry the actual material SHA and are the exact remaining
+continuity-only worktree set before this path-82 update.
 
-Returned pre-material evidence was evaluated rather than broadly recreated:
+Returned post-material evidence was evaluated rather than broadly recreated:
 
 - Project Knowledge: PASS.
 - Session, file-size, invariant-family JSON, and catalog checks: PASS.
-- Catalog evidence: `26` modules and `37823` LOC.
+- Catalog verification: PASS; canonical `26`-module catalog retained.
 - Repository validation: PASS.
-- Complete suite: `3119 passed, 146 skipped, 2 warnings` in `102.11s`.
+- Complete suite: `3119 passed, 146 skipped, 2 known warnings` in `243.38s`.
 - `git diff --check`: PASS; staging: empty.
-- Current status separates exactly the ten continuity paths 83-92 from the
-  accepted material set; activation paths 110-112 are already committed.
+- Current status contains exactly continuity paths 83-92; after this authorized
+  review update, path 82 is the sole additional worktree path.
 
-No technical finding or gate failure remains. This is conditional material-
-commit authority only. After that commit, SESSION_SYNC_STEWARD must write its
-actual SHA into paths 83-92; CLOSER must rerun the complete post-material gate
-set/full suite; and this reviewer must record terminal acceptance before the
-continuity-only commit.
+No technical, gate, path, or claim-boundary finding remains. `FINAL_REVIEW_PASS`
+authorizes COMMIT_STEWARD to commit exactly path 82 as terminal-review evidence,
+then SESSION_SYNC_STEWARD to commit exactly paths 83-92. P4-E becomes effective
+`FREEZE / CLOSED_BOUNDED` only after those commits and clean-state verification.
 
 ## Review Cost Telemetry And Stop Disposition
 
-- `reviewRoundCount`: 3
+- `reviewRoundCount`: 4
 - `workerRepairTurnCount`: 2
 - `newRootCauseCountThisRound`: 0
 - `dependentFindingCountThisRound`: 0
 - `elapsedReviewMinutes`: NOT_AVAILABLE_WITH_REASON: exact cross-surface wall-clock accounting is not exposed in the governed project workspace
 - `providerCallCount`: 0
 - `tokenOrQuotaUsage`: NOT_AVAILABLE_WITH_REASON: provider-neutral token accounting is not exposed and no provider call was made
-- `valueDelta`: Pre-material catalog, continuity-candidate, repository, and complete-suite evidence closes the conditional material-authorization checkpoint with no finding or waiver.
+- `valueDelta`: Actual-SHA continuity finalization and the complete post-material gate/full-suite evidence close the terminal P4-E review with no finding or waiver.
 - `stopDisposition`: STOP_ACCEPT
 - `preRepairAuditDisposition`: COMPLETE_BEFORE_FIRST_REPAIR
-- `materialCommitCount`: 0
+- `materialCommitCount`: 1
 - `continuityCommitCount`: 0
-- `commitPlanDisposition`: DEFAULT_ONE_MATERIAL_ONE_CONTINUITY
+- `commitPlanDisposition`: EXCEPTION_WITH_REASON: Amendment 2 requires one isolated path-82 terminal-review-evidence commit after the material commit and before the continuity-only commit
 - `latencyDisposition`: EXPECTED_LONG_RUNNING_PROOF
 - `avoidableDelayClass`: NONE
 
@@ -515,18 +515,18 @@ continuity-only commit.
 | --- | --- |
 | Actor | INDEPENDENT_COMPLETION_REVIEWER |
 | Provider or surface | local first-party project workspace |
-| Session or invocation | P4-E Amendment 2 pre-material completion checkpoint, 2026-09-10 |
+| Session or invocation | P4-E Amendment 2 terminal completion review, 2026-09-10 |
 | Working directory | `D:/UNG DUNG AI/TOOL AI 2026/CVF-Workspace/shift-operations-workspace` |
 | Command or tool surface | governed file reads, Git read-only inspection, exact-manifest reconciliation, bounded source review, accepted returned test evidence, apply-patch for reviewer path 82 |
 | Target paths | read paths 1-80; write only path 82 |
 | Allowed scope source | operator assignment as orchestrator/reviewer plus Work Order Reviewer Closure Conversion |
-| Before status evidence | activation HEAD `c82d9e0eb0b75476fb95f7202f3feb7f73182929`; synchronized closure candidate and accepted material set unstaged |
-| After status evidence | same activation HEAD; staging empty; conditional material commit authorized |
-| Diff evidence | effective worker ceiling is original paths 15-80 plus Amendment 1 paths 95-109; reviewer writes remain exact path 82 only |
-| Approval boundary | exact material commit excluding paths 83-92 and 110-112; no terminal closure or continuity commit authority |
+| Before status evidence | HEAD `9809852e346d35f4f3997cb6671f8efdfc643827`; exact continuity paths 83-92 modified; staging empty |
+| After status evidence | same HEAD; path 82 is the sole reviewer mutation; staging remains empty; terminal PASS recorded |
+| Diff evidence | before review, exact paths 83-92 only; after review, exact paths 82-92 with role ownership unchanged |
+| Approval boundary | exact path-82 evidence commit, then exact paths83-92 continuity commit; no further content repair |
 | Claim boundary | deterministic local evidence plus one disposable PostgreSQL 16 proof; no provider-governance, deployment, shared-database, or production-readiness claim |
 | Agent type | INDEPENDENT_COMPLETION_REVIEWER |
-| Invocation ID | `p4e-amendment2-pre-material-completion-review-2026-09-10` |
+| Invocation ID | `p4e-amendment2-terminal-completion-review-2026-09-10` |
 | Expected manifest | reviewer path 82 only; worker changed set remains original paths 15-80 plus Amendment 1 paths 95-109 |
 | Actual changed set | reviewer added only `docs/reviews/CVF_P4E_IDENTITY_CONVERSATION_ROUTING_COMPLETION_2026-09-09.md` |
 | Manifest delta | MATCH |
@@ -536,12 +536,12 @@ continuity-only commit.
 | Field | Value |
 | --- | --- |
 | claimScope | Independent review of the uncommitted P4-E deterministic BUILD return. |
-| claimDisposition | Pre-material evidence accepted and exact material commit conditionally authorized; CLAIM_REJECTED remains for terminal closure and every claim beyond the bounded P4-E contract. |
+| claimDisposition | FINAL_REVIEW_PASS accepts bounded P4-E completion evidence; CLAIM_REJECTED remains for provider governance, deployment, production readiness, and every claim beyond the accepted contract. |
 | receiptEvidence | CLAIM_REJECTED_NO_RECEIPT for provider/runtime governance; local test outputs, hashes, Git inventory, and focused probe results are review evidence only. |
 | actionEvidence | ACTION_EVIDENCE_PRESENT: read-only inspection, disposable in-memory probes, and creation of reviewer-owned path 82. |
 | invocationBoundary | Zero provider, external network, credential, dependency-install, deployment, shared-database, stage, commit, or push action. |
 | interceptionBoundary | No direct interception, wrapper enforcement, runtime agent control, or production gate is implemented or claimed. |
-| claimLanguage | `MATERIAL_COMMIT_AUTHORIZED_PENDING_POST_COMMIT_CONTINUITY_FINALIZATION` releases only the exact material commit; terminal acceptance remains blocked. |
+| claimLanguage | `FINAL_REVIEW_PASS` releases only exact path-82 evidence and paths83-92 continuity commits; it is not a production-readiness claim. |
 | forbiddenExpansion | No Phase 5, XR1, catalog schema migration, external-repository absorption, provider/live, public-sync, deployment, production, or Core/provenance mutation. |
 
 ## Conditional Dispositions
@@ -558,33 +558,32 @@ continuity-only commit.
   cross-session rule gap has been accepted for shared-governance promotion.
 - Epistemic Process Block: N/A with reason - findings are source/probe-backed,
   not probabilistic or heuristic claims.
-- Machine Closure Package: N/A with reason - terminal closure awaits actual-SHA
-  continuity finalization, post-material complete gates, and terminal review.
+- Machine Closure Package: N/A with reason - terminal evidence is accepted;
+  effective closure awaits its exact evidence commit and continuity-only commit.
 
 ## Public Export Disposition
 
 DEFERRED_PRIVATE_ONLY
 
-Reason: this conditional material review is a private first-party project artifact.
+Reason: this terminal bounded review is a private first-party project artifact.
 No CVF public-sync, public catalog, or public release action is authorized or
 performed.
 
 ## Claim Boundary
 
-This review accepts the Amendment 2 pre-material gate with findings/waivers
-`NONE/NONE` and authorizes only the exact material commit. It does not close
-P4-E or prove provider governance, deployment, shared-database behavior, or
-production readiness.
+This review records `FINAL_REVIEW_PASS` with findings/waivers `NONE/NONE` for
+the bounded P4-E contract. Effective `FREEZE / CLOSED_BOUNDED` still requires
+the exact evidence and continuity commits; no provider governance, deployment,
+shared-database behavior, or production readiness is claimed.
 
 ## Lane Release
 
-The lane releases to `COMMIT_STEWARD` with disposition
-`MATERIAL_COMMIT_AUTHORIZED_PENDING_POST_COMMIT_CONTINUITY_FINALIZATION`.
-Commit only the accepted material set, excluding paths 83-92 and already
-committed activation paths 110-112. Then release to SESSION_SYNC_STEWARD for
-actual-SHA finalization and the mandatory post-material gate/review cycle.
+The lane releases to `COMMIT_STEWARD` with disposition `FINAL_REVIEW_PASS` for
+an evidence-only commit containing exactly path 82. After that commit,
+SESSION_SYNC_STEWARD may commit exactly paths 83-92 as continuity. No content
+mutation, broad staging, push, provider, deployment, or public action is open.
 
-- Final HEAD: `c82d9e0eb0b75476fb95f7202f3feb7f73182929` (unchanged).
+- Final HEAD: `9809852e346d35f4f3997cb6671f8efdfc643827` (unchanged).
 - Staging: empty.
 - Reviewer-owned changed path: exact manifest path 82 only.
 - Commit/push: none.
