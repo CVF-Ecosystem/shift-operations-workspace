@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cvf_catalog_kit_migration_commit_ready",
-  "activeHandoff": "SESSION/handoffs/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
-  "nextAllowedMove": "Run project commit gates, commit the independently accepted CVF catalog kit migration, fast-forward push to project origin/main, and verify the remote ref. External absorption remains source-set gated; Phase 5 and XR1 remain parked.",
-  "parkedOperatorCheckpoint": "External absorption requires exact source repository set and intended outcome. Phase 5 and XR1 debt remain parked.",
+  "currentMode": "cqa_pattern_roadmap_review_pending",
+  "activeHandoff": "SESSION/handoffs/CQA_PATTERN_ADOPTION_ROADMAP_2026-09-27.md",
+  "nextAllowedMove": "Independent R2 review of docs/roadmaps/CQA_PATTERN_ADOPTION_2026-09-27.md; if accepted, authorize S0 source intake separately. S1-S7, Phase 5 and XR1 remain parked.",
+  "parkedOperatorCheckpoint": "S0 source intake requires separate authorization and corpus receipt; S1-S7, Phase 5 and XR1 remain parked.",
   "requiredReads": [
-    "SESSION/handoffs/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
+    "SESSION/handoffs/CQA_PATTERN_ADOPTION_ROADMAP_2026-09-27.md",
     "docs/decisions/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
     ".cvf/manifest.json",
     "AGENTS.md",
@@ -14,12 +14,13 @@
     "docs/catalog/ARTIFACT_REGISTRY.json",
     "docs/catalog/MODULE_REGISTRY.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
-    "IMPLEMENTATION_STATUS.json"
+    "IMPLEMENTATION_STATUS.json",
+    "docs/roadmaps/CQA_PATTERN_ADOPTION_2026-09-27.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-09-26"
+  "updatedAt": "2026-09-27"
 }
