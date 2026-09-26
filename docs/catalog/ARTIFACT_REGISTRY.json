@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0",
+  "projectName": "shift-operations-workspace",
+  "updatedAt": "2026-09-26",
+  "claimBoundary": "Registers generated bootstrap authority surfaces only; it does not claim runtime module capability.",
+  "artifacts": [
+    {
+      "id": "schema-artifact-registry",
+      "family": "schema",
+      "path": "docs/catalog/schemas/ARTIFACT_REGISTRY.schema.json",
+      "status": "ACTIVE",
+      "description": "Closed schema reference for the Artifact Registry."
+    },
+    {
+      "id": "schema-module-registry",
+      "family": "schema",
+      "path": "docs/catalog/schemas/MODULE_REGISTRY.schema.json",
+      "status": "ACTIVE",
+      "description": "Closed schema reference for the Module Registry."
+    },
+    {
+      "id": "tool-catalog-manager",
+      "family": "tool",
+      "path": "scripts/manage_cvf_downstream_catalog.ps1",
+      "status": "ACTIVE",
+      "description": "Executable catalog manager (--check / --write)."
+    },
+    {
+      "id": "tool-catalog-library",
+      "family": "tool",
+      "path": "scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1",
+      "status": "ACTIVE",
+      "description": "Standard-library catalog validation and rendering functions."
+    },
+    {
+      "id": "manifest-cvf",
+      "family": "manifest",
+      "path": ".cvf/manifest.json",
+      "status": "ACTIVE",
+      "description": "CVF enforcement manifest."
+    },
+    {
+      "id": "policy-cvf",
+      "family": "policy",
+      "path": ".cvf/policy.json",
+      "status": "ACTIVE",
+      "description": "CVF governance policy."
+    },
+    {
+      "id": "continuity-session-memory",
+      "family": "continuity",
+      "path": "CVF_SESSION_MEMORY.md",
+      "status": "ACTIVE",
+      "description": "Project continuity front door."
+    },
+    {
+      "id": "continuity-active-session-state",
+      "family": "continuity",
+      "path": "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+      "status": "ACTIVE",
+      "description": "Active session/phase/role state."
+    },
+    {
+      "id": "continuity-initial-handoff",
+      "family": "continuity",
+      "path": "SESSION/handoffs/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
+      "status": "ACTIVE",
+      "description": "Initial agent handoff."
+    },
+    {
+      "id": "truth-implementation-status",
+      "family": "implementation_truth",
+      "path": "IMPLEMENTATION_STATUS.json",
+      "status": "ACTIVE",
+      "description": "Machine implementation-truth surface."
+    },
+    {
+      "id": "view-docs-index",
+      "family": "generated_view",
+      "path": "docs/INDEX.md",
+      "status": "ACTIVE",
+      "description": "Generated documentation index."
+    },
+    {
+      "id": "view-module-catalog",
+      "family": "generated_view",
+      "path": "docs/catalog/MODULE_CATALOG.md",
+      "status": "ACTIVE",
+      "description": "Generated human module catalog."
+    },
+    {
+      "id": "family-decisions",
+      "family": "governed_artifact_family",
+      "path": "docs/decisions",
+      "status": "ACTIVE",
+      "description": "Decisions."
+    },
+    {
+      "id": "family-roadmaps",
+      "family": "governed_artifact_family",
+      "path": "docs/roadmaps",
+      "status": "ACTIVE",
+      "description": "Roadmaps."
+    },
+    {
+      "id": "family-specs",
+      "family": "governed_artifact_family",
+      "path": "docs/specs",
+      "status": "ACTIVE",
+      "description": "Specifications."
+    },
+    {
+      "id": "family-work-orders",
+      "family": "governed_artifact_family",
+      "path": "docs/work_orders",
+      "status": "ACTIVE",
+      "description": "Work orders."
+    },
+    {
+      "id": "family-reviews",
+      "family": "governed_artifact_family",
+      "path": "docs/reviews",
+      "status": "ACTIVE",
+      "description": "Reviews and evidence."
+    },
+    {
+      "id": "continuity-project-index-detail",
+      "family": "continuity",
+      "path": "docs/PROJECT_INDEX.md",
+      "status": "ACTIVE",
+      "description": "Preserved project documentation index and current project routing."
+    },
+    {
+      "id": "truth-module-registry-detail",
+      "family": "implementation_truth",
+      "path": "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+      "status": "ACTIVE",
+      "description": "Detailed module source with control mapping, status rationale and measured metrics."
+    },
+    {
+      "id": "view-module-catalog-detail",
+      "family": "generated_view",
+      "path": "docs/catalog/MODULE_CATALOG_DETAIL.md",
+      "status": "ACTIVE",
+      "description": "Detailed module view generated from the detailed registry."
+    },
+    {
+      "id": "tool-detailed-catalog",
+      "family": "tool",
+      "path": "scripts/generate_catalog.py",
+      "status": "ACTIVE",
+      "description": "Checks detailed module paths, metrics and rendered detail view."
+    },
+    {
+      "id": "tool-detailed-catalog-renderer",
+      "family": "tool",
+      "path": "scripts/catalog_markdown.py",
+      "status": "ACTIVE",
+      "description": "Detailed module catalog Markdown renderer."
+    },
+    {
+      "id": "tool-kit-projection",
+      "family": "tool",
+      "path": "scripts/sync_cvf_catalog_kit.py",
+      "status": "ACTIVE",
+      "description": "Projects the detailed module records into the CVF governed catalog schema."
+    },
+    {
+      "id": "standard-invariant-families",
+      "family": "continuity",
+      "path": "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
+      "status": "ACTIVE",
+      "description": "Canonical invariant family standard for project work."
+    },
+    {
+      "id": "truth-invariant-family-registry",
+      "family": "implementation_truth",
+      "path": "docs/cvf/invariants/registry.json",
+      "status": "ACTIVE",
+      "description": "Invariant-family registry and schema routing source."
+    }
+  ]
+}

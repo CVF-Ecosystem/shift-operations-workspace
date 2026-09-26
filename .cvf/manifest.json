@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.1-operator-local",
   "cvfCoreRepository": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git",
-  "cvfCoreCommit": "483c5e33d188b6b2d35d6cd19ee38a3c8548abc4",
+  "cvfCoreCommit": "19386f64e6bc36d1dcdbadca6ff97253feefb1bf",
   "workspaceLayout": "SIBLING_HIDDEN_CORE_WITH_OPERATOR_LOCAL_PROVENANCE",
   "cvfCoreRelativePath": "../.Controlled-Vibe-Framework-CVF",
   "workspaceRulesRelativePath": "../WORKSPACE_RULES.md",
@@ -10,8 +10,8 @@
     "required": true,
     "profileName": "operator-local",
     "repository": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF-Provenance.git",
-    "sourceCommit": "e4c055484f813b6d7bda6ed9249664908ccca087",
-    "relativePath": "../../Controlled-Vibe-Framework-CVF",
+    "sourceCommit": "4567d750087d47f369939a0e9891ca6fcb596034",
+    "relativePath": "../../Controlled-Vibe-Framework-CVF-Provenance",
     "activeRulePackRelativePath": "../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json",
     "rulePackManifestRelativePath": "../CVF_RULE_PACKS/operator-local/RULE_PACK_MANIFEST.json",
     "authorityMode": "READ_ONLY_REFERENCE_WITH_MATERIALIZED_CONTINUITY"
@@ -48,7 +48,12 @@
     "docs/INDEX.md",
     "docs/catalog/MODULE_REGISTRY.json",
     "docs/catalog/MODULE_CATALOG.md",
-    "IMPLEMENTATION_STATUS.json"
+    "IMPLEMENTATION_STATUS.json",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/schemas/ARTIFACT_REGISTRY.schema.json",
+    "docs/catalog/schemas/MODULE_REGISTRY.schema.json",
+    "scripts/manage_cvf_downstream_catalog.ps1",
+    "scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1"
   ],
   "bootstrapDate": "2026-09-09",
   "enforcementVersion": "3.3-operator-local-closeability",
@@ -64,5 +69,6 @@
     "businessRoadmap": "docs/implementation/EXECUTION_ROADMAP.md",
     "reviewsFamily": "docs/decisions/"
   },
-  "knowledgePath": "knowledge/"
+  "knowledgePath": "knowledge/",
+  "catalogKitVersion": "1.1"
 }

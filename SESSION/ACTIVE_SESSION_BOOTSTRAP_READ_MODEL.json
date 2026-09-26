@@ -1,24 +1,25 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "external_repository_absorption_intake_ready",
-  "activeHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
-  "nextAllowedMove": "Obtain the exact repository URL/path set and intended absorption outcome from the operator, then create a bounded source-intake/corpus receipt before any scan or absorption.",
-  "parkedOperatorCheckpoint": "Source repository set and absorption outcome are required. Phase 5, catalog schema migration and XR1 remain parked.",
+  "currentMode": "cvf_catalog_kit_migration_commit_ready",
+  "activeHandoff": "SESSION/handoffs/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
+  "nextAllowedMove": "Run project commit gates, commit the independently accepted CVF catalog kit migration, fast-forward push to project origin/main, and verify the remote ref. External absorption remains source-set gated; Phase 5 and XR1 remain parked.",
+  "parkedOperatorCheckpoint": "External absorption requires exact source repository set and intended outcome. Phase 5 and XR1 debt remain parked.",
   "requiredReads": [
-    "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
-    "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
+    "SESSION/handoffs/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
+    "docs/decisions/CVF_CATALOG_KIT_MIGRATION_2026-09-26.md",
     ".cvf/manifest.json",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
-    "docs/implementation/EXECUTION_ROADMAP.md",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
     "docs/catalog/MODULE_REGISTRY.json",
+    "docs/implementation/EXECUTION_ROADMAP.md",
     "IMPLEMENTATION_STATUS.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "priorActiveHandoff": "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md"
+    "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-09-10"
+  "updatedAt": "2026-09-26"
 }

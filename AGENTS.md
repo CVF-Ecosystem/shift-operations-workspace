@@ -2,10 +2,33 @@
 
 > Reconciled first-party operator project. Portable public CVF core:
 > `../.Controlled-Vibe-Framework-CVF` at
-> `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4`. Private operator-local
-> provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `e4c055484f813b6d7bda6ed9249664908ccca087`. Bootstrap date: 2026-09-09;
+> `19386f64e6bc36d1dcdbadca6ff97253feefb1bf`. Private operator-local
+> provenance source: `../../Controlled-Vibe-Framework-CVF-Provenance` at
+> `4567d750087d47f369939a0e9891ca6fcb596034`. Bootstrap date: 2026-09-09;
 > operator-local governance learning refreshed: 2026-09-10.
+
+## Catalog Kit And Detailed Module Records
+
+The CVF governed catalog kit v1.1 uses `docs/catalog/ARTIFACT_REGISTRY.json`,
+`docs/catalog/MODULE_REGISTRY.json`, and
+`scripts/manage_cvf_downstream_catalog.ps1`. The project-owned 26-module
+catalog remains available as `docs/catalog/MODULE_REGISTRY_DETAIL.json` and
+`docs/catalog/MODULE_CATALOG_DETAIL.md`; the detailed project documentation
+index is `docs/PROJECT_INDEX.md`. The generated `docs/INDEX.md` links to each.
+
+When module facts change, edit the detailed registry and run in order:
+
+```text
+python scripts/generate_catalog.py --write
+python scripts/sync_cvf_catalog_kit.py --write
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/manage_cvf_downstream_catalog.ps1 -Write
+```
+
+Before completion, run the detailed generator in `--check` mode, the kit
+projection without a flag, and the catalog manager with `-Check`. When the
+active handoff changes, update `continuity-initial-handoff` in
+`ARTIFACT_REGISTRY.json` to match the compatibility mirror's `activeHandoff`
+before running the manager. Module status does not prove application readiness.
 
 ## Mandatory Governance Proof
 
@@ -118,7 +141,7 @@ governance decision.
 
 Do NOT run downstream tasks inside either CVF repository, and do NOT commit
 downstream artifacts into public core or private provenance. Both
-`../.Controlled-Vibe-Framework-CVF` and `../../Controlled-Vibe-Framework-CVF`
+`../.Controlled-Vibe-Framework-CVF` and `../../Controlled-Vibe-Framework-CVF-Provenance`
 are **read-only references** for project work. Your IDE/terminal working
 directory must remain this project root. The workspace root must contain
 `WORKSPACE_RULES.md`; if missing, stop and restore the workspace boundary.

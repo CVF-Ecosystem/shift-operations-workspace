@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -22,10 +23,19 @@ def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
+def _target_repo_env() -> dict[str, str]:
+    """Keep a Git hook's project context from overriding a targeted repo."""
+    env = os.environ.copy()
+    for key in ("GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR", "GIT_INDEX_FILE"):
+        env.pop(key, None)
+    return env
+
+
 def _git_head(root: Path) -> str:
     result = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=root,
+        env=_target_repo_env(),
         text=True,
         encoding="utf-8",
         errors="replace",
@@ -107,7 +117,7 @@ def main() -> int:
     ]
     if args.enforce:
         command.append("--enforce")
-    result = subprocess.run(command, cwd=PROJECT_ROOT)
+    result = subprocess.run(command, cwd=PROJECT_ROOT, env=_target_repo_env())
     if result.returncode:
         return result.returncode
     print("COMPLIANT - pinned Core control is present and applied to this project.")
