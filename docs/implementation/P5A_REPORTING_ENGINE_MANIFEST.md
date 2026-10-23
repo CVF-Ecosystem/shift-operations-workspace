@@ -157,7 +157,8 @@ proof, with no live-governance or milestone-completion claim.
 
 ## Final returned topology and local disposition
 
-A1-A6 accepted bounded; A7 full material gates and live admission remain.
+Historical local disposition: A1-A6 accepted bounded; full hooks subsequently
+passed and the exact A7 call was admitted below; its source/effect/receipt remain.
 Planned validation.py was not created: model.py owns validation. Planned
 unit/test_report_digest.py and integration/test_report_export_api.py were not
 created: digest equivalence is in test_report_export_renderers.py and actual
@@ -186,4 +187,38 @@ only the exact new export delta may be stripped before the historical chain.
 Both full-document golden checks and all shared earlier callers must pass,
 with negative unrelated-change checks preserved. No application source change.
 
-Material 56b4c2729b56c3094d69c141b9ee918026d3cb5a passed normal full hook 3173 passed, 146 skipped, 4 warnings in 175.82s. Final exact51 paths and reviewed source hashes were checked post-material; actual-SHA continuity follows. A7 live admission/receipt remains held; no FREEZE.
+Material 56b4c2729b56c3094d69c141b9ee918026d3cb5a passed normal full hook 3173 passed, 146 skipped, 4 warnings in 175.82s. Final exact51 paths and reviewed source hashes were checked post-material; actual-SHA continuity follows. At that local checkpoint A7 was held; the subsequent user grant below admits
+one call. Its source/effect/receipt remain pending; no FREEZE.
+
+## A7 admitted continuation — finite one-call evidence
+
+User grant is now explicit in LIVE_ADMISSION_2026-10-23.json. Remaining A7 scope
+is the complete contract/source/review/commit/one-call/receipt/final-review/
+closure chain in the amended Work Order; all other Phase5 owners unchanged.
+Exact planned sources: scripts/run_p5a_live_governance_evidence.py and bounded
+scripts/_p5a_live_*.py (each itemized on return); structural-only tests under
+tests/unit/test_p5a_live_canary*.py. Exact new contract/matrix/pin and admission/
+attempt/evidence artifact paths are listed in the Work Order. These are direct
+P5-A evidence dependencies; no framework/provider library or production route.
+Both historical CVF repositories remain read-only. No existing local accepted
+product source, older live receipt or expired quota record may be changed.
+
+A7 source commit precedes the root-owned one-use effect. Independent receipt
+review owner is Luna/max p5a_readiness, then normal evidence commit and
+terminal/continuity/range closure. The immutable admission is read-only for
+workers and is bound with the registry at pre-BUILD review. A failed attempt
+remains disclosed and cannot satisfy closure.
+
+## Exact A7 returned source topology
+
+- scripts/run_p5a_live_governance_evidence.py
+- scripts/_p5a_live_contract.py
+- scripts/_p5a_live_preflight.py
+- scripts/_p5a_live_transport.py
+- tests/unit/test_p5a_live_canary_contract.py
+- tests/unit/test_p5a_live_canary_preflight.py
+
+Root independent source REVIEW_PASS_BOUNDED after cost-basis metadata repair.
+All source files stay below300lines; original product source, frozen SPECs,
+matrices and immutable admission/local evidence remain unchanged. Source
+material commit must pass normal full hook before the one root-owned effect.

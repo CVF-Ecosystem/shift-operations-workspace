@@ -1,0 +1,1172 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P5A-LIVE-CANARY-OUTCOMES",
+  "title": "P5-A one-use live canary terminal outcomes and exact attempt accounting",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_RECEIPT_MODEL",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELD_PRESENCE",
+    "TRIGGER_3_EXACT_ATTEMPT_COUNTER_RELATIONS",
+    "TRIGGER_4_CONTRACT_AND_RECEIPT_VALIDATOR_PARITY"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md",
+      "sha256": "bf0177e77c22d8c16963ca535d6e076d9577466bc14a51c4c06df52024c2cb68",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "JSON_TERMINAL_RECEIPT",
+    "RUNTIME_RECEIPT_VALIDATOR",
+    "INVARIANT_FAMILY_VALIDATOR"
+  ],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "PRECALL_BLOCKED_ZERO_CALL",
+      "shapes": [
+        {
+          "shapeId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded"
+          ],
+          "forbiddenFields": [
+            "sanitized_request_sha256",
+            "sanitized_response_sha256",
+            "http_status",
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo",
+            "usage_state",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "PRECALL_BLOCKED_ZERO_CALL"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "PREFLIGHT"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "ADMISSION_MISMATCH",
+                "LOCAL_EVIDENCE_MISMATCH",
+                "SOURCE_HASH_MISMATCH",
+                "WORKTREE_DIRTY",
+                "INHERITANCE_CHECK_FAILED",
+                "INVARIANT_CHECK_FAILED",
+                "API_PROBE_MISMATCH",
+                "MARKER_RESERVATION_FAILED"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_KEY_READ_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "key_read_attempts",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "RESERVED_NOT_ACCEPTED_OR_UNKNOWN",
+      "shapes": [
+        {
+          "shapeId": "P5A_LIVE_RESERVED_NO_TRANSPORT",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded"
+          ],
+          "forbiddenFields": [
+            "sanitized_request_sha256",
+            "sanitized_response_sha256",
+            "http_status",
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo",
+            "usage_state",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RESERVED_NOT_ACCEPTED_OR_UNKNOWN"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "MARKER_RESERVATION",
+                "KEY_LOOKUP",
+                "REQUEST_PREPARATION"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "MARKER_ALREADY_EXISTS",
+                "MARKER_CREATE_AMBIGUOUS",
+                "MARKER_SYNC_FAILED",
+                "KEY_MISSING",
+                "KEY_READ_FAILED",
+                "REQUEST_BUILD_FAILED",
+                "CLIENT_CONFIGURATION_FAILED"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_NO_TRANSPORT_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded",
+            "sanitized_request_sha256"
+          ],
+          "forbiddenFields": [
+            "sanitized_response_sha256",
+            "http_status",
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo",
+            "usage_state",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RESERVED_NOT_ACCEPTED_OR_UNKNOWN"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "TRANSPORT"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "NETWORK_TIMEOUT",
+                "CONNECTION_FAILURE",
+                "TLS_FAILURE",
+                "TRANSPORT_AMBIGUOUS",
+                "CLIENT_ERROR"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "sanitized_request_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_KEY_READ_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "key_read_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded",
+            "sanitized_request_sha256",
+            "sanitized_response_sha256",
+            "http_status",
+            "usage_state",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "forbiddenFields": [
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RESERVED_NOT_ACCEPTED_OR_UNKNOWN"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "RESPONSE_VALIDATION"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "NON_200",
+                "REDIRECT_RESPONSE",
+                "RESPONSE_CAPTURE_INCOMPLETE",
+                "RESPONSE_JSON_INVALID",
+                "MODEL_MISMATCH",
+                "CHOICE_INVALID",
+                "FINISH_REASON_INVALID",
+                "CONTENT_NOT_JSON",
+                "CONTENT_SCHEMA_INVALID",
+                "DIGEST_ECHO_MISMATCH",
+                "REASONING_PRESENT",
+                "INPUT_CAP_EXCEEDED",
+                "OUTPUT_CAP_EXCEEDED",
+                "TOTAL_TOKENS_INVALID",
+                "COST_CAP_EXCEEDED",
+                "RESPONSE_CONTRACT_INVALID"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "sanitized_request_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "sanitized_response_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "http_status": {
+              "type": "INTEGER"
+            },
+            "usage_state": {
+              "type": "STRING",
+              "const": "VALID"
+            },
+            "prompt_tokens": {
+              "type": "INTEGER"
+            },
+            "completion_tokens": {
+              "type": "INTEGER"
+            },
+            "total_tokens": {
+              "type": "INTEGER"
+            },
+            "estimated_cost_nano_usd": {
+              "type": "INTEGER"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_KEY_READ_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "key_read_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded",
+            "sanitized_request_sha256",
+            "sanitized_response_sha256",
+            "http_status",
+            "usage_state"
+          ],
+          "forbiddenFields": [
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RESERVED_NOT_ACCEPTED_OR_UNKNOWN"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "RESPONSE_VALIDATION"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "NON_200",
+                "REDIRECT_RESPONSE",
+                "RESPONSE_CAPTURE_INCOMPLETE",
+                "RESPONSE_JSON_INVALID",
+                "MODEL_MISMATCH",
+                "CHOICE_INVALID",
+                "FINISH_REASON_INVALID",
+                "CONTENT_NOT_JSON",
+                "CONTENT_SCHEMA_INVALID",
+                "DIGEST_ECHO_MISMATCH",
+                "REASONING_PRESENT",
+                "INPUT_CAP_EXCEEDED",
+                "OUTPUT_CAP_EXCEEDED",
+                "TOTAL_TOKENS_INVALID",
+                "COST_CAP_EXCEEDED",
+                "RESPONSE_CONTRACT_INVALID",
+                "USAGE_ABSENT",
+                "USAGE_INVALID"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "sanitized_request_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "sanitized_response_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "http_status": {
+              "type": "INTEGER"
+            },
+            "usage_state": {
+              "type": "STRING",
+              "enum": [
+                "ABSENT",
+                "INVALID",
+                "NOT_PARSED"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_KEY_READ_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "key_read_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "ACCEPTED_SINGLE_RESPONSE",
+      "shapes": [
+        {
+          "shapeId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE",
+          "requiredFields": [
+            "outcome",
+            "admission_id",
+            "terminal_stage",
+            "terminal_reason",
+            "gate_observation_sha256",
+            "marker_reservations",
+            "key_read_attempts",
+            "transport_attempts",
+            "responses",
+            "accepted_responses",
+            "retry_count",
+            "redirect_count",
+            "fallback_count",
+            "secret_material_persisted",
+            "authorization_header_recorded",
+            "sanitized_request_sha256",
+            "sanitized_response_sha256",
+            "http_status",
+            "model",
+            "choice_count",
+            "finish_reason",
+            "gate_digest_echo",
+            "usage_state",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "estimated_cost_nano_usd"
+          ],
+          "forbiddenFields": [],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "ACCEPTED_SINGLE_RESPONSE"
+            },
+            "admission_id": {
+              "type": "STRING",
+              "const": "P5A-A7-ONE-CANARY-20261023"
+            },
+            "terminal_stage": {
+              "type": "STRING",
+              "enum": [
+                "ACCEPTED"
+              ]
+            },
+            "terminal_reason": {
+              "type": "STRING",
+              "enum": [
+                "NONE"
+              ]
+            },
+            "gate_observation_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "marker_reservations": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "key_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "transport_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "responses": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "accepted_responses": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "retry_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "redirect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "fallback_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "secret_material_persisted": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "authorization_header_recorded": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "sanitized_request_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "sanitized_response_sha256": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "model": {
+              "type": "STRING",
+              "const": "qwen-flash"
+            },
+            "choice_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "finish_reason": {
+              "type": "STRING",
+              "const": "stop"
+            },
+            "gate_digest_echo": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "usage_state": {
+              "type": "STRING",
+              "const": "VALID"
+            },
+            "prompt_tokens": {
+              "type": "INTEGER"
+            },
+            "completion_tokens": {
+              "type": "INTEGER"
+            },
+            "total_tokens": {
+              "type": "INTEGER"
+            },
+            "estimated_cost_nano_usd": {
+              "type": "INTEGER"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_RETRY_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "retry_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_REDIRECT_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "redirect_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_FALLBACK_COUNT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "fallback_count",
+              "value": 0
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_MARKER_RESERVATIONS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "marker_reservations",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_KEY_READ_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "key_read_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_TRANSPORT_ATTEMPTS_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "transport_attempts",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "responses",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE_ACCEPTED_RESPONSES_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "accepted_responses",
+              "value": 1
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_GATE_DIGEST_ECHO",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "gate_observation_sha256",
+              "targetField": "gate_digest_echo"
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_ONE_RESPONSE_PER_TRANSPORT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "transport_attempts",
+              "targetField": "responses"
+            },
+            {
+              "relationId": "P5A_LIVE_ACCEPTED_ONE_RESPONSE_ACCEPTED",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "responses",
+              "targetField": "accepted_responses"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_PRECALL_BLOCKED_ZERO_CALL",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_RESERVED_NO_TRANSPORT",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_RESERVED_TRANSPORT_NO_RESPONSE",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_VALID_USAGE",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_RESERVED_RESPONSE_REJECTED_UNAVAILABLE_USAGE",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_LIVE_ACCEPTED_SINGLE_RESPONSE",
+        "reason": "Terminal receipt is flat; actual request/response JSON is separately captured as sanitized evidence and never replaced by a fixture.",
+        "independentReviewRequired": true
+      }
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P5A_LIVE_CANARY_MATRIX_DIGEST",
+      "ownerPath": "docs/cvf/invariants/p5a-live-canary-outcomes.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/p5a_live_canary_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A_LIVE_CANARY_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "p5a_live_one_use_canary_receipt",
+    "kind": "REAL_SERVICE_EMITTER"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Defines closed receipt shapes and exact one-use counters for the admitted P5-A A7 provider canary. Existing structural checker tests prove only matrix structure and mutation detection; they do not emulate a provider or satisfy live proof. Only an independently reviewed actual receipt from the one admitted call can satisfy the live-canary requirement."
+}

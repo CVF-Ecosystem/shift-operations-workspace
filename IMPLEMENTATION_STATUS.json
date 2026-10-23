@@ -187,7 +187,7 @@
     "next_governed_move": "PROJECT-OPERATIONS-SKILL reached FREEZE / CLOSED_BOUNDED after separate C4 review. Fresh PROJECT-KNOWLEDGE-PACK INTAKE is next; no later BUILD/provider authority carries forward."
   },
   "project_operations_skill": {
-    "governance_disposition": "FREEZE / CLOSED_BOUNDED — BUILD ad7e037 REVIEW_PASS and pushed; C4 authorization d953b18 pushed; independent FREEZE re-review PASS after C4-FREEZE-REV-F1 closed without waiver.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED â€” BUILD ad7e037 REVIEW_PASS and pushed; C4 authorization d953b18 pushed; independent FREEZE re-review PASS after C4-FREEZE-REV-F1 closed without waiver.",
     "trigger_parent": "Phase 2 C4 0a29192dacf7380ee565a13bc48a164eb79e65a9",
     "risk": "R2 because a reusable skill can steer future governance workflow",
     "intent": "A concise provider-neutral operations guide over existing canonical project/CVF truth for continuity, phase/role routing, exact-path Work Orders, evidence/review/cleanup and bounded closure.",
@@ -204,7 +204,7 @@
     "next_governed_move": "Fresh PROJECT-KNOWLEDGE-PACK INTAKE only; no BUILD/provider authority carries forward and later queue items remain parked."
   },
   "project_knowledge_pack": {
-    "governance_disposition": "FREEZE / CLOSED_BOUNDED — exact eight-path BUILD bb3e336 independently FINAL_REVIEW_PASS with F1-F4 closed without waiver; separate C4 8dd99c0 plus repair authorities c32b5c5, ffd548e and 5c50706 produce the exact ten-path final closure.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED â€” exact eight-path BUILD bb3e336 independently FINAL_REVIEW_PASS with F1-F4 closed without waiver; separate C4 8dd99c0 plus repair authorities c32b5c5, ffd548e and 5c50706 produce the exact ten-path final closure.",
     "authorization_commits": "Governance c50474f; pre-BUILD continuity a639576; C4 8dd99c0; C4 repair amendments c32b5c5, ffd548e and 5c50706.",
     "build_review_commit": "bb3e33668a6d60585455bf0301ba059918a15890 - exactly eight authorized BUILD paths, independently FINAL_REVIEW_PASS, pushed to origin/main.",
     "changed_set": [
@@ -222,9 +222,9 @@
     "next_governed_move": "Fresh P3-A Refinery INTAKE only; no BUILD/helper/provider/network/POST authority carries forward and P3-C/retrieval/RAG/learning remain parked."
   },
   "p3a_refinery": {
-    "governance_disposition": "FREEZE / CLOSED_BOUNDED — reviewed exact35 BUILD committed and pushed at a6cf9786c95020b7596e5b4397aa46b1a8ca5da0; final independent REVIEW_PASS 34f759d8e00adab349cd04948cdd1a98bde3a1c3d10819cd8e1fbec0e2c239aa; findings/waivers NONE.",
+    "governance_disposition": "FREEZE / CLOSED_BOUNDED â€” reviewed exact35 BUILD committed and pushed at a6cf9786c95020b7596e5b4397aa46b1a8ca5da0; final independent REVIEW_PASS 34f759d8e00adab349cd04948cdd1a98bde3a1c3d10819cd8e1fbec0e2c239aa; findings/waivers NONE.",
     "authority_commits": "Original SPEC/Work Order authority 72a712d/b93e403; A28 authority e06d248 and R2 checkpoint c3ac460; verification sync e1b333f; reviewed BUILD a6cf978; complete amendment lineage remains in canonical continuity.",
-    "spec": "d23ec439cc3ef50b885b1d49e1d58942942b5fde637ab73fc619597b320e9eaf — independent SPEC_REVIEW_PASS with F1-F7 closed, no waiver.",
+    "spec": "d23ec439cc3ef50b885b1d49e1d58942942b5fde637ab73fc619597b320e9eaf â€” independent SPEC_REVIEW_PASS with F1-F7 closed, no waiver.",
     "changed_set": "Reviewed BUILD commit a6cf978 changes exactly 35 authorized BUILD/continuity paths; final review artifact is committed only with the separate FREEZE evidence batch.",
     "evidence_status": "Final independent REVIEW_PASS: focused Refinery 57, focused Knowledge 86, retained full non-live 1597/128, session/file-size/repository/catalog/JSON-YAML/contract/import-I-O/secret/diff/doctor gates PASS; all findings closed without waiver; provider/network/remote-ingest calls zero during BUILD verification and review.",
     "claim_boundary": "CLOSED_BOUNDED deterministic local Refinery package with typed fail-closed receipts and synthetic fixtures. No runtime application caller, provider or remote ingestion, persistence, load-bearing data_scope, retrieval/RAG, learning, confirmed truth, production readiness or Phase 3 completion claim.",
@@ -465,9 +465,9 @@
     "materialCommit": "8f2e7157f0510f9501f254fb8af515ce35718a5f"
   },
   "p5a_reporting_engine_20261023": {
-    "status": "REVIEW / LOCAL_GATES_PASS_A7_LIVE_HELD",
+    "status": "A7 REVIEW / SOURCE_RETURNED_LIVE_PENDING",
     "implementation": "Reviewed deterministic PDF/XLSX renderer, authenticated assignment-scoped API and current/history UI; artifact/type/pagination repairs resolved; actual browser and wheel proof passed.",
-    "milestoneCompletion": "A0 reused; A1-A6 accepted bounded; A7 deterministic conformance passed, real-provider admission/receipt still held. P5-A open; Phase5 0/5.",
+    "milestoneCompletion": "A0 reused; A1-A6 accepted bounded and full local gates passed. User admitted exact1 A7 canary; source/review/commit, real receipt/final review and committed closure remain. P5-A open; Phase5 0/5.",
     "binding": "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
     "spec": "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "workOrder": "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
@@ -476,6 +476,7 @@
     "buildReview": "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
     "localEvidence": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json",
     "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
-    "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s"
+    "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s",
+    "liveAdmission": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json"
   }
 }

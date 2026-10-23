@@ -16,8 +16,9 @@ Acceptance: docs/specs/P5A_REPORTING_ENGINE_SPEC.md R1-R13.
 Operator authorized autonomous roadmap execution and independent review under
 the existing R2 scope. Local readiness and activation are accepted at dispatch
 142052f and marker14ae8e7; current execution is bounded R2 repair.
-Provider/credential/public/deployment authority is not included. Readiness and
-execution conditions (local prerequisites settled; provider item remains held):
+The original local dispatch excluded provider/credential/public/deployment effects.
+The A7 amendment below now admits exactly one gated provider/key use; public
+and deployment effects remain excluded. Historical local readiness conditions:
 1. ORCHESTRATOR records the already accepted product scope and exact
    local-only external-effect boundary in the active handoff.
 2. Verify the local DejaVu font and license bytes against the SHA-256 values
@@ -84,18 +85,22 @@ foreseeableFileSplitDisposition: COVERED_BY_BOUNDED_PATH_FAMILY
 
 | gateId | mustPassBy | repairOwner | repairPhase | mutationSurface | topology | commitOwner | commitPhase | dependsOn |
 |---|---|---|---|---|---|---|---|---|
-| authorization_review | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md;docs/implementation/P5A_REPORTING_ENGINE_MANIFEST.md | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
-| pre_dispatch_gate | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md;docs/cvf/invariants/p5a-export-outcomes.json;docs/specs/p5a_export_invariant_pin.py | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | authorization_review |
+| authorization_review | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md;docs/implementation/P5A_REPORTING_ENGINE_MANIFEST.md ;docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json (protected read-only binding);docs/cvf/invariants/registry.json| EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
+| pre_dispatch_gate | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md;docs/cvf/invariants/p5a-export-outcomes.json;docs/specs/p5a_export_invariant_pin.py;docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md;docs/cvf/invariants/p5a-live-canary-outcomes.json;docs/specs/p5a_live_canary_invariant_pin.py ;docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json (protected read-only binding);docs/cvf/invariants/registry.json| EXACT_PATHS | commit-steward | DISPATCH_COMMIT | authorization_review |
 | dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md material-SHA marker | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
-| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | packages/reporting-engine/src/reporting_engine/;apps/workspace-api/src/workspace_api/application/report_export*.py;tests/unit/test_report_export*.py;tests/integration/test_report_export*.py;tests/cvf/test_report_export*.py | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
-| adif_integrity | WORKER_RETURN | implementation-worker | IMPLEMENTATION | docs/cvf/invariants/p5a-export-outcomes.json;docs/specs/p5a_export_invariant_pin.py | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | packages/reporting-engine/src/reporting_engine/;apps/workspace-api/src/workspace_api/application/report_export*.py;tests/unit/test_report_export*.py;tests/integration/test_report_export*.py;tests/cvf/test_report_export*.py;scripts/run_p5a_live_governance_evidence.py;scripts/_p5a_live_*.py;tests/unit/test_p5a_live_canary*.py | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
+| adif_integrity | WORKER_RETURN | implementation-worker | IMPLEMENTATION | docs/cvf/invariants/p5a-export-outcomes.json;docs/specs/p5a_export_invariant_pin.py;docs/cvf/invariants/p5a-live-canary-outcomes.json;docs/specs/p5a_live_canary_invariant_pin.py | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
 | pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md;SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | dispatch_continuity |
-| worker_return_fast | WORKER_RETURN | implementation-worker | WORKER_RETURN | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md;tests/cvf/test_report_export*.py | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | focused_checker_tests,adif_integrity,pre_implementation_autorun |
+| worker_return_fast | WORKER_RETURN | implementation-worker | WORKER_RETURN | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md;tests/cvf/test_report_export*.py;scripts/run_p5a_live_governance_evidence.py;scripts/_p5a_live_*.py;tests/unit/test_p5a_live_canary*.py | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | focused_checker_tests,adif_integrity,pre_implementation_autorun |
 | reviewer_fast | REVIEW | reviewer | REVIEW | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md;docs/implementation/P5A_REPORTING_ENGINE_MANIFEST.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
-| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;.python-version;uv.lock;packages/reporting-engine/src/reporting_engine/;packages/reporting-engine/pyproject.toml;packages/reporting-engine/README.md;packages/operations-domain/src/operations_domain/report_digest.py;apps/workspace-api/src/workspace_api/application/report_snapshot.py;apps/workspace-api/src/workspace_api/application/report_export*.py;apps/workspace-api/src/workspace_api/api/reports/router.py;apps/workspace-web/src/services/api.ts;apps/workspace-web/src/services/reportExport.ts;apps/workspace-web/src/features/operator-actions/ReportActions.tsx;apps/workspace-web/src/features/operator-actions/ReportDownload*.tsx;apps/workspace-web/src/tests/reportDownload*.test.tsx;tests/unit/test_report_export*.py;tests/unit/test_report_digest.py;tests/unit/test_report_openapi_contract.py;tests/unit/test_c3b2_mutation_openapi_contract.py;tests/unit/test_p2b_openapi_contract.py;tests/unit/test_operations_domain_boundary.py;tests/integration/test_report_export*.py;tests/cvf/test_report_export*.py;docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | reviewer_fast |
-| terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;.python-version;uv.lock;packages/reporting-engine/src/reporting_engine/;packages/reporting-engine/pyproject.toml;packages/reporting-engine/README.md;packages/operations-domain/src/operations_domain/report_digest.py;apps/workspace-api/src/workspace_api/application/report_snapshot.py;apps/workspace-api/src/workspace_api/application/report_export*.py;apps/workspace-api/src/workspace_api/api/reports/router.py;apps/workspace-web/src/services/api.ts;apps/workspace-web/src/services/reportExport.ts;apps/workspace-web/src/features/operator-actions/ReportActions.tsx;apps/workspace-web/src/features/operator-actions/ReportDownload*.tsx;apps/workspace-web/src/tests/reportDownload*.test.tsx;tests/unit/test_report_export*.py;tests/unit/test_report_digest.py;tests/unit/test_report_openapi_contract.py;tests/unit/test_c3b2_mutation_openapi_contract.py;tests/unit/test_p2b_openapi_contract.py;tests/unit/test_operations_domain_boundary.py;tests/integration/test_report_export*.py;tests/cvf/test_report_export*.py;docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md;scripts/run_p5a_live_governance_evidence.py;scripts/_p5a_live_*.py;tests/unit/test_p5a_live_canary*.py;docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md;docs/cvf/invariants/p5a-live-canary-outcomes.json;docs/cvf/invariants/registry.json;docs/specs/p5a_live_canary_invariant_pin.py;docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json | BOUNDED_PATH_FAMILIES | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| a7_source_release | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
+| a7_one_call | POST_MATERIAL | root-effect-owner | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json;docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | a7_source_release |
+| a7_receipt_review | POST_MATERIAL | independent-receipt-reviewer | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md;docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json;docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json (read-only) | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | a7_one_call |
+| a7_evidence_commit | POST_MATERIAL | commit-steward | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json;docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json;docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | a7_receipt_review |
+| terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | a7_evidence_commit |
 | continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
-| committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md;docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
+| committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md;docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md ;docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json;docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json| EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
 
 ## Bounded approved mutation families
 
@@ -160,7 +165,8 @@ REVIEWER accepted the consolidated repairs: exact paths, eight status/history
 shapes, artifact lineage/membership/nonmutation proof and locked Python3.13.12.
 Frozen sync/import proof and 31 P2-R baseline tests PASS. Root authorizes bounded
 local product BUILD after dispatch material and continuity marker commits.
-No provider/credential/public/deploy authority; governance proof remains A7 held.
+At that historical local activation, provider/key effects were held. The exact
+A7 amendment below supersedes only that hold; public/deploy remain excluded.
 Sol/medium implementation lane: package/digest/backend/tests/dependency paths.
 Luna/max UI lane: ReportDownload.tsx, ReportActions.tsx, services/reportExport.ts,
 services/api.ts only for required binary helper, src/tests/reportDownload.test.tsx.
@@ -221,3 +227,92 @@ validation, authentication/assignment precedence, runtime signature values and
 responses; no new runtime behavior, global OpenAPI override or unrelated route.
 Focused OpenAPI/API outcomes and one fresh root browser/source-hash pass precede
 the full normal hook. This resolves the complete newly discovered A4 gap here.
+
+## A7 exact human admission — supersedes the unactivated proposal
+
+The user answered `Cho phép đúng giới hạn trên` to the complete one-call
+question. Immutable grant record:
+`docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json`.
+It admits only Alibaba `qwen-flash`, the exact Singapore endpoint, Windows
+CurrentUser `ALIBABA_API_KEY`, PUBLIC synthetic input, max64 output tokens,
+no retries/redirects/fallback, timeout60 and USD0.01 pay-as-you-go ceiling.
+Expired free quota is not reused. No broader provider or deployment grant.
+
+The same P5-A milestone retains A0-A6 accepted local material56b4c27 and
+continuity0cd6471; both full hooks3173/146/4 PASS. Entire remaining A7 chain:
+independent finite receipt SPEC/matrix, reviewed bounded caller, committed
+source, fresh actual local gate observations, one real provider attempt,
+sanitized receipt, independent result review and committed milestone closure.
+No helper/package success alone closes A7. Other Phase5 owners stay in binding.
+
+Exact A7 source paths:
+`scripts/run_p5a_live_governance_evidence.py`, bounded siblings
+`scripts/_p5a_live_*.py` itemized before review, and structural-only contract
+tests `tests/unit/test_p5a_live_canary*.py`. Exact contract paths:
+`docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md`,
+`docs/cvf/invariants/p5a-live-canary-outcomes.json`, registry entry and
+`docs/specs/p5a_live_canary_invariant_pin.py`.
+Exact evidence paths: the immutable admission above,
+`docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json`,
+`docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json` and
+the existing build review/full-gap/status/index/catalog/continuity owners.
+No historical provider script/receipt or quota catalog is overwritten.
+
+Luna/max SPEC_AUTHOR owns the independent contract/matrix before BUILD. Root
+independently reviews, then authorizes Sol/medium IMPLEMENTATION_WORKER for
+only the named caller/proof paths. Root independently reviews source before
+credential access, commits through normal gates, and owns the actual invocation.
+The default/preflight mode must read no credentials and make no provider call.
+Execution requires current exact grant, clean committed reviewed source and
+fresh inheritance0/0. Use an exclusive durable marker before the transport;
+never delete/reset it or add a retry/override path. Capture full sanitized
+request/response, actual usage/cost and attempt counters; never log raw headers,
+key values/prefixes/suffixes, operational report content or unsanitized errors.
+Validate output and accounting before acceptance. Failure/ambiguity preserves
+the attempt and stops; it does not grant another call.
+
+The new receipt family follows docs/cvf/INVARIANT_FAMILY_STANDARD.md. Structural
+schema/mutation fixtures are contract checks only, without provider emulation
+or AI-governance claims. Only the actual admitted call can establish live proof.
+Frozen P5A-EXPORT-OUTCOMES remains owner of the actual local API/export outcomes;
+do not change its existing SPEC or matrix pins. No source BUILD until independent
+contract review. No live invocation until reviewed committed source release.
+
+## A7 authorization-review repair and effect sequence
+
+Root consolidates the four independent authorization findings before BUILD.
+The immutable admission is a protected pre-BUILD input, never worker-mutable.
+The invariant registry is part of the reviewed contract package.
+`pre_commit` is the normal full source/contract/admission commit, before any
+credential read or reservation. `a7_source_release` verifies its actual commit
+and passing full gate; root alone owns `a7_one_call`. Luna/max p5a_readiness
+is the accountable independent A7 receipt REVIEWER: she neither authors the
+caller nor performs its provider effect. Her accepted result precedes
+`a7_evidence_commit`, then terminal completion, actual-SHA continuity and
+committed-range closure. A failed/ambiguous call is recorded/committed but
+cannot pass milestone closure. No result artifact is required to exist before
+the source commit. Reviewed contract/matrix pins are recorded before BUILD.
+
+## A7 registered invariant proof and BUILD activation
+
+Applicability: P5A-LIVE-CANARY-OUTCOMES under
+docs/cvf/INVARIANT_FAMILY_STANDARD.md. Matrix canonical digest
+b4323d0e8d0e008eaf96d16ef56839777cefeb619df3fee52fa709603d37a11d; independent
+contract SPEC canonical digest
+bf0177e77c22d8c16963ca535d6e076d9577466bc14a51c4c06df52024c2cb68.
+Static consumer docs/specs/p5a_live_canary_invariant_pin.py; caller adapter and
+structural-only tests use the exact bounded A7 source families above. Matrix
+existing structural checker evidence paths remain non-live. All declared flat
+RECURSE_NESTED_OBJECTS exclusions independently acknowledged by root; nested
+actual request/response require p5a_readiness result review. Sol returns focused
+conformance/corpus evidence without key/network or commit. Root independently
+recomputes pins and runs the corpus/samples structural outcomes, with the
+actual admitted response sampled separately after source commit. Exact gates:
+python scripts/check_invariant_families.py; focused test_p5a_live_canary*.py
+pytest; normal full pre-commit. No model fixture is live governance evidence.
+
+Root SPEC_REVIEW_PASS_BOUNDED and repaired authorization accepted before BUILD.
+Activate only the bounded caller/helper/structural-test implementation for
+Sol/medium after canonical continuity acknowledgment; no credential/attempt,
+immutable admission/local-receipt edit, contract change or commit is delegated.
+All remaining A7 source/effect/review/closure gaps stay owned here; Phase5 0/5.

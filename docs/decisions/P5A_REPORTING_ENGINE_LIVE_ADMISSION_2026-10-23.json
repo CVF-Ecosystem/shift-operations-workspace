@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "admissionId": "P5A-A7-ONE-CANARY-20261023",
+  "milestone": "P5-A",
+  "criterion": "A7",
+  "riskCeiling": "R2",
+  "status": "HUMAN_APPROVED_SOURCE_REVIEW_PENDING",
+  "humanApproval": {
+    "question": "One Alibaba qwen-flash canary to exact Singapore endpoint; Windows CurrentUser ALIBABA_API_KEY; synthetic PUBLIC input; max64 output tokens; zero retries; USD0.01 pay-as-you-go ceiling.",
+    "answer": "Cho phép đúng giới hạn trên",
+    "recordedAtUtc": "2026-10-23T16:32:39Z",
+    "authority": "Explicit current user reply to request_user_input_async; no borrowed private-provenance grant"
+  },
+  "provider": "Alibaba Cloud Model Studio",
+  "model": "qwen-flash",
+  "endpoint": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",
+  "credentialSource": "Windows CurrentUser Environment/ALIBABA_API_KEY",
+  "classification": "PUBLIC_SYNTHETIC_ONLY",
+  "maxProviderAttempts": 1,
+  "maxOutputTokens": 64,
+  "maxInputTokensReserved": 256,
+  "maxRetries": 0,
+  "allowRedirects": false,
+  "allowFallback": false,
+  "timeoutSeconds": 60,
+  "payAsYouGoCeilingUsd": "0.01",
+  "priceReference": {
+    "url": "https://www.alibabacloud.com/help/en/model-studio/qwen-flash",
+    "checkedAt": "2026-10-23",
+    "inputUsdPerMillion": "0.05",
+    "outputUsdPerMillion": "0.40",
+    "claim": "Published short-input Singapore list price; no account entitlement/free-quota claim"
+  },
+  "freeQuotaCatalogDisposition": "Expired; not used as authority. This approval explicitly permits pay-as-you-go within the one-call ceiling.",
+  "localProductMaterialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
+  "localContinuityCommit": "0cd647189252c041f33ca562b8643f754b196688",
+  "localEvidencePath": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json",
+  "localEvidenceCanonicalSha256": "32aa35d929a8ffe5033d890f3db6d587432154fbe97c4cc41b90524b580c731d",
+  "coreCommitAtAdmission": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
+  "privateProvenanceCommitAtAdmission": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403",
+  "sourceReadiness": "No credential read/provider invocation until independently reviewed, committed source and fresh local gates. No automatic retry after ambiguous or failed attempt."
+}

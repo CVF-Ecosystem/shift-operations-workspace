@@ -4,20 +4,22 @@
 Current HEAD recorded for this handoff: `56b4c2729b56c3094d69c141b9ee918026d3cb5a`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Status: REVIEW / LOCAL_GATES_PASS_A7_LIVE_HELD
+Status: REVIEW / A7_SOURCE_RETURNED_LIVE_PENDING
 Date: 2026-10-23
 Risk: R2
 Role: ORCHESTRATOR / independent REVIEWER; disjoint implementation workers
 
 ## Startup and scope acknowledgment
 
-Mode p5a_reporting_engine_review; phase REVIEW. Local material 56b4c2729b56c3094d69c141b9ee918026d3cb5a
-and full normal hook 3173 passed, 146 skipped, 4 warnings in 175.82s are settled. Root independently checked all51
-committed paths and exact source hashes; no product delta after local acceptance.
-Root transitions COMMIT_STEWARD to REVIEWER to SESSION_SYNC_STEWARD, then
-ORCHESTRATOR for A7 exact one-call admission. No provider/key access before that
-boundary; no routine scope reapproval. P5-A open, Phase5 0/5. Remaining Phase5
-owners/destinations are unchanged in the full milestone binding.
+Mode p5a_reporting_engine_a7_preparation; phase REVIEW. Local material56b4c27
+and actual-SHA continuity0cd6471 passed normal full hooks3173/146/4. Exactly
+one A7 call is human-admitted;0 key reads/0 provider attempts. Root owns
+orchestration/source review/commit/effect, Luna artifact reviewer authors the
+independent SPEC, Sol builds only after reviewed activation, and separate
+Luna p5a_readiness independently reviews authorization and actual receipt.
+Current next: review returned caller and bounded cost-basis repair, then normal
+source commit before the root effect. A7 receipt/final review/committed
+closure remain; P5-A open, Phase5 0/5. All remaining milestone owners unchanged.
 
 ## Product Milestone Binding and source truth
 
@@ -27,7 +29,7 @@ SPEC: docs/specs/P5A_REPORTING_ENGINE_SPEC.md.
 Authority: docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md.
 Exact paths: docs/implementation/P5A_REPORTING_ENGINE_MANIFEST.md.
 A0 inherited P2-R snapshot reused; A1-A6 independently accepted bounded; full
-material gates PASS. A7 separately admitted real canary remains OPEN/BLOCKED. Four presentation views of END_SHIFT; no new truth store.
+material gates PASS. A7 exact single real canary is admitted; source and actual receipt remain OPEN. Four presentation views of END_SHIFT; no new truth store.
 P5-A2/B/C/D remain owner-routed there. Phase5 completion remains 0/5.
 
 ## Readiness and dispatch evidence
@@ -46,7 +48,7 @@ Font/license still copied and verified during BUILD, no renderer yet.
 
 Public Core remains b69e1088978e8c90ac58a2243fcf8f90d0f857ed, matches public
 origin/main and doctor PASS WITH NOTE24/2 (legacy catalog/profile migration).
-Private source advanced from50b6f8d94 to9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403
+Private source advanced from50b6f8d94 to92bd2b5ef032fc7c910502e4cd73e520ebb95fdf
 after dispatch hook. Final source continuity commit3e3023e5a was clean; prior
 027f6e5fb review was accepted and hook refusal retained. Refreshed existing31-artifact pack and verified all1779
 projected files against exact committed Git blobs with checkout CRLF allowance:
@@ -106,7 +108,7 @@ full-hook commit. Product repairs release after the exact guard passes and
 independent binding review. Final material/closure gates remain mandatory;
 future source movement can still block them. No guard weakening or source edit.
 
-Current operator-local pin: `9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403`; read-only source and projection reconciled after cost review. Prior3e302 dispatch remains historical.
+Current operator-local pin: `92bd2b5ef032fc7c910502e4cd73e520ebb95fdf`; read-only source and projection reconciled after cost review. Prior3e302 dispatch remains historical.
 
 ## Current R2 repair acknowledgment
 
@@ -118,9 +120,9 @@ Root ORCHESTRATOR / independent REVIEWER owns acceptance and final evidence.
 Independent artifact reviewer checks the bounded binding/path amendment before
 repair release. Full A0-A7 and Phase5 remainder owners unchanged; provider held.
 
-Current review pin `9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403`. Exporter copied active dirty continuity; root reconciled 5 projection copies to exact committed blobs, then verified1779 files. Private source untouched; required authority/exporter carriers unchanged. This rejects dirty authority adoption and creates no framework feature.
+Current review pin `92bd2b5ef032fc7c910502e4cd73e520ebb95fdf`. Exporter copied active dirty continuity; root reconciled 5 projection copies to exact committed blobs, then verified1779 files. Private source untouched; required authority/exporter carriers unchanged. This rejects dirty authority adoption and creates no framework feature.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
 ## R3 typed-value repair release acknowledgment
 
@@ -131,7 +133,7 @@ REVIEWER to ORCHESTRATOR; Sol transitions returned IMPLEMENTATION_WORKER to
 REPAIR_WORKER for only date/time and integer representation plus their API/
 artifact tests. Same A2/A3/A4/A7 boundary, R2 risk, local external effects,
 paths and root commit owner; no acceptance weakening or provider authority.
-Current pin9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403, fresh inheritance0/0.
+Current pin92bd2b5ef032fc7c910502e4cd73e520ebb95fdf, fresh inheritance0/0.
 Independent artifact/source/API/browser review must accept the final result.
 
 ## Returned R3 and continuity synchronization acknowledgment
@@ -167,9 +169,9 @@ key-source/pay-go ceiling requires one consolidated admission under SPEC R12;
 expired catalog cannot authorize it. All Phase5 remainder owners stay in binding.
 No provider call, key access, operational data, push, deployment or release claim.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
 Root transitions SESSION_SYNC_STEWARD to COMMIT_STEWARD at pin1c2dfb06 after final artifact/harness acceptance and fresh inheritance0/0. Normal full hook must pass before material SHA is recorded; A7 remains held.
 
@@ -191,16 +193,92 @@ router.py under A4/A7, preserving runtime defaults/manual validation and refusal
 precedence. Sol REPAIR_WORKER then root independent REVIEWER/browser acceptance;
 no renderer/wheel changes, provider authority or milestone scope expansion.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
-CVF Agent Declaration: shift-operations-workspace; Core ../.Controlled-Vibe-Framework-CVF@b69e1088978e8c90ac58a2243fcf8f90d0f857ed; provenance@9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403; phase REVIEW; risk R2; live evidence YES; role independent REVIEWER; active handoff SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md; next: metadata/proof acceptance and one fresh browser pass; parked: A7 provider/key/cost admission. Read-only NCR reference mode cvf_ncr_html_next_types_effect_preparation grants no project provider authority.
+CVF Agent Declaration: shift-operations-workspace; Core ../.Controlled-Vibe-Framework-CVF@b69e1088978e8c90ac58a2243fcf8f90d0f857ed; provenance@92bd2b5ef032fc7c910502e4cd73e520ebb95fdf; phase REVIEW; risk R2; live evidence YES; role independent REVIEWER; active handoff SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md; next: metadata/proof acceptance and one fresh browser pass; parked: A7 provider/key/cost admission. Read-only NCR reference mode cvf_ncr_html_next_types_effect_preparation grants no project provider authority.
 
 Root independent REVIEWER accepts metadata/chain repair:63+2 focused PASS, unchanged route-body AST and historical SHA, fresh browser10/10 at final route hash. A4 reaccepted bounded. Root transitions to SESSION_SYNC_STEWARD then COMMIT_STEWARD; retry normal full gate. No provider/key use or milestone closure. Latest canonical next-move supersedes prior proof-only repair checkpoint.
 
-Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
 
 ## Actual local material and terminal range review
 
 Material 56b4c2729b56c3094d69c141b9ee918026d3cb5a; normal full hook 3173 passed, 146 skipped, 4 warnings in 175.82s. Exact51 paths accepted; staged/source canonical hashes and asset bytes match reviewed observations. Root independent terminal local review PASS_BOUNDED; no new product changes. Separate continuity records this actual SHA. A7 real canary remains blocked, so no tranche FREEZE or P5-A/Phase5 closure.
+
+## A7 explicit user admission and phase acknowledgment
+
+User approved exactly the one-call qwen-flash/CurrentUser key/PUBLIC synthetic/64-output-token/no-retry/USD0.01 pay-go envelope. Local material56b4c27 and actual-SHA continuity0cd6471 passed full normal hooks3173/146/4. A7 now inherits accepted DESIGN/SPEC R12 and enters WORK_ORDER amendment then bounded BUILD; no new support tranche. Root ORCHESTRATOR owns scope/commit/effect; Luna/max SPEC_AUTHOR authors the independent finite receipt contract/matrix; root independently reviews before Sol/medium IMPLEMENTATION_WORKER builds the one-use caller. A1-A6 retained; A7 source/review/actual one-call receipt/final review/committed closure remain. No key read or API attempt yet. All other Phase5 owners unchanged.
+
+A7 routing acknowledgment: root also holds WORK_ORDER_AUTHOR and
+SESSION_SYNC_STEWARD for the exact admission/path/continuity amendment. The
+finite receipt contract enters SPEC before amended WORK_ORDER activation.
+Luna/max p5a_readiness transitions returned UI REPAIR_WORKER to independent
+A7 AUTHORIZATION_REVIEWER for root-authored admission/Work Order only; no
+review of her own UI source and no implementation or key/provider action.
+
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+
+## Resumed A7 contract review acknowledgment
+
+CVF Agent Declaration: project shift-operations-workspace; public Core
+../.Controlled-Vibe-Framework-CVF@b69e1088978e8c90ac58a2243fcf8f90d0f857ed;
+operator-local provenance@92bd2b5ef032fc7c910502e4cd73e520ebb95fdf;
+phase SPEC; risk R2; live evidence required YES; role INTERNAL_AGENT Local
+ORCHESTRATOR/REVIEWER and WORK_ORDER_AUTHOR; this active handoff; next finite
+contract/authorization review then source BUILD; parked exact one-call effect
+until reviewed committed source, with no retry/fallback/public/deploy.
+Reference NCR continuity is unrelated and imports no project effect authority.
+Authorization review found four WO sequencing/binding/owner contradictions;
+root consolidated repair before BUILD, fresh inheritance0/0, doctor24/2.
+
+## A7 source BUILD release acknowledgment — 2026-10-24
+
+Root independently accepted Luna's frozen finite SPEC/matrix at recorded pins
+and applied independent authorization review repairs. Root transitions
+REVIEWER/WORK_ORDER_AUTHOR to ORCHESTRATOR; Sol/medium p5a_worker transitions
+readiness to IMPLEMENTATION_WORKER for only scripts/run_p5a_live_governance_evidence.py,
+scripts/_p5a_live_*.py and structural test_p5a_live_canary*.py. Source review/normal
+commit precede root-owned effect; Luna/max p5a_readiness independently reviews
+actual receipt before evidence commit/closure. Rehydrate current canonical
+continuity before BUILD. No worker key/network/commit/contract/immutable-receipt
+mutation.0 key reads/0 attempts; A1-A6 retained; entire A7 closure chain remains
+assigned, P5-A open/Phase5 0/5 and later milestone owners unchanged.
+
+Root transitions ORCHESTRATOR to independent REVIEWER after Sol A7 return.
+Four caller/helper files and two structural tests;25PASS, all6shapes/597
+mutations, local401/404/422/200/nonmutation; no effects or commit. Root consumes
+valid evidence and independently reruns required generated corpus. One source
+review repair remains: explicit public cost formula/rate version in evidence
+wrapper under existing SPEC, Sol REPAIR_WORKER then root source re-review.
+No contract change, key/provider/marker/evidence action or commit delegated.
+
+## A7 source acceptance and conditional effect route
+
+Root independent SOURCE_REVIEW_PASS_BOUNDED after one cost-basis repair;
+all6 raw structural samples and597 generated mutations independently checked.
+Root REVIEWER transitions to COMMIT_STEWARD for normal full source commit.
+Only after actual passing commit/clean worktree/fresh inheritance and preflight,
+root transitions to ORCHESTRATOR for exactly the already admitted one-use
+provider effect, with actual source HEAD and observed new full-gate result
+recorded in the gate-envelope attestation. No source release is assumed before
+the commit returns. Root's role/effect acknowledgment is recorded before the
+command; independent Luna p5a_readiness owns actual receipt review. No retry,
+fallback, additional provider/key source, public/deploy or milestone closure
+is granted. Current0key/0attempts; P5-A open and all remaining gaps assigned.
+
+A7 source hook refused1/3198/146/4 in139.63s; no commit/effect. Root
+COMMIT_STEWARD to REVIEWER/ORCHESTRATOR; Sol REPAIR_WORKER owns only the
+canonical assignment/existing repository User seam import correction. Original
+boundary test and frozen contracts unchanged; root independently verifies
+identity/import AST before full normal retry. Other A7/Phase5 owners unchanged.
+
+Review binding 92bd2b5ef032fc7c910502e4cd73e520ebb95fdf: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+
+Root independently verifies exact import-only repair by prior LF source hash;
+9focusedPASS, originalguard intact. RE_REVIEW_PASS_BOUNDED; COMMIT_STEWARD
+retry at92bd2b5e. Fresh continuity read acknowledges unrelated NCR verification
+mode; imports no effect authority.0key/0provider; one-call grant unchanged.

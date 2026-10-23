@@ -271,3 +271,111 @@ Sol returned63 OpenAPI tests and2 InMemory/SQLite API outcome tests PASS. Root v
 ## Actual material and post-material local review
 
 Material `56b4c2729b56c3094d69c141b9ee918026d3cb5a`; normal configured hook: 3173 passed, 146 skipped, 4 warnings in 175.82s. Exact51 committed paths and staged canonical source hashes verified unchanged from reviewed source. Local terminal review PASS_BOUNDED. All24 reviewed artifacts/raster copies are preserved at the immutable ignored packet path in the receipt before pytest regeneration. No provider call/key access, no new product delta and no milestone closure. A7 alone retains its real-canary admission/receipt requirement.
+
+## A7 exact admission, SPEC and authorization review — 2026-10-24 local
+
+User granted exactly the recorded one-call envelope; no credential read or
+provider attempt has occurred. Immutable admission canonical SHA-256:
+87595a703e06b9e4267a843d15ef900efdf77bca0c070cf3e72f6acec5e7fd0b.
+Root independently recomputed its local evidence anchor32aa35d929a8ffe5033d890f3db6d587432154fbe97c4cc41b90524b580c731d
+and consumed accepted material56b4c27/continuity0cd6471 rather than rerunning
+unchanged export/UI evidence.
+
+Independent SPEC REVIEW_PASS_BOUNDED before caller BUILD: Luna/max authored
+P5A-LIVE-CANARY-OUTCOMES; root reviewed the finite contract, all six flat
+receipt shapes and their reservation/POST separation against the user grant.
+SPEC canonical SHA-256 bf0177e77c22d8c16963ca535d6e076d9577466bc14a51c4c06df52024c2cb68;
+matrix canonical SHA-256 b4323d0e8d0e008eaf96d16ef56839777cefeb619df3fee52fa709603d37a11d.
+No expectations are derived from implementation. Matrix/static source pin and
+registered contract guard PASS. Flat RECURSE_NESTED_OBJECTS exclusions are
+acknowledged; complete sanitized nested request/response and actual gate
+envelope require separate independent result review, not a receipt echo claim.
+Structural corpus/raw model samples will prove contract behavior only; only
+the one actual admitted response can support the bounded live checkpoint.
+Provider echo does not approve or govern report exports or operational truth.
+
+Sol read-only feasibility findings were resolved at SPEC: honest partial
+preflight digest, marker-first repeat refusal, Windows durable CREATE_NEW/file
+flush, separate evidence wrapper. Independent authorization reviewer Luna/max
+p5a_readiness found four control gaps in root's WO. Consolidated repair binds
+protected admission+registry before BUILD, marks old local holds historical,
+orders source commit before effect and independent receipt/evidence commit
+before closure, and names p5a_readiness as independent receipt reviewer. Her
+narrow rereview accepted the repaired controls; root applied her sole residual
+historical-manifest wording correction. No boundary expansion or waiver.
+
+Current reference e38b955974e9a62ac91f6e4d2aa622b528a2785e:1779 projections
+match committed blobs, five authority/exporter carriers unchanged, inheritance
+0/0 and doctor24/2. Both CVF sources remain read-only.
+
+Independent Luna/max p5a_readiness final narrow authorization disposition:
+AUTHORIZATION_REVIEW_PASS_BOUNDED after the residual manifest wording fix.
+No findings/waivers remain in that bounded authorization review; no broad rerun.
+Caller source and actual receipt still require their separate reviews.
+
+## A7 independent source acceptance — 2026-10-24
+
+Sol returned only four caller/helper files and two structural tests;25 focused
+tests passed, Ruff clean and invariant-family guard PASS. Root independently
+read all source and test paths, recomputed unchanged SPEC/matrix/admission/local
+anchor pins, inspected all6 raw terminal contract samples and reran every one
+of597 generated mutations (93/89/95/104/100/116); all rejected. These samples
+and validators are structural evidence only, never provider output. Existing
+real local API probe confirms401/404/422/200 and unchanged report digest;
+401/404 have no wire error code and derived labels are identified. Root
+consumes accepted local/export/browser evidence without a broad duplicate run.
+
+Consolidated source review resolved enforced inheritance invocation, byte-exact
+assets, dotenv refusal, marker-first/uncertainty/race accounting, secret-safe
+JSON field names, truthful post-child attempt signaling and terminal unknown
+on unexpected transport exceptions. Single POST has TLS verification,
+trust_env=false, redirects disabled and default-zero-retry transport; child
+OS env is scrubbed, actual key travels only anonymous spawn IPC. Parent hard
+60s provider window terminates/kills and joins its child with bounded cleanup;
+no timeout worker is permitted to survive. Default readiness is0credentials/
+0provider and writes no fixed artifacts. Windows durable reservation and
+actual key/transport remain intentionally unexercised until admitted effect.
+
+Formal remaining finding A7-SOURCE-F1: explicit cost formula/rate version was
+missing from evidence wrapper. Sol repaired only runner/existing test;affected
+8tests/Ruff PASS. Root inspected fixed public nano-USD basis and accepted
+without matrix/contract change. SOURCE_REVIEW_PASS_BOUNDED, findings/waivers
+NONE/NONE. This accepts source only, not A7 live or milestone closure.
+
+Exact reviewed raw source SHA/line bindings:
+
+- scripts/run_p5a_live_governance_evidence.py: c03f4c9ba0c083eaea504be7a06c2771dd0093a850b60f217de0f8fc9c8c5322, 239 lines.
+- scripts/_p5a_live_contract.py: 151b19e202020e9639dd17c2a57127132d610b1bb9edb1261c7d50c558010b12, 200 lines.
+- scripts/_p5a_live_preflight.py: e8703a16059e64f3c66669ab83a62b2e1c3fd0490db0f2ccd4d2294773fd8277, 255 lines.
+- scripts/_p5a_live_transport.py: 0dd6ef1c1b96acb849682d2b689b71b7233727df7f6b82e222753d7ab7088b10, 192 lines.
+- tests/unit/test_p5a_live_canary_contract.py: 4312c623f27901d59ee7bc0ca0554534dd473b4912192ee753fba3a991abf0e7, 184 lines.
+- tests/unit/test_p5a_live_canary_preflight.py: d344b84606073ee5d9dd1d7b842cd3ee9236b59e1467fc8b5fb7058b7abc1c9e, 121 lines.
+
+## A7 normal source-gate refusal and bounded import repair
+
+No source commit occurred: normal hook1failed/3198passed/146skipped/4warnings
+in139.63s. Retained log .venv/p5a-a7-source-commit-attempt-1.log. Existing P1-B
+static boundary rejects the probe's third shim-namespace importer. This is
+one independent new integration root cause, not provider or export failure.
+Root COMMIT_STEWARD to REVIEWER to ORCHESTRATOR; Sol REPAIR_WORKER changes
+only preflight source imports/seed references, using canonical ShiftAssignment
+and the existing authorized repository User construction seam. No dynamic
+import, duplicate model, new namespace exception or historical test change.
+Exact boundary/preflight proof then independent AST/class-identity review and
+normal full-hook retry. Same objective/paths/R2/external effects/commit owner;
+no new support tranche or routine approval.0key/0provider; A7 stays open.
+
+Import repair returned9focused PASS/Ruff clean. Worker proved canonical
+Assignment/repository User identity against actual app classes. Root's two
+preliminary byte comparisons assumed the wrong import position/EOL format and
+made no source changes. Correct LF reconstruction of prior source matches
+reviewed e8703a16 exactly when reversing only imports/seed references. Root
+independently inspected import AST: canonical Assignment and existing
+repository User, no shim-namespace/dynamic import/duplicate type. No other
+implementation delta; new preflight SHA
+dcc8effed9ea15c7bfeb3fdd91d3917d4a60dd6191294e8522f487620fa3d35b.
+Root RE_REVIEW_PASS_BOUNDED, original test unchanged. Static reference moved
+to92bd2b5ef032fc7c910502e4cd73e520ebb95fdf; unrelated NCR continuity/evidence/
+baseline/roadmap only, five authority/exporter carriers unchanged,1779 exact
+committed projections/0dirty mismatches. Source repositories untouched.
+Normal source hook retry follows; no effect or extra authority borrowed.

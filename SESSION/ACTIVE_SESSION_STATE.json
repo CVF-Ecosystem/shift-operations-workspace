@@ -2,25 +2,25 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a_reporting_engine_review",
+  "mode": "p5a_reporting_engine_a7_preparation",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "last_updated": "2026-10-23",
+  "last_updated": "2026-10-24",
   "required_reads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
     "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
-    "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
     "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
-    "SESSION/ACTIVE_SESSION_STATE.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
-    "docs/catalog/MODULE_REGISTRY.json",
-    "IMPLEMENTATION_STATUS.json"
+    "IMPLEMENTATION_STATUS.json",
+    "docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md",
+    "docs/cvf/invariants/p5a-live-canary-outcomes.json",
+    "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Resolve A7 one-call real-provider admission under SPEC R12 and the concrete unactivated Work Order envelope; current quota/endpoint/key-source/cost authority must be explicit before credential/provider use. Local material and full conformance are committed and accepted bounded. P5-A remains REVIEW/open, Phase5 0/5; P5-A2/B/C/D stay owner-routed in the full milestone binding.",
+  "next_allowed_move": "Commit independently reviewed A7 source/contract/admission through normal full hook. After actual clean source commit and fresh inheritance/preflight, root ORCHESTRATOR alone executes exactly the admitted one-call envelope with current HEAD/full-gate attestation; independent Luna p5a_readiness reviews actual receipt, then normal evidence/continuity/closure commits. A1-A6 retained; no extra attempt/retry/fallback/public/deploy. P5-A open, Phase5 0/5, later milestone owners unchanged.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a_reporting_engine_review",
+    "currentMode": "p5a_reporting_engine_a7_preparation",
     "activePhase": "REVIEW",
-    "activePhaseNote": "Local material committed; full configured gate PASS; A7 real canary admission/receipt remains held.",
+    "activePhaseNote": "Source accepted bounded; normal source commit then conditional root-owned exact one-use effect and independent result review.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,12 +55,12 @@
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
-    "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "Root completed material stewardship and terminal local review, synchronizes actual SHA, then owns A7 admission and full-roadmap routing.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
+    "parkedOperatorCheckpoint": "Only the exact one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01 pay-go envelope is admitted. Execution waits for reviewed committed source. Retries/fallback, extra providers/calls, public/deploy remain held.",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Sol IMPLEMENTATION_WORKER; root independent source reviewer/commit/effect owner; Luna p5a_readiness independent actual receipt reviewer.",
+    "currentRoleTransition": "A7_INDEPENDENT_SOURCE_REVIEW_TO_COMMIT_STEWARD_THEN_CONDITIONAL_ORCHESTRATOR_EFFECT",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
-    "updatedAt": "2026-10-23"
+    "updatedAt": "2026-10-24"
   },
   "verification_snapshot_20261023": {
     "repinMaterialCommit": "2ff8fe4be376d655f4e80cf0f2f78afb5a83e9b2",
@@ -75,7 +75,7 @@
     "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
     "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
     "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open.",
-    "currentProvenanceCommit": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403"
+    "currentProvenanceCommit": "92bd2b5ef032fc7c910502e4cd73e520ebb95fdf"
   },
   "p5a_local_review_20261023": {
     "status": "LOCAL_MATERIAL_AND_GATES_PASS_A7_LIVE_HELD",
@@ -102,5 +102,13 @@
     "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
     "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s",
     "changedPaths": 51
+  },
+  "p5a_a7_admission_20261023": {
+    "status": "SOURCE_REVIEW_PASS_COMMIT_AND_SINGLE_EFFECT_PENDING",
+    "path": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json",
+    "maxAttempts": 1,
+    "physicalAttempts": 0,
+    "credentialRead": false,
+    "noAutomaticRetry": true
   }
 }

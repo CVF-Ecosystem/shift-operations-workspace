@@ -493,7 +493,7 @@ Gate gốc: evidence traceability, outage drills, backup restore, owner review.
 P5-A là engine trình bày/tổng hợp và xuất báo cáo. Nó không thay thế P2-R
 operational report record cần để hoàn thành một ca và thỏa freeze prerequisite.
 
-- [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel. **REVIEW / LOCAL PASS, A7 HELD (2026-10-23)** — [full gap binding](../decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md).
+- [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel. **A7 REVIEW / LOCAL PASS, ONE-CALL ADMITTED; SOURCE COMMIT AND LIVE RECEIPT PENDING (2026-10-24)** — [full gap binding](../decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md).
 - [ ] **P5-A2:** Proactive reporting và forecasting sau khi reporting +
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human

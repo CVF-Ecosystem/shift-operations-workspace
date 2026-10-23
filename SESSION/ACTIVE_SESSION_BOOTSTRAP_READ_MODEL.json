@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a_reporting_engine_review",
+  "currentMode": "p5a_reporting_engine_a7_preparation",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "nextAllowedMove": "Resolve A7 one-call real-provider admission under SPEC R12 and the concrete unactivated Work Order envelope; current quota/endpoint/key-source/cost authority must be explicit before credential/provider use. Local material and full conformance are committed and accepted bounded. P5-A remains REVIEW/open, Phase5 0/5; P5-A2/B/C/D stay owner-routed in the full milestone binding.",
-  "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
+  "nextAllowedMove": "Commit independently reviewed A7 source/contract/admission through normal full hook. After actual clean source commit and fresh inheritance/preflight, root ORCHESTRATOR alone executes exactly the admitted one-call envelope with current HEAD/full-gate attestation; independent Luna p5a_readiness reviews actual receipt, then normal evidence/continuity/closure commits. A1-A6 retained; no extra attempt/retry/fallback/public/deploy. P5-A open, Phase5 0/5, later milestone owners unchanged.",
+  "parkedOperatorCheckpoint": "Only the exact one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01 pay-go envelope is admitted. Execution waits for reviewed committed source. Retries/fallback, extra providers/calls, public/deploy remain held.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
     "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
-    "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
     "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
-    "SESSION/ACTIVE_SESSION_STATE.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
-    "docs/catalog/MODULE_REGISTRY.json",
-    "IMPLEMENTATION_STATUS.json"
+    "IMPLEMENTATION_STATUS.json",
+    "docs/specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md",
+    "docs/cvf/invariants/p5a-live-canary-outcomes.json",
+    "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-10-23"
+  "updatedAt": "2026-10-24"
 }
