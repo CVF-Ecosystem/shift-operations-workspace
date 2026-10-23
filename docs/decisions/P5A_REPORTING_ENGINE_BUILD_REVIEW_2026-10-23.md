@@ -402,3 +402,59 @@ churn blocker and stop dependent effect work, with0key/0provider. No infinite
 support tranche, checker weakening, read-only source lock/edit, extra provider
 grant, retry or quota use is permitted. Protected5 carriers unchanged,1779
 projected committed blobs verified. Source/product bytes remain accepted.
+
+## Actual A7 canary — retained failed outcome and diagnostic
+
+Exactly one approved root call ran from clean0f42276e0a1961987a1e14e0e2f598a8104a7501
+with normalfull3199/146/4 PASS117.79s and freshinheritance0/0. Fixed marker
+reserved2026-10-23T17:33:03Z (2026-10-24 local). Actual provider response:
+HTTP401, error.code invalid_api_key, error.type invalid_request_error. This
+proves rejection by the admitted Singapore endpoint; it does not prove the
+credential's validity for other regions/accounts/endpoints. Root did not read
+the key again, inspect its prefix/length, change source/endpoint, or retry.
+
+Marker/keylookup/transport/response=1/1/1/1, accepted0; retry/redirect/fallback0.
+Usage ABSENT; no token count/cost invented and no invoice/quota claim. One-call
+authority is spent, with no refund or implicit replacement. Fixed marker and
+complete sanitized request/response/envelope retained at the exact approved
+LIVE_ATTEMPT/LIVE_EVIDENCE paths. Gate envelope COMPLETE: localAPI401/404/422/200
+and report digest equality, exact reviewed source and actualHEAD bindings.
+Only digest supplied to provider; no operational report data or headers.
+
+Diagnostic conclusion: BLOCKED_CREDENTIAL_FOR_ADMITTED_ENDPOINT plus
+SPENT_SINGLE_CALL_AUTHORITY. No provider-dependent repair can execute under
+this grant. A credential valid for the selected endpoint (or newly admitted
+endpoint change) and a new bounded attempt are required for a future call.
+No secret or new provider request is needed for this diagnostic. Independent
+Luna receipt review and normal failed-evidence commit remain; no A7/milestone
+closure or general AI-governance behavior claim.
+
+Post-effect review initially refused private HEAD a7d70b0f vs48aaff02e.
+Pre-effectguard0/0 remains historical evidence for actual invocation. Only
+minimal failed-evidence persistence reconciliation admitted, not another live
+preparation/retry:3unrelated NCR documents, protected5unchanged and1779exact
+projections. Independent actual receipt reviewer resumes at fresh0/0. Further
+post-commit drift is a resume blocker, not an infinite sync authorization.
+
+## Independent actual failed-receipt review disposition
+
+Luna/max p5a_readiness: RESULT_REVIEW_PASS_FAILURE_RECORDED at fresh
+inheritance0/0, findings/waivers NONE/NONE within failed-receipt accuracy. She
+verified admission/endpoint/model; exact local receipt anchor; all31 recorded
+source hashes against effectHEAD0f42276 (no caller delta after06faf9f);
+marker SHA2685e912ff88aa394be6b5f62a7274eda11642535e96594bbb40ce940c3e35ce;
+receipt SHA11efb34c3b29a9074555859b605e897d26c8751a7642b304a161b16ee8850984.
+Canonical gate digest4314235adfe9c882e8037ae6cc902178c976dafd0b933d5ab497c711e01e1044
+recomputed; COMPLETE/sevenPASS, actual source-release full3199/146/4, local
+401/404/422/200 and unchanged report digest. Full fixed PUBLIC request has
+qwen-flash/max64/thinkingoff, no report body. Full sanitized response401
+invalid_api_key and response hash match. Terminal unavailable-usage failed
+shape/domain/counter/forbidden-field checks PASS:1/1/1/1/0 and0retry/redirect/
+fallback, usage/cost absent; public formula basis separate. No key/registry
+read, provider request, broad rerun or source edit by reviewer.
+
+This independently accepts the accuracy of retained failure, not A7 live
+acceptance or product closure. Root transitions ORCHESTRATOR/SESSION_SYNC to
+COMMIT_STEWARD only for failed evidence and truthful blocked continuity.
+Any future call requires valid endpoint credential and newly admitted budget;
+no implicit refund/replacement. No FREEZE, production, invoice or push claim.

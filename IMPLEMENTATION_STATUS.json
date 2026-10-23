@@ -465,9 +465,9 @@
     "materialCommit": "8f2e7157f0510f9501f254fb8af515ce35718a5f"
   },
   "p5a_reporting_engine_20261023": {
-    "status": "A7 SOURCE_COMMITTED / EXACT_ONE_EFFECT_PENDING",
+    "status": "A7 BLOCKED / ONE_CALL_SPENT_HTTP401_INVALID_API_KEY",
     "implementation": "Reviewed deterministic PDF/XLSX renderer, authenticated assignment-scoped API and current/history UI; artifact/type/pagination repairs resolved; actual browser and wheel proof passed.",
-    "milestoneCompletion": "A0 reused; A1-A6 accepted bounded and full local gates passed. User admitted exact1 A7 canary; source/review/commit, real receipt/final review and committed closure remain. P5-A open; Phase5 0/5.",
+    "milestoneCompletion": "A0 reused/A1-A6 accepted bounded. A7 source/full3199PASS; exact1 real call returned401invalid_api_key, accepted0, no retry. Failed receipt review/commit then valid selected-endpoint credential and new attempt authority required; P5-A open, Phase5 0/5.",
     "binding": "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
     "spec": "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "workOrder": "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
@@ -479,6 +479,10 @@
     "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s",
     "liveAdmission": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json",
     "a7SourceCommit": "06faf9f00b26c0c8f3510174c937a9fb60bf15a9",
-    "a7SourceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 136.11s"
+    "a7SourceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 136.11s",
+    "a7LiveReceipt": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json",
+    "a7PhysicalAttempts": 1,
+    "a7AcceptedResponses": 0,
+    "a7ProviderError": "invalid_api_key"
   }
 }

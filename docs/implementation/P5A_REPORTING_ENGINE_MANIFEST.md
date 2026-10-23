@@ -222,3 +222,11 @@ Root independent source REVIEW_PASS_BOUNDED after cost-basis metadata repair.
 All source files stay below300lines; original product source, frozen SPECs,
 matrices and immutable admission/local evidence remain unchanged. Source
 material commit must pass normal full hook before the one root-owned effect.
+
+## Actual A7 failed-call disposition
+
+Exact generated LIVE_ATTEMPT/LIVE_EVIDENCE paths in the Work Order are now
+retained, with independent RESULT_REVIEW_PASS_FAILURE_RECORDED. Real one call
+returned401invalid_api_key, accepted0; no retry, usage/cost invented or source
+repair. Grant spent, marker immutable. Normal failed-evidence commit and
+actual-SHA blocked continuity do not close P5-A/A7. Product/caller source intact.

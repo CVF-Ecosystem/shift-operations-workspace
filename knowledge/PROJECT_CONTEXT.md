@@ -109,7 +109,7 @@ Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
-provenance `48aaff02e` and its ADIF-0057 machine gate is bound to the project.
+provenance `a7d70b0fa` and its ADIF-0057 machine gate is bound to the project.
 Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
 A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
 Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,

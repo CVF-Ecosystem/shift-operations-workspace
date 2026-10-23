@@ -165,9 +165,9 @@ Phase5 remains0/5. Historical planning tables above are source-at-planning.
 | A4 API download | Auth/refusals and binary route; accurate required query/binary OpenAPI metadata,63+2 focused tests and fresh10-download source-bound browser pass | ACCEPTED_BOUNDED | Root independent REVIEWER; API/OpenAPI tests, AST comparison and browser receipt |
 | A5 real UI current/history | Actual10 downloads, CORS-hidden disposition fallback, offline refusal,10 URL revocations;128 tests/build on Node22.14.0 | ACCEPTED_BOUNDED | Root independent REVIEWER; browser receipt and UI tests |
 | A6 environment/distribution | Locked Python3.13.12, font/license hashes, offline wheel and isolated resource import | ACCEPTED_BOUNDED | Root and independent artifact REVIEWER; package/wheel evidence |
-| A7 full conformance/live | Local3173/146/4, corpus13 and OpenAPI63+API2 PASS. User admitted exact1 canary; finite contract/source review/commit, actual call/receipt/final review and committed closure remain | ADMITTED_SOURCE_AND_LIVE_PENDING | Luna SPEC_AUTHOR, Sol IMPLEMENTATION_WORKER after contract review; root independent REVIEWER/COMMIT_STEWARD/effect owner; independent result REVIEWER |
+| A7 full conformance/live | Local3173PASS/source3199PASS; exact1 real call401invalid_api_key,accepted0. Retain failed receipt/review/commit; valid selected-endpoint credential + new bounded attempt required before live acceptance | BLOCKED_CREDENTIAL_AND_SPENT_ONE_CALL | Luna SPEC_AUTHOR, Sol IMPLEMENTATION_WORKER after contract review; root independent REVIEWER/COMMIT_STEWARD/effect owner; independent result REVIEWER |
 | Remaining Phase5 | Forecasting, dashboard/observability, resilience, pilot/release unchanged | OUTSIDE_P5A OPEN | Existing roadmap owners/destinations: P5-A2, P5-B, P5-C, P5-D respectively |
 
 All P5-A gaps and Phase5 remainders stay represented. Local acceptance does not
-close A7, P5-A or Phase5. User has admitted the exact one-call canary;0 provider/key access so far. No public/deploy effect.
+close A7, P5-A or Phase5. User-admitted one call is spent:1key/1POST/1response/0accepted,401invalid_api_key;no retry. No public/deploy effect.
 Evidence: docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.

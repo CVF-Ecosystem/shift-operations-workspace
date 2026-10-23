@@ -2,6 +2,7 @@
 
 Status: APPROVED_FOR_EXECUTION
 Risk: R2
+Current A7 effect disposition: SPENT_FAILED_HTTP401_INVALID_API_KEY; no retry or key reread.
 
 ## Product Milestone Binding
 
@@ -316,3 +317,8 @@ Activate only the bounded caller/helper/structural-test implementation for
 Sol/medium after canonical continuity acknowledgment; no credential/attempt,
 immutable admission/local-receipt edit, contract change or commit is delegated.
 All remaining A7 source/effect/review/closure gaps stay owned here; Phase5 0/5.
+
+A7 actual one-call failure supersedes the pre-effect readiness above. Independent
+RESULT_REVIEW_PASS_FAILURE_RECORDED accepts receipt accuracy only. Do not
+reuse the immutable grant/marker or activate another call under this Work Order;
+a new bounded admission is required after endpoint credential correction.

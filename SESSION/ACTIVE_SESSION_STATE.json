@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a_reporting_engine_a7_effect_ready",
+  "mode": "p5a_reporting_engine_a7_blocked_credential",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
   "last_updated": "2026-10-24",
   "required_reads": [
@@ -20,7 +20,7 @@
     "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Source06faf9f passed full normal3199/146/4; actual-SHA continuity binds unchanged source/current read-only reference. After this clean continuity commit and fresh gates, root alone uses the exact admitted one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01/no-retry envelope. Independent Luna p5a_readiness reviews actual receipt before normal evidence/closure commits. A7 live/closure pending; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.",
+  "next_allowed_move": "A7 is blocked: the single approved call is spent with HTTP401 invalid_api_key, accepted0. After committing the reviewed failed receipt/diagnostic, wait for a credential valid for the selected endpoint and a new explicit bounded one-call admission; no key reread, retry, fallback or marker reset under the old grant. A1-A6 and source/full3199PASS retained; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a_reporting_engine_a7_effect_ready",
-    "activePhase": "BUILD",
-    "activePhaseNote": "Accepted committed source; root-owned single effect produces live evidence, then independent result REVIEW.",
+    "currentMode": "p5a_reporting_engine_a7_blocked_credential",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "One admitted real call rejected401 invalid_api_key; no live acceptance or automatic retry.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,10 +55,10 @@
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "Only the exact one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01 pay-go envelope is admitted. Execution waits for reviewed committed source. Retries/fallback, extra providers/calls, public/deploy remain held.",
-    "activeRole": "ORCHESTRATOR",
+    "parkedOperatorCheckpoint": "One-call admission spent. A valid credential for the selected endpoint plus new explicit one-call authority is required before any future live request. Public/deploy held.",
+    "activeRole": "COMMIT_STEWARD",
     "activeRoleNote": "Sol IMPLEMENTATION_WORKER; root independent source reviewer/commit/effect owner; Luna p5a_readiness independent actual receipt reviewer.",
-    "currentRoleTransition": "A7_SOURCE_COMMIT_TO_ACTUAL_SHA_CONTINUITY_THEN_ROOT_ONE_USE_EVIDENCE_BUILD",
+    "currentRoleTransition": "INDEPENDENT_FAILED_RECEIPT_REVIEW_TO_FAILURE_EVIDENCE_COMMIT",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-24"
   },
@@ -75,7 +75,7 @@
     "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
     "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
     "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open.",
-    "currentProvenanceCommit": "48aaff02e2b5ace7eee75e5f5b5e4c97779b5d99"
+    "currentProvenanceCommit": "a7d70b0fa5edd76bf8bc6038256e38c5976ae563"
   },
   "p5a_local_review_20261023": {
     "status": "LOCAL_MATERIAL_AND_GATES_PASS_A7_LIVE_HELD",
@@ -104,13 +104,25 @@
     "changedPaths": 51
   },
   "p5a_a7_admission_20261023": {
-    "status": "SOURCE_COMMITTED_EXACT_ONE_EFFECT_PENDING",
+    "status": "SPENT_FAILED_HTTP401_INVALID_API_KEY",
     "path": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json",
     "maxAttempts": 1,
-    "physicalAttempts": 0,
-    "credentialRead": false,
+    "physicalAttempts": 1,
+    "credentialRead": true,
     "noAutomaticRetry": true,
     "sourceMaterialCommit": "06faf9f00b26c0c8f3510174c937a9fb60bf15a9",
-    "sourceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 136.11s"
+    "sourceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 136.11s",
+    "markerReservations": 1,
+    "responses": 1,
+    "acceptedResponses": 0,
+    "httpStatus": 401,
+    "providerErrorCode": "invalid_api_key",
+    "retryCount": 0,
+    "usageState": "ABSENT",
+    "effectSourceCommit": "0f42276e0a1961987a1e14e0e2f598a8104a7501",
+    "attemptMarker": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_ATTEMPT_2026-10-23.json",
+    "receipt": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json",
+    "independentReceiptReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
+    "evidenceMaterialDisposition": "REVIEWED_FAILED_RECEIPT_PENDING_NORMAL_COMMIT"
   }
 }

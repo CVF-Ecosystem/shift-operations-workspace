@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "81754c7de4b98dde93d2304752f45595e5e359d2866fac3cc3bde6046082a311"
+          "sha256": "7c4ea92f20032a15e6c524920fe89201d0d18ed9bba9bc69e0067b5d94b97291"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
@@ -27,7 +27,7 @@
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "50580422015cec03b992dfe24830bd4092d17feb3e6271c38c7d6d9a19b4bb54"
+          "sha256": "9c12cb0b6234392734c01f7fe191ee8d5d198911cae2341be258c708f4425922"
         }
       ],
       "reviewedAt": "2026-10-23",
@@ -107,11 +107,11 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "6995b4540105aea3e24f667b4cc76fb70a15816a2f1c50e16d988499ecf4a57d"
+          "sha256": "8451da00bb005cc699be0421b53bb0576c37e79b1a09a3681f7dc19665cd3cbf"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "be28743c4cf87f1f16d7308ebfdc5341fd6b7dbe5499e78f7f18b537016dd1bb"
+          "sha256": "3162fff5392a7ce6e123356027f6d3859ed34ee2d94d886d5352a03131a16ffc"
         },
         {
           "path": ".cvf/policy.json",

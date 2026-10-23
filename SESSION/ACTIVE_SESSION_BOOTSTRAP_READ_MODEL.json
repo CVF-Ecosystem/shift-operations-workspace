@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a_reporting_engine_a7_effect_ready",
+  "currentMode": "p5a_reporting_engine_a7_blocked_credential",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "nextAllowedMove": "Source06faf9f passed full normal3199/146/4; actual-SHA continuity binds unchanged source/current read-only reference. After this clean continuity commit and fresh gates, root alone uses the exact admitted one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01/no-retry envelope. Independent Luna p5a_readiness reviews actual receipt before normal evidence/closure commits. A7 live/closure pending; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.",
-  "parkedOperatorCheckpoint": "Only the exact one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01 pay-go envelope is admitted. Execution waits for reviewed committed source. Retries/fallback, extra providers/calls, public/deploy remain held.",
+  "nextAllowedMove": "A7 is blocked: the single approved call is spent with HTTP401 invalid_api_key, accepted0. After committing the reviewed failed receipt/diagnostic, wait for a credential valid for the selected endpoint and a new explicit bounded one-call admission; no key reread, retry, fallback or marker reset under the old grant. A1-A6 and source/full3199PASS retained; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.",
+  "parkedOperatorCheckpoint": "One-call admission spent. A valid credential for the selected endpoint plus new explicit one-call authority is required before any future live request. Public/deploy held.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
