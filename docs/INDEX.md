@@ -2,6 +2,8 @@
 
 ## Start Here
 
+- Mandatory dispatch contract: [Product Milestone Binding](implementation/ACCEPTANCE_GATES.md#product-milestone-binding), routed from AGENTS.md and work_orders/README.md.
+
 - Static inheritance repin: [2026-10-23 decision](decisions/CVF_INHERITANCE_REPIN_2026-10-23.md).
 
 - Closed-bounded P4-E Amendment 2 packet and parked handoff:

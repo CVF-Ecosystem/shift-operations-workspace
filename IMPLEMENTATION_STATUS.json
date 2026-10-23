@@ -455,5 +455,11 @@
     "sourceCommit": "e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e",
     "scope": "Static reference synchronization only; product roadmap unchanged.",
     "evidence": "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md"
+  },
+  "product_milestone_binding_20261023": {
+    "status": "REVIEW_PASS_DOCUMENTATION_PENDING_COMMIT",
+    "scope": "Operator-mandated documentation contract for all future dispatch/redispatch. No automated enforcement or product capability claim.",
+    "contract": "docs/implementation/ACCEPTANCE_GATES.md",
+    "closure_blocker": "Final required gates and separate commits/continuity pending."
   }
 }

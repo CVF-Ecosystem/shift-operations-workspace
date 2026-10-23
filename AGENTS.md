@@ -89,6 +89,31 @@ A tranche may inherit accepted evidence and enter at its earliest open stage
 when that decision is recorded. Gate every applicable transition, but do not
 require a standalone review artifact after each stage. REVIEW is formal result evaluation before FREEZE; lifecycle traceability is not universal machine enforcement.
 
+## Mandatory Product Milestone Binding
+
+Before any new dispatch or redispatch, including repair, governance maintenance,
+research and repository absorption, the ORCHESTRATOR and WORK_ORDER_AUTHOR MUST
+include the `Product Milestone Binding` block defined in
+`docs/implementation/ACCEPTANCE_GATES.md`. Inline assignments and handoffs have
+this same obligation; a separate Work Order file is not an exemption.
+
+Bind the assignment to a named product milestone and its observable user outcome.
+Reconcile ALL remaining requirements for that milestone against current source,
+integration and accepted evidence, not only the defect or component being assigned.
+Name which gaps this assignment closes, all gaps it leaves, and an accountable
+owner and concrete roadmap destination for each remainder. Unknown coverage is
+`UNKNOWN / BLOCKED`, never omitted or treated as complete.
+
+Do not dispatch when the binding or complete gap reconciliation is missing.
+Support work must identify the specific milestone gap it unblocks, its necessity,
+a bounded stop condition and the return to product work; without that link it is
+parked. Repeated support work cannot automatically authorize another tranche.
+REVIEWER MUST reject incomplete bindings and independently assess milestone
+coverage. Closing a bounded tranche does not close its milestone: reconcile the
+remaining gap set at return/review/closure; milestone completion requires its
+full acceptance evidence and existing closure gates. Historical closed records
+are not rewritten; any new assignment must use current implementation truth.
+
 ## Provider-Neutral Role Contract
 
 Roles are responsibilities and must never be hardcoded to a specific provider.
