@@ -104,3 +104,31 @@ F1-F3 prose corrections, which are now resolved. Human R2/external-effect review
 font/dependency distribution, concrete resource caps, reviewed invariant family,
 exact manifest/gate graph and applicable separately admitted live proof remain
 held. P5-A A1-A7 remain OPEN/BLOCKED; Phase5 completion remains 0/5.
+
+## Execution readiness review under operator delegation
+
+Root ORCHESTRATOR/REVIEWER and independent p5a_readiness (Luna/max) accept
+local activation readiness. Operator clarified autonomous roadmap execution,
+review and subagents; earlier repeated human-scope checkpoint is satisfied.
+Sol/medium authored exact manifest/gate graph and contract matrix. Consolidated
+findings resolved: same-count substitution, 503 busy, complete parsed lineage,
+nonmutation on every outcome, eight exact status/history shapes, narrow repair
+paths, actual Vitest discovery, locked PDF proof tool and Python3.13.12 setup.
+Independent frozen environment version checks PASS; P2-R baseline 31 PASS.
+Real active closeability check must PASS after status activation; static matrix
+proof is not renderer or governance proof. No A1-A7 runtime criterion is declared
+closed by this readiness review. Provider/credential/public/deployment held.
+Implementation must honor SPEC hard process deadline and all format/browser proof.
+
+## Frozen-environment baseline compatibility repair
+
+Initial activation pre-commit on Python3.13.12 retained one failed isolation
+case (3120 passed/146 skipped) because the existing probe rejected exact active
+virtualenv runtime/site paths beneath the repo. Its own contract explicitly
+preserves stdlib/site-packages while removing repository SOURCE roots.
+Sol's bounded repair permits only exact sys.prefix/sysconfig purelib/platlib;
+all forbidden imports and static checks remain. Added negative repo-root/API-src
+contamination cases still fail as intended. Root independently reviewed the diff;
+focused boundary+P2-R 41 PASS, Ruff/file-size/invariant/closeability PASS. This
+readiness dependency is named in the exact manifest, not an unrelated domain
+repair. Full pre-commit must pass before lane release; no prior FAIL erased.

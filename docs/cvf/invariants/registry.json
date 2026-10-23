@@ -104,6 +104,14 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_PLACEMENT_TERMINAL_RETRY_COUNTER_SCHEMA_PARITY"
+    },
+    {
+      "familyId": "P5A-EXPORT-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p5a-export-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_EXPORT_RESPONSE_REFUSAL_AND_CROSS_FORMAT_MEMBERSHIP"
     }
   ]
 }

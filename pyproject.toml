@@ -35,6 +35,8 @@ dependencies = [
   "PyJWT>=2.9",
   "bcrypt>=4.0",
   "cryptography>=43.0",
+  "reportlab==4.4.4",
+  "openpyxl==3.1.5",
 ]
 
 # psycopg is only needed to connect to a real PostgreSQL DATABASE_URL; install
@@ -48,6 +50,7 @@ dev = [
   "mypy>=1.13",
   "jsonschema>=4.23",
   "referencing>=0.35",
+  "PyMuPDF==1.27.2.2",
 ]
 
 [tool.pytest.ini_options]
@@ -69,7 +72,8 @@ pythonpath = [
   "packages/governed-retrieval/src",
   "packages/ai-gateway/src",
   "packages/governed-rag/src",
-  "packages/ai-providers/src"
+  "packages/ai-providers/src",
+  "packages/reporting-engine/src"
 ]
 testpaths = ["tests", "apps"]
 

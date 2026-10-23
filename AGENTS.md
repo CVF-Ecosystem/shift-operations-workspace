@@ -4,7 +4,7 @@
 > `../.Controlled-Vibe-Framework-CVF` at
 > `b69e1088978e8c90ac58a2243fcf8f90d0f857ed`. Private operator-local
 > provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e`. Bootstrap date: 2026-09-09;
+> `50b6f8d94a26d8b1014bb00f31d3493616ce9fdd`. Bootstrap date: 2026-09-09;
 > operator-local governance learning refreshed: 2026-10-23.
 
 ## Mandatory Governance Proof
@@ -132,6 +132,16 @@ without hiding dissent or failed checks.
 - CLOSER: decides final disposition and ensures no open-state residue.
 - COMMIT_STEWARD: verifies changed set and owns the authorized commit action.
 - SESSION_SYNC_STEWARD: synchronizes memory, state, handoff, index, catalog.
+
+## Operator Delegation Preferences (2026-10-23)
+
+The operator authorizes autonomous ORCHESTRATOR/REVIEWER work across the roadmap
+and explicit subagent delegation. Do not repeat routine scope approvals within
+that authority; escalate only at the real boundary changes listed below.
+Default subagent model: Luna, reasoning max. Difficult work: Sol, reasoning medium.
+These are operator-selected execution preferences, not provider-bound role owners.
+Preserve independent review for governance-significant implementation. Every
+assignment still carries the full Product Milestone Binding and bounded paths.
 
 ## Live Governance Evidence Rule / Workspace Isolation Rule
 

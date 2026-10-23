@@ -22,7 +22,17 @@ attachment; never rebuild from fresh ledger to hide a mismatch.
 
 R2. View set: shift-summary, customer-report, incident-report, handover-report.
 PDF and XLSX support each view. Summary covers all six sections in canonical
-order; other views state their exact subset and never imply a complete shift.
+order; customer-report displays customer requests, incident-report displays
+incidents, and handover-report displays handovers. The three focused views label
+their one-section scope and never imply a complete shift. The independent
+expected record/ref set is selected from the persisted canonical sections and
+source manifest before invoking either renderer. Compare emitted PDF text and
+XLSX cell content to that expected set; do not infer expectations from renderer
+output. The conformance adapter hashes a canonical sorted multiset of selected
+record identities and source/evidence references independently from the persisted
+snapshot, then hashes identities and references parsed back from actual PDF/XLSX
+bytes. Exact membership digests and counts must agree; equal counts alone are
+insufficient. No focused view may silently include a record from another section.
 Records and evidence cannot silently vanish because of wrapping, missing fields,
 length limits, empty strings, Unicode, pagination or zero records.
 
@@ -34,19 +44,34 @@ Exact labels: DRAFT -> Draft; IN_REVIEW -> In review (never Reviewed);
 APPROVED -> Approved; FROZEN -> Frozen. is_current=false adds Historical.
 Include displayed source type/id/version/digest and evidence references in a
 readable appendix/sheet; verify exact membership against canonical manifest.
+The conformance receipt binds report_id, shift_id, report_type `END_SHIFT`,
+version, is_current,
+generated_from_cutoff, snapshot_digest and template_version to an independently
+constructed expected metadata digest and a digest parsed from actual PDF/XLSX
+bytes. The visible status label is exact for each of the four stored states,
+and the Historical label is present exactly when is_current is false. Assert
+all eight status/current-history combinations in emitted PDF and XLSX. A copied input
+metadata field is not output proof.
 
 R4. Export neither alters domain/ledger rows nor appends approval, changes freeze,
 creates a version, runs retrieval/LLM, or fetches an evidence URL. Historical
 versions use the same read authorization as current ones.
+Conformance computes before/after digests over the persisted report, report
+versions, approvals, freeze state and relevant audit rows; exact equality is
+required after success and every refusal. Read-only renderer intent alone is
+not non-mutation evidence.
 
 R5. HTTP export authenticates via existing verified bearer dependency, loads the
 Report server-side, applies canonical AssignmentScope and validates format/view.
 Missing/inaccessible report: enumeration-safe 404; absent/invalid JWT: 401;
 invalid format/view: 422. Renderer-invalid snapshot: controlled failure, no bytes;
 error messages contain no raw record contents, stack trace or credential.
-Stable mapping: invalid snapshot/aggregate mismatch -> 422 EXPORT_INVALID_SNAPSHOT;
+Stable mapping: invalid format/view -> 422 EXPORT_INVALID_PARAMETER;
+invalid snapshot/aggregate mismatch -> 422 EXPORT_INVALID_SNAPSHOT;
 unsupported glyph/control -> 422 EXPORT_UNSUPPORTED_TEXT; resource/size/row/cell
 limit -> 422 EXPORT_LIMIT_EXCEEDED; unexpected render failure -> 500 EXPORT_FAILED.
+If the single render slot for this API process is occupied, return 503
+EXPORT_BUSY with no attachment; make no global multi-process capacity claim.
 Every refusal has JSON error only, no attachment Content-Disposition or binary
 body; missing/inaccessible record uses identical 404, missing/invalid JWT 401,
 invalid parameter 422. Precedence: auth -> assignment/read -> parameters ->
@@ -58,6 +83,21 @@ filename from UUID/version/view, no user-controlled path/header characters.
 Cache-Control no-store; X-Content-Type-Options nosniff. Cross-origin deployment
 uses existing configured origin policy; never widen CORS. Safe UI binary helper
 preserves bearer/error handling and abort behavior without JSON-decoding bytes.
+The exact endpoint is `GET /reports/{report_id}/export?format=pdf|xlsx&view=...`.
+`format` and `view` are required; absent/invalid values receive 422
+`EXPORT_INVALID_PARAMETER` after authenticated report read. Parse malformed
+`report_id` as enumeration-safe 404 after authentication. Successful responses
+have `Content-Disposition: attachment; filename="report-{report_id}-v{version}-{view}.{format}"`,
+the matching MIME above, `Cache-Control: no-store`, and
+`X-Content-Type-Options: nosniff`. The filename is made only from the
+server-loaded UUID, integer version, and allowlisted view/format. Export-owned
+422/500/503 errors use JSON `{"detail":{"code":"...","message":"..."}}`
+with stable code and bounded generic message. Existing authentication and
+not-found handlers may retain their string `detail`; client accepts both.
+All errors omit `Content-Disposition` and binary body. UI uses the same bearer
+token and 401 session clearing as the existing API helper; 503 is a retryable
+server failure only after the user chooses a new download attempt. Abort leaves
+no success state or leaked object URL.
 
 R7. XLSX text is literal, including leading =,+,-,@, tab, CR and suspicious URLs;
 never formula, automatic hyperlink, macro, external link or worksheet-name input.
@@ -66,16 +106,34 @@ bounded public error. Sheet rows are within Excel limits; overflow rejects befor
 response. No silent cell-length clipping. Formatting/header/width/wrapping usable.
 
 R8. PDF Vietnamese diacritics must survive Unicode extraction and visual rendering.
-Approved bundled font bytes/license/SHA are explicit inputs. Missing font/glyph
+Bundle DejaVuSans.ttf under `src/reporting_engine/assets/`, with the verified
+source license notice in the same directory. Expected font SHA-256 is
+`3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22`;
+license SHA-256 is
+`d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e`.
+Readiness inventory confirms the tested Vietnamese glyph set (134 code points
+plus seven combining marks) is present; runtime must still check every actual
+input glyph. Missing font/glyph
 fails closed. Escape markup; no external resources, scripts or attachment embeds.
+If PDF presentation normalizes text to NFC for combining-mark placement, it
+changes display only: retain original snapshot/source bytes and digests, test
+precomposed and NFD Vietnamese for visually and semantically equal output,
+and refuse any unmappable glyph rather than silently replacing or dropping it.
 Long paragraphs and long unbroken values wrap; tables paginate with repeated
 headers; every displayed record/reference remains represented. Empty content
 still renders valid labeled output. No dependency on machine-local font fallback.
 
 R9. Renderer output must be bounded: canonical input limits reused; reject oversized
-render/output with a stable reason before returning an attachment. Concrete byte,
-page/time/row caps and their resource proof are settled in active Work Order;
-limits may reject, never silently truncate. No unbounded temporary files/cache.
+render/output with a stable reason before returning an attachment. PDF is limited
+to 512 pages and 8 MiB serialized bytes. XLSX is limited to 20,000 total rows
+across all sheets, 32,767 UTF-16 code units per cell, and 8 MiB serialized bytes.
+Enforce a 10-second worker deadline with a killable isolated renderer process
+and one non-queued render slot per API process;
+on expiry return no attachment and the bounded `EXPORT_LIMIT_EXCEEDED` response.
+Page/row/cell/byte checks must abort before serving output, with probes at and
+over each boundary. Process timeout proof must show the child is terminated and
+no partial bytes escape. No unbounded temporary files/cache. A same-process
+elapsed-time check after rendering is not an enforcement mechanism.
 
 R10. Web UI exposes format/view, report version/status and historical warning,
 busy/error/success states. Failed, unauthorized, cancelled or offline requests do
@@ -86,6 +144,7 @@ R11. Tests must read generated XLSX structurally and render/inspect generated PD
 not just check magic bytes. Cases: empty/full six sections, mixed status/history,
 Vietnamese/Unicode, multiline/long unbroken text, special markup/formula payloads,
 invalid/tampered snapshot (including aggregate hex and enclosing identity), input/output overflow and missing font/glyph.
+Test XLSX UTF-16 units at/over the cell limit and absence of library clipping.
 Compare record/ref membership and metadata with source snapshot. Test both real
 InMemoryLedger and SQLite auth/API paths and regression of P2-R lifecycle;
 no new schema migration. Browser verifies authenticated actual file downloads,
@@ -103,7 +162,11 @@ docs/cvf/INVARIANT_FAMILY_STANDARD.md. Required applicability: shared format/sta
 view outcomes, conditional payload fields, cross-representation membership and
 non-mutation evidence. Matrix, independent contract hash, validator/emitter adapter
 and mutation tests must be reviewed before renderer BUILD; do not derive expected
-outcomes from renderer outputs. This proposed ID is NOT registered or proof today.
+outcomes from renderer outputs. The matrix is the semantic owner for binary success
+and error response shapes. Its contract source is this SPEC, pinned by canonical
+digest. A static pin establishes pre-BUILD ownership;
+the worker must bind real API/emitter adapters and test all matrix mutations before
+claiming implementation conformance. A static guard pass alone proves no renderer.
 
 ## Full completion and remainder
 

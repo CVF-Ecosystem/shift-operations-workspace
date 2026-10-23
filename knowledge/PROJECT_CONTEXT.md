@@ -109,7 +109,7 @@ Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
-provenance `e2ced4bd5` and its ADIF-0057 machine gate is bound to the project.
+provenance `50b6f8d94` and its ADIF-0057 machine gate is bound to the project.
 Both cores are read-only. Operator selected P5-A reporting planning under the
 mandatory full milestone gap contract; intake/design, proposed spec and draft
 scope exist, no product implementation. P5-A gaps remain OPEN/BLOCKED and Phase5

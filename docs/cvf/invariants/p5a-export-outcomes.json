@@ -1,0 +1,2120 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P5A-EXPORT-OUTCOMES",
+  "title": "P5-A authenticated export result and refusal outcomes",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_OUTCOME_MODEL_CONTRACT",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS",
+    "TRIGGER_4_MULTIPLE_VALIDATOR_OR_SERIALIZATION_SURFACES"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
+      "sha256": "5192379129cb88601496a6768d487d81779e487c4efb187a6a255b8cc06e84c8",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "API_RESPONSE",
+    "PDF",
+    "XLSX"
+  ],
+  "parityMode": "APPLICABLE",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "EXPORTED",
+      "shapes": [
+        {
+          "shapeId": "P5A_EXPORTED_DRAFT_CURRENT",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "DRAFT"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Draft"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_DRAFT_CURRENT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_DRAFT_HISTORICAL",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "DRAFT"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Draft"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": true
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_DRAFT_HISTORICAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_IN_REVIEW_CURRENT",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "IN_REVIEW"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "In review"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_IN_REVIEW_CURRENT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_IN_REVIEW_HISTORICAL",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "IN_REVIEW"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "In review"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": true
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_IN_REVIEW_HISTORICAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_APPROVED_CURRENT",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "APPROVED"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Approved"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_APPROVED_CURRENT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_APPROVED_HISTORICAL",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "APPROVED"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Approved"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": true
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_APPROVED_HISTORICAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_FROZEN_CURRENT",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "FROZEN"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Frozen"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": false
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_FROZEN_CURRENT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A_EXPORTED_FROZEN_HISTORICAL",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "attachment",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count",
+            "expected_record_membership_digest",
+            "rendered_record_membership_digest",
+            "expected_reference_membership_digest",
+            "rendered_reference_membership_digest",
+            "report_id",
+            "shift_id",
+            "version",
+            "is_current",
+            "generated_from_cutoff",
+            "snapshot_digest",
+            "template_version",
+            "expected_metadata_digest",
+            "rendered_metadata_digest",
+            "before_state_digest",
+            "after_state_digest",
+            "report_type",
+            "status_label",
+            "historical_label"
+          ],
+          "forbiddenFields": [
+            "error_code"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "EXPORTED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 200
+            },
+            "format": {
+              "type": "STRING",
+              "enum": [
+                "pdf",
+                "xlsx"
+              ]
+            },
+            "view": {
+              "type": "STRING",
+              "enum": [
+                "shift-summary",
+                "customer-report",
+                "incident-report",
+                "handover-report"
+              ]
+            },
+            "report_status": {
+              "type": "STRING",
+              "const": "FROZEN"
+            },
+            "historical": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "expected_record_count": {
+              "type": "INTEGER"
+            },
+            "rendered_record_count": {
+              "type": "INTEGER"
+            },
+            "expected_reference_count": {
+              "type": "INTEGER"
+            },
+            "rendered_reference_count": {
+              "type": "INTEGER"
+            },
+            "expected_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_record_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "expected_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_reference_membership_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "shift_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "version": {
+              "type": "INTEGER"
+            },
+            "is_current": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "generated_from_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "snapshot_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "template_version": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "expected_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rendered_metadata_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "report_type": {
+              "type": "STRING",
+              "const": "END_SHIFT"
+            },
+            "status_label": {
+              "type": "STRING",
+              "const": "Frozen"
+            },
+            "historical_label": {
+              "type": "BOOLEAN",
+              "const": true
+            }
+          },
+          "relations": [
+            {
+              "relationId": "EXPORTED_RECORD_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_count",
+              "targetField": "rendered_record_count"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_COUNT",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_count",
+              "targetField": "rendered_reference_count"
+            },
+            {
+              "relationId": "EXPORTED_RECORD_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_record_membership_digest",
+              "targetField": "rendered_record_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_REFERENCE_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_reference_membership_digest",
+              "targetField": "rendered_reference_membership_digest"
+            },
+            {
+              "relationId": "EXPORTED_METADATA_MEMBERSHIP",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "expected_metadata_digest",
+              "targetField": "rendered_metadata_digest"
+            },
+            {
+              "relationId": "EXPORTED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            },
+            {
+              "relationId": "EXPORTED_HISTORY_LABEL_FROZEN_HISTORICAL",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "historical",
+              "targetField": "historical_label"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "AUTH_REFUSED",
+      "shapes": [
+        {
+          "shapeId": "P5A_AUTH_REFUSED",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "attachment",
+            "binary_bytes",
+            "before_state_digest",
+            "after_state_digest"
+          ],
+          "forbiddenFields": [
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "error_code",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "AUTH_REFUSED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 401
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "binary_bytes": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "AUTH_ZERO_BINARY",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binary_bytes",
+              "value": 0
+            },
+            {
+              "relationId": "AUTH_REFUSED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "NOT_FOUND",
+      "shapes": [
+        {
+          "shapeId": "P5A_NOT_FOUND",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "attachment",
+            "binary_bytes",
+            "before_state_digest",
+            "after_state_digest"
+          ],
+          "forbiddenFields": [
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "error_code",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "NOT_FOUND"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 404
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "binary_bytes": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "NOT_FOUND_ZERO_BINARY",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binary_bytes",
+              "value": 0
+            },
+            {
+              "relationId": "NOT_FOUND_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "INVALID_REQUEST",
+      "shapes": [
+        {
+          "shapeId": "P5A_INVALID_REQUEST",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "error_code",
+            "attachment",
+            "binary_bytes",
+            "before_state_digest",
+            "after_state_digest"
+          ],
+          "forbiddenFields": [
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "INVALID_REQUEST"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 422
+            },
+            "error_code": {
+              "type": "STRING",
+              "enum": [
+                "EXPORT_INVALID_PARAMETER",
+                "EXPORT_INVALID_SNAPSHOT",
+                "EXPORT_UNSUPPORTED_TEXT",
+                "EXPORT_LIMIT_EXCEEDED"
+              ]
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "binary_bytes": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "INVALID_ZERO_BINARY",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binary_bytes",
+              "value": 0
+            },
+            {
+              "relationId": "INVALID_REQUEST_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "RENDER_FAILED",
+      "shapes": [
+        {
+          "shapeId": "P5A_RENDER_FAILED",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "error_code",
+            "attachment",
+            "binary_bytes",
+            "before_state_digest",
+            "after_state_digest"
+          ],
+          "forbiddenFields": [
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RENDER_FAILED"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 500
+            },
+            "error_code": {
+              "type": "STRING",
+              "const": "EXPORT_FAILED"
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "binary_bytes": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "FAILED_ZERO_BINARY",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binary_bytes",
+              "value": 0
+            },
+            {
+              "relationId": "RENDER_FAILED_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "RENDER_BUSY",
+      "shapes": [
+        {
+          "shapeId": "P5A_RENDER_BUSY",
+          "requiredFields": [
+            "outcome",
+            "http_status",
+            "error_code",
+            "attachment",
+            "binary_bytes",
+            "before_state_digest",
+            "after_state_digest"
+          ],
+          "forbiddenFields": [
+            "format",
+            "view",
+            "report_status",
+            "historical",
+            "expected_record_count",
+            "rendered_record_count",
+            "expected_reference_count",
+            "rendered_reference_count"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "RENDER_BUSY"
+            },
+            "http_status": {
+              "type": "INTEGER",
+              "const": 503
+            },
+            "error_code": {
+              "type": "STRING",
+              "const": "EXPORT_BUSY"
+            },
+            "attachment": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "binary_bytes": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "before_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "after_state_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "BUSY_ZERO_BINARY",
+              "kind": "COUNTER_EQUALITY",
+              "field": "binary_bytes",
+              "value": 0
+            },
+            {
+              "relationId": "RENDER_BUSY_NONMUTATION",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "before_state_digest",
+              "targetField": "after_state_digest"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_AUTH_REFUSED",
+        "reason": "Flat refusal receipt.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_NOT_FOUND",
+        "reason": "Flat refusal receipt.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_INVALID_REQUEST",
+        "reason": "Flat refusal receipt.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_RENDER_FAILED",
+        "reason": "Flat refusal receipt.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_RENDER_BUSY",
+        "reason": "Flat refusal receipt.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_DRAFT_CURRENT",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_DRAFT_HISTORICAL",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_IN_REVIEW_CURRENT",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_IN_REVIEW_HISTORICAL",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_APPROVED_CURRENT",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_APPROVED_HISTORICAL",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_FROZEN_CURRENT",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A_EXPORTED_FROZEN_HISTORICAL",
+        "reason": "Flat abstract receipt; actual PDF/XLSX fields are parsed independently.",
+        "independentReviewRequired": true
+      }
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P5A_EXPORT_MATRIX_DIGEST",
+      "ownerPath": "docs/cvf/invariants/p5a-export-outcomes.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/p5a_export_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A_EXPORT_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "p5a_export_response_adapter",
+    "kind": "REAL_SERVICE_EMITTER"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Contract for export result metadata and refusal bodies; real PDF/XLSX content and API behavior remain unproved until BUILD adapters and independent review."
+}
