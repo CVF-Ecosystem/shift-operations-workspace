@@ -463,5 +463,15 @@
     "contract": "docs/implementation/ACCEPTANCE_GATES.md",
     "closure_blocker": null,
     "materialCommit": "8f2e7157f0510f9501f254fb8af515ce35718a5f"
+  },
+  "p5a_reporting_engine_20261023": {
+    "status": "PLANNING_REVIEW_PASS_SCOPE_CHECKPOINT",
+    "implementation": "NOT_BUILT; reporting-engine remains stub",
+    "milestoneCompletion": "0 newly satisfied criteria; Phase5 0/5",
+    "binding": "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
+    "spec": "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
+    "workOrder": "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
+    "buildAuthority": "DRAFT only; human R2 and readiness pending",
+    "planningReview": "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md"
   }
 }

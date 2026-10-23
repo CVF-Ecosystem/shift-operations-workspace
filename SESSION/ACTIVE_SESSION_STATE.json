@@ -2,15 +2,16 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "ready_for_operator_product_selection",
-  "active_handoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
+  "mode": "p5a_reporting_engine_scope_review_ready",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
   "last_updated": "2026-10-23",
   "required_reads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
-    "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md",
-    "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
-    "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
-    ".cvf/manifest.json",
+    "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
+    "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
+    "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
+    "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
@@ -18,7 +19,7 @@
     "IMPLEMENTATION_STATUS.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Operator selects a bounded product-focused next move using Product Milestone Binding and full gap reconciliation. Suggested prerequisite: P5-D coverage audit of carried P4 integration limits; no product BUILD or absorption is implicitly authorized. REPIN-1 and mandatory dispatch documentation are accepted bounded at their recorded commits.",
+  "next_allowed_move": "Operator R2 review of the concrete P5-A product scope, then settle draft readiness (font/dependencies/caps/invariant family/exact manifest/gate graph) before bounded BUILD activation. Draft grants no install/font/provider execution authority.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -33,13 +34,13 @@
     "note": "Full pre-T3 required_reads (251 entries), verification_snapshot, tranche receipt blocks, and the complete historical blocked_work guardrail list are preserved byte-exact in the archive below. The prior ACRC-T3 active handoff (CLOSED_BOUNDED) is retained as a history pointer. Read these only when a current fact above is missing or contradictory.",
     "session_memory_archive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "active_session_state_archive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "prior_active_handoff": "SESSION/handoffs/T3_ACTIVE_CONTINUITY_READ_COST_2026-08-11.md"
+    "prior_active_handoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "ready_for_operator_product_selection",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "Static repair and mandatory documentation accepted; operator selection required for next product tranche.",
+    "currentMode": "p5a_reporting_engine_scope_review_ready",
+    "activePhase": "SPEC",
+    "activePhaseNote": "Independent planning review PASS; F1-F3 resolved in contracts; R2 scope/readiness before BUILD remains.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -50,12 +51,12 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "Select next product-focused tranche; Phase 5 remains 0/5, P5-D and all other gaps OPEN/BLOCKED per REPIN-1 receipt; absorption, catalog migration and XR1 parked.",
+    "parkedOperatorCheckpoint": "P5-A concrete scope/readiness review; product BUILD/provider/dependency/font acquisition held. P5-A2/B/C/D and absorption/catalog/XR1 remain parked.",
     "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "Product milestone binding required before new dispatch; no automatic maintenance successor.",
+    "activeRoleNote": "P5-A product planning and consolidated review; draft has no execution authority.",
     "currentRoleTransition": "IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-23"

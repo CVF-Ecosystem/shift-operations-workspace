@@ -2,6 +2,8 @@
 
 ## Start Here
 
+- Active P5-A product planning: [intake/design and full gap binding](decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md), [proposed spec](specs/P5A_REPORTING_ENGINE_SPEC.md), [draft Work Order](work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md), [independent planning review](decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md).
+
 - Mandatory dispatch contract: [Product Milestone Binding](implementation/ACCEPTANCE_GATES.md#product-milestone-binding), routed from AGENTS.md and work_orders/README.md.
 
 - Static inheritance repin: [2026-10-23 decision](decisions/CVF_INHERITANCE_REPIN_2026-10-23.md).

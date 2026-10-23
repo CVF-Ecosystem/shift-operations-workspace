@@ -1,16 +1,17 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "ready_for_operator_product_selection",
-  "activeHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
-  "nextAllowedMove": "Operator selects a bounded product-focused next move using Product Milestone Binding and full gap reconciliation. Suggested prerequisite: P5-D coverage audit of carried P4 integration limits; no product BUILD or absorption is implicitly authorized. REPIN-1 and mandatory dispatch documentation are accepted bounded at their recorded commits.",
-  "parkedOperatorCheckpoint": "Select next product-focused tranche; Phase 5 remains 0/5, P5-D and all other gaps OPEN/BLOCKED per REPIN-1 receipt; absorption, catalog migration and XR1 parked.",
+  "currentMode": "p5a_reporting_engine_scope_review_ready",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
+  "nextAllowedMove": "Operator R2 review of the concrete P5-A product scope, then settle draft readiness (font/dependencies/caps/invariant family/exact manifest/gate graph) before bounded BUILD activation. Draft grants no install/font/provider execution authority.",
+  "parkedOperatorCheckpoint": "P5-A concrete scope/readiness review; product BUILD/provider/dependency/font acquisition held. P5-A2/B/C/D and absorption/catalog/XR1 remain parked.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
-    "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md",
-    "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md",
-    "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md",
-    ".cvf/manifest.json",
+    "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
+    "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
+    "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
+    "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
@@ -20,7 +21,7 @@
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
-    "priorActiveHandoff": "SESSION/handoffs/CVF_CORE_MACHINE_INHERITANCE_REFRESH_2026-09-10.md"
+    "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
   "updatedAt": "2026-10-23"
 }

@@ -110,11 +110,11 @@ accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
 provenance `e2ced4bd5` and its ADIF-0057 machine gate is bound to the project.
-Both cores are read-only. Prior external-repository absorption intake is
-parked; REPIN-1 gate repair is accepted bounded, and source identification
-remains required before any absorption.
-No repository has been scanned or absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
-remain parked.
+Both cores are read-only. Operator selected P5-A reporting planning under the
+mandatory full milestone gap contract; intake/design, proposed spec and draft
+scope exist, no product implementation. P5-A gaps remain OPEN/BLOCKED and Phase5
+completion is 0/5. Absorption, catalog migration and XR1 remain parked. The active
+handoff and implementation status carry the readiness checkpoint.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
