@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a_reporting_engine_build",
+  "currentMode": "p5a_reporting_engine_review",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "nextAllowedMove": "After this dispatch-continuity commit passes, release Sol backend/render and Luna UI P5-A lanes. Root reviews complete A1-A7 acceptance, actual artifacts and browser download; provider/credential/public/deploy held.",
+  "nextAllowedMove": "Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.",
   "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",
@@ -11,6 +11,7 @@
     "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
     "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
+    "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",

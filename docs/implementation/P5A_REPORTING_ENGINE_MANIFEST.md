@@ -1,9 +1,9 @@
 # P5-A Reporting Engine — Implementation Manifest
 
-Status: DRAFT_READINESS
+Status: REVIEWED_LOCAL_MATERIAL / A7_GATES_AND_LIVE_HELD
 Risk: R2
 Product Milestone Binding: docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md, A0-A7 and Phase 5 remainder.
-Authority: docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md after activation only.
+Authority: docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md activated at dispatch142052f and marker14ae8e7.
 
 ## Product outcome and current gap set
 
@@ -81,6 +81,7 @@ dependency readiness only; it does not prove a renderer, API or browser download
 `tests/integration/test_report_export_api.py`,
 `tests/cvf/test_report_export_outcomes.py`,
 `apps/workspace-web/src/tests/reportDownload.test.tsx`,
+`apps/workspace-web/src/tests/reportDownloadHistory.test.tsx` (bounded A5 proof split),
 `tests/unit/test_report_openapi_contract.py` (intentional export-route delta only),
 `tests/unit/test_operations_domain_boundary.py` (local CPython 3.13 `.venv`
 source-isolation compatibility only),
@@ -131,3 +132,56 @@ the real material SHA in the active P5-A handoff and makes a separate
 continuity commit. REVIEWER then checks clean committed ranges before CLOSER
 may decide FREEZE. Provider-governance claims require separately admitted
 real provider evidence and are held by this manifest.
+
+## A5 history proof split amendment
+
+Root permits exact `apps/workspace-web/src/tests/reportDownloadHistory.test.tsx`
+for history-only cases split from the original download test under the hard
+200-line cap. The new ReportDownloadHistory.tsx product sibling already falls
+within the approved ReportDownload*.tsx family. Full gap ownership unchanged.
+
+## Independent browser evidence paths
+
+Root REVIEWER owns `tests/integration/test_report_export_browser.py` and
+`tests/integration/test_report_export_browser_support.py`, within the already
+approved test_report_export*.py family. These replay disposable real-API/UI
+proof explicitly from the project root; pytest import runs no server/browser.
+The split keeps each Python file below300 lines. Outputs are synthetic and
+ignored, selected source hashes bind each run, and committed review records
+carry the accepted receipt. No provider credential/read/call is included.
+
+The retained sanitized receipt is
+`docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json`.
+It records actual browser/download hashes, nonmutation and local artifact/wheel
+proof, with no live-governance or milestone-completion claim.
+
+## Final returned topology and local disposition
+
+A1-A6 accepted bounded; A7 full material gates and live admission remain.
+Planned validation.py was not created: model.py owns validation. Planned
+unit/test_report_digest.py and integration/test_report_export_api.py were not
+created: digest equivalence is in test_report_export_renderers.py and actual
+InMemory/SQLite API proof is in tests/cvf/test_report_export_outcomes.py.
+No acceptance or proof was dropped by that placement reconciliation.
+Bounded actual siblings: reporting_engine/xlsx_xml.py for CR-safe XML;
+ReportDownloadHistory.tsx and reportDownloadHistory.test.tsx for explicit lazy
+history reads and capped proof. Other final product files are the exact paths
+above; no app-registration, migration, provider or canonical lifecycle edits.
+All code stays within Python300/TypeScript200 lines. Root-owned browser harness
+is298 lines; its support module remains below300. Font/license remain exact.
+Sanitized local evidence JSON is an approved product evidence artifact; the
+full changed-set is reviewed before normal material commit, excluding ignored
+build/wheel/browser outputs and generated tsbuildinfo. Existing package build/
+egg-info outputs were reversibly moved beneath ignored .venv proof storage.
+Reporting-engine status stays partial; local acceptance is not P5-A closure.
+
+## Consolidated OpenAPI chain proof repair
+
+Exact added proof: `tests/unit/test_report_export_openapi.py` under the approved
+test_report_export*.py family. Minimal latest-delta linkage is authorized in
+`tests/unit/test_c3b2_mutation_openapi_contract.py` and
+`tests/unit/test_p2b_openapi_contract.py`. Restore unchanged P2-R path ownership
+in test_report_openapi_contract.py. Historical SHA constants remain untouched;
+only the exact new export delta may be stripped before the historical chain.
+Both full-document golden checks and all shared earlier callers must pass,
+with negative unrelated-change checks preserved. No application source change.

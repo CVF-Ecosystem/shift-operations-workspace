@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-09-09T19:24:11.004062+00:00_
+_Last generated: 2026-10-23T16:19:47.594087+00:00_
 
 ## How to use this catalog
 
@@ -13,9 +13,9 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 ## Totals
 
 - Modules: **26**
-- Code LOC (py/ts/tsx): **37823**
-- Code files: **354**
-- By status: contract-only=5, enforced=2, partial=14, stub=5
+- Code LOC (py/ts/tsx): **39177**
+- Code files: **369**
+- By status: contract-only=5, enforced=2, partial=15, stub=4
 
 ## Status legend
 
@@ -38,12 +38,13 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 | `governed-rag` | packages/governed-rag | partial | 2442 | data_scope, evidence, cost, termination | Pure P4-A2 bounded application-layer governed-RAG composition: consumes only P4-A1's positive EvidenceAvailableV1, builds/validates a deterministic ephemeral hybrid (lexical+semantic) index, screens prompt injection, applies extractive minimization, assembles an instruction/data-separated context, and dispatches the injected P4-A AIGateway at most once with strict answer/citation-membership validation and a sanitized receipt. |
 | `governed-retrieval` | packages/governed-retrieval | partial | 1681 | data_scope, evidence, termination | Pure P4-A1 request, corpus, lexical ranking, evidence projection, receipt and result contracts consumed by the workspace application composition. |
 | `integration-edge` | apps/integration-edge | partial | 1748 | data_scope, refusal | Provider-neutral Integration Edge for authenticated encrypted ingress evidence, quarantine/proposals, signed internal ports, bounded outbound receipts, and digest-only generic-webhook composition. |
-| `operations-domain` | packages/operations-domain | partial | 818 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
+| `operations-domain` | packages/operations-domain | partial | 840 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
+| `reporting-engine` | packages/reporting-engine | partial | 449 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
-| `workspace-api` | apps/workspace-api | partial | 9668 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
-| `workspace-web` | apps/workspace-web | partial | 7684 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
+| `workspace-api` | apps/workspace-api | partial | 9750 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
+| `workspace-web` | apps/workspace-web | partial | 8485 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 451 | — | Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
@@ -53,7 +54,6 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 | `conversation-routing` | packages/conversation-routing | stub | 454 | domain_lock | Route messages to workspace, shift, vessel, customer, incident, or fallback. |
 | `identity-mapping` | packages/identity-mapping | stub | 944 | identity | Map external identities to internal users/customer contacts with human confirmation. |
 | `notification-engine` | packages/notification-engine | stub | 0 | — | In-app, push, email, SMS, outbound channels and escalation. |
-| `reporting-engine` | packages/reporting-engine | stub | 0 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | `shared-kernel` | packages/shared-kernel | stub | 0 | — | Identifiers, time, errors, result, validation, observability and security primitives. |
 
 ## Per-module detail
@@ -175,7 +175,7 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 - **Contract:** packages/workspace-contracts
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_incident_vertical.py`, `tests/cvf/test_handover_vertical.py`
-- **Metrics:** 818 LOC across 5 code file(s)
+- **Metrics:** 840 LOC across 6 code file(s)
 - **Next step:** Incident, handover, operational Report and the Phase 2 full-shift exit gate are CLOSED_BOUNDED; do not reopen them. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next. Approval/Audit ownership and any split of central models.py remain separate future tranches; do not claim operations-domain enforced.
 
 ### `project-knowledge-pack` — partial
@@ -202,6 +202,18 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 - **Metrics:** 1570 LOC across 11 code file(s)
 - **Next step:** P3-A is CLOSED_BOUNDED at reviewed BUILD a6cf978. Module remains partial until a separately governed runtime caller; no provider, remote ingest, data_scope enforcement, retrieval/RAG or production claim.
 
+### `reporting-engine` — partial
+
+- **Path:** `packages/reporting-engine` (package)
+- **Purpose:** Build report drafts from confirmed records, validate evidence, export PDF/Excel.
+- **CVF controls:** evidence
+- **Enforcement:** Revalidated immutable Report snapshots exported through authenticated assignment-scoped PDF/XLSX API and current/history UI. Independent local byte/browser/type/resource evidence accepted bounded; no AI-governance, milestone closure or release claim.
+- **Contract:** packages/workspace-contracts
+- **Depends on:** `operations-domain`
+- **Tests:** `tests/unit/test_report_export_renderers.py`, `tests/unit/test_report_export_views.py`, `tests/unit/test_report_export_limits.py`, `tests/cvf/test_report_export_outcomes.py`, `tests/integration/test_report_export_browser.py`
+- **Metrics:** 449 LOC across 8 code file(s)
+- **Next step:** Complete A7 full material gates and separately admitted real canary; retain P5-A open and Phase5 0/5.
+
 ### `retrieval-contracts` — partial
 
 - **Path:** `packages/retrieval-contracts` (package)
@@ -223,7 +235,7 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 - **Contract:** apps/workspace-api/pyproject.toml
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`
-- **Metrics:** 9668 LOC across 97 code file(s)
+- **Metrics:** 9750 LOC across 98 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after reviewed full-shift exit BUILD d02186a and separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next; governed external/channel ingestion remains a separate Phase 4 Integration Edge tranche.
 
 ### `workspace-web` — partial
@@ -235,7 +247,7 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`
-- **Metrics:** 7684 LOC across 79 code file(s)
+- **Metrics:** 8485 LOC across 84 code file(s)
 - **Next step:** Phase 2 is CLOSED_BOUNDED after exact reviewed/pushed full-shift exit BUILD d02186a plus separate C4. Fresh PROJECT-OPERATIONS-SKILL INTAKE is next. Tenant/provider data_scope, soak and production readiness remain unclaimed.
 
 ### `workspace-worker` — partial
@@ -345,18 +357,6 @@ _Last generated: 2026-09-09T19:24:11.004062+00:00_
 - **Tests:** —
 - **Metrics:** 0 LOC across 0 code file(s)
 - **Next step:** Implement after outbound channel adapters exist.
-
-### `reporting-engine` — stub
-
-- **Path:** `packages/reporting-engine` (package)
-- **Purpose:** Build report drafts from confirmed records, validate evidence, export PDF/Excel.
-- **CVF controls:** evidence
-- **Enforcement:** None yet.
-- **Contract:** packages/workspace-contracts
-- **Depends on:** `operations-ledger`
-- **Tests:** —
-- **Metrics:** 0 LOC across 0 code file(s)
-- **Next step:** Implement once operations-ledger returns confirmed records.
 
 ### `shared-kernel` — stub
 

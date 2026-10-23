@@ -62,10 +62,7 @@ PRE_REPORT_OPENAPI_SHA = "547d630d1d7fc62dfeb0691b5fcc4bb30fdc2dfe721783c377c4ff
 # (Amendment 1 line-count repair) - imported so this module never retypes it.
 from test_assignment_openapi_contract import _strip_assignment_delta  # noqa: E402
 
-# Post-assignment, pre-C3b1, and the current golden value: both now owned by
-# test_c3b_read_openapi_contract.py (C3B1: the chain's current link moved one
-# further) - imported so this module's GOLDEN check still uses the true
-# current value.
+# Current historical golden is C3b2; P5-A's exact export leaf strips first.
 from test_c3b_read_openapi_contract import (  # noqa: E402
     _strip_c3b_read_delta,
 )
@@ -189,10 +186,13 @@ def _strip_all_later_deltas(reduced: dict) -> None:
 
 
 def test_openapi_document_is_unchanged_from_the_pre_build_capture():
-    """AC-09: the contract did not move beyond the reviewed Report delta."""
+    """AC-09: removing P5-A leaves the exact historical C3b2 golden."""
     from workspace_api.main import app
+    from test_report_export_openapi import _strip_p5a_export_delta
 
-    actual = canonical(app.openapi())
+    reduced = json.loads(json.dumps(app.openapi()))
+    _strip_p5a_export_delta(reduced)
+    actual = canonical(reduced)
     assert _sha(actual) == GOLDEN_OPENAPI_SHA, actual.decode("utf-8")[:4000]
 
 

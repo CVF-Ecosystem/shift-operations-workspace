@@ -109,12 +109,16 @@ Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
-provenance `3e3023e5a` and its ADIF-0057 machine gate is bound to the project.
-Both cores are read-only. Operator selected P5-A reporting planning under the
-mandatory full milestone gap contract; intake/design, proposed spec and draft
-scope exist, no product implementation. P5-A gaps remain OPEN/BLOCKED and Phase5
-completion is 0/5. Absorption, catalog migration and XR1 remain parked. The active
-handoff and implementation status carry the readiness checkpoint.
+provenance `9a1c1c37f` and its ADIF-0057 machine gate is bound to the project.
+Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
+A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
+Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
+frontend128 tests/build and backend221 tests passed; independent corpus13/13
+passed. A7 still needs the full material gate and a separately admitted real
+provider canary. Reporting-engine remains partial, P5-A open, Phase5 0/5.
+P5-A2/B/C/D retain their roadmap owners; no support successor, production,
+deployment or general CVF-governance behavior claim. Absorption, catalog
+migration and XR1 remain parked. Active handoff/status carry current truth.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the

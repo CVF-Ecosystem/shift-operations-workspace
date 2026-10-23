@@ -24,8 +24,8 @@ from datetime import datetime, timezone
 from uuid import UUID
 
 from cvf_runtime.errors import CvfDenied
-
 from operations_domain.models import ReportContent, ReportSection, ReportSourceRef
+from operations_domain.report_digest import aggregate_digest
 
 SCHEMA_VERSION = "1.0"
 REPORT_TYPE = "END_SHIFT"
@@ -241,12 +241,12 @@ def build_snapshot(
             raise CvfDenied(control="lifecycle", reason=f"duplicate source manifest entry: {key}", http_status=422)
         seen.add(key)
 
-    digest = _sha256({
-        "schema_version": SCHEMA_VERSION, "shift_id": str(shift_id), "report_type": REPORT_TYPE,
-        "sections": [s.model_dump(mode="json") for s in sections],
-        "source_manifest": [m.model_dump(mode="json") for m in manifest],
-    })
-    content = ReportContent(schema_version=SCHEMA_VERSION, sections=sections, source_manifest=manifest, snapshot_digest=digest)
+    provisional = ReportContent(
+        schema_version=SCHEMA_VERSION, sections=sections,
+        source_manifest=manifest, snapshot_digest="0" * 64,
+    )
+    digest = aggregate_digest(shift_id, REPORT_TYPE, provisional)
+    content = provisional.model_copy(update={"snapshot_digest": digest})
     size = len(_canonical_bytes(content.model_dump(mode="json")))
     if size > _MAX_CONTENT_BYTES:
         raise CvfDenied(control="lifecycle", reason=f"serialized report content is {size} bytes, exceeding the maximum of {_MAX_CONTENT_BYTES}", http_status=422)

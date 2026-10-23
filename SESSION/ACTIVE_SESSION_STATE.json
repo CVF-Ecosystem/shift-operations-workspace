@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a_reporting_engine_build",
+  "mode": "p5a_reporting_engine_review",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
   "last_updated": "2026-10-23",
   "required_reads": [
@@ -11,6 +11,7 @@
     "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
     "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
+    "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "AGENTS.md",
     "SESSION/ACTIVE_SESSION_STATE.json",
@@ -19,7 +20,7 @@
     "IMPLEMENTATION_STATUS.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "After this dispatch-continuity commit passes, release Sol backend/render and Luna UI P5-A lanes. Root reviews complete A1-A7 acceptance, actual artifacts and browser download; provider/credential/public/deploy held.",
+  "next_allowed_move": "Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a_reporting_engine_build",
-    "activePhase": "BUILD",
-    "activePhaseNote": "Independent readiness accepted; approved dispatch material 142052f. Product worker release follows committed continuity marker.",
+    "currentMode": "p5a_reporting_engine_review",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "REVIEW / OpenAPI proof and metadata repair accepted; normal full material gate retry pending.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +56,9 @@
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
-    "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "Root orchestrates two disjoint implementation lanes and independently reviews their integrated return.",
-    "currentRoleTransition": "REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Root independently accepted Sol metadata/proof repair and fresh browser source binding; owns normal full gate retry.",
+    "currentRoleTransition": "ORCHESTRATOR_TO_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-23"
   },
@@ -73,6 +74,30 @@
     "materialCommit": "142052fccb8ebe1070ffccce385f2b5305f2f2e9",
     "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
     "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
-    "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open."
+    "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open.",
+    "currentProvenanceCommit": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403"
+  },
+  "p5a_local_review_20261023": {
+    "status": "LOCAL_REVIEW_PASS_PENDING_FULL_GATE_RETRY",
+    "acceptedCriteria": [
+      "A0 reused",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6"
+    ],
+    "openCriteria": [
+      "A7 full material gate and separately admitted real-provider canary"
+    ],
+    "browser": "10 actual downloads; unchanged disposable SQLite content;10 created/revoked URLs; CORS fallback and offline refusal PASS",
+    "backend": "221 relevant tests PASS",
+    "frontend": "128 tests and production build PASS on Node22.14.0",
+    "independentCorpus": "13/13 PASS; matrix/SPEC pins recomputed unchanged",
+    "receipt": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json",
+    "milestoneComplete": false,
+    "fullPrecommitRetainedFailure": "13 failed,3156 passed,146 skipped,4 warnings in174.46s; no material commit",
+    "openapiRepair": "63 OpenAPI +2 API outcome tests PASS; metadata/body AST and historical SHA verified; fresh browser10/10 PASS"
   }
 }

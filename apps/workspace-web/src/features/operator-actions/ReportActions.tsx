@@ -10,6 +10,8 @@ import { useCallback } from 'react';
 import { operatorApi, type ReportEntry } from '../../services/operatorApi';
 import { useMutationControl } from './useMutationControl';
 import { MutationFeedback } from './MutationFeedback';
+import { ReportDownload } from './ReportDownload';
+import { ReportDownloadHistory } from './ReportDownloadHistory';
 
 interface ReportActionsProps {
   shiftId: string;
@@ -130,6 +132,19 @@ export function ReportActions({ shiftId, reports, onRefresh }: ReportActionsProp
           <p role="status" className="status-notice status-notice--success">Report frozen.</p>
         )}
       </div>
+
+      {reports.length > 0 && (
+        <div className="report-download-list" role="group" aria-label="Available report versions">
+          {reports.map((report) => (
+            <ReportDownload key={`${report.report_id}-v${report.version}`} report={report} />
+          ))}
+        </div>
+      )}
+
+      <ReportDownloadHistory
+        key={`${shiftId}:${current?.report_id ?? 'none'}:${current?.version ?? 0}:${current?.status ?? 'none'}`}
+        shiftId={shiftId}
+      />
     </section>
   );
 }

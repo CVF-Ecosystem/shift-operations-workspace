@@ -149,3 +149,25 @@ docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md,
 PLANNING_REVIEW_PASS_BOUNDED. F1-F3 resolved at contract level. R2 human scope
 review and concrete readiness remain before execution. No P5-A product criteria
 newly satisfied; all A1-A7 remain OPEN/BLOCKED for implementation/proof.
+
+## Current REVIEW acceptance checkpoint — supersedes planning inventory
+
+Dispatch142052f/marker14ae8e7 activated product BUILD. Independent local review
+accepted the repaired product boundary. P5-A remains REVIEW, not FREEZE/DONE;
+Phase5 remains0/5. Historical planning tables above are source-at-planning.
+
+| Criterion | Current evidence / remaining gap | Status | Current owner / concrete destination |
+|---|---|---|---|
+| A0 canonical draft | Existing P2-R snapshot lifecycle retained | ACCEPTED_BOUNDED_REUSED | P2-R domain owner; existing lifecycle |
+| A1 input/labels | Same aggregate recipe; all8 status/history pairs parsed; exact metadata | ACCEPTED_BOUNDED | Root independent REVIEWER; renderer/source tests and local receipt |
+| A2 four-view PDF/XLSX | Both formats/four views; CR, numeric/date types, long text and continued-page context reviewed | ACCEPTED_BOUNDED | Root and independent artifact REVIEWER; build review and parsed bytes |
+| A3 complete lineage | Exact record, manifest, embedded evidence and Handover-source tuple multiplicities; focused/full views; substitution negatives | ACCEPTED_BOUNDED | Independent artifact REVIEWER; packet oracle/hash/counter checks |
+| A4 API download | Auth/refusals and binary route; accurate required query/binary OpenAPI metadata,63+2 focused tests and fresh10-download source-bound browser pass | ACCEPTED_BOUNDED | Root independent REVIEWER; API/OpenAPI tests, AST comparison and browser receipt |
+| A5 real UI current/history | Actual10 downloads, CORS-hidden disposition fallback, offline refusal,10 URL revocations;128 tests/build on Node22.14.0 | ACCEPTED_BOUNDED | Root independent REVIEWER; browser receipt and UI tests |
+| A6 environment/distribution | Locked Python3.13.12, font/license hashes, offline wheel and isolated resource import | ACCEPTED_BOUNDED | Root and independent artifact REVIEWER; package/wheel evidence |
+| A7 full conformance/live | Backend221 and independent corpus13 PASS; first full gate refused13 OpenAPI chain tests; exact proof repair plus fresh canary admission/receipt remain | FULL_GATE_RETRY_PENDING / BLOCKED_LIVE_AUTHORITY | Root COMMIT_STEWARD for normal hook; ORCHESTRATOR/operator for exact provider/key-source/endpoint/pay-go ceiling; independent REVIEWER for final receipt |
+| Remaining Phase5 | Forecasting, dashboard/observability, resilience, pilot/release unchanged | OUTSIDE_P5A OPEN | Existing roadmap owners/destinations: P5-A2, P5-B, P5-C, P5-D respectively |
+
+All P5-A gaps and Phase5 remainders stay represented. Local acceptance does not
+close A7, P5-A or Phase5. No provider/key access occurred; no public/deploy effect.
+Evidence: docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.

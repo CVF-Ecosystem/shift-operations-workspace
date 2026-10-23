@@ -23,6 +23,12 @@ export class ApiError extends Error {
   }
 }
 
+export class BinaryApiError extends ApiError {
+  constructor(kind: ApiErrorKind, message: string, readonly code?: string) {
+    super(kind, message);
+  }
+}
+
 function kindForStatus(status: number): ApiErrorKind {
   if (status === 401) return 'unauthorized';
   if (status === 403) return 'forbidden';
@@ -47,6 +53,17 @@ interface RequestOptions {
   body?: unknown;
   query?: Record<string, string | number | boolean | undefined>;
   signal?: AbortSignal;
+}
+
+interface BinaryRequestOptions {
+  query?: Record<string, string | number | boolean | undefined>;
+  signal?: AbortSignal;
+}
+
+export interface BinaryResponse {
+  blob: Blob;
+  contentType: string | null;
+  contentDisposition: string | null;
 }
 
 function buildQueryString(query: RequestOptions['query']): string {
@@ -87,6 +104,54 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
 
   if (response.status === 204) return undefined as T;
   return (await response.json()) as T;
+}
+
+async function readBinaryErrorCode(response: Response): Promise<string | undefined> {
+  try {
+    const detail = ((await response.json()) as { detail?: { code?: unknown } }).detail;
+    return detail && typeof detail.code === 'string' ? detail.code : undefined;
+  } catch {}
+  return undefined;
+}
+
+export async function requestBinary(path: string, options: BinaryRequestOptions = {}): Promise<BinaryResponse> {
+  const { query, signal } = options;
+  const headers: Record<string, string> = {};
+  const token = getToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  let response: Response;
+  try {
+    response = await fetch(`${baseUrl}${path}${buildQueryString(query)}`, { method: 'GET', headers, signal });
+  } catch {
+    if (signal?.aborted) {
+      throw new BinaryApiError('cancelled', 'Request was cancelled');
+    }
+    throw new BinaryApiError('network', 'Unable to reach the server');
+  }
+
+  if (!response.ok) {
+    const code = await readBinaryErrorCode(response);
+    if (response.status === 401) clearSession();
+    throw new BinaryApiError(
+      kindForStatus(response.status),
+      `Binary request failed with status ${response.status}`,
+      code
+    );
+  }
+
+  try {
+    return {
+      blob: await response.blob(),
+      contentType: response.headers.get('Content-Type'),
+      contentDisposition: response.headers.get('Content-Disposition')
+    };
+  } catch {
+    if (signal?.aborted) {
+      throw new BinaryApiError('cancelled', 'Request was cancelled');
+    }
+    throw new BinaryApiError('network', 'Unable to read the download response');
+  }
 }
 
 export async function login(username: string, password: string): Promise<TokenResponse> {

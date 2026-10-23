@@ -1,46 +1,43 @@
 # Session Memory
 
-Last updated: 2026-10-23. Canonical state: SESSION/ACTIVE_SESSION_STATE.json.
-Active handoff: SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md.
+Last updated:2026-10-23. Canonical state:SESSION/ACTIVE_SESSION_STATE.json.
+Active handoff:SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md.
 
 ## Current checkpoint
 
-P5-A Reporting Engine enters bounded BUILD after committed dispatch continuity.
-Approved dispatch material: 142052fccb8ebe1070ffccce385f2b5305f2f2e9.
-Independent readiness PASS; full configured hook 3123 passed,146 skipped,
-4 warnings. Earlier venv isolation failure retained in planning review; precise
-runtime-path repair keeps forbidden source imports and adds negative probes.
-Sol/medium owns backend/render; Luna/max owns UI; root independently reviews.
-Workers do not commit. Product has not been implemented at this checkpoint.
+P5-A Reporting Engine is REVIEW / LOCAL_REVIEW_PASS_BOUNDED_PENDING_FULL_GATES.
+Dispatch142052fccb8ebe1070ffccce385f2b5305f2f2e9 and marker14ae8e7 settled.
+Sol/medium implemented/repaired backend; Luna/max implemented UI. Root reviewed
+independently; separate Luna/max artifact review accepted all8 status/history
+pairs plus exact focused record/reference counters, CR/types and packaged assets.
+Root actual browser10/10, full frontend128/build on Node22.14.0, worker backend221
+and independent corpus13/13 PASS. Both retained browser failures remain disclosed.
+No worker commit; no provider call/key access. First material hook refused13 OpenAPI chain tests;3156 passed/146 skipped/4 warnings,174.46s; no commit.
 
 ## Product Milestone Binding
 
-Canonical full A0-A7 gap/source reconciliation and Phase5 remainder owners:
+Canonical whole-milestone ledger and all remaining Phase5 owners/destinations:
 docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md.
-A0 reuses P2-R snapshots; A1-A7 remain open for runtime/output evidence.
-SPEC and approved Work Order are required reads. Product target: authenticated,
-assignment-scoped Vietnamese PDF/XLSX downloads, four views, exact lineage and
-status/history labels from immutable snapshots. Planning/scaffold is not DONE.
-P5-A2/P5-B/P5-C/P5-D remain at their recorded owners/destinations; Phase5 0/5.
-No separate support successor. All redispatch reconciles the entire gap set.
+A0 reused; A1-A6 accepted bounded; A7 needs full gates plus a separately admitted
+real synthetic canary. Reporting-engine stays partial; P5-A open; Phase5 0/5.
+P5-A2 forecasting, P5-B dashboard/observability, P5-C resilience and P5-D pilot/
+release stay owner-routed there. No support tranche or partial milestone closure.
+SPEC and approved Work Order remain required reads; latest local evidence is
+docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.
 
 ## Binding and authority
 
 Public Core b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
-3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708, both read-only. The source advanced
-after the dispatch hook; root refreshed existing pack and verified all1779
-projected files against committed blobs, zero mismatches. The prior027f review passed; a subsequent source-continuity commit made the
-marker hook refuse. Current3e302 source is clean, three required control
-carriers unchanged; prior dirty unselected files were never adopted. Guard zero/zero;
-knowledge PASS. No downstream profile1.2 adoption or runtime claim.
-Historical REPIN-1 2ff8fe4 and mandatory rule8f2e715 remain settled.
-Autonomous roadmap orchestration/review and subagents expressly authorized:
-Luna/max ordinary; Sol/medium difficult; no routine reapproval. Independent
-review remains mandatory. Provider/credential/public/deploy held separately.
-No inherited provider receipt satisfies new A7 governance proof.
+9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403, both read-only. Existing rule pack
+verified1779 projected files against exact committed blobs; required authority/
+exporter carriers unchanged. External source movement/cost and dirty-projection
+rejection are recorded in active handoff/build review; no source mutation or
+guard weakening. Doctor24/2 PASS WITH NOTE; no profile1.2/runtime adoption claim.
+REPIN2ff8fe4 and mandatory product-binding rule8f2e715 remain settled history.
+Operator authorized autonomous whole-roadmap orchestration/review and subagents:
+Luna/max ordinary, Sol/medium difficult. No petty routine reapproval. Provider,
+credential, public/deploy boundaries remain separate; no borrowed prior receipt.
 
 ## Next move
 
-Commit current dispatch continuity, release disjoint workers, review actual
-artifacts and real browser download against all acceptance criteria. Keep the
-live-evidence gap explicit; do not close P5-A prematurely.
+Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.
