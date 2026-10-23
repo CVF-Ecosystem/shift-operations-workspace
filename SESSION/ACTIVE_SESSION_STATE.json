@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_proactive_reporting_spec_live_deferred",
+  "mode": "p5a2_history_numeric_build_live_deferred",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
   "last_updated": "2026-10-24",
   "required_reads": [
@@ -10,15 +10,15 @@
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
-    "docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md",
+    "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "docs/decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md",
+    "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
     "IMPLEMENTATION_STATUS.json",
-    "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
-    "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md"
+    "docs/cvf/INVARIANT_FAMILY_STANDARD.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "P5-A2 intake/design independently accepted with14gap owners. Continue full provider-free SPEC: source/cutoff/dedup/timezone/history completeness, routine metric/horizon/threshold defaults, schedule, signals/forecast/calibration/drift, API/UI, exact human approval and evaluation/invariant family. Then reviewed bounded WO before independent numeric/history BUILD; integratedcontext/full acceptance waits for reporting/RAG readiness. All live/key/model updates deferred, extraoldkeytrial heldunexecuted, original401spent. P5-A/P5-A2 open, Phase5 0/5.",
+  "next_allowed_move": "P5-A2 source/history/numeric BUILD only after this dispatch marker is committed: material125868a50d5efb7fe3e62a011a2c0cab6b53f789/full3199PASS269.46s, accepted SPECfd35641c/matrix4ff48756, independent WO reviewPASS. Root releases Sol bounded H1-P2; no scheduler/API/UI/RAG/approval persistence. All14gap remainders retained; live/key/model/CSV held, P5-A A7 open, Phase5 0/5. Stop renewed reference drift.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -37,9 +37,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_proactive_reporting_spec_live_deferred",
-    "activePhase": "SPEC",
-    "activePhaseNote": "Intake/design accepted bounded; SPEC next, no BUILD or closure.",
+    "currentMode": "p5a2_history_numeric_build_live_deferred",
+    "activePhase": "BUILD",
+    "activePhaseNote": "Approved bounded pure history/numeric dispatch125868a; BUILD conditional on committed actual-SHA continuity marker and fresh guard.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,8 +55,8 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
     "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "Sol IMPLEMENTATION_WORKER; root independent source reviewer/commit/effect owner; Luna p5a_readiness independent actual receipt reviewer.",
-    "currentRoleTransition": "INDEPENDENT_P5A2_DESIGN_REVIEW_TO_SPEC_ROUTING",
+    "activeRoleNote": "Root releases Sol IMPLEMENTATION_WORKER after marker commit; root independent REVIEWER and commit owner.",
+    "currentRoleTransition": "COMMIT_STEWARD_TO_ORCHESTRATOR_FOR_BOUNDED_BUILD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-24"
   },
@@ -73,7 +73,7 @@
     "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
     "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
     "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open.",
-    "currentProvenanceCommit": "7870b90e4569941fe11ec5b2fef1fde899dc8597"
+    "currentProvenanceCommit": "721f98dec5472cbc8e70e92fec648b9360d57349"
   },
   "p5a_local_review_20261023": {
     "status": "LOCAL_MATERIAL_AND_GATES_PASS_A7_LIVE_HELD",
@@ -124,7 +124,7 @@
     "evidenceMaterialDisposition": "COMMITTED_FAILED_RECEIPT_A7_OPEN",
     "evidenceMaterialCommit": "3b5696397941b4434fab1a44094e30b1db372af2",
     "evidenceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 245.98s",
-    "finalContinuityDisposition": "CARRIED_IN_NONLIVE_ROADMAP_CONTINUATION_PENDING_COMMIT",
+    "finalContinuityDisposition": "COMMITTED_IN_P5A2_PLANNING_fd903371",
     "observedProvenanceHead": "4a297a3657cf6e25746faee5ccc28b1e0e8704b9",
     "pinnedProvenanceCommit": "a7d70b0fa5edd76bf8bc6038256e38c5976ae563"
   },
@@ -136,6 +136,21 @@
     "additionalOldKeyTrial": "USER_AUTHORIZED_ONCE_BUT_NOT_EXECUTED_NOW_DEFERRED",
     "activeMilestone": "P5-A2",
     "scope": "INTAKE/DESIGN complete milestone; no dependent BUILD yet",
-    "referenceReconciliation": "one bounded sync for new roadmap continuation; protected5 unchanged1779exact projections"
+    "referenceReconciliation": "One bounded refresh on operator continue; protected5 unchanged,1779 committed projections exact; no further source chase on renewed drift",
+    "planningCommit": "fd903371b175e1ea488b6802f20db2b1a33c62d4",
+    "planningFullGate": "3199 passed,146 skipped,4 warnings in213.04s",
+    "specDispatch": "SPEC_REVIEW_PASS_BOUNDED",
+    "observedProvenanceHead": "721f98dec5472cbc8e70e92fec648b9360d57349",
+    "specCanonicalDigest": "fd35641cf43768c1d35a5187c43af7b3c8a3e08caaa21253e9527ed3ae67bf5e",
+    "matrixCanonicalDigest": "4ff487569ef29d413dcd3e51e3e595057f395f61a0cd79ea299b046a54f2e573"
+  },
+  "p5a2_numeric_dispatch_20261024": {
+    "materialCommit": "125868a50d5efb7fe3e62a011a2c0cab6b53f789",
+    "fullPrecommit": "3199 passed,146 skipped,4 warnings in269.46s",
+    "changedPaths": 13,
+    "authorizationReview": "Luna independent AUTHORIZATION_REVIEW_PASS_BOUNDED; active graph0violations",
+    "specCanonicalDigest": "fd35641cf43768c1d35a5187c43af7b3c8a3e08caaa21253e9527ed3ae67bf5e",
+    "matrixCanonicalDigest": "4ff487569ef29d413dcd3e51e3e595057f395f61a0cd79ea299b046a54f2e573",
+    "scope": "pure supplied snapshot history and numeric analytics H1-P2; no integrated/auth/scheduler/governance proof"
   }
 }

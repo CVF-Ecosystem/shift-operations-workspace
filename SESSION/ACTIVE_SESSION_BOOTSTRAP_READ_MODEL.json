@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_proactive_reporting_spec_live_deferred",
+  "currentMode": "p5a2_history_numeric_build_live_deferred",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
-  "nextAllowedMove": "P5-A2 intake/design independently accepted with14gap owners. Continue full provider-free SPEC: source/cutoff/dedup/timezone/history completeness, routine metric/horizon/threshold defaults, schedule, signals/forecast/calibration/drift, API/UI, exact human approval and evaluation/invariant family. Then reviewed bounded WO before independent numeric/history BUILD; integratedcontext/full acceptance waits for reporting/RAG readiness. All live/key/model updates deferred, extraoldkeytrial heldunexecuted, original401spent. P5-A/P5-A2 open, Phase5 0/5.",
+  "nextAllowedMove": "P5-A2 source/history/numeric BUILD only after this dispatch marker is committed: material125868a50d5efb7fe3e62a011a2c0cab6b53f789/full3199PASS269.46s, accepted SPECfd35641c/matrix4ff48756, independent WO reviewPASS. Root releases Sol bounded H1-P2; no scheduler/API/UI/RAG/approval persistence. All14gap remainders retained; live/key/model/CSV held, P5-A A7 open, Phase5 0/5. Stop renewed reference drift.",
   "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
   "requiredReads": [
     "AGENTS.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
-    "docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md",
+    "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "docs/decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md",
+    "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
     "IMPLEMENTATION_STATUS.json",
-    "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
-    "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md"
+    "docs/cvf/INVARIANT_FAMILY_STANDARD.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

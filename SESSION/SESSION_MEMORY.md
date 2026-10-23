@@ -5,7 +5,7 @@ Active handoff SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-2
 
 ## Current checkpoint
 
-P5-A2 intake/design independently reviewed; SPEC pending. Full14gap binding:
+P5-A2 SPEC and bounded Work Order independently reviewed; dispatch125868a committed. Full14gap binding:
 docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md.
 Review: docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md.
 Luna/max authored/repaired; root independent review. No new product code.
@@ -29,7 +29,7 @@ receipt and historical handoff; no broad rerun or production claim inferred.
 
 ## Binding and scope
 
-PublicCoreb69e1088978e8c90ac58a2243fcf8f90d0f857ed; private7870b90e4569941fe11ec5b2fef1fde899dc8597,
+PublicCoreb69e1088978e8c90ac58a2243fcf8f90d0f857ed; private721f98dec5472cbc8e70e92fec648b9360d57349,
 both readonly. Protected5 unchanged/1779projected committed blobs exact; dirty
 source continuity projections rejected. Doctor24/2, no gate-profile adoption.
 Root rehydrated/resolved finite static binding for this user-directed nonlive
@@ -42,4 +42,4 @@ P5-B/C/D remainder owners/destinations stay in the full binding.
 
 ## Next move
 
-P5-A2 intake/design independently accepted with14gap owners. Continue full provider-free SPEC: source/cutoff/dedup/timezone/history completeness, routine metric/horizon/threshold defaults, schedule, signals/forecast/calibration/drift, API/UI, exact human approval and evaluation/invariant family. Then reviewed bounded WO before independent numeric/history BUILD; integratedcontext/full acceptance waits for reporting/RAG readiness. All live/key/model updates deferred, extraoldkeytrial heldunexecuted, original401spent. P5-A/P5-A2 open, Phase5 0/5.
+P5-A2 source/history/numeric BUILD only after this dispatch marker is committed: material125868a50d5efb7fe3e62a011a2c0cab6b53f789/full3199PASS269.46s, accepted SPECfd35641c/matrix4ff48756, independent WO reviewPASS. Root releases Sol bounded H1-P2; no scheduler/API/UI/RAG/approval persistence. All14gap remainders retained; live/key/model/CSV held, P5-A A7 open, Phase5 0/5. Stop renewed reference drift.
