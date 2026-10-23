@@ -107,11 +107,11 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "41e7d729840d6f83f383f15c0cd4c01ec49a6770d09e6bf5df9293f4b9d6a7b0"
+          "sha256": "52e413af0abad4ad99d9e0b6e6fa24e6c8f1b008c36d349206be05f9ec9039f0"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "1e04a136efda38058d6485b281ff2dc93978215aaf19255100ca93a4058cb541"
+          "sha256": "06ddd708536abd76a31b22de95f807df3c46e750f08a7e7d51fa9532cded80bc"
         },
         {
           "path": ".cvf/policy.json",

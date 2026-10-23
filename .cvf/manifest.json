@@ -10,7 +10,7 @@
     "required": true,
     "profileName": "operator-local",
     "repository": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF-Provenance.git",
-    "sourceCommit": "50b6f8d94a26d8b1014bb00f31d3493616ce9fdd",
+    "sourceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
     "relativePath": "../../Controlled-Vibe-Framework-CVF",
     "activeRulePackRelativePath": "../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json",
     "rulePackManifestRelativePath": "../CVF_RULE_PACKS/operator-local/RULE_PACK_MANIFEST.json",

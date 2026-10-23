@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a_reporting_engine_scope_review_ready",
+  "mode": "p5a_reporting_engine_build",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
   "last_updated": "2026-10-23",
   "required_reads": [
@@ -19,7 +19,7 @@
     "IMPLEMENTATION_STATUS.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Operator R2 review of the concrete P5-A product scope, then settle draft readiness (font/dependencies/caps/invariant family/exact manifest/gate graph) before bounded BUILD activation. Draft grants no install/font/provider execution authority.",
+  "next_allowed_move": "After this dispatch-continuity commit passes, release Sol backend/render and Luna UI P5-A lanes. Root reviews complete A1-A7 acceptance, actual artifacts and browser download; provider/credential/public/deploy held.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a_reporting_engine_scope_review_ready",
-    "activePhase": "SPEC",
-    "activePhaseNote": "Independent planning review PASS; F1-F3 resolved in contracts; R2 scope/readiness before BUILD remains.",
+    "currentMode": "p5a_reporting_engine_build",
+    "activePhase": "BUILD",
+    "activePhaseNote": "Independent readiness accepted; approved dispatch material 142052f. Product worker release follows committed continuity marker.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -54,10 +54,10 @@
     "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "P5-A concrete scope/readiness review; product BUILD/provider/dependency/font acquisition held. P5-A2/B/C/D and absorption/catalog/XR1 remain parked.",
+    "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
     "activeRole": "ORCHESTRATOR",
-    "activeRoleNote": "P5-A product planning and consolidated review; draft has no execution authority.",
-    "currentRoleTransition": "IMPLEMENTATION_WORKER_TO_INDEPENDENT_REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
+    "activeRoleNote": "Root orchestrates two disjoint implementation lanes and independently reviews their integrated return.",
+    "currentRoleTransition": "REVIEWER_TO_COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-23"
   },
@@ -68,5 +68,11 @@
     "rehearsal": "9 passed",
     "inheritance": "zero binding and closeability violations",
     "claimBoundary": "Static reference and documentation only; Phase 5 unchanged."
+  },
+  "p5a_dispatch_20261023": {
+    "materialCommit": "142052fccb8ebe1070ffccce385f2b5305f2f2e9",
+    "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
+    "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
+    "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open."
   }
 }

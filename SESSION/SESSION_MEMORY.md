@@ -5,33 +5,42 @@ Active handoff: SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.m
 
 ## Current checkpoint
 
-Operator selected returning to roadmap and continuing under mandatory Product
-Milestone Binding. P5-A Reporting Engine is in DESIGN/SPEC planning; first open
-Phase5 milestone. Intake/design, proposed spec and draft Work Order authored.
-Canonical full P5-A gap table and source evidence:
+P5-A Reporting Engine enters bounded BUILD after committed dispatch continuity.
+Approved dispatch material: 142052fccb8ebe1070ffccce385f2b5305f2f2e9.
+Independent readiness PASS; full configured hook 3123 passed,146 skipped,
+4 warnings. Earlier venv isolation failure retained in planning review; precise
+runtime-path repair keeps forbidden source imports and adds negative probes.
+Sol/medium owns backend/render; Luna/max owns UI; root independently reviews.
+Workers do not commit. Product has not been implemented at this checkpoint.
+
+## Product Milestone Binding
+
+Canonical full A0-A7 gap/source reconciliation and Phase5 remainder owners:
 docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md.
-A0 reuses P2-R immutable END_SHIFT snapshots; A1-A7 still OPEN/BLOCKED. Expected
-product outcome: authenticated, assignment-scoped PDF/XLSX download from real
-workspace UI, Vietnamese, source lineage, status/history labels and four views.
-Scaffold is not completion; no product implementation or output proof yet.
+A0 reuses P2-R snapshots; A1-A7 remain open for runtime/output evidence.
+SPEC and approved Work Order are required reads. Product target: authenticated,
+assignment-scoped Vietnamese PDF/XLSX downloads, four views, exact lineage and
+status/history labels from immutable snapshots. Planning/scaffold is not DONE.
+P5-A2/P5-B/P5-C/P5-D remain at their recorded owners/destinations; Phase5 0/5.
+No separate support successor. All redispatch reconciles the entire gap set.
 
-## Next move and boundaries
+## Binding and authority
 
-Independent planning review PASS; F1-F3 resolved in contracts. Next: operator R2 scope/readiness
-checkpoint, then settle font/license/dependency/resource/invariant/manifest
-prerequisites before activating Work Order. No product BUILD, dependency install,
-font import, credential access, provider/network/database/deploy action authorized
-by the draft. Live proof requires current exact provider authority; no historical
-receipt transfer. No new support tranche is opened for readiness.
-P5-A2, P5-B, P5-C, P5-D, absorption/catalog migration/XR1 remain parked.
-Phase5 completion stays 0/5. All dispatch/redispatch must reconcile entire milestone
-gap set with owners/destinations; tranche closure is distinct from milestone DONE.
+Public Core b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
+3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708, both read-only. The source advanced
+after the dispatch hook; root refreshed existing pack and verified all1779
+projected files against committed blobs, zero mismatches. The prior027f review passed; a subsequent source-continuity commit made the
+marker hook refuse. Current3e302 source is clean, three required control
+carriers unchanged; prior dirty unselected files were never adopted. Guard zero/zero;
+knowledge PASS. No downstream profile1.2 adoption or runtime claim.
+Historical REPIN-1 2ff8fe4 and mandatory rule8f2e715 remain settled.
+Autonomous roadmap orchestration/review and subagents expressly authorized:
+Luna/max ordinary; Sol/medium difficult; no routine reapproval. Independent
+review remains mandatory. Provider/credential/public/deploy held separately.
+No inherited provider receipt satisfies new A7 governance proof.
 
-## Retained stable baseline
+## Next move
 
-REPIN-1 material 2ff8fe4, documentation rule 8f2e715, continuity db6e12c accepted
-bounded; full precommit 3121 passed/146 skipped/two existing warnings. Public Core
-b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
-e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e. Both remain read-only. Inheritance
-zero/zero; doctor PASS WITH NOTE, legacy catalog/profile notes retained. No new
-Core refresh. Prior active handoff preserves complete repin closure history.
+Commit current dispatch continuity, release disjoint workers, review actual
+artifacts and real browser download against all acceptance criteria. Keep the
+live-evidence gap explicit; do not close P5-A prematurely.
