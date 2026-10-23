@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a_reporting_engine_a7_preparation",
+  "currentMode": "p5a_reporting_engine_a7_effect_ready",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "nextAllowedMove": "Commit independently reviewed A7 source/contract/admission through normal full hook. After actual clean source commit and fresh inheritance/preflight, root ORCHESTRATOR alone executes exactly the admitted one-call envelope with current HEAD/full-gate attestation; independent Luna p5a_readiness reviews actual receipt, then normal evidence/continuity/closure commits. A1-A6 retained; no extra attempt/retry/fallback/public/deploy. P5-A open, Phase5 0/5, later milestone owners unchanged.",
+  "nextAllowedMove": "Source06faf9f passed full normal3199/146/4; actual-SHA continuity binds unchanged source/current read-only reference. After this clean continuity commit and fresh gates, root alone uses the exact admitted one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01/no-retry envelope. Independent Luna p5a_readiness reviews actual receipt before normal evidence/closure commits. A7 live/closure pending; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.",
   "parkedOperatorCheckpoint": "Only the exact one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01 pay-go envelope is admitted. Execution waits for reviewed committed source. Retries/fallback, extra providers/calls, public/deploy remain held.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",

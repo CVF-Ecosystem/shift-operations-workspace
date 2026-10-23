@@ -5,7 +5,7 @@ Active handoff:SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md
 
 ## Current checkpoint
 
-P5-A Reporting Engine is A7 REVIEW / SOURCE_ACCEPTED_COMMIT_AND_LIVE_PENDING.
+P5-A Reporting Engine is A7 effect BUILD / SOURCE_COMMITTED_ONE_CALL_PENDING.
 Dispatch142052fccb8ebe1070ffccce385f2b5305f2f2e9 and marker14ae8e7 settled.
 Sol/medium implemented/repaired backend; Luna/max implemented UI. Root reviewed
 independently; separate Luna/max artifact review accepted all8 status/history
@@ -28,7 +28,7 @@ docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.
 ## Binding and authority
 
 Public Core b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
-92bd2b5ef032fc7c910502e4cd73e520ebb95fdf, both read-only. Existing rule pack
+6b35287c7eef5d9abe94d6b07880293dce0ce471, both read-only. Existing rule pack
 verified1779 projected files against exact committed blobs; required authority/
 exporter carriers unchanged. External source movement/cost and dirty-projection
 rejection are recorded in active handoff/build review; no source mutation or
@@ -40,8 +40,8 @@ credential, public/deploy boundaries remain separate; no borrowed prior receipt.
 
 ## Actual material and A7 admission
 
-Local material56b4c2729b56c3094d69c141b9ee918026d3cb5a, continuity0cd647189252c041f33ca562b8643f754b196688; full hooks3173/146/4 both PASS. User explicitly approved the exact one-call qwen-flash/CurrentUser key/PUBLIC synthetic/64-output-token/no-retry/USD0.01 pay-go envelope. Admission is docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json. Source contract/review/commit and actual receipt/final review remain;0 key reads/0 attempts. No inherited free quota, retry/fallback, extra call or public/deploy authority.
+Local material56b4c2729b56c3094d69c141b9ee918026d3cb5a, continuity0cd647189252c041f33ca562b8643f754b196688; full hooks3173/146/4 both PASS. User explicitly approved the exact one-call qwen-flash/CurrentUser key/PUBLIC synthetic/64-output-token/no-retry/USD0.01 pay-go envelope. Admission is docs/decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json. A7 source06faf9f passed3199/146/4; actual receipt/final review remain;0 key reads/0 attempts. No inherited free quota, retry/fallback, extra call or public/deploy authority.
 
 ## Next move
 
-Commit independently reviewed A7 source/contract/admission through normal full hook. After actual clean source commit and fresh inheritance/preflight, root ORCHESTRATOR alone executes exactly the admitted one-call envelope with current HEAD/full-gate attestation; independent Luna p5a_readiness reviews actual receipt, then normal evidence/continuity/closure commits. A1-A6 retained; no extra attempt/retry/fallback/public/deploy. P5-A open, Phase5 0/5, later milestone owners unchanged.
+Source06faf9f passed full normal3199/146/4; actual-SHA continuity binds unchanged source/current read-only reference. After this clean continuity commit and fresh gates, root alone uses the exact admitted one-call qwen-flash/CurrentUser/PUBLIC/64-token/USD0.01/no-retry envelope. Independent Luna p5a_readiness reviews actual receipt before normal evidence/closure commits. A7 live/closure pending; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.
