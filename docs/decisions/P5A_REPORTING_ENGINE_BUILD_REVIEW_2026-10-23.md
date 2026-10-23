@@ -385,3 +385,20 @@ PASS136.11s, exact27reviewedpaths; post-material6sourceblob comparison and clean
 worktreePASS. Later reference-only6b35287c delta is one unrelated NCR review
 doc, protectedcarriers unchanged,1779projections exact. Actual-SHA continuity
 only before root one-use effect. Live A7 remains unperformed,0key/0attempts.
+
+## Finite pre-effect reference-churn disposition
+
+Source06faf9f full3199/146/4 PASS136.11s; actual-SHA continuity
+ee67311274d66b802888fcae1aa7817dbd0c3ff8 full3199/146/4 PASS129.63s.
+Before any credential/marker/effect, private source advanced again to48aaff02e
+by unrelated NCR continuity only. Mandatory inheritance correctly refused.
+REVIEW_COST_ESCALATION_REQUIRED: repeated moving-reference/clean-commit race
+now dominates work without changing product or protected authority. Root
+consolidated the cause; source history confirms finite NCR review completed
+at6b35287c and the next48aaff02e is its DESIGN-continuity handoff, with clean
+source worktree. Allow exactly one final bounded reference/continuity sync
+under existing scope; if HEAD moves again before effect, record reference
+churn blocker and stop dependent effect work, with0key/0provider. No infinite
+support tranche, checker weakening, read-only source lock/edit, extra provider
+grant, retry or quota use is permitted. Protected5 carriers unchanged,1779
+projected committed blobs verified. Source/product bytes remain accepted.

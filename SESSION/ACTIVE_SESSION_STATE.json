@@ -75,7 +75,7 @@
     "precommit": "3123 passed,146 skipped,4 warnings; retained first failure repaired with exact runtime-path allowlist and two negative contamination cases",
     "provenanceCommit": "3e3023e5aea1c1e949c1fdc78ecc8d62bbd8f708",
     "claimBoundary": "No product implementation or governance behavior proof yet. A1-A7 remain open.",
-    "currentProvenanceCommit": "6b35287c7eef5d9abe94d6b07880293dce0ce471"
+    "currentProvenanceCommit": "48aaff02e2b5ace7eee75e5f5b5e4c97779b5d99"
   },
   "p5a_local_review_20261023": {
     "status": "LOCAL_MATERIAL_AND_GATES_PASS_A7_LIVE_HELD",

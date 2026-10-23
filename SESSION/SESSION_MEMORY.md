@@ -28,7 +28,7 @@ docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.
 ## Binding and authority
 
 Public Core b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
-6b35287c7eef5d9abe94d6b07880293dce0ce471, both read-only. Existing rule pack
+48aaff02e2b5ace7eee75e5f5b5e4c97779b5d99, both read-only. Existing rule pack
 verified1779 projected files against exact committed blobs; required authority/
 exporter carriers unchanged. External source movement/cost and dirty-projection
 rejection are recorded in active handoff/build review; no source mutation or
