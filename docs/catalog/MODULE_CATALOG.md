@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-10-23T16:19:47.594087+00:00_
+_Last generated: 2026-10-23T16:23:58.045830+00:00_
 
 ## How to use this catalog
 
@@ -212,7 +212,7 @@ _Last generated: 2026-10-23T16:19:47.594087+00:00_
 - **Depends on:** `operations-domain`
 - **Tests:** `tests/unit/test_report_export_renderers.py`, `tests/unit/test_report_export_views.py`, `tests/unit/test_report_export_limits.py`, `tests/cvf/test_report_export_outcomes.py`, `tests/integration/test_report_export_browser.py`
 - **Metrics:** 449 LOC across 8 code file(s)
-- **Next step:** Complete A7 full material gates and separately admitted real canary; retain P5-A open and Phase5 0/5.
+- **Next step:** Resolve A7 separately admitted real canary and final receipt review; local material/full gates pass. Retain P5-A open and Phase5 0/5.
 
 ### `retrieval-contracts` — partial
 

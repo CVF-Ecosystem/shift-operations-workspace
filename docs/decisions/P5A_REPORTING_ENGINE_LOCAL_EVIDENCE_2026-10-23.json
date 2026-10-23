@@ -336,7 +336,7 @@
     ]
   },
   "artifactPacketRoot": ".venv/p5a-reviewed-artifact-packet-1792770726863305200/",
-  "artifactRetentionNote": "Exact independently reviewed24 files and rasters preserved before full pytest regenerates mutable worker outputs.",
+  "artifactRetentionNote": "Exact reviewed24 files/raster copies preserved before full pytest regenerates its mutable worker output directory.",
   "retainedFullGateFailure": {
     "result": "13 failed,3156 passed,146 skipped,4 warnings in174.46s",
     "cause": "P5-A export delta not yet linked through full historical OpenAPI chain",
@@ -501,6 +501,18 @@
       "apps/workspace-api/src/workspace_api/api/reports/router.py"
     ],
     "newOperationCanonicalSha256": "f680820c3a9232ca1528ab0ca8c5f67c9c89a9038dea6993f0664d48daa59535",
-    "browser": "Fresh10/10 actual downloads PASS with stable DB digest, URL/process cleanup, offline/CORS behavior. Main browser receipt binds final route source."
+    "browser": "Fresh10/10 actual downloads PASS with stable DB digest, URL/process cleanup, offline/CORS behavior. Main browser receipt binds final route source.",
+    "checkedProvenanceCommit": "f6cd469094545061f4c9db0e09ebe6b0e86f7d00"
+  },
+  "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
+  "fullPrecommit": {
+    "result": "3173 passed, 146 skipped, 4 warnings in 175.82s",
+    "changedPaths": 51,
+    "normalHooks": true
+  },
+  "bindingAtMaterialCommit": {
+    "publicCoreCommit": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
+    "privateProvenanceCommit": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403",
+    "claimBoundary": "Normal material hook verified current static binding; historical review and browser checkpoints retain their own observed pins."
   }
 }

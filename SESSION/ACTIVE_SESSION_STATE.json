@@ -20,7 +20,7 @@
     "IMPLEMENTATION_STATUS.json"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.",
+  "next_allowed_move": "Resolve A7 one-call real-provider admission under SPEC R12 and the concrete unactivated Work Order envelope; current quota/endpoint/key-source/cost authority must be explicit before credential/provider use. Local material and full conformance are committed and accepted bounded. P5-A remains REVIEW/open, Phase5 0/5; P5-A2/B/C/D stay owner-routed in the full milestone binding.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -41,7 +41,7 @@
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "p5a_reporting_engine_review",
     "activePhase": "REVIEW",
-    "activePhaseNote": "REVIEW / OpenAPI proof and metadata repair accepted; normal full material gate retry pending.",
+    "activePhaseNote": "Local material committed; full configured gate PASS; A7 real canary admission/receipt remains held.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Root independently accepted Sol metadata/proof repair and fresh browser source binding; owns normal full gate retry.",
-    "currentRoleTransition": "ORCHESTRATOR_TO_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD",
+    "activeRole": "ORCHESTRATOR",
+    "activeRoleNote": "Root completed material stewardship and terminal local review, synchronizes actual SHA, then owns A7 admission and full-roadmap routing.",
+    "currentRoleTransition": "COMMIT_STEWARD_TO_REVIEWER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR",
     "updatedAt": "2026-10-23"
   },
@@ -78,7 +78,7 @@
     "currentProvenanceCommit": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403"
   },
   "p5a_local_review_20261023": {
-    "status": "LOCAL_REVIEW_PASS_PENDING_FULL_GATE_RETRY",
+    "status": "LOCAL_MATERIAL_AND_GATES_PASS_A7_LIVE_HELD",
     "acceptedCriteria": [
       "A0 reused",
       "A1",
@@ -89,7 +89,7 @@
       "A6"
     ],
     "openCriteria": [
-      "A7 full material gate and separately admitted real-provider canary"
+      "A7 separately admitted real-provider canary and final receipt review"
     ],
     "browser": "10 actual downloads; unchanged disposable SQLite content;10 created/revoked URLs; CORS fallback and offline refusal PASS",
     "backend": "221 relevant tests PASS",
@@ -98,6 +98,9 @@
     "receipt": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json",
     "milestoneComplete": false,
     "fullPrecommitRetainedFailure": "13 failed,3156 passed,146 skipped,4 warnings in174.46s; no material commit",
-    "openapiRepair": "63 OpenAPI +2 API outcome tests PASS; metadata/body AST and historical SHA verified; fresh browser10/10 PASS"
+    "openapiRepair": "63 OpenAPI +2 API outcome tests PASS; metadata/body AST and historical SHA verified; fresh browser10/10 PASS",
+    "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
+    "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s",
+    "changedPaths": 51
   }
 }

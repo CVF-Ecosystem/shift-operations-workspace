@@ -3,7 +3,7 @@
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
   "currentMode": "p5a_reporting_engine_review",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md",
-  "nextAllowedMove": "Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.",
+  "nextAllowedMove": "Resolve A7 one-call real-provider admission under SPEC R12 and the concrete unactivated Work Order envelope; current quota/endpoint/key-source/cost authority must be explicit before credential/provider use. Local material and full conformance are committed and accepted bounded. P5-A remains REVIEW/open, Phase5 0/5; P5-A2/B/C/D stay owner-routed in the full milestone binding.",
   "parkedOperatorCheckpoint": "Only real external-effect/risk boundary changes require escalation; provider/credential/public/deploy remain outside current implementation readiness.",
   "requiredReads": [
     "docs/implementation/ACCEPTANCE_GATES.md",

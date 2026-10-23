@@ -165,7 +165,7 @@ Phase5 remains0/5. Historical planning tables above are source-at-planning.
 | A4 API download | Auth/refusals and binary route; accurate required query/binary OpenAPI metadata,63+2 focused tests and fresh10-download source-bound browser pass | ACCEPTED_BOUNDED | Root independent REVIEWER; API/OpenAPI tests, AST comparison and browser receipt |
 | A5 real UI current/history | Actual10 downloads, CORS-hidden disposition fallback, offline refusal,10 URL revocations;128 tests/build on Node22.14.0 | ACCEPTED_BOUNDED | Root independent REVIEWER; browser receipt and UI tests |
 | A6 environment/distribution | Locked Python3.13.12, font/license hashes, offline wheel and isolated resource import | ACCEPTED_BOUNDED | Root and independent artifact REVIEWER; package/wheel evidence |
-| A7 full conformance/live | Backend221 and independent corpus13 PASS; first full gate refused13 OpenAPI chain tests; exact proof repair plus fresh canary admission/receipt remain | FULL_GATE_RETRY_PENDING / BLOCKED_LIVE_AUTHORITY | Root COMMIT_STEWARD for normal hook; ORCHESTRATOR/operator for exact provider/key-source/endpoint/pay-go ceiling; independent REVIEWER for final receipt |
+| A7 full conformance/live | Backend221, independent corpus13, OpenAPI63+API2 and final full gate3173/146/4 PASS; only fresh canary admission/receipt remain | BLOCKED_LIVE_AUTHORITY | Root ORCHESTRATOR/operator for exact provider/key-source/endpoint/pay-go ceiling; independent REVIEWER for final receipt |
 | Remaining Phase5 | Forecasting, dashboard/observability, resilience, pilot/release unchanged | OUTSIDE_P5A OPEN | Existing roadmap owners/destinations: P5-A2, P5-B, P5-C, P5-D respectively |
 
 All P5-A gaps and Phase5 remainders stay represented. Local acceptance does not

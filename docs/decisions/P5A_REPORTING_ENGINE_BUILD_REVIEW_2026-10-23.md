@@ -1,6 +1,6 @@
 # P5-A Reporting Engine — Build and Independent Review
 
-Status: LOCAL_REVIEW_PASS_BOUNDED / FULL_GATE_AND_LIVE_PENDING
+Status: LOCAL_MATERIAL_AND_FULL_GATE_PASS / A7_LIVE_HELD
 Risk: R2
 Decision owner: root ORCHESTRATOR / independent REVIEWER
 
@@ -267,3 +267,7 @@ source unchanged, so accepted format evidence is consumed without regeneration.
 ## OpenAPI amendment independent acceptance
 
 Sol returned63 OpenAPI tests and2 InMemory/SQLite API outcome tests PASS. Root verified exact new export query enums/required flags, HTTPBearer and binary MIME schemas; historical SHA literals unchanged. Independent AST comparison found every route function body identical to the accepted runtime. Negative missing/extra-method/changed auth/enum/MIME plus unrelated path/legacy change checks remain active. P2-R path set restored; no historical baseline refresh. Fresh browser .venv/p5a-browser-1792772279328042000 passed10/10 with unchanged DB digest cec14da13d7263f314980483950f0d1c5cedcb3fc7907395150ef4f70cc25bc8, URL/process cleanup and offline/CORS behavior. Only route metadata source hash changed; renderer/UI/harness/wheel evidence remains valid. A4 reaccepted bounded. Root REVIEWER to SESSION_SYNC_STEWARD to COMMIT_STEWARD for normal full-hook retry; A7 live authority held.
+
+## Actual material and post-material local review
+
+Material `56b4c2729b56c3094d69c141b9ee918026d3cb5a`; normal configured hook: 3173 passed, 146 skipped, 4 warnings in 175.82s. Exact51 committed paths and staged canonical source hashes verified unchanged from reviewed source. Local terminal review PASS_BOUNDED. All24 reviewed artifacts/raster copies are preserved at the immutable ignored packet path in the receipt before pytest regeneration. No provider call/key access, no new product delta and no milestone closure. A7 alone retains its real-canary admission/receipt requirement.

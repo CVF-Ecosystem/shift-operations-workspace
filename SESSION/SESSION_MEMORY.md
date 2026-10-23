@@ -5,7 +5,7 @@ Active handoff:SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md
 
 ## Current checkpoint
 
-P5-A Reporting Engine is REVIEW / LOCAL_REVIEW_PASS_BOUNDED_PENDING_FULL_GATES.
+P5-A Reporting Engine is REVIEW / LOCAL_GATES_PASS_A7_LIVE_HELD.
 Dispatch142052fccb8ebe1070ffccce385f2b5305f2f2e9 and marker14ae8e7 settled.
 Sol/medium implemented/repaired backend; Luna/max implemented UI. Root reviewed
 independently; separate Luna/max artifact review accepted all8 status/history
@@ -18,7 +18,7 @@ No worker commit; no provider call/key access. First material hook refused13 Ope
 
 Canonical whole-milestone ledger and all remaining Phase5 owners/destinations:
 docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md.
-A0 reused; A1-A6 accepted bounded; A7 needs full gates plus a separately admitted
+A0 reused; A1-A6 accepted bounded; A7 deterministic/full gates passed; it still needs a separately admitted
 real synthetic canary. Reporting-engine stays partial; P5-A open; Phase5 0/5.
 P5-A2 forecasting, P5-B dashboard/observability, P5-C resilience and P5-D pilot/
 release stay owner-routed there. No support tranche or partial milestone closure.
@@ -38,6 +38,12 @@ Operator authorized autonomous whole-roadmap orchestration/review and subagents:
 Luna/max ordinary, Sol/medium difficult. No petty routine reapproval. Provider,
 credential, public/deploy boundaries remain separate; no borrowed prior receipt.
 
-## Next move
+## Actual material and next move
 
-Commit independently reviewed local P5-A material through the normal full gate, then record actual SHA in separate continuity. Consolidated OpenAPI proof and A4 metadata repairs pass63+2 focused cases and a fresh10-download browser pass; A1-A6 accepted bounded. A7 full gate/canary still held; P5-A open and Phase5 0/5. Remaining P5-A2/B/C/D owners unchanged.
+Local material 56b4c2729b56c3094d69c141b9ee918026d3cb5a; exact51 paths. Full normal hook 3173 passed, 146 skipped, 4 warnings in 175.82s.
+Root terminal committed-range/source-hash review PASS_BOUNDED; separate
+continuity records the actual SHA. Next: resolve A7 exact one-call provider
+admission under SPEC R12 and the unactivated Work Order proposal before any
+credential access or provider attempt. Local quota catalog expired; no eligible
+free-quota model on2026-10-23. Proposed pay-go ceiling USD0.01 is not activated.
+P5-A remains open, Phase5 0/5; all remaining milestone owners remain routed.

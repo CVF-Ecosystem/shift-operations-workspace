@@ -1,6 +1,6 @@
 # P5-A Reporting Engine — Implementation Manifest
 
-Status: REVIEWED_LOCAL_MATERIAL / A7_GATES_AND_LIVE_HELD
+Status: COMMITTED_REVIEWED_LOCAL_MATERIAL / A7_LIVE_HELD
 Risk: R2
 Product Milestone Binding: docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md, A0-A7 and Phase 5 remainder.
 Authority: docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md activated at dispatch142052f and marker14ae8e7.
@@ -185,3 +185,5 @@ in test_report_openapi_contract.py. Historical SHA constants remain untouched;
 only the exact new export delta may be stripped before the historical chain.
 Both full-document golden checks and all shared earlier callers must pass,
 with negative unrelated-change checks preserved. No application source change.
+
+Material 56b4c2729b56c3094d69c141b9ee918026d3cb5a passed normal full hook 3173 passed, 146 skipped, 4 warnings in 175.82s. Final exact51 paths and reviewed source hashes were checked post-material; actual-SHA continuity follows. A7 live admission/receipt remains held; no FREEZE.

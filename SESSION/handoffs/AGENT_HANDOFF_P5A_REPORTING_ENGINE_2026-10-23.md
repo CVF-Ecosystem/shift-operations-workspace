@@ -1,23 +1,23 @@
 # P5-A Reporting Engine — Active Handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Current HEAD recorded for this handoff: `142052fccb8ebe1070ffccce385f2b5305f2f2e9`.
+Current HEAD recorded for this handoff: `56b4c2729b56c3094d69c141b9ee918026d3cb5a`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Status: REVIEW / LOCAL_REVIEW_PASS_PENDING_GATES_AND_LIVE
+Status: REVIEW / LOCAL_GATES_PASS_A7_LIVE_HELD
 Date: 2026-10-23
 Risk: R2
 Role: ORCHESTRATOR / independent REVIEWER; disjoint implementation workers
 
 ## Startup and scope acknowledgment
 
-Mode p5a_reporting_engine_review; phase REVIEW / local acceptance.
-Active handoff is this file. Root synchronizes evidence/catalog/full-gap truth,
-then commits independently reviewed local material through normal full gates
-and records the actual SHA in a separate continuity commit. A7 real-provider
-admission remains held; no FREEZE or milestone closure. Operator authorizes
-whole-roadmap orchestration/review and subagents Luna/max ordinary, Sol/medium
-for difficult work. No routine scope reapproval.
+Mode p5a_reporting_engine_review; phase REVIEW. Local material 56b4c2729b56c3094d69c141b9ee918026d3cb5a
+and full normal hook 3173 passed, 146 skipped, 4 warnings in 175.82s are settled. Root independently checked all51
+committed paths and exact source hashes; no product delta after local acceptance.
+Root transitions COMMIT_STEWARD to REVIEWER to SESSION_SYNC_STEWARD, then
+ORCHESTRATOR for A7 exact one-call admission. No provider/key access before that
+boundary; no routine scope reapproval. P5-A open, Phase5 0/5. Remaining Phase5
+owners/destinations are unchanged in the full milestone binding.
 
 ## Product Milestone Binding and source truth
 
@@ -26,8 +26,8 @@ docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md.
 SPEC: docs/specs/P5A_REPORTING_ENGINE_SPEC.md.
 Authority: docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md.
 Exact paths: docs/implementation/P5A_REPORTING_ENGINE_MANIFEST.md.
-A0 inherited P2-R snapshot reused; A1-A6 independently accepted bounded; A7
-full material gates and separately admitted real canary remain OPEN/BLOCKED. Four presentation views of END_SHIFT; no new truth store.
+A0 inherited P2-R snapshot reused; A1-A6 independently accepted bounded; full
+material gates PASS. A7 separately admitted real canary remains OPEN/BLOCKED. Four presentation views of END_SHIFT; no new truth store.
 P5-A2/B/C/D remain owner-routed there. Phase5 completion remains 0/5.
 
 ## Readiness and dispatch evidence
@@ -200,3 +200,7 @@ CVF Agent Declaration: shift-operations-workspace; Core ../.Controlled-Vibe-Fram
 Root independent REVIEWER accepts metadata/chain repair:63+2 focused PASS, unchanged route-body AST and historical SHA, fresh browser10/10 at final route hash. A4 reaccepted bounded. Root transitions to SESSION_SYNC_STEWARD then COMMIT_STEWARD; retry normal full gate. No provider/key use or milestone closure. Latest canonical next-move supersedes prior proof-only repair checkpoint.
 
 Review binding 9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403: 1779 projected files verified against exact committed blobs; 0 dirty projection copies reconciled. Five authority/exporter carriers unchanged. Source repositories untouched.
+
+## Actual local material and terminal range review
+
+Material 56b4c2729b56c3094d69c141b9ee918026d3cb5a; normal full hook 3173 passed, 146 skipped, 4 warnings in 175.82s. Exact51 paths accepted; staged/source canonical hashes and asset bytes match reviewed observations. Root independent terminal local review PASS_BOUNDED; no new product changes. Separate continuity records this actual SHA. A7 real canary remains blocked, so no tranche FREEZE or P5-A/Phase5 closure.

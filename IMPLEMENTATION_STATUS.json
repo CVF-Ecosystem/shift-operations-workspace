@@ -465,15 +465,17 @@
     "materialCommit": "8f2e7157f0510f9501f254fb8af515ce35718a5f"
   },
   "p5a_reporting_engine_20261023": {
-    "status": "REVIEW / LOCAL_PASS_FULL_GATE_RETRY_A7_LIVE_HELD",
+    "status": "REVIEW / LOCAL_GATES_PASS_A7_LIVE_HELD",
     "implementation": "Reviewed deterministic PDF/XLSX renderer, authenticated assignment-scoped API and current/history UI; artifact/type/pagination repairs resolved; actual browser and wheel proof passed.",
-    "milestoneCompletion": "A0 reused; A1-A6 accepted bounded; A7 full material gate and real-provider canary remain. P5-A open; Phase5 0/5.",
+    "milestoneCompletion": "A0 reused; A1-A6 accepted bounded; A7 deterministic conformance passed, real-provider admission/receipt still held. P5-A open; Phase5 0/5.",
     "binding": "docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md",
     "spec": "docs/specs/P5A_REPORTING_ENGINE_SPEC.md",
     "workOrder": "docs/work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md",
     "buildAuthority": "APPROVED_FOR_EXECUTION; dispatch142052f and marker14ae8e7 committed; local material reviewed under existing R2 authority",
     "planningReview": "docs/decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md",
     "buildReview": "docs/decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md",
-    "localEvidence": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json"
+    "localEvidence": "docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json",
+    "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
+    "fullPrecommit": "3173 passed, 146 skipped, 4 warnings in 175.82s"
   }
 }

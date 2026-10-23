@@ -114,7 +114,7 @@ Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
 A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
 Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
 frontend128 tests/build and backend221 tests passed; independent corpus13/13
-passed. A7 still needs the full material gate and a separately admitted real
+passed. The full material gate passed; A7 still needs a separately admitted real
 provider canary. Reporting-engine remains partial, P5-A open, Phase5 0/5.
 P5-A2/B/C/D retain their roadmap owners; no support successor, production,
 deployment or general CVF-governance behavior claim. Absorption, catalog
