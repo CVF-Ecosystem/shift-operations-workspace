@@ -111,7 +111,8 @@ review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
 provenance `e2ced4bd5` and its ADIF-0057 machine gate is bound to the project.
 Both cores are read-only. Prior external-repository absorption intake is
-parked during REPIN-1 gate repair; source identification remains required.
+parked; REPIN-1 gate repair is accepted bounded, and source identification
+remains required before any absorption.
 No repository has been scanned or absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
 remain parked.
 

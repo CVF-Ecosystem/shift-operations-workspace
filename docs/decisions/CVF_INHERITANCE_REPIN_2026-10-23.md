@@ -1,6 +1,6 @@
 # CVF inheritance repin — 2026-10-23
 
-Status: REVIEWED_PENDING_GATES_AND_COMMITS
+Status: FREEZE / CLOSED_BOUNDED_STATIC_REFERENCE
 
 ## INTAKE
 Operator requested fixing the inheritance blocker before further roadmap work.
@@ -166,3 +166,11 @@ the current active work. Preserve source hashes after any required update.
 Commit steward must validate each split committed tree is self-consistent;
 full required pre-commit checks remain mandatory. Dedicated continuity commit
 must record actual material SHAs before any final bounded closure declaration.
+
+## Terminal disposition
+
+Material commits 2ff8fe4be376d655f4e80cf0f2f78afb5a83e9b2 and 8f2e7157f0510f9501f254fb8af515ce35718a5f passed required full hooks
+(3121 passed, 146 skipped, two existing warnings each). Independent terminal
+acceptance and actual material anchors are in the active handoff. REPIN-1 alone
+is satisfied; all other milestone gap rows remain open/blocked, Phase5 0/5.
+Prior blocked observations remain historical evidence, not current status.

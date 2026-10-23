@@ -451,15 +451,17 @@
     "SHIFT-CREATE-ADMISSION-REPAIR reached FREEZE / CLOSED_BOUNDED on 2026-07-30 at C3 3f9e456d129075e347d986af3b31d35f4d00afb9 after SCR-BUILD-REV-F1..F3 closed without waiver, independent REVIEW_PASS, disposable PostgreSQL JWT-route evidence and fresh Alibaba evidence PASS. Boundary: only POST /shifts admission; its then-next internal POST /messages security tranche later closed separately at C3 ab92f51."
   ],
   "cvf_inheritance_repin_20261023": {
-    "status": "REVIEW_PASS_BOUNDED",
+    "status": "FREEZE / CLOSED_BOUNDED",
     "sourceCommit": "e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e",
     "scope": "Static reference synchronization only; product roadmap unchanged.",
-    "evidence": "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md"
+    "evidence": "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md",
+    "materialCommit": "2ff8fe4be376d655f4e80cf0f2f78afb5a83e9b2"
   },
   "product_milestone_binding_20261023": {
-    "status": "REVIEW_PASS_DOCUMENTATION_PENDING_COMMIT",
+    "status": "FREEZE / CLOSED_BOUNDED_DOCUMENTATION_ONLY",
     "scope": "Operator-mandated documentation contract for all future dispatch/redispatch. No automated enforcement or product capability claim.",
     "contract": "docs/implementation/ACCEPTANCE_GATES.md",
-    "closure_blocker": "Final required gates and separate commits/continuity pending."
+    "closure_blocker": null,
+    "materialCommit": "8f2e7157f0510f9501f254fb8af515ce35718a5f"
   }
 }
