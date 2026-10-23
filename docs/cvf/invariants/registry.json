@@ -120,6 +120,14 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_SINGLE_LIVE_RECEIPT_EXACT_ATTEMPT_ACCOUNTING"
+    },
+    {
+      "familyId": "P5A2-PROACTIVE-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p5a2-proactive-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SCHEDULED_RUN_TERMINAL_OUTCOME_FIELDS_AND_COUNTERS"
     }
   ]
 }

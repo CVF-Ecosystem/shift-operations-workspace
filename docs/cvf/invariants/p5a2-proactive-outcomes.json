@@ -1,0 +1,697 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P5A2-PROACTIVE-OUTCOMES",
+  "title": "P5-A2 scheduled analytical run terminal outcomes",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_1_SHARED_OUTCOME_MODEL_CONTRACT",
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+      "sha256": "fd35641cf43768c1d35a5187c43af7b3c8a3e08caaa21253e9527ed3ae67bf5e",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "PYTHON_CONTRACT"
+  ],
+  "parityMode": "NOT_APPLICABLE",
+  "parityReason": "Contract-only SPEC stage has one representation; future API/worker adapters require a reviewed matrix amendment and parity proof.",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "READY",
+      "shapes": [
+        {
+          "shapeId": "P5A2_READY",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "lineage_digest",
+            "evaluation_digest",
+            "quality"
+          ],
+          "forbiddenFields": [
+            "reason"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "READY"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "forecast_count": {
+              "type": "INTEGER"
+            },
+            "interval_low": {
+              "type": "INTEGER"
+            },
+            "interval_high": {
+              "type": "INTEGER"
+            },
+            "lineage_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "evaluation_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "quality": {
+              "type": "STRING",
+              "const": "READY"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "READY_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "ABSTAINED",
+      "shapes": [
+        {
+          "shapeId": "P5A2_ABSTAINED_SELECTED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "source_selected",
+            "reason",
+            "lineage_digest"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "ABSTAINED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "source_selected": {
+              "type": "BOOLEAN",
+              "const": true
+            },
+            "lineage_digest": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "TIME_AMBIGUOUS",
+                "LINEAGE_INVALID",
+                "SCOPE_INCOMPLETE",
+                "INSUFFICIENT_HISTORY",
+                "CALIBRATION_UNAVAILABLE",
+                "MODEL_UNSUPPORTED",
+                "STALE",
+                "DRIFTED",
+                "CONTEXT_UNAVAILABLE",
+                "INPUT_INVALID"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "ABSTAINED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "P5A2_ABSTAINED_UNSELECTED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "source_selected",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "evaluation_digest",
+            "lineage_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "ABSTAINED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "source_selected": {
+              "type": "BOOLEAN",
+              "const": false
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "TIME_AMBIGUOUS",
+                "LINEAGE_INVALID",
+                "SCOPE_INCOMPLETE",
+                "INSUFFICIENT_HISTORY",
+                "CALIBRATION_UNAVAILABLE",
+                "MODEL_UNSUPPORTED",
+                "STALE",
+                "DRIFTED",
+                "CONTEXT_UNAVAILABLE",
+                "INPUT_INVALID"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "ABSTAINED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "MISSED",
+      "shapes": [
+        {
+          "shapeId": "P5A2_MISSED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "lineage_digest",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "MISSED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reason": {
+              "type": "STRING",
+              "const": "MISSED_SLOT"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "MISSED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "CANCELLED",
+      "shapes": [
+        {
+          "shapeId": "P5A2_CANCELLED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "lineage_digest",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "CANCELLED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reason": {
+              "type": "STRING",
+              "const": "CANCELLED_BEFORE_READ"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "CANCELLED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "DENIED",
+      "shapes": [
+        {
+          "shapeId": "P5A2_DENIED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "lineage_digest",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "DENIED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reason": {
+              "type": "STRING",
+              "const": "AUTHORIZATION_REVOKED"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "DENIED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "FAILED",
+      "shapes": [
+        {
+          "shapeId": "P5A2_FAILED",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "FAILED"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "SOURCE_FAILURE",
+                "EVALUATION_FAILURE",
+                "CONTEXT_FAILURE"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "FAILED_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "UNKNOWN_RECONCILIATION",
+      "shapes": [
+        {
+          "shapeId": "P5A2_UNKNOWN_RECONCILIATION",
+          "requiredFields": [
+            "outcome",
+            "run_id",
+            "scope_id",
+            "scheduled_cutoff",
+            "policy_version",
+            "created_at",
+            "source_read_attempts",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "forecast_count",
+            "interval_low",
+            "interval_high",
+            "evaluation_digest"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "UNKNOWN_RECONCILIATION"
+            },
+            "run_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scope_id": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "scheduled_cutoff": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "policy_version": {
+              "type": "STRING",
+              "const": "P5A2-INITIAL-1"
+            },
+            "created_at": {
+              "type": "STRING",
+              "minLength": 1
+            },
+            "source_read_attempts": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "reason": {
+              "type": "STRING",
+              "const": "COMMIT_STATE_UNKNOWN"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "UNKNOWN_RECONCILIATION_READ_ATTEMPTS",
+              "kind": "COUNTER_EQUALITY",
+              "field": "source_read_attempts",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": [
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_READY",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_ABSTAINED_SELECTED",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_MISSED",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_CANCELLED",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_DENIED",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_FAILED",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_UNKNOWN_RECONCILIATION",
+        "reason": "Flat abstract terminal run receipt; nested lineage payload is represented by digest and must be bound in future adapter review.",
+        "independentReviewRequired": true
+      },
+      {
+        "operator": "RECURSE_NESTED_OBJECTS",
+        "shapeId": "P5A2_ABSTAINED_UNSELECTED",
+        "reason": "Flat abstract terminal run receipt; no nested payload.",
+        "independentReviewRequired": true
+      }
+    ]
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P5A2_MATRIX_DIGEST",
+      "ownerPath": "docs/cvf/invariants/p5a2-proactive-outcomes.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/p5a2_proactive_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_PROACTIVE_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "p5a2_planned_run_receipt_adapter",
+    "kind": "REAL_SERVICE_EMITTER"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Static SPEC ownership and generic matrix checks only. No P5-A2 runtime, scheduler, API, numerical result, provider or governance proof."
+}

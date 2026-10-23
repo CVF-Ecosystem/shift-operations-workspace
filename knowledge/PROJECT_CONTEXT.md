@@ -109,7 +109,7 @@ Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
-provenance `7870b90e4` and its ADIF-0057 machine gate is bound to the project.
+provenance `721f98dec` and its ADIF-0057 machine gate is bound to the project.
 Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
 A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
 Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
@@ -117,7 +117,7 @@ frontend128 tests/build and backend221 tests passed; independent corpus13/13
 passed. The full material gate passed. A7 source passed3199tests; its one real canary returned401invalid_api_key,
 retained in committed failed receipt3b569639. The operator defers further live
 runs and key/model updates, and resumes source-verified whole-milestone P5-A2
-planning without closing P5-A A7. Reporting-engine remains partial, P5-A open, Phase5 0/5.
+SPEC and bounded pure history/numeric Work Order without closing P5-A A7. Reporting-engine remains partial, P5-A open, Phase5 0/5.
 P5-A2/B/C/D retain their roadmap owners; no support successor, production,
 deployment or general CVF-governance behavior claim. Absorption, catalog
 migration and XR1 remain parked. Active handoff/status carry current truth.

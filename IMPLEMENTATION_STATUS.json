@@ -486,11 +486,11 @@
     "a7ProviderError": "invalid_api_key",
     "a7FailedEvidenceCommit": "3b5696397941b4434fab1a44094e30b1db372af2",
     "a7FailedEvidenceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 245.98s",
-    "finalContinuity": "CARRIED_IN_P5A2_NONLIVE_PLANNING_PENDING_COMMIT",
+    "finalContinuity": "COMMITTED_IN_P5A2_PLANNING_fd903371",
     "observedProvenanceHead": "4a297a3657cf6e25746faee5ccc28b1e0e8704b9"
   },
   "p5a2_proactive_reporting_20261024": {
-    "status": "INTAKE_DESIGN_REVIEW_PASS_SPEC_PENDING",
+    "status": "SPEC_ACCEPTED_NUMERIC_WORK_ORDER_APPROVED_DISPATCH_PENDING",
     "milestoneComplete": false,
     "productCodeChanged": false,
     "userOutcome": "Scoped proactive reports, scheduled signals, trend/anomaly and calibrated forecasts with lineage, visible API/UI and human approval before durable recommendations/actions.",
@@ -512,6 +512,10 @@
     "liveDisposition": "USER_DEFERRED; no CSV/key/model/quota changes; P5-A A7 remains open",
     "binding": "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
     "planningReview": "docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md",
-    "sourceRevision": "3b5696397941b4434fab1a44094e30b1db372af2"
+    "sourceRevision": "3b5696397941b4434fab1a44094e30b1db372af2",
+    "spec": "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "specReview": "docs/decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md",
+    "workOrder": "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
+    "planningCommit": "fd903371b175e1ea488b6802f20db2b1a33c62d4"
   }
 }
