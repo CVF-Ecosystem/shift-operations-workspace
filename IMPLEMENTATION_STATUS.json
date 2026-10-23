@@ -24,8 +24,17 @@
     "2026-07-22_correction": "A prior version of this file said 'golden_vertical: Operational Event -> confirm' and listed 8 controls as enforced. An independent review (docs/decisions/EA_INDEPENDENT_REVIEW_2026-07-22_CODEX.md) found that label was overbroad. A corrective tranche (P-FIX-0 through P-FIX-5, see docs/implementation/EXECUTION_ROADMAP.md) fixed the Critical/High findings. See docs/cvf/CVF_CONTROL_MAPPING.md for the current, evidence-based status of each control - this file only summarizes it and can drift, so treat CVF_CONTROL_MAPPING.md as authoritative.",
     "2026-07-22_pfix6_correction": "After P-FIX-5 claimed the P-FIX tranche CLOSED, a SECOND independent review rejected that claim: POST /shifts/{shift_id}/close still called ledger.close_shift() directly from the router with no identity/permission/audit at all (probe: create=200, anonymous_close=200, status=CLOSED, audit_count=0). Because ShiftService.freeze only checks shift.status == ShiftStatus.CLOSED, that anonymous close could silently satisfy freeze's shift_closed prerequisite - a governance bypass inside the very tranche that claimed to have fixed governance bypasses. P-FIX-6 added shift.close as a real governed action (ShiftService.close, same identity/permission/audit shape as freeze) and re-synced every front-door file. Status is now P-FIX CLOSED_BOUNDED, not 'all findings fixed'.",
     "callable_controls_all_12": true,
-    "fixed_by_pfix_tranche": ["freeze (P-FIX-1: now load-bearing, cross-record, both backends)", "audit (P-FIX-2: now atomic with mutation, both backends)", "evidence (P-FIX-3: now persisted through SqlLedger for events and tasks)", "approval (P-FIX-3: now rejects fabricated/inflated approver claims via known-principals.yaml - interim, not full auth)", "shift.close (P-FIX-6: now a governed action - identity/permission/audit via ShiftService.close, same shape as freeze; previously bypassed governance entirely)"],
-    "still_not_load_bearing": ["refusal (routing/recording per refusal-policy.yaml not implemented)", "data_scope/cost/termination have a reviewed real P4-A library dispatch caller but no application/API caller, durable accounting, production adapter or deployment"],
+    "fixed_by_pfix_tranche": [
+      "freeze (P-FIX-1: now load-bearing, cross-record, both backends)",
+      "audit (P-FIX-2: now atomic with mutation, both backends)",
+      "evidence (P-FIX-3: now persisted through SqlLedger for events and tasks)",
+      "approval (P-FIX-3: now rejects fabricated/inflated approver claims via known-principals.yaml - interim, not full auth)",
+      "shift.close (P-FIX-6: now a governed action - identity/permission/audit via ShiftService.close, same shape as freeze; previously bypassed governance entirely)"
+    ],
+    "still_not_load_bearing": [
+      "refusal (routing/recording per refusal-policy.yaml not implemented)",
+      "data_scope/cost/termination have a reviewed real P4-A library dispatch caller but no application/API caller, durable accounting, production adapter or deployment"
+    ],
     "2026-07-22_p2b_correction": "P2-B (2026-07-22, commit cd36b27) changed dependencies.py::get_principal to require a verified JWT bearer token instead of trusting X-User-Id/X-User-Role headers. This did NOT touch known-principals.yaml or approval quorum - High Finding #4 (approval-fabrication) remains open. See p2b_authentication block below and docs/decisions/ADR_2026-07-22_P2B_JWT_AUTHENTICATION.md.",
     "2026-07-22_p2b_corrective_intake": "INTAKE of a corrective tranche (P2B-AUTHENTICATION-REPAIR) downgraded the original P2-B claim: cd36b27 was built, reviewed, and closed with NO recorded DESIGN, SPEC, or operator-approved WORK_ORDER (control-chain bypass per AGENTS.md's seven-step chain). cd36b27 is NOT reverted (it remains as historical evidence).",
     "2026-07-23_p2b_corrective_freeze": "The corrective tranche completed BUILD (2c397f7), repaired all 8 findings from independent REVIEW #1 (10e57e1), received REVIEW_PASS from independent REVIEW #2, then repaired a regional-endpoint finding from the first live attempt (bf7c328). The rerun bound the real JWT identity gate to a real Alibaba qwen3.7-max call and returned HTTP 200 with the expected token. Sanitized receipt: docs/decisions/P2B_IDENTITY_LIVE_EVIDENCE_RECEIPT.md. Disposition: FREEZE; identity is load-bearing and governance-approved within the stated boundary. Approval/known-principals High Finding #4 remains open.",
@@ -198,7 +207,16 @@
     "governance_disposition": "FREEZE / CLOSED_BOUNDED — exact eight-path BUILD bb3e336 independently FINAL_REVIEW_PASS with F1-F4 closed without waiver; separate C4 8dd99c0 plus repair authorities c32b5c5, ffd548e and 5c50706 produce the exact ten-path final closure.",
     "authorization_commits": "Governance c50474f; pre-BUILD continuity a639576; C4 8dd99c0; C4 repair amendments c32b5c5, ffd548e and 5c50706.",
     "build_review_commit": "bb3e33668a6d60585455bf0301ba059918a15890 - exactly eight authorized BUILD paths, independently FINAL_REVIEW_PASS, pushed to origin/main.",
-    "changed_set": ["knowledge/README.md", "knowledge/PROJECT_CONTEXT.md", "knowledge/OPERATIONS_GLOSSARY.md", "knowledge/GOVERNANCE_BOUNDARIES.md", "knowledge/manifest.json", "scripts/check_project_knowledge.py", "tests/unit/test_project_knowledge_pack.py", "tests/integration/test_project_knowledge_ingest_rehearsal.py"],
+    "changed_set": [
+      "knowledge/README.md",
+      "knowledge/PROJECT_CONTEXT.md",
+      "knowledge/OPERATIONS_GLOSSARY.md",
+      "knowledge/GOVERNANCE_BOUNDARIES.md",
+      "knowledge/manifest.json",
+      "scripts/check_project_knowledge.py",
+      "tests/unit/test_project_knowledge_pack.py",
+      "tests/integration/test_project_knowledge_ingest_rehearsal.py"
+    ],
     "review_evidence": "BUILD evidence: validator PASS; focused 86; full non-live 1540/128; session/catalog/file-size/repository/diff PASS; doctor 24/1; helper SHA-256 856b99d9273b0384c40c05bc2132eae66e9dce20b9a9c8b75c3d91ae7016d2c6; zero provider/network/POST calls. C4 retained two fail-closed repair findings and final validator/focused 77/session/catalog/file-size/repository/diff/protected-hash/doctor gates PASS; exact ten paths; zero provider/helper/POST calls with only explicitly bounded git-governance network operations.",
     "claim_boundary": "Reviewed repository-owned INTERNAL advisory pack, deterministic local validator and disposable local chunk transform via the pinned helper only. No remote ingest/retrieval/automatic injection/provider behavior/DLP/minimization/Refinery/RAG/learning/production claim.",
     "next_governed_move": "Fresh P3-A Refinery INTAKE only; no BUILD/helper/provider/network/POST authority carries forward and P3-C/retrieval/RAG/learning remain parked."
@@ -431,5 +449,11 @@
     "XR1S-RECIPROCAL-WORKSPACE-LINK-2026-07-24 (governance/tooling, not a roadmap feature, exactly like CVF-CORE-PIN-2026-07-23) authored 2026-07-24, repaired round 1 2026-07-24 (XR1S-R1 IMPOSSIBLE_FULL_DOCTOR_PASS, XR1S-R2 DETERMINISTIC_CATALOG_GATE_CONFLICT, XR1S-R3 UNNECESSARY_RECONCILER_SIDE_EFFECT, all closed without waiver), REVIEW_PASS'd and XR1-S-C1 committed/pushed 2026-07-24 at 75adf51132edc4fad08618faf8dcb5b16e8f5435 (HEAD == origin/main): reciprocal authorization opening this repository's response to CVF-Operations-Workspace's pushed XR1-O-C1. Post-push rehearsal PASS (292 tests, session-state, catalog, file-size, validator); doctor unchanged PASS WITH NOTE (24 passed, 1 warning(s)). .cvf/workspace-link.json still not created; .cvf/manifest.json still not touched - the manifest/core-pin mismatch is now the authorized XR1-S-C2a prerequisite, the sole next governed BUILD move. Continuity repair round 1 (2026-07-25, CONTINUITY_REPAIR_WORKER) corrected active-handoff drift, stale full-doctor-PASS wording, and sync-date drift (XR1S-SYNC-R1/R2/R3, all closed without waiver) across exactly five continuity paths - see the xr1s_reciprocal_workspace_link block above and SESSION/handoffs/AGENT_HANDOFF_2026-07-24_XR1S_RECIPROCAL_WORKSPACE_LINK.md (active handoff, now corrected). It changed no roadmap item and is not AI-governance evidence.",
     "P2C-OPERATIONS-CONSOLE-READ-SLICE reached FREEZE / CLOSED_BOUNDED on 2026-07-29. C3a fe2f31236bec1e1e3bcaddbe15463633b0696ab3 added authenticated read APIs and passed CPython 3.13.12 full 678/65 skipped, disposable PostgreSQL 16 evidence and exactly one admitted Alibaba call after refusal zero-call gates. C3b e24905f3519af50866071fdbf08f1ed57fb06307 added the first read-only React console in exactly 28 authorized paths; independent re-review passed exact Node 22.14.0/pnpm 9.15.0 frozen install, typecheck, 22 frontend tests, production build, Docker HTTP smoke, Python 678/65 skipped and repository gates. C4 corrected stale workspace-web catalog semantics. Boundary: this read slice did not itself add mutation controls, activate offline/realtime, prove assignment/data-scope authorization or production readiness, or close P2-C/Phase 2. Its successors later closed P2-C, P2-D and the Phase 2 full-shift exit gate; PROJECT-OPERATIONS-SKILL then reached FREEZE/CLOSED_BOUNDED, with fresh PROJECT-KNOWLEDGE-PACK INTAKE next.",
     "SHIFT-CREATE-ADMISSION-REPAIR reached FREEZE / CLOSED_BOUNDED on 2026-07-30 at C3 3f9e456d129075e347d986af3b31d35f4d00afb9 after SCR-BUILD-REV-F1..F3 closed without waiver, independent REVIEW_PASS, disposable PostgreSQL JWT-route evidence and fresh Alibaba evidence PASS. Boundary: only POST /shifts admission; its then-next internal POST /messages security tranche later closed separately at C3 ab92f51."
-  ]
+  ],
+  "cvf_inheritance_repin_20261023": {
+    "status": "REVIEW_PASS_BOUNDED",
+    "sourceCommit": "e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e",
+    "scope": "Static reference synchronization only; product roadmap unchanged.",
+    "evidence": "docs/decisions/CVF_INHERITANCE_REPIN_2026-10-23.md"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.1-operator-local",
   "cvfCoreRepository": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git",
-  "cvfCoreCommit": "483c5e33d188b6b2d35d6cd19ee38a3c8548abc4",
+  "cvfCoreCommit": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
   "workspaceLayout": "SIBLING_HIDDEN_CORE_WITH_OPERATOR_LOCAL_PROVENANCE",
   "cvfCoreRelativePath": "../.Controlled-Vibe-Framework-CVF",
   "workspaceRulesRelativePath": "../WORKSPACE_RULES.md",
@@ -10,7 +10,7 @@
     "required": true,
     "profileName": "operator-local",
     "repository": "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF-Provenance.git",
-    "sourceCommit": "e4c055484f813b6d7bda6ed9249664908ccca087",
+    "sourceCommit": "e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e",
     "relativePath": "../../Controlled-Vibe-Framework-CVF",
     "activeRulePackRelativePath": "../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json",
     "rulePackManifestRelativePath": "../CVF_RULE_PACKS/operator-local/RULE_PACK_MANIFEST.json",

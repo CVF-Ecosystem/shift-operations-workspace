@@ -1,11 +1,11 @@
-﻿# CVF Agent Instructions - Downstream Project
+# CVF Agent Instructions - Downstream Project
 
 > Reconciled first-party operator project. Portable public CVF core:
 > `../.Controlled-Vibe-Framework-CVF` at
-> `483c5e33d188b6b2d35d6cd19ee38a3c8548abc4`. Private operator-local
+> `b69e1088978e8c90ac58a2243fcf8f90d0f857ed`. Private operator-local
 > provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `e4c055484f813b6d7bda6ed9249664908ccca087`. Bootstrap date: 2026-09-09;
-> operator-local governance learning refreshed: 2026-09-10.
+> `e2ced4bd5a2e3ba360d404a6786d2e30fb9bce5e`. Bootstrap date: 2026-09-09;
+> operator-local governance learning refreshed: 2026-10-23.
 
 ## Mandatory Governance Proof
 

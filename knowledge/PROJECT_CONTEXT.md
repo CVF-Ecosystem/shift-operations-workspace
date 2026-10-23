@@ -108,11 +108,11 @@ Knowledge phase-order cycle and bind terminal review evidence ownership.
 Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
-`483c5e33d`; the operator-local rule pack is materialized from private
-provenance `e4c055484` and its ADIF-0057 machine gate is bound to the project.
-Both cores are read-only. External-repository absorption is now
-`INTAKE_READY / SOURCE_SET_REQUIRED`; no repository has been scanned or
-absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
+`b69e10889`; the operator-local rule pack is materialized from private
+provenance `e2ced4bd5` and its ADIF-0057 machine gate is bound to the project.
+Both cores are read-only. Prior external-repository absorption intake is
+parked during REPIN-1 gate repair; source identification remains required.
+No repository has been scanned or absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
 remain parked.
 
 Plans state intent. Implementation status, source, tests, and independent
