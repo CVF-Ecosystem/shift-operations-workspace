@@ -4,7 +4,7 @@
 > `../.Controlled-Vibe-Framework-CVF` at
 > `b69e1088978e8c90ac58a2243fcf8f90d0f857ed`. Private operator-local
 > provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `a7d70b0fa5edd76bf8bc6038256e38c5976ae563`. Bootstrap date: 2026-09-09;
+> `7870b90e4569941fe11ec5b2fef1fde899dc8597`. Bootstrap date: 2026-09-09;
 > operator-local governance learning refreshed: 2026-10-23.
 
 ## Mandatory Governance Proof

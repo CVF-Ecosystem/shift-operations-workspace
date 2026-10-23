@@ -483,6 +483,35 @@
     "a7LiveReceipt": "docs/decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json",
     "a7PhysicalAttempts": 1,
     "a7AcceptedResponses": 0,
-    "a7ProviderError": "invalid_api_key"
+    "a7ProviderError": "invalid_api_key",
+    "a7FailedEvidenceCommit": "3b5696397941b4434fab1a44094e30b1db372af2",
+    "a7FailedEvidenceFullPrecommit": "3199 passed, 146 skipped, 4 warnings in 245.98s",
+    "finalContinuity": "CARRIED_IN_P5A2_NONLIVE_PLANNING_PENDING_COMMIT",
+    "observedProvenanceHead": "4a297a3657cf6e25746faee5ccc28b1e0e8704b9"
+  },
+  "p5a2_proactive_reporting_20261024": {
+    "status": "INTAKE_DESIGN_REVIEW_PASS_SPEC_PENDING",
+    "milestoneComplete": false,
+    "productCodeChanged": false,
+    "userOutcome": "Scoped proactive reports, scheduled signals, trend/anomaly and calibrated forecasts with lineage, visible API/UI and human approval before durable recommendations/actions.",
+    "allRemainingCriteria": [
+      "trusted time-aware source history and data sufficiency",
+      "cutoff-aware version deduplication and assignment scope",
+      "enumeration completeness beyond500shifts",
+      "reporting and governed retrieval/RAG readiness",
+      "schedule execution/idempotency/recovery",
+      "trend/anomaly and forecast calculation",
+      "chronological calibration/evaluation and drift",
+      "human approval/durable proposal lifecycle",
+      "authenticated API and integrated UI",
+      "lineage/audit/nonmutation/bounded outputs",
+      "deterministic integration and outage proof",
+      "deferred real-provider governance acceptance if claimed"
+    ],
+    "owners": "SPEC_AUTHOR contract; IMPLEMENTATION_WORKER bounded code after WO; independent REVIEWER full acceptance; ORCHESTRATOR dependency/remainingPhase5routing",
+    "liveDisposition": "USER_DEFERRED; no CSV/key/model/quota changes; P5-A A7 remains open",
+    "binding": "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
+    "planningReview": "docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md",
+    "sourceRevision": "3b5696397941b4434fab1a44094e30b1db372af2"
   }
 }

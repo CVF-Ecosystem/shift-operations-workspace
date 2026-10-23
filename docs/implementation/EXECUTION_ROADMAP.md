@@ -489,12 +489,13 @@ external prompt injection không vượt trust boundary.
 ## Phase 5 — Reporting, Hardening and Freeze — IN PROGRESS (0/5)
 
 Gate gốc: evidence traceability, outage drills, backup restore, owner review.
-
+Operator2026-10-24 defers live and continues independent P5-A2 planning; P5-A A7 remains open/Phase5 0/5.
+Reporting/retrieval readiness remains in P5-A2 binding; no dependent BUILD or milestone closure.
 P5-A là engine trình bày/tổng hợp và xuất báo cáo. Nó không thay thế P2-R
 operational report record cần để hoàn thành một ca và thỏa freeze prerequisite.
 
 - [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel. **A7 BLOCKED / LOCAL AND SOURCE3199PASS; ONE REAL CALL401 invalid_api_key, NO RETRY (2026-10-24)** — [full gap binding](../decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md).
-- [ ] **P5-A2:** Proactive reporting và forecasting sau khi reporting +
+- [ ] **P5-A2 — INTAKE/DESIGN (2026-10-24, live deferred):** Proactive reporting và forecasting sau khi reporting +
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến

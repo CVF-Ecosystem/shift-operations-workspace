@@ -1,55 +1,45 @@
 # Session Memory
 
-Last updated:2026-10-24. Canonical state:SESSION/ACTIVE_SESSION_STATE.json.
-Active handoff:SESSION/handoffs/AGENT_HANDOFF_P5A_REPORTING_ENGINE_2026-10-23.md.
+Updated2026-10-24; canonical SESSION/ACTIVE_SESSION_STATE.json.
+Active handoff SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md.
 
 ## Current checkpoint
 
-P5-A Reporting Engine is A7 REVIEW / BLOCKED_CREDENTIAL_AFTER_ONE_CALL.
-Dispatch142052fccb8ebe1070ffccce385f2b5305f2f2e9 and marker14ae8e7 settled.
-Sol/medium implemented/repaired backend; Luna/max implemented UI. Root reviewed
-independently; separate Luna/max artifact review accepted all8 status/history
-pairs plus exact focused record/reference counters, CR/types and packaged assets.
-Root actual browser10/10, full frontend128/build on Node22.14.0, worker backend221
-and independent corpus13/13 PASS. Both retained browser failures remain disclosed.
-No worker commit; actual one-call result below supersedes the earlier zero-effect checkpoint. First material hook refused13 OpenAPI chain tests;3156 passed/146 skipped/4 warnings,174.46s; no commit.
+P5-A2 intake/design independently reviewed; SPEC pending. Full14gap binding:
+docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md.
+Review: docs/decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md.
+Luna/max authored/repaired; root independent review. No new product code.
+Root accountable allgaps; Sol/medium backend/analytics/scheduler/contracts;
+Luna/max UI; root independent review/commit; operator final business acceptance.
 
-## Product Milestone Binding
+## Preserved reporting evidence
 
-Canonical whole-milestone ledger and all remaining Phase5 owners/destinations:
-docs/decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md.
-A0 reused; A1-A6 accepted bounded; A7 deterministic/full gates passed. User has
-admitted exactly one real canary; source preparation and actual receipt remain. Reporting-engine stays partial; P5-A open; Phase5 0/5.
-P5-A2 forecasting, P5-B dashboard/observability, P5-C resilience and P5-D pilot/
-release stay owner-routed there. No support tranche or partial milestone closure.
-SPEC and approved Work Order remain required reads; latest local evidence is
-docs/decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json.
+P5-A A0 reused/A1-A6 accepted bounded. Material56b4c27 and0cd6471 full3173PASS;
+A7 source06faf9f and continuityee673112/0f42276 full3199PASS. Original one
+provider call401invalid_api_key, accepted0; marker/key/POST/response1 each;
+retry/redirect/fallback0; usage/cost unavailable. Failed receipt3b5696397941b4434fab1a44094e30b1db372af2
+full3199/146/4 PASS245.98s, independent RESULT_REVIEW_PASS_FAILURE_RECORDED.
+Immutable actual receipt/admission/marker retained; never reset or rewrite.
+Separate extra old-key trial was authorized but never executed, now held by
+user's live deferral; key/model/CSV updates also deferred. No new key/provider
+action in this continuation. P5-A/P5-A2 remain open; Phase5 0/5.
+Detailed retained browser/OpenAPI failures, successful10downloads/frontend128/
+backend221/corpus13 and wheel/artifact proof remain in P5-A buildreview/local
+receipt and historical handoff; no broad rerun or production claim inferred.
 
-## Binding and authority
+## Binding and scope
 
-Public Core b69e1088978e8c90ac58a2243fcf8f90d0f857ed; private provenance
-a7d70b0fa5edd76bf8bc6038256e38c5976ae563, both read-only. Existing rule pack
-verified1779 projected files against exact committed blobs; required authority/
-exporter carriers unchanged. External source movement/cost and dirty-projection
-rejection are recorded in active handoff/build review; no source mutation or
-guard weakening. Doctor24/2 PASS WITH NOTE; no profile1.2/runtime adoption claim.
-REPIN2ff8fe4 and mandatory product-binding rule8f2e715 remain settled history.
-Operator authorized autonomous whole-roadmap orchestration/review and subagents:
-Luna/max ordinary, Sol/medium difficult. No petty routine reapproval. Provider,
-credential, public/deploy boundaries remain separate; no borrowed prior receipt.
-
-## Actual material and A7 outcome
-
-Local56b4c27/continuity0cd6471 retained. A7 source06faf9f full3199/146/4
-PASS136.11s; actual-SHAee673112 full3199/146/4 PASS129.63s; finalreference
-0f42276 full3199/146/4 PASS117.79s. Root executed exactly one user-approved
-canary at clean0f42276 after freshguard0/0. Endpoint returned401invalid_api_key.
-Marker/keyread/POST/response each1,accepted0; retries/redirect/fallback0. Usage
-ABSENT, no cost value invented. Complete sanitized request/response and source/
-local-gate envelope in LIVE_EVIDENCE_2026-10-23.json; fixedmarker retained.
-Do not reset/reuse grant or reread key. Independent RESULT_REVIEW_PASS_FAILURE_RECORDED; normal failed-evidence
-commit pending; A7/P5-A open.
+PublicCoreb69e1088978e8c90ac58a2243fcf8f90d0f857ed; private7870b90e4569941fe11ec5b2fef1fde899dc8597,
+both readonly. Protected5 unchanged/1779projected committed blobs exact; dirty
+source continuity projections rejected. Doctor24/2, no gate-profile adoption.
+Root rehydrated/resolved finite static binding for this user-directed nonlive
+continuation; no framework support tranche. Stop chasing if references move.
+Prior P5-A actualSHA/failure continuity carried into current planning commit.
+Mandatory whole-milestone rule8f2e715 retained. P5-A2 design preserves all
+integrated reporting/RAG/live acceptance gates while permitting independently
+bounded provider-free numeric/history work after SPEC and reviewed WO.
+P5-B/C/D remainder owners/destinations stay in the full binding.
 
 ## Next move
 
-A7 is blocked: the single approved call is spent with HTTP401 invalid_api_key, accepted0. After committing the reviewed failed receipt/diagnostic, wait for a credential valid for the selected endpoint and a new explicit bounded one-call admission; no key reread, retry, fallback or marker reset under the old grant. A1-A6 and source/full3199PASS retained; P5-A open, Phase5 0/5; all later milestone gap owners unchanged.
+P5-A2 intake/design independently accepted with14gap owners. Continue full provider-free SPEC: source/cutoff/dedup/timezone/history completeness, routine metric/horizon/threshold defaults, schedule, signals/forecast/calibration/drift, API/UI, exact human approval and evaluation/invariant family. Then reviewed bounded WO before independent numeric/history BUILD; integratedcontext/full acceptance waits for reporting/RAG readiness. All live/key/model updates deferred, extraoldkeytrial heldunexecuted, original401spent. P5-A/P5-A2 open, Phase5 0/5.

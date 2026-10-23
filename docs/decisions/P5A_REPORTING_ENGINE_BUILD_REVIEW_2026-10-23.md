@@ -458,3 +458,9 @@ acceptance or product closure. Root transitions ORCHESTRATOR/SESSION_SYNC to
 COMMIT_STEWARD only for failed evidence and truthful blocked continuity.
 Any future call requires valid endpoint credential and newly admitted budget;
 no implicit refund/replacement. No FREEZE, production, invoice or push claim.
+
+Failed-evidence material3b5696397941b4434fab1a44094e30b1db372af2 committed
+exact18paths, full3199/146/4 PASS245.98s; actual generated blobs unchanged.
+Post-commit inheritance refuses observed4a297a36 vs pina7d70b0f. Finite churn
+cap reached: final actual-SHA continuity remains local/uncommitted; no new
+repin/commit/effect attempted. No FREEZE/tranche/milestone closure claimed.

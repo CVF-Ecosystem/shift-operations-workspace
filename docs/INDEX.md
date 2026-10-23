@@ -2,11 +2,13 @@
 
 ## Start Here
 
+- Active P5-A2 SPEC: [whole-milestone intake/design](decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md), [independent planning review](decisions/P5A2_PROACTIVE_REPORTING_PLANNING_REVIEW_2026-10-24.md). Live deferred;14gaps remain; no product closure.
+
 - Sanitized P5-A local evidence: [browser, artifacts and wheel receipt](decisions/P5A_REPORTING_ENGINE_LOCAL_EVIDENCE_2026-10-23.json).
-- Retained A7 failed real call: [sanitized receipt](decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json); no retry, P5-A open.
+- Retained A7 failed real call: [sanitized receipt](decisions/P5A_REPORTING_ENGINE_LIVE_EVIDENCE_2026-10-23.json); committed3b569639; no retry, P5-A open; actual-SHA continuity carried into current non-live roadmap planning.
 - A7 explicit human grant (spent): [immutable one-call admission](decisions/P5A_REPORTING_ENGINE_LIVE_ADMISSION_2026-10-23.json).
 - Reviewed A7 finite caller contract: [live-canary SPEC](specs/P5A_REPORTING_ENGINE_LIVE_CANARY_SPEC.md) and [registered outcome matrix](cvf/invariants/p5a-live-canary-outcomes.json).
-- Active P5-A A7 BLOCKED / exact one-call returned401 invalid_api_key: [intake/design and full gap binding](decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md), [reviewed spec](specs/P5A_REPORTING_ENGINE_SPEC.md), [approved Work Order](work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md), [independent planning review](decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md), [build/review and remaining A7 gate](decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md).
+- Parked P5-A A7 BLOCKED / exact one-call returned401 invalid_api_key: [intake/design and full gap binding](decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md), [reviewed spec](specs/P5A_REPORTING_ENGINE_SPEC.md), [approved Work Order](work_orders/P5A_REPORTING_ENGINE_WORK_ORDER.md), [independent planning review](decisions/P5A_REPORTING_ENGINE_PLANNING_REVIEW_2026-10-23.md), [build/review and remaining A7 gate](decisions/P5A_REPORTING_ENGINE_BUILD_REVIEW_2026-10-23.md).
 
 - Mandatory dispatch contract: [Product Milestone Binding](implementation/ACCEPTANCE_GATES.md#product-milestone-binding), routed from AGENTS.md and work_orders/README.md.
 
