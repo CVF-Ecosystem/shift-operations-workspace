@@ -2,7 +2,7 @@
 
 ## Start Here
 
-- Docker synthetic-backend next slice: [SPEC](specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md), [independent SPEC review](decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md), [bounded Work Order](work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md), [independent authorization rereview](decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md) PASS_BOUNDED. No BUILD or Docker effect until authorization, committed dispatch and dedicated actual-SHA continuity.
+- Docker synthetic backend: [source/effect review](decisions/P5A2_DOCKER_BACKEND_BUILD_REVIEW_2026-10-25.md), [worker return](decisions/P5A2_DOCKER_BACKEND_WORKER_RETURN_2026-10-25.md), [actual evidence](decisions/P5A2_DOCKER_BACKEND_EVIDENCE_2026-10-25.json). Stage A source accepted, 10 inert tests pass/1 SQL test skipped. Original driver installation stopped before acquisition because projectvenv lacks pip; no image/container/DB. [WO AM1](work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md) proposes one controlled recovery using installed uv, subject to [independent authorization](decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md), normal material and dedicated actual-SHA continuity before effects. Frozen [SPEC](specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md)/oracle unchanged; G06/operational acceptance and Phase5 closure remain open.
 
 - Finite G04–G06 reference prerequisite: [current pin-resume receipt](decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md); static synchronization only, independent review/gates required.
 

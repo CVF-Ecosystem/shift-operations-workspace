@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "p5a2-docker-stage-a-evidence-1",
+  "stage": "B_DEPENDENCY_ACQUISITION_STOP",
+  "status": "BLOCKED_WITH_REASON",
+  "sourceAuthority": {
+    "dispatchCommit": "7200c40b539778f1c6609f1078f41ab6bbe9fa4a",
+    "dedicatedContinuityCommit": "0342fdfef8511c4e4256ac1b2f2aff8105720dc1",
+    "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
+    "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0"
+  },
+  "changedFiles": [
+    {"path": "scripts/run_p5a2_docker_backend.py", "sha256": "43e7cfde098821cd64ba315ea61eb32d517278cb76d2741f8261b2ddff79dcc4", "lines": 135},
+    {"path": "tests/integration/test_p5a2_docker_backend.py", "sha256": "4d34a1567bff544ae5dc0815fb8a48ec211ef084944835bd553f397fd5a29d7b", "lines": 118},
+    {"path": "tests/unit/test_p5a2_docker_backend_runner.py", "sha256": "56b7e5a19f0aa2447a04133a0f77339a8e72b6d3be9a05ae90e980be723f580b", "lines": 204}
+  ],
+  "checks": [
+    {"command": ".\\.venv\\Scripts\\python.exe -m pytest -q tests/unit/test_p5a2_docker_backend_runner.py tests/integration/test_p5a2_docker_backend.py", "result": "10 passed, 1 skipped in 0.87s", "scope": "Unit/inert proof; SQL target skipped because LIVE_POSTGRES_DATABASE_URL absent"},
+    {"command": "python scripts/check_file_size.py", "result": "PASS"},
+    {"command": "python scripts/check_invariant_families.py", "result": "PASS"},
+    {"command": "python scripts/check_cvf_core_machine_inheritance.py --enforce", "result": "0 violations; COMPLIANT"},
+    {"command": "python scripts/check_session_state.py", "result": "PASS"},
+    {"command": "python scripts/check_project_knowledge.py", "result": "PASS"},
+    {"command": "python scripts/testing/validate_repository.py", "result": "PASS"},
+    {"command": "materialized closeability.check_recheck(worker return)", "result": "0 violations; self-declared return applicability confirmed"}
+  ],
+  "collectionAndPathHistory": "Initial unit/integration same-basename collection failed. Worker renamed to test_p5a2_docker_runner.py, which collected but was outside the allowed WO family. Independent Root reviewer found DB-A-F1 and reviewer-locally renamed the identical bytes to test_p5a2_docker_backend_runner.py; DB-A-F2 return grammar repaired in this metadata-only pass.",
+  "stageBAdmission": "RECORDED_IN_CANONICAL_HANDOFF_BEFORE_EFFECT",
+  "dependencyAcquisition": {
+    "attempts": 1,
+    "command": ".\\.venv\\Scripts\\python.exe -m pip --isolated install --index-url https://pypi.org/simple --only-binary=:all: --report .venv/p5a2-docker-psycopg-install-20261025.json psycopg[binary]==3.3.4",
+    "exitCode": 1,
+    "reason": "Project .venv Python has no pip module; No module named pip",
+    "logPath": ".venv/p5a2-docker-psycopg-install-20261025.log",
+    "logSha256": "453c25791c5ae0d7dc53351cffd51ace485d9950c1ac749e2d758ddf19c0e471",
+    "pipReportGenerated": false,
+    "psycopgPresentAfter": false,
+    "automaticRetry": false
+  },
+  "physicalPostgresRehearsal": "NOT_RUN_STOPPED_BEFORE_IMAGE_CONTAINER_DB",
+  "dependencyInstall": "FAILED_EXIT1_MISSING_PIP",
+  "imagePull": "NOT_RUN",
+  "containerCreation": "NOT_RUN",
+  "databaseConnection": "NOT_RUN",
+  "providerCalls": 0,
+  "governanceBehaviorClaim": false,
+  "productBoundary": "G04/G05/G13 disposable synthetic SQL fixture proof unexecuted; G06 and operational/P5-A2/Phase 5 gates remain open"
+}

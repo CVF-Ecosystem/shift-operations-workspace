@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_docker_backend_stage_a_dedicated_dispatch_continuity",
+  "mode": "p5a2_docker_backend_am1_material_and_continuity",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
   "last_updated": "2026-10-25",
   "required_reads": [
@@ -20,7 +20,7 @@
     "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "On successful dedicated5path continuity child of7200c40 and clean range check, run pre-implementation gate then release Sol Stage A SOURCE/INERT TESTS ONLY under accepted WO. No pip/image/container/DB until independent source acceptance and Stage B admission. FrozenSPECc97/oracle12ad; one later PG rehearsal. All14gap owners/G06/operational acceptance retained; Phase5 0/5; AI provider live/key/model/CSV held; stop reference drift.",
+  "next_allowed_move": "Commit reviewed Stage A source, original failed installer receipt and independently accepted AM1 through normal hook; terminal material review then dedicated actual-SHA continuity. Only after clean range and fresh pin/inheritance/session pre-effect gate release one installed-uv driver recovery plus carried unused image/one-PG-rehearsal ceilings. Original pip failure spent; another failure terminal. No provider calls; G06/wholemilestone open, Phase5 0/5.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_docker_backend_stage_a_dedicated_dispatch_continuity",
-    "activePhase": "BUILD",
-    "activePhaseNote": "Stage A entry is conditional on successful dedicated dispatch continuity and pre-implementation gate; source only, no Stage B effect admission.",
+    "currentMode": "p5a2_docker_backend_am1_material_and_continuity",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "AM1 accepted; effect held until committed continuity and fresh gate.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Compact Docker backend successor; prior scoped-history handoff retains audited source/reference history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Root terminal dispatch review accepted exact material; record actual SHA before any Stage A.",
-    "currentRoleTransition": "DISPATCH_COMMIT_STEWARD_TO_DISPATCH_REVIEWER_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Root activates independently reviewed AM1; material and dedicated continuity before recovery.",
+    "currentRoleTransition": "WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-25"
   },
@@ -302,12 +302,12 @@
     "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
     "authorization": "Luna/max AUTHORIZATION_REREVIEW_PASS_BOUNDED; WO_AUTH_F1 resolved",
     "actualDockerRuns": 0,
-    "effects": "NONE",
+    "effects": "One failed installer launch, no package/image/container/database/provider effect",
     "virtualActiveCloseability": "0violations",
     "scope": "G04/G05/G13 synthetic SQL mechanics only; no G06/operational/AI proof",
     "authorizationReview": "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md",
-    "workOrderSha256": "7145892514331698dc6044dae1b07f7a52b7d6c733d150dbff5439550fb9ed54",
-    "dispatch": "PENDING_NORMAL_MATERIAL_AND_DEDICATED_CONTINUITY",
+    "workOrderSha256": "e349653e2bebd967a4954e7f4569a75de32926ae854850e2630782b6037e69d7",
+    "dispatch": "COMMITTED_AND_PREIMPLEMENTATION_PASS",
     "dispatchMaterialCommit": "7200c40b539778f1c6609f1078f41ab6bbe9fa4a",
     "dispatchMaterialFullHook": "3224 passed,146 skipped,4warnings207.58s; unmodified normal hook PASS",
     "dispatchPathCount": 12,
@@ -323,7 +323,10 @@
       "requiredGate": "Normal dedicated continuity commit and pre-implementation gate before Stage A",
       "normalHookLog": ".venv/p5a2-docker-dispatch-continuity-20261025.log"
     },
-    "stageA": "Conditional release only after this dedicated commit/range/pre-implementation gates",
-    "stageB": "NOT_ADMITTED; independent source review required"
+    "stageA": "INDEPENDENT_SOURCE_REVIEW_PASS_BOUNDED",
+    "stageB": "ORIGINAL_STOPPED; AM1_NOT_YET_RELEASED",
+    "dispatchContinuityCommit": "0342fdfef8511c4e4256ac1b2f2aff8105720dc1",
+    "originalDriverInstallAttempts": 1,
+    "am1": "INDEPENDENT_AUTHORIZATION_PASS; MATERIAL_CONTINUITY_REQUIRED"
   }
 }

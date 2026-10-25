@@ -141,10 +141,11 @@ is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
 or acceptance and does not require operational data before fixture development.
 Live holds and all14milestone remainders remain; active handoff owns current truth.
 
-Docker synthetic-backend SPEC and bounded WO have independent review. The
-next admitted source slice reuses native PG lifecycle/migration/SqlLedger and
-frozen36shift/37version fixture truth; no backend is running or operational
-coverage accepted from this plan. StageA code/inert tests and StageB actual
-effects have separate gates; provider live/key/model/CSV holds remain.
+Docker synthetic-backend StageA source accepted,10inert tests/1SQLskip;
+original StageB pip launch failed before acquisition because projectvenv has
+no pip. No backend was created. Same-scope WO AM1 proposes installed uv for
+one controlled driver recovery after independent review and normal committed
+material/dedicatedcontinuity. SQL/time/lineage oracle remains unexecuted;
+G06/operational gates/wholemilestone open, provider holds unchanged.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

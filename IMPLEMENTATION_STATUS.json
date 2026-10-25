@@ -555,7 +555,7 @@
       }
     },
     "dockerSyntheticBackend20261025": {
-      "status": "SPEC_AND_AUTHORIZATION_REVIEW_PASS_BOUNDED; DISPATCH_CONTINUITY_BEFORE_BUILD",
+      "status": "STAGE_A_SOURCE_ACCEPTED_BOUNDED; ORIGINAL_INSTALL_FAILED; AM1_ACCEPTED_PENDING_COMMITTED_CONTINUITY",
       "sourceAnchor": "29c0ef7c953d5df6419d9542030acdd2b5d9197e",
       "spec": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
       "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
@@ -563,12 +563,17 @@
       "workOrder": "docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md",
       "oracle": "tests/fixtures/p5a2_docker_backend_oracle.json",
       "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
-      "implementationBuilt": false,
+      "implementationBuilt": true,
       "databaseOrContainerCreated": false,
-      "provenBoundary": "NONE; planned synthetic SQL mechanics only",
+      "provenBoundary": "Source/inert mechanics10pass/1SQLskip only; physical PostgreSQL proof NOT_RUN",
       "milestoneComplete": false,
       "authorizationReview": "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md",
-      "authorityBoundary": "Stage A source/inert tests after dispatch+dedicated continuity/pre-implementation; Stage B actual dependencies/container only after independent source admission"
+      "authorityBoundary": "Stage A source/inert tests after dispatch+dedicated continuity/pre-implementation; Stage B actual dependencies/container only after independent source admission",
+      "sourceReview": "docs/decisions/P5A2_DOCKER_BACKEND_BUILD_REVIEW_2026-10-25.md",
+      "workerReturn": "docs/decisions/P5A2_DOCKER_BACKEND_WORKER_RETURN_2026-10-25.md",
+      "evidence": "docs/decisions/P5A2_DOCKER_BACKEND_EVIDENCE_2026-10-25.json",
+      "originalInstallAttempt": "One pip launch exited1: projectvenv missing pip; no package acquisition; no retry",
+      "am1": "Independent Luna PASS; one installed-uv recovery only after normal material/dedicated continuity/fresh gate"
     }
   }
 }

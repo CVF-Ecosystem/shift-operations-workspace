@@ -196,3 +196,54 @@ WO-AUTH-F1 resolved, no adjacent blockers. Root ORCHESTRATOR activates only
 this reviewed scope. Stage A still needs committed dispatch, dedicated actual-SHA
 continuity and pre-implementation gate; Stage B additionally needs independent
 source acceptance and explicit bounded effect admission in the active handoff.
+
+## AM1 — controlled installer recovery, proposed for independent authorization
+
+AM1 status: APPROVED_FOR_EXECUTION_AFTER_COMMITTED_CONTINUITY. Original Stage B admission is STOPPED.
+One pip command was spent and exited1 before package/network/image/container/
+DB effects: projectvenv lacks pip. Its retained failure and original no-retry
+ceiling stand. Worker did not retry. Root independently confirmed Python3.13.12,
+no psycopg, installed uv0.10.7 and its native pip-compatible installer help.
+
+Root ORCHESTRATOR/WORK_ORDER_AUTHOR invokes the operator's existing autonomous
+roadmap/same-scope repair authority for a consolidated authority amendment,
+not a worker retry or reset of history. Objective/G04-G05-G13 acceptance,
+source families/SHA, R2 ceiling, official-PyPI package/localDocker external
+class and Root commit ownership remain unchanged. No pip bootstrap, new
+runtime dependency framework, provider, real credentials or production scope.
+
+After independent AM1 acceptance, normal material commit, dedicated actual-SHA
+continuity and fresh pre-effect pin/inheritance/session checks, AM1 may admit
+ONE replacement driver installation using the ALREADY installed uv executable
+with explicit `.venv/Scripts/python.exe` target, `--no-config`,
+`--no-python-downloads`, `--default-index https://pypi.org/simple`,
+`--only-binary :all:` and exact `psycopg[binary]==3.3.4`. Run installer in a
+minimal process environment with Windows/PATH/temp/cache necessities, no ambient
+UV/PIP/index/provider credential settings. No host/global Python modification.
+Do not install pip or use system pip. Retain uv version/path, exact sanitized
+command/exit/log and resolved psycopg/psycopg-binary versions; verify their
+installed metadata under this projectvenv. ONE driver recovery attempt total;
+failure is terminal, with no further installer repair or automatic successor.
+
+The as-yet-unused original image acquisition and one physical container/
+wrapper rehearsal ceilings carry forward unchanged and are NOT renewed:
+missing official postgres:16-alpine acquisition once, one pinned-source run,
+owned anonymous-volume/container cleanup and verified absence. Failed image
+acquisition or physical run remains terminal with no automatic retry.
+Worker returns original pip failure plus actual AM1 outcome; Root reviews both.
+
+Full Product Milestone Binding remains the accepted SPEC G01–G14 table above:
+this bounded environment repair is necessary only to unblock actual SQL proof
+for G04/G05/G13. It closes no whole criterion. All G06 scoped query/auth/caps/
+cohort/retention and all other operational/backend/UI/scheduler/approval/live
+remainders retain their named Root/Sol/Luna/operator owners and canonical
+P5-A2/P5-B/C/D destinations. Stop at this ONE recovery plus carried rehearsal,
+then return directly to G04–G06 product query/cohort/coverage SPEC; Phase5 0/5.
+Existing graph applies: AM1 independent authorization/pre-effect recheck precede
+any renewed worker effect, material+dedicated continuity before that recheck;
+worker return/reviewer/material/terminal continuity/range closure unchanged.
+Frozen SPEC/oracle and accepted wrapper/SQL/unit SHA stay read-only.
+
+AM1 activation: Root records independent Luna AUTHORIZATION_REVIEW_PASS_BOUNDED,
+no blockers. Current material/dedicated continuity and fresh pre-effect gate
+remain mandatory; this activation alone starts no recovery effect.

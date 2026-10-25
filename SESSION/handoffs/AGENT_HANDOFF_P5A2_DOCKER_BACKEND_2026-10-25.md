@@ -104,3 +104,70 @@ NOT_ADMITTED. Log .venv/p5a2-docker-dispatch-continuity-20261025.log.
 Full14gap/remainders still governed by canonical binding/WO/SPEC table. No
 milestone closure or AI proof; SQL fixture G04/G05/G13 only. Source worker
 will rehydrate current context/role and recheck inheritance/pins before edits.
+
+## Actual pre-Stage-A release acknowledgment
+
+Dispatch7200c40 and dedicated continuity0342fdfef8511c4e4256ac1b2f2aff8105720dc1
+normal hooks both3224/146/4PASS207.58s/210.37s. Root reviewed clean exact
+committed range before these ongoing-session notes; audit5326413/reference
+29c0ef7 are recorded in dedicated continuity, no unresolved pin/gate finding.
+Root SESSION_SYNC_STEWARD to ORCHESTRATOR; current bootstrap/memory/state/
+handoff, implementation/index/roadmap and accepted SPEC/WO reacknowledged.
+Pre-implementation gate PASS: actual dispatch/marker, WO/spec/oracle SHA and
+current inheritance/session match. Local detail:
+.venv/p5a2-docker-preimplementation-20261025.json.
+Root releases INTERNAL_AGENT Sol/medium IMPLEMENTATION_WORKER Stage A only
+under the accepted full14gap binding/WO. Worker rehydrates/declares role/checks
+pins before source edit. No pip/image/Docker/DB/provider effect; Stage B not
+admitted until Root consolidated independent source review.
+
+## Stage A consolidated review and local alignment
+
+Root independent REVIEWER found DB-A-F1 unit filename outside allowed prefix
+and DB-A-F2 inline return grammar; complete source review otherwise passed.
+Root locally renamed owned new unit file to test_p5a2_docker_backend_runner.py
+with identical SHA56b7e5a; no code/effect/scope expansion. Outside-path blocker
+removed, controlled metadata-only worker repair plus focused recollection next.
+Root rehydration declaration BUILD/R2/REVIEWER; doctor24/2/inheritance0 and
+current pins verified. Stage B remains NOT_ADMITTED. Full14gap binding retained.
+
+## Settled Stage A acceptance and bounded Stage B release
+
+Root independent STAGE_A_SOURCE_REVIEW_PASS_BOUNDED; DB-A-F1/F2 resolved with
+no waiver, accepted source hashes43e7cfde/4d34a156/56b7e5a unchanged. Canonical
+applicable return/review recheck0, inheritance0, frozen SPEC/oracle/native pins
+match. Focused10passed/1skip0.87s consumed. Root REVIEWER to ORCHESTRATOR,
+BUILD/R2 current context reacknowledged. STAGE_B_ADMITTED now, before effects:
+one missing officialimage acquisition + one venv-only psycopg3.3.4 install +
+one isolated dynamicloopback PG16 rehearsal via accepted wrapper, migrations
+001–011 twice, SQLtarget/oracle proof and exactownedcleanup/absence. Worker
+rehydrates/checks pins/inheritance then executes once, no source mutation or
+retry. No real creds/.env/provider/production. Full14gap owners unchanged,
+selected G04/G05/G13 SQL mechanics only; return to G04–G06 query/cohort SPEC.
+
+## Actual Stage B stop and controlled AM1 proposal
+
+One originalvenv pip command exited1 No module named pip; no package acquired,
+image pulled, container/DB/provider action. Worker obeyed stop/no retry, return
+blocked. Root independently records failure and read-only verifies installed
+uv0.10.7/native explicitvenv options, no psycopg and zero container. Root
+RESULT_REVIEWER to ORCHESTRATOR/WORK_ORDER_AUTHOR, phase WORK_ORDER/R2;
+AM1 PROPOSED_NOT_ADMITTED in sameWO, independent Luna authorization next.
+Standing operator autonomous same-scope repair applies; no objective/path/risk/
+effectclass/commit-owner expansion. One controlled uv replacement installation
+only after acceptedAM1 normal material+dedicatedactualSHA continuity+freshgate;
+original failure stays spent, unused image/physicalrun ceilings carry unchanged.
+No support successor or further acquisition recovery if failure. No dispatch
+now. Full14gap binding/owners unchanged; G04/G05/G13 SQLproof NOT_RUN, G06/
+operational/wholemilestone open, Phase5 0/5 and AI-provider holds retained.
+
+## Independent AM1 acceptance and material dispatch
+
+Luna independent AM1 AUTHORIZATION_REVIEW_PASS_BOUNDED, no blocker. Root
+ORCHESTRATOR activates accepted same-scope recovery; COMMIT_STEWARD now owns
+material source/retainedfailedreceipt/AM1. Actual source hashes unchanged,
+original onepip failure preserved, zero acquisition/container/DB/provider so far.
+Recovery NOT_RELEASED until normalmaterial, terminalreview, dedicated actualSHA
+continuity, cleanrange and fresh pre-effect pins/inheritance/session gate.
+This is one reviewed controlled repair using existinguv, not a reset or worker
+retry. No further acquisition-recovery successor. Full14gap/owners unchanged.

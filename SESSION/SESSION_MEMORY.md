@@ -41,6 +41,11 @@ Luna UI/default support, independent review, operator business acceptance.
 P5-B/C/D retain roadmap destinations, Phase5 0/5. Original provider401spent;
 AI provider live/key/model/CSV held. Stop reference drift.
 
-## Next move
+## Current AM1 dispatch and next move
 
-On successful dedicated5path continuity child of7200c40 and clean range check, run pre-implementation gate then release Sol Stage A SOURCE/INERT TESTS ONLY under accepted WO. No pip/image/container/DB until independent source acceptance and Stage B admission. FrozenSPECc97/oracle12ad; one later PG rehearsal. All14gap owners/G06/operational acceptance retained; Phase5 0/5; AI provider live/key/model/CSV held; stop reference drift.
+StageA source PASS43e7cfde/4d34a156/56b7e5a;10pass/1skip. Original onepip launch
+failed missingpip, no package/image/container/DB/provider. Failure retained.
+Independent Luna AM1 authorization PASS; installed uv one controlledvenv driver
+recovery only after new normalmaterial/dedicatedactualSHAcontinuity/freshgate.
+Root COMMIT_STEWARD; no effect released, no source change. Full14gap retained.
+Commit reviewed Stage A source, original failed installer receipt and independently accepted AM1 through normal hook; terminal material review then dedicated actual-SHA continuity. Only after clean range and fresh pin/inheritance/session pre-effect gate release one installed-uv driver recovery plus carried unused image/one-PG-rehearsal ceilings. Original pip failure spent; another failure terminal. No provider calls; G06/wholemilestone open, Phase5 0/5.
