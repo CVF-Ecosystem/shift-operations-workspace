@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_history_numeric_build_live_deferred",
+  "currentMode": "p5a2_numeric_material_accepted_next_history_verification_live_deferred",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
-  "nextAllowedMove": "P5-A2 source/history/numeric BUILD only after this dispatch marker is committed: material125868a50d5efb7fe3e62a011a2c0cab6b53f789/full3199PASS269.46s, accepted SPECfd35641c/matrix4ff48756, independent WO reviewPASS. Root releases Sol bounded H1-P2; no scheduler/API/UI/RAG/approval persistence. All14gap remainders retained; live/key/model/CSV held, P5-A A7 open, Phase5 0/5. Stop renewed reference drift.",
+  "nextAllowedMove": "After the normal exact5path continuity commit parent9c72de4 and clean committed-range check, return to finite P5-A2 G04-G06 actual assignment-scoped ledger/history source verification and an accepted contract/WO before dependent BUILD. Reuse existing Report/repository/auth owners; prove only missing adapter/query/time/completeness connections. Pure H1-P2 material is accepted; all14 integrated gaps and P5-B/C/D retain binding owners/destinations. P5-A/A2 open, Phase5 0/5; live/key/model/CSV held; stop renewed reference drift.",
   "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
   "requiredReads": [
     "AGENTS.md",
@@ -15,12 +15,13 @@
     "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
     "IMPLEMENTATION_STATUS.json",
-    "docs/cvf/INVARIANT_FAMILY_STANDARD.md"
+    "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
+    "docs/decisions/P5A2_PROACTIVE_HISTORY_NUMERIC_REVIEW_2026-10-24.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-25"
 }
