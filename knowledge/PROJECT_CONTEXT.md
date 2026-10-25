@@ -141,4 +141,10 @@ is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
 or acceptance and does not require operational data before fixture development.
 Live holds and all14milestone remainders remain; active handoff owns current truth.
 
+Docker synthetic-backend SPEC and bounded WO have independent review. The
+next admitted source slice reuses native PG lifecycle/migration/SqlLedger and
+frozen36shift/37version fixture truth; no backend is running or operational
+coverage accepted from this plan. StageA code/inert tests and StageB actual
+effects have separate gates; provider live/key/model/CSV holds remain.
+
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

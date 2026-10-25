@@ -4,7 +4,7 @@
 Current HEAD recorded for this handoff: `53264131e33877dfa460f3973bb4815b72fc660a`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date2026-10-25; phase REVIEW; riskR2; live evidence requiredYES.
+Date2026-10-25; phase WORK_ORDER; riskR2; live evidence requiredYES.
 Root ORCHESTRATOR/REVIEWER/SPEC_AUTHOR; provider-neutral responsibilities.
 Public core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6;
 private provenance ../../Controlled-Vibe-Framework-CVF@d3b2f73ca0746978673c649ed407974a1d1772a5,
@@ -200,3 +200,38 @@ commit. No product milestone/operational coverage or Docker readiness is claimed
 from closure. All14gap/remainder owners and Phase5 0/5 stay unchanged.
 
 After normal atomic12path reference/audit5326413 actual-SHA closeout and range verification, independently accept Docker synthetic-backend SPEC, author/review bounded WO, then admit actual PostgreSQL rehearsal. Current pins publicaa672d1/privated3b2f73; stop renewed drift. Synthetic SQL time/lineage portions G04/G05/G13 only; G06/operational completeness and all14gap owners retained; Phase5 0/5; AI provider live/key/model/CSV held.
+
+## Docker SPEC accepted; Work Order authorization review
+
+Actual reference/audit material29c0ef7c953d5df6419d9542030acdd2b5d9197e
+normal hook3224passed146skipped4warnings119.71s. Canonical GC-020 dedicated
+continuity still precedes clean committed-range closure/BUILD. Treat29c0ef7
+as material; the next dedicated dispatch continuity must record its actual
+SHA plus the actual next Docker dispatch material. Earlier atomic-closeout
+wording is not used to skip that dedicated continuity gate; no prior tranche
+FREEZE claim is made before required range checks.
+
+Root independent SPEC_REVIEW_PASS_BOUNDED at assigned review artifact. Sol
+clarified exact fixture/cutoffs/future successor; SPEC SHA
+c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830.
+Root's unchanged-pure-code pre-BUILD oracle12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0
+is exact contract data copied to tests/fixtures/p5a2_docker_backend_oracle.json.
+36shifts/37versions; initial36h/later38hREADY36/forecast4/band[4,4], different
+lineage/evaluation digests; no SQL loader existed when oracle was frozen.
+
+Root REVIEWER to WORK_ORDER_AUTHOR, then ORCHESTRATOR for independent
+authorization review. DRAFT docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md
+binds full14gap/remainder ownership and separates source-only Stage A from
+Stage B effect. One image acquisition, one project-venv psycopg3.3.4 install,
+one isolated loopback PG rehearsal only after committed dispatch/dedicated
+continuity and independent source acceptance. No effect starts from DRAFT.
+Virtual active-status closeability check0violations; no guard/policy change.
+Provider live/key/model/CSV hold unchanged; Docker is synthetic local-only.
+Selected proof G04/G05/G13 SQL fixture only; G06 and operational cohort/
+retention/query caps/auth remain open, no whole milestone closure.
+
+## Successor for Docker Work Order
+
+Active authority continues in SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md.
+This handoff retains source/audit/reference history; no new status is appended
+here after successor activation. New WO exact gate surfaces point to successor.

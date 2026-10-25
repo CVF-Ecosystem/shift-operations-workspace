@@ -553,6 +553,22 @@
         "review": "Independent Luna/max REVIEW_PASS_BOUNDED; blocking findings NONE; normal atomic closeout required",
         "receipt": "docs/decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md"
       }
+    },
+    "dockerSyntheticBackend20261025": {
+      "status": "SPEC_AND_AUTHORIZATION_REVIEW_PASS_BOUNDED; DISPATCH_CONTINUITY_BEFORE_BUILD",
+      "sourceAnchor": "29c0ef7c953d5df6419d9542030acdd2b5d9197e",
+      "spec": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
+      "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
+      "specReview": "docs/decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md",
+      "workOrder": "docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md",
+      "oracle": "tests/fixtures/p5a2_docker_backend_oracle.json",
+      "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+      "implementationBuilt": false,
+      "databaseOrContainerCreated": false,
+      "provenBoundary": "NONE; planned synthetic SQL mechanics only",
+      "milestoneComplete": false,
+      "authorizationReview": "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md",
+      "authorityBoundary": "Stage A source/inert tests after dispatch+dedicated continuity/pre-implementation; Stage B actual dependencies/container only after independent source admission"
     }
   }
 }

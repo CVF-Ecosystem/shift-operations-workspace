@@ -2,6 +2,8 @@
 
 ## Start Here
 
+- Docker synthetic-backend next slice: [SPEC](specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md), [independent SPEC review](decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md), [bounded Work Order](work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md), [independent authorization rereview](decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md) PASS_BOUNDED. No BUILD or Docker effect until authorization, committed dispatch and dedicated actual-SHA continuity.
+
 - Finite G04–G06 reference prerequisite: [current pin-resume receipt](decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md); static synchronization only, independent review/gates required.
 
 - Active G04–G06: [bounded source audit](decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md) and [audit + synthetic-data proposal](decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md). Source verified; [independent DESIGN review](decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md) PASS_BOUNDED. Synthetic fixtures can support backend/query development; actual operational coverage and live governance proof remain unaccepted. No BUILD grant.
