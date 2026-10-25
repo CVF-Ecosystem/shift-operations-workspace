@@ -12,7 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-08-02, sau Phase 2 full-shift exit BUILD `d02186a` nhận independent final `REVIEW_PASS` và C4 truth-sync._ Quy ước:
+_Cập nhật: 2026-10-25; Phase 1–4 giữ closure bounded đã ghi, Phase 5 đang triển khai và chưa đóng milestone._ Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
   independent review và closure trong đúng claim boundary;
@@ -27,7 +27,7 @@ _Cập nhật: 2026-08-02, sau Phase 2 full-shift exit BUILD `d02186a` nhận in
 | Phase 2 Core Operations | ✅ `CLOSED_BOUNDED` | P2-A/P2-B/P2-R/P2-C/P2-D + full-shift exit gate | Chỉ giới hạn ngoài claim: production/managed, soak, push/exactly-once, full-offline |
 | Phase 3 Governance and Refinery | ✅ `CLOSED_BOUNDED` (6/6) | policy gates, approval quorum, P3-A Refinery, P3-B gateway call-site wiring và P3-C retrieval-ready contract | application-level AI caller, durable accounting và production wiring nằm ngoài boundary đã đóng |
 | Phase 4 AI and Channels | ✅ `CLOSED_BOUNDED` (8/8 milestones closed) | P4-A/A1/A2/A3, P4-B, P4-C, P4-D và P4-E `CLOSED_BOUNDED` | No further project work without fresh operator instruction |
-| Phase 5 Reporting/Hardening/Freeze | ⬜ `NOT STARTED` (0/5) | Chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
+| Phase 5 Reporting/Hardening/Freeze | ⏳ `IN PROGRESS` (0/5) | P5-A A1-A6 accepted; P5-A2 pure subset accepted; chưa có milestone đóng | reporting engine/output, observability, resilience/security/performance, deployment/Shadow Mode/release freeze |
 
 **Phase 2 đã đóng bounded:** exit gate `start → updates → tasks → handover → report → freeze` PASS tại reviewed/pushed BUILD `d02186a` và C4 này. Claim chỉ cho scheduled 12-hour lineage trên real Chromium/FastAPI/JWT và disposable PostgreSQL 16; không phải wall-clock soak hay production readiness.
 
@@ -489,13 +489,13 @@ external prompt injection không vượt trust boundary.
 ## Phase 5 — Reporting, Hardening and Freeze — IN PROGRESS (0/5)
 
 Gate gốc: evidence traceability, outage drills, backup restore, owner review.
-Operator2026-10-24 defers live and continues independent P5-A2 planning; P5-A A7 remains open/Phase5 0/5.
-Reporting/retrieval readiness remains in P5-A2 binding; no dependent BUILD or milestone closure.
+Operator2026-10-24 defers live; P5-A2 supplied-input history/numeric BUILD has bounded source acceptance. P5-A A7 remains open/Phase5 0/5.
+Reporting/retrieval readiness remains in P5-A2 binding; further integrated BUILD needs its own accepted scope, and no milestone is closed.
 P5-A là engine trình bày/tổng hợp và xuất báo cáo. Nó không thay thế P2-R
 operational report record cần để hoàn thành một ca và thỏa freeze prerequisite.
 
 - [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel. **A7 BLOCKED / LOCAL AND SOURCE3199PASS; ONE REAL CALL401 invalid_api_key, NO RETRY (2026-10-24)** — [full gap binding](../decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md).
-- [ ] **P5-A2 — SPEC reviewed / numeric WO approved (2026-10-24, live deferred):** Proactive reporting và forecasting sau khi reporting +
+- [ ] **P5-A2 — pure supplied-input history/numeric subset accepted bounded; integrated milestone open (2026-10-25, live deferred):** Proactive reporting và forecasting sau khi reporting +
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến

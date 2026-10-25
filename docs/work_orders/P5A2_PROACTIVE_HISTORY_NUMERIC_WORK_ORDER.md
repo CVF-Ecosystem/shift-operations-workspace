@@ -1,6 +1,6 @@
 # P5-A2 source history and numerical analytics
 
-Status: APPROVED_FOR_EXECUTION
+Status: IMPLEMENTED_BOUNDED
 Risk: R2
 Date: 2026-10-24
 Execution owner: IMPLEMENTATION_WORKER; independent acceptance: REVIEWER.
@@ -175,7 +175,7 @@ projection when data/evaluation is inadequate. No product gap is declared closed
 by this DRAFT. Independent authorization review and committed dispatch/marker
 remain prerequisites; root records activation before any BUILD.
 
-## Independent authorization and orchestrator release
+## Historical authorization and orchestrator release — 2026-10-24, before dispatch
 
 Luna/max independent AUTHORIZATION_REVIEW_PASS_BOUNDED: full14gap coverage,
 H1-P2 input/temporal/numeric proof, held integration/live gates and all remainder
@@ -184,3 +184,23 @@ mandatory inheritance0/0. Root ORCHESTRATOR accepts the finite independent
 provider-free scope under operator roadmap/delegation authority. BUILD release
 remains conditional on normal committed dispatch plus separate actual-SHA
 continuity marker. No worker or external effect has started.
+
+## Source execution disposition
+
+The admitted pure history/numeric source has returned and root independent
+review accepts the repaired H1-H4/N1-N4/P1 evidence. This implementation grant
+is exhausted; it grants no automatic successor or further broad hardening.
+Final P2 disposition is conditional on normal full hooks, material commit and
+separate actual-SHA continuity. Root records the actual results in the active
+handoff before reporting completion. Whole P5-A2 remains open with all14gap
+remainders; this is not permission for scheduler/API/UI/RAG/provider work.
+
+Final material preflight is blocked by renewed privateHEAD297b3ac7 drift from
+exactpin721f98de. Pure source remains reviewed locally; P2 is not complete.
+No full source hook or material commit ran after this failure. Source/test
+bytes frozen; resume only after stable binding and final normal committed gates.
+
+Operator resumes roadmap; bounded current reference reconciled without carrier
+change. Same reviewed10source/test hashes MATCH; no new BUILD grant. Resume
+only final normal material/full hook and actualSHAcontinuity before reporting
+completion. Prior reference failures remain historical, whole P5-A2 open.

@@ -109,7 +109,7 @@ Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
 review and continuity commit close the tranche. Public Core remains pinned at
 `b69e10889`; the operator-local rule pack is materialized from private
-provenance `721f98dec` and its ADIF-0057 machine gate is bound to the project.
+provenance `6d5c4a5de` and its ADIF-0057 machine gate is bound to the project.
 Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
 A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
 Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
@@ -117,7 +117,7 @@ frontend128 tests/build and backend221 tests passed; independent corpus13/13
 passed. The full material gate passed. A7 source passed3199tests; its one real canary returned401invalid_api_key,
 retained in committed failed receipt3b569639. The operator defers further live
 runs and key/model updates, and resumes source-verified whole-milestone P5-A2
-SPEC and bounded pure history/numeric Work Order without closing P5-A A7. Reporting-engine remains partial, P5-A open, Phase5 0/5.
+reviewed pure supplied-input history/numeric functions without closing P5-A A7. Reporting-engine remains partial, P5-A open, Phase5 0/5.
 P5-A2/B/C/D retain their roadmap owners; no support successor, production,
 deployment or general CVF-governance behavior claim. Absorption, catalog
 migration and XR1 remain parked. Active handoff/status carry current truth.
@@ -125,5 +125,14 @@ migration and XR1 remain parked. Active handoff/status carry current truth.
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
 canonical files instead of treating this summary as fresh continuity.
+
+
+P5-A2 pure-input subset25focused/48withsnapshot and7independent numeric oracles
+passed after consolidated repair. Actual scoped ledger, scheduler/API/UI/RAG,
+exact human approval and operational-quality/live evidence remain open.
+Operator reports stable provenance on2026-10-25; exact binding refreshed once.
+The canonical active handoff records actual material SHA, normal full hook and
+continuity receipts; source review alone does not close material completion.
+Stop if the source moves again.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-10-23",
+  "reviewedAt": "2026-10-25",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "f3ea45351285a1ae7e4b25d665bcc5e0d10a5180046040d6c891cbcabcfd7f0e"
+          "sha256": "2d853b8954b9c1ee6b88faaadbc981e7677aa45a405c946390ee552f7dfc974f"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "9fcf47f617755123980343ecd03ec7cfea0693efa2757310c5900aca7ea576a9"
+          "sha256": "729d8562738e547fc33bf8b34fbf1816da038cfa839bcd86ede85da5d6a0da68"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "5ad1d3115b44daa16d3c9e41cab04594cb58d7d6f0d409b22095c7abcbb9093a"
+          "sha256": "021328ee6a21a24b11c04b5b1fbc12df894bc54fdc40831eb444ae93cd709a0b"
         }
       ],
-      "reviewedAt": "2026-10-23",
+      "reviewedAt": "2026-10-25",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -107,11 +107,11 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "056dee9661843bef8984858d485cd9cb44ec1ac8556c8f8f894c39ee8f444d2e"
+          "sha256": "a5cbc987e27cddca5be002b42bab3fa6a48f66d57ae053aad8ba9deb2f819233"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "b563f13ce63e0628af663b53ff96483fb957bbb01817406785dc36d249ed58ee"
+          "sha256": "70cc67b336215f0b5d39284e012057a23dd0fc5a9e09bcb59992e1281a980909"
         },
         {
           "path": ".cvf/policy.json",
@@ -134,7 +134,7 @@
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-10-23",
+      "reviewedAt": "2026-10-25",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

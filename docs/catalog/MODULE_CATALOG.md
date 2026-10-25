@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY.json`](MODULE_REGISTRY.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-10-23T16:23:58.045830+00:00_
+_Last generated: 2026-10-25T13:54:47.088364+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-10-23T16:23:58.045830+00:00_
 ## Totals
 
 - Modules: **26**
-- Code LOC (py/ts/tsx): **39177**
-- Code files: **369**
+- Code LOC (py/ts/tsx): **39597**
+- Code files: **374**
 - By status: contract-only=5, enforced=2, partial=15, stub=4
 
 ## Status legend
@@ -41,7 +41,7 @@ _Last generated: 2026-10-23T16:23:58.045830+00:00_
 | `operations-domain` | packages/operations-domain | partial | 840 | — | Domain language and invariants for shift, message, event, task, customer request, incident, handover, report, approval, correction, audit. |
 | `project-knowledge-pack` | knowledge | partial | 0 | — | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | `refinery-bridge` | packages/refinery-bridge | partial | 1570 | data_scope | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
-| `reporting-engine` | packages/reporting-engine | partial | 449 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
+| `reporting-engine` | packages/reporting-engine | partial | 869 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
 | `workspace-api` | apps/workspace-api | partial | 9750 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
 | `workspace-web` | apps/workspace-web | partial | 8485 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
@@ -207,12 +207,12 @@ _Last generated: 2026-10-23T16:23:58.045830+00:00_
 - **Path:** `packages/reporting-engine` (package)
 - **Purpose:** Build report drafts from confirmed records, validate evidence, export PDF/Excel.
 - **CVF controls:** evidence
-- **Enforcement:** Revalidated immutable Report snapshots exported through authenticated assignment-scoped PDF/XLSX API and current/history UI. Independent local byte/browser/type/resource evidence accepted bounded; no AI-governance, milestone closure or release claim.
+- **Enforcement:** Revalidated Report PDF/XLSX export with scoped API/current-history UI and independently reviewed pure supplied-input point-in-time analytics, chronological evaluation and abstention. Supplied scope assertions are not actual ledger/auth proof; no scheduler/RAG/approval/proactive application or AI-governance acceptance.
 - **Contract:** packages/workspace-contracts
 - **Depends on:** `operations-domain`
-- **Tests:** `tests/unit/test_report_export_renderers.py`, `tests/unit/test_report_export_views.py`, `tests/unit/test_report_export_limits.py`, `tests/cvf/test_report_export_outcomes.py`, `tests/integration/test_report_export_browser.py`
-- **Metrics:** 449 LOC across 8 code file(s)
-- **Next step:** Resolve A7 separately admitted real canary and final receipt review; local material/full gates pass. Retain P5-A open and Phase5 0/5.
+- **Tests:** `tests/unit/test_report_export_renderers.py`, `tests/unit/test_report_export_views.py`, `tests/unit/test_report_export_limits.py`, `tests/cvf/test_report_export_outcomes.py`, `tests/integration/test_report_export_browser.py`, `tests/unit/test_proactive_history.py`, `tests/unit/test_proactive_numeric.py`, `tests/integration/test_proactive_supplied_contract.py`
+- **Metrics:** 869 LOC across 13 code file(s)
+- **Next step:** P5-A A7 remains held; P5-A2 needs actual scoped ledger/history, scheduler/API/UI/context/approval, operational quality/drills and applicable live proof. Whole milestones open, Phase5 0/5.
 
 ### `retrieval-contracts` — partial
 
