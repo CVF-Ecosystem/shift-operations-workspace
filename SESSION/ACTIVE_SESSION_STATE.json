@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+  "mode": "p5a2_docker_backend_stage_a_dedicated_dispatch_continuity",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
   "last_updated": "2026-10-25",
   "required_reads": [
     "AGENTS.md",
@@ -11,16 +11,16 @@
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
     "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+    "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
+    "docs/decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md",
+    "docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/INDEX.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md"
+    "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "After normal atomic12path reference/audit5326413 actual-SHA closeout and range verification, independently accept Docker synthetic-backend SPEC, author/review bounded WO, then admit actual PostgreSQL rehearsal. Current pins publicaa672d1/privated3b2f73; stop renewed drift. Synthetic SQL time/lineage portions G04/G05/G13 only; G06/operational completeness and all14gap owners retained; Phase5 0/5; AI provider live/key/model/CSV held.",
+  "next_allowed_move": "On successful dedicated5path continuity child of7200c40 and clean range check, run pre-implementation gate then release Sol Stage A SOURCE/INERT TESTS ONLY under accepted WO. No pip/image/container/DB until independent source acceptance and Stage B admission. FrozenSPECc97/oracle12ad; one later PG rehearsal. All14gap owners/G06/operational acceptance retained; Phase5 0/5; AI provider live/key/model/CSV held; stop reference drift.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Independent static/source/design reviews accepted; atomic closeout is the audit freeze condition. Docker SPEC draft is next-scope planning only.",
+    "currentMode": "p5a2_docker_backend_stage_a_dedicated_dispatch_continuity",
+    "activePhase": "BUILD",
+    "activePhaseNote": "Stage A entry is conditional on successful dedicated dispatch continuity and pre-implementation gate; source only, no Stage B effect admission.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -52,13 +52,13 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
-    "activeHandoffNote": "Canonical successor for scoped history audit/proposal; numeric closure handoff remains historical.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
+    "activeHandoffNote": "Compact Docker backend successor; prior scoped-history handoff retains audited source/reference history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Root accepts independent static review and commits atomic reference/audit continuity; no runtime execution.",
-    "currentRoleTransition": "INDEPENDENT_STATIC_REVIEW_TO_ORCHESTRATOR_TO_COMMIT_STEWARD",
+    "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Root terminal dispatch review accepted exact material; record actual SHA before any Stage A.",
+    "currentRoleTransition": "DISPATCH_COMMIT_STEWARD_TO_DISPATCH_REVIEWER_TO_SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-25"
   },
@@ -288,7 +288,42 @@
         "closureCondition": "Successful normal atomic12path child of5326413 and committed-range verification; no self-referential SHA",
         "nextScopeSpecExcluded": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md"
       },
-      "sourceChurnCap": "ONE_REBIND_STOP_RENEWED_DRIFT"
+      "sourceChurnCap": "ONE_REBIND_STOP_RENEWED_DRIFT",
+      "closeabilityNote": "29c0ef7 treated as material; dedicated next dispatch continuity records it plus actual dispatch SHA before BUILD and clean committed-range closure.",
+      "actualReferenceMaterialCommit": "29c0ef7c953d5df6419d9542030acdd2b5d9197e",
+      "dedicatedGc020Recording": "This dedicated child of7200c40 records prior29c0ef7 and audit5326413; prior atomic wording does not replace dedicated continuity."
     }
+  },
+  "p5a2_docker_backend_20261025": {
+    "spec": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
+    "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
+    "specReview": "docs/decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md",
+    "workOrder": "docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md",
+    "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "authorization": "Luna/max AUTHORIZATION_REREVIEW_PASS_BOUNDED; WO_AUTH_F1 resolved",
+    "actualDockerRuns": 0,
+    "effects": "NONE",
+    "virtualActiveCloseability": "0violations",
+    "scope": "G04/G05/G13 synthetic SQL mechanics only; no G06/operational/AI proof",
+    "authorizationReview": "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md",
+    "workOrderSha256": "7145892514331698dc6044dae1b07f7a52b7d6c733d150dbff5439550fb9ed54",
+    "dispatch": "PENDING_NORMAL_MATERIAL_AND_DEDICATED_CONTINUITY",
+    "dispatchMaterialCommit": "7200c40b539778f1c6609f1078f41ab6bbe9fa4a",
+    "dispatchMaterialFullHook": "3224 passed,146 skipped,4warnings207.58s; unmodified normal hook PASS",
+    "dispatchPathCount": 12,
+    "dispatchContinuity": {
+      "materialParent": "7200c40b539778f1c6609f1078f41ab6bbe9fa4a",
+      "paths": [
+        "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+        "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+        "SESSION/ACTIVE_SESSION_STATE.json",
+        "SESSION/SESSION_MEMORY.md",
+        "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md"
+      ],
+      "requiredGate": "Normal dedicated continuity commit and pre-implementation gate before Stage A",
+      "normalHookLog": ".venv/p5a2-docker-dispatch-continuity-20261025.log"
+    },
+    "stageA": "Conditional release only after this dedicated commit/range/pre-implementation gates",
+    "stageB": "NOT_ADMITTED; independent source review required"
   }
 }

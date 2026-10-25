@@ -1,10 +1,10 @@
 # P5-A2 Docker synthetic backend — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Current HEAD recorded for this handoff: `29c0ef7c953d5df6419d9542030acdd2b5d9197e`.
+Current HEAD recorded for this handoff: `7200c40b539778f1c6609f1078f41ab6bbe9fa4a`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date2026-10-25; phase WORK_ORDER; riskR2; live evidence requiredYES.
+Date2026-10-25; phase BUILD (Stage A conditional on this dedicated commit/gate); riskR2; live evidence requiredYES.
 Root ORCHESTRATOR; operator authorizes roadmap/delegation (Luna/max default,
 Sol/medium hard) and Docker synthetic backend (“làm đi”). AI-provider live/
 key/model/CSV hold remains. No backend effect is started from a DRAFT WO.
@@ -87,3 +87,20 @@ this dispatch and29c0ef7, and pre-Stage-A gate remain mandatory before BUILD.
 No actual driver/image/Docker/DB/provider effect has occurred. Root will
 release Sol Stage A only after actual committed gates. All14gap owners and
 StageB/source review/live holds remain exactly as bounded.
+
+## Actual dispatch terminal review and dedicated continuity
+
+Material7200c40b539778f1c6609f1078f41ab6bbe9fa4a committed exact12paths;
+normal unmodified hook3224passed146skipped4warnings207.58s. Root REVIEWER
+confirms actual committed set, accepted SPEC/WO/oracle, no source/effects.
+Root COMMIT_STEWARD to REVIEWER, then SESSION_SYNC_STEWARD before these writes.
+This exact5path child records actual dispatch7200c40 plus prior reference
+material29c0ef7 and audit5326413, satisfying dedicated GC020 ordering rather
+than treating29c0ef7's atomic metadata as the dedicated continuity commit.
+Only upon successful normal continuity hook/clean split-range check and
+pre_implementation_autorun may Root release Sol Stage A. Stage B remains
+NOT_ADMITTED. Log .venv/p5a2-docker-dispatch-continuity-20261025.log.
+
+Full14gap/remainders still governed by canonical binding/WO/SPEC table. No
+milestone closure or AI proof; SQL fixture G04/G05/G13 only. Source worker
+will rehydrate current context/role and recheck inheritance/pins before edits.

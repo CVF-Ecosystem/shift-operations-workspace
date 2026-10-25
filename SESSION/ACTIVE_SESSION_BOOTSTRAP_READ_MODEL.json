@@ -1,23 +1,23 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
-  "nextAllowedMove": "After normal atomic12path reference/audit5326413 actual-SHA closeout and range verification, independently accept Docker synthetic-backend SPEC, author/review bounded WO, then admit actual PostgreSQL rehearsal. Current pins publicaa672d1/privated3b2f73; stop renewed drift. Synthetic SQL time/lineage portions G04/G05/G13 only; G06/operational completeness and all14gap owners retained; Phase5 0/5; AI provider live/key/model/CSV held.",
-  "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
+  "currentMode": "p5a2_docker_backend_stage_a_dedicated_dispatch_continuity",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
+  "nextAllowedMove": "On successful dedicated5path continuity child of7200c40 and clean range check, run pre-implementation gate then release Sol Stage A SOURCE/INERT TESTS ONLY under accepted WO. No pip/image/container/DB until independent source acceptance and Stage B admission. FrozenSPECc97/oracle12ad; one later PG rehearsal. All14gap owners/G06/operational acceptance retained; Phase5 0/5; AI provider live/key/model/CSV held; stop reference drift.",
+  "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
     "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+    "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
+    "docs/decisions/P5A2_DOCKER_BACKEND_SPEC_REVIEW_2026-10-25.md",
+    "docs/work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_DOCKER_BACKEND_2026-10-25.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/INDEX.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md"
+    "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
