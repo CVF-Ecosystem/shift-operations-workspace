@@ -7,14 +7,16 @@ Normal hook intact; legacy docs/decisions returns require explicit native rechec
 
 ## Current tranche
 
-p5a2_scoped_source_stage_a_material; phase REVIEW; role COMMIT_STEWARD; R2/live evidence YES if AI claim.
-Source/fixture/runtimeconsumer StageA independently accepted after repair2; all findings resolved/no waiver. Root COMMIT_STEWARD, material completion not yet closed.
+p5a2_scoped_source_stage_a_dedicated_continuity; phase FREEZE; role SESSION_SYNC_STEWARD; R2/live evidence YES if AI claim.
+Independent terminal actual31pathPASS; Root CLOSER then SESSION_SYNC recordsactualmaterialSHA. BoundedFREEZE conditional on normalchild/cleanrange, not whole milestone.
 Accepted source SPEC db1d2180 and static family bca9bb9d at material bc25c96 /
 dedicated814d32b, exact16+5 cleanrange, normal3253pass147skip4warnings.
 Root owns preloader oracle0f79676b (stdlib old36/37 oracle only), WO/contracts/
 metadata/commit; backend worker implements only exact reviewed paths; independent
 reviewer owns review. Source READY means fixture input only, not forecast READY.
 Default production coverage UNKNOWN/refused; no operational retention authority.
+
+Runtimefamily9b3 binds actual native emitter/tests; fulloracle0f matched, native500/501caps and strict source receipts accepted. Actual material a7374f8 normal3316PASS147skip4warnings145.79s, terminal exact31pathreviewPASS. Only successfuldedicated5path child/cleanrange closes StageA; physicalPGquery proof staysStageB.
 
 ## Preserved product truth and holds
 
@@ -33,4 +35,4 @@ P5-B/C/D ownership. Phase5 0/5; no whole milestone closure.
 
 ## Next allowed move
 
-Independent STAGE_A_REVIEW_PASS_BOUNDED; prepare exact31path normalmaterial, then terminalactualrange review, dedicatedactualSHA5path continuity and cleanclosure. Next productgate separately reviewed StageB realSQL query proof. StageB/providerheld.
+On successful normal exact5path dedicated child of actual31path a7374f8 and clean split-range, Source StageA CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY. Next Root WORK_ORDER_AUTHOR prepares separately reviewed StageB actual PostgreSQL source-query admission using cached substrate; no effect before its reviewed committed authorization. Provider/operational gates held.

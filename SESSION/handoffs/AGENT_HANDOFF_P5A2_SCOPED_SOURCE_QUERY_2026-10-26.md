@@ -1,8 +1,8 @@
 # P5-A2 scoped history source — active contract handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `ecb96ebfa384ac179ac6858340590c956e800ea4`.
-Dedicated dispatch continuity: this exact five-path child; derive its SHA from Git after commit.
+Material commit recorded for this handoff: `a7374f86cae6de8968e763034c129198418a37da`.
+Dedicated Stage A continuity: this exact five-path child; derive its SHA from Git after commit.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; INTAKE/DESIGN→SPEC, riskR2, liveevidenceYES.
@@ -172,3 +172,34 @@ FinalSourceRepair2return0a15c53b ready; exactSQLhelper/receipt/familytest/SQLtes
 ## Stage A independent acceptance / material preparation
 
 Independent STAGE_A_REVIEW_PASS_BOUNDED, allF1–F4 andF2-R1/F3-R1 resolved, openfindingsNONE/waiversNONE. Worker91PASS2skip5.71s, independent91PASS2skip5.25s; native84mutations/rawsamples0668 andfulloracle0f/matrix9b3 verified, exact14workerfilehashesmatch. Sourceinternalfixture/memory/caps/emitter/consumer/inertSQL acceptedONLY; actualPGquery/APIauth/retention/quality/AI proof absent. RootORCHESTRATOR→independentREVIEWER→COMMIT_STEWARD afterfreshcontinuityre-read. Prepareexact31path normalmaterial, terminalactualreview, dedicatedactualSHA5path child thencleanclosure. No sourceworker authority remains; StageBseparateadmissionheld, providerheld, allG01–G14 remainder owners/Phase5 0/5 retained.
+
+## Actual Stage A source material / terminal review / dedicated continuity
+
+Actual31path material a7374f86cae6de8968e763034c129198418a37da parent77f5686,
+unmodifiednormalhook3316passed147skipped4warnings145.79s. Independent
+POST_MATERIAL_REVIEW_PASS_BOUNDED: exact31frozenpathset, cleanworktree, all14worker
+source/testhashes+return0a15c53b, matrix9b3/oracle0f/rawsamples0668 verified;
+openfindingsNONE/waiversNONE. Nativeworker/reviewrecheckapplicableand0. No hidden
+Core/parent/pure/oldSQLreceipt change or external effect. WO IMPLEMENTED_BOUNDED
+exhaustsworkergrant; nativeactiveWOgrammarNOT_APPLICABLE truthful, activegraph
+alreadycheckedatdispatch ecb/77 andgraphunchanged.
+
+Root COMMIT_STEWARD→independentTERMINALREVIEWER→CLOSER→SESSION_SYNC_STEWARD;
+freshcanonicalcontinuity/implementation/index/roadmap/Core acknowledgment before
+THIS dedicated5path actuala737SHA child. Successfulnormalchild plus cleancommitted
+31+5splitrange makes StageA FREEZE/CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY; no
+selfreferentialchildSHA, no trackedreview/sourceeditsaftermaterial.
+
+Accepted: native memory source/500–501 prebodycaps/freshmembership/fixturecoverage,
+strict closedreceiptconsumer and84native mutations, bothfulloraclelineage/analysis,
+inertSQLstatement/UOW/negativeSQLite/setup/body failure checks. Actual physical
+PostgreSQL query/isolation/race behavior remains UNPROVED; SQLite positive,
+productionretention/cohortfit, APIidentity/use-time auth, scheduler/UI/context/
+exacthumanapproval/AI proof remain OPEN/UNKNOWN/HELD. SourceReady means fixture
+HistoryInput admissible, not forecastReady or operationalacceptance.
+
+Next RootWORK_ORDER_AUTHOR: finite separately reviewed StageB actualSQL query
+proof/admission with cachednative substrate, committedsource/admission/continuity
+before any new effect. OldphysicalceilingsSPENT, no reset/pull/install/provider/
+realcredentials/.env/CSV/publicrelease/push authority. CompleteG01–G14 owners and
+P5-B/C/D destinations remain sourceSPEC/WO; Phase5 0/5, P5-A/P5-A2 stillOPEN.

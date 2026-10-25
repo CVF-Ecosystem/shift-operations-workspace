@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_stage_a_material",
+  "currentMode": "p5a2_scoped_source_stage_a_dedicated_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
-  "nextAllowedMove": "Independent STAGE_A_REVIEW_PASS_BOUNDED; prepare exact31path normalmaterial, then terminalactualrange review, dedicatedactualSHA5path continuity and cleanclosure. Next productgate separately reviewed StageB realSQL query proof. StageB/providerheld.",
+  "nextAllowedMove": "On successful normal exact5path dedicated child of actual31path a7374f8 and clean split-range, Source StageA CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY. Next Root WORK_ORDER_AUTHOR prepares separately reviewed StageB actual PostgreSQL source-query admission using cached substrate; no effect before its reviewed committed authorization. Provider/operational gates held.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
