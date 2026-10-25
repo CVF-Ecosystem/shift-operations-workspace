@@ -640,7 +640,7 @@
     "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md"
   },
   "p5a2_scoped_source_stage_a_20261026": {
-    "status": "STAGE_A_INDEPENDENT_REVIEW_PASS_PENDING_MATERIAL",
+    "status": "CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY",
     "workOrder": "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
     "oracle": "tests/fixtures/p5a2_scoped_source_oracle.json",
     "oracleRawSha256": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
@@ -672,6 +672,23 @@
     ],
     "focusedGeneric": "91passed2skipped5.71s; independent91passed2skipped5.25s",
     "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
-    "next": "Root normalmaterial/terminalreview/dedicatedactualSHAcontinuity/cleanrange, then separately reviewed Stage B actualSQL query proof"
+    "next": "Root normalmaterial/terminalreview/dedicatedactualSHAcontinuity/cleanrange, then separately reviewed Stage B actualSQL query proof",
+    "continuityCommit": "8dc39e119e4c343a18c2f16375448eebf22467bf",
+    "normalHooks": "3316passed147skipped4warnings145.79s/161.61s; exact31+5cleanrange"
+  },
+  "p5a2_scoped_source_pg_20261026": {
+    "status": "PLAN_PASS_DISPATCH_PENDING",
+    "spec": "docs/specs/P5A2_SCOPED_SOURCE_POSTGRES_SPEC.md",
+    "sourceWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_WORK_ORDER.md",
+    "effectWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_EFFECT_WORK_ORDER.md",
+    "physicalInvocations": 0,
+    "physicalQueryAccepted": false,
+    "milestoneComplete": false,
+    "oracleRawSha256": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f",
+    "openFindings": [],
+    "resolvedFindings": [
+      "PG-PLAN-F1",
+      "PG-PLAN-F2"
+    ]
   }
 }

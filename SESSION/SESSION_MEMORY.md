@@ -1,38 +1,39 @@
 # Session Memory
 
-Updated 2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json; handoff SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md.
-Installed Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6.
-Core-only binding, read-only references; no private/sharedpack/latestremote dependency.
-Normal hook intact; legacy docs/decisions returns require explicit native recheck.
+Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json; currenthandoff
+SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md.
+InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6,
+read-only selectedcontrols; no private/sharedpack/latestremote/session dependency.
+Normalhook intact; legacy docs/decisions returns explicitly use nativecheck_recheck.
 
 ## Current tranche
 
-p5a2_scoped_source_stage_a_dedicated_continuity; phase FREEZE; role SESSION_SYNC_STEWARD; R2/live evidence YES if AI claim.
-Independent terminal actual31pathPASS; Root CLOSER then SESSION_SYNC recordsactualmaterialSHA. BoundedFREEZE conditional on normalchild/cleanrange, not whole milestone.
-Accepted source SPEC db1d2180 and static family bca9bb9d at material bc25c96 /
-dedicated814d32b, exact16+5 cleanrange, normal3253pass147skip4warnings.
-Root owns preloader oracle0f79676b (stdlib old36/37 oracle only), WO/contracts/
-metadata/commit; backend worker implements only exact reviewed paths; independent
-reviewer owns review. Source READY means fixture input only, not forecast READY.
-Default production coverage UNKNOWN/refused; no operational retention authority.
+p5a2_scoped_source_pg_dispatch_material; WORK_ORDER; COMMIT_STEWARD; R2/live evidence YES for AI claim.
+Root SPEC/WO_AUTHOR→independentREVIEWER→COMMIT_STEWARD, bothPG-PLAN findingsresolved/no waivers; preparing normaldispatch.
+StageB SPEC/sourceWO/effectWO/admission and Rootpre-harness PGoracle0b69156f.
+Sourceoracle0f/bodyoracle12ad/family9b3/StageAcode/oldDockerhelpers readonly.
+ONE proposed newexperiment with cachedPG16imagef461 and psycopg3.3.4, noinstall/
+pull/provider/realcredential/.env/CSV. SourceBUILD and physicaleffect separate:
+independentreview/normalcommit/dedicatedactualSHA before each bounded release.
+Atomicspentattempt, ownedcontext/loopbackfence, nativequery500/501/RR/freshwriter
+races and exactownedcleanup required. Productioncoverage UNKNOWN/defaultrefused.
 
-Runtimefamily9b3 binds actual native emitter/tests; fulloracle0f matched, native500/501caps and strict source receipts accepted. Actual material a7374f8 normal3316PASS147skip4warnings145.79s, terminal exact31pathreviewPASS. Only successfuldedicated5path child/cleanrange closes StageA; physicalPGquery proof staysStageB.
+## Accepted history / milestone boundaries
 
-## Preserved product truth and holds
+StageA CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY: sourcea7374f86, dedicated8dc39e1,
+exact31+5cleanrange; normal3316PASS147skip4warnings145.79s/161.61s. Independent
+source/terminalPASS, nofindings/waivers. Native memory/caps/emitter/receipt,
+91source+genericPASS2skip and84native mutations accepted, physicalPGqueryunproved.
+EarlierCorefix/SQL3de6c50/7134f9e closed. OldPG16.15 fixture36/37, migrations46/0
+then42/4, SQL1PASS1.37s/frozenoracle/ownedcleanup accepted; noDBleft; oldphysical
+ceilingsSPENT. Failedfullhooks/missingpip/sourceassertion failures retained.
 
-Core-only correction plus prior actual SQL closed3de6c50/7134f9e. Original failed
-fullhook1F8E and missing-pip failure retained. Prior PG16.15 fixture36shifts37versions,
-migrations46/0 then42/4, SQL1pass1.37s/frozenoracle and exact ownedcleanup accepted;
-no running backend, old physical ceilings SPENT. Frozen parent/pure/oldoracle/
-SQLreceipt stay unchanged. No provider/key/model/CSV update; original401spent/held.
-Stage B needs a separately reviewed admission; no automatic Docker/network/install.
-
-Full G01–G14/owners/destinations: source SPEC and current WO. G04/G05/G13 fixture
-mechanics accepted; source adapter/recheck/caps and G06 integration open; production
-coverage/retention UNKNOWN. G01/A7/G02blocked; G03/G08–G10operational quality and
-G07/G11/G12/G13 runtime open; G14held. Root/backend/UI/operator retain P5-A2 and
-P5-B/C/D ownership. Phase5 0/5; no whole milestone closure.
+FullG01–G14/owners/destinations in StageB SPEC. SelectedphysicalfixtureG04–G06/
+partialG13 only. G01/A7provider401/G02RAGblocked, G03businessfit/G05retention/
+G06API-useauth/G07scheduler/G08–G10quality/G11APIUI/G12approval/G13runtimeOPEN,
+G14held. Root/backend/UI/operator retain P5-A2/P5-B/C/D ownership; Phase5 0/5.
+Provider/key/model/CSV held,401spent; no operationalaccuracy/retention/AIclaim.
 
 ## Next allowed move
 
-On successful normal exact5path dedicated child of actual31path a7374f8 and clean split-range, Source StageA CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY. Next Root WORK_ORDER_AUTHOR prepares separately reviewed StageB actual PostgreSQL source-query admission using cached substrate; no effect before its reviewed committed authorization. Provider/operational gates held.
+Independent StageB source planning PASS; normal source-dispatch material then dedicatedactualSHA continuity before inert harnessBUILD. No physicaleffect; effectWO DRAFT/admissionPLANNING_NO_EFFECT until source/effectsealreview.
