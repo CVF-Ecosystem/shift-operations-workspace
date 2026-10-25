@@ -1,7 +1,7 @@
 # P5-A2 Stage B — ONE physical scoped PostgreSQL effect Work Order
 
-Status: DRAFT
-Date: 2026-10-26; R2. NO effect authority until separate source/effect review,
+Status: APPROVED_FOR_EXECUTION
+Date: 2026-10-26; R2. Root effect admission candidate; NO physical release until independent effect review,
 sealed admission and normal committed source/admission + dedicated continuity.
 
 ## Product Milestone Binding
@@ -19,7 +19,7 @@ P5-B/C/D owners/destinations retained. No milestone closure from this experiment
 
 Exact sealed budget/pins/marker/observation paths are in
 `docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_ADMISSION_2026-10-26.json`.
-Current status PLANNING_NO_EFFECT with empty harnessPins is NONDISPATCHABLE.
+Admission is SOURCE_REVIEWED with exactly five sealed harness hashes after independent source PASS.
 Root may activate this WO only after source review and exact pins sealed;
 independent reviewer must accept both source and effect packet before normal
 source/admission commit. Dedicated actual-SHA continuity/clean range then
@@ -79,3 +79,13 @@ foreseeableFileSplitDisposition: NOT_REQUIRED_UNDER_SIZE_BUDGET
 | terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_REVIEW_2026-10-26.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
 | continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
 | committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md;docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_REVIEW_2026-10-26.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
+
+## Concrete effect command and receipt
+
+After independent effect authorization, normal sealed source MATERIAL_COMMIT / effect DISPATCH_COMMIT, actual-SHA dedicated continuity and clean split-range verification, Root runs exactly once:
+
+```powershell
+.venv/Scripts/python.exe scripts/run_p5a2_scoped_source_postgres.py --json
+```
+
+The reviewed runner spends the immutable marker before remaining prerequisites and writes its sanitized complete/partial result at docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json. Root preserves that raw result, embeds the ignored observation into durable result evidence after secret checks and submits result/owned cleanup to independent REVIEW. Never rerun target or wrapper after failure. No image pull/install/provider/ambient credential or extra acquisition. Source WO MATERIAL_COMMIT equals this WO DISPATCH_COMMIT; no skipped or extra prerequisite implied.

@@ -1,6 +1,6 @@
 # P5-A2 Stage B — physical scoped PostgreSQL source proof
 
-Status: SPEC_CANDIDATE
+Status: SOURCE_REVIEWED_EFFECT_ADMISSION_PENDING
 Date: 2026-10-26; R2. Root SPEC_AUTHOR/WORK_ORDER_AUTHOR.
 User `next` continues the named Stage B. No provider/operational-data action.
 Inherit accepted source SPEC db1d2180, runtime family9b3, and Stage A source

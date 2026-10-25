@@ -57,3 +57,27 @@ planningSHA; normalchildsuccess+cleanrange thenfreshinertBUILD acknowledgment.
 Onlynew5fileharness+ownreturn worker scope, oracle0b/oldsource/matrix read-only.
 Effect stillheld: Source/effectsealreview, jointsourceMATERIAL/effectDISPATCH
 commit andactualSHAcontinuity/cleanrange beforeONErun. All14gap/owners/Phase5 0/5.
+
+## Inert harness BUILD activation / fresh acknowledgment
+
+Actualdedicated78fa50bbea5027040ab9166582329dc69b55b7d6 normal3316PASS147skip4warnings239.42s; exact16+5cleanverified. RootSESSION_SYNC→ORCHESTRATOR/workerIMPLEMENTATION_WORKER afterfreshcontinuity/status/index/Core read. Exact5newharness/testfiles+ownreturn GO, alloldsource/38pins/oracle0b read-only. Onlyinerttests/safecollect, NO Docker/PG/network/install/provider effect. EffectWODRAFT/admissionPLANNING_NO_EFFECT; separateacceptedsource/effectseal+jointmaterial/dedicatedcontinuity beforeONErun. All14remainders/owners/Phase5 0/5 retained.
+
+## Inert source candidate / independent REVIEW
+
+Exact5fileharness+returne1125095 candidate ready, each<300;101PASS3skip15.73s pluspurefixturestrengthening1PASS. Livecontextless targetSKIP honestphysicalNOT_RUN; noDocker/DB/provider effect. RootORCHESTRATOR→independentREVIEWER, sourcehashcandidatecapturedignoredfile; source+effectremainunaccepted. AdmissionPLANNING_NO_EFFECT/harnessPinsempty, EffectWODRAFT. Frozenoracle0b/38sourcepins unchanged, all14remainders/owners/Phase5 0/5 retained.
+
+## Consolidated inert source repair1 activation
+
+Independent SOURCE_REVIEW_CHANGES_REQUIRED_BOUNDED, PG-SRC-F1–F4: per-asofbaselineverifier; strictseal/status/baseline/ownedport/replayfence; spentreservationbeforepostsealprereqs+durablepartialresult; truefreshtransaction/distinctwriter/native reportless observations. RootORCHESTRATOR acceptsallinONEsame-scope5pathpacket, re-readscurrentcontinuity/review/status/index/Core. WorkerREPAIR_WORKER BUILD onlyexisting5harness/test+returnpaths, allold38pins/oracle0b/familyreadonly. No neweffect/path/risk/commitowner; source/effectstillunaccepted, budgetNOTRUN. Independent rereview afterinertproof; Phase5 0/5/all14owners retained.
+
+## Stable repair1 / independent rereview
+
+RootORCHESTRATOR→independentREVIEWER aftercurrentcontinuity/Coreack. Stable5file275/227/249/183/266lines, worker72PASS1safeliveskip+19numeric/history. Exactgenericfamilycorpus rerunbyindependentreviewer; source/effectnotaccepted. SameF1–F4packet, noDockerbudgetconsumed; oracle0b/old38pinsreadonly, all14owners/Phase5 0/5retained.
+
+## Source acceptance / separate effect seal acknowledgment
+
+Freshcontinuity/status/index/Core read: RootORCHESTRATOR→WORK_ORDER_AUTHOR. IndependentSOURCE_REVIEW_PASS_BOUNDED107PASS3skip18.07s, F1–F4resolved/no waiver. Exact5hashes sealedSOURCE_REVIEWED; sourceWOIMPLEMENTED_BOUNDED, effectWOAPPROVED_FOR_EXECUTION candidate pendingindependentadmissionreview. SameR2/finiteonecachedcontainer/onewrapper/onetarget/noacquisition/Rootcommitowner; providerheld. JointsourceMATERIAL/effectDISPATCH normalcommit thenterminalreview/dedicatedactualSHA5pathchild/cleanrange beforeONErun. AllG01–G14remainders/owners/Phase5 0/5retained.
+
+## Separate effect authorization / material commit gate
+
+IndependentEFFECT_AUTHORIZATION_PASS_BOUNDED, exact38+5pins andfinitebudget/pathfences accepted, allruntimeartifactsABSENT. Freshcanonical/Coreack: RootWORK_ORDER_AUTHOR→COMMIT_STEWARD. Next exact23pathnormal sourceMATERIAL/effectDISPATCH, nohookskip; independentactualSHAterminalreview then dedicated5pathcontinuity/cleansplitrange beforeONErun. Noeffectyet; G01–G14andowners/P5-B/C/D/Phase5 0/5retained.

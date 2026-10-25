@@ -1,8 +1,8 @@
 # P5-A2 Stage B PostgreSQL source harness — bounded source Work Order
 
-Status: DISPATCH_READY
+Status: IMPLEMENTED_BOUNDED
 Date: 2026-10-26; R2. Root ORCHESTRATOR/SPEC_AUTHOR/WORK_ORDER_AUTHOR.
-This is an authorization-review candidate, NOT a worker release by itself.
+Independent SOURCE_REVIEW_PASS_BOUNDED after consolidated repair1; worker source authority exhausted.
 Inherit accepted source SPEC/StageA; new design/test/effect contract is the
 StageB SPEC below. Independent SPEC/WO PASS, normal dispatch commit and dedicated
 actual-SHA continuity precede BUILD. This source WO grants NO Docker run.
@@ -122,3 +122,7 @@ foreseeableFileSplitDisposition: NOT_REQUIRED_UNDER_SIZE_BUDGET
 | committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md;docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_REVIEW_2026-10-26.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
 
 Planning repair PG-PLAN-F1/F2: pre-harness oracle now freezes exact baseline and all auxiliary actor/scope/instance/window/asof/policy/mutation context. New runner creation must use --pull=never + exact cached imageID, with inert command proof, without mutating old base runner. Effect authority still absent. At sealing, same joint SOURCE MATERIAL / EFFECT DISPATCH commit plus dedicated actual-SHA continuity serves the two bounded orders; result pass follows its own material/continuity chain.
+
+## Source acceptance and linked effect dispatch
+
+Independent107PASS3skip18.07s, PG-SRC-F1–F4 resolved, no waiver. Exactfive source hashes are sealed in admission; physical SQL remains NOT_RUN. The next normal commit is this source MATERIAL_COMMIT and the linked effect WO DISPATCH_COMMIT. Independent terminal review of its actual range, a dedicated five-path actual-SHA continuity child and clean split-range closure precede the ONE effect. This source acceptance grants no extra worker edit or repeat effect.

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_pg_dispatch_continuity",
+  "currentMode": "p5a2_scoped_source_pg_sealed_material",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
-  "nextAllowedMove": "On successfulnormal exact5path dedicatedchild of actual16path7a228d7 and cleanrange, Root may release inert5fileharness BUILD afterfreshack. No Docker/DB effect; source/effectsealreview+jointcommit/dedicatedcontinuity remainrequired.",
+  "nextAllowedMove": "Normal exact23path jointsourceMATERIAL/effectDISPATCH commit; independentactualrangereview, dedicated5actualSHAcontinuity, cleanrange beforeONE physicalrunner.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

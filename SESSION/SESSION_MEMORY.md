@@ -8,8 +8,8 @@ Normalhook intact; legacy docs/decisions returns explicitly use nativecheck_rech
 
 ## Current tranche
 
-p5a2_scoped_source_pg_dispatch_continuity; WORK_ORDER; SESSION_SYNC_STEWARD; R2/live evidence YES for AI claim.
-Independent terminaldispatchPASS; RootrecordsactualsourceplanningSHA in dedicatedcontinuity, no selfreferentialchildSHA.
+p5a2_scoped_source_pg_sealed_material; REVIEW; COMMIT_STEWARD; R2/live evidence YES for AI claim.
+IndependentSOURCEPASS107/3 and EFFECT_AUTHORIZATION_PASS_BOUNDED; nofinding/waiver. Source+finiteeffectseal accepted, physicalNOTRUN; normalhook required.
 StageB SPEC/sourceWO/effectWO/admission and Rootpre-harness PGoracle0b69156f.
 Sourceoracle0f/bodyoracle12ad/family9b3/StageAcode/oldDockerhelpers readonly.
 ONE proposed newexperiment with cachedPG16imagef461 and psycopg3.3.4, noinstall/
@@ -36,4 +36,4 @@ Provider/key/model/CSV held,401spent; no operationalaccuracy/retention/AIclaim.
 
 ## Next allowed move
 
-On successfulnormal exact5path dedicatedchild of actual16path7a228d7 and cleanrange, Root may release inert5fileharness BUILD afterfreshack. No Docker/DB effect; source/effectsealreview+jointcommit/dedicatedcontinuity remainrequired.
+Normal exact23path jointsourceMATERIAL/effectDISPATCH commit; independentactualrangereview, dedicated5actualSHAcontinuity, cleanrange beforeONE physicalrunner.

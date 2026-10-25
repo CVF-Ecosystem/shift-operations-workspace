@@ -677,7 +677,7 @@
     "normalHooks": "3316passed147skipped4warnings145.79s/161.61s; exact31+5cleanrange"
   },
   "p5a2_scoped_source_pg_20261026": {
-    "status": "PLAN_PASS_DISPATCH_PENDING",
+    "status": "SEALED_SOURCE_EFFECT_PENDING_MATERIAL",
     "spec": "docs/specs/P5A2_SCOPED_SOURCE_POSTGRES_SPEC.md",
     "sourceWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_WORK_ORDER.md",
     "effectWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_EFFECT_WORK_ORDER.md",
@@ -688,7 +688,22 @@
     "openFindings": [],
     "resolvedFindings": [
       "PG-PLAN-F1",
-      "PG-PLAN-F2"
-    ]
+      "PG-PLAN-F2",
+      "PG-SRC-F1",
+      "PG-SRC-F2",
+      "PG-SRC-F3",
+      "PG-SRC-F4"
+    ],
+    "dispatchCommit": "7a228d7d819e1ef7b3658f9a6098d606d0a8fc01",
+    "dispatchContinuityCommit": "78fa50bbea5027040ab9166582329dc69b55b7d6",
+    "candidateCorpus": "101passed3skipped15.73s; purefixturestrengthening1passed",
+    "sourceAccepted": true,
+    "repair1Focused": "72passed1skip +19numeric-historypassed; exactgenericpendingindependentreview",
+    "containersCreated": 0,
+    "providerCalls": 0,
+    "sourceCorpus": "107passed3skipped18.07s",
+    "workerReturnSha256": "2b6d0845980aa64d56322416a3a384682f83996bdd4e3ada4ac47956772dcefa",
+    "effectAccepted": true,
+    "sourceEffectMaterialCommit": "PENDING"
   }
 }

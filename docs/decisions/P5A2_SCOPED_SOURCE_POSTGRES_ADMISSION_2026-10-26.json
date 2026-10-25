@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SCOPED-SOURCE-PG-20261026",
-  "status": "PLANNING_NO_EFFECT",
+  "status": "SOURCE_REVIEWED",
   "baselineCommit": "8dc39e119e4c343a18c2f16375448eebf22467bf",
   "purpose": "ONE new experiment of the actual native scoped SQL query after Stage A; does not reset old substrate rehearsal.",
   "image": "postgres:16-alpine",
@@ -55,7 +55,13 @@
     "packages/operations-domain/src/operations_domain/report_models.py": "67ce6c73fc9a42e752690b786c24e9282c93acb9aa05c5069cfe47cbe6864093",
     "packages/operations-domain/src/operations_domain/report_digest.py": "909bca095d4caf8bb4c92e1eb48d1299c08222c4fcb379b7e1bbc97f9b830530"
   },
-  "harnessPins": {},
+  "harnessPins": {
+    "scripts/run_p5a2_scoped_source_postgres.py": "85742df70aeddb7fd93ef8abfd09f153d15967bda63af7dfce656877ae4dcb4d",
+    "tests/integration/p5a2_scoped_source_pg_fixture.py": "9c41f085f62040bd4bb24f34f7ccf52fb900dce156a69a1c3ee73d36767d92e4",
+    "tests/integration/p5a2_scoped_source_pg_probes.py": "55c55b1a92908587986b99d2f8c2579bbf57a940814396172aa0adf51990d6f0",
+    "tests/integration/test_p5a2_scoped_source_postgres_live.py": "eb7c68b86d208384b748f486afbb86bd7dfbdb2ddac47c4f19ff01e2f9deccaa",
+    "tests/unit/test_p5a2_scoped_source_postgres_runner.py": "e74a3de933d70b52910b3f77c06baa7b0da68e00d3e8b3fa8e1f1e40c8627b16"
+  },
   "attemptPath": "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_ATTEMPT_2026-10-26.json",
   "observationPath": ".venv/p5a2-scoped-source-pg-observation-20261026.json",
   "requiredPriorGate": "Independent source/effect authorization, committed sealed harness/admission plus dedicated actual-SHA continuity and clean range. No effect from planning files.",

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_scoped_source_pg_dispatch_continuity",
+  "mode": "p5a2_scoped_source_pg_sealed_material",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -20,7 +20,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "On successfulnormal exact5path dedicatedchild of actual16path7a228d7 and cleanrange, Root may release inert5fileharness BUILD afterfreshack. No Docker/DB effect; source/effectsealreview+jointcommit/dedicatedcontinuity remainrequired.",
+  "next_allowed_move": "Normal exact23path jointsourceMATERIAL/effectDISPATCH commit; independentactualrangereview, dedicated5actualSHAcontinuity, cleanrange beforeONE physicalrunner.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_scoped_source_pg_dispatch_continuity",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Independent terminaldispatchPASS; RootrecordsactualsourceplanningSHA in dedicatedcontinuity, no selfreferentialchildSHA.",
+    "currentMode": "p5a2_scoped_source_pg_sealed_material",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "IndependentSOURCEPASS107/3 and EFFECT_AUTHORIZATION_PASS_BOUNDED; nofinding/waiver. Source+finiteeffectseal accepted, physicalNOTRUN; normalhook required.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Stage B physical PostgreSQL source proof; prior Stage A handoff is settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Independent terminaldispatchPASS; RootrecordsactualsourceplanningSHA in dedicatedcontinuity, no selfreferentialchildSHA.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "IndependentSOURCEPASS107/3 and EFFECT_AUTHORIZATION_PASS_BOUNDED; nofinding/waiver. Source+finiteeffectseal accepted, physicalNOTRUN; normalhook required.",
+    "currentRoleTransition": "COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -478,15 +478,26 @@
     "committedRange": "EXACT31_PLUS5_CLEAN_VERIFIED"
   },
   "p5a2_scoped_source_pg_20261026": {
-    "status": "DISPATCH_TERMINAL_PASS_CONTINUITY_PENDING",
-    "dispatchCommit": "7a228d7d819e1ef7b3658f9a6098d606d0a8fc01",
-    "dispatchPaths": 16,
-    "dispatchFullHook": "3316passed147skipped4warnings147.05s",
+    "status": "SEALED_SOURCE_EFFECT_PENDING_MATERIAL",
+    "openFindings": [],
     "oracleRawSha256": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f",
-    "sourceBuildReleased": false,
     "physicalInvocations": 0,
     "containersCreated": 0,
     "providerCalls": 0,
-    "milestoneComplete": false
+    "milestoneComplete": false,
+    "repair1Focused": "72passed1skip +19numeric-historypassed; exactgenericpendingindependentreview",
+    "sourceAccepted": true,
+    "resolvedFindings": [
+      "PG-PLAN-F1",
+      "PG-PLAN-F2",
+      "PG-SRC-F1",
+      "PG-SRC-F2",
+      "PG-SRC-F3",
+      "PG-SRC-F4"
+    ],
+    "sourceCorpus": "107passed3skipped18.07s",
+    "workerReturnSha256": "2b6d0845980aa64d56322416a3a384682f83996bdd4e3ada4ac47956772dcefa",
+    "effectAccepted": true,
+    "sourceEffectMaterialCommit": "PENDING"
   }
 }
