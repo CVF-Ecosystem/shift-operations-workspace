@@ -128,6 +128,14 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_SCHEDULED_RUN_TERMINAL_OUTCOME_FIELDS_AND_COUNTERS"
+    },
+    {
+      "familyId": "P5A2-SCOPED-SOURCE-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SCOPED_SOURCE_SHARED_RECEIPT_FIELDS_COUNTS_AND_DIGEST_CONTRACT"
     }
   ]
 }

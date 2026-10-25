@@ -1,20 +1,22 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_core_only_sql_dedicated_continuity",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
-  "nextAllowedMove": "On successful exact5path dedicated continuity child of actual29path material3de6c50 and clean committed split-range, Core-only correction plus carriedSQL rehearsal are FREEZE/CLOSED_BOUNDED. Independent terminalPOST_MATERIAL_REVIEW_PASS_BOUNDED, normal3253pass147skip4warnings220.78s. No private/latestremote coupling or physical rerun; alloldcaps spent. Then rehydrate/open PRODUCT G04–G06 source-query/cohort/coverage/snapshot/cap SPEC from ignoredadvisory drafts, with independent review/family/oracle/WO before BUILD. Full14gap owners/Phase5 0/5/providerhold remain.",
+  "currentMode": "p5a2_scoped_source_spec_family_review_accepted_material",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
+  "nextAllowedMove": "Independent SPEC_REVIEW_PASS_BOUNDED, SOURCE-SPEC-F1resolved, no findings/waivers; static source family/pin/sourcehash verified, genericcorpus35pass2skip. Root normalcontractmaterial/fullhook then terminalactualmaterialreview/dedicatedactualSHAcontinuity/cleanrange. No query/source/emitter/DB/AI implementation claimed. DRAFTWO stays NONDISPATCHABLE: nextRootWORK_ORDER_AUTHOR freezes exactnativequery/UOW/model-emitter paths, realmutationbinding and independentpreloaderfixtureoracle then independentactivegraphreview before SourceBUILD/effectadmission. Productioncoverage/retentionunknown/defaultrefused; all14gaps/Phase5 0/5/providerhold unchanged.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
-    "docs/decisions/P5A2_CORE_ONLY_BINDING_DESIGN_SPEC_2026-10-26.md",
-    "docs/work_orders/P5A2_CORE_ONLY_BINDING_WORK_ORDER.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
+    "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+    "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/decisions/P5A2_DOCKER_BACKEND_BUILD_REVIEW_2026-10-25.md"
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+    "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

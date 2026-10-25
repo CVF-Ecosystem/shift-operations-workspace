@@ -148,9 +148,11 @@ Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
 36shifts37versions, awaretime/immutablecontent/asof-lineage/analysis against
 frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
 retained; committedAM1 oneuv3.3.4 recovery succeeded. No standingbackend or
-operationalcoverageclaim. Actualresult/metadata LOCAL_UNCOMMITTED after historical privateHEAD coupling
-blocked closure. Core-only source/config correction now has independent acceptance,21focusedPASS;
-activehandoff owns actual normal material/continuity and boundedclosure receipts. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
+operationalcoverageclaim. Core-only correction and carriedSQL now CLOSED_BOUNDED at3de6c50/7134f9e,
+normal3253testsPASS and exact29+5cleanrange. G04–G06 sourcequery/cohort/coverage
+contract/staticfamily now has independentreviewPASS (35genericpass2skip),
+not a sourcequery/emitter implementation. DRAFTWO grants no source/effect;
+exactnativepaths/emitter/oracle/graph remain nextWOauthor obligations. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
 all14remainders/
 providerhold/Phase5 0/5 remain. Currenthandoff/status owns exactcommits.
 

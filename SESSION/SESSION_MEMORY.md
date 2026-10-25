@@ -1,48 +1,45 @@
 # Session Memory
 
-Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json; activehandoff
-SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md.
+Updated2026-10-26. CanonicalSESSION/ACTIVE_SESSION_STATE.json; activehandoff
+SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md.
 
-## Current accepted Core-only correction
+## Current product contract phase
 
-Operator explicitly ordered correction+roadmapcontinuation. InstalledpublicCore
- aa672d11910ae1982557e4810a2a8002a611e9e6 selectednativechecker/standard are sole
-framework binding; no private/sharedpack/frameworksession/latestremote dependency.
-Independent fullReviewPASS after oneboundedrepair,F1/F2resolved,no waivers.
-21focusedPASS; existingCore nevermutated on initializer mismatch, onlyfreshclone
-mayinstallpin. Missing/tampered/wrongpin/origin/hash/weakenedflags failclosed;
-newerremote/privateabsence do not. Ordinaryadapter/native0, exactreturnmarker/
-explicitdocsdecisionsfunctionchecks. CLIselectorlimit disclosed, noAIproofclaim.
-Firstnormalfullhook1F8E3244pass147skip4warnings206.99s retained; exactAM1 helper
-repair+independentrereview passed30focused19.74s. Normalretry PASS3253/147/4
-220.78s, actual29path material3de6c50e3f7932a1e79dba68c8dc21672a5d6579.
-Independent terminalreview /root/core_only_independent_review PASS_BOUNDED,
-findingsNONE/waiversNONE. RootCLOSER→SESSION_SYNC_STEWARD recordsactualmaterial
-in this dedicated5path child; only success+cleanrange make boundedclosure true.
+Core-only correction and carriedSQL are CLOSED_BOUNDED: material3de6c50e3f7932a1e79dba68c8dc21672a5d6579,
+dedicated7134f9eafbf2b19cbb8e24081d4b8bacecc3154b, exact29+5cleanrange,
+independentterminalPASS. Normalhooks3253pass147skip4warnings220.78s/146.38s.
+Priorfailedfull1F8E3244pass206.99s/initialpipfailure retained. RootCLOSER then
+ORCHESTRATOR/DESIGN/SPEC_AUTHOR; productSPEC/R2/liveYES, no sourceBUILD.
+InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6;
+onlyselectednativecontrols/pin, no private/sharedpack/session/latestremote binding.
+Normalhook intact; docsdecisions returnselectorlimit explicitmanualnativecheck.
 
-## Material and actual product anchors
+## Product SPEC / static family candidate
 
-H1-P2 pure accepted9c72de4/5526126. Audit5326413/reference29c0ef7 retained.
-Dockerdispatch7200c40/dedicated0342fdf; AM1materiala2d189e/dedicated7fd67f5
-normal3234passed147skipped4warnings187.51s/137.96s. Acceptedsource43e7cfde/
-4d34a156/56b7e5a and frozenSPECc97cad49/oracle12ad36cb unchanged. Original
-pipfailure retained; independentlyauthorized oneuv3.3.4 recovery/oneimage/
-onePG16.15 physical run PASS: migrations46/0→42/4,SQL1pass1.37s,36shifts37versions/
-awaretime/immutablecontent/asof-lineage and forecast4/band[4,4] exactoracle.
-Root independently verified rawhashes, installedvenv and exactownedcleanup
-absence. Actualreceipt/metadata LOCAL_UNCOMMITTED due oldbinding. No standingDB;
-all effectceilings spent, no repeat. PriorDockerhandoff keeps detailedhistory.
+SPEC docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md, DRAFT nextWO sameprefix,
+family P5A2-SCOPED-SOURCE-OUTCOMES/matrixbca9bb9d + staticpin, genericguardPASS,
+staticcorpus35passed2skipped.
+IndependentSPEC/staticfamilyreviewPASS, SOURCE-SPEC-F1resolved,no waiver. Versionedfixturecohort currentACTIVEassignment and
+Shift.ends_at[start,end), includesreportless; parentReportcutoff/asof preserved.
+Bindcohort+numericpolicyversions; sourceReady is internalfixtureinput, notforecast/
+productionReady. Caps500/501 beforebody, coherentread/freshaccess, immutabletime/
+sourceDigest/purevalidation and trustedfixturecoverage are requirements ONLY.
+Productionretention/cohortauthorityunknown/defaultrefused. No actualqueryadapter,
+realemitter/snapshot/race/authproof ornewPGtest yet. Preloaderoracle, exactnative
+query/UOWpaths/emitterbinding and complete reviewedBUILDWO stillrequired.
 
-## Complete milestone boundary / owners
+## Accepted prior substrate / milestone boundaries
 
-Corrective SPEC/WO reconcile allG01–G14 against current7fd+carriedSQLreceipt.
-Support only unblocks accepted G04/G05/G13 SQLmaterialclosure, no criterionclosed.
-G01/A7/G02blocked,G06query/auth/caps/cohort/retentionUNKNOWN/OPEN, operational
-G03/G08-G10/G13open,G07/G11/G12open,G14held. Root accountable/commit, Solbackend/
-controls, Lunaindependentreview/UI, operatorbusinessacceptance; exactP5-A2gates
-and P5-B/C/D roadmapdestinations retained. Phase5 0/5. Providerlive/key/model/CSV
-held; original401 remains spent. No new providers/packages/Docker/publicrelease.
+H1P2pure9c72de4/5526126 accepted. ActualPG16.15 proof36shifts37versions,
+migrations46/0→42/4,SQL1pass1.37s/awaretime/immutablecontent/asof-lineage and
+forecast4band[4,4] exactfrozenoracle. Source43e7cfde/oracle12ad/receipt1c2eefad
+unchanged, nowCOMMITTED3de/7134, noDBrunning/alloldphysicalceilingsspent.
+All14gaps/owners in sourceSPEC: G04/G05/G13fixturemechanics accepted, scopedquery/
+G06auth/caps/cohort/retentionOPEN/UNKNOWN; G01/A7/G02blocked, G03/G08-G10operational
+qualityopen,G07/G11/G12open,G14held. Rootaccountable/contracts/commit, backendworker,
+independentREVIEWER/UIownerperroadmap,operatorbusinessacceptance; exactP5-A2and
+P5-B/C/Ddestinationsretained. Phase5 0/5; providerlive/key/model/CSVheld,401spent.
 
 ## Next allowed move
 
-On successful exact5path dedicated continuity child of actual29path material3de6c50 and clean committed split-range, Core-only correction plus carriedSQL rehearsal are FREEZE/CLOSED_BOUNDED. Independent terminalPOST_MATERIAL_REVIEW_PASS_BOUNDED, normal3253pass147skip4warnings220.78s. No private/latestremote coupling or physical rerun; alloldcaps spent. Then rehydrate/open PRODUCT G04–G06 source-query/cohort/coverage/snapshot/cap SPEC from ignoredadvisory drafts, with independent review/family/oracle/WO before BUILD. Full14gap owners/Phase5 0/5/providerhold remain.
+Independent SPEC_REVIEW_PASS_BOUNDED, SOURCE-SPEC-F1resolved, no findings/waivers; static source family/pin/sourcehash verified, genericcorpus35pass2skip. Root normalcontractmaterial/fullhook then terminalactualmaterialreview/dedicatedactualSHAcontinuity/cleanrange. No query/source/emitter/DB/AI implementation claimed. DRAFTWO stays NONDISPATCHABLE: nextRootWORK_ORDER_AUTHOR freezes exactnativequery/UOW/model-emitter paths, realmutationbinding and independentpreloaderfixtureoracle then independentactivegraphreview before SourceBUILD/effectadmission. Productioncoverage/retentionunknown/defaultrefused; all14gaps/Phase5 0/5/providerhold unchanged.

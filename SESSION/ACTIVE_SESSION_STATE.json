@@ -2,22 +2,24 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_core_only_sql_dedicated_continuity",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
+  "mode": "p5a2_scoped_source_spec_family_review_accepted_material",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
     "AGENTS.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
-    "docs/decisions/P5A2_CORE_ONLY_BINDING_DESIGN_SPEC_2026-10-26.md",
-    "docs/work_orders/P5A2_CORE_ONLY_BINDING_WORK_ORDER.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
+    "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+    "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/decisions/P5A2_DOCKER_BACKEND_BUILD_REVIEW_2026-10-25.md"
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+    "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "On successful exact5path dedicated continuity child of actual29path material3de6c50 and clean committed split-range, Core-only correction plus carriedSQL rehearsal are FREEZE/CLOSED_BOUNDED. Independent terminalPOST_MATERIAL_REVIEW_PASS_BOUNDED, normal3253pass147skip4warnings220.78s. No private/latestremote coupling or physical rerun; alloldcaps spent. Then rehydrate/open PRODUCT G04–G06 source-query/cohort/coverage/snapshot/cap SPEC from ignoredadvisory drafts, with independent review/family/oracle/WO before BUILD. Full14gap owners/Phase5 0/5/providerhold remain.",
+  "next_allowed_move": "Independent SPEC_REVIEW_PASS_BOUNDED, SOURCE-SPEC-F1resolved, no findings/waivers; static source family/pin/sourcehash verified, genericcorpus35pass2skip. Root normalcontractmaterial/fullhook then terminalactualmaterialreview/dedicatedactualSHAcontinuity/cleanrange. No query/source/emitter/DB/AI implementation claimed. DRAFTWO stays NONDISPATCHABLE: nextRootWORK_ORDER_AUTHOR freezes exactnativequery/UOW/model-emitter paths, realmutationbinding and independentpreloaderfixtureoracle then independentactivegraphreview before SourceBUILD/effectadmission. Productioncoverage/retentionunknown/defaultrefused; all14gaps/Phase5 0/5/providerhold unchanged.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -36,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_core_only_sql_dedicated_continuity",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "Bounded FREEZE disposition conditional on successful this dedicated child and clean split-range; no product milestone closure.",
+    "currentMode": "p5a2_scoped_source_spec_family_review_accepted_material",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "Contract/staticfamily accepted; material+dedi/cleanrange before contract-only boundedFREEZE.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -49,13 +51,13 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
-    "activeHandoffNote": "Core-only corrective successor; Docker handoff retains physical evidence history.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
+    "activeHandoffNote": "Product scoped source SPEC successor; prior Corebinding handoff closes correction/carriedSQL.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Independent terminal actualmaterial review accepted; record exactactualSHA in dedicated continuity before clean closure.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_INDEPENDENT_TERMINAL_REVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Independent source SPEC/staticfamily accepted; normal contract material, not source BUILD.",
+    "currentRoleTransition": "SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -339,7 +341,7 @@
     "cleanup": "Root independently verified exactowned container and anonymousvolume ABSENT",
     "resultMaterialCommit": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
     "milestoneComplete": false,
-    "resultDisposition": "SQL_FIXTURE_ACCEPTED_BOUNDED_MATERIAL_COMMITTED; DEDICATED_CONTINUITY_CLOSURE_CONDITION",
+    "resultDisposition": "FREEZE_CLOSED_BOUNDED_SYNTHETIC_SQL_SUBSTRATE_ONLY",
     "resultFullHook": "3253passed147skipped4warnings220.78s",
     "referenceBlocker": {
       "observedPrivateHead": "bc921d2bf4429bca2a07d0261b5006f970d0da81",
@@ -350,10 +352,11 @@
     },
     "rehearsalCeilings": "ALL_SPENT_NO_RETRY",
     "backendStillRunning": false,
-    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md"
+    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
+    "resultContinuityCommit": "7134f9eafbf2b19cbb8e24081d4b8bacecc3154b"
   },
   "p5a2_core_only_binding_20261026": {
-    "status": "POST_MATERIAL_REVIEW_PASS_BOUNDED; DEDICATED_CONTINUITY_CLOSURE_CONDITION",
+    "status": "FREEZE_CLOSED_BOUNDED",
     "operatorAuthority": "sửa đi, rồi tiếp tục roadmap; no direct provenance binding, updates only when requested",
     "installedCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
     "plan": "docs/decisions/P5A2_CORE_ONLY_BINDING_DESIGN_SPEC_2026-10-26.md",
@@ -397,6 +400,32 @@
       ],
       "normalHookLog": ".venv/p5a2-core-only-continuity-20261026.log",
       "closureCondition": "Successful exact5path child and clean committedsplitrange; no self-referential childSHA"
-    }
+    },
+    "continuityCommit": "7134f9eafbf2b19cbb8e24081d4b8bacecc3154b",
+    "continuityFullHook": "3253passed147skipped4warnings146.38s",
+    "committedSplitRange": "CLEAN_EXACT29_PLUS5_VERIFIED"
+  },
+  "p5a2_scoped_source_contract_20261026": {
+    "status": "SPEC_STATIC_FAMILY_REVIEW_PASS_BOUNDED",
+    "sourceRevision": "7134f9eafbf2b19cbb8e24081d4b8bacecc3154b",
+    "spec": "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
+    "familyId": "P5A2-SCOPED-SOURCE-OUTCOMES",
+    "matrix": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+    "matrixCanonicalSha256": "bca9bb9d5d201a6daeb05c58eb850dc53f27c3235a99cb71e15954bd1702273b",
+    "specCanonicalSha256": "db1d218083bfadac149f1c4415cfe0bc13213f41f33311a107447cad24abe7bf",
+    "queryBuilt": false,
+    "productionCoverageAuthority": "UNKNOWN_DEFAULT_REFUSED",
+    "providerCalls": 0,
+    "milestoneComplete": false,
+    "specRepair": "SOURCE-SPEC-F1 unified501reasonSCOPE_INCOMPLETE; cohortboundary/drift clarification, noBUILD",
+    "review": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md",
+    "specFindingsResolved": [
+      "SOURCE-SPEC-F1"
+    ],
+    "openFindings": [],
+    "waivers": [],
+    "genericCorpus": "35passed2skipped; staticcontract only",
+    "nextOwner": "WORK_ORDER_AUTHOR: exactnativequery/UOW/emitter/paths + independentpreloaderoracle + activegategraph beforeBUILD"
   }
 }

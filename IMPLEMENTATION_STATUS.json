@@ -555,7 +555,7 @@
       }
     },
     "dockerSyntheticBackend20261025": {
-      "status": "ACTUAL_SQL_FIXTURE_INDEPENDENT_REVIEW_PASS_BOUNDED",
+      "status": "FREEZE_CLOSED_BOUNDED_SYNTHETIC_SQL_SUBSTRATE",
       "sourceAnchor": "29c0ef7c953d5df6419d9542030acdd2b5d9197e",
       "spec": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
       "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
@@ -590,11 +590,13 @@
         "disposition": "STOP_NO_IN_TRANCHE_REFRESH",
         "currentDisposition": "RESOLVED_BY_OPERATOR_AUTHORIZED_INDEPENDENT_CORE_ONLY_CORRECTION; old failures retained"
       },
-      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md"
+      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
+      "resultMaterialCommit": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
+      "resultContinuityCommit": "7134f9eafbf2b19cbb8e24081d4b8bacecc3154b"
     }
   },
   "p5a2_core_only_binding_20261026": {
-    "status": "SOURCE_CONFIG_AND_KNOWLEDGE_HELPER_INDEPENDENT_REVIEW_PASS_BOUNDED",
+    "status": "FREEZE_CLOSED_BOUNDED",
     "userAuthority": "2026-10-26 explicit Core-only inheritance correction and roadmap continuation",
     "installedPublicCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
     "scope": "Project-local adapter/config/startup correction only; no CVF repo update",
@@ -613,6 +615,28 @@
     "nativeAdapter": "COMPLIANT0; installed pinned Core source/hash validation precedes native packet gate",
     "materialCompletionAuthority": "Active Core-binding handoff; no material commit yet",
     "automaticReturnSelectorLimit": "Native CLI docs/reviews; project docs/decisions explicitly checked by verified native function during independent review",
-    "fullHookFailure": "1failed3244passed147skipped4warnings8errors206.99s; singleknowledgeingest helper equality"
+    "fullHookFailure": "1failed3244passed147skipped4warnings8errors206.99s; singleknowledgeingest helper equality",
+    "materialCommit": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
+    "continuityCommit": "7134f9eafbf2b19cbb8e24081d4b8bacecc3154b",
+    "normalFullHooks": "3253passed147skipped4warnings220.78s/146.38s; exact29+5cleanrange"
+  },
+  "p5a2_scoped_source_contract_20261026": {
+    "status": "SPEC_STATIC_FAMILY_INDEPENDENT_REVIEW_PASS_BOUNDED",
+    "spec": "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
+    "familyId": "P5A2-SCOPED-SOURCE-OUTCOMES",
+    "sourceQueryImplemented": false,
+    "productionCoverageAccepted": false,
+    "newPhysicalEffects": 0,
+    "claim": "Contract/sourcepin/genericfamily only; no actual query/race/auth/retention/AI proof",
+    "next": "RootWORK_ORDER_AUTHOR: exactnativequery/UOW/model/emitter/paths, mutationbinding, independentfixtureoracle and activegategraph review before sourceBUILD",
+    "milestoneComplete": false,
+    "review": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md",
+    "specCanonicalSha256": "db1d218083bfadac149f1c4415cfe0bc13213f41f33311a107447cad24abe7bf",
+    "matrixCanonicalSha256": "bca9bb9d5d201a6daeb05c58eb850dc53f27c3235a99cb71e15954bd1702273b",
+    "genericCorpus": "35passed2skipped; structuralcontract only",
+    "openFindings": [],
+    "waivers": [],
+    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md"
   }
 }
