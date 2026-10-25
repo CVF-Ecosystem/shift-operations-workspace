@@ -1,8 +1,8 @@
 # P5-A2 scoped history source — active contract handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Inherited material commit: `3de6c50e3f7932a1e79dba68c8dc21672a5d6579`.
-Inherited dedicated continuity / latest committed HEAD: `7134f9eafbf2b19cbb8e24081d4b8bacecc3154b`.
+Material commit recorded for this handoff: `bc25c96c9e620465a02674358f4223a6c77c5db9`.
+Dedicated continuity: this exact five-path child; derive its SHA from Git after commit.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; INTAKE/DESIGN→SPEC, riskR2, liveevidenceYES.
@@ -88,3 +88,21 @@ boundedclosure. No query/emitter/transaction/authorization/retention/AI/runtime
 proof ornewSQLrun. ExistingDRAFTWO remainsnondispatchable; namednextRootWOauthor
 freezesexactnativepaths/emitter/mutationcorpus/independentpreloaderoracle/graph
 before sourceBUILD. Full14gaps/owners/Phase5 0/5 andproviderhold retained.
+
+## Actual contract material / independent terminal review / dedicated continuity
+
+Actual16pathmaterialbc25c96c9e620465a02674358f4223a6c77c5db9 parent7134f9e;
+unmodifiednormalfullhook3253passed147skipped4warnings184.39s. Independent
+/root/core_only_independent_review POST_MATERIAL_REVIEW_PASS_BOUNDED for
+CONTRACT/STATICFAMILYONLY, blockingfindingsNONE/waiversNONE. Actualcommittedset/
+cleanworktree verified; SPECdb1d2180/matrixbca9bb9d/source+ownershippin match,
+registryexact1addition/DRAFTWO noBUILD preserved; no parent/pure/query/Core/hook/
+SQLreceipt change. Nativebase7134/headbc250 andexplicitreviewrecheck0; generic
+corpus35pass2skip consumed, no new runtimeproof. No trackedrevieweditaftercommit.
+Root COMMIT_STEWARD→independentTERMINALREVIEWER→CONTRACTCLOSER→SESSION_SYNC;
+records actualbc25SHA in THIS dedicated5path child. Contractonly FREEZE/CLOSED_BOUNDED
+conditional onsuccessfulnormalchild+cleancommittedsplitrange, not SourceBUILD or
+wholemilestoneclosure. Log .venv/p5a2-scoped-source-contract-continuity-20261026.log.
+NextRootWORK_ORDER_AUTHOR exactnativepaths/UOW/model-emitter/mutationbinding/
+independentpreloaderoracle/fullactivegraphreview before sourceimplementation.
+RealcoverageauthorityandallG01–G14remainders/owners/Phase5 0/5/providerhold retained.

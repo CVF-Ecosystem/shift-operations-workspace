@@ -28,6 +28,12 @@ Productionretention/cohortauthorityunknown/defaultrefused. No actualqueryadapter
 realemitter/snapshot/race/authproof ornewPGtest yet. Preloaderoracle, exactnative
 query/UOWpaths/emitterbinding and complete reviewedBUILDWO stillrequired.
 
+Actual16path sourcecontract materialbc25c96c9e620465a02674358f4223a6c77c5db9,
+normal3253pass147skip4warnings184.39s. IndependentterminalreviewPASScontractONLY,
+findingsNONE/waiversNONE; Core/source/SQL/frozenparent unchanged. RootSESSION_SYNC
+recordsactualbc25SHA in this dedicated5path child; onlynormalchildsuccess/cleanrange
+makes contractboundedclosuretrue, no queryBUILD/milestonecompletion.
+
 ## Accepted prior substrate / milestone boundaries
 
 H1P2pure9c72de4/5526126 accepted. ActualPG16.15 proof36shifts37versions,
@@ -42,4 +48,4 @@ P5-B/C/Ddestinationsretained. Phase5 0/5; providerlive/key/model/CSVheld,401spen
 
 ## Next allowed move
 
-Independent SPEC_REVIEW_PASS_BOUNDED, SOURCE-SPEC-F1resolved, no findings/waivers; static source family/pin/sourcehash verified, genericcorpus35pass2skip. Root normalcontractmaterial/fullhook then terminalactualmaterialreview/dedicatedactualSHAcontinuity/cleanrange. No query/source/emitter/DB/AI implementation claimed. DRAFTWO stays NONDISPATCHABLE: nextRootWORK_ORDER_AUTHOR freezes exactnativequery/UOW/model-emitter paths, realmutationbinding and independentpreloaderfixtureoracle then independentactivegraphreview before SourceBUILD/effectadmission. Productioncoverage/retentionunknown/defaultrefused; all14gaps/Phase5 0/5/providerhold unchanged.
+On successful exact5path dedicated continuity child of actual16path bc25c96 and clean split-range, sourceSPEC/staticfamily are CLOSED_BOUNDED_CONTRACT_ONLY. IndependentterminalPASS, normal3253pass147skip4warnings184.39s; Corefix/SQL alreadyclosed3de/7134. NextRootWORK_ORDER_AUTHOR finalizes exactnativequery/UOW/model-emitter paths, mutationbinding and independentpreloaderfixtureoracle plus fullactivegategraph under DRAFTsourceWO before any SourceBUILD/effect. Productioncoverage/retentionunknown/defaultrefused, no query/emitter/PG/AI runtimeproof yet; all14gap owners/Phase5 0/5/providerhold retained.
