@@ -1,7 +1,7 @@
 # P5-A2 Docker synthetic backend — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Current HEAD recorded for this handoff: `7200c40b539778f1c6609f1078f41ab6bbe9fa4a`.
+Current HEAD recorded for this handoff: `a2d189e774ca90b923de2df60bdb313e2e7990b1`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-25; phase BUILD (Stage A conditional on this dedicated commit/gate); riskR2; live evidence requiredYES.
@@ -171,3 +171,15 @@ Recovery NOT_RELEASED until normalmaterial, terminalreview, dedicated actualSHA
 continuity, cleanrange and fresh pre-effect pins/inheritance/session gate.
 This is one reviewed controlled repair using existinguv, not a reset or worker
 retry. No further acquisition-recovery successor. Full14gap/owners unchanged.
+
+## Actual AM1 material terminal review and dedicated continuity
+
+Materiala2d189e774ca90b923de2df60bdb313e2e7990b1 exact18paths; normal unmodified hook
+3234passed147skipped4warnings187.51s. Root COMMIT_STEWARD to REVIEWER confirms
+actual set/source hashes/frozenSPEC-oracle/originalfailure/independentAM1review;
+no outside-scope/native/reference change, no effects underAM1. Then Root
+SESSION_SYNC_STEWARD records ACTUAL materialSHA in this dedicated5path child.
+Only successful normal child, clean committed range and fresh pre-effect gate
+release one uv recovery + unchanged unused image/onephysicalrun caps. No retry.
+Log .venv/p5a2-docker-am1-continuity-20261026.log. Full14gap binding retained;
+selected SQLproof pending, G06/operational/milestone open, Phase5 0/5.

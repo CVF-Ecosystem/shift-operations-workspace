@@ -41,11 +41,11 @@ Luna UI/default support, independent review, operator business acceptance.
 P5-B/C/D retain roadmap destinations, Phase5 0/5. Original provider401spent;
 AI provider live/key/model/CSV held. Stop reference drift.
 
-## Current AM1 dispatch and next move
+## Current AM1 actual material and continuity
 
-StageA source PASS43e7cfde/4d34a156/56b7e5a;10pass/1skip. Original onepip launch
-failed missingpip, no package/image/container/DB/provider. Failure retained.
-Independent Luna AM1 authorization PASS; installed uv one controlledvenv driver
-recovery only after new normalmaterial/dedicatedactualSHAcontinuity/freshgate.
-Root COMMIT_STEWARD; no effect released, no source change. Full14gap retained.
-Commit reviewed Stage A source, original failed installer receipt and independently accepted AM1 through normal hook; terminal material review then dedicated actual-SHA continuity. Only after clean range and fresh pin/inheritance/session pre-effect gate release one installed-uv driver recovery plus carried unused image/one-PG-rehearsal ceilings. Original pip failure spent; another failure terminal. No provider calls; G06/wholemilestone open, Phase5 0/5.
+Actual materiala2d189e774ca90b923de2df60bdb313e2e7990b1 exact18paths accepted by Root
+independent from Sol worker; normal3234pass147skip4warnings187.51s. Source/
+SPEC/oracle remain pinned. Original pip failure retained and independent Luna
+AM1 authorization PASS, no new effect. Root SESSION_SYNC_STEWARD records actual
+materialSHA in this dedicated5path child; clean range/freshgate follow it.
+After successful dedicated5path continuity child of a2d189e774ca90b923de2df60bdb313e2e7990b1 and clean committed-range/fresh pre-effect pin/inheritance/session pass, release Sol for ONE installed-uv psycopg3.3.4 projectvenv recovery plus original UNUSED one officialimage acquisition and one isolated PG16 oracle rehearsal/ownedcleanup. Accepted source immutable. Original pip failure retained; any new acquisition/run failure terminal, no retry. All14gap owners/G06/operational gates remain open,Phase5 0/5; provider live/key/model/CSV held.
