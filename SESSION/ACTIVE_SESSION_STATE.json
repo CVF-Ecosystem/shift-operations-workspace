@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_core_only_am1_review_accepted_material_retry",
+  "mode": "p5a2_core_only_sql_dedicated_continuity",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -17,7 +17,7 @@
     "docs/decisions/P5A2_DOCKER_BACKEND_BUILD_REVIEW_2026-10-25.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent AM1repair REVIEW_PASS_BOUNDED,30focusedPASS19.74s, allsource/config/ingestnegative/hash/cleanup checks retained. Originalfullfailure1F8E retained; Root reattempt unmodifiednormal29path materialhook, terminalactualmaterialreview then dedicatedactualSHAcontinuity/cleansplitrange. No Core/private update, skip/xfail/force/SQLrerun. Afterclosedbounded correction+carriedSQL, promote reviewedproduct G04–G06SPEC/WO; all14gap owners/Phase5 0/5/providerhold unchanged.",
+  "next_allowed_move": "On successful exact5path dedicated continuity child of actual29path material3de6c50 and clean committed split-range, Core-only correction plus carriedSQL rehearsal are FREEZE/CLOSED_BOUNDED. Independent terminalPOST_MATERIAL_REVIEW_PASS_BOUNDED, normal3253pass147skip4warnings220.78s. No private/latestremote coupling or physical rerun; alloldcaps spent. Then rehydrate/open PRODUCT G04–G06 source-query/cohort/coverage/snapshot/cap SPEC from ignoredadvisory drafts, with independent review/family/oracle/WO before BUILD. Full14gap owners/Phase5 0/5/providerhold remain.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -36,9 +36,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_core_only_am1_review_accepted_material_retry",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Source/config+testfamily accepted after AM1, no closure until normal commit+dedi+cleanrange.",
+    "currentMode": "p5a2_core_only_sql_dedicated_continuity",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Bounded FREEZE disposition conditional on successful this dedicated child and clean split-range; no product milestone closure.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -53,9 +53,9 @@
     "activeHandoffNote": "Core-only corrective successor; Docker handoff retains physical evidence history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Independent AM1 rereview accepted; normal material retry with original failure retained.",
-    "currentRoleTransition": "ORCHESTRATOR_TO_INDEPENDENT_AM1_REVIEWER_TO_COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Independent terminal actualmaterial review accepted; record exactactualSHA in dedicated continuity before clean closure.",
+    "currentRoleTransition": "COMMIT_STEWARD_TO_INDEPENDENT_TERMINAL_REVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -337,10 +337,10 @@
     "independentResultReview": "FINAL_RESULT_REVIEW_PASS_BOUNDED",
     "sqlTarget": "1passed1.37s;36shifts37versions;frozenoracleMATCH",
     "cleanup": "Root independently verified exactowned container and anonymousvolume ABSENT",
-    "resultMaterialCommit": null,
+    "resultMaterialCommit": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
     "milestoneComplete": false,
-    "resultDisposition": "ACTUAL_SQL_PASS_BOUNDED; HISTORICAL_PRIVATE_BINDING_STOP_RESOLVED_BY_ACCEPTED_CORE_ONLY_CORRECTION",
-    "resultFullHook": "To be recorded from unmodified normal result material hook in activehandoff",
+    "resultDisposition": "SQL_FIXTURE_ACCEPTED_BOUNDED_MATERIAL_COMMITTED; DEDICATED_CONTINUITY_CLOSURE_CONDITION",
+    "resultFullHook": "3253passed147skipped4warnings220.78s",
     "referenceBlocker": {
       "observedPrivateHead": "bc921d2bf4429bca2a07d0261b5006f970d0da81",
       "projectPrivatePin": "d3b2f73ca0746978673c649ed407974a1d1772a5",
@@ -349,10 +349,11 @@
       "currentDisposition": "SUPERSEDED_BY_OPERATOR_AUTHORIZED_INDEPENDENTLY_ACCEPTED_CORE_ONLY_CORRECTION; no reference chase"
     },
     "rehearsalCeilings": "ALL_SPENT_NO_RETRY",
-    "backendStillRunning": false
+    "backendStillRunning": false,
+    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md"
   },
   "p5a2_core_only_binding_20261026": {
-    "status": "INDEPENDENT_FULLSET_AM1_REVIEW_PASS_BOUNDED",
+    "status": "POST_MATERIAL_REVIEW_PASS_BOUNDED; DEDICATED_CONTINUITY_CLOSURE_CONDITION",
     "operatorAuthority": "sửa đi, rồi tiếp tục roadmap; no direct provenance binding, updates only when requested",
     "installedCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
     "plan": "docs/decisions/P5A2_CORE_ONLY_BINDING_DESIGN_SPEC_2026-10-26.md",
@@ -372,11 +373,30 @@
     "waivers": [],
     "nativeAdapter": "COMPLIANT0",
     "workerReturn": "docs/decisions/P5A2_CORE_ONLY_BINDING_WORKER_RETURN_2026-10-26.md",
-    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md",
     "fullHookFailure": "1failed3244passed147skipped4warnings8errors206.99s",
     "fullHookFailureLog": ".venv/p5a2-core-only-material-20261026.log",
-    "materialCommit": null,
+    "materialCommit": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
     "am1Review": "AM1_AUTHORIZATION_PASS_BOUNDED; no blocker/waiver",
-    "am1": "Exactknowledgehelperlatestremote dependency removed; alloriginalnegativeproof retained"
+    "am1": "Exactknowledgehelperlatestremote dependency removed; alloriginalnegativeproof retained",
+    "materialPaths": 29,
+    "fullHook": "3253passed147skipped4warnings220.78s; unmodified normal materialhook PASS",
+    "terminalReview": {
+      "reviewer": "/root/core_only_independent_review",
+      "disposition": "POST_MATERIAL_REVIEW_PASS_BOUNDED",
+      "blockingFindings": [],
+      "waivers": []
+    },
+    "continuity": {
+      "materialParent": "3de6c50e3f7932a1e79dba68c8dc21672a5d6579",
+      "paths": [
+        "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+        "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+        "SESSION/ACTIVE_SESSION_STATE.json",
+        "SESSION/SESSION_MEMORY.md",
+        "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md"
+      ],
+      "normalHookLog": ".venv/p5a2-core-only-continuity-20261026.log",
+      "closureCondition": "Successful exact5path child and clean committedsplitrange; no self-referential childSHA"
+    }
   }
 }

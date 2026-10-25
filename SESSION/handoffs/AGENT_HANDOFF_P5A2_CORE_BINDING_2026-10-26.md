@@ -1,8 +1,8 @@
 # P5-A2 Core-only binding correction — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `a2d189e774ca90b923de2df60bdb313e2e7990b1`.
-Dedicated continuity / latest committed project HEAD: `7fd67f5e9365c21e7c8a367f6e799ba8e224c5ca`.
+Material commit recorded for this handoff: `3de6c50e3f7932a1e79dba68c8dc21672a5d6579`.
+Dedicated continuity: this exact five-path child; derive its SHA from Git after commit.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; INTAKE→DESIGN→SPEC/WORK_ORDER, riskR2, liveevidenceYES.
@@ -134,3 +134,23 @@ unmodifiednormal29path materialhook; previous1F8Efull206.99s retained, no commit
 existsyet. No skip/xfail/Core/privateupdate orrenewedSQL/provider effects. Normal
 actualmaterial/terminalreview/dedicatedactualSHAcontinuity/cleanrange before
 boundedclosure thenproductG04–G06SPEC, all14gaps/owners/Phase5 unchanged.
+
+## Actual material terminal review / dedicated continuity
+
+Actualmaterial3de6c50e3f7932a1e79dba68c8dc21672a5d6579 parent7fd67f5, exact29paths;
+unmodifiednormalfullhook3253passed147skipped4warnings220.78s. Originalfailed
+full1F8E3244pass206.99s retained, not hidden. Independent terminalreview by
+/root/core_only_independent_review POST_MATERIAL_REVIEW_PASS_BOUNDED, blocking
+findingsNONE/waiversNONE: actualcommittedrange clean, accepted6sourcehashes,
+Corepin/source/nohookchange/SQLreceipt-oracle unchanged; nativebase7fd→head3de0,
+explicitdocsdecisionsreturn/reviewrechecks0. No trackedreviewfile changed.
+Root COMMIT_STEWARD→independentTERMINALREVIEWER→CLOSER→SESSION_SYNC_STEWARD;
+records actual3de SHA in THIS dedicated5path continuity. FREEZE/CLOSED_BOUNDED
+is conditional on successfulnormalchild and cleancommittedsplitrange after it;
+no assertion childSHA before it exists. Log .venv/p5a2-core-only-continuity-20261026.log.
+Core-onlysource/staticcontrol correction and actualsyntheticSQLfixture proof
+only, noAIgovernance/production/businessforecast claim. P5-A/P5-A2OPEN,Phase5 0/5,
+all14gap owners/nextdestinations retained, alloldphysicalceilings spent/providerheld.
+Aftercleanclosure open PRODUCT G04–G06SPEC from advisoryignoredscratch. Scratch
+33c7de38/a72e32ae is preparationonly, no trackedartifact/code/matrix/WOauthority;
+formalproduct intake/decision/family/oracle/review/WO gates still required.

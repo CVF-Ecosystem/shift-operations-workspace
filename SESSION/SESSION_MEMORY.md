@@ -13,11 +13,12 @@ Independent fullReviewPASS after oneboundedrepair,F1/F2resolved,no waivers.
 mayinstallpin. Missing/tampered/wrongpin/origin/hash/weakenedflags failclosed;
 newerremote/privateabsence do not. Ordinaryadapter/native0, exactreturnmarker/
 explicitdocsdecisionsfunctionchecks. CLIselectorlimit disclosed, noAIproofclaim.
-Normal fullhook then found1failed/8errors,3244pass147skip4warnings206.99s,
-allfromsameknowledgeingest helperHEAD==origin/main requirement. Nocommitcreated.
-IndependentAM1repairREVIEWPASS,30focusedPASS19.74s; Root COMMIT_STEWARD retries
-normalmaterialhook after exacthelpercorrection;
-noCoreupdate/skip/xfail or renewedphysicaleffect. Earlier21focusedPASS retained.
+Firstnormalfullhook1F8E3244pass147skip4warnings206.99s retained; exactAM1 helper
+repair+independentrereview passed30focused19.74s. Normalretry PASS3253/147/4
+220.78s, actual29path material3de6c50e3f7932a1e79dba68c8dc21672a5d6579.
+Independent terminalreview /root/core_only_independent_review PASS_BOUNDED,
+findingsNONE/waiversNONE. RootCLOSER→SESSION_SYNC_STEWARD recordsactualmaterial
+in this dedicated5path child; only success+cleanrange make boundedclosure true.
 
 ## Material and actual product anchors
 
@@ -44,4 +45,4 @@ held; original401 remains spent. No new providers/packages/Docker/publicrelease.
 
 ## Next allowed move
 
-Independent AM1repair REVIEW_PASS_BOUNDED,30focusedPASS19.74s, allsource/config/ingestnegative/hash/cleanup checks retained. Originalfullfailure1F8E retained; Root reattempt unmodifiednormal29path materialhook, terminalactualmaterialreview then dedicatedactualSHAcontinuity/cleansplitrange. No Core/private update, skip/xfail/force/SQLrerun. Afterclosedbounded correction+carriedSQL, promote reviewedproduct G04–G06SPEC/WO; all14gap owners/Phase5 0/5/providerhold unchanged.
+On successful exact5path dedicated continuity child of actual29path material3de6c50 and clean committed split-range, Core-only correction plus carriedSQL rehearsal are FREEZE/CLOSED_BOUNDED. Independent terminalPOST_MATERIAL_REVIEW_PASS_BOUNDED, normal3253pass147skip4warnings220.78s. No private/latestremote coupling or physical rerun; alloldcaps spent. Then rehydrate/open PRODUCT G04–G06 source-query/cohort/coverage/snapshot/cap SPEC from ignoredadvisory drafts, with independent review/family/oracle/WO before BUILD. Full14gap owners/Phase5 0/5/providerhold remain.
