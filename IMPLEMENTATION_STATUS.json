@@ -555,7 +555,7 @@
       }
     },
     "dockerSyntheticBackend20261025": {
-      "status": "STAGE_A_SOURCE_ACCEPTED_BOUNDED; ORIGINAL_INSTALL_FAILED; AM1_ACCEPTED_PENDING_COMMITTED_CONTINUITY",
+      "status": "ACTUAL_SQL_FIXTURE_INDEPENDENT_REVIEW_PASS_BOUNDED",
       "sourceAnchor": "29c0ef7c953d5df6419d9542030acdd2b5d9197e",
       "spec": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md",
       "specSha256": "c97cad4967840e53f41909968a31f61920da754315d78dc3ea004f5a0745a830",
@@ -564,8 +564,8 @@
       "oracle": "tests/fixtures/p5a2_docker_backend_oracle.json",
       "oracleSha256": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
       "implementationBuilt": true,
-      "databaseOrContainerCreated": false,
-      "provenBoundary": "Source/inert mechanics10pass/1SQLskip only; physical PostgreSQL proof NOT_RUN",
+      "databaseOrContainerCreated": true,
+      "provenBoundary": "Disposable PostgreSQL16.15 migration-owned roundtrip, aware timestamps, immutable content and point-in-time lineage/analysis exactly match pre-BUILD oracle; no G06/operational claim",
       "milestoneComplete": false,
       "authorizationReview": "docs/decisions/P5A2_DOCKER_BACKEND_AUTHORIZATION_REVIEW_2026-10-25.md",
       "authorityBoundary": "Stage A source/inert tests after dispatch+dedicated continuity/pre-implementation; Stage B actual dependencies/container only after independent source admission",
@@ -573,7 +573,46 @@
       "workerReturn": "docs/decisions/P5A2_DOCKER_BACKEND_WORKER_RETURN_2026-10-25.md",
       "evidence": "docs/decisions/P5A2_DOCKER_BACKEND_EVIDENCE_2026-10-25.json",
       "originalInstallAttempt": "One pip launch exited1: projectvenv missing pip; no package acquisition; no retry",
-      "am1": "Independent Luna PASS; one installed-uv recovery only after normal material/dedicated continuity/fresh gate"
+      "am1": "One uv recovery3.3.4 succeeded under committeda2d189e/7fd67f5; original pip failure retained",
+      "backendStillRunning": false,
+      "physicalPostgresRuns": 1,
+      "fixtureShifts": 36,
+      "persistedReportVersions": 37,
+      "sqlTarget": "1passed1.37s",
+      "migrations": "001-011; first46applied0skip, reapply42applied4skip",
+      "cleanup": "Exactowned container/anonymousvolume ABSENT, independently verified by Root",
+      "independentReview": "FINAL_RESULT_REVIEW_PASS_BOUNDED",
+      "nextProductMove": "Normal carriedresult material/dedicated continuity then G04-G06 product SPEC; no SQL rerun.",
+      "referenceBlocker": {
+        "observedPrivateHead": "bc921d2bf4429bca2a07d0261b5006f970d0da81",
+        "projectPrivatePin": "d3b2f73ca0746978673c649ed407974a1d1772a5",
+        "inheritance": "FAIL1; no result fullhook/commit",
+        "disposition": "STOP_NO_IN_TRANCHE_REFRESH",
+        "currentDisposition": "RESOLVED_BY_OPERATOR_AUTHORIZED_INDEPENDENT_CORE_ONLY_CORRECTION; old failures retained"
+      },
+      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_CORE_BINDING_2026-10-26.md"
     }
+  },
+  "p5a2_core_only_binding_20261026": {
+    "status": "SOURCE_CONFIG_AND_KNOWLEDGE_HELPER_INDEPENDENT_REVIEW_PASS_BOUNDED",
+    "userAuthority": "2026-10-26 explicit Core-only inheritance correction and roadmap continuation",
+    "installedPublicCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
+    "scope": "Project-local adapter/config/startup correction only; no CVF repo update",
+    "spec": "docs/decisions/P5A2_CORE_ONLY_BINDING_DESIGN_SPEC_2026-10-26.md",
+    "workOrder": "docs/work_orders/P5A2_CORE_ONLY_BINDING_WORK_ORDER.md",
+    "independentReview": "docs/decisions/P5A2_CORE_ONLY_BINDING_REVIEW_2026-10-26.md",
+    "productReturn": "Close carried G04/G05/G13 SQL result, then G04-G06 query/cohort/coverage SPEC",
+    "milestoneComplete": false,
+    "focusedProof": "30passed19.74s (9ingest+21Core); previous15/21 and failedfull log retained",
+    "openFindings": [],
+    "waivers": [],
+    "resolvedFindings": [
+      "CORE-BUILD-F1",
+      "CORE-BUILD-F2"
+    ],
+    "nativeAdapter": "COMPLIANT0; installed pinned Core source/hash validation precedes native packet gate",
+    "materialCompletionAuthority": "Active Core-binding handoff; no material commit yet",
+    "automaticReturnSelectorLimit": "Native CLI docs/reviews; project docs/decisions explicitly checked by verified native function during independent review",
+    "fullHookFailure": "1failed3244passed147skipped4warnings8errors206.99s; singleknowledgeingest helper equality"
   }
 }

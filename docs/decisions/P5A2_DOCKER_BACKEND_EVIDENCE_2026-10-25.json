@@ -1,7 +1,7 @@
 {
   "schemaVersion": "p5a2-docker-stage-a-evidence-1",
-  "stage": "B_DEPENDENCY_ACQUISITION_STOP",
-  "status": "BLOCKED_WITH_REASON",
+  "stage": "AM1_RECOVERY_AND_SINGLE_POSTGRES_REHEARSAL",
+  "status": "COMPLETE_PENDING_REVIEW",
   "sourceAuthority": {
     "dispatchCommit": "7200c40b539778f1c6609f1078f41ab6bbe9fa4a",
     "dedicatedContinuityCommit": "0342fdfef8511c4e4256ac1b2f2aff8105720dc1",
@@ -36,12 +36,62 @@
     "psycopgPresentAfter": false,
     "automaticRetry": false
   },
-  "physicalPostgresRehearsal": "NOT_RUN_STOPPED_BEFORE_IMAGE_CONTAINER_DB",
-  "dependencyInstall": "FAILED_EXIT1_MISSING_PIP",
-  "imagePull": "NOT_RUN",
-  "containerCreation": "NOT_RUN",
-  "databaseConnection": "NOT_RUN",
+  "am1Authority": {
+    "materialCommit": "a2d189e774ca90b923de2df60bdb313e2e7990b1",
+    "dedicatedContinuityCommit": "7fd67f5e9365c21e7c8a367f6e799ba8e224c5ca",
+    "preEffectGate": ".venv/p5a2-docker-am1-preeffect-20261026.json",
+    "releasedBeforeEffects": true
+  },
+  "am1Recovery": {
+    "attempts": 1,
+    "installer": "C:/Users/DELL/AppData/Local/Programs/Python/Python311/Scripts/uv.exe",
+    "installerVersion": "0.10.7",
+    "command": "uv pip install --python .venv/Scripts/python.exe --no-config --no-python-downloads --default-index https://pypi.org/simple --only-binary :all: psycopg[binary]==3.3.4",
+    "environment": "Minimal SystemRoot/WINDIR/TEMP/TMP/PATH plus task-local UV_CACHE_DIR; ambient UV/PIP/index/provider settings excluded",
+    "exitCode": 0,
+    "logPath": ".venv/p5a2-am1-uv-install-20261026.log",
+    "logSha256": "8bf0ba328049581024498cdc4cf0d54f95a8bb6342b76cd5463b658f48a4bbe3",
+    "installed": [
+      {"name": "psycopg", "version": "3.3.4", "metadata": ".venv/Lib/site-packages/psycopg-3.3.4.dist-info"},
+      {"name": "psycopg-binary", "version": "3.3.4", "metadata": ".venv/Lib/site-packages/psycopg_binary-3.3.4.dist-info"},
+      {"name": "tzdata", "version": "2026.5"}
+    ]
+  },
+  "imageAcquisition": {
+    "attempts": 1,
+    "command": "docker pull postgres:16-alpine",
+    "exitCode": 0,
+    "logPath": ".venv/p5a2-am1-postgres-pull-20261026.log",
+    "logSha256": "7e2efd85411187b932865d40d4debcf6b3a0935207f9c660f17b3c8e176d11a7",
+    "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36"
+  },
+  "postgresRehearsal": {
+    "attempts": 1,
+    "command": ".\\.venv\\Scripts\\python.exe -X utf8 scripts/run_p5a2_docker_backend.py --json",
+    "exitCode": 0,
+    "summaryPath": ".venv/p5a2-am1-postgres-rehearsal-20261026.json",
+    "summarySha256": "c9f185a60ecb232b2af8092768e5ad30a1239f8a92a787284f4449632c741a37",
+    "dockerServerVersion": "29.9.2",
+    "driverVersion": "3.3.4",
+    "postgresServerVersion": "16.15",
+    "containerName": "cvf-pg-live-90742cad83c4",
+    "hostPort": 59088,
+    "containerImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "migrationFiles": "001-011, exact names in secret-free summary",
+    "migrationPasses": [{"attempt": "first", "applied": 46, "skipped": 0}, {"attempt": "reapply", "applied": 42, "skipped": 4}],
+    "sqlTarget": "1 passed in 1.37s; returncode 0",
+    "fixtureAndOracle": "The one SQL target asserts 36 Shift/37 Report versions, aware persisted times/content, initial/later selected lineage and READY forecast4 band[4,4] against frozen SHA12ad36cb oracle",
+    "ownedAnonymousVolume": "117fa785e907ca7f1c419d1a1d3382ec16f310329ee5feca50f08937e8edff50",
+    "containerAbsentAfterCleanup": true,
+    "anonymousVolumeAbsentAfterCleanup": true,
+    "postRunIdentityOnlyCheck": "docker ps -a showed no containers; docker volume inspect named owned volume returned no such volume; image inspect matched"
+  },
+  "physicalPostgresRehearsal": "PASS_BOUNDED_SYNTHETIC_FIXTURE_PENDING_INDEPENDENT_REVIEW",
+  "dependencyInstall": "AM1_UV_SUCCESS_ORIGINAL_PIP_FAILURE_RETAINED",
+  "imagePull": "ONE_SUCCESS",
+  "containerCreation": "ONE_CREATED_AND_REMOVED",
+  "databaseConnection": "ONE_DISPOSABLE_LOCAL_REHEARSAL",
   "providerCalls": 0,
   "governanceBehaviorClaim": false,
-  "productBoundary": "G04/G05/G13 disposable synthetic SQL fixture proof unexecuted; G06 and operational/P5-A2/Phase 5 gates remain open"
+  "productBoundary": "G04/G05/G13 disposable synthetic SQL fixture proof returned for independent review only; G06 and operational/P5-A2/Phase 5 gates remain open"
 }

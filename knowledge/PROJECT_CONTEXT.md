@@ -107,10 +107,11 @@ authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
 Knowledge phase-order cycle and bind terminal review evidence ownership.
 Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
-review and continuity commit close the tranche. Public Core remains pinned at
-`aa672d119`; the operator-local rule pack is materialized from private
-provenance `d3b2f73ca` and its ADIF-0057 machine gate is bound to the project.
-Both cores are read-only. P5-A is in REVIEW with bounded local acceptance of
+review and continuity commit close the tranche. Public workspace Core remains pinned at
+`aa672d119`. Operator-authorized Core-only binding correction has independent source/config acceptance:
+reuse its native closeability checker and integrity-check installed controls;
+private provenance/shared packs/framework continuity are no project dependency.
+CVF references remain read-only. P5-A is in REVIEW with bounded local acceptance of
 A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
 Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
 frontend128 tests/build and backend221 tests passed; independent corpus13/13
@@ -130,10 +131,12 @@ canonical files instead of treating this summary as fresh continuity.
 P5-A2 pure-input subset25focused/48withsnapshot and7independent numeric oracles
 passed after consolidated repair. Actual scoped ledger, scheduler/API/UI/RAG,
 exact human approval and operational-quality/live evidence remain open.
-Operator reports stable provenance on2026-10-25; exact binding refreshed once.
+Prior2026-10-25 private binding refreshes are historical, not current startup
+authority. Current operator direction is installed pinned Core only.
 The canonical active handoff records actual material SHA, normal full hook and
 continuity receipts; source review alone does not close material completion.
-Stop if the source moves again.
+Upstream/private repository movement does not invalidate intact installed Core;
+explicit reviewed Core update is separate from ordinary project operations.
 
 G04-G06 source audit pins20source surfaces and4existing test excerpts. Current
 query/cohort/retention/snapshot gaps remain; synthetic data with actual backend
@@ -141,11 +144,14 @@ is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
 or acceptance and does not require operational data before fixture development.
 Live holds and all14milestone remainders remain; active handoff owns current truth.
 
-Docker synthetic-backend StageA source accepted,10inert tests/1SQLskip;
-original StageB pip launch failed before acquisition because projectvenv has
-no pip. No backend was created. Same-scope WO AM1 proposes installed uv for
-one controlled driver recovery after independent review and normal committed
-material/dedicatedcontinuity. SQL/time/lineage oracle remains unexecuted;
-G06/operational gates/wholemilestone open, provider holds unchanged.
+Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
+36shifts37versions, awaretime/immutablecontent/asof-lineage/analysis against
+frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
+retained; committedAM1 oneuv3.3.4 recovery succeeded. No standingbackend or
+operationalcoverageclaim. Actualresult/metadata LOCAL_UNCOMMITTED after historical privateHEAD coupling
+blocked closure. Core-only source/config correction now has independent acceptance,21focusedPASS;
+activehandoff owns actual normal material/continuity and boundedclosure receipts. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
+all14remainders/
+providerhold/Phase5 0/5 remain. Currenthandoff/status owns exactcommits.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

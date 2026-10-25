@@ -183,3 +183,52 @@ Only successful normal child, clean committed range and fresh pre-effect gate
 release one uv recovery + unchanged unused image/onephysicalrun caps. No retry.
 Log .venv/p5a2-docker-am1-continuity-20261026.log. Full14gap binding retained;
 selected SQLproof pending, G06/operational/milestone open, Phase5 0/5.
+
+## Actual AM1 pre-effect release — 2026-10-26
+
+Materiala2d189e774ca90b923de2df60bdb313e2e7990b1 normal3234/147/4PASS187.51s;
+dedicated7fd67f5e9365c21e7c8a367f6e799ba8e224c5ca exact5 normal3234/147/4
+PASS137.96s. Root reviewed clean actual split-range before these ongoing notes,
+markeractualparent, frozenWO/SPEC/oracle/source hashes, inheritance0/session/
+doctor24-2 PASS. Localpre-effect .venv/p5a2-docker-am1-preeffect-20261026.json.
+Root rehydrates currentcontinuity/status/index/roadmap, declares BUILD/R2/liveYES,
+SESSION_SYNC to REVIEWER to ORCHESTRATOR. AM1_EFFECT_RELEASED_ONCE now before
+worker effect: ONE existinguv projectvenv psycopg3.3.4 wheelinstall officialPyPI,
+carried unused oneimageacquisition and onephysical PG16 wrapper/oracle rehearsal.
+Originalpipfailure spent, no retry/sourcechanges/new supportsuccessor. Worker
+rehydrates/declares/checks pins first; return actual result to Root independent
+review. Full14gap/remainders/G06/operational/Phase5 and provider holds unchanged.
+
+## Actual AM1 SQL result independently accepted — 2026-10-26
+
+Sol oneuv3.3.4 install/onepostgres16imagepull/onephysicalwrapper succeeded;
+Docker29.9.2/PG16.15, migrations001–01146/0 then42/4, SQLtarget1pass1.37s.
+Exact36shifts37versions, awaretime/immutablecontent/asof36h-vs38h lineage/
+analysis frozenoracle MATCH, forecast4/band[4,4]. Root independent REVIEWER
+verified rawlog/summaryhashes, unchanged source/SPEC/oracle, installedmetadata
+insideprojectvenv and exactownedcontainer cvf-pg-live-90742cad83c4 / captured
+anonymousvolume ABSENT via read-only Dockerqueries. No rerun. Originalpipfailure
+retained, AM1 authorized separatelya2d189e/7fd67f5. Provider0, no .env/realcreds/
+prod/appsourcechange; no standingbackend. FINAL_RESULT_REVIEW_PASS_BOUNDED,
+findingsNONE/waiversNONE. Root role ORCHESTRATOR to REVIEWER to COMMIT_STEWARD,
+REVIEW/R2/liveYES. All ceilings spent, no further effectgrant. CompleteG01–G14
+coverage/ownedremainders reconciled in resultreview: selected SQLfragments only;
+G06/operational/wholemilestoneOPEN,Phase5 0/5. Normal resultmaterial then terminal
+review/dedicatedactualSHAcontinuity/cleanrange required before boundedclosure.
+Next product destination G04–G06 query/cohort/coverage/retention/snapshot/cap SPEC.
+
+## Mandatory post-result STOP — renewed provenance drift
+
+Before resultmaterial, inheritance FAIL1: observedprivateHEADbc921d2bf4429bca2a07d0261b5006f970d0da81
+versus pinnedd3b2f73ca0746978673c649ed407974a1d1772a5. No commit/fullhook attempted.
+Actual oneSQLrehearsal PASS and independently verified cleanup remain valid
+bounded observations, not trancheclosure. LastcommittedHEAD7fd67f5; result/
+review/metadata LOCAL_UNCOMMITTED. Root COMMIT_PREFLIGHT to SESSION_SYNC_STEWARD
+records stop; phaseINTAKE/BLOCKED_RENEWED_REFERENCE_DRIFT/R2/liveYES. No dispatch,
+BUILD, retry, referencechase or FREEZE. Both references untouched. All effects
+spent, no standingbackend/provider0. Complete14gap ownedremainders unchanged,
+G06/operational/P5-A/P5-A2OPEN,Phase5 0/5. Controlled referencebinding reconciliation
+in owning workflow must precede currentrehydration/inheritance and normalresult
+material/terminalreview/dedicatedactualSHAcontinuity/cleanrange. No successor.
+KnowledgeUTCdate preflight issue retained then fixed to actualUTC2026-10-25;
+this metadata correction does not unblock referencebinding. Stop now.

@@ -12,6 +12,7 @@ from typing import Callable
 
 import pytest
 
+from scripts._cvf_core_binding import verify_binding
 from scripts.check_project_knowledge import DOCS, ROOT, secret_codes, validate_pack
 
 HELPER_SHA256 = "856b99d9273b0384c40c05bc2132eae66e9dce20b9a9c8b75c3d91ae7016d2c6"
@@ -30,22 +31,29 @@ def _hash(path: Path) -> str:
 
 def _pinned_helper() -> Path:
     manifest = json.loads((ROOT / ".cvf/manifest.json").read_text(encoding="utf-8"))
+    verify_binding(ROOT)
     core = (ROOT / manifest["cvfCoreRelativePath"]).resolve(strict=True)
     expected = manifest["cvfCoreCommit"]
     head = subprocess.run(
         ["git", "-C", str(core), "rev-parse", "HEAD"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    remote = subprocess.run(
-        ["git", "-C", str(core), "rev-parse", "origin/main"],
+    origin = subprocess.run(
+        ["git", "-C", str(core), "remote", "get-url", "origin"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    assert head == remote == expected
+    assert head == expected
+    assert origin == manifest["cvfCoreRepository"]
     assert not subprocess.run(
         ["git", "-C", str(core), "status", "--porcelain"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
     helper = core / "scripts/ingest_cvf_downstream_knowledge.ps1"
+    blob = subprocess.run(
+        ["git", "-C", str(core), "show", f"{expected}:scripts/ingest_cvf_downstream_knowledge.ps1"],
+        capture_output=True, check=True,
+    ).stdout
+    assert helper.read_bytes().replace(b"\r\n", b"\n") == blob.replace(b"\r\n", b"\n")
     assert _hash(helper) == HELPER_SHA256
     source = helper.read_text(encoding="utf-8")
     for token in NETWORK_TOKENS:

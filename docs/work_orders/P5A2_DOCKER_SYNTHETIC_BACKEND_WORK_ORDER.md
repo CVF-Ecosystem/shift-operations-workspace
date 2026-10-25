@@ -1,6 +1,6 @@
 # P5-A2 Docker PostgreSQL synthetic-backend rehearsal
 
-Status: APPROVED_FOR_EXECUTION
+Status: IMPLEMENTED_BOUNDED
 Date: 2026-10-25
 Risk: R2
 Execution owner: INTERNAL_AGENT IMPLEMENTATION_WORKER (Sol/medium)
@@ -247,3 +247,27 @@ Frozen SPEC/oracle and accepted wrapper/SQL/unit SHA stay read-only.
 AM1 activation: Root records independent Luna AUTHORIZATION_REVIEW_PASS_BOUNDED,
 no blockers. Current material/dedicated continuity and fresh pre-effect gate
 remain mandatory; this activation alone starts no recovery effect.
+
+## Execution disposition — 2026-10-26
+
+Root independent FINAL_RESULT_REVIEW_PASS_BOUNDED at the assigned review.
+Original pip failure preserved; AM1 oneuv install and carried oneimage/onePG
+rehearsal succeeded, exactownedcleanup independently verified. Source remains
+43e7cfde/4d34a156/56b7e5a; frozen SPEC/oracle unchanged. Execution authority is
+committed a2d189e plus dedicated7fd67f5; execution WO SHA256 e349653e2bebd967a4954e7f4569a75de32926ae854850e2630782b6037e69d7.
+All effect ceilings are SPENT, no further effect/redispatch grant. Normal result
+material/dedicatedactualSHAcontinuity/cleanrange still gate bounded closure;
+G04/G05/G13 SQLfixture only, no wholemilestone closure or governance proof.
+
+Post-result gate disposition: BLOCKED_RENEWED_REFERENCE_DRIFT. Actual SQLfixture
+PASS and all effect ceilings SPENT; resultmaterial/closure NOT_COMMITTED because
+privateHEAD no longer matches pinned operator-local authority. No redispatch,
+new effect, in-tranche reference refresh or FREEZE. Assigned resultreview and
+activehandoff own exact observed/pinned SHA and controlled reconciliation route.
+
+Current carried-result disposition: the operator-authorized independently
+accepted Core-only correction supersedes the historical privateHEAD stop.
+Actual SQLfixture result remains accepted; no source/oracle/receipt or physical
+repeat. Normal carriedresultmaterial and dedicatedactualSHAcontinuity/cleanrange
+are recorded in the active Core-binding handoff before bounded closure.
+All external-effect ceilings stay spent, no further execution authority.
