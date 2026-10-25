@@ -543,7 +543,16 @@
       "review": "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md",
       "newTestsAdded": false,
       "targetedAuditTestsRun": false,
-      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md; normal material commit and actual-SHA continuity required"
+      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md; normal material commit and actual-SHA continuity required",
+      "referenceResume20261025": {
+        "publicCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
+        "privateProvenance": "d3b2f73ca0746978673c649ed407974a1d1772a5",
+        "committedProjectionFiles": 1779,
+        "protectedControlSemantics": "AGENTS/closeability standard/checker/ADIF/exporter unchanged from prior private pin",
+        "scope": "Static pin/reference synchronization to unblock audit continuity and G04-G06 product SPEC; no runtime or governance behavior claim",
+        "review": "Independent Luna/max REVIEW_PASS_BOUNDED; blocking findings NONE; normal atomic closeout required",
+        "receipt": "docs/decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md"
+      }
     }
   }
 }

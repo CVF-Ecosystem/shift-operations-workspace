@@ -2,6 +2,8 @@
 
 ## Start Here
 
+- Finite G04–G06 reference prerequisite: [current pin-resume receipt](decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md); static synchronization only, independent review/gates required.
+
 - Active G04–G06: [bounded source audit](decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md) and [audit + synthetic-data proposal](decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md). Source verified; [independent DESIGN review](decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md) PASS_BOUNDED. Synthetic fixtures can support backend/query development; actual operational coverage and live governance proof remain unaccepted. No BUILD grant.
 
 - Active P5-A2: [full gap binding](decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md), [SPEC](specs/P5A2_PROACTIVE_REPORTING_SPEC.md), [independent SPEC review](decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md), [bounded history/numeric Work Order](work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md). [Pure history/numeric source review](decisions/P5A2_PROACTIVE_HISTORY_NUMERIC_REVIEW_2026-10-24.md) accepts the repaired supplied-input subset; stable binding reconciled2026-10-25. The canonical active handoff owns actual material SHA/full-hook/continuity receipts after dispatch125868a/markeraf4e668; live deferred; no product closure.

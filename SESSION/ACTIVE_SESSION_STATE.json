@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_numeric_material_accepted_next_history_verification_live_deferred",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
+  "mode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
   "last_updated": "2026-10-25",
   "required_reads": [
     "AGENTS.md",
@@ -11,15 +11,16 @@
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
     "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md",
-    "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/decisions/P5A2_PROACTIVE_HISTORY_NUMERIC_REVIEW_2026-10-24.md"
+    "docs/INDEX.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "After the normal exact5path continuity commit parent9c72de4 and clean committed-range check, return to finite P5-A2 G04-G06 actual assignment-scoped ledger/history source verification and an accepted contract/WO before dependent BUILD. Reuse existing Report/repository/auth owners; prove only missing adapter/query/time/completeness connections. Pure H1-P2 material is accepted; all14 integrated gaps and P5-B/C/D retain binding owners/destinations. P5-A/A2 open, Phase5 0/5; live/key/model/CSV held; stop renewed reference drift.",
+  "next_allowed_move": "After normal atomic12path reference/audit5326413 actual-SHA closeout and range verification, independently accept Docker synthetic-backend SPEC, author/review bounded WO, then admit actual PostgreSQL rehearsal. Current pins publicaa672d1/privated3b2f73; stop renewed drift. Synthetic SQL time/lineage portions G04/G05/G13 only; G06/operational completeness and all14gap owners retained; Phase5 0/5; AI provider live/key/model/CSV held.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_numeric_material_accepted_next_history_verification_live_deferred",
-    "activePhase": "INTAKE",
-    "activePhaseNote": "H1-P2 material independently accepted; exact five-path continuity commit is the closure condition. Next product move is finite G04-G06 source verification, no successor BUILD grant.",
+    "currentMode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "Independent static/source/design reviews accepted; atomic closeout is the audit freeze condition. Docker SPEC draft is next-scope planning only.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -51,13 +52,13 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
-    "activeHandoffNote": "Mirrors active_handoff above exactly; P4-E and machine inheritance remain settled historical evidence.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+    "activeHandoffNote": "Canonical successor for scoped history audit/proposal; numeric closure handoff remains historical.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Root CLOSER accepts bounded material and synchronizes actual-SHA continuity; integrated milestone remains open.",
-    "currentRoleTransition": "POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Root accepts independent static review and commits atomic reference/audit continuity; no runtime execution.",
+    "currentRoleTransition": "INDEPENDENT_STATIC_REVIEW_TO_ORCHESTRATOR_TO_COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-25"
   },
@@ -229,5 +230,65 @@
     "trancheDisposition": "H1-P2 material accepted; FREEZE/CLOSED_BOUNDED only upon successful exact5path child continuity commit and clean committed-range check",
     "milestoneComplete": false,
     "sourceApiCalls": 0
+  },
+  "p5a2_scoped_history_audit_20261025": {
+    "sourceRevision": "552612603bb35fd97a9f688787948542dc59e86e",
+    "sourceAudit": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
+    "proposal": "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
+    "disposition": "AUDIT_DESIGN_MATERIAL_ACCEPTED; NORMAL_ATOMIC_CLOSEOUT_REQUIRED",
+    "productMilestoneComplete": false,
+    "sourceChanged": false,
+    "review": "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md",
+    "materialCommit": "53264131e33877dfa460f3973bb4815b72fc660a",
+    "materialPathCount": 9,
+    "fullHook": "3224 passed,146 skipped,4 warnings in231.50s; normal material hook PASS",
+    "continuityDisposition": "LOCAL_UNCOMMITTED; normal continuity commit not attempted after failed prerequisites",
+    "blocker": {
+      "observedPrivateHead": "52c11fa2215edd301418c52faa71aaf514e2dd32",
+      "projectPrivatePin": "6d5c4a5de4b23e4ec5cb5a54fb8f0c8e6a71fd2c",
+      "publicCoreHead": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
+      "publicOriginMain": "aa672d11910ae1982557e4810a2a8002a611e9e6",
+      "inheritance": "FAIL1 exact private binding",
+      "doctor": "FAIL1 public core behind origin/main;23passed/2legacywarnings",
+      "sourceChurnDisposition": "STOP_RENEWED_DRIFT_NO_DISPATCH_BUILD_COMMIT_OR_REFERENCE_CHASE"
+    },
+    "dockerReadOnlyReadiness": {
+      "serverVersion": "29.9.2",
+      "runningContainers": 0,
+      "composePostgresImage": "postgres:16-alpine",
+      "cachedPostgresImage": false,
+      "venvPsycopgInstalled": false,
+      "nativeMigrationRunner": "scripts/apply_migrations.py",
+      "apiSqlSelection": "DATABASE_URL selects SqlLedger; absent selects InMemoryLedger",
+      "effectDisposition": "READ_ONLY_CHECKS_ONLY; no image pull/install/container/database action",
+      "plannedUse": "isolated Docker PostgreSQL and synthetic data under accepted future SPEC/WO; no AI provider call"
+    },
+    "referenceResume": {
+      "publicCore": "aa672d11910ae1982557e4810a2a8002a611e9e6",
+      "privateProvenance": "d3b2f73ca0746978673c649ed407974a1d1772a5",
+      "projectionCount": 1779,
+      "staticReview": "Independent Luna/max REVIEW_PASS_BOUNDED; findings NONE",
+      "atomicCloseout": {
+        "auditMaterialParent": "53264131e33877dfa460f3973bb4815b72fc660a",
+        "paths": [
+          ".cvf/manifest.json",
+          "AGENTS.md",
+          "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+          "IMPLEMENTATION_STATUS.json",
+          "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+          "SESSION/ACTIVE_SESSION_STATE.json",
+          "SESSION/SESSION_MEMORY.md",
+          "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+          "docs/INDEX.md",
+          "knowledge/PROJECT_CONTEXT.md",
+          "knowledge/manifest.json",
+          "docs/decisions/P5A2_REFERENCE_BINDING_RESUME_2026-10-25.md"
+        ],
+        "normalHookLog": ".venv/p5a2-reference-audit-closeout-20261025.log",
+        "closureCondition": "Successful normal atomic12path child of5326413 and committed-range verification; no self-referential SHA",
+        "nextScopeSpecExcluded": "docs/specs/P5A2_DOCKER_SYNTHETIC_BACKEND_SPEC.md"
+      },
+      "sourceChurnCap": "ONE_REBIND_STOP_RENEWED_DRIFT"
+    }
   }
 }

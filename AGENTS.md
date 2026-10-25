@@ -2,9 +2,9 @@
 
 > Reconciled first-party operator project. Portable public CVF core:
 > `../.Controlled-Vibe-Framework-CVF` at
-> `b69e1088978e8c90ac58a2243fcf8f90d0f857ed`. Private operator-local
+> `aa672d11910ae1982557e4810a2a8002a611e9e6`. Private operator-local
 > provenance source: `../../Controlled-Vibe-Framework-CVF` at
-> `6d5c4a5de4b23e4ec5cb5a54fb8f0c8e6a71fd2c`. Bootstrap date: 2026-09-09;
+> `d3b2f73ca0746978673c649ed407974a1d1772a5`. Bootstrap date: 2026-09-09;
 > operator-local governance learning refreshed: 2026-10-23.
 
 ## Mandatory Governance Proof

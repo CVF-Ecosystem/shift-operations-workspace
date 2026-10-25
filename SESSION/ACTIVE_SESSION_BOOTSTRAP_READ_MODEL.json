@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_numeric_material_accepted_next_history_verification_live_deferred",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
-  "nextAllowedMove": "After the normal exact5path continuity commit parent9c72de4 and clean committed-range check, return to finite P5-A2 G04-G06 actual assignment-scoped ledger/history source verification and an accepted contract/WO before dependent BUILD. Reuse existing Report/repository/auth owners; prove only missing adapter/query/time/completeness connections. Pure H1-P2 material is accepted; all14 integrated gaps and P5-B/C/D retain binding owners/destinations. P5-A/A2 open, Phase5 0/5; live/key/model/CSV held; stop renewed reference drift.",
+  "currentMode": "p5a2_atomic_reference_audit_closeout_next_docker_spec",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
+  "nextAllowedMove": "After normal atomic12path reference/audit5326413 actual-SHA closeout and range verification, independently accept Docker synthetic-backend SPEC, author/review bounded WO, then admit actual PostgreSQL rehearsal. Current pins publicaa672d1/privated3b2f73; stop renewed drift. Synthetic SQL time/lineage portions G04/G05/G13 only; G06/operational completeness and all14gap owners retained; Phase5 0/5; AI provider live/key/model/CSV held.",
   "parkedOperatorCheckpoint": "All live runs and key/model updates deferred by user. Additional old-key trial previously requested but unexecuted is held, not spent; old original call remains1/1spent401.",
   "requiredReads": [
     "AGENTS.md",
@@ -11,12 +11,13 @@
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/decisions/P5A2_PROACTIVE_REPORTING_INTAKE_DESIGN_2026-10-24.md",
     "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/decisions/P5A2_PROACTIVE_REPORTING_SPEC_REVIEW_2026-10-24.md",
-    "docs/work_orders/P5A2_PROACTIVE_HISTORY_NUMERIC_WORK_ORDER.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md",
     "IMPLEMENTATION_STATUS.json",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/decisions/P5A2_PROACTIVE_HISTORY_NUMERIC_REVIEW_2026-10-24.md"
+    "docs/INDEX.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
