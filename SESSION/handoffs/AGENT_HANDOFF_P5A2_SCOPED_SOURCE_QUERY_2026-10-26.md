@@ -106,3 +106,19 @@ wholemilestoneclosure. Log .venv/p5a2-scoped-source-contract-continuity-20261026
 NextRootWORK_ORDER_AUTHOR exactnativepaths/UOW/model-emitter/mutationbinding/
 independentpreloaderoracle/fullactivegraphreview before sourceimplementation.
 RealcoverageauthorityandallG01–G14remainders/owners/Phase5 0/5/providerhold retained.
+
+## Resumed Stage A Work Order acknowledgment
+
+User continue 2026-10-26. Root SESSION_SYNC_STEWARD→ORCHESTRATOR/WORK_ORDER_AUTHOR; rehydrated current project continuity/implementation/index/roadmap/Core controls; ordinary guard0. Prior contract child814d32ba/exact16+5clean closure verified. Phase WORK_ORDER/R2/liveYES. Exact native port/helper/emitter/test ownership and fullG01–G14 binding in revised sourceWO. Root oracle0f79676b frozen from old12ad36cb JSON using stdlib, no loader exists. Independent authorization review pending; no BUILD until PASS/normaldispatch/dedicatedactualSHA. StageB/provider held; Phase5 0/5 and all remainder owners retained.
+
+## Stage A authorization accepted / dispatch preparation
+
+Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; SOURCE-WO-F1 resolved, no openfindings/waivers. Exact nativevalidator/bothrawoutcomes/fullmatrixmutations/native rejection and4actualevidencepaths now explicit. Root WORK_ORDER_AUTHOR→independentREVIEWER→COMMIT_STEWARD. Normal13path dispatch material next, then dedicated5path actualdispatchSHA continuity before worker BUILD. StageB/provider HELD; no query/emitter yet. All14milestone remainders and Phase5 0/5 retained.
+
+## Retained failed dispatch / finite AM1
+
+Normal13path dispatch hook stopped, NO COMMIT:1failed3244passed147skipped4warnings8errors200.47s. All9 share globalCorecleanliness assertion in knowledgeingesthelper, triggered by4unrelated modelgateway edits in Core; selectedcontrols/helperpin intact. Core notmodifiedbyproject. WO AM1 addsONE exactintegrationtestpath/disposableGitpositive+negatives; independentauthorization pending, no mainSourceBUILD. Root COMMIT_STEWARD→ORCHESTRATOR/WO_AUTHOR, PhaseWORK_ORDER. Full14gap/owners retained; finiteunblock productdispatch only.
+
+AM1 independentauthorizationPASS; RootORCHESTRATOR activatesSolREPAIR_WORKER ONLYexactknowledgeintegrationtestpath+ownreturn. Currentcontinuity/Coreguard reacknowledged; no mainSourceBUILD. Independentdiff/focusedreview thennormalhookretry; noadditionalCore/external effects.
+
+AM1 independent REPAIR_REVIEW_PASS_BOUNDED, exacttestf803e7e0/return24f365ec,245lines; worker37PASS18.24s and independent37PASS19.03s. Controls/helperhash/nativeingest/negative/cleanup preserved, no outsidechange/waiver. Root ORCHESTRATOR→COMMIT_STEWARD after freshcontinuityread. Retry normal15path dispatch material; retainedfailure nothidden. No mainSourceBUILD untilactualdispatch+dedicated5path continuity.

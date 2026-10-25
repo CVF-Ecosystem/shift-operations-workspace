@@ -638,5 +638,18 @@
     "openFindings": [],
     "waivers": [],
     "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md"
+  },
+  "p5a2_scoped_source_stage_a_20261026": {
+    "status": "AM1_REVIEW_PASS_DISPATCH_RETRY",
+    "workOrder": "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
+    "oracle": "tests/fixtures/p5a2_scoped_source_oracle.json",
+    "oracleRawSha256": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "queryImplemented": false,
+    "stageB": "HELD",
+    "productionCoverageAccepted": false,
+    "milestoneComplete": false,
+    "review": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_BUILD_REVIEW_2026-10-26.md",
+    "failedDispatchHook": "1failed3244passed147skipped4warnings8errors200.47s",
+    "am1Focused": "37passed18.24s; independent37passed19.03s"
   }
 }

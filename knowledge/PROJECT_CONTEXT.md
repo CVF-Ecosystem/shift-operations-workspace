@@ -151,8 +151,8 @@ retained; committedAM1 oneuv3.3.4 recovery succeeded. No standingbackend or
 operationalcoverageclaim. Core-only correction and carriedSQL now CLOSED_BOUNDED at3de6c50/7134f9e,
 normal3253testsPASS and exact29+5cleanrange. G04–G06 sourcequery/cohort/coverage
 contract/staticfamily now has independentreviewPASS (35genericpass2skip),
-not a sourcequery/emitter implementation. DRAFTWO grants no source/effect;
-exactnativepaths/emitter/oracle/graph remain nextWOauthor obligations. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
+not a sourcequery/emitter implementation. Stage A exact nativepaths/emitter/oracle/graph WO is under independent authorization review;
+no sourceBUILD until dispatch/continuity; Stage B held. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
 all14remainders/
 providerhold/Phase5 0/5 remain. Currenthandoff/status owns exactcommits.
 

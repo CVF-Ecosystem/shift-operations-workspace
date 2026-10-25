@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_scoped_source_contract_dedicated_continuity",
+  "mode": "p5a2_scoped_source_dispatch_material",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -19,7 +19,7 @@
     "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "On successful exact5path dedicated continuity child of actual16path bc25c96 and clean split-range, sourceSPEC/staticfamily are CLOSED_BOUNDED_CONTRACT_ONLY. IndependentterminalPASS, normal3253pass147skip4warnings184.39s; Corefix/SQL alreadyclosed3de/7134. NextRootWORK_ORDER_AUTHOR finalizes exactnativequery/UOW/model-emitter paths, mutationbinding and independentpreloaderfixtureoracle plus fullactivegategraph under DRAFTsourceWO before any SourceBUILD/effect. Productioncoverage/retentionunknown/defaultrefused, no query/emitter/PG/AI runtimeproof yet; all14gap owners/Phase5 0/5/providerhold retained.",
+  "next_allowed_move": "AM1 independently accepted37focusedPASS; retry normal dispatch material then record actual dispatchSHA in dedicated5path continuity. Main StageA not yet released, StageB/providerheld.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_scoped_source_contract_dedicated_continuity",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "Contract-only boundedFREEZE conditional on this normaldedicatedchild and cleanrange; no SourceBUILD/milestoneclosure.",
+    "currentMode": "p5a2_scoped_source_dispatch_material",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "Fresh continuity acknowledged; AM1_REPAIR_REVIEW_PASS_BOUNDED, no openfindings/waivers. Root COMMIT_STEWARD normalhook retry.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +55,9 @@
     "activeHandoffNote": "Product scoped source SPEC successor; prior Corebinding handoff closes correction/carriedSQL.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Independent terminal actual16path contract review accepted; record actualSHA before clean closure.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_INDEPENDENT_TERMINAL_REVIEWER_TO_CONTRACT_CLOSER_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Fresh continuity acknowledged; AM1_REPAIR_REVIEW_PASS_BOUNDED, no openfindings/waivers. Root COMMIT_STEWARD normalhook retry.",
+    "currentRoleTransition": "COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -448,6 +448,17 @@
       "normalHookLog": ".venv/p5a2-scoped-source-contract-continuity-20261026.log",
       "closureCondition": "Successfulexact5path child and cleancommittedsplitrange; no selfreferentialchildSHA"
     },
-    "trancheDisposition": "CLOSED_BOUNDED_CONTRACT_ONLY upon successfulnormalchild/cleanrange"
+    "trancheDisposition": "CLOSED_BOUNDED_CONTRACT_ONLY",
+    "continuityCommit": "814d32ba6cff65b9ea4afd499540758eec5559ee",
+    "committedSplitRange": "EXACT16_PLUS5_CLEAN_VERIFIED"
+  },
+  "p5a2_scoped_source_stage_a_20261026": {
+    "status": "AM1_REVIEW_PASS_DISPATCH_RETRY",
+    "failedDispatchHook": "1failed3244passed147skipped4warnings8errors200.47s",
+    "focused": "37passed18.24s; independent37passed19.03s",
+    "oracleRawSha256": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "queryBuilt": false,
+    "stageB": "HELD",
+    "providerCalls": 0
   }
 }
