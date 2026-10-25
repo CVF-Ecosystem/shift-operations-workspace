@@ -270,3 +270,36 @@ auth and existing exporter/gates are reused; next missing connection is actual
 assignment-scoped history/query/time/completeness integration.
 
 After the normal exact5path continuity commit parent9c72de4 and clean committed-range check, return to finite P5-A2 G04-G06 actual assignment-scoped ledger/history source verification and an accepted contract/WO before dependent BUILD. Reuse existing Report/repository/auth owners; prove only missing adapter/query/time/completeness connections. Pure H1-P2 material is accepted; all14 integrated gaps and P5-B/C/D retain binding owners/destinations. P5-A/A2 open, Phase5 0/5; live/key/model/CSV held; stop renewed reference drift.
+
+## G04-G06 finite source verification release — 2026-10-25
+
+User says “tiếp”. Root SESSION_SYNC_STEWARD to ORCHESTRATOR, phase INTAKE.
+Canonical bootstrap/memory/state/handoff, implementation truth/index/roadmap
+and source bindings reacknowledged. H1-P2 closure conditions are observed:
+material9c72de4, exact5path continuity5526126, full hooks3224/146/4 PASS
+259.90s and382.87s, clean committed-range/worktree. No source hash change.
+
+Product Milestone Binding: P5-A2 at project552612603bb35fd97a9f688787948542dc59e86e,
+full acceptance/owned14gap table in accepted INTAKE/DESIGN and SPEC. User outcome
+remains scoped integrated scheduled signals/forecasts, lineage/current-history
+UI and exact human approval before durable recommendations. G03-G05/G08-G10/
+G13 pure portions accepted; actual G04 ledger/version history, G05 SQL/time/
+coverage and G06 assignment/query completeness are UNKNOWN/OPEN for this
+verification. G01/A7 live dependency and G02 operational RAG remain blocked;
+G07 scheduler, G11 API/UI, G12 approval and operational G03/G08-G10/G13 remain
+open; G14 live held. Backend/contract owner Sol under root accountability,
+UI owner Luna, root independent review, operator final business acceptance.
+Each remainder keeps its exact P5-A2 gate/destination from the canonical
+binding; P5-B/C/D retain named roadmap owners/destinations and Phase5 0/5.
+
+Assign INTERNAL_AGENT Sol/medium source-verification author only: at most20
+relevant native source files plus10existing test/contract files; inspect
+Ledger/InMemory/SQL Report, shift, assignment/auth, time/transaction and
+bounded enumeration owners. Read-only source/hash tracing; no test launch,
+database connection, source change, provider/key/model/CSV or network.
+Allowed output only docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md.
+Output exact inspected paths/SHA pins and line evidence, current G04-G06
+capabilities/unknowns, native reuse and smallest missing adapter connection.
+Stop at a coherent verified contract direction or named unresolved dependency;
+root independently accepts before any SPEC/WO/BUILD. This is finite product
+verification, not authority for an automatic support successor or new BUILD.

@@ -135,4 +135,10 @@ The canonical active handoff records actual material SHA, normal full hook and
 continuity receipts; source review alone does not close material completion.
 Stop if the source moves again.
 
+G04-G06 source audit pins20source surfaces and4existing test excerpts. Current
+query/cohort/retention/snapshot gaps remain; synthetic data with actual backend
+is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
+or acceptance and does not require operational data before fixture development.
+Live holds and all14milestone remainders remain; active handoff owns current truth.
+
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

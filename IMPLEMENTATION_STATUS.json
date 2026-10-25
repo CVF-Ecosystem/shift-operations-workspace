@@ -527,6 +527,23 @@
     "fullGateAfterBuild": "Actual result recorded in canonical active handoff after mandatory normal material hook; source acceptance alone is not completion.",
     "commitBlocker": null,
     "resumptionBinding": "6d5c4a5de4b23e4ec5cb5a54fb8f0c8e6a71fd2c",
-    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md; completion only after normal full hook/material commit and actual-SHA continuity."
+    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_PROACTIVE_REPORTING_2026-10-24.md; completion only after normal full hook/material commit and actual-SHA continuity.",
+    "scopedHistoryAudit20261025": {
+      "status": "SOURCE_VERIFICATION_AND_SYNTHETIC_FIRST_DESIGN_REVIEW_PASS_BOUNDED",
+      "sourceRevision": "552612603bb35fd97a9f688787948542dc59e86e",
+      "sourcePaths": 20,
+      "rootTestExcerptSurfaces": 4,
+      "sourceAudit": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_VERIFICATION_2026-10-25.md",
+      "proposal": "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md",
+      "sourceCodeChanged": false,
+      "runtimeHistoryIntegrationAccepted": false,
+      "operationalCohortCoverage": "UNKNOWN; no production complete=true proof",
+      "proposedReturn": "Reviewed source query/cohort/coverage/snapshot/cap SPEC and bounded WO before fixture-backed implementation",
+      "milestoneComplete": false,
+      "review": "docs/decisions/P5A2_SCOPED_HISTORY_AUDIT_PROPOSAL_REVIEW_2026-10-25.md",
+      "newTestsAdded": false,
+      "targetedAuditTestsRun": false,
+      "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_HISTORY_2026-10-25.md; normal material commit and actual-SHA continuity required"
+    }
   }
 }
