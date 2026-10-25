@@ -1,5 +1,10 @@
 # P5-A2 scoped source PostgreSQL — active Stage B handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `7a228d7d819e1ef7b3658f9a6098d606d0a8fc01`.
+Dedicated source dispatch continuity: this exact five-path child; derive SHA from Git afterward.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; Root ORCHESTRATOR/SPEC_AUTHOR/WORK_ORDER_AUTHOR, R2/liveYES.
 Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
 read-only; no provenance/sharedpack/latestremote dependency. User NEXT selects
@@ -39,3 +44,16 @@ Independent PG-PLAN-F1/F2 beforedispatch: freezeexactPUBLICbaseline contexts and
 ## Planning acceptance / dispatch preparation
 
 Independent AUTHORIZATION_REVIEW_PASS_BOUNDED, PG-PLAN-F1/F2 resolved, noopenfinding/waiver. Oracle0b69156f/exactcontexts,38inheritedpins, no-pull exactimage policy andtwo-WO chain accepted. RootSPEC/WO_AUTHOR→independentREVIEWER→COMMIT_STEWARD afterfreshcanonicalread/Coreguard. Normal16path sourceplanningdispatch then dedicatedactualSHAcontinuity before inertBUILD. EffectWODRAFT/admissionPLANNING_NO_EFFECT, no physicalauthority. All14remainders/owners/Phase5 0/5 retained.
+
+## Actual source planning dispatch / dedicated continuity
+
+Actual16path7a228d7d819e1ef7b3658f9a6098d606d0a8fc01 parent8dc39e1;
+unmodifiednormalhook3316PASS147skip4warnings147.05s. Independent
+POST_MATERIAL_DISPATCH_REVIEW_PASS_BOUNDED: exact16set/cleanworktree/oracle0b/
+38sourcepins/activeSourceWOgraph andheldEffectDRAFT verified. No harnessfileor
+physicaleffect yet. RootCOMMIT_STEWARD→independentTERMINALREVIEWER→SESSION_SYNC;
+freshprojectcontinuity/Core acknowledgment. THISexact5path childrecordsactual
+planningSHA; normalchildsuccess+cleanrange thenfreshinertBUILD acknowledgment.
+Onlynew5fileharness+ownreturn worker scope, oracle0b/oldsource/matrix read-only.
+Effect stillheld: Source/effectsealreview, jointsourceMATERIAL/effectDISPATCH
+commit andactualSHAcontinuity/cleanrange beforeONErun. All14gap/owners/Phase5 0/5.
