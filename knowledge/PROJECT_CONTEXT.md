@@ -149,11 +149,13 @@ Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
 frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
 retained; committedAM1 oneuv3.3.4 recovery succeeded. No standingbackend or
 operationalcoverageclaim. Core-only correction and carriedSQL now CLOSED_BOUNDED at3de6c50/7134f9e,
-normal3253testsPASS and exact29+5cleanrange. G04–G06 sourcequery/cohort/coverage
-contract/staticfamily now has independentreviewPASS (35genericpass2skip),
-not a sourcequery/emitter implementation. Stage A exact nativepaths/emitter/oracle/graph WO is under independent authorization review;
-no sourceBUILD until dispatch/continuity; Stage B held. Productdestination G04–G06sourcequery/cohort/coverageSPEC,
-all14remainders/
-providerhold/Phase5 0/5 remain. Currenthandoff/status owns exactcommits.
+normal3253testsPASS and exact29+5cleanrange. G04–G06 source contract/staticfamily
+accepted bc25/814d; native source Stage A now independently accepted after repair2:
+source+generic91PASS2skip/84native mutation rejections, fulloracle receipts/lineage/
+analysis, native500/501 zero-bodycopy, fresh access and strict receipt semantics.
+Physical new PostgreSQL query proof remains separately admitted Stage B (HELD),
+not supplied by inert tests. Current handoff owns normal material/continuity closure.
+Production coverage/retention, API/UI/scheduler/context/approval and operational
+quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retained.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

@@ -640,16 +640,38 @@
     "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md"
   },
   "p5a2_scoped_source_stage_a_20261026": {
-    "status": "AM1_REVIEW_PASS_DISPATCH_RETRY",
+    "status": "STAGE_A_INDEPENDENT_REVIEW_PASS_PENDING_MATERIAL",
     "workOrder": "docs/work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md",
     "oracle": "tests/fixtures/p5a2_scoped_source_oracle.json",
     "oracleRawSha256": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
-    "queryImplemented": false,
+    "queryImplemented": true,
     "stageB": "HELD",
     "productionCoverageAccepted": false,
     "milestoneComplete": false,
     "review": "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_BUILD_REVIEW_2026-10-26.md",
     "failedDispatchHook": "1failed3244passed147skipped4warnings8errors200.47s",
-    "am1Focused": "37passed18.24s; independent37passed19.03s"
+    "am1Focused": "37passed18.24s; independent37passed19.03s",
+    "dispatchCommit": "ecb96ebfa384ac179ac6858340590c956e800ea4",
+    "dispatchContinuityCommit": "77f5686ed1ee00cce958a5c21af5f4860557981b",
+    "dispatchFullHooks": "3260passed147skipped4warnings141.57s/134.57s",
+    "sourceAccepted": true,
+    "focused": "35passed1failed then36passed2.51s",
+    "physicalPostgresQueryProof": false,
+    "runtimeMatrixCanonicalSha256": "9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c",
+    "openFindings": [],
+    "independentCorpus": "71passed2skipped beforefindingsrepair",
+    "candidateCorpus": "91passed2skipped5.71s",
+    "workerReturnSha256": "0a15c53b45e2bdceff3e64dacd06f0bcf37e075c71a96af426d9d2eeae7ad60f",
+    "resolvedFindings": [
+      "SOURCE-A-F1",
+      "SOURCE-A-F2",
+      "SOURCE-A-F3",
+      "SOURCE-A-F4",
+      "SOURCE-A-F2-R1",
+      "SOURCE-A-F3-R1"
+    ],
+    "focusedGeneric": "91passed2skipped5.71s; independent91passed2skipped5.25s",
+    "materialCompletionAuthority": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
+    "next": "Root normalmaterial/terminalreview/dedicatedactualSHAcontinuity/cleanrange, then separately reviewed Stage B actualSQL query proof"
   }
 }

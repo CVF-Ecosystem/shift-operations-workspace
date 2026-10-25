@@ -150,6 +150,14 @@ class InMemoryLedger(
     def list_shifts(self) -> Iterable[Shift]:
         return list(self.shifts.values())
 
+    def scoped_source_read(self, user_id, start, end, as_of):
+        from workspace_api.infrastructure import _proactive_source_memory
+        return _proactive_source_memory.scoped_source_read(self, user_id, start, end, as_of)
+
+    def fresh_scoped_cohort(self, user_id, start, end, prior_shift_ids):
+        from workspace_api.infrastructure import _proactive_source_memory
+        return _proactive_source_memory.fresh_scoped_cohort(self, user_id, start, end, prior_shift_ids)
+
     def close_shift(self, shift_id: UUID, *, unit=None) -> Shift:
         with self._lock:
             shift = self.shifts[shift_id]

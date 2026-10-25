@@ -1,7 +1,7 @@
 # P5-A2 scoped history source — independent Stage A authorization review
 
 docType: completion_review
-Status: AM1_REPAIR_REVIEW_PASS_BOUNDED
+Status: STAGE_A_REVIEW_PASS_BOUNDED
 Date: 2026-10-26
 Reviewer: independent REVIEWER; no Work Order, oracle, or implementation ownership
 
@@ -147,3 +147,147 @@ source BUILD still requires its separate fresh acknowledgment. The previous
 full-hook failure stays recorded, and the P5-A2 G01–G14 remainders and
 Phase 5 0/5 remain unchanged. No source adapter, provider, database or
 production acceptance is claimed by this test repair.
+
+## Independent Stage A source review — current decision
+
+`STAGE_A_REVIEW_CHANGES_REQUIRED_BOUNDED`; no Stage A acceptance or material
+commit yet. This is one consolidated same-scope repair packet for the exact
+nine source and five test paths already admitted by the Work Order. No new
+schema, route, provider, Docker, PostgreSQL rehearsal or effect is needed.
+
+| Finding | Evidence | Finite repair and proof |
+|---|---|---|
+| SOURCE-A-F1 — native boundary and fixture authority | All three 501 refusal tests substitute a hand-written `Unit`, so none proves the native memory metadata path refuses before `Report.model_copy`/body creation. The 500 native tests use `BoundaryCoverage`, which checks only instance and sets of shift/report IDs, then returns a constant digest. It does not bind exact scope/actor/window/as-of/policy/assignment versions/candidate immutable metadata as the reviewed HARNESS attestor requires. | In existing cap/helper tests, construct valid native 501 cases for eligible shifts, total candidate versions and per-snapshot Incident refs, with a body-copy/load spy that fails if called before refusal. Bind boundary fixture coverage to independently seeded exact fixture context and complete cohort/candidate metadata, compute its canonical seed digest, and add mismatch negatives; retain the 500 positives. Do not claim operational retention. |
+| SOURCE-A-F2 — receipt consumer semantics | With the frozen ready receipt, I changed a selected report's `created_at`, replaced its `source_manifest` with malformed refs, and replaced an eligible `assignment_id` with a non-UUID; after recomputing canonical source digest, `validate_source_receipt` accepted each. Changing both receipt and manifest `query_start` to `2026-99-99T99:99:99Z` was also accepted. The current native family tests mutate only one selected ID, list length, coverage digest, header or source bytes. The flat matrix's nested-object exclusion does not waive the Work Order's parsed manifest/lineage/time checks. | Extend the existing native consumer to validate real UTC timestamps and causal window ordering, UUID/positive-version metadata, full selected-to-candidate immutable fields including cutoff/created time, and selected lineage-ref structure; add focused recomputed-digest corruption tests for those examples. Keep the accepted flat outcome shapes and pre-BUILD oracle unchanged. This validates receipt metadata; it need not recreate report bodies or prove cryptographic source records from receipt alone. |
+| SOURCE-A-F3 — snapshot and stored-content refusal mapping | A disposable fake PostgreSQL connection whose `execution_options(isolation_level="REPEATABLE READ")` raises returned `SOURCE_UNAVAILABLE` through the broad application exception handler. The accepted contract requires `SNAPSHOT_UNAVAILABLE` when coherent read/fresh capability cannot be established. Conversely malformed persisted Report reconstruction/validation should map to closed `INVALID_LINEAGE`, rather than a generic storage refusal. SQLite's diagnostic currently reads the first unscoped Shift, so an unrelated shift can decide between `TIME_AMBIGUOUS` and `SNAPSHOT_UNAVAILABLE`; this does not prove a scoped diagnostic. | In existing SQL/app paths, classify setup/fresh-view capability failures as `SNAPSHOT_UNAVAILABLE`, malformed persisted body as `INVALID_LINEAGE`, and genuine storage availability failures as `SOURCE_UNAVAILABLE`, all with sanitized receipts. Scope the SQLite diagnostic to the requested principal/window or use uniform `SNAPSHOT_UNAVAILABLE` when provenance cannot be established. Add inert negative fakes and a foreign naive-Shift case; actual PostgreSQL transaction proof remains Stage B. |
+| SOURCE-A-F4 — denial and foreign-content precedence proof | The frozen `denied_actor_with_bad_time_and_overflow` test supplies an actor mismatch and naive start but no overflow; it therefore does not demonstrate denial ahead of a 501 cap. Existing source tests also do not inject a foreign assignment/oversized or invalid Report to prove bounded native queries never read foreign content. | In existing source/cap tests, combine denied actor with real native overflow and an instrumented read that must never be entered; separately add foreign shift/Report bad-time or 501-ref content while the authorized fixture remains ready, with a spy or exact selected IDs proving exclusion. Preserve the server-composed trusted-context precondition and do not infer API authentication. |
+
+The worker return raw SHA256 is
+`95a331eac5baf31a8a03309f34002f51da91197b81723fd98747cafa1eb7ab49`.
+Root promoted the planned runtime matrix canonical digest
+`9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c`;
+only its bounded claim, emitter identity, evidence paths and ownership consumers
+changed from the accepted static matrix. The frozen pre-loader oracle raw
+SHA256 `0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044`
+is unchanged. Actual ready/refused native samples and 54/30 matrix mutation
+rejections are meaningful evidence, as are the two complete ready oracle
+receipts, selected lineage and pure analysis. They do not resolve the four
+specific gaps above. The initial focused result (35 passed, 1 failed) and
+the corrected inert SQL assertion/retry (36 passed) are retained. I reran the
+four focused paths plus the registered generic corpus independently:
+**71 passed, 2 skipped**. Core, session, invariant-family and file-size
+guards passed. No full hook or physical PostgreSQL/provider effect was run
+for this review.
+
+P5-A2 remains the integrated authorized forecast/history/freshness and exact
+human-approval milestone. This Stage A can close only fixture-scoped G04–G06
+mechanics and partial G13 failure handling after repair/review. G01/A7/G02
+remain blocked; G03 and G08–G10/G13 operational quality remain open; G07/G11/
+G12 remain open; G14 remains held. Production coverage/retention, API identity,
+use-time approval, scheduler and physical PostgreSQL proof remain at their
+named P5-A2 and later P5-B/C/D destinations, owned by Root/backend,
+independent reviewer, UI roadmap owner and operator as reconciled in the
+accepted SPEC and Work Order. Phase 5 remains 0/5. The bounded next move is
+same-scope worker repair, focused evidence and independent rereview before
+the unmodified material hook or any Stage B admission.
+
+## Independent Stage A repair 1 rereview — current decision
+
+`STAGE_A_REPAIR1_REVIEW_CHANGES_REQUIRED_BOUNDED`. SOURCE-A-F1 and F4 are
+resolved. SOURCE-A-F2 has two adjacent parsed-receipt conditions still open;
+SOURCE-A-F3 has one remaining reason-classification defect. They form one
+consolidated final same-scope repair packet. No new path, effect, schema or
+contract change is needed.
+
+Native in-memory 501 cases now cover all three cap dimensions with zero
+`load_reports` and `Report.model_copy` calls. The 500 boundary verifier freezes
+full actor/scope/instance/window/as-of/policy, assignment/version and immutable
+candidate metadata from a separately seeded fixture, and mismatch negatives
+refuse. The native receipt consumer now rejects corrected-calendar, UUID,
+selected metadata and lineage-ref corruption with recomputed digests; its
+UTF-8 canonical encoding matches the accepted contract. The SQL/SQLite fakes
+cover RR/read-only setup and fresh-view failure, persisted body versus storage
+failure, and a foreign naive Shift. Denied actor with actual overflow never
+opens a source read, and foreign bad-time/oversized Report content is excluded
+from the exact authorized ready receipt. The frozen source oracle and accepted
+matrix shapes remain unchanged.
+
+| Remaining finding | Direct evidence | Finite correction |
+|---|---|---|
+| SOURCE-A-F2-R1 — selected window and strict lineage integer | From the frozen ready receipt, I changed the first selected `generated_from_cutoff` to `2025-12-31T23:00:00Z` (outside the declared window) and changed the corresponding candidate cutoff to match; after recomputing canonical manifest and digest, the native validator accepted it. I also changed the first selected source ref's `source_version` to JSON `true`; Pydantic coerced it to integer 1 and Python treated `1 == True`, so the native validator accepted it. These violate the SPEC's selected in-window rule and versioned ref integer domain, although the flat receipt shape still matches. | In the existing receipt consumer, require every selected cutoff in `[query_start,query_end)` and reject JSON bool/non-integer `source_version` before/coincident with model validation, without changing outcome shape or oracle. Add both recomputed-digest negatives to the existing family test. This checks receipt metadata, not source-body cryptographic truth. |
+| SOURCE-A-F3-R1 — storage connection failure classified as snapshot incapability | `_read_only_rr` catches every `ledger.engine.connect()` exception and raises `SNAPSHOT_UNAVAILABLE`. I injected an `OSError` from `connect()` through the actual `SqlLedger` application path; `query_source` returned `SNAPSHOT_UNAVAILABLE`. The accepted SPEC trigger table assigns other storage/read failures to `SOURCE_UNAVAILABLE`, reserving `SNAPSHOT_UNAVAILABLE` for inability to provide a coherent/fresh snapshot. The repaired tests cover isolation setup and body-query availability, but not this connection failure. | Map initial storage connection failure to sanitized `SOURCE_UNAVAILABLE`; retain `SNAPSHOT_UNAVAILABLE` for RR/read-only setup and inability to establish the independent fresh view. Add an inert application-path connection-failure assertion beside the existing setup/body fakes. If the same helper serves both source and fresh views, distinguish the call context without changing the public receipt contract. |
+
+The settled repair worker return raw SHA256 is
+`af70aaa9462a48c8ea8c498b36378e89d37e0ab0b1020ff6e0f2ba282aad667c`.
+Its exact three-source/four-test repair stays within the authorized nine-source/
+five-test paths. The retained 85 passed/1 failed run was a test-host mistake;
+the corrected focused plus generic corpus yielded 86 passed/2 skipped in
+5.07 s. I independently reran the same corpus: **86 passed, 2 skipped in
+4.70 s**. The two raw native outcomes and 54 READY/30 REFUSED matrix mutation
+rejections remain valid evidence. Core, session, invariant-family, file-size,
+knowledge and catalog guards passed. Direct receipt probes rejected changed
+selected time, malformed lineage ref, bad assignment UUID and invalid calendar
+after recomputing digest. The two additional probes above were accepted and
+therefore remain findings. No actual PostgreSQL, provider or full suite was run.
+
+The complete P5-A2 G01–G14 remainder and owner/destination binding above is
+unchanged; Stage A remains fixture-scoped G04–G06/partial G13 only and Phase 5
+remains 0/5. Root may route this one same-scope receipt/SQL/test repair and request
+independent rereview before the normal material hook. Stage B is still held.
+
+## Final independent Stage A repair 2 rereview — current decision
+
+`STAGE_A_REVIEW_PASS_BOUNDED`; SOURCE-A-F1–F4 and adjacent F2-R1/F3-R1 are
+resolved. Open Stage A findings `NONE`; waivers `NONE`. This PASS covers the
+fixture-scoped source adapter and inert SQL/memory proof in the reviewed Work
+Order. It does not claim physical PostgreSQL transaction execution, production
+coverage/retention, API identity, scheduler, exact human approval, or CVF AI
+governance behavior.
+
+The final same-scope repair changed only the SQL read helper, native receipt
+consumer, family test and inert SQL test. Their raw SHA256 values are
+`3c719f293482734febfbbd19f8b3d9f68834065267076688a986a2700bf5505d`,
+`ff8536e43cb043b2a0b5a921270a38ff729dc1f4b4df1a23a6a07e686715ecc1`,
+`4eddde07066f642235f935a620022860d62f8d1aa7287edd176eac03edbb72cc`,
+and `975e3eb78b52485073bc0d96938fab363e159f8543231839522f83aebb96a8fd`.
+All 14 authorized source/test file hashes and line counts match the exact
+worker-return manifest; the worker return raw SHA256 is
+`0a15c53b45e2bdceff3e64dacd06f0bcf37e075c71a96af426d9d2eeae7ad60f`.
+
+Initial storage connection failure now returns the frozen sanitized
+`SOURCE_UNAVAILABLE` refusal. RR/read-only setup and fresh-view connection
+capability failures remain `SNAPSHOT_UNAVAILABLE`. The native consumer
+requires selected cutoffs in the declared window and strict integer
+`source_version` fields in selected lineage refs. I independently changed a
+selected and matching candidate cutoff outside the window, then changed a
+versioned Incident ref to JSON bool, float and string values; each
+recomputed-digest receipt was rejected. An application-path injected initial
+connection `OSError` returned exact `SOURCE_REFUSED/SOURCE_UNAVAILABLE`
+without payload or driver detail. The prior native 500/501 body-spy,
+full-seed fixture coverage, foreign-content, denial-first, semantic receipt,
+SQLite and inert SQL tests remain in the focused corpus.
+
+The frozen oracle raw SHA256 is still
+`0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044`;
+the registered runtime matrix canonical digest remains
+`9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c`.
+Raw native sample SHA256 `0668e4f1b016e31c686cbebff62d9bd8f939b37ce91eae3c10f9cbabfeb1c90c`
+contains the exact frozen first `SOURCE_READY` source digest `a27bdcd3...`
+and a closed `SOURCE_REFUSED/ACCESS_DENIED`; the actual consumer rejects 54
+READY and 30 REFUSED matrix mutations. The worker's final focused plus
+generic run was **91 passed, 2 skipped in 5.71 s**; I independently reran
+the same six paths: **91 passed, 2 skipped in 5.25 s**. The earlier 35/1 and
+85/1 test mistakes remain recorded above. Core, session, invariant-family,
+file-size, knowledge, catalog and diff checks passed.
+
+The complete P5-A2 G01–G14 remainder and role/destination binding above is
+still current. This bounded result advances fixture G04–G06 and partial G13
+source mechanics only; G01/A7/G02 remain blocked, G03 and G08–G10/G13
+operational quality remain open, G07/G11/G12 remain open, G14 remains held,
+and production G05 retention/coverage and G06 API/use-time authorization are
+unknown/open. Root/backend, independent reviewer, UI roadmap owner and
+operator retain the P5-A2 and P5-B/C/D destinations in the accepted SPEC.
+Phase 5 remains 0/5. Root may run the normal unmodified Stage A material
+hook and commit the exact reviewed changed set if it passes; terminal actual
+range review, dedicated actual-material-SHA continuity and clean-range
+closure remain required before Stage B admission.

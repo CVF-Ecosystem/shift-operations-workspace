@@ -12,7 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-10-25; Phase 1–4 giữ closure bounded đã ghi, Phase 5 đang triển khai và chưa đóng milestone._ Quy ước:
+_Cập nhật: 2026-10-26; Phase 1–4 giữ closure bounded đã ghi, Phase 5 đang triển khai và chưa đóng milestone._ Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
   independent review và closure trong đúng claim boundary;
@@ -495,7 +495,7 @@ P5-A là engine trình bày/tổng hợp và xuất báo cáo. Nó không thay t
 operational report record cần để hoàn thành một ca và thỏa freeze prerequisite.
 
 - [ ] **P5-A:** Reporting engine: report draft từ confirmed records, PDF/Excel. **A7 BLOCKED / LOCAL AND SOURCE3199PASS; ONE REAL CALL401 invalid_api_key, NO RETRY (2026-10-24)** — [full gap binding](../decisions/P5A_REPORTING_ENGINE_INTAKE_DESIGN_2026-10-23.md).
-- [ ] **P5-A2 — pure supplied-input history/numeric subset accepted bounded; integrated milestone open (2026-10-25, live deferred):** [G04–G06 source audit and synthetic-first proposal](../decisions/P5A2_SCOPED_HISTORY_AUDIT_AND_SYNTHETIC_DATA_PROPOSAL_2026-10-25.md) is accepted direction; a reviewed [Docker synthetic SQL rehearsal WO](../work_orders/P5A2_DOCKER_SYNTHETIC_BACKEND_WORK_ORDER.md) is bounded to G04/G05/G13 substrate proof; Stage A plus one actual PostgreSQL16.15 synthetic rehearsal independently accepted:36shifts/37versions, migrations001–011 twice, frozen as-of/lineage/analysis oracle and owned cleanup PASS. Original missing-pip failure retained, committed AM1 oneuv recovery succeeded. Operator2026-10-26 authorized Core-only inheritance correction; source/config independently accepted after21focusedPASS, preserving installed native controls and removing direct-private/latestremote coupling. Core correction+SQL substrate closed bounded at3de6c50/7134f9e, exact29+5cleanrange and3253testsPASS. Product G04–G06 source-query/cohort/coverage SPEC and static outcome family independently reviewed PASS_BOUNDED (35genericpass2skip); no query/emitter implementation, Stage A exact nativepaths/emitter/oracle/activegraph WO is under independent authorization review; no BUILD until dispatch/continuity. Stage B held. G06 and operational acceptance remain open. Proactive reporting và forecasting sau khi reporting +
+- [ ] **P5-A2 — fixture source Stage A accepted bounded; integrated milestone OPEN (2026-10-26, live deferred):** [Source WO](../work_orders/P5A2_SCOPED_HISTORY_SOURCE_WORK_ORDER.md) and [independent source review](../decisions/P5A2_SCOPED_HISTORY_SOURCE_BUILD_REVIEW_2026-10-26.md): native memory scoped admission, count-before-body500/501, fresh membership, fixture coverage, closed receipt/consumer and inert SQL checks accepted after91source+genericPASS2skip/84native mutations. Prior actual PG36/37 substrate and Core-only correction remain accepted. Actual new PostgreSQL query/snapshot proof requires separately reviewed Stage B admission; no standing backend or operational completeness claim. API/UI/scheduler/context/exact human approval, operational quality/retention and all14gap remainders stay OPEN/UNKNOWN; Phase5 0/5. Proactive reporting và forecasting sau khi reporting +
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến

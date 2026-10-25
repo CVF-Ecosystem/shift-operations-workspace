@@ -1,6 +1,6 @@
 # P5-A2 scoped history source — Stage A Work Order
 
-Status: DISPATCH_READY
+Status: IMPLEMENTED_BOUNDED
 Date: 2026-10-26; risk R2; Root ORCHESTRATOR/WORK_ORDER_AUTHOR.
 Worker activation requires independent authorization PASS, normal dispatch commit,
 dedicated actual-dispatch-SHA continuity and fresh acknowledgment before BUILD.
@@ -245,3 +245,20 @@ owned by work-order-author with backendworker implementation and independent
 review, before authorization_review/pre_dispatch_gate can pass again.
 
 AM1 independent REPAIR_REVIEW_PASS_BOUNDED,37focusedPASS18.24s and independent37PASS19.03s; one-testpath repair complete. Root retries normal dispatch; original failed log retained. Main source activation still requires actual dispatch/dedicated continuity.
+
+
+## Stage A acceptance and execution authority exhaustion
+
+Independent STAGE_A_REVIEW_PASS_BOUNDED after consolidated repair1/repair2;
+SOURCE-A-F1–F4 and adjacent F2-R1/F3-R1 resolved, openfindingsNONE/waiversNONE.
+Source+generic91PASS2skip5.71s; independent91PASS2skip5.25s. Both frozen full
+oracle receipts/lineage/analysis, native500/501x3zero-bodycopy, exactfixtureseed,
+foreign exclusion/denial precedence, realreceipt metadata and native84mutation
+rejections accepted. Runtimefamily binding9b3 and frozenoracle0f unchanged.
+Only fixture-internal Stage A is accepted; actualPGquery/snapshot behavior,
+APIauth/productionretention/quality/approval/AI proof remain unaccepted.
+No continuing worker BUILD/effect grant. Root normalmaterial/terminalreview/
+dedicatedactualSHAcontinuity/cleanrange still required for boundedclosure.
+Stage B remains HELD until separately reviewed finite effect admission and
+committed source/admission/continuity; oldphysicalceilings never reset.
+Full14gap/owners/P5-B/C/D destinations above and Phase5 0/5 remain unchanged.

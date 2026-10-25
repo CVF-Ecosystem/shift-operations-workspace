@@ -181,17 +181,7 @@
             },
             "reason": {
               "type": "STRING",
-              "enum": [
-                "ACCESS_DENIED",
-                "INVALID_WINDOW",
-                "TIME_AMBIGUOUS",
-                "COVERAGE_UNKNOWN",
-                "SCOPE_INCOMPLETE",
-                "SNAPSHOT_UNAVAILABLE",
-                "INVALID_LINEAGE",
-                "INCOMPATIBLE_POLICY",
-                "SOURCE_UNAVAILABLE"
-              ]
+              "enum": ["ACCESS_DENIED", "INVALID_WINDOW", "TIME_AMBIGUOUS", "COVERAGE_UNKNOWN", "SCOPE_INCOMPLETE", "SNAPSHOT_UNAVAILABLE", "INVALID_LINEAGE", "INCOMPATIBLE_POLICY", "SOURCE_UNAVAILABLE"]
             }
           },
           "relations": []
@@ -224,17 +214,26 @@
           "consumerPath": "docs/specs/p5a2_scoped_source_invariant_pin.py",
           "strategy": "CANONICAL_DIGEST",
           "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+        },
+        {
+          "consumerPath": "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
         }
       ]
     }
   ],
   "emitterAdapter": {
-    "identity": "p5a2_planned_scoped_source_receipt_adapter",
+    "identity": "p5a2_scoped_source_receipt_adapter",
     "kind": "REAL_SERVICE_EMITTER"
   },
   "evidenceTestPaths": [
     "tests/unit/test_invariant_family_contract.py",
-    "tests/integration/test_invariant_family_repository_guard.py"
+    "tests/integration/test_invariant_family_repository_guard.py",
+    "tests/unit/test_p5a2_scoped_source.py",
+    "tests/unit/test_p5a2_scoped_source_caps.py",
+    "tests/unit/test_p5a2_scoped_source_family.py",
+    "tests/integration/test_p5a2_scoped_source_sql.py"
   ],
-  "boundedClaim": "Static contract/source ownership and generic matrix checks only; planned emitter is not implemented. No query/transaction/authorization/retention/AI or operational readiness proof. Fixture-only trusted coverage remains distinct from unknown production authority."
+  "boundedClaim": "Native source receipt contract and ownership; acceptance requires actual Stage A emitter/validator/mutation and fixture source evidence. No actual PostgreSQL transaction, API authentication, production retention, operational accuracy or AI governance proof is inferred."
 }

@@ -7,8 +7,8 @@ Normal hook intact; legacy docs/decisions returns require explicit native rechec
 
 ## Current tranche
 
-p5a2_scoped_source_dispatch_continuity; phase WORK_ORDER; role SESSION_SYNC_STEWARD; R2/live evidence YES if AI claim.
-Independent POST_MATERIAL_DISPATCH_REVIEW_PASS_BOUNDED; Root records actualdispatchSHA in dedicatedcontinuity, no selfreferentialchildSHA.
+p5a2_scoped_source_stage_a_material; phase REVIEW; role COMMIT_STEWARD; R2/live evidence YES if AI claim.
+Source/fixture/runtimeconsumer StageA independently accepted after repair2; all findings resolved/no waiver. Root COMMIT_STEWARD, material completion not yet closed.
 Accepted source SPEC db1d2180 and static family bca9bb9d at material bc25c96 /
 dedicated814d32b, exact16+5 cleanrange, normal3253pass147skip4warnings.
 Root owns preloader oracle0f79676b (stdlib old36/37 oracle only), WO/contracts/
@@ -33,4 +33,4 @@ P5-B/C/D ownership. Phase5 0/5; no whole milestone closure.
 
 ## Next allowed move
 
-On successful normal exact5path child of actual15path ecb96eb and cleancommittedrange, Root may release Sol StageA exactsource/test BUILD after fresh acknowledgment. StageB/providerheld; rootfrozenoracle0f79676b and acceptedSPEC unchanged. No query/emitter built yet.
+Independent STAGE_A_REVIEW_PASS_BOUNDED; prepare exact31path normalmaterial, then terminalactualrange review, dedicatedactualSHA5path continuity and cleanclosure. Next productgate separately reviewed StageB realSQL query proof. StageB/providerheld.

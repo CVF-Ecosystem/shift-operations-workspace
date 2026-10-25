@@ -146,3 +146,29 @@ for exact StageA WO paths afterfreshdeclaration/acknowledgment. Solworker andind
 REVIEWER remainseparate; Rootcontract/metadata/commitowner. AllG01–G14remainders/
 owners andP5-B/C/D destinations retained, Phase5 0/5. StageB/provider/network/Docker/
 install/credentials effects HELD, no priorphysicalceilingreset.
+
+## Stage A BUILD activation and fresh acknowledgment
+
+Actualcontinuity77f5686ed1ee00cce958a5c21af5f4860557981b normal3260PASS147skip4warnings134.57s; exact15+5cleanrange verified afterindependentdispatchterminalPASS. RootSESSION_SYNC→ORCHESTRATOR, phaseBUILD/R2/liveYES, currentcontinuity/status/index/roadmap/Core reacknowledged. Sol IMPLEMENTATION_WORKER GO ONLYexact9source/5test+ownreturn paths; independentREVIEWER unchanged. RootpromotespreBUILDplannedruntimefamily9b3 ONLYwhenactualpaths exist; oracle0f79676b immutable. MainStageA nowactive, no runtimeproof/acceptance yet. StageB/provider/network/Docker/install/credentialsheld. Full14gaps/owners/Phase5 0/5 retained.
+
+Root SPEC_AUTHOR/WO_AUTHOR binding promotion during authorizedStageA: exact9source+5testpaths nowexist; promote PRE-BUILDplannedmatrix9b3ba818 andstaticpin, runtimeconsumerliteral matches. Only4approvedbinding/claimkeys changed; contractSources/shapes/domains/relations/exclusions equalacceptedbca. No oracle/parent/purechange. Focusedruntimeproof stillpending; independentreviewrequired, no acceptance claimed.
+
+## Stage A candidate return / independent REVIEW
+
+Worker exact9source+5tests+returnready, no sourcecommit. First35PASS1FAIL2.34s compiledJSONkeyliteralassertion retained, correctedparameter-awareSQLassertion then36PASS2.51s. Actualrawready/refusedsample and54/30native matrixmutations rejected. Bothfulloraclecases/22refusalexpectations match; native500 positive,501currentlyfakeunitspies requireindependentassessment. Root ORCHESTRATOR→independentREVIEWER, phaseREVIEW/R2/liveYES; workerpaused foroneconsolidatedsource/testreview. Sourcecandidate isnotaccepted; physicalPGquery/APIauth/productioncoverage/AIproof notclaimed. Rootmetadata/catalogsync only, frozenoracle/parent/pureunchanged. StageBheld; all14gap/owners/Phase5 0/5 retained.
+
+## Consolidated Stage A source repair1 activation
+
+Independent STAGE_A_REVIEW_CHANGES_REQUIRED_BOUNDED, SOURCE-A-F1–F4: native501/bodyspy+exactfixtureauthority; realtimestamp/UUID/fullselectedcandidate/ref receiptsemantics; SQLcapability/storedbody/scopedSQLite refusalmapping; realdenialoverflow+foreigncontent exclusion. Independentfocused+generic71PASS2skip doesnotclosefindings. RootORCHESTRATOR acceptsoneconsolidatedpacket, re-readscurrentcontinuity/status/index/review/Core; activatesSolREPAIR_WORKER onlyexistingexactsource/test+ownreturnpaths. PhaseBUILD/R2/effectsNONE/Rootcommitowner unchanged; no newWO scope. Matrix9b3/oracle0f/parent/pure immutable, StageBheld; independentrereviewafterrepair beforematerial. Full14gap/owners/Phase5 0/5 retained.
+
+Repair1 workerreturnaf70aaa9 ready; exact3source/4testrepairwithinadmittedset, fullmanifestinreturn. Native501x3zero-bodycopy, completefixtureseedbinding/mismatch, realUTC/UUID/fullselectedcandidate/ref semantics, setup/body/scopedSQLite failures, deniednativeoverflow+foreigncontentproof. Settledsource+generic86PASS2skip5.07s; one85P1Ftest-hostmistake/earlier86P retained. Root ORCHESTRATOR→independentREVIEWER phaseREVIEW, sourceacceptancepending; matrix9b3/oracle0f unchanged, StageBheld, all14remainders/owners/Phase5 0/5 retained.
+
+## Consolidated Source repair2 activation
+
+Independent repair1 resolves F1/F4/primaryF2, retainsF3initialconnectmapping; Rootread-onlyF2adjacent probes independently reproduced: selected+matchingcandidatecutoffoutsidewindow accepted, source_versiontrue coercedto1 accepted. Singleindependentreviewpacket SOURCE-A-F2-R1/F3-R1 bounds THREEexactconditions. Root ORCHESTRATOR re-readscurrentcontinuity/status/index/review/Core, activatesREPAIR_WORKER onlyexistingreceipt/SQL/testfamily/testSQL+ownreturn paths, phaseBUILD/R2/effectsNONE/Rootcommitowner unchanged. Initialstorageconnect→SOURCE_UNAVAILABLE; isolation/read-only/freshcapability→SNAPSHOT_UNAVAILABLE; selectedwindow and strictcanonicalrefversion rejection. No thirdroundautoauthority; matrix9b3/oracle0f/parent/pure unchanged, StageBheld and14gap/owners/Phase5 0/5 retained.
+
+FinalSourceRepair2return0a15c53b ready; exactSQLhelper/receipt/familytest/SQLtestwithinexistinggrant. InitialconnectSOURCE_UNAVAILABLE vssetup/freshSNAPSHOT_UNAVAILABLE, selectedcutoffwindow, strictbool/float/stringrefversion negatives allfixed. Source+generic91PASS2skip5.71s,54/30native mutations; oracle0f/matrix9b3 unchanged. RootORCHESTRATOR→independentfinalREVIEWER, sourceacceptancepending, no materialcommit/StageB/provider effect. All14remainders/owners/Phase5 0/5 retained.
+
+## Stage A independent acceptance / material preparation
+
+Independent STAGE_A_REVIEW_PASS_BOUNDED, allF1–F4 andF2-R1/F3-R1 resolved, openfindingsNONE/waiversNONE. Worker91PASS2skip5.71s, independent91PASS2skip5.25s; native84mutations/rawsamples0668 andfulloracle0f/matrix9b3 verified, exact14workerfilehashesmatch. Sourceinternalfixture/memory/caps/emitter/consumer/inertSQL acceptedONLY; actualPGquery/APIauth/retention/quality/AI proof absent. RootORCHESTRATOR→independentREVIEWER→COMMIT_STEWARD afterfreshcontinuityre-read. Prepareexact31path normalmaterial, terminalactualreview, dedicatedactualSHA5path child thencleanclosure. No sourceworker authority remains; StageBseparateadmissionheld, providerheld, allG01–G14 remainder owners/Phase5 0/5 retained.

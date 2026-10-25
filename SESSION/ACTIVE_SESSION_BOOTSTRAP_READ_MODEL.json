@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_dispatch_continuity",
+  "currentMode": "p5a2_scoped_source_stage_a_material",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_QUERY_2026-10-26.md",
-  "nextAllowedMove": "On successful normal exact5path child of actual15path ecb96eb and cleancommittedrange, Root may release Sol StageA exactsource/test BUILD after fresh acknowledgment. StageB/providerheld; rootfrozenoracle0f79676b and acceptedSPEC unchanged. No query/emitter built yet.",
+  "nextAllowedMove": "Independent STAGE_A_REVIEW_PASS_BOUNDED; prepare exact31path normalmaterial, then terminalactualrange review, dedicatedactualSHA5path continuity and cleanclosure. Next productgate separately reviewed StageB realSQL query proof. StageB/providerheld.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
@@ -16,7 +16,8 @@
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
     "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md"
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_SPEC_REVIEW_2026-10-26.md",
+    "docs/decisions/P5A2_SCOPED_HISTORY_SOURCE_BUILD_REVIEW_2026-10-26.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
