@@ -81,3 +81,7 @@ Freshcontinuity/status/index/Core read: RootORCHESTRATOR→WORK_ORDER_AUTHOR. In
 ## Separate effect authorization / material commit gate
 
 IndependentEFFECT_AUTHORIZATION_PASS_BOUNDED, exact38+5pins andfinitebudget/pathfences accepted, allruntimeartifactsABSENT. Freshcanonical/Coreack: RootWORK_ORDER_AUTHOR→COMMIT_STEWARD. Next exact23pathnormal sourceMATERIAL/effectDISPATCH, nohookskip; independentactualSHAterminalreview then dedicated5pathcontinuity/cleansplitrange beforeONErun. Noeffectyet; G01–G14andowners/P5-B/C/D/Phase5 0/5retained.
+
+## Actual joint source/effect material / dedicated continuity
+
+Actuala5dd2056b331ff152bed644c2d1beffde76987fe parent78fa50b exact23paths; unmodifiednormalhook3332PASS148skip4warnings292.71s. IndependentPOST_MATERIAL_SOURCE_EFFECT_REVIEW_PASS_BOUNDED confirms cleanworktree, exact23manifest,38+5pins, effectAPPROVED/sourceIMPLEMENTED, allruntimeartifactsABSENT/unspent. RootCOMMIT_STEWARD→SESSION_SYNC_STEWARD afterfreshcanonical/status/index/Coreack. THISexact5pathchildrecordsactualmaterialSHA; itsnormalhook andindependentexact23+5cleanrange precedefreshdeclaration/ONErunner. NoDocker/provider yet; no newauthority/waiver, all14remainders/owners/Phase5 0/5.
