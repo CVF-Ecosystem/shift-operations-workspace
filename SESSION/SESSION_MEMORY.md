@@ -7,8 +7,8 @@ Normal hook intact; legacy docs/decisions returns require explicit native rechec
 
 ## Current tranche
 
-p5a2_scoped_source_dispatch_material; phase WORK_ORDER; role COMMIT_STEWARD; R2/live evidence YES if AI claim.
-Fresh continuity acknowledged; AM1_REPAIR_REVIEW_PASS_BOUNDED, no openfindings/waivers. Root COMMIT_STEWARD normalhook retry.
+p5a2_scoped_source_dispatch_continuity; phase WORK_ORDER; role SESSION_SYNC_STEWARD; R2/live evidence YES if AI claim.
+Independent POST_MATERIAL_DISPATCH_REVIEW_PASS_BOUNDED; Root records actualdispatchSHA in dedicatedcontinuity, no selfreferentialchildSHA.
 Accepted source SPEC db1d2180 and static family bca9bb9d at material bc25c96 /
 dedicated814d32b, exact16+5 cleanrange, normal3253pass147skip4warnings.
 Root owns preloader oracle0f79676b (stdlib old36/37 oracle only), WO/contracts/
@@ -33,4 +33,4 @@ P5-B/C/D ownership. Phase5 0/5; no whole milestone closure.
 
 ## Next allowed move
 
-AM1 independently accepted37focusedPASS; retry normal dispatch material then record actual dispatchSHA in dedicated5path continuity. Main StageA not yet released, StageB/providerheld.
+On successful normal exact5path child of actual15path ecb96eb and cleancommittedrange, Root may release Sol StageA exactsource/test BUILD after fresh acknowledgment. StageB/providerheld; rootfrozenoracle0f79676b and acceptedSPEC unchanged. No query/emitter built yet.

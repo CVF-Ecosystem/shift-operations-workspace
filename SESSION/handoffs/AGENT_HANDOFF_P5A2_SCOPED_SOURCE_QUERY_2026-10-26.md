@@ -1,8 +1,8 @@
 # P5-A2 scoped history source — active contract handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `bc25c96c9e620465a02674358f4223a6c77c5db9`.
-Dedicated continuity: this exact five-path child; derive its SHA from Git after commit.
+Material commit recorded for this handoff: `ecb96ebfa384ac179ac6858340590c956e800ea4`.
+Dedicated dispatch continuity: this exact five-path child; derive its SHA from Git after commit.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; INTAKE/DESIGN→SPEC, riskR2, liveevidenceYES.
@@ -122,3 +122,27 @@ Normal13path dispatch hook stopped, NO COMMIT:1failed3244passed147skipped4warnin
 AM1 independentauthorizationPASS; RootORCHESTRATOR activatesSolREPAIR_WORKER ONLYexactknowledgeintegrationtestpath+ownreturn. Currentcontinuity/Coreguard reacknowledged; no mainSourceBUILD. Independentdiff/focusedreview thennormalhookretry; noadditionalCore/external effects.
 
 AM1 independent REPAIR_REVIEW_PASS_BOUNDED, exacttestf803e7e0/return24f365ec,245lines; worker37PASS18.24s and independent37PASS19.03s. Controls/helperhash/nativeingest/negative/cleanup preserved, no outsidechange/waiver. Root ORCHESTRATOR→COMMIT_STEWARD after freshcontinuityread. Retry normal15path dispatch material; retainedfailure nothidden. No mainSourceBUILD untilactualdispatch+dedicated5path continuity.
+
+## Actual Stage A dispatch / dedicated continuity
+
+Actual15path dispatch ecb96ebfa384ac179ac6858340590c956e800ea4 parent814d32ba,
+unmodifiednormalhook3260passed147skipped4warnings141.57s. Independent
+POST_MATERIAL_DISPATCH_REVIEW_PASS_BOUNDED, exact15set/cleanworktree/pins verified,
+no finding/waiver. Earlier13path proposed count superseded by actual15 inclAM1.
+Originalfailedhook1F3244P147S4W8E200.47s retained. Root COMMIT_STEWARD→independent
+TERMINALREVIEWER→SESSION_SYNC_STEWARD reacknowledged project continuity/Coreguard.
+THIS dedicated5path child recordsactualecbSHA; onlynormalchildsuccess+exactclean
+committedrange clears dispatch. No sourcequery/emitter/transaction proof yet.
+
+Pre-BUILD planned runtimefamily freeze: ignored .venv/p5a2_source_runtime_matrix.json
+canonical9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c.
+Changes ONLY ownershipBindings/emitterAdapter/evidenceTestPaths/boundedClaim;
+contractSources/shapes/domains/relations/exclusions semantically unchanged from
+acceptedbca9bb9d. Root promotes ONLY once exactsource/testpaths exist, then refreshes
+static/runtimeconsumerpins and independentreview. Oracle0f79676b staysimmutable.
+
+After successfulnormalchild/cleanrange, Root may release backendIMPLEMENTATION_WORKER
+for exact StageA WO paths afterfreshdeclaration/acknowledgment. Solworker andindependent
+REVIEWER remainseparate; Rootcontract/metadata/commitowner. AllG01–G14remainders/
+owners andP5-B/C/D destinations retained, Phase5 0/5. StageB/provider/network/Docker/
+install/credentials effects HELD, no priorphysicalceilingreset.
