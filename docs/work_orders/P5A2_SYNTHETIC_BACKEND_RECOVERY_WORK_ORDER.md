@@ -5,11 +5,42 @@ Status: DISPATCH_READY
 Date: 2026-10-27
 Baseline: `08c62dad7b956faf7e1d1dd6cb56ee79e10cbead`
 Risk: R2
-Phase: WORK_ORDER reviewed-dispatch candidate; independent authorization and committed dispatch/continuity remain prerequisites.
+Phase: WORK_ORDER AM1 candidate; independent source/authorization review and normal source+amendment material/continuity remain prerequisites for the extra final preflight.
 Role transition: SPEC_AUTHOR → WORK_ORDER_AUTHOR for this candidate.
 Root is ORCHESTRATOR, effect/artifact owner and COMMIT_STEWARD. A later named
 backend IMPLEMENTATION_WORKER changes source only after gates. An independent
 REVIEWER owns authorization, actual-source checkpoint and result review.
+
+## Amendment 1 — observed OWNER RIGHTS compatibility / final preflight
+
+This is the SAME recovery tranche and acceptance unit. Original reviewed
+bb9837d/c6fb255 dispatch and bounded SOURCE BUILD remain accepted history.
+Exactly one preflight was spent, returning SECRET_ACL_INVALID with no
+reservation, recovery, new resource, DB or secret-value read. Retain that
+receipt unchanged. Finite independent exact-identity diagnosis corrected the
+initial OTHER-principal inference: sole extra ACE is well-known OWNER RIGHTS
+S-1-3-4, representing the current object owner; current folder/file owners
+are the current user. Reference: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers .
+No permissions are changed, and no new account is trusted. The minimal source
+fix recognizes ONLY that virtual alias under all existing protected-DACL,
+current-user owner/full-control, non-inherited and other-principal checks.
+Actual temporary OWNER RIGHTS positive and Everyone negative tests apply.
+
+AM1 changes only the external preflight maximum: original 1 consumed plus ONE
+additional FINAL read-only preflight, total 2. Internal locked revalidation
+belongs to the one recovery invocation. Recovery remains maximum 1 and is
+UNSPENT; every other source, effect, data, secret, volume and acceptance limit
+is unchanged. No permission write, migration, reset, new volume/nonce/secret,
+provider, install, pull or public effect is added. A refusal on this final
+preflight stops without another source/support tranche automatically.
+
+Before the extra preflight: independent combined source/AM1 authorization;
+normal material commit containing the actual accepted source and AM1 packet;
+independent terminal review; dedicated exact-five actual-SHA continuity;
+independent clean split-range and NEW source admission of committed hashes.
+This is an intermediate same-tranche admission checkpoint, not physical or
+product acceptance. The accepted source then stays frozen through proof.
+AM1 supersedes the initial one-preflight figure below; all other caps remain.
 
 ## Product Milestone Binding
 

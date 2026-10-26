@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_synthetic_backend_recovery_contract",
+  "mode": "p5a2_synthetic_backend_recovery_am1_review",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
   "last_updated": "2026-10-27",
   "required_reads": [
@@ -18,7 +18,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Finish exact5 actual-SHA recovery dispatch child, then independent clean14+5. Only then bounded source BUILD/import tests and independent actual-source-hash checkpoint before new reserved max1 recovery; no migrations/reset/delete/provider.",
+  "next_allowed_move": "Normal actual-source+AM1 material commit, independent terminal review, exact5 actualSHA child, independent clean range and NEW committed-source admission. Only then final extra readonly preflight and at most1recover. No ACLwrites/newsecrets/volumes/provider/migration/reset.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -37,9 +37,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_synthetic_backend_recovery_contract",
+    "currentMode": "p5a2_synthetic_backend_recovery_am1_review",
     "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Actual reviewed recovery dispatch bb9837d; dedicated exact5 child and independent clean14+5 remain before BUILD.",
+    "activePhaseNote": "Independent AM1_SOURCE/AUTHORIZATION PASS; normal combined actualsource+AM1 material gate, no effects until continuity/clean/newsourceadmission.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -54,9 +54,9 @@
     "activeHandoffNote": "Stage B persistent synthetic local backend admission/execution; source Stage A settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Dedicated actual-SHA dispatch continuity only; no source/effects released.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Own accepted12source+Root/reviewer packet commit; all gates normal/intact.",
+    "currentRoleTransition": "WORK_ORDER_AUTHOR_TO_COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-27"
   },
@@ -892,12 +892,12 @@
     "consolidatedRecoveryDecision": "Standalone child import roots; preserve existing volume/nonce/credentials; read-only schema/data inventory before permitted seed. No automatic migrations; new reviewed source/effect contract required."
   },
   "p5a2_synthetic_backend_recovery_20261027": {
-    "status": "AUTHORIZATION_ACCEPTED_NORMAL_DISPATCH_ONLY",
+    "status": "AM1_AUTHORIZED_NORMAL_SOURCE_MATERIAL_GATE",
     "baselineCommit": "08c62dad7b956faf7e1d1dd6cb56ee79e10cbead",
     "milestoneComplete": false,
     "physicalAttempts": 0,
     "providerCalls": 0,
-    "buildAuthorized": false,
+    "buildAuthorized": true,
     "physicalAuthorized": false,
     "acceptance": [
       "SQL users1/shifts36/assignments36/reports37",
@@ -914,6 +914,28 @@
     "dispatchPaths": 14,
     "dispatchFullHook": "3465passed148skipped4warnings149.10s",
     "dispatchTerminalReview": "TERMINAL_DISPATCH_REVIEW_PASS_BOUNDED",
-    "dispatchClosure": "Dedicated exact5 actual-SHA child and independent clean14+5 required before BUILD"
+    "dispatchClosure": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact14+5",
+    "dispatchContinuityCommit": "c6fb2551c0a32d6d521373085eb9cdc95977b019",
+    "dispatchContinuityFullHook": "3465passed148skipped4warnings149.67s",
+    "sourceReview": "AM1_SOURCE_REVIEW_PASS_BOUNDED",
+    "sourceReviewFindings": [],
+    "repairRound": 2,
+    "sourceAccepted": true,
+    "sourceManifestDigest": "6db61e0dd34c4deb86f0f6ebefb34355092b947d7b6629c9de61dad5068b8492",
+    "preflightInvocations": 1,
+    "preflightObservation": {
+      "invocation": "ONE_RECOVERY_PREFLIGHT",
+      "exitCode": 1,
+      "result": {
+        "status": "REFUSED_OR_FAILED",
+        "stage": "SECRET_ACL_INVALID"
+      }
+    },
+    "resourceEffects": 0,
+    "openDecision": "Normal source+AM1 material/continuity/clean/newsourceadmission pending; private ACL unchanged.",
+    "independentNewRootCause": "Observed OWNER RIGHTS virtual current-owner SID S-1-3-4 rejected by source checker; not unsafe separate account and no permission change.",
+    "amendment1": "One final extra readonlypreflight total2, max1recoverunchanged/unspent, no ACLwrites.",
+    "am1Authorization": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "am1IndependentFocused": "36passed3.79s/full608/realtempOwnerRightspositiveandEveryoneNegative"
   }
 }

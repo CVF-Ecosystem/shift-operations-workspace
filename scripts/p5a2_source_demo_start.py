@@ -16,6 +16,7 @@ from p5a2_source_demo_common import (COMPOSE, CONTAINER, OWNER, PORTS, PROFILE,
                                      inspect, labels_match, owner_lock, process_start,
                                      resource_record, run, write_owner)
 from p5a2_source_demo_preflight import prerequisites
+from p5a2_source_demo_bootstrap import source_path
 
 
 def private_file(path: Path, content: str) -> None:
@@ -141,7 +142,8 @@ def start() -> dict:
                         "AI_MODE": "NO_AI", "P5A2_SOURCE_DEMO_PROFILE": PROFILE,
                         "PROACTIVE_SOURCE_INSTANCE_ID": PROFILE, "APP_ENV": "source_demo",
                         "CORS_ALLOWED_ORIGINS": "http://127.0.0.1:5174",
-                        "PYTHONPATH": str(ROOT / "apps/workspace-api/src")}
+                        "PYTHONPATH": source_path(), "PYTHONNOUSERSITE": "1",
+                        "PYTHONDONTWRITEBYTECODE": "1"}
             run([sys.executable, "scripts/apply_migrations.py"], env=base_env, timeout=90)
             run([sys.executable, "-m", "workspace_api.demo.seed"],
                 env={**base_env, "P5A2_SOURCE_DEMO_VIEWER_PASSWORD": viewer}, timeout=90)

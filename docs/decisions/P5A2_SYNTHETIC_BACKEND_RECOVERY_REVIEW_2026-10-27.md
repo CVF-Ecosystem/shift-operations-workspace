@@ -1,7 +1,7 @@
 # P5-A2 synthetic backend recovery authorization review
 
 docType: completion_review
-Status: AUTHORIZATION_REVIEW_PASS_BOUNDED
+Status: AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED
 Date: 2026-10-27
 Reviewer: independent REVIEWER (`/root/recovery_review`)
 Baseline: `08c62dad7b956faf7e1d1dd6cb56ee79e10cbead`
@@ -84,13 +84,326 @@ public and deployment effects are zero.
 
 closeabilityDisposition: CLOSEABLE
 outsideAuthorityBlockers: NONE
-nextRepairRoute: REVIEWER_LOCAL_REPAIR
+nextRepairRoute: CONSOLIDATED_ORCHESTRATOR_AMENDMENT
 workerRedispatchAllowed: NO
 
-This authorization review has no worker return and no repair dispatch. The
-next permitted move is Root's normal dispatch/continuity sequence. Later
-source checkpoint and physical result require their own independent checks.
-The verified pinned Core `check_recheck` was explicitly invoked on this exact
-standalone `docType: completion_review` artifact and returned zero violations.
-The native CLI/hook does not automatically select the legacy `docs/decisions/`
-review family.
+The original authorization and source checkpoint decisions remain recorded
+below; the ACL refusal closes as a truthful no-effect observation. The latest
+identity classification corrects its cause without changing the spent budget.
+No worker redispatch or physical retry follows until a reviewed orchestrator
+amendment. The verified pinned Core `check_recheck` was explicitly invoked on
+this exact standalone `docType: completion_review` artifact after the
+classification update and returned zero violations. The native CLI/hook does
+not automatically select the legacy `docs/decisions/` review family.
+
+## Independent actual-source checkpoint
+
+Disposition: SOURCE_CHECKPOINT_CHANGES_REQUIRED. Findings: SRC-1 through
+SRC-4 below. Waivers: NONE. Physical effects remain held. This supersedes
+the preliminary PASS wording in this artifact's source-checkpoint draft;
+the earlier dispatch authorization remains valid.
+The reviewed dispatch `bb9837d` and exact-five actual-SHA continuity child
+`c6fb255` passed the independent clean 14+5 range check before source BUILD.
+This is the same G04/G05 recovery acceptance unit and G01–G14/P5-A2/B/C/D
+binding above. Phase 5 remains 0/5, with no whole product gap closed.
+
+I independently inspected all nine changed source/test files in the sealed
+worker family: the existing start launcher; new bootstrap, recover, custody,
+Docker, inventory and services helpers; and the two new focused test files.
+The changed path set equals the admission's `actualSourcePins` set exactly.
+Every raw and LF SHA-256 and line count matches its current bytes; every
+source/test file is at or below 300 lines. The other 22 Stage A source pins,
+frozen data/authority/oracles, predecessor oracles, 11 migrations and
+read-only prerequisites remain unchanged. The registered family digests are
+unchanged; the invariant-family checker and session-state checker pass.
+
+I reran the inert focused suite over bootstrap, recovery and lifecycle:
+**29 passed in 1.69 s**. Its clean isolated child imports the real seed and
+composes the full demo app through `create_app(nonphysical_test_ledger=object())`;
+the result is `NONPHYSICAL_IN_PROCESS`. This is source structure evidence, not
+physical database or AI-governance evidence. The bootstrap builds explicit
+trusted project source roots and discards ambient `PYTHONPATH` and provider
+environment. Recovery accepts the exact owner digest and a raw immutable
+attempt marker hash; it makes no physical call at this checkpoint.
+
+The Docker helper uses the admitted cached image ID, exact CLI and local
+Desktop Linux named pipe for every command; inspection failures are distinct
+from absent resources and do not echo command output. The one new container uses the
+retained volume, exact labels, loopback port and `--pull never`; its guarded
+direct PostgreSQL command requires retained `PG_VERSION=16` and does not run
+the official initdb entrypoint. Preflight requires the registered nonce,
+historical creation/cleanup trails, absent container/children, free ports,
+same labeled volume, image and existing private credential file custody.
+Secret values would enter only the executor's in-memory child settings and do
+not appear in argv or tracked evidence on the inspected path. No secret file
+was opened for this review. Private ACL custody has SRC-2 below.
+
+The prewrite inventory code uses one explicit `REPEATABLE READ READ ONLY` snapshot,
+checks transaction mode, database/system identity, all 31 expected migration
+tables, required native columns and counts of every table, and permits only
+all-empty or exact target counts with every other table zero. It calls the
+existing transaction-owned seed once or its exact populated verification;
+there is no migration, DDL, reset or partial re-seed path. The helper's one
+separate post-seed read-only summary rechecks identity and all counts, so Root
+must not add another SQL summary. API and web start only after that result.
+The four target tables have native column coverage; eight remaining tables
+are schema-only in the accepted models and still receive count checks.
+The existing registered lifecycle adapter accepts the partial-to-running
+transition after stale lifecycle fields are replaced. The failure cleanup
+has the lost-create-ID defect SRC-3 below.
+
+Read-only owner metadata observation independently returned digest
+`ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e`,
+matching the admission: `PARTIAL_OWNED_FAILURE`, nonce
+`3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999`,
+container/API/web 0, retained volume 1, original trail lengths 2/1. This is
+metadata only; it does not prove current Docker state or database contents.
+
+## Consolidated source findings and bounded repair
+
+- **SRC-1 — Missing physical evidence fields.** `inventory()` observes
+  prewrite all-table counts, transaction isolation/read-only mode and PostgreSQL
+  version; `post_seed_summary()` observes postwrite mode/version/counts. The
+  recovery result currently returns only prewrite classification/table count
+  and postwrite counts, losing the observed fields needed for the required
+  secret-free evidence. Pass the actual sanitized summaries through the
+  recovery result/owner context within the same two budgeted SQL connections;
+  Root must not make another summary connection or infer their values.
+- **SRC-2 — ACL custody is too weak.** On Windows, `secret_custody()` rejects
+  inherited ACEs and requires a username substring, but an explicit
+  `Everyone` or other-principal read grant would pass. Require a closed
+  effective access check for the expected local owner, with an adversarial
+  extra-principal test, without opening or printing secret values.
+- **SRC-3 — Lost create result leaves unrecorded residue.** Docker `run` may
+  create the named container and then fail or return an invalid CID. In that
+  branch `resource["container_id"]` remains null, `_record_failure()` sees
+  the container and raises before `write_owner()`. Re-inspect the exact named
+  resource, validate nonce/image/mount/port and record truthful new ownership
+  and cleanup/residue before any further action. Refuse ambiguous ownership;
+  never remove a foreign container or the retained volume. Cover the lost-ID
+  branch with an inert test.
+- **SRC-4 — Boolean reservation bypass.** `maximumRecoveryCalls` accepts
+  JSON `true` because Python `True == 1`. Require exact integer type and value
+  one, with a negative marker test.
+
+All four repairs fit the existing recovery source/test family and objective.
+One consolidated same-scope repair return is appropriate. No new Work Order or
+physical budget is released by this review. Root may route this finding set
+to the implementation worker under the existing authority, then reseal all
+changed source hashes and obtain a fresh independent source checkpoint before
+one preflight/reservation/recovery. Until then `physicalBudgetReleased` must
+remain false, `physicalAttempts` zero and SQL/JWT/API/UI physical acceptance
+unproved. Provider, migration, reset, deletion, deployment and public effects
+remain forbidden.
+
+## Repair-round 1 independent source rereview
+
+Disposition: **REPAIR1_SOURCE_CHECKPOINT_PASS_BOUNDED**. SRC-1 through SRC-4
+resolved without waiver; no new source finding. This current verdict supersedes
+the initial checkpoint's CHANGES_REQUIRED disposition above, while retaining
+its finding history. The same P5-A2 G04/G05 synthetic proof assignment,
+G01–G14 remainders and P5-A2/B/C/D owners/destinations remain; Phase 5 is 0/5.
+
+The admitted actual manifest now contains exactly 12 changed source/test paths,
+all within the bounded start/bootstrap/recovery helper and test family. I
+recomputed each raw and LF SHA-256 and line count from current bytes: all match
+the admission, all are at or below 300 lines. The admission records manifest
+digest `f3e733d5151f339cb7feab9a547f7880927f1462708caad2842652e16f96c6e4`.
+All 43 frozen read-only Stage A source, input, oracle, migration and
+prerequisite pins rechecked unchanged. The invariant-family and session-state
+guards pass. The owner metadata digest remains
+`ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e`:
+partial failure with the same nonce, one retained volume and no recorded
+container/API/web. No secret-file contents were read.
+
+I reran the focused bootstrap, recovery, findings, smoke-wrapper and lifecycle
+suite once: **36 passed in 3.45 s**. It includes the real isolated seed import
+and full `create_app(nonphysical_test_ledger=object())` composition, the
+registered lifecycle adapter with eight raw positive samples and 608 frozen
+mutations, and inert negative probes. These are source checks, not physical or
+AI-governance proof.
+
+- **SRC-1 closed:** `recover` returns and persists the actual prewrite
+  inventory and post-seed summary, including observed PostgreSQL version,
+  transaction isolation/read-only status, fingerprint and all 31 table counts.
+  The same one prewrite and one postwrite read-only SQL connection produce
+  those summaries; Root must not open an additional summary connection.
+- **SRC-2 closed:** Windows custody now checks protected DACLs and owner SID
+  on the runtime directory and secret file, admitting only the current owner,
+  SYSTEM and Administrators SID allow rules. A real temporary private ACL
+  passes and an explicit Everyone read grant refuses. The check emits only
+  PASS/FAIL and does not read secret values.
+- **SRC-3 closed:** a lost Docker create receipt triggers exact named
+  inspection, nonce/image/mount/port and same-volume identity checks before
+  adoption and exact cleanup. Ambiguous or foreign identity is left untouched
+  and recorded as unknown custody in the owner context; the old trail and
+  volume remain. Inert tests cover exact adoption and foreign non-removal.
+- **SRC-4 closed:** the marker requires `type(maximumRecoveryCalls) is int`
+  and value one; booleans, floats and other values fail. Both marker tests
+  now isolate `ATTEMPT` in a temporary path, so the future real marker cannot
+  break the normal hook.
+
+The newly needed `p5a2_source_demo_recovery_smoke.py` wrapper stays in the
+authorized recovery helper family. It calls the unchanged native smoke once,
+temporarily binds its `inspect` reference to the exact local CLI/named-pipe
+Docker inspector, and restores the original reference in `finally`, including
+on failure. Inert tests cover delegation and restoration. No duplicate HTTP,
+JWT, SQL or lifecycle validator was added, and the future smoke budget remains
+one invocation with its existing SQL connection.
+
+The accepted 12 source/test hashes are frozen from this checkpoint through
+physical proof. Root may record this review's actual SHA, run at most one
+fresh preflight, write one exclusive immutable recovery reservation, and
+invoke recovery at most once under the existing Work Order. The reviewed
+smoke wrapper is the permitted one-smoke path after SQL acceptance. Any source
+pin movement, owner mismatch, ambiguous resource, incompatible/partial SQL
+state or failed effect stops the path without retry. The old Stage B budget
+remains spent. Physical SQL/JWT/API/UI evidence and milestone acceptance are
+still pending; provider, migrations, reset, deletion, deployment and public
+effects remain outside authority.
+
+## One spent preflight and independent ACL metadata diagnosis
+
+Disposition: **PREFLIGHT_REFUSAL_REVIEW_PASS_BOUNDED**. The one admitted fresh
+preflight returned exit 1, `SECRET_ACL_INVALID`, as retained in the ignored
+preflight observation. No recovery reservation or attempt file exists;
+`physicalAttempts` remains zero and `physicalBudgetReleased` false. No new
+container, SQL, API, web, browser or provider effect is claimed. The one
+preflight allowance is spent. The prior source checkpoint remains accepted
+for its exact frozen source bytes, but releases no physical action after this
+refusal.
+
+I inspected only ACL/stat metadata of the existing local runtime directory
+and `secrets.json`, without opening secret contents or emitting principal
+names/SIDs or ACL text:
+
+| Predicate | Runtime directory | Secret file |
+|---|---|---|
+| Exists, regular expected kind, non-reparse | YES | YES |
+| Protected DACL | YES | YES |
+| Owner CURRENT_USER and current-user FullControl | YES | YES |
+| Inherited ACE or non-Allow ACE | NO | NO |
+| Untrusted allow ACE | **YES, one OTHER principal** | NO |
+| Untrusted read/list and write capability | **YES / YES** | NO / NO |
+| File hardlink count | Not applicable | 1 |
+
+The exact failed predicate is the runtime directory's explicit OTHER allow
+rule. The secret file itself has only a CURRENT_USER allow rule, but the
+directory grants the other principal read/list and write rights. This is not
+a false refusal caused by SYSTEM or Administrators ownership: both objects
+are owned by CURRENT_USER and satisfy the helper's owner requirement. The
+closed ACL check correctly refuses the directory. The other principal was
+not identified or logged; no ACL or file bytes were changed.
+
+This review does not authorize loosening the source checker, changing local
+permissions or spending a second preflight. The safest route is a separately
+reviewed same-tranche custody remediation that removes the directory's
+untrusted access while preserving the existing secret bytes, old trails,
+volume and nonce, followed by a bounded amendment for one additional and
+final fresh preflight (cumulative maximum two). Permission mutation is a real
+external-effect/allowed-surface boundary and needs its own explicit authority
+and before/after metadata evidence. If that authority is unavailable, retain
+the refusal as the terminal physical result. No new source-only tranche or
+automatic retry follows from this finding.
+
+All G01–G14 remainders and P5-A2/B/C/D owners/destinations remain as recorded
+above; the local synthetic G04/G05 physical proof is still open, no whole
+product gap closes and Phase 5 stays 0/5. No operational coverage, provider
+governance, production or milestone claim is supported by this refusal.
+
+## Corrected exact ACL identity classification
+
+Disposition: **ACL_IDENTITY_CLASSIFICATION_CORRECTED_BOUNDED**. The prior
+metadata observation and `SECRET_ACL_INVALID` refusal remain true, but the
+prior inference that the directory allowed a separate account and required
+permission removal is **superseded**. A further read-only identity check found
+that the sole entry previously labeled OTHER is the Windows well-known
+**OWNER RIGHTS** identity, SID `S-1-3-4`. Its SHA-256 of the public SID text is
+`6fc80dfd06d4de9696770b7aad1bfb760434539d7d1d36a72fe0f29a0e6c4b13`,
+matching the observed entry. The directory owner is CURRENT_USER; that entry
+is explicit, non-inherited, FullControl, and there is no additional unknown
+allow entry. The protected secret file is also CURRENT_USER-owned and has only
+its current-user allow rule. No raw ACL, user SID/name or secret value was
+printed or stored.
+
+Microsoft identifies OWNER RIGHTS as the group representing the **current
+owner** of an object, not a separate account granted directory access:
+`https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-special-identities-groups`
+(Owner Rights) and
+`https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers`
+(well-known SID table). The observed directory ACE therefore exposes a
+source-checker classification omission: `windows_private_acl()` admits the
+current user's SID, SYSTEM and Administrators but rejects the current-owner
+virtual identity even while requiring the owner to be that same current user.
+The prior recommendation to remove directory permission is withdrawn. No ACL
+mutation is needed or authorized.
+
+A minimal same-tranche AM1 can add **only** OWNER RIGHTS `S-1-3-4` to the
+checker allowlist when the existing current-user ownership, protected DACL,
+non-inherited rules and current-user FullControl checks all pass. It must
+continue rejecting Everyone, other accounts/groups, inherited grants and
+owner mismatch. A temporary Windows directory with OWNER RIGHTS positive and
+explicit Everyone negative cases should prove that boundary. No accepted
+secret bytes, owner record, volume, nonce or Docker source need change.
+
+The actual first preflight remains a truthful refused and **spent** attempt;
+there is no reservation/recovery attempt and no physical proof. Root must
+author a bounded reviewed AM1 for this source correction and one additional,
+final preflight (cumulative maximum two) under the same recovery tranche,
+then complete normal amendment material/actual-SHA continuity/clean range and
+independent actual-source admission before any new physical action. The max-one
+recovery budget remains unspent. No automatic retry or source patch is
+authorized by this review. All 14 product gaps/owners/destinations and Phase 5
+0/5 remain unchanged.
+
+## Amendment 1 combined source and authorization review
+
+Disposition: **AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED**. Findings and waivers:
+NONE/NONE. This supersedes the pending AM1 authorization state, while retaining
+the first `SECRET_ACL_INVALID` refusal, its spent preflight, the earlier
+source findings and the corrected OWNER RIGHTS classification above.
+
+The Work Order's AM1 keeps the same P5-A2 G04/G05 synthetic acceptance unit,
+R2 ceiling, allowed source/effect classes and Root commit owner. The complete
+G01–G14 gap reconciliation, accountable P5-A2/B/C/D destinations and exact
+SQL/JWT/API/UI physical acceptance remain unchanged. No whole gap or Phase 5
+milestone closes; Phase 5 remains 0/5. AM1 changes only the read-only preflight
+maximum from one spent to **two cumulative, with exactly one final additional
+preflight**. The one recovery reservation/invocation and all other physical,
+secret, migration, volume, provider and public-effect limits remain unchanged.
+The refused first observation is retained; no attempt marker or recovery call
+has occurred.
+
+I independently checked the repaired `recovery_custody.py` and its focused
+Windows ACL test. The only added accepted identity is the well-known OWNER
+RIGHTS alias `S-1-3-4`; it is admitted only while each object's owner equals
+the current user, the DACL is protected, no rule is inherited or non-Allow,
+and the current user has an explicit FullControl rule. Other principals,
+including Everyone, remain refused. The actual temporary ACL test accepts
+OWNER RIGHTS and rejects an added Everyone read grant. This is recognition of
+the current owner's virtual identity, not a new account grant or permission
+mutation. The existing runtime and secret-file ACL bytes were not changed.
+
+The resealed actual manifest has exactly 12 changed source/test paths in the
+existing bounded family. Their current raw/LF SHA-256 and line counts match
+admission; every file is at or below 300 lines. All 43 frozen read-only pins
+remain unchanged; the registered family and session-state guards pass. I ran
+the focused bootstrap/recovery/findings/smoke/lifecycle suite once in the
+project venv: **36 passed in 3.79 s**, including the full 608 registered
+lifecycle mutations. The separately retained ambient-Python 34 pass/2
+`PYTHON_ENV_INVALID` result was an environment mismatch and is not erased or
+described as product pass; the project-venv run is the applicable focused
+result. No Docker, DB, secret-content, API, browser or provider action was
+performed for this review.
+
+The next authorized move is Root's normal **combined actual-source plus AM1
+material commit**, followed by independent terminal review, dedicated exact-
+five actual-SHA continuity child, independent clean split-range check and a
+new independent admission of the committed source bytes. This is an
+intermediate checkpoint in the same recovery tranche, not source-only closure
+or physical acceptance. Only after those gates may Root use the one additional
+final read-only preflight. If it refuses, stop without another automatic
+retry. If it passes, the original max-one exclusive reservation/recovery and
+subsequent SQL/JWT/API/UI proof gates still apply. No ACL write, migration,
+reset, new volume/nonce/secret, install, pull, provider call or public effect
+is authorized by AM1.

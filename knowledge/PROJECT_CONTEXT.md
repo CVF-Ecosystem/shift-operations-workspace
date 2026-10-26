@@ -164,7 +164,7 @@ quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retain
 Current: source API a141156/355ff93, UI a637e96/674d98e and synthetic source
 296e9ff/a77b120 accepted bounded. Stage B one start FAILED; owned container
 removed, volume retained; API/web/smoke/UI unexecuted, start budget SPENT.
-Failure555119e/08c62da closed15+5; consolidated recovery contract authorized for dispatch only;
+Failure555119e/08c62da closed15+5; recovery source/AM1 accepted, physical held;
 G04/G05 physical proof OPEN, operational coverage UNKNOWN, Phase5 0/5.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

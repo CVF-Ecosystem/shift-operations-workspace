@@ -298,3 +298,104 @@ rehydration/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYES.
 This exact5 child records realdispatchSHA; independent clean14+5 still required
 before BUILD. No source/effects released. G01-G14 remainders/owners/P5-A2/B/C/D,
 Phase5 0/5 retained; physicalbudget0/unreleased and priorstartSPENT unchanged.
+
+
+## Clean recovery dispatch / source-only BUILD release
+
+Independent CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED atbb9837d/c6fb255 exact14+5,
+normal3465PASS148skip4warnings149.10s/149.67s, nofindings. Freshcanonical/Core0
+acknowledgment; SESSION_SYNC_STEWARD to ORCHESTRATOR, BUILD/R2/liveYES. Delegate
+/root/consolidated_recovery_design SPEC/WO_AUTHOR to IMPLEMENTATION_WORKER for
+ONLY bounded recovery source/test family in sealed WO. No Docker/runtime/
+secret/SQL/API/web/browser/provider effects by source worker. Root owns all
+physical effects and records; independent actual-source checkpoint, fresh
+preflight and exclusive new max1 reservation remain mandatory. Source accepted
+hashes freeze through physical proof. All14gapowners/P5-A2/B/C/D/Phase5 0/5
+retained; old spent source/effect budget never reused. No migration replay.
+
+
+## Source checkpoint findings / consolidated repair round1
+
+Independent SOURCE_CHECKPOINT_CHANGES_REQUIRED despite29sourcePASS/full608;
+SRC-1 actualpre/postSQL modes/version/counts discarded from receipt,
+SRC-2 WindowsACL admits explicitextra principal, SRC-3 lostDockerCID canleave
+unrecorded owned/ambiguousresidue, SRC-4 boolTrue accepted as integer1.
+Root adds predictable marker-test isolation fromactualattemptpath underSRC-4.
+Verified standalone legacycompletion nativecheck_recheck applicable0; Core0.
+Fresh canonical acknowledgment; ORCHESTRATOR accepts findings and delegates
+sameworker IMPLEMENTATION_WORKER to REPAIR_WORKER BUILD/R2/liveYES. Same
+objective/sourcefamily/risk/effectclass/Rootcommitowner, no newWO/tranche.
+One consolidated pass, reseal allactualhashes and independentcheckpoint;
+physicalbudget remainsheld/unspent. All14gapowners/P5-A2/B/C/D/Phase5 0/5.
+
+
+## Independent repair1 source checkpoint / Root preflight-only GO
+
+Independent REPAIR1_SOURCE_CHECKPOINT_PASS_BOUNDED:12actualsource/testpins
+raw/LF match,43readonlypins intact,36focusedPASS3.45s/rawpositives+608mutations,
+realcleanchildfullapp, SRC1-4resolved withoutwaiver. Reviewed transportwrapper
+keepsnativesmoke unchangedwith exactlocalDockerpipe. Legacycompletion native
+check_recheck applicable0, Core0. Root freshcanonical acknowledgment;
+ORCHESTRATOR to IMPLEMENTATION_WORKER BUILD/R2/liveYES. Acceptedsource frozen
+throughphysicalproof; RootONEreadonlypreflight GO only. PASS+exclusiveNEW
+max1immutablemarker stillprecederecover. No migrations/newvolume/newsecret/
+reset/provider, oldfailure/volume/nonce/credentials preserved; all14gaps/Phase5
+0/5 retained. Recovery includesowninventory1+postsummary1; noextraSQLsummary.
+
+
+## Actual recovery preflight refusal / no effect / finite metadata diagnosis
+
+RootONEfreshpreflight returnedexit1 SECRET_ACL_INVALID, beforesecretvalues/
+reservation/recover/container/DB/API/web/browser. No attemptfile exists,
+newresources0, retainedvolume unchanged. Sourcebytes unchanged andaccepted
+checkpoint remainshistorical; physicalbudgetheld/unspent, preflightspent.
+IMPLEMENTATION_WORKER to ORCHESTRATOR REVIEW/R2/liveYES. Independent finite
+readonlyACLmetadata diagnosis may classifyprotection/owner-trust/allowlist/
+inheritance/rights booleans only, never values/fullACL/SIDs orpermissionwrites.
+No automaticretry orsourcechange. Anyadditionalpreflight requires reviewed
+boundedamendment inSAME recoverytranche. All14gapowners/Phase5 0/5 retained.
+
+
+## Independent OWNER RIGHTS correction / same-scope source repair2
+
+FiniteexactACEidentification showssoleOTHER==publicS-1-3-4 OWNER RIGHTS;
+Microsoftprimaryreference sayscurrentobjectowner, currentfolder/fileowneris
+currentuser. Independent ACL_IDENTITY_CLASSIFICATION_CORRECTED_BOUNDED
+supersedes unsafe-separate-account inference; no actualACLwriteneeded/allowed.
+Originalpreflightrefusal1 retained, noattempt/recover/newresource. Rootfresh
+canonical/Core/nativelegacyreview0; ORCHESTRATOR delegates sameREPAIR_WORKER
+BUILD/R2/liveYES for minimal virtual-ownerrecognition withcurrent-owner guard,
+existingstrictEveryone/other-principal refusal+actualtempmetadata tests.
+Repairround2 has independentactualhostidentityrootcause, not repeatedguessing.
+Sourceauthority/pathclass/risk/effectclass/commitowner unchanged; futureAM1
+mayaddexactlyoneFINALpreflight(total2), max1recoverstillunspent. Normal reviewed
+source+AM1material/actualSHAcontinuity/clean/newsourceadmission beforeeffects.
+All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained; no new tranche or ACLpermission
+change. Officialreference: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers .
+
+
+## Source OWNER RIGHTS fix / same-tranche AM1 authorization candidate
+
+SourceREPAIR_WORKER2 changed onlycustody+inerttempACLtest, exactS1-3-4 alias
+underallcurrent-userowner/protection/fullcontrol/other-principalguards.
+Projectvenv36focusedPASS; ambientPython34PASS2PYTHON_ENV_INVALID retained and
+corrected usingexactprojectvenv. No runtimeACL/secretvalues/effects. Rootfresh
+canonicalacknowledgment; ORCHESTRATOR to WORK_ORDER_AUTHOR WORK_ORDER/R2/liveYES.
+AM1 changesonlyexternalpreflight max from1spent tooriginal1+ONEFINALextra,
+recoverymax1unchanged/unspent; noACLpermissionwrite ornewtrustaccount. Source
+actual12pinsresealed andbudgetheld. Independentcombinedsource/AM1authorization,
+normalactualsource+AM1material/terminal/exact5actualSHAcontinuity/clean/new
+committedsourceadmission required beforeeffects. Same recoverytranche, not
+source-onlyclosure; all14gapowners/P5-A2/B/C/D andPhase5 0/5 remain.
+
+
+## AM1 independent source/authorization / normal source+admission material
+
+Independent AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED, NONE/NONE;12actualsourcepins
+and43readonlypins verified;36focusedPASS3.79s/full608/actualtempOwnerRights+
+Everyonecases. Legacycompletionrecheckapplicable0/Core0. Rootfreshcanonical
+acknowledgment; WORK_ORDER_AUTHOR to COMMIT_STEWARD WORK_ORDER/R2/liveYES.
+Normalcombinedacceptedsource+AM1material thenindependentterminal/exact5actual
+SHAchild/clean/newcommittedsourceadmission beforefinalextra preflight. This
+same-tranche admission checkpoint closesno physicalgap/milestone; Phase5 0/5.
+NoACLwrite/newsecret/newvolume/provider/migration/reset; originalrefusalkept.
