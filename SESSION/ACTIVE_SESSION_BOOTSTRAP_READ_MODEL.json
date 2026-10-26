@@ -1,23 +1,22 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_api_material_continuity",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md",
-  "nextAllowedMove": "Independent clean actual36-plus5 split-range review; if PASS proceed directly to bounded G11 source-inspection UI INTAKE/DESIGN/SPEC/WO without routine operator wait.",
+  "currentMode": "p5a2_source_ui_dispatch_gate",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
+  "nextAllowedMove": "Normal exact dispatch commit, independent actual review, dedicated five-path actual-SHA continuity, clean split range before worker BUILD.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
-    "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
-    "docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md",
-    "docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json",
-    "tests/fixtures/p5a2_source_api_oracle.json",
-    "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
-    "docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md",
+    "docs/specs/P5A2_SOURCE_UI_SPEC.md",
+    "docs/work_orders/P5A2_SOURCE_UI_WORK_ORDER.md",
+    "docs/decisions/P5A2_SOURCE_UI_ADMISSION_2026-10-26.json",
+    "tests/fixtures/p5a2_source_ui_mutations.json",
+    "docs/decisions/P5A2_SOURCE_UI_REVIEW_2026-10-26.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md"
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

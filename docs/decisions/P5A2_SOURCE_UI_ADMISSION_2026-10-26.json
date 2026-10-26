@@ -1,0 +1,142 @@
+{
+  "id": "P5A2-SOURCE-UI-20261026",
+  "status": "AUTHORIZATION_ACCEPTED_DISPATCH_PENDING",
+  "baselineCommit": "355ff938ce3beb532f32c60b7d9780147ed469bc",
+  "apiClosure": {
+    "disposition": "FINAL_CLEAN_SOURCE_API_RANGE_REVIEW_PASS_BOUNDED",
+    "materialCommit": "a1411561950229b0f8761cab8cfc897afe874f79",
+    "continuityCommit": "355ff938ce3beb532f32c60b7d9780147ed469bc",
+    "materialFullHook": "3397passed148skipped4warnings154.09s",
+    "continuityFullHook": "3397passed148skipped4warnings178.66s",
+    "materialPathCount": 36,
+    "continuityPathCount": 5,
+    "findings": [],
+    "waivers": [],
+    "boundedClaim": "Clean exact 36+5 committed split range for authenticated fixture-backed source-read HTTP receipt/refusal and its actual-SHA continuity only. Normal composition lacks operational coverage; P5-A2 G01-G14 remainders and P5-B/C/D owners remain open or blocked as recorded, Phase 5 remains 0/5. No provider-backed AI governance, production, deployment or whole-milestone claim. Next product move is separately bounded G11 source-inspection UI."
+  },
+  "risk": "R2",
+  "workerPaths": [
+    "apps/workspace-web/src/types/proactiveSource.ts",
+    "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts",
+    "apps/workspace-web/src/services/proactiveSourceApi.ts",
+    "apps/workspace-web/src/features/proactive-source/useProactiveSourceRead.ts",
+    "apps/workspace-web/src/features/proactive-source/ProactiveSourcePanel.tsx",
+    "apps/workspace-web/src/app/OperationsConsole.tsx",
+    "apps/workspace-web/src/features/authentication/session.ts",
+    "apps/workspace-web/src/app/styles.css",
+    "apps/workspace-web/src/tests/proactiveSourceTestData.ts",
+    "apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts",
+    "apps/workspace-web/src/tests/proactiveSourceApi.test.ts",
+    "apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx",
+    "apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx",
+    "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx"
+  ],
+  "workerReturn": "docs/decisions/P5A2_SOURCE_UI_WORKER_RETURN_2026-10-26.md",
+  "rootOnlyPinPaths": [
+    "docs/specs/p5a2_scoped_source_invariant_pin.py",
+    "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+    "apps/workspace-api/src/workspace_api/api/proactive/response.py"
+  ],
+  "oraclePath": "tests/fixtures/p5a2_source_ui_mutations.json",
+  "oracleRawSha256": "3afadb388ecd0c70708f1e350bf40ad4c608e7c9b7a150f6663cc20242db27e4",
+  "baselineMatrixCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
+  "matrixPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+  "familyMetadataPatch": {
+    "remove": [],
+    "set": {
+      "contractSources": [
+        {
+          "path": "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+          "sha256": "db1d218083bfadac149f1c4415cfe0bc13213f41f33311a107447cad24abe7bf",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        },
+        {
+          "path": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
+          "sha256": "81e90a629448fcca576ed53758c6117d9d8065b5f922cea7f8d5416e4b52f0dd",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        },
+        {
+          "path": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
+          "sha256": "3df88a9540f7b403c8f59c719e4084ef928d94dd1a68046c0a1472fcf77fd830",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        },
+        {
+          "path": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
+          "sha256": "d6f5562ab126e98bc1954bb47091f028889fa6f7a80d2c065e904e8a3e832eb7",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        }
+      ],
+      "ownershipBindings": [
+        {
+          "bindingId": "P5A2_SOURCE_MATRIX_DIGEST",
+          "ownerPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+          "consumers": [
+            {
+              "consumerPath": "docs/specs/p5a2_scoped_source_invariant_pin.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            },
+            {
+              "consumerPath": "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            },
+            {
+              "consumerPath": "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            },
+            {
+              "consumerPath": "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            }
+          ]
+        }
+      ],
+      "evidenceTestPaths": [
+        "tests/unit/test_invariant_family_contract.py",
+        "tests/integration/test_invariant_family_repository_guard.py",
+        "tests/unit/test_p5a2_scoped_source.py",
+        "tests/unit/test_p5a2_scoped_source_caps.py",
+        "tests/unit/test_p5a2_scoped_source_family.py",
+        "tests/integration/test_p5a2_scoped_source_sql.py",
+        "tests/integration/test_p5a2_source_api_identity.py",
+        "tests/integration/test_p5a2_source_api_receipts.py",
+        "tests/integration/test_p5a2_source_api_release.py",
+        "tests/unit/test_p5a2_source_api_transport.py",
+        "apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts",
+        "apps/workspace-web/src/tests/proactiveSourceApi.test.ts",
+        "apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx",
+        "apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx",
+        "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx"
+      ],
+      "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim. TypeScript HTTP consumer adds flat family/UTF8 digest and actor/window checks with full84 mutation evidence, then a safe transient UI projection; it does not validate deep native lineage or add operational coverage."
+    }
+  },
+  "rendering": "UTF8 ensure_ascii=False indent2 preserve baseline key order; trailing LF; native LF byte digest, not sorted-JSON digest",
+  "plannedFinalMatrixCanonicalSha256": "cb0fb2427848d58aaf44a3c675f3a4d9d4d59cc38214993684eb5cd4dc492243",
+  "immutableSourcePins": {
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md": "81e90a629448fcca576ed53758c6117d9d8065b5f922cea7f8d5416e4b52f0dd",
+    "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md": "3df88a9540f7b403c8f59c719e4084ef928d94dd1a68046c0a1472fcf77fd830",
+    "docs/specs/P5A2_SOURCE_UI_SPEC.md": "d6f5562ab126e98bc1954bb47091f028889fa6f7a80d2c065e904e8a3e832eb7",
+    "tests/fixtures/p5a2_source_ui_mutations.json": "3afadb388ecd0c70708f1e350bf40ad4c608e7c9b7a150f6663cc20242db27e4"
+  },
+  "effects": {
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "packageInstalls": 0,
+    "browserSessions": 0,
+    "operationalCoverageAllowed": false
+  },
+  "preAdmissionTopologyRepair": {
+    "initialCoreViolations": [
+      "dispatch_continuity_invalid",
+      "dispatch_continuity_bypassed"
+    ],
+    "disposition": "Exact handoff material-SHA marker and direct dispatch-continuity dependency added before admission/dispatch; no waiver."
+  },
+  "preAdmissionSpecClarification": "The complete84 corpus is generated from initial READY plus old ACCESS_DENIED; both full API positive contexts are independently sampled. No expectation derived from UI.",
+  "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+}

@@ -1,41 +1,39 @@
 # Session Memory
 
 Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md.
-InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
-read-only selectedcontrols; no private/sharedpack/latestremote dependency.
+Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md.
+Installed Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
+read-only selected public controls; no private/shared pack/latest remote binding.
 
 ## Current tranche
 
-P5-A2 G06/G11 source API BUILD: FREEZE; SESSION_SYNC_STEWARD; R2.
-Actual material a141156 independently terminal-reviewed exact36; normal3397PASS148skip4warnings154.09s. This dedicated five-path continuity records the actual SHA; independent clean split-range review remains.
-Full Product Milestone Binding in P5A2_SOURCE_API_BUILD_SPEC.md. Source readiness
-inspection with strict JWT/currentuser/action/server-scope, native bounded cohort
-preflight/fresh release, closed receipt/1MiB HTTP. Normal coverage None and blank
-instance refuse; test-only synthetic positives never operational READY.
-Rootpreapproved family metadata patch/nativeLFfinalpin in admission; old9b3active
-for dispatch until real files+independent materialization gate, before tests.
-New oracle5cc32b1a independently prepared BEFORE code, two full new receipts.
+P5-A2 G11 source UI: WORK_ORDER; COMMIT_STEWARD; R2; live YES for AI claims.
+Independent G11 authorization PASS, full oracle84/patch/nativeLFcb0fb/exact14paths/currentmilestone verified; no UI code or test yet. Normal dispatch/continuity gate pending.
+Full current Product Milestone Binding in docs/specs/P5A2_SOURCE_UI_SPEC.md. Manual UTC source inspection
+only, safe counts/refusals; synthetic READY explicitly test data. Same native
+source family semantics; staged real TS consumer binding before tests. Root
+owns frozen compact84 mutation descriptors, patch/pins, catalog and commits.
+Session change invalidates/clears results; stale401 cannot clear a newer session.
 
-## Accepted history / execution authority
+## Accepted history / authority
 
-User authorizes continuous roadmap progress across tranches without routine
-operator waits. Independent review/normalcommits/continuity remain mandatory.
-Planning123d677/dedicated59d63c6 accepted contractonly, final16+5cleanPASS;
-hooks3332P148S4W250.44s/213.93s. StageBcad8ffc/0b7f870 syntheticPG16.15
-1PASS31.18s/exact18+5/ownedcleanupaccepted, no standingbackend/oldbudgetsSPENT.
-StageA and purehistory/numeric accepted bounded, oldoracles unchanged.
-Catalogkit: detailed26module registry/catalog +PROJECT_INDEX; kit/index generated.
+Operator authorizes continuous roadmap/subagent work without routine waits.
+Source API closed bounded at actual material/continuity recorded in canonical
+state and prior handoff, full hook plus independent exact-range proof accepted.
+Original15 OpenAPI hook failures retained; AM1 exact leaf keeps old goldens,
+source+OpenAPI218PASS2existingphysicalskip; runtime14 source pins unchanged.
+StageB syntheticPG16.15 one1PASS31.18s/ownedcleanup accepted; no standing backend
+or retry authority. Pure history/numeric and source StageA remain bounded.
 
-## Milestone remainders
+## Milestone remainder
 
-Only boundedsourceAPI G06/G11+HTTPG13 selected; no entiregap/milestone closure.
-G01/A7provider401/G02RAG BLOCKED; G03businessfit/G04operationalintegration,
-G05prodmode-coverage-retention/SQLitepositive UNKNOWN, G07scheduler,G08–G10
-quality,G11UI,G12approval,G13integrateddrills OPEN; G14provider HELD.
-Allowners/P5-A2/B/C/D destinations inSPEC; Phase5 0/5. No provider/key/model/
-.env/CSV/Docker/production/release effect. No automatic operational mode change.
+Only G11 source caller/rendering selected; full P5-A2/Phase5 stays0/5. G01/A7
+spent401 and G02RAG blocked; G03fit/G04operationalintegration/G05productionmode,
+coverage/retention/SQLite UNKNOWN. G06lateruseaccess/G07scheduler/G08-G10quality,
+G11otherflows/G12approval/G13integrateddrills open; G14liveproof held. All named
+owners and P5-A2/B/C/D destinations in current SPEC. No provider/key/model/.env/
+CSV/Docker/production/install/deployment/browser/public effect in this tranche.
 
 ## Next allowed move
 
-Independent clean actual36-plus5 split-range review; if PASS proceed directly to bounded G11 source-inspection UI INTAKE/DESIGN/SPEC/WO without routine operator wait.
+Normal exact dispatch commit, independent actual review, dedicated five-path actual-SHA continuity, clean split range before worker BUILD.

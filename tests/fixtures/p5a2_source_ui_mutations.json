@@ -1,0 +1,753 @@
+{
+  "familyId": "P5A2-SCOPED-SOURCE-OUTCOMES",
+  "baselineFamilyCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
+  "apiOracleRawSha256": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+  "refusedSample": {
+    "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+    "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+    "numeric_policy_version": "P5A2-INITIAL-1",
+    "outcome": "SOURCE_REFUSED",
+    "reason": "ACCESS_DENIED"
+  },
+  "refusedSamples": {
+    "ACCESS_DENIED": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "ACCESS_DENIED"
+    },
+    "INVALID_WINDOW": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "INVALID_WINDOW"
+    },
+    "TIME_AMBIGUOUS": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "TIME_AMBIGUOUS"
+    },
+    "COVERAGE_UNKNOWN": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "COVERAGE_UNKNOWN"
+    },
+    "SNAPSHOT_UNAVAILABLE": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "SNAPSHOT_UNAVAILABLE"
+    },
+    "SCOPE_INCOMPLETE": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "SCOPE_INCOMPLETE"
+    },
+    "INVALID_LINEAGE": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "INVALID_LINEAGE"
+    },
+    "INCOMPATIBLE_POLICY": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "INCOMPATIBLE_POLICY"
+    },
+    "SOURCE_UNAVAILABLE": {
+      "receipt_version": "P5A2-SOURCE-RECEIPT-1",
+      "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+      "numeric_policy_version": "P5A2-INITIAL-1",
+      "outcome": "SOURCE_REFUSED",
+      "reason": "SOURCE_UNAVAILABLE"
+    }
+  },
+  "readyMutationCount": 54,
+  "refusedMutationCount": 30,
+  "mutations": [
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::outcome",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "outcome"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::receipt_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "receipt_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "cohort_policy_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "numeric_policy_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::scope_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "scope_id"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::actor_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "actor_id"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::query_start",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "query_start"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::query_end",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "query_end"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::run_as_of",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "run_as_of"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::coverage_mode",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "coverage_mode"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::eligible_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "eligible_count"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::selected_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "selected_count"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::candidate_version_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "candidate_version_count"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::max_snapshot_incident_refs",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "max_snapshot_incident_refs"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::canonical_manifest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "canonical_manifest"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::DELETE_REQUIRED_FIELD::source_digest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [
+        "source_digest"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ADD_FORBIDDEN_FIELD::reason",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "reason": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ADD_UNKNOWN_FIELD::closed_boundary",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "__unknown_mutation_field__": true
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::REPLACE_DISCRIMINATOR::SOURCE_REFUSED",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "outcome": "SOURCE_REFUSED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::REPLACE_DISCRIMINATOR::unknown_value",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "outcome": "UNKNOWN_MUTATION_OUTCOME"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::receipt_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "receipt_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::CONST_MISMATCH::receipt_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "receipt_version": "P5A2-SOURCE-RECEIPT-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "cohort_policy_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::CONST_MISMATCH::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "cohort_policy_version": "P5A2-COHORT-ENDS-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "numeric_policy_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::CONST_MISMATCH::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "numeric_policy_version": "P5A2-INITIAL-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::outcome",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "outcome": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::CONST_MISMATCH::outcome",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "outcome": "SOURCE_READY_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::scope_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "scope_id": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::scope_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "scope_id": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::actor_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "actor_id": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::actor_id",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "actor_id": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::query_start",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "query_start": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::query_start",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "query_start": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::query_end",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "query_end": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::query_end",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "query_end": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::run_as_of",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "run_as_of": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::run_as_of",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "run_as_of": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::coverage_mode",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "coverage_mode": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::CONST_MISMATCH::coverage_mode",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "coverage_mode": "SYNTHETIC_FIXTURE_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::eligible_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "eligible_count": "MUTATION_WRONG_TYPE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ENUM_MISMATCH::eligible_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "eligible_count": 501
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::selected_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "selected_count": "MUTATION_WRONG_TYPE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ENUM_MISMATCH::selected_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "selected_count": 501
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::candidate_version_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "candidate_version_count": "MUTATION_WRONG_TYPE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ENUM_MISMATCH::candidate_version_count",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "candidate_version_count": 501
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::max_snapshot_incident_refs",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "max_snapshot_incident_refs": "MUTATION_WRONG_TYPE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ENUM_MISMATCH::max_snapshot_incident_refs",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "max_snapshot_incident_refs": 501
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::canonical_manifest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "canonical_manifest": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::MIN_LENGTH_VIOLATION::canonical_manifest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "canonical_manifest": ""
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::WRONG_TYPE::source_digest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "source_digest": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::PATTERN_MISMATCH::source_digest",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "source_digest": "x"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ONE_SIDE_RELATION_CHANGE::SELECTED_EQUALS_ELIGIBLE",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "selected_count": 37
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_READY::ONE_SIDE_RELATION_CHANGE::SOURCE_DIGEST_BINDS_MANIFEST",
+      "shapeId": "P5A2_SOURCE_READY",
+      "delete": [],
+      "set": {
+        "source_digest": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::DELETE_REQUIRED_FIELD::outcome",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [
+        "outcome"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::DELETE_REQUIRED_FIELD::receipt_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [
+        "receipt_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::DELETE_REQUIRED_FIELD::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [
+        "cohort_policy_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::DELETE_REQUIRED_FIELD::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [
+        "numeric_policy_version"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::DELETE_REQUIRED_FIELD::reason",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [
+        "reason"
+      ],
+      "set": {}
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::scope_id",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "scope_id": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::actor_id",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "actor_id": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::query_start",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "query_start": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::query_end",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "query_end": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::run_as_of",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "run_as_of": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::coverage_mode",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "coverage_mode": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::eligible_count",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "eligible_count": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::selected_count",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "selected_count": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::candidate_version_count",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "candidate_version_count": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::max_snapshot_incident_refs",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "max_snapshot_incident_refs": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::canonical_manifest",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "canonical_manifest": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_FORBIDDEN_FIELD::source_digest",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "source_digest": "MUTATION_INJECTED_VALUE"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ADD_UNKNOWN_FIELD::closed_boundary",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "__unknown_mutation_field__": true
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::REPLACE_DISCRIMINATOR::SOURCE_READY",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "outcome": "SOURCE_READY"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::REPLACE_DISCRIMINATOR::unknown_value",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "outcome": "UNKNOWN_MUTATION_OUTCOME"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::WRONG_TYPE::receipt_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "receipt_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::CONST_MISMATCH::receipt_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "receipt_version": "P5A2-SOURCE-RECEIPT-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::WRONG_TYPE::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "cohort_policy_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::CONST_MISMATCH::cohort_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "cohort_policy_version": "P5A2-COHORT-ENDS-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::WRONG_TYPE::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "numeric_policy_version": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::CONST_MISMATCH::numeric_policy_version",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "numeric_policy_version": "P5A2-INITIAL-1_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::WRONG_TYPE::outcome",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "outcome": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::CONST_MISMATCH::outcome",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "outcome": "SOURCE_REFUSED_MUTATED"
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::WRONG_TYPE::reason",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "reason": -999
+      }
+    },
+    {
+      "mutationId": "P5A2_SOURCE_REFUSED::ENUM_MISMATCH::reason",
+      "shapeId": "P5A2_SOURCE_REFUSED",
+      "delete": [],
+      "set": {
+        "reason": "ACCESS_DENIED_MUTATED"
+      }
+    }
+  ]
+}

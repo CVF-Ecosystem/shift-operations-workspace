@@ -499,7 +499,7 @@ operational report record cần để hoàn thành một ca và thỏa freeze pr
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến
-      thành operational fact hoặc kích hoạt protected action. G06/G11 identity/API contract is accepted; bounded [source API implementation](../work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md) independently source-accepted: 144 PASS/2 physical skips, full HTTP goldens/84 mutations. Normal source closure pending, then G11 UI; operational coverage remains UNKNOWN.
+      thành operational fact hoặc kích hoạt protected action. G06/G11 identity/API contract is accepted; bounded [source API implementation](../work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md) independently source-accepted: 144 PASS/2 physical skips, full HTTP goldens/84 mutations. Source closed bounded a141156/355ff93, normal3397PASS148skip and exact36+5clean. [G11 source UI WO](../work_orders/P5A2_SOURCE_UI_WORK_ORDER.md) under independent admission; no UI accepted, operational coverage UNKNOWN.
 - [ ] **P5-B:** Dashboard, search, observability.
 - [ ] **P5-C:** Backup/restore, resilience drills, security review, performance.
 - [ ] **P5-D:** Deployment profiles, runbook, Shadow Mode pilot, release freeze.
