@@ -1,5 +1,10 @@
 # P5-A2 synthetic development backend Stage A — active handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `0e232d0c625d508af3b3e342628632c5f5cc672c`.
+Dedicated dispatch continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean27+5 split range required.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; baseline674d98e35f0fbafa868c34d3c3adbdd215ef3aa5; WORK_ORDER/R2; live evidence YES for AI claims.
 Root ORCHESTRATOR/WORK_ORDER_AUTHOR; installed selected public Core
 ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6 read-only.
@@ -67,3 +72,13 @@ legacy recheck PASS. ADMISSION-F1/F2 resolved, no findings/waivers. Root fresh
 canonical rehydration and Core0; WORK_ORDER_AUTHOR to COMMIT_STEWARD. Normal
 dispatch only; actual terminal review, dedicated exact5 actual dispatchSHA and
 clean split-range gate still precede BUILD. No physical effects or milestone closure.
+
+## Actual dispatch / dedicated continuity
+
+Actual0e232d0c625d508af3b3e342628632c5f5cc672c, exact27; normal3397passed148skipped4warnings148.08s. Independent POST_DISPATCH_REVIEW_PASS_BOUNDED verifies
+actual range/pins/catalog/session/native legacy rechecks; no findings/waivers.
+Root freshly rereads canonical continuity/implementation/index/roadmap and
+verified pinned Core. COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
+claims. This exact5 child records sole actualSHA marker; normal hook then clean
+27+5 independent review remain before BUILD GO.
+All14gapowners/P5-A2/B/C/D and Phase5 0/5 retained. No new physical effect.

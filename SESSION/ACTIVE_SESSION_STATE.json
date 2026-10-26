@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_synthetic_backend_dispatch_gate",
+  "mode": "p5a2_synthetic_backend_dispatch_continuity",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -19,7 +19,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Normal exact dispatch commit, independent terminal actual review, dedicated actual dispatch-SHA child and clean split-range gate before worker BUILD.",
+  "next_allowed_move": "Independent clean 27+5 split range; then fresh worker BUILD declaration, inert code only, STOP before binding/tests.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_synthetic_backend_dispatch_gate",
+    "currentMode": "p5a2_synthetic_backend_dispatch_continuity",
     "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; full frozen inputs/metadata/608 mutations accepted, no findings/waivers. Normal dispatch only; no worker/effect GO.",
+    "activePhaseNote": "Actual dispatch 0e232d0 independently terminal-reviewed; exact27; normal3397passed148skipped4warnings148.08s. Dedicated actual-SHA child before clean split-range gate.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +55,9 @@
     "activeHandoffNote": "G04/G05 synthetic development backend Stage A, zero physical effects.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; full frozen inputs/metadata/608 mutations accepted, no findings/waivers. Normal dispatch only; no worker/effect GO.",
-    "currentRoleTransition": "COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Actual dispatch 0e232d0 independently terminal-reviewed; exact27; normal3397passed148skipped4warnings148.08s. Dedicated actual-SHA child before clean split-range gate.",
+    "currentRoleTransition": "SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -709,6 +709,11 @@
     "plannedRuntimeLifecycleDigest": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c",
     "plannedSourceDigest": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
     "authorizationAccepted": true,
-    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "dispatchCommit": "0e232d0c625d508af3b3e342628632c5f5cc672c",
+    "dispatchPaths": 27,
+    "dispatchFullHook": "3397passed148skipped4warnings148.08s",
+    "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
+    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE"
   }
 }
