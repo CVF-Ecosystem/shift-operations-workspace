@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_recovery_waiting_operator_seed_scope",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Independent clean17+5 current result range, then await explicit operator decision on RETURN concrete new seed.py/test scope, readonly re-inventory and conditional sole synthetic user.created_at repair plus max1new reviewed recovery. Current budgets SPENT/no retry, data UNKNOWN, no automatic new tranche.",
-  "parkedOperatorCheckpoint": "Operator decision required before new app-seed source scope or conditional persistent synthetic user.created_at correction and any fresh recovery budget. Current recovery SPENT/failed; retained volume/data preserved and postseed rows UNKNOWN. Provider live/key/model/CSV remain deferred, original provider401 spent.",
+  "currentMode": "p5a2_recovery_am2_dispatch",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
+  "nextAllowedMove": "Normal AM2 dispatch commit, independent terminal review, dedicated exact5 actual-SHA continuity then independent clean range; only then bounded source BUILD.",
+  "parkedOperatorCheckpoint": "Operator approved exact RETURN scope; no repeat approval needed. Provider/key/model/CSV deferred, original401spent. Any further objective/path/risk/effect/secret/provider/public boundary requires its own decision.",
   "requiredReads": [
     "AGENTS.md",
     "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
     "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
     "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md"
   ],
   "historyIndex": {

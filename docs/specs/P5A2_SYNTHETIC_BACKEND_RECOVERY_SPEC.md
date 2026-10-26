@@ -150,3 +150,137 @@ single physical reservation. Source can remain uncommitted until the
 integrated result material, but its accepted bytes are immutable through
 physical proof. A failed checkpoint or changed source pin stops physical
 work. This preserves phase gates without a separate source-only tranche.
+
+## Amendment 2 — retained seed outcome and conditional one-field repair
+
+Status: CANDIDATE, operator scope approved 2026-10-27; BUILD and effects held
+pending independent authorization and normal dispatch. Current revision is
+`bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea`. This section supersedes R4
+and the old one-attempt budget only where stated; R1–R3 and R5–R6 continue to
+bind the same G04/G05 synthetic acceptance unit. The predecessor failed-result
+material `68d40b0` and continuity `bc89436` passed independent clean 17+5.
+The old recovery attempt and AM1 preflights are spent and immutable. Its
+prewrite inventory found a compatible empty 31-table PG16.15 database; the
+native seed then failed. The transaction may have committed before its later
+verifier failed, so present rows are UNKNOWN. The last exact container was
+removed; one original labeled volume remains, API/web zero. The current owner
+digest is `45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511`.
+
+The operator approved exactly the concrete proposal in the predecessor
+RETURN: demo seeder source and focused tests, read-only retained inspection,
+conditional one-field correction of the synthetic user's `created_at`, and
+maximum one new reviewed recovery without reset. The observed failure's
+exception was not retained. The frozen user timestamp versus migration
+`DEFAULT now()` is a source-supported hypothesis, not a finding about current
+rows. No prior effect budget is refreshed or historical record rewritten.
+
+AM2-S1 — Admit only `apps/workspace-api/src/workspace_api/demo/seed.py`,
+necessary bounded `apps/workspace-api/src/workspace_api/demo/seed_*.py` splits,
+focused `tests/unit/test_p5a2_demo_seed*.py`, and existing recovery entry,
+inventory, custody helpers and matching focused recovery tests only if needed
+for the new owner digest, read-only record comparison and atomic guard. Keep
+every file at or below 300 Python lines. Global ledger, shared user
+persistence, migrations, normal API/UI, fixtures, oracles, ACLs and secret
+storage are frozen. The shared user-row writer omits `created_at`, so use a
+demo-local explicit user INSERT including that frozen field within the existing
+single transaction; do not alter the shared ledger writer. Seed construction
+must persist the exact frozen
+`created_at` for a new synthetic user inside its existing single transaction;
+it must retain exact post-insert equality and the existing password hash
+verification. A partial seed failure rolls back all inserted rows. Tests
+exercise actual native SQL statement/transaction behavior with inert fakes or
+disposable test data, including no write before full validation.
+
+AM2-S2 — An independently reviewed source checkpoint pins every changed
+source/test raw and LF hash, remaining frozen source/oracle/migration pins,
+and the new seed-recovery invariant matrix before effects. A fresh AM2
+read-only external preflight (maximum one) validates the unchanged exact
+owner nonce, volume, image, loopback ports, private credential reference and
+new owner digest. One exclusive AM2 reservation marker is created before the
+sole AM2 recovery call. Old attempt markers cannot be reused. Recovery may
+create at most one new exact owned container over the same existing volume;
+the last failed container ID is known absent. No new volume/nonce/credentials,
+migration, schema repair, reset, deletion or official Postgres auto-init.
+Every Docker command uses the fixed local CLI and Desktop Linux pipe already
+specified in R3. PostgreSQL internal WAL recovery on startup is permitted.
+
+AM2-S3 — Before any application write, one consistent REPEATABLE READ, READ
+ONLY inventory must record database/version/system-ID fingerprint, exact
+schema/table/column verdict, all 31 table counts, and exact canonical
+comparison of every synthetic user, shift, assignment and report field,
+including password verification, role, IDs, timestamps, report/body hashes,
+authority and source pins. Compare raw installed columns as well as native
+model equality, so an unmodeled stored field cannot pass silently. Capture
+only secret-free pass/fail summaries and
+digests, not row bodies, password hashes or credential values. Compare against
+the frozen bundle and authority using native model and persistence semantics.
+The sole permissible prewrite states are: all 31 counts zero with compatible
+schema; exact target counts plus exact row/security/hash equality; or exact
+target counts plus equality of every field except this profile's one frozen
+synthetic user's `created_at`. Any partial/foreign count, extra row, missing
+field, mismatched hash/password/role/ID/other timestamp, fingerprint or
+authority pin refuses with zero application writes. An unknown comparison is
+a refusal. Inspection and comparison must complete before choosing a write.
+
+AM2-S4 — Guard against time-of-check/time-of-use drift: the single write
+transaction acquires protection on all 31 application tables and target rows
+BEFORE full revalidation, then reclassifies empty/exact/sole-timestamp under
+that same transaction. It revalidates exact owner/database/system-ID, source pins, schema, all counts
+and every relevant raw column/row/security/hash predicate under locks on all
+31 application tables that prevent a
+concurrent application writer from changing the approved set. If this cannot
+be proved with the existing native transaction/locking surface, refuse without
+writing. The read-only inventory and this separate locked transaction are
+distinct budgeted connections. For empty state, run the corrected atomic seed once; exact seeded
+state performs native verification with no write. For the sole timestamp
+mismatch state, perform one compare-and-set `UPDATE` of only `users.created_at`
+for the exact synthetic user ID, matching the observed old timestamp, role,
+immutable security identity and exact stored password-hash value as a CAS
+predicate within the same owned transaction. Require exactly one affected
+row, then exact raw-column/native-model readback before commit; failure rolls
+back. Preserve the current password-hash bytes, role, ID and every other
+byte/value. Existing recovery's SEEDED/VERIFY-only expectation must become
+an explicit mapping for `SEEDED`, `VERIFY` and `CREATED_AT_REPAIRED`, with the
+refusal outcome distinct and no second branch. No loose
+`UPDATE`, broad timestamp normalization, retry, or repair of other data.
+Post-operation read-only summary must recheck fingerprint, all counts and
+exact raw-column/native-model row equality, not counts alone; no API/web
+startup precedes this acceptance.
+
+AM2-S5 — Accepted physical outcome remains exact SQL users=1/shifts=36/
+assignments=36/reports=37, real JWT and native HTTP receipts
+`5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64`
+and `874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554`,
+then actual UI synthetic 36/36/36 and 36/36/37 in one browser context with
+two submissions and two screenshots. One failure ends this AM2 budget;
+preserve old trails, owner record, volume and credentials and clean only new
+exact owned children/container after fresh identity verification. No new
+automatic support tranche follows. Operational G04/G05 and all other
+G01–G14 remainders in the binding table remain OPEN/UNKNOWN/BLOCKED/HELD;
+Phase 5 stays 0/5. The product return is to P5-A2 integrated context,
+runtime, quality, approval and drills after bounded synthetic proof or safe
+refusal.
+
+The `REFUSED_ZERO_WRITE` seed-family outcome is emitted only when a prewrite
+refusal or transaction rollback proves zero durable application writes and
+database identity/fingerprint was observed. Lost commit acknowledgment or a
+postcommit failure leaves database state UNKNOWN, with no invented zero-write
+outcome or fingerprint; the separate outer recovery failure/custody receipt
+records that uncertainty. An established seed-family outcome may coexist
+with a later outer API/web/smoke failure without erasing its established
+database result.
+
+## AM2 invariant-family admission
+
+The new seed/recovery outcome contract triggers the invariant-family standard:
+one classification controls whether a write is permitted, with multiple
+inventory/native verifier/owner-receipt surfaces and exact zero-or-one write
+relations. The independent contract source is the immutable predecessor
+`P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md` proposal plus this
+pre-code AM2 specification. Register
+`P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES` under
+`docs/cvf/invariants/p5a2-demo-seed-recovery.json` before implementation;
+pin its canonical digest and materialize only bounded seed/recovery adapters
+and focused tests against it. The existing resource-lifecycle and scoped
+source families remain unchanged. Invariant-family structural tests alone do
+not establish physical SQL, HTTP or UI proof.

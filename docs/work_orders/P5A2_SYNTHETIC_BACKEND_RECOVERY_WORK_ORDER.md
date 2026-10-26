@@ -5,11 +5,153 @@ Status: DISPATCH_READY
 Date: 2026-10-27
 Baseline: `08c62dad7b956faf7e1d1dd6cb56ee79e10cbead`
 Risk: R2
-Phase: WORK_ORDER AM1 candidate; independent source/authorization review and normal source+amendment material/continuity remain prerequisites for the extra final preflight.
+Phase: WORK_ORDER AM2 candidate; independent authorization, normal dispatch/continuity/clean gate and source checkpoint precede BUILD/effects.
 Role transition: SPEC_AUTHOR → WORK_ORDER_AUTHOR for this candidate.
 Root is ORCHESTRATOR, effect/artifact owner and COMMIT_STEWARD. A later named
 backend IMPLEMENTATION_WORKER changes source only after gates. An independent
 REVIEWER owns authorization, actual-source checkpoint and result review.
+
+## Amendment 2 — operator-approved same-tranche seed/data continuation
+
+Current baseline `bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea` is clean
+after predecessor failed-result material `68d40b0` and dedicated continuity,
+independently reviewed 17+5. The operator explicitly approved the concrete
+new scope in the immutable recovery RETURN. All old preflight/recovery markers
+and historical admission/evidence/return/review remain byte-exact and SPENT.
+The previous compatible empty inventory is history, not a statement about
+current data: native seed failed after its transaction might have committed.
+Current postseed rows are UNKNOWN. Exact failed container removed; one volume
+retained; API/web zero; owner digest
+`45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511`.
+The active continuity carrier is now
+`SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md` and its
+four canonical/session mirror companions. This AM2 section governs the new
+work; later old text below records the predecessor contract and is superseded
+where its source, paths, budget, handoff, graph or database-state assumptions
+conflict. This candidate releases no BUILD or physical budget.
+
+The **Product Milestone Binding** below is reconciled at current `bc89436`
+plus the successor handoff. It continues to cover the full scheduled signals,
+forecasts, history/lineage/freshness/uncertainty/abstention and exact human
+approval outcome. All G01–G14 rows, accountable backend/UI/Root/operator
+owners and P5-A2/B/C/D destinations remain operative. This assignment handles
+only known synthetic G04/G05 SQL/JWT/API/UI proof; operational G04/G05 remain
+UNKNOWN, all other gap statuses unchanged, Phase 5 0/5. A successful local
+tranche closes no whole gap, milestone or phase. Root owns dispatch, effects,
+artifacts and commit; a named backend worker owns only authorized source;
+independent reviewer owns authorization, source checkpoint and result.
+
+Allowed worker source family: exact
+`apps/workspace-api/src/workspace_api/demo/seed.py`; necessary bounded
+`apps/workspace-api/src/workspace_api/demo/seed_*.py` splits; focused
+`tests/unit/test_p5a2_demo_seed*.py`; existing
+`scripts/p5a2_source_demo_recover.py`,
+`scripts/p5a2_source_demo_recovery_inventory.py`,
+`scripts/p5a2_source_demo_recovery_custody.py`, and their existing bounded
+`tests/unit/test_p5a2_demo_recovery_findings.py` and
+`tests/unit/test_p5a2_demo_recovery_source.py` only if required by new owner digest,
+read-only record inventory or guarded native seed/CAS. Python ≤300 lines.
+No global ledger or user persistence, migration, normal API/UI, fixture,
+oracle, other lifecycle/stop/smoke, secret or ACL mutation. Root-only packet
+paths: this SPEC/WO, new
+`docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json`,
+`..._AM2_ATTEMPT_2026-10-27.json`, `..._AM2_EVIDENCE_2026-10-27.json`,
+`..._AM2_RETURN_2026-10-27.md`, and Root metadata/catalog/continuity paths
+sealed in admission. Independent reviewer-only packet:
+`..._AM2_REVIEW_2026-10-27.md`. Existing unused recovery initial/later
+screenshots are the only browser artifacts. Existing admission/attempt/
+evidence/return/review remain read-only historical evidence.
+
+Pre-code invariant-family admission is REQUIRED for
+`P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES` at
+`docs/cvf/invariants/p5a2-demo-seed-recovery.json`, with registry entry,
+canonical digest, bounded seed/recovery adapter and focused test binding.
+The predecessor resource lifecycle and scoped-source families are unchanged.
+The worker materializes the new family without duplicating the lifecycle
+grammar. Root and independent reviewer run the guard and full mutation corpus
+before REVIEW/FREEZE, recompute the digest and sample emitted positive per
+outcome. Candidate registration uses the existing generic checker test;
+BUILD adds `tests/unit/test_p5a2_demo_seed_recovery.py` with a real adapter
+and raw emitted positive for all four outcomes. The matrix's existing
+structural evidence test path stays fixed; the focused adapter path is bound
+in this Work Order and AD and independently checked at source checkpoint.
+The matrix's admission
+JSON `/familyId` binding is the pre-code ownership reference; it is not a
+substitute for the later emitter adapter. Structural tests are not physical
+acceptance or AI governance proof.
+
+One consolidated pre-code hazard review must cover: demo-local explicit user
+INSERT with frozen `created_at` because the shared user writer omits it;
+seed's exact timestamp
+persistence within an atomic transaction; partial commit before verification;
+read-only full row/security/body/hash inventory before any write; count-only
+false positives; foreign or partial rows; credential/role/ID preservation;
+one-field CAS under changed-row and concurrency races; owner digest change;
+new marker versus immutable old marker; lost container receipt and exact
+cleanup; PostgreSQL entrypoint auto-init refusal; and postwrite identity,
+counts and exact verification. The worker tests all applicable negative
+branches before source checkpoint. Any unknown state refuses zero app writes.
+
+Sequence: independent AM2 SPEC/family/WO authorization → normal dispatch
+material and hook → dedicated exact-five actual-SHA continuity → independent
+clean split-range → BUILD. Worker returns focused native seed/source tests and
+hashes. Independent source checkpoint pins every actual changed source/test
+raw/LF hash, matrix digest and frozen predecessor inputs before Root may run
+one fresh external read-only preflight. Root then writes one new exclusive
+AM2 attempt marker before maximum one recovery call. First complete RR/READ
+ONLY inventory is inside that call before any application write. Classify
+only EMPTY_COMPATIBLE, EXACT_SEEDED, SOLE_CREATED_AT_MISMATCH or REFUSED;
+full equality includes all frozen raw installed columns and native models,
+security fields, password verify,
+role/ID, timestamps, body/source hashes, schema/counts, authority and DB
+fingerprint. The sole timestamp mismatch is the one synthetic user's
+`created_at`, never a broad row/data correction. In one separate owned write
+transaction, first lock all 31 application tables and target rows, then fully
+reclassify all predicates before native atomic seed or one-field compare-and-set;
+exact seeded state only verifies. CAS matches old timestamp plus exact user
+ID, role, security identity and stored password-hash bytes, changes only
+`created_at`, and requires exactly one affected row. Exact raw-column/native
+model readback occurs BEFORE commit so verifier failure rolls back. Recovery
+maps native `SEEDED`/`VERIFY`/`CREATED_AT_REPAIRED` explicitly and refuses any
+other outcome. Postsummary checks exact rows/security/hashes, not counts alone.
+Any other mismatch or race before write refuses zero write. Label
+`REFUSED_ZERO_WRITE` only when prewrite refusal or rollback is verified;
+lost commit acknowledgment and postcommit failure leave database state
+UNKNOWN and receive only the separate outer recovery failure/custody receipt.
+No invented fingerprint or family outcome is recorded in that case.
+Then one read-only postsummary and exact SQL/JWT/HTTP/UI acceptance. Preserve
+volume/credentials/trails and clean only new exact owned effects on failure.
+
+New AM2 budget, separate from SPENT predecessor: external read-only preflight
+1; exclusive marker 1; recovery invocation 1; new container ≤1 over same
+volume; new volume/nonce/credentials/migration/schema write/reset/delete 0;
+read-only inventory connection 1, separate locked revalidation/write
+transaction connection 1, and postsummary connection 1; native seed
+≤1 OR guarded CAS ≤1 OR exact verify, with no second branch; API child ≤1,
+web child ≤1, smoke 1, two frozen HTTP contexts, smoke login 1, browser login
+1, browser context 1/two submits/two screenshots. DB/API/web readiness
+probes ≤40 each, no second startup. No package install, pull, provider call,
+`.env` or operator-secret read, ACL write, public network, deploy or push.
+Only the existing generated private local credential reference may be used
+by the Root physical executor after gates; values never enter tracked files,
+command arguments, logs or review. Every Docker command uses the fixed exact
+CLI and Desktop Linux pipe, not ambient context. Root's reservation and
+physical execution are HELD in this DRAFT.
+
+The AM2 admission must seal exact root/worker/reviewer/family/continuity
+paths, current raw+LF source and immutable input hashes, owner digest,
+existing volume/image/nonces, both frozen HTTP contexts, new budget, failure
+stops and exclusive marker before READY. Attempt/evidence must distinguish
+read-only verdict, empty atomic seed, exact verify, guarded CAS or refusal;
+record all 31 counts, DB identity/fingerprint, secret-free comparison digest,
+rowcount and rollback/commit result, resource identity/trails and final
+remaining resources. Do not put row bodies, password hashes, credentials,
+DSN or tokens in Git. Root records no acceptance from an absent receipt.
+After worker return and independent review, normal material/terminal review,
+dedicated exact-five actual-SHA continuity and clean range close only the
+observed AM2 result. A failure stops without an automatic new support tranche;
+the next governed move is the remaining P5-A2 product work or explicit new
+operator decision at a real boundary.
 
 ## Amendment 1 — observed OWNER RIGHTS compatibility / final preflight
 
@@ -66,7 +208,11 @@ The Stage B failure return and independent review establish one spent start,
 only a retained labeled volume, no API/web/smoke/UI, and a confirmed
 standalone import blocker; failed-result material `555119e` and continuity
 `08c62da` closed clean 15+5. Database contents and migration progress remain
-UNKNOWN. This assignment closes only the known local synthetic G04/G05
+UNKNOWN at that Stage B checkpoint. The later failed recovery established a
+compatible 31-table PG16.15 empty prewrite state, then failed after one
+native seed invocation; postseed rows remain UNKNOWN. The operator-approved
+AM2 therefore requires fresh read-only full-row inspection before any write.
+This assignment closes only the known local synthetic G04/G05
 physical proof route; no whole gap or milestone closes. Phase 5 remains 0/5.
 
 | Gap | Current evidence and status | This assignment | Owner and concrete remainder destination |
@@ -230,38 +376,37 @@ returnTimeRecheck: REQUIRED_BEFORE_REPAIR
 implementationTopologyPolicy: BOUNDED_PATH_FAMILIES
 foreseeableFileSplitDisposition: COVERED_BY_BOUNDED_PATH_FAMILY
 
-In the graph, `SOURCE` means only the exact worker source/test family above,
-including bounded recovery helper/test splits; `ROOT_RECORDS` means the
-exact Root-owned recovery decision and metadata families sealed in admission;
-`REVIEW` is the exact independent recovery review; and `FIVE` is the current
-active handoff plus four session/mirror paths. Root expands all abbreviations
-into a sealed manifest before READY. No protected or authority-bearing path
-is authorized by an abbreviation. The current sealed candidate awaits
-independent authorization; no BUILD or physical budget is released.
+This AM2 graph uses exact new decision paths and the successor handoff.
+The bounded seed/recovery source/test families cover foreseeable ≤300-line
+splits; protected paths are exact in admission. Root seals current hashes
+before READY and verifies normal dispatch plus actual-SHA five-path continuity
+and independent clean split-range before BUILD. No graph row releases physical
+budget in this DRAFT. Root owns effect/artifact/commit and independent
+reviewer owns authorization, source checkpoint and result.
 
 | gateId | mustPassBy | repairOwner | repairPhase | mutationSurface | topology | commitOwner | commitPhase | dependsOn |
 |---|---|---|---|---|---|---|---|---|
-| authorization_review | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
-| pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | DISPATCH_COMMIT | authorization_review |
-| dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md material-SHA marker;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
-| pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
-| source_build | IMPLEMENTATION | implementation-worker | IMPLEMENTATION | scripts/p5a2_source_demo_start.py;scripts/p5a2_source_demo_bootstrap.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_*.py;tests/unit/test_p5a2_demo_recovery_*.py;tests/unit/test_p5a2_demo_bootstrap.py;tests/unit/test_p5a2_demo_lifecycle.py | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
-| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | scripts/p5a2_source_demo_start.py;scripts/p5a2_source_demo_bootstrap.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_*.py;tests/unit/test_p5a2_demo_recovery_*.py;tests/unit/test_p5a2_demo_bootstrap.py;tests/unit/test_p5a2_demo_lifecycle.py;CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,source_build |
-| source_checkpoint | IMPLEMENTATION | reviewer | IMPLEMENTATION | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | focused_checker_tests |
-| read_only_preflight | IMPLEMENTATION | orchestrator | IMPLEMENTATION | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | source_checkpoint |
-| effect_reservation | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | read_only_preflight |
-| physical_start | IMPLEMENTATION | orchestrator | IMPLEMENTATION | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | effect_reservation |
-| physical_result | WORKER_RETURN | orchestrator | IMPLEMENTATION | CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | physical_start |
-| adif_integrity | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests,physical_result |
-| worker_return_fast | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | adif_integrity |
-| reviewer_fast | REVIEW | reviewer | REVIEW | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
-| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | scripts/p5a2_source_demo_start.py;scripts/p5a2_source_demo_bootstrap.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_*.py;tests/unit/test_p5a2_demo_recovery_*.py;tests/unit/test_p5a2_demo_bootstrap.py;tests/unit/test_p5a2_demo_lifecycle.py;CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
-| terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
-| continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
-| committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
+| authorization_review | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
+| pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | DISPATCH_COMMIT | authorization_review |
+| dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md material-SHA marker;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
+| pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
+| source_build | IMPLEMENTATION | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,source_build |
+| source_checkpoint | IMPLEMENTATION | reviewer | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests |
+| read_only_preflight | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | source_checkpoint |
+| effect_reservation | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | read_only_preflight |
+| physical_start | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | effect_reservation |
+| physical_result | WORKER_RETURN | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | physical_start |
+| adif_integrity | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests,physical_result |
+| worker_return_fast | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | adif_integrity |
+| reviewer_fast | REVIEW | reviewer | REVIEW | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
+| continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
+| committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
 
-Root expanded every graph path group from the exact admission and verifies
-active graph closeability before independent authorization. The candidate
-remains held until the independent authorization and normal dispatch gates pass. Any material
-objective, acceptance, risk, path, secret, network, effect, budget or commit
-owner change requires a reviewed consolidated amendment before execution.
+Legacy docs/decisions AM2 RETURN and completion REVIEW require exact standalone
+self-declared markers and Return-Time Closeability Rechecks. The independent
+reviewer invokes pinned Core check_recheck explicitly; normal CLI/hook does
+not scan this historical family automatically. Source/effect budgets and
+product acceptance remain held until their respective independent gates.

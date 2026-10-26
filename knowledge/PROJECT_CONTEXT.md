@@ -161,9 +161,11 @@ quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retain
 
 
 
-Current: source256a052/5c9597e accepted3483PASS; one recovery FAILED native
-seed, budgetSPENT. PrewritePG16.15 RR/RO31tables0; newcontainerremoved, volume
-kept, postseedrowsUNKNOWN, API/web/UI0. Operator exactsource/data repair scope
-pending beforeanynewbudget; G04/G05 physicalOPEN, Phase5 0/5.
+Prior failure source256a052/5c9597e accepted3483PASS; recovery failed native seed,
+old budgetSPENT. PrewritePG16.15 RR/RO31tables0, volume retained/APIweb0;
+postseed rows UNKNOWN. Operator explicitly approved exact AM2 demo seed/tests,
+readonly retained inspection and conditional sole synthetic created_at CAS,
+maximum1new reviewed recovery/noreset. Same SQL/JWT/API/UI unit; contract
+admission pending, no new effects yet. G04/G05 physicalOPEN, Phase5 0/5.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

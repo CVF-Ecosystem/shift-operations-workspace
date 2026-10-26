@@ -1,0 +1,499 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-AM2-20261027",
+  "status": "DISPATCH_READY_NO_BUILD_OR_EFFECT_RELEASE",
+  "familyId": "P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES",
+  "baselineCommit": "bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea",
+  "risk": "R2",
+  "phase": "WORK_ORDER_CANDIDATE",
+  "operatorAuthority": "Explicit approval of immutable predecessor RETURN concrete seed.py/tests, read-only retained inspection, sole synthetic user.created_at CAS and maximum one new reviewed recovery without reset.",
+  "productMilestoneBinding": {
+    "milestone": "P5-A2 OPEN; Phase 5 0/5",
+    "outcome": "Authorized scheduled signals/forecasts/history/lineage/freshness/uncertainty/abstention and exact human approval before durable action",
+    "completeGapTable": "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md#product-milestone-binding",
+    "selected": [
+      "G04_SYNTHETIC_ONLY",
+      "G05_SYNTHETIC_ONLY"
+    ],
+    "allOtherGaps": "G01-G14 statuses, owners and P5-A2/B/C/D destinations preserved in current SPEC and WO; no whole gap closes",
+    "acceptance": "SQL1/36/36/37; real JWT and two frozen native HTTP receipts; actual synthetic UI36/36/36 then36/36/37"
+  },
+  "roles": {
+    "source": "named backend IMPLEMENTATION_WORKER after reviewed normal dispatch and clean range",
+    "physicalAndArtifacts": "/root",
+    "commit": "/root COMMIT_STEWARD",
+    "review": "/root/recovery_review independent REVIEWER"
+  },
+  "workerMutationPaths": [
+    "apps/workspace-api/src/workspace_api/demo/seed.py",
+    "apps/workspace-api/src/workspace_api/demo/seed_*.py",
+    "tests/unit/test_p5a2_demo_seed*.py",
+    "scripts/p5a2_source_demo_recover.py",
+    "scripts/p5a2_source_demo_recovery_inventory.py",
+    "scripts/p5a2_source_demo_recovery_custody.py",
+    "tests/unit/test_p5a2_demo_recovery_findings.py",
+    "tests/unit/test_p5a2_demo_recovery_source.py"
+  ],
+  "specAuthorMutationPaths": [
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
+    "docs/cvf/invariants/p5a2-demo-seed-recovery.json",
+    "docs/cvf/invariants/registry.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json"
+  ],
+  "rootOnlyMutationPaths": [
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "IMPLEMENTATION_STATUS.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/SESSION_MEMORY.md",
+    "docs/INDEX.md",
+    "docs/PROJECT_INDEX.md",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "docs/catalog/MODULE_CATALOG_DETAIL.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png",
+    "docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png",
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
+    "knowledge/PROJECT_CONTEXT.md",
+    "knowledge/manifest.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md",
+    "docs/cvf/invariants/p5a2-demo-seed-recovery.json",
+    "docs/cvf/invariants/registry.json",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md"
+  ],
+  "reviewerOnlyPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md",
+  "newDecisionPaths": [
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md"
+  ],
+  "historicalRecoveryPathsReadOnly": {
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json": {
+      "rawSha256": "966e0c6d8b30d7942cf22766379f3f8f3463cfc801053b7e434d3ea02076b0ce",
+      "nativeLfSha256": "af7e53cbc207770585b8983653afff60868dbbe2183f5a8e477322a1adb084d9",
+      "lineCount": 820
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json": {
+      "rawSha256": "bab61d9b7731002091cfdbdfe18246ea3f97782331f77d401f1f92cb58aacf69",
+      "nativeLfSha256": "bab61d9b7731002091cfdbdfe18246ea3f97782331f77d401f1f92cb58aacf69",
+      "lineCount": 14
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json": {
+      "rawSha256": "9583a0f4e96e6d488d50ae9728da268ea71fcb7eef614c6149a9c74c790cc794",
+      "nativeLfSha256": "bf29d6106e2116be8337974083c0e2f12788fdb20c8b1c6697365a4d9e580359",
+      "lineCount": 237
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md": {
+      "rawSha256": "6206266907a05a2cfafc19143aa6ae157bf2197aee0256e047f98f0a3c8f8e4d",
+      "nativeLfSha256": "245a8f38a543e9ed4d4c138c4294158bd2ad71d4be01dcaed3fc3937e9d0665a",
+      "lineCount": 190
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md": {
+      "rawSha256": "5e913a1cf9556b9311d43c7759b122d61e3713606956226cb9f9f52a8d17bcda",
+      "nativeLfSha256": "5e913a1cf9556b9311d43c7759b122d61e3713606956226cb9f9f52a8d17bcda",
+      "lineCount": 529
+    }
+  },
+  "activeContinuityPaths": [
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/SESSION_MEMORY.md",
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json"
+  ],
+  "readOnlySourcePins": {
+    "apps/workspace-api/src/workspace_api/config.py": {
+      "nativeLfSha256": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "rawWorkingSha256AtSeal": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "lineCount": 124
+    },
+    "apps/workspace-api/src/workspace_api/demo/__init__.py": {
+      "nativeLfSha256": "d49f553022655d44a6a06955379feef5880d79bb6bcf6c511d06892ef42cea0d",
+      "rawWorkingSha256AtSeal": "6dc234afa641751bb967d1e3956721361bd0c5039cc0b46ec6c9ab9ffef2ebf2",
+      "lineCount": 1
+    },
+    "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json": {
+      "nativeLfSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "rawWorkingSha256AtSeal": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "lineCount": 5240
+    },
+    "apps/workspace-api/src/workspace_api/demo/authority_v1.json": {
+      "nativeLfSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "rawWorkingSha256AtSeal": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "lineCount": 1064
+    },
+    "apps/workspace-api/src/workspace_api/demo/bundle.py": {
+      "nativeLfSha256": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "rawWorkingSha256AtSeal": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "lineCount": 27
+    },
+    "apps/workspace-api/src/workspace_api/demo/coverage.py": {
+      "nativeLfSha256": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "rawWorkingSha256AtSeal": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "lineCount": 84
+    },
+    "apps/workspace-api/src/workspace_api/demo/app.py": {
+      "nativeLfSha256": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "rawWorkingSha256AtSeal": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "lineCount": 98
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes.py": {
+      "nativeLfSha256": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "rawWorkingSha256AtSeal": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "lineCount": 43
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes_shift.py": {
+      "nativeLfSha256": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "rawWorkingSha256AtSeal": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "lineCount": 42
+    },
+    "apps/workspace-web/vite.source-demo.config.ts": {
+      "nativeLfSha256": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "rawWorkingSha256AtSeal": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "lineCount": 9
+    },
+    "infrastructure/demo/p5a2-source-postgres.compose.yml": {
+      "nativeLfSha256": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "rawWorkingSha256AtSeal": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "lineCount": 26
+    },
+    "scripts/p5a2_source_demo_common.py": {
+      "nativeLfSha256": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "rawWorkingSha256AtSeal": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "lineCount": 256
+    },
+    "scripts/p5a2_source_demo_preflight.py": {
+      "nativeLfSha256": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "rawWorkingSha256AtSeal": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "lineCount": 64
+    },
+    "scripts/p5a2_source_demo_stop.py": {
+      "nativeLfSha256": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "rawWorkingSha256AtSeal": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "lineCount": 153
+    },
+    "scripts/p5a2_source_demo_smoke.py": {
+      "nativeLfSha256": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "rawWorkingSha256AtSeal": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "lineCount": 98
+    },
+    "tests/unit/test_p5a2_demo_bundle.py": {
+      "nativeLfSha256": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "rawWorkingSha256AtSeal": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "lineCount": 83
+    },
+    "tests/unit/test_p5a2_demo_coverage.py": {
+      "nativeLfSha256": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "rawWorkingSha256AtSeal": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "lineCount": 120
+    },
+    "tests/unit/test_p5a2_demo_profile.py": {
+      "nativeLfSha256": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "rawWorkingSha256AtSeal": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "lineCount": 42
+    },
+    "tests/unit/test_p5a2_demo_lifecycle.py": {
+      "nativeLfSha256": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "rawWorkingSha256AtSeal": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "lineCount": 238
+    },
+    "tests/unit/test_p5a2_demo_routes.py": {
+      "nativeLfSha256": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "rawWorkingSha256AtSeal": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "lineCount": 15
+    },
+    "tests/integration/test_p5a2_demo_source_http.py": {
+      "nativeLfSha256": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "rawWorkingSha256AtSeal": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "lineCount": 180
+    }
+  },
+  "workerBaselinePins": {
+    "apps/workspace-api/src/workspace_api/demo/seed.py": {
+      "rawSha256": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "nativeLfSha256": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "lineCount": 188
+    },
+    "scripts/p5a2_source_demo_recover.py": {
+      "rawSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+      "nativeLfSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+      "lineCount": 264
+    },
+    "scripts/p5a2_source_demo_recovery_inventory.py": {
+      "rawSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+      "nativeLfSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+      "lineCount": 135
+    },
+    "scripts/p5a2_source_demo_recovery_custody.py": {
+      "rawSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+      "nativeLfSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+      "lineCount": 135
+    },
+    "tests/unit/test_p5a2_demo_recovery_findings.py": {
+      "rawSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+      "nativeLfSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+      "lineCount": 148
+    },
+    "tests/unit/test_p5a2_demo_recovery_source.py": {
+      "rawSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+      "nativeLfSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+      "lineCount": 213
+    }
+  },
+  "workerPathFamiliesPendingActualFileManifest": [
+    "apps/workspace-api/src/workspace_api/demo/seed_*.py",
+    "tests/unit/test_p5a2_demo_seed*.py",
+    "tests/unit/test_p5a2_demo_recovery_*.py"
+  ],
+  "frozenInputs": {
+    "fixtures/p5a2_source_demo_v1.json": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+    "fixtures/p5a2_source_demo_authority_v1.json": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+    "tests/fixtures/p5a2_source_demo_oracle.json": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d"
+  },
+  "immutablePredecessorPins": {
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "tests/fixtures/p5a2_scoped_source_oracle.json": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "tests/fixtures/p5a2_docker_backend_oracle.json": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "tests/fixtures/p5a2_scoped_source_pg_oracle.json": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f"
+  },
+  "migrationsReadOnlyNeverRun": {
+    "database/migrations/001_foundation.sql": "5f2e070d01e5817a004d3d2a260aeef17565ae9f89526c31428b268231982e19",
+    "database/migrations/002_tasks_customers_reports.sql": "1a971b4f224c54054a88d678fe9e744b617eef7b125ccd634c008574a9632e28",
+    "database/migrations/003_users.sql": "31104961fa97d209283242df9f168cd0c2299417d96fa190913c29638fedcd82",
+    "database/migrations/004_approval_receipts.sql": "299913808cf756db279505edb1dfcd595a6dcbf8d62d9e84ee8fe003efc3f300",
+    "database/migrations/005_incidents.sql": "3c08e64e93a600c04eab24479759fe1336c021fa9df60cf5ff97f27a7e394410",
+    "database/migrations/006_handovers.sql": "27d0234fab07a8b8ee9e47bc0a3680c381b450e7e48c97feb8e44a94d14e768a",
+    "database/migrations/007_report_history_constraints.sql": "8d54d9628ca0c63d3397dcba281ba34aaf081943a2e5a2f46c91bdd7a874fd90",
+    "database/migrations/008_shift_assignments.sql": "d8e101a6f0aa16b8ab2c97207ae9c03e3b0fc97e6c935e648e4e20a3cdc4b2aa",
+    "database/migrations/009_customer_request_version.sql": "36247e4f2abf90bce74acddbb978fc64bc36442c95e49b79eb5b399e2b4c53d3",
+    "database/migrations/010_integration_edge.sql": "0af9ae7f4821734bffd1fbb69f3ae01b85bbdd5e35cc2eadaccf6d02398d7abc",
+    "database/migrations/011_p4e_identity_conversation_routing.sql": "3eef2771d9cb6317ee3e388a257de5ecff75f647aa150b5a7d83c742e2b2e7c7"
+  },
+  "familiesUnchanged": {
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c"
+  },
+  "newFamily": {
+    "path": "docs/cvf/invariants/p5a2-demo-seed-recovery.json",
+    "matrix": {
+      "rawSha256": "3f69a9164bdff0d303b96a6d4b6c8e7c8829a736ee4e2138a4c3d29f1364fb41",
+      "nativeLfSha256": "3f69a9164bdff0d303b96a6d4b6c8e7c8829a736ee4e2138a4c3d29f1364fb41",
+      "lineCount": 115
+    },
+    "registry": {
+      "rawSha256": "06431b832b584c1c66ac13188fbff61d76512d6aef85945c2d5fe209a4d77a6b",
+      "nativeLfSha256": "06431b832b584c1c66ac13188fbff61d76512d6aef85945c2d5fe209a4d77a6b",
+      "lineCount": 157
+    },
+    "adapterBinding": "AM2 admission JSON /familyId precode; future bounded seed/recovery source and native tests materialize matrix before source checkpoint",
+    "futureFocusedAdapterTest": "tests/unit/test_p5a2_demo_seed_recovery.py; materialize and independently inspect raw positives for all four outcomes before source checkpoint; matrix structural evidence path remains fixed"
+  },
+  "image": {
+    "tag": "postgres:16",
+    "requiredCachedImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "priorAcceptedEvidence": "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json",
+    "pulls": 0,
+    "automaticRepinAllowed": false
+  },
+  "profile": {
+    "id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "container": "shiftops-p5a2-source-demo-db-v1",
+    "volume": "shiftops-p5a2-source-demo-data-v1",
+    "database": "shiftops_p5a2_source_demo",
+    "bindHost": "127.0.0.1",
+    "ports": {
+      "database": 5433,
+      "api": 8001,
+      "web": 5174
+    },
+    "network": "existing Docker bridge; no new network",
+    "runtimeDirectory": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo",
+    "ownerRecord": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/owner.json",
+    "secretReference": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/secrets.json"
+  },
+  "queries": [
+    {
+      "case": "initial_asof36",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T12:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 36
+      }
+    },
+    {
+      "case": "later_asof38",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T14:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 37
+      }
+    }
+  ],
+  "browser": {
+    "tool": "Existing @playwright/test via Node REPL, isolated headless Chromium context; UI acts only, no new tracked harness.",
+    "package": "@playwright/test@1.62.1",
+    "engine": "Chromium/Chrome for Testing151.0.7922.34 revision1234 already cached",
+    "cachedExecutable": "C:/Users/DELL/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+    "url": "http://127.0.0.1:5174",
+    "screenshots": [
+      "docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png",
+      "docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png"
+    ],
+    "credentialFlow": "Read only existing generated viewer_password via exact private runtime reference within executor process; fill actual login UI in memory, never print or stringify secret/full errors. No auth token capture/storage in evidence.",
+    "proof": "Two manual source-panel submissions; synthetic label,36eligible/36selected,candidates36then37; no private fields in projection; close proof browser only.",
+    "childEnvironment": "Explicit system-path allowlist only; no provider/API/model credentials or operator .env inheritance. Temporary nonpersistent context; clear in-process viewer secret after fill and close proof browser."
+  },
+  "retainedOwner": {
+    "profile": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "volume": "shiftops-p5a2-source-demo-data-v1",
+    "ownerDigest": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
+    "container": "ABSENT_AFTER_EXACT_OWNED_CLEANUP",
+    "databaseContents": "UNKNOWN_POST_SEED_FAILURE",
+    "credentialCustody": "Same exact private userlocal generated secrets.json, never tracked or logged"
+  },
+  "budget": {
+    "readOnlyExternalPreflight": 1,
+    "exclusiveNewAttemptMarker": 1,
+    "recoveryInvocations": 1,
+    "newContainersMaximum": 1,
+    "existingVolume": 1,
+    "newVolumes": 0,
+    "newNonces": 0,
+    "newCredentials": 0,
+    "migrationInvocations": 0,
+    "schemaWrites": 0,
+    "volumeResetsOrDeletes": 0,
+    "readOnlyInventoryConnections": 1,
+    "lockedRevalidationWriteConnections": 1,
+    "postSummaryReadOnlyConnections": 1,
+    "nativeSeedOrCASOrVerifyBranchesMaximum": 1,
+    "apiChildren": 1,
+    "webChildren": 1,
+    "smokeInvocations": 1,
+    "httpContexts": 2,
+    "smokeLogins": 1,
+    "browserLogins": 1,
+    "browserContexts": 1,
+    "uiSubmits": 2,
+    "screenshots": 2,
+    "dbReadinessMaximumAttempts": 40,
+    "apiReadinessMaximumAttempts": 40,
+    "webReadinessMaximumAttempts": 40,
+    "providerCalls": 0,
+    "pulls": 0,
+    "installs": 0,
+    "publicEffects": 0,
+    "automaticRetries": 0
+  },
+  "outcomeContract": {
+    "readonly": "All31 schema/counts/raw columns/native models/security/password/body hashes and DB identity in one RR/RO snapshot before any application write",
+    "empty": "Locked full revalidation then demo-local explicit created_at INSERT and atomic 110-row native seed, exact readback before commit",
+    "exact": "Locked full revalidation, exact verify, zero writes",
+    "soleTimestamp": "Locked full revalidation, exact one-row users.created_at CAS with observed old timestamp and immutable security/password-hash predicates, exact readback before commit",
+    "other": "REFUSED_ZERO_WRITE",
+    "postSummary": "RR/RO full exact rows/security/hashes/identity/counts",
+    "uncertainty": "REFUSED_ZERO_WRITE only for proven prewrite refusal or rollback; lost commit acknowledgment/postcommit failure means UNKNOWN outer recovery custody, no invented family result/fingerprint"
+  },
+  "gates": {
+    "sourceBuildReleased": false,
+    "physicalBudgetReleased": false,
+    "requiredBeforeBuild": [
+      "independent SPEC/family/WO authorization",
+      "normal material dispatch",
+      "dedicated exact-five actual-SHA continuity",
+      "independent clean split-range"
+    ],
+    "requiredBeforeEffect": [
+      "focused source tests",
+      "independent actual-hash source checkpoint",
+      "fresh Core and source pins",
+      "one read-only external preflight",
+      "exclusive AM2 marker"
+    ],
+    "failureStop": "One failure, preserve old trails/volume/credentials, clean only fresh exact owned resources, no retry"
+  },
+  "sourceCheckpoint": {
+    "status": "PENDING",
+    "actualChangedSourcePins": {},
+    "frozenReadOnlyPinsRequired": true,
+    "acceptedBytesImmutableAfterCheckpoint": true
+  },
+  "noCurrentEffectAuthorization": true,
+  "allOtherPathsReadOnly": true,
+  "historicalStageBHandoffReadOnly": {
+    "path": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+    "rawSha256": "794a03f9454f7280967e7bae393728bfde2b7d0a1f16d62996c4c21b2801ef7e",
+    "nativeLfSha256": "f6f8d3b4dee2a4e31a3f55ffb70c00656c067ad8f8d1aea872270a01b8fcd603"
+  },
+  "frozenAcceptedRecoveryPins": {
+    "scripts/p5a2_source_demo_bootstrap.py": {
+      "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "lineCount": 50
+    },
+    "scripts/p5a2_source_demo_recovery_docker.py": {
+      "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "lineCount": 123
+    },
+    "scripts/p5a2_source_demo_recovery_services.py": {
+      "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "lineCount": 47
+    },
+    "scripts/p5a2_source_demo_recovery_smoke.py": {
+      "rawSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "nativeLfSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "lineCount": 37
+    },
+    "scripts/p5a2_source_demo_start.py": {
+      "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "lineCount": 232
+    },
+    "tests/unit/test_p5a2_demo_bootstrap.py": {
+      "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "lineCount": 46
+    },
+    "tests/unit/test_p5a2_demo_recovery_smoke.py": {
+      "rawSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "nativeLfSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "lineCount": 45
+    }
+  },
+  "frozenAcceptedRecoveryPinsRequiredAt": [
+    "normal dispatch",
+    "independent actual-source checkpoint",
+    "effect preflight"
+  ],
+  "authorizationReview": "AM2_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "authorizationAccepted": true,
+  "readyContractPins": {
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md": "cdd851ef5d80db938f446069553ab80ab3612fdb996a5e36a64a7a43b4541416",
+    "docs\\work_orders\\P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md": "a0c05a424ab840598665810553e7955f12b7f91de303f8245a15c9dd564ef9ae"
+  }
+}

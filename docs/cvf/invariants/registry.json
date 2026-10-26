@@ -144,6 +144,14 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_PERSISTENT_RESOURCE_LIFECYCLE_OWNER_COUNTERS_AND_CROSS_AGENT_MUTATIONS"
+    },
+    {
+      "familyId": "P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES",
+      "matrixPath": "docs/cvf/invariants/p5a2-demo-seed-recovery.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_SEED_RECOVERY_CLASSIFICATION_ZERO_OR_ONE_WRITE_MULTI_VALIDATOR"
     }
   ]
 }

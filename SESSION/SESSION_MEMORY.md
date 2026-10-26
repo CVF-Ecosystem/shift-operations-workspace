@@ -1,41 +1,35 @@
 # Session Memory
 
 Updated2026-10-27. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md.
+Active SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md.
 Installed public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
-read-only selected controls; no private/shared/latest remote dependency.
+read-only selected controls; no private/shared/latest-remote dependency.
 
-## Current tranche
+## Current unit and authority
 
-P5-A2 G04/G05 consolidated source and retained-volume recovery; FREEZE (failed evidence only);
-SESSION_SYNC_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
-closed15+5 at555119e/08c62da, normal3465PASS148skip157.37s/151.50s. Physical
-backend FAILED, prior start budget SPENT, ownedvolume1 retained, API/web0.
-Known source blocker: standalone API-only PYTHONPATH omits monorepo packages;
-pytest masks it. Unknown retained schema/data requires readonly inventory.
-Design selects one combined source+effect contract and NO migration replay:
-only compatible empty or exact seeded state, same nonce/volume/credentials,
-then native seed or exact verification. No delete/reset or provider effects.
+P5-A2 G04/G05 same consolidated synthetic SQL → JWT/API → UI recovery.
+Prior failure evidence68d40b0/bc89436 independently clean17+5, normal3483PASS148skip.
+Import/ACL source accepted; physical recovery failed at native seed. Volume1 retained,
+container/API/web0; postseed rows UNKNOWN. Old attempt immutable/SPENT.
+Source-supported created_at hypothesis, not a proved physical exception.
+Operator explicitly replied “Cho phép phạm vi này”: approve exact demo seeder/tests,
+readonly retained-volume inspection, conditional sole synthetic user.created_at CAS,
+maxONE new recovery, no reset. No repeat routine approval. SPEC/WO AM2 admission
+before BUILD, normal dispatch/exact5/independentclean; independent source checkpoint
+before effects. Root ORCHESTRATOR; R2/liveYES for AI claims. Same nonce/credentials.
 
-## Milestone binding and acceptance
+## Acceptance and remainder
 
-Full G01-G14 outcome/acceptance/owners/P5-A2/B/C/D in baseline
- docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md. Known synthetic proof only;
-SQL users1/shifts36/assignments36/reports37, real JWT/API two frozen receipts,
-UI both contexts synthetic36/36/36 then36/36/37. Operational completeness,
-retention, method fit, quality and forecasting accuracy remain UNKNOWN/OPEN.
-G01/A7spent401/G02RAG BLOCKED; G03fit/G04operational/G05productionmode-authority-
-coverage-retention/SQLite UNKNOWN; G06lateruse/G07runtime/G08-G10quality/G11other
-flows/G12approval/G13drills OPEN; G14providerHELD. Backend/UI/Root/operator
-accountability and destinations retained. Phase5 0/5; no whole productgapclose.
+SQL users1/shifts36/assignments36/reports37; real JWT/two frozen HTTP digests;
+actual synthetic UI36/36/36 then36/36/37. This closes no whole product gap.
+Full G01-G14 binding in current RECOVERY_SPEC/WO and active handoff: G01A7spent401/
+G02RAG BLOCKED; G03fit/G04operational/G05productionmode-authority-coverage-retention/
+SQLite UNKNOWN; G06lateruse/G07runtime/G08-G10quality/G11otherflows/G12approval/
+G13drills OPEN; G14provider HELD. Accountable backend/UI/Root/operator owners and
+concrete P5-A2/B/C/D destinations retained. Phase5 0/5; no production readiness.
 
 ## Next allowed move
 
-Failed-resultmaterial68d40b0 exact17 normal3483PASS148skip4warnings161.04s,
-independentterminalPASS. Dedicatedexact5actualSHAchild/independentclean17+5
-thenexplicitOPERATOR_SCOPE decision onconcreteRETURNproposal. No retry or
-newtrancheautomatically; appseed.py isfrozenandconditionalpersistenttest-user
-created_at repair/newbudget exceeds currentauthority. PhysicalmốcFAILED,
-postseeddataUNKNOWN/volume1retained/APIwebUI0; source12accepted. All14gapowners/
-P5-A2/B/C/D/Phase5 0/5 remain. Provider/key/model/CSVdeferred. Current freeze
-concernssettledfailed-evidence recordONLY; neverwholegap/readinessclosure.
+Normal AM2 dispatch commit, independent terminal review, dedicated exact5 actual-SHA continuity then independent clean range; only then bounded source BUILD.
+
+Current role COMMIT_STEWARD; phase WORK_ORDER. Independent AM2 AUTHORIZATION PASS; READY seal only. Normal dispatch hook and actual-SHA continuity/clean gate required, no BUILD/effects.

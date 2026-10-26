@@ -1233,5 +1233,23 @@
     "formalReturnReview": "FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY",
     "independentResultReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
     "trancheDisposition": "PHYSICAL_ACCEPTANCE_FAILED / SOURCE_AND_FAILURE_PACKET_ACCEPTED_FOR_COMMIT"
+  },
+  "p5a2_recovery_am2_20261027": {
+    "status": "AUTHORIZATION_ACCEPTED_NORMAL_DISPATCH_PENDING",
+    "operatorApproval": "Cho phép phạm vi này; exact prior RETURN proposal",
+    "baselineCommit": "bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea",
+    "milestoneComplete": false,
+    "physicalSourceAccepted": false,
+    "physicalBudgetReleased": false,
+    "physicalAttempts": 0,
+    "providerCalls": 0,
+    "scope": "Same G04/G05 synthetic SQL/JWT/API/UI unit; demo seed source/tests, readonly full retained data inspection and only sole synthetic created_at guarded CAS, max1new recovery/noreset.",
+    "acceptance": [
+      "SQL1/36/36/37",
+      "real JWT/two frozen HTTP digests",
+      "actual UI synthetic36/36/36 then36/36/37"
+    ],
+    "remainder": "Full14gap current RECOVERY_SPEC/handoff; operationalcoverage UNKNOWN, Phase5 0/5. No whole gap closes.",
+    "authorizationReview": "AM2_AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }
