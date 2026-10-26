@@ -7,8 +7,8 @@ read-only selectedcontrols; no private/sharedpack/latestremote dependency.
 
 ## Current tranche
 
-P5-A2 G06/G11 source API BUILD: REVIEW; COMMIT_STEWARD; R2.
-Independent AM1 repair review PASS: source code unchanged, 218 PASS/2 existing physical skips; original full-hook15 failures retained. Normal material hook and actual-range closure pending.
+P5-A2 G06/G11 source API BUILD: FREEZE; SESSION_SYNC_STEWARD; R2.
+Actual material a141156 independently terminal-reviewed exact36; normal3397PASS148skip4warnings154.09s. This dedicated five-path continuity records the actual SHA; independent clean split-range review remains.
 Full Product Milestone Binding in P5A2_SOURCE_API_BUILD_SPEC.md. Source readiness
 inspection with strict JWT/currentuser/action/server-scope, native bounded cohort
 preflight/fresh release, closed receipt/1MiB HTTP. Normal coverage None and blank
@@ -38,4 +38,4 @@ Allowners/P5-A2/B/C/D destinations inSPEC; Phase5 0/5. No provider/key/model/
 
 ## Next allowed move
 
-Normal material commit, independent terminal actual review, dedicated actual-SHA five-path continuity and clean split range; continue directly to G11 UI SPEC/WO.
+Independent clean actual36-plus5 split-range review; if PASS proceed directly to bounded G11 source-inspection UI INTAKE/DESIGN/SPEC/WO without routine operator wait.

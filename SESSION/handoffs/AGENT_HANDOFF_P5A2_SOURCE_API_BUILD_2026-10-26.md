@@ -1,8 +1,8 @@
 # P5-A2 source API — active implementation handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `846acf0e695372d6d3596eda4a7fbdf9fbf61b38`.
-Dedicated DISPATCH continuity: THIS exact five-path child records the actual dispatch SHA; derive child SHA after normal hook. Independent clean 19+5 review precedes worker GO.
+Material commit recorded for this handoff: `a1411561950229b0f8761cab8cfc897afe874f79`.
+Dedicated source material continuity: this exact five-path child records the actual material SHA after terminal review; clean36+5 independent range review follows its normal hook.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baseline59d63c66ce170ede7259c67a4f770d96e623f921.
@@ -97,3 +97,19 @@ Root fresh current bootstrap/memory/state/handoff/implementation/index/roadmap a
 ## AM1 repair accepted / fresh normal material gate
 
 Independent AM1_REPAIR_REVIEW_PASS_BOUNDED verifies exact two test paths/Root frozen OpenAPI leaf, unchanged 14 runtime/test source hashes and historical goldens, 218 PASS/2 existing physical skips plus standalone11/OpenAPI74 PASS. Original full-hook15failure log retained; API-OPENAPI-F1 resolved, no open finding/waiver. Root fresh canonical/implementation/index/roadmap/Core acknowledgment, ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2/live YES for AI claims. Normal full hook remains mandatory; no closure before actual material/terminal review/dedicatedactualSHA/cleanrange. All14 milestone remainders/owners remain; direct G11 UI return after source closure, no new effects.
+
+## Actual source material / dedicated continuity
+
+Material a1411561950229b0f8761cab8cfc897afe874f79, parent7f3c63d, exact36
+authorized paths; normal3397PASS148existingSkip4warnings154.09s. Independent
+POST_MATERIAL_SOURCE_API_REVIEW_PASS_BOUNDED confirms actual committed range,
+frozen source/oracles/oldgoldens/matrix/pins/return/review and catalog/session
+checks, no finding or waiver. Root freshly reread current canonical continuity,
+implementation/index/roadmap and verified installed Core; COMMIT_STEWARD to
+SESSION_SYNC_STEWARD, FREEZE/R2/live YES for AI claims. THIS dedicated exact5
+child replaces the dispatch marker with actual source material a141156; normal
+hook then independent clean36+5 split range are still required before closure.
+No self-referential child SHA. Original15failedhook retained; source/HTTP fixture
+only, no operational coverage/standing backend/AI proof. Full14gap owners and
+P5-A2/B/C/D destinations remain in BUILD SPEC; Phase5 0/5. Direct next product
+move after independent clean range is G11 source UI INTAKE/DESIGN/SPEC/WO.
