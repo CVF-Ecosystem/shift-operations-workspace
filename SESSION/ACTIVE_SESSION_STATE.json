@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_synthetic_backend_recovery_failed_result_review",
+  "mode": "p5a2_recovery_waiting_operator_seed_scope",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
   "last_updated": "2026-10-27",
   "required_reads": [
@@ -19,7 +19,7 @@
     "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Finish independent current RETURN review and normal failed-result material/terminal/exact5continuity/clean. Then await explicit operator authority on concrete seed.py + conditional one-field synthetic identity repair + one new bounded recovery proposal in RETURN. No current retry or automatic new tranche.",
+  "next_allowed_move": "Independent clean17+5 current result range, then await explicit operator decision on RETURN concrete new seed.py/test scope, readonly re-inventory and conditional sole synthetic user.created_at repair plus max1new reviewed recovery. Current budgets SPENT/no retry, data UNKNOWN, no automatic new tranche.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_synthetic_backend_recovery_failed_result_review",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Independent formalreturn/review PASS for failed-result evidence only; no physical/milestone closure. Normal material/terminal/continuity/clean remain.",
+    "currentMode": "p5a2_recovery_waiting_operator_seed_scope",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Freeze current accepted-source+failed-result record ONLY after dedicated child/clean gate. Physical acceptance FAILED; new source/data authority pending operator, no milestone/tranche success claim.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +55,9 @@
     "activeHandoffNote": "Stage B persistent synthetic local backend admission/execution; source Stage A settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "Operator decision required before new app-seed source scope or conditional persistent synthetic user.created_at correction and any fresh recovery budget. Current recovery SPENT/failed; retained volume/data preserved and postseed rows UNKNOWN. Provider live/key/model/CSV remain deferred, original provider401 spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Closer accepts only source+failed-result evidence packet; physical acceptance FAILED and operator new scope pending. Commit normal gates intact.",
-    "currentRoleTransition": "ORCHESTRATOR_TO_CLOSER_FAILED_EVIDENCE_DISPOSITION_TO_COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Exact5 actual-SHA continuity only; awaiting operator scope, no source/data/runtime action.",
+    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_FAILED_RESULT_RECORD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-27"
   },
@@ -1032,6 +1032,11 @@
     "pendingOperatorDecision": "Concrete unapplied scope proposal in RETURN: first readonly re-inventory; exact all-empty seed or sole-created_at-mismatch one-field repair only, at mostone new reviewed recovery. Otherwise refuse; current budgets SPENT.",
     "formalReturnReview": "FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY",
     "independentResultReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
-    "trancheDisposition": "PHYSICAL_ACCEPTANCE_FAILED / SOURCE_AND_FAILURE_PACKET_ACCEPTED_FOR_COMMIT"
+    "trancheDisposition": "PHYSICAL_ACCEPTANCE_FAILED / EVIDENCE_RECORD_COMMITTED / WAITING_OPERATOR_SCOPE",
+    "resultMaterialCommit": "68d40b0f368e0ad0233e4427c5274168765c6214",
+    "resultMaterialPaths": 17,
+    "resultMaterialFullHook": "3483passed148skipped4warnings161.04s",
+    "resultTerminalReview": "TERMINAL_RESULT_MATERIAL_REVIEW_PASS_BOUNDED",
+    "resultRecordClosure": "Dedicated exact5 child plus independentclean17+5 discharges current failed-result evidence only; physical acceptanceFAILED/operator scope pending."
   }
 }

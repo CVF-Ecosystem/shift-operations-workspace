@@ -1,8 +1,8 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `256a052761c688159d603911c1bd9e521b403d9d`.
-Dedicated same-tranche source+AM1 admission continuity records this actual SHA after terminal review.
+Material commit recorded for this handoff: `68d40b0f368e0ad0233e4427c5274168765c6214`.
+Dedicated current failed-result continuity records this actual SHA after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
@@ -466,3 +466,19 @@ pending. Freshcanonical/Core0; ORCHESTRATOR to CLOSER to COMMIT_STEWARD,
 REVIEW/R2/liveYES. Normalmaterial/terminal/exact5actualSHAcontinuity/clean
 required beforeauthorityquestion. No further effects or automaticnewtranche;
 all14gapowners/P5-A2/B/C/D/Phase5 0/5 retained. ProposalunappliedinRETURN.
+
+
+## Actual failed-result material / dedicated continuity / operator scope checkpoint
+
+Material68d40b0f368e0ad0233e4427c5274168765c6214 exact17; normal3483PASS148skip
+4warnings161.04s. Independent TERMINAL_RESULT_MATERIAL_REVIEW_PASS_BOUNDED,
+NONE/NONE,17manifest/source12+frozen43/immutablemarkerGitrawSHA match/clean.
+Freshcanonical/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD, FREEZE/R2/liveYES
+for acceptedsource+FAILED-resultrecord ONLY, notphysical/milestoneclosure.
+This exact5 actualSHA child thenindependentclean17+5 discharges evidence
+closure. Pendingoperatorauthority concreteproposal inRETURN; appseedreadonly
+path andconditionalexisting-synthetic-identitycreated_at correction/newbudget
+are NOT currentauthority. PhysicalmốcFAILED/SPENT, postseeddataUNKNOWN,
+volume1retained, API/web/smoke/UI0. No automaticnewtranche/retry; all14gapowners/
+P5-A2/B/C/D/Phase5 0/5 remain. Provider/key/model/CSVdeferred. Askonlynewreal
+source/data boundary aftercurrentnormalcontinuity/clean completes.

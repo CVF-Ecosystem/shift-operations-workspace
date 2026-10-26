@@ -7,8 +7,8 @@ read-only selected controls; no private/shared/latest remote dependency.
 
 ## Current tranche
 
-P5-A2 G04/G05 consolidated source and retained-volume recovery; REVIEW;
-COMMIT_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
+P5-A2 G04/G05 consolidated source and retained-volume recovery; FREEZE (failed evidence only);
+SESSION_SYNC_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
 closed15+5 at555119e/08c62da, normal3465PASS148skip157.37s/151.50s. Physical
 backend FAILED, prior start budget SPENT, ownedvolume1 retained, API/web0.
 Known source blocker: standalone API-only PYTHONPATH omits monorepo packages;
@@ -31,17 +31,11 @@ accountability and destinations retained. Phase5 0/5; no whole productgapclose.
 
 ## Next allowed move
 
-ONEreservedrecoverFAILED NATIVE_SEED_OR_VERIFY; budgetSPENT. Exactnewowned
-containerdee30...removed, existingvolume1retained/registeredcleanupverified,
-API/web/smoke/browser0. PrewritePG16.15 RR/RO inventoryall31tables0; postseed
-rowsUNKNOWN(noadditionalquery). Source static candidate: user_row omitsfrozen
-created_at while seed exact verifier comparesit; physicalexacterrornotretained.
-Independentfailedresult/residue+finiteREADONLY sourcediagnosis, thencommit
-result/continuity. No moreDocker/DB/secret/seed/retry/sourcechange. Appseed
-path/possibleexisting-user timestamppatch isoutsidecurrentfrozen scope,
-requires explicit reviewedauthoritydecision; no new supporttrancheautomatically.
-Same14gapowners/P5-A2/B/C/D/Phase5 0/5; physicalacceptanceNOTmet.
-
-Independentformalreturn/resultreviewPASS for evidenceONLY; currentnormal
-material/terminal/exact5continuity/clean gates remain beforeauthorityquestion.
-PhysicalmốcNOTmet; no retry/data/sourcefixauthority.
+Failed-resultmaterial68d40b0 exact17 normal3483PASS148skip4warnings161.04s,
+independentterminalPASS. Dedicatedexact5actualSHAchild/independentclean17+5
+thenexplicitOPERATOR_SCOPE decision onconcreteRETURNproposal. No retry or
+newtrancheautomatically; appseed.py isfrozenandconditionalpersistenttest-user
+created_at repair/newbudget exceeds currentauthority. PhysicalmốcFAILED,
+postseeddataUNKNOWN/volume1retained/APIwebUI0; source12accepted. All14gapowners/
+P5-A2/B/C/D/Phase5 0/5 remain. Provider/key/model/CSVdeferred. Current freeze
+concernssettledfailed-evidence recordONLY; neverwholegap/readinessclosure.

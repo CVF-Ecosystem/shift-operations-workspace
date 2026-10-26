@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_recovery_failed_result_review",
+  "currentMode": "p5a2_recovery_waiting_operator_seed_scope",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Finish independent current RETURN review and normal failed-result material/terminal/exact5continuity/clean. Then await explicit operator authority on concrete seed.py + conditional one-field synthetic identity repair + one new bounded recovery proposal in RETURN. No current retry or automatic new tranche.",
+  "nextAllowedMove": "Independent clean17+5 current result range, then await explicit operator decision on RETURN concrete new seed.py/test scope, readonly re-inventory and conditional sole synthetic user.created_at repair plus max1new reviewed recovery. Current budgets SPENT/no retry, data UNKNOWN, no automatic new tranche.",
   "parkedOperatorCheckpoint": "Operator decision required before new app-seed source scope or conditional persistent synthetic user.created_at correction and any fresh recovery budget. Current recovery SPENT/failed; retained volume/data preserved and postseed rows UNKNOWN. Provider live/key/model/CSV remain deferred, original provider401 spent.",
   "requiredReads": [
     "AGENTS.md",
