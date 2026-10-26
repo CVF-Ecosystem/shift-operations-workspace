@@ -1,8 +1,8 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `555119eb9344624ae52a36609f84591dfb928db2`.
-Dedicated failed-result continuity records this actual material SHA after independent terminal review.
+Material commit recorded for this handoff: `bb9837d0ca8b8ba2e12b63110a74be05c49681e8`.
+Dedicated recovery dispatch continuity records this actual SHA after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
@@ -287,3 +287,14 @@ selector limit recorded. Root fresh canonical rehydration/Core0;
 WORK_ORDER_AUTHOR to COMMIT_STEWARD WORK_ORDER/R2/liveYES. Normal dispatch,
 terminal review/exact5 actual-SHA child/independent clean gate before BUILD;
 actual-source checkpoint before new max1 recovery. Physical budget unreleased.
+
+
+## Actual consolidated recovery dispatch / dedicated continuity
+
+Actualbb9837d0ca8b8ba2e12b63110a74be05c49681e8 exact14; normal3465PASS148skip
+4warnings149.10s. Independent TERMINAL_DISPATCH_REVIEW_PASS_BOUNDED,
+findingsNONE, exactmanifest/no source delta/44pins match/clean. Freshcanonical
+rehydration/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYES.
+This exact5 child records realdispatchSHA; independent clean14+5 still required
+before BUILD. No source/effects released. G01-G14 remainders/owners/P5-A2/B/C/D,
+Phase5 0/5 retained; physicalbudget0/unreleased and priorstartSPENT unchanged.
