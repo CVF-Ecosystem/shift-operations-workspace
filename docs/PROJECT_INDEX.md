@@ -2,6 +2,9 @@
 
 ## Start Here
 
+- Active G06/G11 source API identity: [SPEC](specs/P5A2_SOURCE_API_IDENTITY_SPEC.md), [source intake](decisions/P5A2_SOURCE_API_IDENTITY_INTAKE_2026-10-26.md), [planning WO](work_orders/P5A2_SOURCE_API_IDENTITY_PLANNING_WORK_ORDER.md), [independent planning PASS](decisions/P5A2_SOURCE_API_IDENTITY_REVIEW_2026-10-26.md). Accepted INTAKE/SPEC only; no runtime API, BUILD, production coverage or provider authority. Full milestone gaps/owners retained, Phase5 0/5.
+- Accepted StageB synthetic physical source proof: [evidence](decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json), [independent review](decisions/P5A2_SCOPED_SOURCE_POSTGRES_REVIEW_2026-10-26.md). Resultcad8ffc/dedicated0b7f870, exact18+5clean; PG16.15/1PASS31.18s, independent ownedcleanup. No standingbackend, oldeffectSPENT.
+
 - Closed-bounded P4-E Amendment 2 packet and parked handoff:
   [`CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_2026-09-10.md`](work_orders/CVF_AGENT_WORK_ORDER_P4E_IDENTITY_CONVERSATION_ROUTING_AMENDMENT_2_2026-09-10.md),
   [`P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_2_2026-09-10.md`](implementation/P4E_IDENTITY_CONVERSATION_ROUTING_EXACT_MANIFEST_AMENDMENT_2_2026-09-10.md),

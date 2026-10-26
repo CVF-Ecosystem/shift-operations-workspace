@@ -1,39 +1,41 @@
 # Session Memory
 
-Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json; currenthandoff
-SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md.
-InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6,
-read-only selectedcontrols; no private/sharedpack/latestremote/session dependency.
-Normalhook intact; legacy docs/decisions returns explicitly use nativecheck_recheck.
+Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json.
+Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md.
+InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
+read-only selectedcontrols; no private/sharedpack/latestremote dependency.
 
 ## Current tranche
 
-p5a2_scoped_source_pg_closed_bounded; FREEZE; SESSION_SYNC_STEWARD; R2/live evidence YES for AI claim.
-Resultmaterialcad8ffc independentlyPASS exact18/clean/38+5pins. THISdedicated5actualresultSHA child plusfinalindependentrange gates boundedclosure. SQLfixtureonly, no standingbackend, Phase5 0/5.
-StageB SPEC/sourceWO/effectWO/admission and Rootpre-harness PGoracle0b69156f.
-Sourceoracle0f/bodyoracle12ad/family9b3/StageAcode/oldDockerhelpers readonly.
-ONE spent newexperiment with cachedPG16imagef461 and psycopg3.3.4, noinstall/
-pull/provider/realcredential/.env/CSV. SourceBUILD and physicaleffect separate:
-independentreview/normalcommit/dedicatedactualSHA before each bounded release.
-Atomicspentattempt, ownedcontext/loopbackfence, nativequery500/501/RR/freshwriter
-races and exactownedcleanup required. Productioncoverage UNKNOWN/defaultrefused.
+P5-A2 G06/G11 source API identity: REVIEW; COMMIT_STEWARD; R2.
+Independent planningPASS, two findingsresolved; source/API/matrix/oracles unchanged. Normal docs-only exact16material and dedicatedactualSHAcontinuity remain.
+Canonical full Product Milestone Binding in P5A2_SOURCE_API_IDENTITY_SPEC.md:
+strict signed JWT expiry + current stored user/action, server-only self scope,
+bounded assignment preflight/fresh release, default coverage refusal, receipt-only
+HTTP contract with no body/HistoryInput and bounded bytes. No API mounted.
+Future family/HTTP parity and product-value gates precede any implementation WO.
 
-## Accepted history / milestone boundaries
+## Accepted history / boundaries
 
-StageA CLOSED_BOUNDED_FIXTURE_INTERNAL_ONLY: sourcea7374f86, dedicated8dc39e1,
-exact31+5cleanrange; normal3316PASS147skip4warnings145.79s/161.61s. Independent
-source/terminalPASS, nofindings/waivers. Native memory/caps/emitter/receipt,
-91source+genericPASS2skip and84native mutations accepted, physicalPGqueryunproved.
-EarlierCorefix/SQL3de6c50/7134f9e closed. OldPG16.15 fixture36/37, migrations46/0
-then42/4, SQL1PASS1.37s/frozenoracle/ownedcleanup accepted; noDBleft; oldphysical
-ceilingsSPENT. Failedfullhooks/missingpip/sourceassertion failures retained.
+StageB syntheticphysicalSQL closedbounded: resultcad8ffc/dedicated0b7f870,
+independentfinalclean18+5PASS; hooks3332P148S4W226.95s/186.06s.
+ONEPG16.15 target1PASS31.18s, frozencontexts/caps/RR/writerraces/refusals,
+ownedcleanup independentlyaccepted; no standingbackend. OldattemptsSPENT.
+StageA sourcea7374f86/dedicated8dc39e1 accepted memory/caps/nativefamily;
+source/body/PGoracles and family9b3 unchanged. Prior failures retained.
+Merge dcaca2c installed catalogkit routing: DETAIL registry/catalog and
+PROJECT_INDEX are projectdetail; INDEX/modulekit generated. Detailed26modules
+retain capability truth; no readiness inference from catalog status.
 
-FullG01â€“G14/owners/destinations in StageB SPEC. SelectedphysicalfixtureG04â€“G06/
-partialG13 only. G01/A7provider401/G02RAGblocked, G03businessfit/G05retention/
-G06API-useauth/G07scheduler/G08â€“G10quality/G11APIUI/G12approval/G13runtimeOPEN,
-G14held. Root/backend/UI/operator retain P5-A2/P5-B/C/D ownership; Phase5 0/5.
-Provider/key/model/CSV held,401spent; no operationalaccuracy/retention/AIclaim.
+## Milestone remainders
+
+G01/A7provider401/G02RAG BLOCKED; G03businessfit,G04operationalintegration,
+G05productioncoverage-retention/SQLitepositive UNKNOWN, G06API-useauth,
+G07scheduler,G08–G10operationalquality,G11APIUI,G12exactapproval,G13integrated
+drills OPEN; G14provider HELD. Allowners/P5-A2/P5-B/C/D destinations inSPEC.
+Phase5 0/5, no wholemilestone closure. Provider/key/model/.env/CSV held;
+no Docker rerun, production/deployment or operationalaccuracy claim.
 
 ## Next allowed move
 
-AfterTHISnormalchild+independentclean18+5range, boundedINTAKE/SPEC P5-A2 G06/G11 applicationidentity/API contract. No automaticBUILD, rerun orprovidercall.
+Normal exact16planning material commit; independentterminalactualrange, dedicated5actualSHAcontinuity/cleanclosure. Successorwork-order decision only, no automatic BUILD.

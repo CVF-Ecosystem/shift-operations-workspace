@@ -677,7 +677,7 @@
     "normalHooks": "3316passed147skipped4warnings145.79s/161.61s; exact31+5cleanrange"
   },
   "p5a2_scoped_source_pg_20261026": {
-    "status": "PHYSICAL_RESULT_ACCEPTED_PENDING_MATERIAL",
+    "status": "CLOSED_BOUNDED_SYNTHETIC_PHYSICAL_SOURCE",
     "spec": "docs/specs/P5A2_SCOPED_SOURCE_POSTGRES_SPEC.md",
     "sourceWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_WORK_ORDER.md",
     "effectWO": "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_EFFECT_WORK_ORDER.md",
@@ -698,7 +698,7 @@
     "dispatchContinuityCommit": "78fa50bbea5027040ab9166582329dc69b55b7d6",
     "candidateCorpus": "101passed3skipped15.73s; purefixturestrengthening1passed",
     "sourceAccepted": true,
-    "repair1Focused": "72passed1skip +19numeric-historypassed; exactgenericpendingindependentreview",
+    "repair1Focused": "72passed1safeSkip+19numeric/history; independentexact107passed3skip18.07s",
     "containersCreated": 1,
     "providerCalls": 0,
     "sourceCorpus": "107passed3skipped18.07s",
@@ -723,7 +723,39 @@
     "cleanupRunnerReported": true,
     "cleanupIndependentlyAccepted": true,
     "resultReview": "PHYSICAL_RESULT_REVIEW_PASS_BOUNDED",
-    "resultMaterialCommit": "PENDING",
-    "productionCoverageAccepted": false
+    "resultMaterialCommit": "cad8ffc1e60a2ee753fb714e4336016e67634834",
+    "productionCoverageAccepted": false,
+    "resultMaterialPaths": 18,
+    "resultFullHook": "3332passed148skipped4warnings226.95s",
+    "resultTerminalReview": "POST_RESULT_MATERIAL_REVIEW_PASS_BOUNDED",
+    "closureCondition": "DISCHARGED by actual0b7f870 normalhook and independent finalclean18+5range",
+    "trancheDisposition": "CLOSED_BOUNDED_SYNTHETIC_PHYSICAL_SOURCE",
+    "nextProductGap": "P5-A2 G06/G11 application principal/API contract; separate bounded intake/spec, no automatic BUILD",
+    "standingBackend": false,
+    "resultContinuityCommit": "0b7f870585d3ef9996b0cff1ab8b943a7d4b739f",
+    "resultContinuityHook": "3332passed148skipped4warnings186.06s",
+    "resultFinalReview": "FINAL_CLEAN_RESULT_RANGE_REVIEW_PASS_BOUNDED"
+  },
+  "p5a2_source_api_identity_20261026": {
+    "status": "PLANNING_ACCEPTED_PENDING_MATERIAL",
+    "baseline": "dcaca2c02dfdb012cc55b16907b7c6f31fecf305",
+    "spec": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SOURCE_API_IDENTITY_PLANNING_WORK_ORDER.md",
+    "intake": "docs/decisions/P5A2_SOURCE_API_IDENTITY_INTAKE_2026-10-26.md",
+    "scope": "CONTRACT_ONLY_G06_G11_PARTIAL_G13",
+    "apiImplemented": false,
+    "runtimeBuildAuthorized": false,
+    "operationalCoverageAccepted": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "milestoneComplete": false,
+    "openFindings": [],
+    "planningAccepted": true,
+    "resolvedFindings": [
+      "API-SPEC-F1",
+      "API-SPEC-F2"
+    ],
+    "independentReview": "PLANNING_REVIEW_PASS_BOUNDED",
+    "materialCommit": "PENDING"
   }
 }
