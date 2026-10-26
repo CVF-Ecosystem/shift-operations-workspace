@@ -1,8 +1,8 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `bb9837d0ca8b8ba2e12b63110a74be05c49681e8`.
-Dedicated recovery dispatch continuity records this actual SHA after independent terminal review.
+Material commit recorded for this handoff: `256a052761c688159d603911c1bd9e521b403d9d`.
+Dedicated same-tranche source+AM1 admission continuity records this actual SHA after terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
@@ -399,3 +399,14 @@ Normalcombinedacceptedsource+AM1material thenindependentterminal/exact5actual
 SHAchild/clean/newcommittedsourceadmission beforefinalextra preflight. This
 same-tranche admission checkpoint closesno physicalgap/milestone; Phase5 0/5.
 NoACLwrite/newsecret/newvolume/provider/migration/reset; originalrefusalkept.
+
+
+## Actual source+AM1 admission material / dedicated continuity
+
+Actual256a052761c688159d603911c1bd9e521b403d9d exact27, normal3483PASS148skip
+4warnings165.94s. Independent TERMINAL_AM1_MATERIAL_REVIEW_PASS_BOUNDED,
+NONE/NONE,12source+43readonlypins/WO match/clean. Freshcanonical/Core0;
+COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYES. This exact5
+recordsrealSHA; independentclean27+5 and NEWcommittedsourceadmission still
+precedeONEFINALextra preflight. No effects/ACLchanges, recovermax1unspent.
+All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained; same recoverytranche.

@@ -3,7 +3,7 @@
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
   "currentMode": "p5a2_synthetic_backend_recovery_am1_review",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Normal actual-source+AM1 material commit, independent terminal review, exact5 actualSHA child, independent clean range and NEW committed-source admission. Only then final extra readonly preflight and at most1recover. No ACLwrites/newsecrets/volumes/provider/migration/reset.",
+  "nextAllowedMove": "Finish AM1 exact5 actualSHA child, then independent clean27+5 and NEW committed-source admission before final extra readonly preflight. Recovery remains max1/unspent until PASS+exclusive reservation; no ACLwrites/provider/migration/reset.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

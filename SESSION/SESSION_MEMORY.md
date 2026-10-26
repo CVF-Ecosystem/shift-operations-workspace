@@ -8,7 +8,7 @@ read-only selected controls; no private/shared/latest remote dependency.
 ## Current tranche
 
 P5-A2 G04/G05 consolidated source and retained-volume recovery; WORK_ORDER;
-COMMIT_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
+SESSION_SYNC_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
 closed15+5 at555119e/08c62da, normal3465PASS148skip157.37s/151.50s. Physical
 backend FAILED, prior start budget SPENT, ownedvolume1 retained, API/web0.
 Known source blocker: standalone API-only PYTHONPATH omits monorepo packages;
@@ -34,7 +34,7 @@ accountability and destinations retained. Phase5 0/5; no whole productgapclose.
 AM1 same-tranche candidate: sourcefix recognizesexactOWNER RIGHTS alias only
 underexistingcurrent-userowner/privateDACLguards; noACLchange. Projectvenv36
 focusedPASS/full608; ambientPython34PASS2envfail retained thencorrectedvenvPASS.
-AM1independentauthorization/sourcePASS36focused3.79s; normalactualsource+AM1material/terminal/
+Source+AM1material256a052 exact27 normal3483PASS165.94s/independentterminalPASS; dedicated
 exact5actualSHAchild/clean/newcommittedsourceadmission beforeONEFINALextra
 preflight(total2). Recovermax1stillunspent/noattempt. Originalrefusalretained.
 All14gapowners/P5-A2/B/C/D remain, Phase5 0/5. No new tranche or effects now.
