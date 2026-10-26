@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_recovery_am2_dispatch",
+  "currentMode": "p5a2_recovery_am2_dispatch_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
-  "nextAllowedMove": "Normal AM2 dispatch commit, independent terminal review, dedicated exact5 actual-SHA continuity then independent clean range; only then bounded source BUILD.",
+  "nextAllowedMove": "Independent clean18+5 dispatch review after this exact5 normal continuity commit, then bounded source BUILD only; physical still needs actual-hash source checkpoint.",
   "parkedOperatorCheckpoint": "Operator approved exact RETURN scope; no repeat approval needed. Provider/key/model/CSV deferred, original401spent. Any further objective/path/risk/effect/secret/provider/public boundary requires its own decision.",
   "requiredReads": [
     "AGENTS.md",

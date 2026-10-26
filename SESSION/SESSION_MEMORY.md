@@ -30,6 +30,6 @@ concrete P5-A2/B/C/D destinations retained. Phase5 0/5; no production readiness.
 
 ## Next allowed move
 
-Normal AM2 dispatch commit, independent terminal review, dedicated exact5 actual-SHA continuity then independent clean range; only then bounded source BUILD.
+Independent clean18+5 dispatch review after this exact5 normal continuity commit, then bounded source BUILD only; physical still needs actual-hash source checkpoint.
 
-Current role COMMIT_STEWARD; phase WORK_ORDER. Independent AM2 AUTHORIZATION PASS; READY seal only. Normal dispatch hook and actual-SHA continuity/clean gate required, no BUILD/effects.
+Current role SESSION_SYNC_STEWARD; phase WORK_ORDER. Terminal dispatch review PASS exact18; dedicated actual-SHA five-path continuity only. BUILD/effects held pending independent clean18+5.

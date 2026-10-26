@@ -1,8 +1,8 @@
 # P5-A2 retained-volume recovery AM2 — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for predecessor failed evidence: `68d40b0f368e0ad0233e4427c5274168765c6214`.
-Dedicated predecessor continuity bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea; independent FINAL_CLEAN_17_PLUS_5_PASS.
+Material commit recorded for this handoff: `044ed5c1064ea5e133df2c208c22c5a1ac5f33e3`.
+Dedicated AM2 dispatch continuity after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 ## Fresh acknowledgment and operator approval
@@ -81,3 +81,20 @@ path not automatically scanned). Root seals READY with only status transition
 and actual contract pins. Old source/failure/attempt packets remain immutable.
 Normal dispatch then terminal review/exact5 actualSHA/clean gate before BUILD.
 Full14gap owners/destinations and Phase5 0/5 retained; no effects released.
+
+## Actual dispatch material and dedicated continuity
+
+Material044ed5c1064ea5e133df2c208c22c5a1ac5f33e3 exact18;
+normal3483PASS148skip4warnings220.32s. Independent
+TERMINAL_AM2_DISPATCH_REVIEW_PASS_BOUNDED; findings NONE/waivers NONE.
+47frozen/input pins+7acceptedrecovery+4workerbaseline+old5packetpins match,
+READY graph0, family/session/CorePASS, explicit legacycompletion recheck0.
+Fresh canonical acknowledgment; COMMIT_STEWARD to SESSION_SYNC_STEWARD,
+WORK_ORDER/R2/liveYES for AI claims. Dedicated exact5 actualSHA continuity;
+independent clean18+5 must precede BUILD. All14gap remainders/Phase5 0/5.
+Reviewer found frozen native stop stopped-state check reversed; do not use its
+stop() path. Before service effects Root must submit concrete failure cleanup
+using held Windows PID helpers plus verified fixed-transport remove_container,
+no modification to frozen stop/Docker helper. Existing any-failure cleanup
+scope only, no new tranche/effect budget. Browser procedure static reviewed
+local-only/secret-safe, not invoked. Physical budget remains unspent/held.
