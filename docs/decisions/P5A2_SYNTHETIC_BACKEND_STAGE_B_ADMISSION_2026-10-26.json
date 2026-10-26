@@ -1,0 +1,335 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-20261026",
+  "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "baselineCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
+  "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
+  "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
+  "sourceClosure": {
+    "disposition": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED",
+    "materialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
+    "continuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
+    "materialFullHook": "3465passed148skipped4warnings220.90s",
+    "continuityFullHook": "3465passed148skipped4warnings229.82s",
+    "materialPathCount": 45,
+    "continuityPathCount": 5,
+    "findings": [],
+    "waivers": [],
+    "boundedClaim": "P5-A2 G04/G05 synthetic development backend Stage A source and clean committed range only; operational coverage, Stage B physical effects, live AI governance proof, full P5-A2 and Phase 5 completion remain unaccepted."
+  },
+  "risk": "R2",
+  "operatorAuthority": "Existing explicit Docker data backend request and instruction to execute plus continuous roadmap/subagent authority; bounded local synthetic profile only. No live provider, operator credential, production, public or destructive-volume authority.",
+  "executor": {
+    "agent": "/root",
+    "roleRoute": [
+      "ORCHESTRATOR",
+      "WORK_ORDER_AUTHOR",
+      "IMPLEMENTATION_WORKER",
+      "COMMIT_STEWARD",
+      "SESSION_SYNC_STEWARD"
+    ]
+  },
+  "reviewer": {
+    "agent": "/root/source_api_review",
+    "independentFromSourceAndEffectImplementation": true
+  },
+  "rootOnlyMutationPaths": [
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ATTEMPT_2026-10-26.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_RETURN_2026-10-26.md",
+    "docs/reviews/evidence/p5a2-source-demo-initial-20261026.png",
+    "docs/reviews/evidence/p5a2-source-demo-later-20261026.png",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/SESSION_MEMORY.md",
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "IMPLEMENTATION_STATUS.json",
+    "docs/INDEX.md",
+    "docs/PROJECT_INDEX.md",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+    "docs/catalog/MODULE_CATALOG_DETAIL.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "knowledge/PROJECT_CONTEXT.md",
+    "knowledge/manifest.json"
+  ],
+  "reviewerOnlyPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
+  "readOnlySourcePins": {
+    "apps/workspace-api/src/workspace_api/config.py": {
+      "nativeLfSha256": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "rawWorkingSha256AtSeal": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "lineCount": 124
+    },
+    "apps/workspace-api/src/workspace_api/demo/__init__.py": {
+      "nativeLfSha256": "d49f553022655d44a6a06955379feef5880d79bb6bcf6c511d06892ef42cea0d",
+      "rawWorkingSha256AtSeal": "6dc234afa641751bb967d1e3956721361bd0c5039cc0b46ec6c9ab9ffef2ebf2",
+      "lineCount": 1
+    },
+    "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json": {
+      "nativeLfSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "rawWorkingSha256AtSeal": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "lineCount": 5240
+    },
+    "apps/workspace-api/src/workspace_api/demo/authority_v1.json": {
+      "nativeLfSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "rawWorkingSha256AtSeal": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "lineCount": 1064
+    },
+    "apps/workspace-api/src/workspace_api/demo/bundle.py": {
+      "nativeLfSha256": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "rawWorkingSha256AtSeal": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "lineCount": 27
+    },
+    "apps/workspace-api/src/workspace_api/demo/coverage.py": {
+      "nativeLfSha256": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "rawWorkingSha256AtSeal": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "lineCount": 84
+    },
+    "apps/workspace-api/src/workspace_api/demo/seed.py": {
+      "nativeLfSha256": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "rawWorkingSha256AtSeal": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "lineCount": 188
+    },
+    "apps/workspace-api/src/workspace_api/demo/app.py": {
+      "nativeLfSha256": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "rawWorkingSha256AtSeal": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "lineCount": 98
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes.py": {
+      "nativeLfSha256": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "rawWorkingSha256AtSeal": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "lineCount": 43
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes_shift.py": {
+      "nativeLfSha256": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "rawWorkingSha256AtSeal": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "lineCount": 42
+    },
+    "apps/workspace-web/vite.source-demo.config.ts": {
+      "nativeLfSha256": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "rawWorkingSha256AtSeal": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "lineCount": 9
+    },
+    "infrastructure/demo/p5a2-source-postgres.compose.yml": {
+      "nativeLfSha256": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "rawWorkingSha256AtSeal": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "lineCount": 26
+    },
+    "scripts/p5a2_source_demo_common.py": {
+      "nativeLfSha256": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "rawWorkingSha256AtSeal": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "lineCount": 256
+    },
+    "scripts/p5a2_source_demo_preflight.py": {
+      "nativeLfSha256": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "rawWorkingSha256AtSeal": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "lineCount": 64
+    },
+    "scripts/p5a2_source_demo_start.py": {
+      "nativeLfSha256": "4eae082072917d0d72dc69d28b9c69ccf31f98459077d8541b7ec9eab064fd5e",
+      "rawWorkingSha256AtSeal": "4eae082072917d0d72dc69d28b9c69ccf31f98459077d8541b7ec9eab064fd5e",
+      "lineCount": 230
+    },
+    "scripts/p5a2_source_demo_stop.py": {
+      "nativeLfSha256": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "rawWorkingSha256AtSeal": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "lineCount": 153
+    },
+    "scripts/p5a2_source_demo_smoke.py": {
+      "nativeLfSha256": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "rawWorkingSha256AtSeal": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "lineCount": 98
+    },
+    "tests/unit/test_p5a2_demo_bundle.py": {
+      "nativeLfSha256": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "rawWorkingSha256AtSeal": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "lineCount": 83
+    },
+    "tests/unit/test_p5a2_demo_coverage.py": {
+      "nativeLfSha256": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "rawWorkingSha256AtSeal": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "lineCount": 120
+    },
+    "tests/unit/test_p5a2_demo_profile.py": {
+      "nativeLfSha256": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "rawWorkingSha256AtSeal": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "lineCount": 42
+    },
+    "tests/unit/test_p5a2_demo_lifecycle.py": {
+      "nativeLfSha256": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "rawWorkingSha256AtSeal": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "lineCount": 238
+    },
+    "tests/unit/test_p5a2_demo_routes.py": {
+      "nativeLfSha256": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "rawWorkingSha256AtSeal": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "lineCount": 15
+    },
+    "tests/integration/test_p5a2_demo_source_http.py": {
+      "nativeLfSha256": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "rawWorkingSha256AtSeal": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "lineCount": 180
+    }
+  },
+  "sourcePinNormalization": "Native UTF8 LF hash is executable code identity and equals accepted Git blob after LF normalization; raw worktree snapshot retained for audit. JSON deployable copies must additionally remain byte-exact frozen raw inputs.",
+  "frozenInputs": {
+    "fixtures/p5a2_source_demo_v1.json": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+    "fixtures/p5a2_source_demo_authority_v1.json": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+    "tests/fixtures/p5a2_source_demo_oracle.json": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d"
+  },
+  "immutablePredecessorPins": {
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "tests/fixtures/p5a2_scoped_source_oracle.json": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "tests/fixtures/p5a2_docker_backend_oracle.json": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "tests/fixtures/p5a2_scoped_source_pg_oracle.json": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f"
+  },
+  "spec": {
+    "path": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+    "nativeLfSha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a"
+  },
+  "families": {
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c"
+  },
+  "migrations": {
+    "database/migrations/001_foundation.sql": "5f2e070d01e5817a004d3d2a260aeef17565ae9f89526c31428b268231982e19",
+    "database/migrations/002_tasks_customers_reports.sql": "1a971b4f224c54054a88d678fe9e744b617eef7b125ccd634c008574a9632e28",
+    "database/migrations/003_users.sql": "31104961fa97d209283242df9f168cd0c2299417d96fa190913c29638fedcd82",
+    "database/migrations/004_approval_receipts.sql": "299913808cf756db279505edb1dfcd595a6dcbf8d62d9e84ee8fe003efc3f300",
+    "database/migrations/005_incidents.sql": "3c08e64e93a600c04eab24479759fe1336c021fa9df60cf5ff97f27a7e394410",
+    "database/migrations/006_handovers.sql": "27d0234fab07a8b8ee9e47bc0a3680c381b450e7e48c97feb8e44a94d14e768a",
+    "database/migrations/007_report_history_constraints.sql": "8d54d9628ca0c63d3397dcba281ba34aaf081943a2e5a2f46c91bdd7a874fd90",
+    "database/migrations/008_shift_assignments.sql": "d8e101a6f0aa16b8ab2c97207ae9c03e3b0fc97e6c935e648e4e20a3cdc4b2aa",
+    "database/migrations/009_customer_request_version.sql": "36247e4f2abf90bce74acddbb978fc64bc36442c95e49b79eb5b399e2b4c53d3",
+    "database/migrations/010_integration_edge.sql": "0af9ae7f4821734bffd1fbb69f3ae01b85bbdd5e35cc2eadaccf6d02398d7abc",
+    "database/migrations/011_p4e_identity_conversation_routing.sql": "3eef2771d9cb6317ee3e388a257de5ecff75f647aa150b5a7d83c742e2b2e7c7"
+  },
+  "readOnlyPrerequisitePins": {
+    "apps/workspace-web/package.json": "13c017a71ced349ab7b973ca5d340e6b6f8532d4d33c24461aba2062b9fb4115",
+    "node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core/browsers.json": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99"
+  },
+  "image": {
+    "tag": "postgres:16",
+    "requiredCachedImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "priorAcceptedEvidence": "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json",
+    "pulls": 0,
+    "automaticRepinAllowed": false
+  },
+  "profile": {
+    "id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "container": "shiftops-p5a2-source-demo-db-v1",
+    "volume": "shiftops-p5a2-source-demo-data-v1",
+    "database": "shiftops_p5a2_source_demo",
+    "bindHost": "127.0.0.1",
+    "ports": {
+      "database": 5433,
+      "api": 8001,
+      "web": 5174
+    },
+    "network": "existing Docker bridge; no new network",
+    "runtimeDirectory": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo",
+    "ownerRecord": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/owner.json",
+    "secretReference": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/secrets.json"
+  },
+  "budget": {
+    "readOnlyPreflightInvocations": 1,
+    "startInvocations": 1,
+    "newOwnedContainers": 1,
+    "newNamedVolumes": 1,
+    "apiProcesses": 1,
+    "staticWebProcesses": 1,
+    "seedInvocations": 1,
+    "migrationInvocations": 1,
+    "smokeInvocations": 1,
+    "nativeSourceHttpSmokeContexts": 2,
+    "browserInstances": 1,
+    "browserContexts": 1,
+    "browserUiLogin": 1,
+    "browserSourceSubmits": 2,
+    "screenshots": 2,
+    "additionalReadOnlySqlSummaryConnections": 1,
+    "providerCalls": 0,
+    "operatorCredentialReads": 0,
+    "imagePulls": 0,
+    "packageInstalls": 0,
+    "publicEffects": 0,
+    "automaticRetries": 0,
+    "volumeDeletion": 0
+  },
+  "browser": {
+    "tool": "Existing @playwright/test via Node REPL, isolated headless Chromium context; UI acts only, no new tracked harness.",
+    "package": "@playwright/test@1.62.1",
+    "engine": "Chromium/Chrome for Testing151.0.7922.34 revision1234 already cached",
+    "cachedExecutable": "C:/Users/DELL/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+    "url": "http://127.0.0.1:5174",
+    "screenshots": [
+      "docs/reviews/evidence/p5a2-source-demo-initial-20261026.png",
+      "docs/reviews/evidence/p5a2-source-demo-later-20261026.png"
+    ],
+    "credentialFlow": "Read only newly generated viewer_password via exact private runtime reference within executor process; fill actual login UI in memory, never print or stringify secret/full errors. No auth token capture/storage in evidence.",
+    "proof": "Two manual source-panel submissions; synthetic label,36eligible/36selected,candidates36then37; no private fields in projection; close proof browser only.",
+    "childEnvironment": "Explicit system-path allowlist only; no provider/API/model credentials or operator .env inheritance. Temporary nonpersistent context; clear in-process viewer secret after fill and close proof browser."
+  },
+  "readOnlySqlSummary": "One connection to exact owned DB; BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY; fixed SELECT version(),current_database(); pg_control_system system_identifier; counts of users/shifts/shift_assignments/reports only; COMMIT. No writes or second seed.",
+  "queries": [
+    {
+      "case": "initial_asof36",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T12:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 36
+      }
+    },
+    {
+      "case": "later_asof38",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T14:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 37
+      }
+    }
+  ],
+  "attemptPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ATTEMPT_2026-10-26.json",
+  "attemptProtocol": "Root writes exact immutable reservation with exclusive x-create only after source admission/dispatch continuity/clean range and read-only preflight PASS. Writing reserves/spends max1start; no separate pre-effect Git commit. Preserve marker unchanged, record result separately, commit marker with final evidence after review.",
+  "ignoredObservationPaths": {
+    "source-admission": ".venv/p5a2-demo-stage-b-source-admission-20261026.json",
+    "preflight": ".venv/p5a2-demo-stage-b-preflight-20261026.json",
+    "start": ".venv/p5a2-demo-stage-b-start-20261026.json",
+    "smoke": ".venv/p5a2-demo-stage-b-smoke-20261026.json",
+    "sql": ".venv/p5a2-demo-stage-b-sql-20261026.json",
+    "browser": ".venv/p5a2-demo-stage-b-browser-20261026.json",
+    "browser-env": ".venv/p5a2-demo-stage-b-browser-env-20261026.json"
+  },
+  "runtimeSourceFrozen": true,
+  "physicalAttempts": 0,
+  "providerCalls": 0,
+  "newPhysicalBudgetAdmitted": false,
+  "milestoneComplete": false,
+  "operationalCoverageAccepted": false,
+  "successDisposition": "Keep OWNED_RUNNING container/volume/API/web and private owner record. Close temporary proof browser. No stop under this run.",
+  "stopDisposition": "Only a separate explicit operator request later authorizes existing exact-owner stop; retain volume. A closed/failed/ambiguous profile needs new reviewed stop/recovery decision. No implicit recovery or deletion.",
+  "workOrderNativeLfSha256": "4f6e310dd538e87227d0fbc9c4515d13d106f9656c0df6f955848a5d1ba9f0a3",
+  "authorizationReview": {
+    "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
+    "sha256AtAuthorization": "672cb2bc68dc7eb38df7dd3f0e526145bb18afea511e5ce3e2284a81c1dfa5d1",
+    "verdict": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+  },
+  "authorizationAccepted": true
+}

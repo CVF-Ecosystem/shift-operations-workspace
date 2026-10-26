@@ -1,40 +1,41 @@
 # Session Memory
 
 Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md.
+Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md.
 Installed public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
-read-only selected controls; no private/shared pack/latest remote binding.
+read-only selected controls; no private/shared/latest remote dependency.
 
 ## Current tranche
 
-P5-A2 G04/G05 synthetic development backend Stage A; FREEZE; SESSION_SYNC_STEWARD; R2.
-Actual material 296e9ff independently terminal-reviewed; exact45; normal3465passed148skipped4warnings220.90s. Dedicated actual-SHA child before clean split-range gate.
-Full current Product Milestone Binding: docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
-Known synthetic36shifts/36assignments/37reportversions, fixed metadata authority,
-two independently frozen NEW selfscope HTTP receipts. Normal coverage None;
-no operational completeness/accuracy claim. Static lifecycle608 mutation corpus
-frozen before code, real binding and independent gate before focused tests.
+P5-A2 G04/G05 synthetic backend Stage B; WORK_ORDER; COMMIT_STEWARD; R2/liveYES for AI claims.
+Independent AUTHORIZATION_REVIEW_PASS_BOUNDED on complete sealed Stage B packet, nofindings/waivers. Normal dispatch only; source admission and all effects still held.
+Full current Product Milestone Binding/14gapowners/P5-A2/B/C/D in docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
+Existing operator Docker/mock and continuous-roadmap/subagent authority persists.
+Exact new source/effect budget in docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json; no old spent attempt reuse. Only admitted
+existing start tool may create owned PG/container/volume/API/web; two frozen
+HTTP contexts and explicitly budgeted temporary browser proof. Success retains
+owned4resources; explicit later stop retains volume. No provider/realsecret/
+.env/CSV/install/production/public/deployment effect. New local service secrets
+only under admitted Stage B budget, private userlocal runtime, never evidence.
 
-## Accepted history / authority
+## Settled source history
 
-Source API a141156/355ff938 and UI a637e96/674d98e CLOSED_BOUNDED, clean36+5/33+5,
-normal3397PASS148skip; frontend145PASS/typecheck/build/84mutation privacy drills.
-Earlier one physical syntheticPG16.15 source rehearsal and cleanup accepted;
-old budgets SPENT. No standing backend proved. Operator requests Docker data
-backend and continuous roadmap/subagents without routine waits. Stage A has
-zero Docker/DB/server/browser/provider/credential effects. Stage B needs its
-own reviewed effect WO/newbudget/committeddispatch/continuity/source admission.
-No provider/key/model/.env/CSV/install/production/public release or push now.
+Stage A296e9ff/a77b120 independently closed bounded exact45+5, normal3465PASS
+148skip4warnings220.90s/229.82s. SRCF1 typed metadata and HOOKF1 canonical import
+repaired; retained original failures; boundary+demo78PASS, full608 lifecycle
+mutations, profileVite77modules cachedNode22.14.0 build PASS. Source API/UI
+previously closed bounded. Runtime36/36/37 and two complete expected receipts
+frozen; source/lifecycle matrices6fec1889/f323ef10, normal coverage None.
 
-## Milestone remainder
+## Remainders
 
-All14gaps/owners/P5-A2/B/C/D in SPEC. G01/A7spent401/G02RAG blocked; G03fit,
-G04operationalintegration/G05prodmode-authority-coverage-retention/SQLite UNKNOWN;
-G06lateruse/G07scheduler/G08-G10quality/G11otherflows/G12approval/G13integrated
-drills OPEN; G14realproviderAIproof HELD. Phase5 0/5. Root contracts/effects/commit,
-backend worker code, independent reviewer acceptance, backend/UI/operator
-business/context/runtime/application/quality/approval remainders in SPEC.
+G01/A7spent401/G02RAG blocked; G03fit/G04operationalintegration/G05productionmode-
+authority-coverage-retention/SQLite UNKNOWN; G06lateruse/G07scheduler/G08-G10
+quality/G11otherflows/G12approval/G13integrateddrills OPEN; G14providerproofHELD.
+Root/backend/UI/operator owners and P5-A2/B/C/D destinations in SPEC; Phase5 0/5.
+Known synthetic physical integration does not establish operational completeness,
+retention, business fit/forecast accuracy, universal OS recovery or AI governance.
 
 ## Next allowed move
 
-Independent clean 45+5 split range; then separate concrete Stage B effect Work Order/source admission under existing operator Docker intent.
+Normal exact dispatch commit, actual terminal review, dedicated5actualdispatchSHA child and independentclean range; source admission before preflight.

@@ -1,22 +1,21 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_material_continuity",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
-  "nextAllowedMove": "Independent clean 45+5 split range; then separate concrete Stage B effect Work Order/source admission under existing operator Docker intent.",
+  "currentMode": "p5a2_synthetic_backend_stage_b_dispatch_gate",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+  "nextAllowedMove": "Normal exact dispatch commit, actual terminal review, dedicated5actualdispatchSHA child and independentclean range; source admission before preflight.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
     "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
-    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
-    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json",
-    "tests/fixtures/p5a2_source_demo_oracle.json",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md"
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

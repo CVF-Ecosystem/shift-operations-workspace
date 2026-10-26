@@ -900,7 +900,7 @@
     }
   },
   "p5a2_synthetic_backend_20261026": {
-    "status": "SOURCE_ACCEPTED_MATERIAL_RETRY",
+    "status": "CLOSED_BOUNDED_SYNTHETIC_SOURCE_A",
     "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
     "spec": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
@@ -920,7 +920,7 @@
     "dispatchPaths": 27,
     "dispatchFullHook": "3397passed148skipped4warnings148.08s",
     "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
-    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "continuityStage": "MATERIAL_ACTUAL_SHA_PENDING_CLEAN_RANGE",
     "dispatchContinuityCommit": "0654c2e346579fed2aed4b5aa16647a5f3a438a4",
     "dispatchContinuityFullHook": "3397passed148skipped4warnings146.85s",
     "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact27+5",
@@ -954,6 +954,30 @@
     "initialMaterialHookFailure": "1failed3460passed148skipped4warnings197.86s",
     "initialMaterialHookLog": ".venv/p5a2-demo-material-20261026.log",
     "postHookRepairFocused": "78passed1existingwarning10.74s",
-    "independentPostHookFocused": "78passed1existingwarning11.73s"
+    "independentPostHookFocused": "78passed1existingwarning11.73s",
+    "materialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
+    "materialPaths": 45,
+    "materialFullHook": "3465passed148skipped4warnings220.90s",
+    "materialTerminalReview": "POST_MATERIAL_SYNTHETIC_BACKEND_REVIEW_PASS_BOUNDED",
+    "trancheDisposition": "CLOSED_BOUNDED_SYNTHETIC_SOURCE_A",
+    "continuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
+    "continuityFullHook": "3465passed148skipped4warnings229.82s",
+    "committedRange": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED"
+  },
+  "p5a2_synthetic_backend_stage_b_20261026": {
+    "status": "AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
+    "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
+    "sourceClosure": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED",
+    "newPhysicalBudgetAdmitted": false,
+    "physicalAttempts": 0,
+    "providerCalls": 0,
+    "milestoneComplete": false,
+    "operationalCoverageAccepted": false,
+    "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md",
+    "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json",
+    "sourcePinsSealed": true,
+    "authorizationAccepted": true,
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }
