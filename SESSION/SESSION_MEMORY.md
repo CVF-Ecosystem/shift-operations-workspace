@@ -7,8 +7,8 @@ read-only selected controls; no private/shared pack/latest remote binding.
 
 ## Current tranche
 
-P5-A2 G04/G05 synthetic development backend Stage A; REVIEW; COMMIT_STEWARD; R2.
-Independent hook-repair SOURCE_REVIEW_PASS_BOUNDED, noopenfindings/waivers; boundary+demo78PASS worker10.74s/reviewer11.73s. Original normal1FAIL retained; retry normal exact material hook only.
+P5-A2 G04/G05 synthetic development backend Stage A; FREEZE; SESSION_SYNC_STEWARD; R2.
+Actual material 296e9ff independently terminal-reviewed; exact45; normal3465passed148skipped4warnings220.90s. Dedicated actual-SHA child before clean split-range gate.
 Full current Product Milestone Binding: docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
 Known synthetic36shifts/36assignments/37reportversions, fixed metadata authority,
 two independently frozen NEW selfscope HTTP receipts. Normal coverage None;
@@ -37,4 +37,4 @@ business/context/runtime/application/quality/approval remainders in SPEC.
 
 ## Next allowed move
 
-Normal exact material hook retry; actual independent terminal review; dedicated exact5 materialSHA child and clean range before Stage A closure; Stage B separately admitted.
+Independent clean 45+5 split range; then separate concrete Stage B effect Work Order/source admission under existing operator Docker intent.

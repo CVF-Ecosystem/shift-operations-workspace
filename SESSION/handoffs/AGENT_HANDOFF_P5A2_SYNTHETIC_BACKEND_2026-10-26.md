@@ -1,8 +1,8 @@
 # P5-A2 synthetic development backend Stage A — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `0e232d0c625d508af3b3e342628632c5f5cc672c`.
-Dedicated dispatch continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean27+5 split range required.
+Material commit recorded for this handoff: `296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0`.
+Dedicated material continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean45+5 split range required.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baseline674d98e35f0fbafa868c34d3c3adbdd215ef3aa5; WORK_ORDER/R2; live evidence YES for AI claims.
@@ -194,3 +194,13 @@ resolvedSRCF1 evidence retained; noopenfindings/waivers. Rootfreshcanonical
 rehydration/Core0, ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2. Normal material
 retry only, then actual terminal review/dedicated5actualSHA/clean range.
 No physical/milestone proof or new effect; all14gapowners/Phase5 0/5 retained.
+
+## Actual material / dedicated continuity
+
+Actual296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0, exact45; normal3465passed148skipped4warnings220.90s. Independent POST_MATERIAL_SYNTHETIC_BACKEND_REVIEW_PASS_BOUNDED verifies
+actual range/pins/catalog/session/native legacy rechecks; no findings/waivers.
+Root freshly rereads canonical continuity/implementation/index/roadmap and
+verified pinned Core. COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
+claims. This exact5 child records sole actualSHA marker; normal hook then clean
+45+5 independent review remain before closure.
+All14gapowners/P5-A2/B/C/D and Phase5 0/5 retained. No new physical effect.
