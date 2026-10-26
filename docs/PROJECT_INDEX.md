@@ -2,6 +2,9 @@
 
 ## Start Here
 
+- Current G04/G05 consolidated recovery: [SPEC](specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md), [Work Order](work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md), [admission](decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json). One source+retained-volume recovery acceptance unit; independent authorization PASS; normal dispatch/continuity required before BUILD, effects held. No migration replay; SQL/JWT/API two frozen receipts/UI required. Prior failed-result555119e/08c62da clean15+5; physical backend not accepted.
+
+
 - Current G04/G05 [Stage B handoff](../SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md): one physical start FAILED; owned container removed, named volume retained; API/web/smoke/UI unexecuted, start budget SPENT. Independent failed-result review and normal evidence closure precede one consolidated source/recovery decision. Source Stage A296e9ff/a77b120 independently closed bounded exact45+5.
 
 - Current G04/G05 source/coverage: [intake/design](decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md). Design complete; [Stage A SPEC](specs/P5A2_SYNTHETIC_BACKEND_SPEC.md) / [Work Order](work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md) with independently frozen data/authority/complete HTTP expectations. Dispatch0e232d0/0654c2e independently clean; Stage A independently source-accepted64focusedPASS, full608 lifecycle corpus and profile build; source closure296e9ff/a77b120 accepted, normal3465PASS148skip/exact45+5clean; physical Stage B FAILED, owned volume retained; G04/G05 physical acceptance remains OPEN.

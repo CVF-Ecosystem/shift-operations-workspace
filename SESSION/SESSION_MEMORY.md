@@ -7,40 +7,33 @@ read-only selected controls; no private/shared/latest remote dependency.
 
 ## Current tranche
 
-P5-A2 G04/G05 Stage B failure evidence; FREEZE; SESSION_SYNC_STEWARD; R2/liveYES for AI claims.
-ONE start failed START_FAILED; accepted cleanup removed ownedcontainer, retained labeledvolume only. StartbudgetSPENT, no API/web/smoke/UI. Standalone seed import fails operations_ledger because launcher PYTHONPATH only API while pytest supplies monorepo roots. No retry/recovery under current WO.
-Full current Product Milestone Binding/14gapowners/P5-A2/B/C/D in docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
-Existing operator Docker/mock and continuous-roadmap/subagent authority persists.
-Exact new source/effect budget in docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json; no old spent attempt reuse. Only admitted
-existing start tool may create owned PG/container/volume/API/web; two frozen
-HTTP contexts and explicitly budgeted temporary browser proof. Success retains
-owned4resources; explicit later stop retains volume. No provider/realsecret/
-.env/CSV/install/production/public/deployment effect. New local service secrets
-only under admitted Stage B budget, private userlocal runtime, never evidence.
+P5-A2 G04/G05 consolidated source and retained-volume recovery; WORK_ORDER;
+COMMIT_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
+closed15+5 at555119e/08c62da, normal3465PASS148skip157.37s/151.50s. Physical
+backend FAILED, prior start budget SPENT, ownedvolume1 retained, API/web0.
+Known source blocker: standalone API-only PYTHONPATH omits monorepo packages;
+pytest masks it. Unknown retained schema/data requires readonly inventory.
+Design selects one combined source+effect contract and NO migration replay:
+only compatible empty or exact seeded state, same nonce/volume/credentials,
+then native seed or exact verification. No delete/reset or provider effects.
 
-## Settled source history
+## Milestone binding and acceptance
 
-Stage A296e9ff/a77b120 independently closed bounded exact45+5, normal3465PASS
-148skip4warnings220.90s/229.82s. SRCF1 typed metadata and HOOKF1 canonical import
-repaired; retained original failures; boundary+demo78PASS, full608 lifecycle
-mutations, profileVite77modules cachedNode22.14.0 build PASS. Source API/UI
-previously closed bounded. Runtime36/36/37 and two complete expected receipts
-frozen; source/lifecycle matrices6fec1889/f323ef10, normal coverage None.
-
-## Remainders
-
-G01/A7spent401/G02RAG blocked; G03fit/G04operationalintegration/G05productionmode-
-authority-coverage-retention/SQLite UNKNOWN; G06lateruse/G07scheduler/G08-G10
-quality/G11otherflows/G12approval/G13integrateddrills OPEN; G14providerproofHELD.
-Root/backend/UI/operator owners and P5-A2/B/C/D destinations in SPEC; Phase5 0/5.
-Known synthetic physical integration does not establish operational completeness,
-retention, business fit/forecast accuracy, universal OS recovery or AI governance.
+Full G01-G14 outcome/acceptance/owners/P5-A2/B/C/D in baseline
+ docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md. Known synthetic proof only;
+SQL users1/shifts36/assignments36/reports37, real JWT/API two frozen receipts,
+UI both contexts synthetic36/36/36 then36/36/37. Operational completeness,
+retention, method fit, quality and forecasting accuracy remain UNKNOWN/OPEN.
+G01/A7spent401/G02RAG BLOCKED; G03fit/G04operational/G05productionmode-authority-
+coverage-retention/SQLite UNKNOWN; G06lateruse/G07runtime/G08-G10quality/G11other
+flows/G12approval/G13drills OPEN; G14providerHELD. Backend/UI/Root/operator
+accountability and destinations retained. Phase5 0/5; no whole productgapclose.
 
 ## Next allowed move
 
-Material555119e exact15, normal3465PASS148skip4warnings157.37s, independent
-terminalPASS. Dedicated exact5 actual-SHA child then independent clean15+5.
-Failure evidence only: physical Stage B FAILED/SPENT, milestone still OPEN.
-Then one consolidated source/recovery contract for standalone roots and same
-volume/nonce/credentials; readonly schema/data inventory before gated seed,
-no automatic migration rerun. SQL/JWT/API both frozen receipts/UI must pass.
+Independent recovery authorization PASS; normal dispatch/exact5 continuity/clean gates pending. Normal dispatch/exact5 actual-SHA child/
+independent clean check before BUILD. Source/import tests plus independent
+accepted actual-hash source checkpoint before new max1 reserved recovery;
+source frozen after checkpoint through physical proof. Integrated material/
+continuity closure then return to product gaps. Provider live/key/model/CSV
+remain deferred; no reuse of old spent budgets or automatic physical retry.

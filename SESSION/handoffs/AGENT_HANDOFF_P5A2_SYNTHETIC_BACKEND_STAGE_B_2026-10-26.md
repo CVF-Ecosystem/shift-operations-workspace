@@ -236,3 +236,54 @@ contract: standalone child roots, same volume/nonce/credentials, read-only
 schema/data inventory before gated seed, no automatic migration rerun. Stop
 on ambiguity. Concrete acceptance is SQL counts, JWT/API both frozen receipts
 and matching synthetic UI, then return to integrated product gaps.
+
+
+## Recovery intake/design acknowledgment 2026-10-27 / one acceptance unit
+
+Predecessor final independent CLEAN_15_PLUS_5_RESULT_RANGE_PASS_BOUNDED at
+555119e/08c62da, both normal hooks3465PASS148skip; failure evidence settled,
+physical acceptance FAILED/SPENT, volume preserved. Root freshly rehydrates
+canonical summary/state/handoff/implementation/index/roadmap and pinned Core0.
+SESSION_SYNC_STEWARD to ORCHESTRATOR; INTAKE bounds same G04/G05 developer
+backend user outcome. DESIGN accepts Sol's consolidated dependency/residue
+finding, with safer NO migration replay: existing compatible empty or exact
+seeded schema only, read-only inventory then gated native seed/verification.
+One combined source+effect SPEC/WO, no new support survey or tiny source-only
+tranche. Worker bounded standalone launcher/bootstrap/recovery/inspection and
+tests; Root effects/artifacts/commit; independent reviewer; same volume/nonce/
+local generated credentials, never provider/.env/new secret. Acceptance is
+SQL1/36/36/37, real JWT/API both frozen receipts and UI36/36/36 then36/36/37.
+BUILD requires reviewed normal dispatch/actual-SHA child/clean check. Within
+BUILD, focused source/import tests and independent sealed actual source-hash
+checkpoint precede ONE newly reserved recovery. Accepted source may remain
+uncommitted until the integrated evidence material; all accepted hashes must
+remain frozen after checkpoint. This explicit combined contract replaces no
+old spent budget and authorizes no effects now. Full G01-G14 reconciliation/
+owners/P5-A2/B/C/D remain canonical in baseline SPEC; no whole gap/milestone
+close, Phase5 0/5. Return after finite proof to product runtime/context/quality/
+approval gaps; stop on ambiguity, never delete/reset/replay migrations.
+
+
+## Consolidated recovery SPEC/WO candidate sealed
+
+Sol/medium SPEC_AUTHOR to WORK_ORDER_AUTHOR authored the one source/effect
+contract; Root expanded exact path groups, sealed baseline/frozen inputs,
+full family digests, source topology, exact local Docker CLI/pipe and effect
+budget in recovery admission2026-10-27. Root SPEC_AUTHOR to WORK_ORDER_AUTHOR,
+WORK_ORDER/R2/liveYES; independent /root/recovery_review authorization pending.
+Source may be uncommitted only within this combined BUILD after committed
+normal dispatch/actual-SHA child/clean; independent actual-source pins remain
+mandatory before new max1 reserved recovery. Same existing credentials only;
+no migration replay. Full G01-G14 table/owners/P5-A2/B/C/D in recovery SPEC/WO;
+no gaps/milestone closed, Phase5 0/5. No BUILD or effect released now.
+
+
+## Recovery independent authorization / normal dispatch gate
+
+Independent /root/recovery_review AUTHORIZATION_REVIEW_PASS_BOUNDED,
+findings/waiversNONE.44 readonlypins/SPEC/WO hashes/all14gapowners verified;
+standalone completion-review native check_recheck applicable0, legacy CLI
+selector limit recorded. Root fresh canonical rehydration/Core0;
+WORK_ORDER_AUTHOR to COMMIT_STEWARD WORK_ORDER/R2/liveYES. Normal dispatch,
+terminal review/exact5 actual-SHA child/independent clean gate before BUILD;
+actual-source checkpoint before new max1 recovery. Physical budget unreleased.

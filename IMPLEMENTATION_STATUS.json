@@ -1091,5 +1091,25 @@
     "resultReviewFindings": [],
     "resultReviewWaivers": [],
     "resultMaterialDisposition": "NORMAL_MATERIAL_GATE_PENDING"
+  },
+  "p5a2_synthetic_backend_recovery_20261027": {
+    "status": "AUTHORIZATION_ACCEPTED_NORMAL_DISPATCH_ONLY",
+    "baselineCommit": "08c62dad7b956faf7e1d1dd6cb56ee79e10cbead",
+    "milestoneComplete": false,
+    "physicalAttempts": 0,
+    "providerCalls": 0,
+    "buildAuthorized": false,
+    "physicalAuthorized": false,
+    "acceptance": [
+      "SQL users1/shifts36/assignments36/reports37",
+      "Real JWT/native API two frozen receipts",
+      "UI both contexts, synthetic label and counts36/36/36 then36/36/37"
+    ],
+    "remainder": "Complete G01-G14 owner/destination binding in baseline SPEC; P5-A2 OPEN/Phase5 0/5. This closes no whole product gap.",
+    "spec": "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
+    "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json",
+    "authorizationAccepted": true,
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }
