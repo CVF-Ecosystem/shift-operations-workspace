@@ -25,8 +25,8 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = REPO_ROOT / "scripts" / "generate_catalog.py"
-REGISTRY_PATH = REPO_ROOT / "docs" / "catalog" / "MODULE_REGISTRY.json"
-CATALOG_MD_PATH = REPO_ROOT / "docs" / "catalog" / "MODULE_CATALOG.md"
+REGISTRY_PATH = REPO_ROOT / "docs" / "catalog" / "MODULE_REGISTRY_DETAIL.json"
+CATALOG_MD_PATH = REPO_ROOT / "docs" / "catalog" / "MODULE_CATALOG_DETAIL.md"
 
 
 def _run(*args: str) -> subprocess.CompletedProcess:

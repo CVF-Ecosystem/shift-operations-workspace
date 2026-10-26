@@ -10,14 +10,6 @@
   },
   "debt": [
     {
-      "path": "scripts/generate_catalog.py",
-      "sha256": "6a04502d0ef35e69225a5cb1fbd652c18db4d23814219c0e0cdb27792735b9b6",
-      "lineCount": 313,
-      "hardLimit": 300,
-      "reason": "Pre-existing legacy debt not touched by P2B C3; SPEC R12 closed baseline set.",
-      "requiredSplit": "Split into a generator-core module plus a Markdown-rendering module if ever content-edited."
-    },
-    {
       "path": "scripts/run_identity_live_governance_evidence.py",
       "sha256": "59288b5c6adb969b5fad64d6cbb47aeab52d7c8ff5e404aea0d2065e339726f0",
       "lineCount": 360,

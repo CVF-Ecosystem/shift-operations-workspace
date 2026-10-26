@@ -6,6 +6,29 @@
 > Core-only inheritance correction authorized by the operator: 2026-10-26.
 > Project continuity belongs only to this project's `SESSION/` tree.
 
+## Catalog Kit And Detailed Module Records
+
+The CVF governed catalog kit v1.1 uses `docs/catalog/ARTIFACT_REGISTRY.json`,
+`docs/catalog/MODULE_REGISTRY.json`, and
+`scripts/manage_cvf_downstream_catalog.ps1`. The project-owned 26-module
+catalog remains available as `docs/catalog/MODULE_REGISTRY_DETAIL.json` and
+`docs/catalog/MODULE_CATALOG_DETAIL.md`; the detailed project documentation
+index is `docs/PROJECT_INDEX.md`. The generated `docs/INDEX.md` links to each.
+
+When module facts change, edit the detailed registry and run in order:
+
+```text
+python scripts/generate_catalog.py --write
+python scripts/sync_cvf_catalog_kit.py --write
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/manage_cvf_downstream_catalog.ps1 -Write
+```
+
+Before completion, run the detailed generator in `--check` mode, the kit
+projection without a flag, and the catalog manager with `-Check`. When the
+active handoff changes, update `continuity-initial-handoff` in
+`ARTIFACT_REGISTRY.json` to match the compatibility mirror's `activeHandoff`
+before running the manager. Module status does not prove application readiness.
+
 ## Mandatory Governance Proof
 
 Any test, roadmap closure, release gate, demo proof, or public claim asserting

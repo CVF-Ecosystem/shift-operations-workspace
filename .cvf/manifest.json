@@ -33,6 +33,11 @@
     "docs/catalog/MODULE_REGISTRY.json",
     "docs/catalog/MODULE_CATALOG.md",
     "IMPLEMENTATION_STATUS.json",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/schemas/ARTIFACT_REGISTRY.schema.json",
+    "docs/catalog/schemas/MODULE_REGISTRY.schema.json",
+    "scripts/manage_cvf_downstream_catalog.ps1",
+    "scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1",
     "../.Controlled-Vibe-Framework-CVF/governance/compat/check_gate_to_role_closeability.py",
     "../.Controlled-Vibe-Framework-CVF/docs/reference/CVF_GATE_TO_ROLE_CLOSEABILITY_MACHINE_STANDARD.md"
   ],
@@ -51,6 +56,7 @@
     "reviewsFamily": "docs/decisions/"
   },
   "knowledgePath": "knowledge/",
+  "catalogKitVersion": "1.1",
   "cvfControls": {
     "bindingMode": "PINNED_WORKSPACE_CORE",
     "updateMode": "EXPLICIT_REVIEWED_UPDATE",

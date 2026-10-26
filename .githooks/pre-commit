@@ -9,6 +9,10 @@
 
 set -euo pipefail
 
+# Git exports repository context to hooks. Clear it before guards and pytest
+# inspect other repositories or temporary test repositories by working dir.
+unset GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR GIT_INDEX_FILE
+
 # Resolve the Python interpreter (prefer the project venv if present).
 if [ -x ".venv/bin/python" ]; then
   PY=".venv/bin/python"
