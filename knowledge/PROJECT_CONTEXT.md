@@ -153,12 +153,13 @@ normal3253testsPASS and exact29+5cleanrange. G04–G06 source contract/staticfam
 accepted bc25/814d; native source Stage A now independently accepted after repair2:
 source+generic91PASS2skip/84native mutation rejections, fulloracle receipts/lineage/
 analysis, native500/501 zero-bodycopy, fresh access and strict receipt semantics.
-Physical new PostgreSQL query proof remains separately admitted Stage B (HELD),
-not supplied by inert tests. Current handoff owns normal material/continuity closure.
+StageB now independently accepts synthetic physical PostgreSQL query proof:
+onePG16.15 target1PASS31.18s, frozen contexts/caps/RR/writer races and ownedcleanup.
+Current handoff owns normal resultmaterial/actualSHAcontinuity closure.
 Production coverage/retention, API/UI/scheduler/context/approval and operational
 quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retained.
 
 
-Current2026-10-26: StageA exact31+5closure a7374f86/8dc39e1 verified. StageB source independentlyPASS107/3 after7a228d7/78fa50b clean dispatch; exactfivehashes sealed for separate effect review/commits, physicalNOTRUN. Old budgets remain spent; provider/operational gates held.
+Current2026-10-26: StageA exact31+5closure a7374f86/8dc39e1 verified. StageB synthetic physical1PASS31.18s/PG16.15 and exactownedcleanup independentlyaccepted aftersealedsource/continuity/cleanrange; source107PASS3skip. PhysicalattemptSPENT, normalresultclosurepending. Old budgets remain spent; provider/operational gates held.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

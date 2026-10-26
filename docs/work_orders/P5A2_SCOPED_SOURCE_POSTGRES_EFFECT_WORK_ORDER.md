@@ -1,8 +1,7 @@
 # P5-A2 Stage B — ONE physical scoped PostgreSQL effect Work Order
 
-Status: APPROVED_FOR_EXECUTION
-Date: 2026-10-26; R2. Root effect admission candidate; NO physical release until independent effect review,
-sealed admission and normal committed source/admission + dedicated continuity.
+Status: IMPLEMENTED_BOUNDED_SPENT
+Date: 2026-10-26; R2. ONE admitted effect spent and independently accepted; no repeat authority. Source/admission and dedicated continuity prerequisites were satisfied.
 
 ## Product Milestone Binding
 
@@ -89,3 +88,7 @@ After independent effect authorization, normal sealed source MATERIAL_COMMIT / e
 ```
 
 The reviewed runner spends the immutable marker before remaining prerequisites and writes its sanitized complete/partial result at docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json. Root preserves that raw result, embeds the ignored observation into durable result evidence after secret checks and submits result/owned cleanup to independent REVIEW. Never rerun target or wrapper after failure. No image pull/install/provider/ambient credential or extra acquisition. Source WO MATERIAL_COMMIT equals this WO DISPATCH_COMMIT; no skipped or extra prerequisite implied.
+
+## Spent result / no further dispatch
+
+Actual source/effect materiala5dd205, dedicated994c615/corrective142f4cc and independentcleanrange preceded exactlyONErunner/target/container. Physical1PASS31.18s onPG16.15, migrations46/0→42/4; independentPHYSICAL_RESULT_REVIEW_PASS_BOUNDED verifies frozen cases and exactownedcontainer/volume absence. Immutableattempt and durableevidence retained. No install/pull/provider/retry and no standingbackend. Only normalresultmaterial/terminalreview/dedicatedactualresultSHAcontinuity/cleanrange remain; this WO grants no second effect or source repair. FullP5-A2 remainder/owners inSPEC, Phase5 0/5.

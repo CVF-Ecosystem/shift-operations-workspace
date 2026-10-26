@@ -1,0 +1,282 @@
+{
+  "anonymous_volumes_captured": [
+    "21747e93ee470aa8425dd507ef8cac2f08c3779680162ce1008e26dccc29a8c7"
+  ],
+  "anonymous_volumes_still_present": [],
+  "container_absent_after_cleanup": true,
+  "container_id": "981ad65f238a0df698a917d240b69946101a268a34bcaa463dda2eea58999da3",
+  "container_name": "cvf-pg-live-38288aafcde5",
+  "docker_server_version": "29.9.2",
+  "failure": null,
+  "host_port": 49252,
+  "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+  "migrations": [
+    {
+      "applied": 46,
+      "attempt": "first",
+      "skipped": 0
+    },
+    {
+      "applied": 42,
+      "attempt": "reapply",
+      "skipped": 4
+    }
+  ],
+  "observation_sha256": "eae18ef1abd9d20d38010fa210c15e66429fb8ef461a89c671d5705fd4596d84",
+  "server_version": "16.15",
+  "target": "tests/integration/test_p5a2_scoped_source_postgres_live.py",
+  "target_returncode": 0,
+  "target_tail": ".                                                                        [100%]\n1 passed in 31.18s\n",
+  "experiment_id": "P5A2-SCOPED-SOURCE-PG-20261026",
+  "rawRunnerResultSha256": "fe5189243f078f94fc3e46dab1da0b1e8000e8cbcffdc23b72db14731c350bc3",
+  "observations": {
+    "caps": [
+      {
+        "body_load_calls": 1,
+        "body_rows": 500,
+        "body_select_calls": 1,
+        "case": "eligible_500",
+        "outcome": "SOURCE_READY",
+        "reason": null
+      },
+      {
+        "body_load_calls": 0,
+        "body_rows": 0,
+        "body_select_calls": 0,
+        "case": "eligible_501",
+        "outcome": "SOURCE_REFUSED",
+        "reason": "SCOPE_INCOMPLETE"
+      },
+      {
+        "body_load_calls": 1,
+        "body_rows": 500,
+        "body_select_calls": 1,
+        "case": "candidates_500",
+        "outcome": "SOURCE_READY",
+        "reason": null
+      },
+      {
+        "body_load_calls": 0,
+        "body_rows": 0,
+        "body_select_calls": 0,
+        "case": "candidates_501",
+        "outcome": "SOURCE_REFUSED",
+        "reason": "SCOPE_INCOMPLETE"
+      },
+      {
+        "body_load_calls": 1,
+        "body_rows": 1,
+        "body_select_calls": 1,
+        "case": "refs_500",
+        "outcome": "SOURCE_READY",
+        "reason": null
+      },
+      {
+        "body_load_calls": 0,
+        "body_rows": 0,
+        "body_select_calls": 0,
+        "case": "refs_501",
+        "outcome": "SOURCE_REFUSED",
+        "reason": "SCOPE_INCOMPLETE"
+      }
+    ],
+    "cases": [
+      {
+        "candidate_version_count": 36,
+        "case": "initial_asof36",
+        "eligible_count": 36,
+        "lineage_digest": "8796c6aa9aca5fe845070b877fe75d0233e8b095f5e7d92e649dd6a414f28f1f",
+        "source_digest": "a27bdcd307a285d89a812aa071dd48af26e19819d3686249db376c84f37e0b51",
+        "transaction_trace": {
+          "fresh": {
+            "backend_pid": 100,
+            "snapshot": "4952:4952:",
+            "transaction_object_id": 2694115980736
+          },
+          "source": {
+            "backend_pid": 100,
+            "snapshot": "4952:4952:",
+            "transaction_object_id": 2694116481040
+          },
+          "stages": [
+            "cohort",
+            "candidates",
+            "scalar_refs",
+            "body",
+            "cohort"
+          ]
+        }
+      },
+      {
+        "candidate_version_count": 37,
+        "case": "later_asof38",
+        "eligible_count": 36,
+        "lineage_digest": "02b889488e8ac50749f0b06b58e414196463362eddaf992d11ffb5b8c943489a",
+        "source_digest": "57c64e0eab0ad74c42dca0f2b23360ee5c6249bb639d4437c98e98b52325cb9f",
+        "transaction_trace": {
+          "fresh": {
+            "backend_pid": 100,
+            "snapshot": "4952:4952:",
+            "transaction_object_id": 2694118549104
+          },
+          "source": {
+            "backend_pid": 100,
+            "snapshot": "4952:4952:",
+            "transaction_object_id": 2694118548064
+          },
+          "stages": [
+            "cohort",
+            "candidates",
+            "scalar_refs",
+            "body",
+            "cohort"
+          ]
+        }
+      },
+      {
+        "body_load_calls": 0,
+        "body_rows": 0,
+        "body_select_calls": 0,
+        "case": "reportless",
+        "reason": "SCOPE_INCOMPLETE"
+      },
+      {
+        "body_load_calls": 0,
+        "body_rows": 0,
+        "body_select_calls": 0,
+        "case": "no_coverage",
+        "reason": "COVERAGE_UNKNOWN"
+      }
+    ],
+    "completed": true,
+    "container_id": "981ad65f238a0df698a917d240b69946101a268a34bcaa463dda2eea58999da3",
+    "experiment_id": "P5A2-SCOPED-SOURCE-PG-20261026",
+    "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "oracle_sha256": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f",
+    "races": [
+      {
+        "case": "revoke",
+        "fresh": {
+          "backend_pid": 100,
+          "snapshot": "4954:4954:",
+          "transaction_object_id": 2694116970480
+        },
+        "reason": "ACCESS_DENIED",
+        "source": {
+          "backend_pid": 100,
+          "snapshot": "4953:4953:",
+          "transaction_object_id": 2694116971040
+        },
+        "writer": {
+          "backend_pid": 98,
+          "committed": true,
+          "snapshot": "4953:4953:",
+          "transaction_object_id": 2694116977680
+        }
+      },
+      {
+        "case": "add",
+        "fresh": {
+          "backend_pid": 100,
+          "snapshot": "4955:4955:",
+          "transaction_object_id": 2694116979760
+        },
+        "reason": "SCOPE_INCOMPLETE",
+        "source": {
+          "backend_pid": 100,
+          "snapshot": "4954:4954:",
+          "transaction_object_id": 2694116969600
+        },
+        "writer": {
+          "backend_pid": 98,
+          "committed": true,
+          "snapshot": "4954:4954:",
+          "transaction_object_id": 2694116972000
+        }
+      },
+      {
+        "case": "assignment_version",
+        "fresh": {
+          "backend_pid": 100,
+          "snapshot": "4956:4956:",
+          "transaction_object_id": 2694116970960
+        },
+        "reason": "SCOPE_INCOMPLETE",
+        "source": {
+          "backend_pid": 100,
+          "snapshot": "4955:4955:",
+          "transaction_object_id": 2694116975200
+        },
+        "writer": {
+          "backend_pid": 98,
+          "committed": true,
+          "snapshot": "4955:4955:",
+          "transaction_object_id": 2694116976320
+        }
+      },
+      {
+        "case": "shift_time",
+        "fresh": {
+          "backend_pid": 100,
+          "snapshot": "4957:4957:",
+          "transaction_object_id": 2694116975360
+        },
+        "reason": "SCOPE_INCOMPLETE",
+        "source": {
+          "backend_pid": 100,
+          "snapshot": "4956:4956:",
+          "transaction_object_id": 2694116972000
+        },
+        "writer": {
+          "backend_pid": 98,
+          "committed": true,
+          "snapshot": "4956:4956:",
+          "transaction_object_id": 2694116975440
+        }
+      }
+    ],
+    "snapshot": {
+      "before_version": 1,
+      "fresh": {
+        "backend_pid": 100,
+        "snapshot": "4953:4953:",
+        "transaction_object_id": 2694116976800
+      },
+      "fresh_version": 2,
+      "inside_version": 1,
+      "isolation": "repeatable read",
+      "read_only": "on",
+      "source": {
+        "backend_pid": 100,
+        "snapshot": "4952:4952:",
+        "transaction_object_id": 2694116979920
+      },
+      "writer": {
+        "backend_pid": 98,
+        "committed": true,
+        "snapshot": "4952:4952:",
+        "transaction_object_id": 2694116966960
+      }
+    }
+  },
+  "executionSourceClosure": {
+    "material": "a5dd2056b331ff152bed644c2d1beffde76987fe",
+    "continuity": "994c615c8dbc2269961e2224d6cab0bfc8c031d0",
+    "correctiveContinuity": "142f4cc64a468665c76d0a23ba4470895cfe499a",
+    "independentVerdict": "FINAL_CLEAN_SPLIT_RANGE_REVIEW_PASS_BOUNDED",
+    "range": "EXACT23_PLUS5_PLUS5_CLEAN",
+    "rootRoleTransition": "SESSION_SYNC_STEWARD -> IMPLEMENTATION_WORKER",
+    "effect": "ONE_REVIEWED_RUNNER_ONLY",
+    "providerCalls": 0
+  },
+  "physicalInvocations": 1,
+  "containersCreated": 1,
+  "targetInvocations": 1,
+  "imagePulls": 0,
+  "packageInstalls": 0,
+  "providerCalls": 0,
+  "automaticRetries": 0,
+  "scope": "DISPOSABLE_SYNTHETIC_SCOPED_SQL_ONLY",
+  "productionCoverageAccepted": false,
+  "milestoneComplete": false
+}

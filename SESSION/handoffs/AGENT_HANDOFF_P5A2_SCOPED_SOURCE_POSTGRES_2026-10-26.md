@@ -89,3 +89,11 @@ Actuala5dd2056b331ff152bed644c2d1beffde76987fe parent78fa50b exact23paths; unmod
 ## Canonical material marker correction before effect
 
 IndependentclosurewithheldGO: soleGC020topmarker incorrectly retainedplanningdispatch7a228d7, althoughlaterprose/state correctlyrecorda5dd205. Rootaccepteddefect, freshcontinuity/status/index/Coreack; SESSION_SYNC exact5pathcorrection only. Prior994c615hook3332PASS148skip4warnings213.07s/exact5 retained. Canonicalmarker nowa5dd205/jointsourceMATERIAL-effectDISPATCH; normalcorrectivehook+independentcleanrange beforeONEeffect. No source/oracle/admissionmutation, no budget/effect/risk/ownerchange; physicalNOTRUN, all14remainders/owners/Phase5 0/5.
+
+## ONE physical experiment / independent result review
+
+Correction142f4cc64a468665c76d0a23ba4470895cfe499a normal3332PASS148skip4warnings233.11s; earlierinterruptedhook97%retainedandnotcountedasPASS. IndependentFINAL_CLEAN_SPLIT_RANGE_REVIEW_PASS_BOUNDED exact23+5+5clean resolvescanonicalmarkerandpendingcheckpoint. FreshRootdeclaration SESSION_SYNC→IMPLEMENTATION_WORKER, R2/sameWO. ONErunner/ONEtarget/ONEownedcontainer spent: PG16.15/Docker29.9.2, migrations46/0→42/4, 1PASS31.18s, observationeae18ef1. Runnerreportscontainer981ad65f/volume21747e93absent. Rootembeddedunchangedobservation+rawresulthash andsourceclosurereceipt inexactevidenceJSON. Root→independentREVIEWER, actualacceptance/cleanupstillpending; NOretry. Alloldsource38/harness5/oracle0b/family9b3readonly; syntheticonly/all14remainders/owners/Phase5 0/5retained.
+
+## Independent physical result acceptance / normal result material
+
+PHYSICAL_RESULT_REVIEW_PASS_BOUNDED: exactrawrunner/embeddedobservation/oracles/native500/501/refusals/RR1→1→2/fourwritercases accepted, 38+5pinsmatch, markerSPENT. Exactcontainer981ad65f/namecvf-pg-live-38288aafcde5/volume21747e93independentlyabsent viareadonlyDockerinspect/ps. OnePG16.15target1PASS31.18s, no acquisition/provider/retry. Freshcanonical/status/index/Coreack RootORCHESTRATOR→COMMIT_STEWARD. Resultnormalmaterial/terminalactualreview then dedicated5actualresultSHAchild MUST replace soleGC020marker, thenindependentcleanrange. This accepts fixtureSQLonly, all14remainders/owners/Phase5 0/5retained; nextboundedP5-A2 G06/G11 applicationprincipal/API contract, noautomaticBUILD.

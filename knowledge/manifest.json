@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-10-25",
+  "reviewedAt": "2026-10-26",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "314ae884b6b607f2062e5f9475bbacc8afc27e9e70cda13f73817233ce54135a"
+          "sha256": "2b95b3e5dc480247449fd5f168c6bd96737fdd92f8833ea017f495acccefed57"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "68c5dccb65705f60a18a5a5d1cbc995649f7dfe71e98fb0eb54ecaa8690c2a3e"
+          "sha256": "fec0e903aa9991a31e487c1bba8ea4f663d4257716134c743ecdc726e01331d8"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "717dde4df1a63fa70943d7c6e2a16a7259d041883b0dee042d1117bc89b4c253"
+          "sha256": "8185f912428f19220f69cd08acf729d003677dfbe8320c02d120c8edc4890542"
         }
       ],
-      "reviewedAt": "2026-10-25",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -80,7 +80,7 @@
           "sha256": "1333aca990d855e52288c9262a9d744e828e93e7548e96eec30c9e153055ef2f"
         }
       ],
-      "reviewedAt": "2026-10-25",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -134,7 +134,7 @@
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-10-25",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

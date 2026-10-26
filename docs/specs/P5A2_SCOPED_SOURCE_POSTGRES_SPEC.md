@@ -1,6 +1,6 @@
 # P5-A2 Stage B — physical scoped PostgreSQL source proof
 
-Status: SOURCE_REVIEWED_EFFECT_ADMISSION_PENDING
+Status: IMPLEMENTED_BOUNDED_PHYSICAL_SOURCE_PROOF
 Date: 2026-10-26; R2. Root SPEC_AUTHOR/WORK_ORDER_AUTHOR.
 User `next` continues the named Stage B. No provider/operational-data action.
 Inherit accepted source SPEC db1d2180, runtime family9b3, and Stage A source
@@ -26,9 +26,9 @@ REVIEWER assesses source and result; UI roadmap owner and operator own remainder
 | G01/A7 | one provider401; P5-A A7 then P5-A2, Root/operator BLOCKED | NO |
 | G02 | operational RAG/context/index/auth/citations unproved; P5-A2 context, backend/Root BLOCKED | NO |
 | G03 | pure metric/horizon accepted; business/cohort fit open; P5-A2 metric, backend/operator | NO |
-| G04 | pure + old PG36/37 + StageA memory scoped source accepted; new physical query open; P5-A2 source backend/Root | fixture PG |
-| G05 | pure/old PG aware fixture + StageA refusal accepted; production coverage/retention/SQLite positive UNKNOWN; P5-A2 coverage backend/Root/operator | fixture PG only |
-| G06 | current assignment + StageA memory/caps/freshness accepted; physical SQL unproved; API identity/use-time access open; P5-A2 security/API backend/Root | internal PG only |
+| G04 | pure + old PG36/37 + StageA memory + StageB physical scoped SQL fixture accepted; operational history completeness/integrated source remain open; P5-A2 source backend/Root | fixture PG accepted |
+| G05 | pure/old PG aware fixture + StageA refusal + StageB physical fixture/RR accepted; production coverage/retention/SQLite positive UNKNOWN; P5-A2 coverage backend/Root/operator | fixture PG accepted only |
+| G06 | current assignment + StageA memory/caps/freshness + StageB physical SQL/fresh writer refusal accepted; API identity/use-time access open; P5-A2 security/API backend/Root | internal PG accepted only |
 | G07 | scheduler/claim/recovery open; P5-A2 runtime backend/Root | NO |
 | G08 | pure signals accepted; operational false positives open; P5-A2 signals backend/operator | NO |
 | G09 | pure forecast accepted; operational accuracy open; P5-A2 forecast backend/operator | NO |
@@ -133,3 +133,7 @@ Independent reviewer must accept this applicability decision; if a shared result
 contract is introduced during BUILD, stop for contract review before adding it.
 No AI governance, production retention, forecast accuracy, API, scheduler, human
 approval or release claim follows from synthetic SQL success.
+
+## Actual bounded acceptance
+
+Independent PHYSICAL_RESULT_REVIEW_PASS_BOUNDED: one PG16.15 comprehensive target1PASS31.18s; both full frozen baselines, six500/501 cases, negatives/foreign exclusion, actual RR/read-only1→1→2 and four post-seal writer refusals accepted. Migrations46/0→42/4; owned container/volume independently absent. Exact durable evidence docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json embeds observation rawSHAeae18ef1. AttemptSPENT/no retry; no standing backend. Resultmaterial/terminal/dedicatedactualSHAcontinuity/cleanrange still gate tranche closure. No production/API/scheduler/approval/AI claim or milestone closure.

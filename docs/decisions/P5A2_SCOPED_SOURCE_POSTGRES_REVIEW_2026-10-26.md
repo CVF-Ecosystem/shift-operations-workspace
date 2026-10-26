@@ -1,7 +1,7 @@
 # P5-A2 scoped source PostgreSQL — independent planning review
 
 docType: completion_review
-Status: EFFECT_AUTHORIZATION_PASS_BOUNDED
+Status: PHYSICAL_RESULT_REVIEW_PASS_BOUNDED
 Date: 2026-10-26
 Reviewer: independent REVIEWER; no SPEC, oracle, Work Order, harness or effect ownership
 
@@ -168,7 +168,7 @@ retain the P5-A2/P5-B/C/D destinations in the SPEC. Phase 5 remains 0/5.
 closeabilityDisposition: CLOSEABLE
 outsideAuthorityBlockers: NONE
 nextRepairRoute: NONE
-workerRedispatchAllowed: YES
+workerRedispatchAllowed: NO
 
 ## Independent inert source repair 1 rereview — current decision
 
@@ -258,3 +258,69 @@ after a real result. G01/A7/G02 are blocked, G14 is held, all other
 operational, retention, API/use-time, scheduler, quality, UI and approval gaps
 remain open/unknown with Root/backend/UI/operator owners and P5-A2/P5-B/C/D
 destinations. Phase 5 remains 0/5.
+
+## Independent single physical result and owned-cleanup review — current decision
+
+`PHYSICAL_RESULT_REVIEW_PASS_BOUNDED`. The one previously admitted runner
+returned exit 0 with one target PASS in 31.18 s on PostgreSQL 16.15 and
+Docker 29.9.2. The immutable attempt names the reviewed admission SHA and
+remains `SPENT_ONCE`; the evidence records one wrapper, one target, one owned
+container and zero pulls, installs, provider calls and automatic retries.
+Its raw runner-result SHA-256 `fe5189243f078f94fc3e46dab1da0b1e8000e8cbcffdc23b72db14731c350bc3`
+matches the retained ignored raw file and all 15 original fields in the
+durable evidence. The ignored observation raw SHA-256
+`eae18ef1abd9d20d38010fa210c15e66429fb8ef461a89c671d5705fd4596d84`
+matches the embedded observation exactly. All 38 inherited and five sealed
+harness pins still match. The settled worker return SHA-256 is
+`f9df695c1783a96c141cf6b301ae5a8a4ab8954ee7ccad0a736440bc1fc3c1c5`;
+its standalone worker marker is applicable and pinned native `check_recheck`
+returns `[]`. No credential, password or PostgreSQL URL appears in the four
+attempt/result/observation/raw-result evidence files.
+
+Both frozen baseline cases are recorded in order: 36 eligible/36 candidate
+versions at the first as-of and 36 eligible/37 versions at the later as-of.
+Their source digests, counts and analysis lineage digests equal the two full
+pre-harness source-oracle expectations; the pinned live target asserts the
+complete receipts, selected lineage, analysis and immutable body metadata.
+The baseline native body stage ran with the foreign in-window 501-ref report
+present, while the pinned body-loader assertion excluded its report ID. All
+six cap case IDs/outcomes/reasons match the PG oracle: eligible, candidate
+versions and per-candidate refs each return READY at 500 and
+`SOURCE_REFUSED/SCOPE_INCOMPLETE` at 501, with zero body-load calls, rows and
+body SELECTs for every 501. Reportless enrollment returns
+`SCOPE_INCOMPLETE` after the native one-cohort/zero-candidate probe; absent
+coverage returns `COVERAGE_UNKNOWN`. The pinned test checks closed refusal
+receipts without payload or identifiers.
+
+The snapshot observation reports actual `repeatable read` and `read_only=on`:
+assignment version 1 before and inside the sealed source unit, version 2 in
+the new fresh view after a separately committed writer. All four physical
+post-seal races match frozen reasons: revoke→`ACCESS_DENIED`; add, assignment
+version and Shift time change→`SCOPE_INCOMPLETE`. Each records committed writer,
+different source/fresh transaction-object identity and a distinct writer
+backend; source/fresh snapshots differ after those writes. Baseline source and
+fresh may reuse backend PID and even snapshot text, while retained transaction
+objects prove separate unit boundaries. Migrations report 46 applied/0 skipped
+then 42 applied/4 skipped on reapply.
+
+Independent **read-only Docker inspection** found container ID
+`981ad65f238a0df698a917d240b69946101a268a34bcaa463dda2eea58999da3`
+absent (`docker container inspect`: no such container), exact name
+`cvf-pg-live-38288aafcde5` absent from `docker ps -a`, and captured volume
+`21747e93ee470aa8425dd507ef8cac2f08c3779680162ce1008e26dccc29a8c7`
+absent (`docker volume inspect`: no such volume). This independently supports
+the runner's `container_absent_after_cleanup=true` and empty remaining-volume
+list. No new container, database query, image pull, provider call or retry was
+performed during this review. Pinned Core preflight passed.
+
+This accepts only the synthetic physical SQL fixture proof for G04–G06 and
+partial G13. G01/A7 provider 401 and G02 operational RAG remain blocked;
+G03 business fit, G05 production coverage/retention, G06 API/use-time
+authorization, G07 scheduler, G08–G10 operational quality, G11 API/UI, G12
+exact human approval and G13 integrated runtime drills remain open/unknown;
+G14 provider proof is held. Root/backend, independent reviewer, UI owner and
+operator retain the P5-A2/P5-B/C/D destinations in the SPEC. Phase 5 stays
+0/5. No production coverage, managed backend, whole milestone or CVF
+AI-governance behavior is claimed. Root may prepare the normal result material
+commit, then actual-range terminal review, dedicated actual-SHA continuity and
+clean committed-range closure. The one effect is spent; no rerun is authorized.
