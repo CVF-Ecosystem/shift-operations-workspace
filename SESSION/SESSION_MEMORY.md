@@ -7,8 +7,8 @@ read-only selected controls; no private/shared/latest remote dependency.
 
 ## Current tranche
 
-P5-A2 G04/G05 synthetic backend Stage B; WORK_ORDER; COMMIT_STEWARD; R2/liveYES for AI claims.
-Independent AUTHORIZATION_REVIEW_PASS_BOUNDED on complete sealed Stage B packet, nofindings/waivers. Normal dispatch only; source admission and all effects still held.
+P5-A2 G04/G05 synthetic backend Stage B; WORK_ORDER; SESSION_SYNC_STEWARD; R2/liveYES for AI claims.
+Actual dispatch 37ff857 independently terminal-reviewed exact17; normal3465passed148skipped4warnings147.00s. Dedicated exact5 actualSHA child before clean split-range gate.
 Full current Product Milestone Binding/14gapowners/P5-A2/B/C/D in docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
 Existing operator Docker/mock and continuous-roadmap/subagent authority persists.
 Exact new source/effect budget in docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json; no old spent attempt reuse. Only admitted
@@ -38,4 +38,4 @@ retention, business fit/forecast accuracy, universal OS recovery or AI governanc
 
 ## Next allowed move
 
-Normal exact dispatch commit, actual terminal review, dedicated5actualdispatchSHA child and independentclean range; source admission before preflight.
+Independent clean 17+5 split range; then independent source admission before read-only preflight/reservation/start.

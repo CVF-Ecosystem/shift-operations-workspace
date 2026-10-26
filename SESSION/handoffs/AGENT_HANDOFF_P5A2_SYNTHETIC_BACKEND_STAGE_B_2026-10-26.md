@@ -1,5 +1,10 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `37ff857537e5d79dd7e5335ae1994dd2354b2dc5`.
+Dedicated dispatch continuity: this exact5 child records actual SHA after terminal review; normal hook then independent clean17+5 split range required.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
 Root ORCHESTRATOR/WORK_ORDER_AUTHOR; live evidence YES for AI claims.
 Installed public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
@@ -77,3 +82,12 @@ Root freshcanonicalrehydration/Core0; WORK_ORDER_AUTHOR to COMMIT_STEWARD,
 WORK_ORDER/R2. Normal dispatch thenactualterminalreview/dedicated5actualSHA/
 cleangate/sourceadmission beforeevenreadonlyDockerpreflight. No budget spent.
 All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained.
+
+## Actual dispatch / dedicated continuity
+
+Actual37ff857537e5d79dd7e5335ae1994dd2354b2dc5, exact17; normal3465passed148skipped4warnings147.00s. Independent POST_DISPATCH_STAGE_B_REVIEW_PASS_BOUNDED, no findings/
+waivers. Root freshly rehydrates canonical continuity/implementation/index/
+roadmap and verified pinned Core; COMMIT_STEWARD to SESSION_SYNC_STEWARD,
+R2/liveYES for AI claims. This exact5 records sole actualSHA; normal hook then
+clean17+5 independent review remain. No self-referential child SHA and no
+new effect authority from continuity. Full14gapowners/P5-A2/B/C/D/Phase5 0/5.

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_stage_b_dispatch_gate",
+  "currentMode": "p5a2_synthetic_backend_stage_b_dispatch_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Normal exact dispatch commit, actual terminal review, dedicated5actualdispatchSHA child and independentclean range; source admission before preflight.",
+  "nextAllowedMove": "Independent clean 17+5 split range; then independent source admission before read-only preflight/reservation/start.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
