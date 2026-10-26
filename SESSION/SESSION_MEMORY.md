@@ -1,39 +1,40 @@
 # Session Memory
 
 Updated2026-10-26. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md.
-Installed Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
-read-only selected public controls; no private/shared pack/latest remote binding.
+Active SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md.
+Installed public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
+read-only selected controls; no private/shared pack/latest remote binding.
 
 ## Current tranche
 
-P5-A2 G11 source UI: FREEZE; SESSION_SYNC_STEWARD; R2; live YES for AI claims.
-Actual material a637e96 independently terminal-reviewed, exact33; normal 3397passed148skipped4warnings153.66s. This exact five-path actual-SHA child precedes independent clean split range.
-Full current Product Milestone Binding in docs/specs/P5A2_SOURCE_UI_SPEC.md. Manual UTC source inspection
-only, safe counts/refusals; synthetic READY explicitly test data. Same native
-source family semantics; staged real TS consumer binding before tests. Root
-owns frozen compact84 mutation descriptors, patch/pins, catalog and commits.
-Session change invalidates/clears results; stale401 cannot clear a newer session.
+P5-A2 G04/G05 synthetic development backend Stage A; WORK_ORDER; COMMIT_STEWARD; R2.
+Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; full frozen inputs/metadata/608 mutations accepted, no findings/waivers. Normal dispatch only; no worker/effect GO.
+Full current Product Milestone Binding: docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md.
+Known synthetic36shifts/36assignments/37reportversions, fixed metadata authority,
+two independently frozen NEW selfscope HTTP receipts. Normal coverage None;
+no operational completeness/accuracy claim. Static lifecycle608 mutation corpus
+frozen before code, real binding and independent gate before focused tests.
 
 ## Accepted history / authority
 
-Operator authorizes continuous roadmap/subagent work without routine waits.
-Source API closed bounded at actual material/continuity recorded in canonical
-state and prior handoff, full hook plus independent exact-range proof accepted.
-Original15 OpenAPI hook failures retained; AM1 exact leaf keeps old goldens,
-source+OpenAPI218PASS2existingphysicalskip; runtime14 source pins unchanged.
-StageB syntheticPG16.15 one1PASS31.18s/ownedcleanup accepted; no standing backend
-or retry authority. Pure history/numeric and source StageA remain bounded.
+Source API a141156/355ff938 and UI a637e96/674d98e CLOSED_BOUNDED, clean36+5/33+5,
+normal3397PASS148skip; frontend145PASS/typecheck/build/84mutation privacy drills.
+Earlier one physical syntheticPG16.15 source rehearsal and cleanup accepted;
+old budgets SPENT. No standing backend proved. Operator requests Docker data
+backend and continuous roadmap/subagents without routine waits. Stage A has
+zero Docker/DB/server/browser/provider/credential effects. Stage B needs its
+own reviewed effect WO/newbudget/committeddispatch/continuity/source admission.
+No provider/key/model/.env/CSV/install/production/public release or push now.
 
 ## Milestone remainder
 
-Only G11 source caller/rendering selected; full P5-A2/Phase5 stays0/5. G01/A7
-spent401 and G02RAG blocked; G03fit/G04operationalintegration/G05productionmode,
-coverage/retention/SQLite UNKNOWN. G06lateruseaccess/G07scheduler/G08-G10quality,
-G11otherflows/G12approval/G13integrateddrills open; G14liveproof held. All named
-owners and P5-A2/B/C/D destinations in current SPEC. No provider/key/model/.env/
-CSV/Docker/production/install/deployment/browser/public effect in this tranche.
+All14gaps/owners/P5-A2/B/C/D in SPEC. G01/A7spent401/G02RAG blocked; G03fit,
+G04operationalintegration/G05prodmode-authority-coverage-retention/SQLite UNKNOWN;
+G06lateruse/G07scheduler/G08-G10quality/G11otherflows/G12approval/G13integrated
+drills OPEN; G14realproviderAIproof HELD. Phase5 0/5. Root contracts/effects/commit,
+backend worker code, independent reviewer acceptance, backend/UI/operator
+business/context/runtime/application/quality/approval remainders in SPEC.
 
 ## Next allowed move
 
-Independent clean 33+5 split range; then return directly to operational source/coverage DESIGN; real effects separately admitted.
+Normal exact dispatch commit, independent terminal actual review, dedicated actual dispatch-SHA child and clean split-range gate before worker BUILD.

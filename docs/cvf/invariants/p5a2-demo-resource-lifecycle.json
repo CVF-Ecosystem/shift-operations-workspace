@@ -1,0 +1,1078 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P5A2-SOURCE-DEMO-RESOURCE-LIFECYCLE",
+  "title": "P5-A2 synthetic demo resource owner lifecycle (static pre-code contract)",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+      "sha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "STATIC_PYTHON_CONTRACT"
+  ],
+  "parityMode": "NOT_APPLICABLE",
+  "parityReason": "Static pre-code family has one declared representation surface; runtime adapter binding and parity await real Stage A files and independent materialization.",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "REFUSED_NO_EFFECT",
+      "shapes": [
+        {
+          "shapeId": "REFUSED_NO_EFFECT_VALID",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "effect_count",
+            "reason"
+          ],
+          "forbiddenFields": [
+            "api_pid",
+            "api_port",
+            "container_id",
+            "db_fingerprint",
+            "db_port",
+            "image_id",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid",
+            "volume_id",
+            "web_pid",
+            "web_port"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "REFUSED_NO_EFFECT"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "effect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "IMAGE_ABSENT",
+                "PORT_BUSY",
+                "OWNER_CONFLICT",
+                "PROFILE_INVALID",
+                "SCHEMA_UNKNOWN"
+              ]
+            }
+          },
+          "relations": [
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 0
+            },
+            {
+              "relationId": "REFUSED_NO_EFFECT_VALID_EFFECT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "effect_count",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "OWNED_RUNNING",
+      "shapes": [
+        {
+          "shapeId": "OWNED_RUNNING_VALID",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "container_id",
+            "volume_id",
+            "api_pid",
+            "web_pid",
+            "image_id",
+            "db_fingerprint",
+            "db_port",
+            "api_port",
+            "web_port"
+          ],
+          "forbiddenFields": [
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "reason",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "OWNED_RUNNING"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 4
+            },
+            "container_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            },
+            "api_pid": {
+              "type": "INTEGER"
+            },
+            "web_pid": {
+              "type": "INTEGER"
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_fingerprint": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            }
+          },
+          "relations": [
+            {
+              "relationId": "OWNED_RUNNING_VALID_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 1
+            },
+            {
+              "relationId": "OWNED_RUNNING_VALID_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "OWNED_RUNNING_VALID_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 1
+            },
+            {
+              "relationId": "OWNED_RUNNING_VALID_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 1
+            },
+            {
+              "relationId": "OWNED_RUNNING_VALID_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "PARTIAL_OWNED_FAILURE",
+      "shapes": [
+        {
+          "shapeId": "PARTIAL_OWNED_FAILURE_0100",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "reason",
+            "image_id",
+            "db_port",
+            "api_port",
+            "web_port",
+            "volume_id"
+          ],
+          "forbiddenFields": [
+            "api_pid",
+            "container_id",
+            "db_fingerprint",
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid",
+            "web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "PARTIAL_OWNED_FAILURE"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINER_START_FAILED",
+                "API_START_FAILED",
+                "WEB_START_FAILED",
+                "HEALTH_FAILED",
+                "SEED_FAILED",
+                "CLEANUP_FAILED"
+              ]
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_0100_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_0100_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_0100_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_0100_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_0100_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "shapeId": "PARTIAL_OWNED_FAILURE_1100",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "reason",
+            "image_id",
+            "db_port",
+            "api_port",
+            "web_port",
+            "container_id",
+            "volume_id"
+          ],
+          "forbiddenFields": [
+            "api_pid",
+            "db_fingerprint",
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid",
+            "web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "PARTIAL_OWNED_FAILURE"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 2
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINER_START_FAILED",
+                "API_START_FAILED",
+                "WEB_START_FAILED",
+                "HEALTH_FAILED",
+                "SEED_FAILED",
+                "CLEANUP_FAILED"
+              ]
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            },
+            "container_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1100_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1100_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1100_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1100_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1100_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "shapeId": "PARTIAL_OWNED_FAILURE_1110",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "reason",
+            "image_id",
+            "db_port",
+            "api_port",
+            "web_port",
+            "container_id",
+            "volume_id",
+            "api_pid"
+          ],
+          "forbiddenFields": [
+            "db_fingerprint",
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid",
+            "web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "PARTIAL_OWNED_FAILURE"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 3
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINER_START_FAILED",
+                "API_START_FAILED",
+                "WEB_START_FAILED",
+                "HEALTH_FAILED",
+                "SEED_FAILED",
+                "CLEANUP_FAILED"
+              ]
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            },
+            "container_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            },
+            "api_pid": {
+              "type": "INTEGER"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1110_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1110_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1110_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1110_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 0
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1110_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "shapeId": "PARTIAL_OWNED_FAILURE_1111",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "reason",
+            "image_id",
+            "db_port",
+            "api_port",
+            "web_port",
+            "container_id",
+            "volume_id",
+            "api_pid",
+            "web_pid"
+          ],
+          "forbiddenFields": [
+            "db_fingerprint",
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "PARTIAL_OWNED_FAILURE"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 4
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "CONTAINER_START_FAILED",
+                "API_START_FAILED",
+                "WEB_START_FAILED",
+                "HEALTH_FAILED",
+                "SEED_FAILED",
+                "CLEANUP_FAILED"
+              ]
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            },
+            "container_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            },
+            "api_pid": {
+              "type": "INTEGER"
+            },
+            "web_pid": {
+              "type": "INTEGER"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1111_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1111_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1111_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1111_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 1
+            },
+            {
+              "relationId": "PARTIAL_OWNED_FAILURE_1111_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "STOPPED_RETAINED",
+      "shapes": [
+        {
+          "shapeId": "STOPPED_RETAINED_VALID",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "container_count",
+            "volume_count",
+            "api_count",
+            "web_count",
+            "total_owned_count",
+            "volume_id",
+            "stopped_container_id",
+            "stopped_api_pid",
+            "stopped_web_pid",
+            "image_id",
+            "db_fingerprint",
+            "db_port",
+            "api_port",
+            "web_port"
+          ],
+          "forbiddenFields": [
+            "api_pid",
+            "container_id",
+            "effect_count",
+            "owner_record_digest_after",
+            "owner_record_digest_before",
+            "reason",
+            "web_pid"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "STOPPED_RETAINED"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "container_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "volume_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "api_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "web_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "total_owned_count": {
+              "type": "INTEGER",
+              "const": 1
+            },
+            "volume_id": {
+              "type": "STRING",
+              "const": "shiftops-p5a2-source-demo-data-v1"
+            },
+            "stopped_container_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "stopped_api_pid": {
+              "type": "INTEGER"
+            },
+            "stopped_web_pid": {
+              "type": "INTEGER"
+            },
+            "image_id": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_fingerprint": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "db_port": {
+              "type": "INTEGER",
+              "const": 5433
+            },
+            "api_port": {
+              "type": "INTEGER",
+              "const": 8001
+            },
+            "web_port": {
+              "type": "INTEGER",
+              "const": 5174
+            }
+          },
+          "relations": [
+            {
+              "relationId": "STOPPED_RETAINED_VALID_CONTAINER_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "container_count",
+              "value": 0
+            },
+            {
+              "relationId": "STOPPED_RETAINED_VALID_VOLUME_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "volume_count",
+              "value": 1
+            },
+            {
+              "relationId": "STOPPED_RETAINED_VALID_API_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "api_count",
+              "value": 0
+            },
+            {
+              "relationId": "STOPPED_RETAINED_VALID_WEB_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "web_count",
+              "value": 0
+            },
+            {
+              "relationId": "STOPPED_RETAINED_VALID_TOTAL_OWNED_COUNT_EXACT",
+              "kind": "COUNTER_EQUALITY",
+              "field": "total_owned_count",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "outcomeId": "STOP_REFUSED",
+      "shapes": [
+        {
+          "shapeId": "STOP_REFUSED_VALID",
+          "requiredFields": [
+            "outcome",
+            "profile_id",
+            "owner_nonce",
+            "reason",
+            "effect_count",
+            "owner_record_digest_before",
+            "owner_record_digest_after"
+          ],
+          "forbiddenFields": [
+            "api_count",
+            "api_pid",
+            "api_port",
+            "container_count",
+            "container_id",
+            "db_fingerprint",
+            "db_port",
+            "image_id",
+            "stopped_api_pid",
+            "stopped_container_id",
+            "stopped_web_pid",
+            "total_owned_count",
+            "volume_count",
+            "volume_id",
+            "web_count",
+            "web_pid",
+            "web_port"
+          ],
+          "conditionalRules": [],
+          "fieldDomains": {
+            "outcome": {
+              "type": "STRING",
+              "const": "STOP_REFUSED"
+            },
+            "profile_id": {
+              "type": "STRING",
+              "const": "P5A2-SOURCE-DEMO-LOCAL-1"
+            },
+            "owner_nonce": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "reason": {
+              "type": "STRING",
+              "enum": [
+                "OWNER_MISMATCH",
+                "FOREIGN_RESOURCE",
+                "PID_REUSED",
+                "UNKNOWN_RESOURCE",
+                "LOCK_BUSY"
+              ]
+            },
+            "effect_count": {
+              "type": "INTEGER",
+              "const": 0
+            },
+            "owner_record_digest_before": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "owner_record_digest_after": {
+              "type": "STRING",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "relations": [
+            {
+              "relationId": "STOP_REFUSED_VALID_EFFECT_ZERO",
+              "kind": "COUNTER_EQUALITY",
+              "field": "effect_count",
+              "value": 0
+            },
+            {
+              "relationId": "STOP_REFUSED_VALID_OWNER_RECORD_UNCHANGED",
+              "kind": "FIELD_EQUALITY",
+              "sourceField": "owner_record_digest_before",
+              "targetField": "owner_record_digest_after"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mutationPolicy": {
+    "excludedOperators": []
+  },
+  "ownershipBindings": [
+    {
+      "bindingId": "P5A2_DEMO_LIFECYCLE_MATRIX_DIGEST",
+      "ownerPath": "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json",
+      "consumers": [
+        {
+          "consumerPath": "docs/specs/p5a2_demo_lifecycle_invariant_pin.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
+        }
+      ]
+    }
+  ],
+  "emitterAdapter": {
+    "identity": "STATIC_CONTRACT_ONLY_P5A2_DEMO_RESOURCE_LIFECYCLE",
+    "kind": "SYNTHETIC_DETERMINISTIC"
+  },
+  "evidenceTestPaths": [
+    "tests/unit/test_invariant_family_contract.py",
+    "tests/integration/test_invariant_family_repository_guard.py"
+  ],
+  "boundedClaim": "Static pre-code flat shape and fixed counter proof only; fake sample IDs are not OS/container evidence. Runtime liveness, exact ownership, creation/stop transitions, total counts for actual effects, PostgreSQL/JWT/UI behavior and Stage B physical proof remain independently required."
+}

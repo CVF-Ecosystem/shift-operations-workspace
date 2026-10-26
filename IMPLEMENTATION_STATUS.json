@@ -823,7 +823,7 @@
     "continuityFullHook": "3397passed148skipped4warnings178.66s"
   },
   "p5a2_source_ui_20261026": {
-    "status": "SOURCE_REVIEW_PASS_BOUNDED",
+    "status": "CLOSED_BOUNDED_SOURCE_UI",
     "baseline": "355ff938ce3beb532f32c60b7d9780147ed469bc",
     "spec": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_UI_WORK_ORDER.md",
@@ -844,7 +844,7 @@
     "dispatchPaths": 19,
     "dispatchFullHook": "3397passed148skipped4warnings242.00s",
     "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
-    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "continuityStage": "MATERIAL_ACTUAL_SHA_PENDING_CLEAN_RANGE",
     "dispatchContinuityCommit": "74923de2fc0ca0ea603f68a032a8bc6c25367aa9",
     "dispatchContinuityFullHook": "3397passed148skipped4warnings163.84s",
     "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5",
@@ -858,6 +858,63 @@
     "productionBuild": "PASS Vite77modules1.47s exactNode22.14.0",
     "workerReturnSha256": "02fd306a4f4872af53778d44eb5944381c1901f56b8aec2ad98ab9141fd8e951",
     "initialFailures": "4tsc errors repaired; duplicatedVitestconfig startup corrected; focused16PASS1timeout repaired/target3PASS; missingnpm.cmd launcher notexecuted build; final145PASS",
-    "independentSourceReview": "SOURCE_REVIEW_PASS_BOUNDED"
+    "independentSourceReview": "SOURCE_REVIEW_PASS_BOUNDED",
+    "materialCommit": "a637e96bf8627ccf4de7384ed0b3c20fb512ae16",
+    "materialPaths": 33,
+    "materialFullHook": "3397passed148skipped4warnings153.66s",
+    "materialTerminalReview": "POST_MATERIAL_SOURCE_UI_REVIEW_PASS_BOUNDED",
+    "trancheDisposition": "CLOSED_BOUNDED_SOURCE_UI",
+    "continuityCommit": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "continuityFullHook": "3397passed148skipped4warnings277.43s",
+    "committedRange": "FINAL_CLEAN_SOURCE_UI_RANGE_REVIEW_PASS_BOUNDED"
+  },
+  "p5a2_source_coverage_design_20261026": {
+    "status": "DESIGN_COMPLETE_STAGE_A_ADMISSION_PENDING",
+    "intake": "docs/decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md",
+    "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "runtimeBuildAuthorized": false,
+    "newPhysicalBudgetAdmitted": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "milestoneComplete": false,
+    "operationalCoverageAccepted": false,
+    "openDecisions": [
+      "runtime synthetic authority/enrollment",
+      "owned development backend lifecycle/effect budget",
+      "operational coverage/retention/business quality remain unknown"
+    ],
+    "independentInputs": {
+      "data": {
+        "path": "fixtures/p5a2_source_demo_v1.json",
+        "sha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae"
+      },
+      "authority": {
+        "path": "fixtures/p5a2_source_demo_authority_v1.json",
+        "sha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb"
+      },
+      "oracle": {
+        "path": "tests/fixtures/p5a2_source_demo_oracle.json",
+        "sha256": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca"
+      },
+      "rootIndependentCheck": "All37 old-domain models/aggregate digests and both COMPLETE new-scope receipt transforms PASS; no new runtime loader/query imported."
+    }
+  },
+  "p5a2_synthetic_backend_20261026": {
+    "status": "AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "spec": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
+    "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
+    "runtimeBuildAuthorized": false,
+    "newPhysicalBudgetAdmitted": false,
+    "sourceAccepted": false,
+    "milestoneComplete": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "staticLifecycleDigest": "97a307e0c190d5073c07cdaec20ea453fb93d9fdafa6ceea2ca043d3f1185459",
+    "plannedRuntimeLifecycleDigest": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c",
+    "plannedSourceDigest": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "authorizationAccepted": true,
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }

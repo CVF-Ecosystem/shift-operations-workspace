@@ -2,24 +2,24 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_source_ui_material_continuity",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
+  "mode": "p5a2_synthetic_backend_dispatch_gate",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
     "AGENTS.md",
-    "docs/specs/P5A2_SOURCE_UI_SPEC.md",
-    "docs/work_orders/P5A2_SOURCE_UI_WORK_ORDER.md",
-    "docs/decisions/P5A2_SOURCE_UI_ADMISSION_2026-10-26.json",
-    "tests/fixtures/p5a2_source_ui_mutations.json",
-    "docs/decisions/P5A2_SOURCE_UI_REVIEW_2026-10-26.md",
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json",
+    "tests/fixtures/p5a2_source_demo_oracle.json",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md"
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent clean 33+5 split range; then return directly to operational source/coverage DESIGN; real effects separately admitted.",
+  "next_allowed_move": "Normal exact dispatch commit, independent terminal actual review, dedicated actual dispatch-SHA child and clean split-range gate before worker BUILD.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_source_ui_material_continuity",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "Actual material a637e96 independently terminal-reviewed, exact33; normal 3397passed148skipped4warnings153.66s. This exact five-path actual-SHA child precedes independent clean split range.",
+    "currentMode": "p5a2_synthetic_backend_dispatch_gate",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; full frozen inputs/metadata/608 mutations accepted, no findings/waivers. Normal dispatch only; no worker/effect GO.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -51,13 +51,13 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
-    "activeHandoffNote": "Bounded G11 source-inspection UI, after accepted source API closure.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
+    "activeHandoffNote": "G04/G05 synthetic development backend Stage A, zero physical effects.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Actual material a637e96 independently terminal-reviewed, exact33; normal 3397passed148skipped4warnings153.66s. This exact five-path actual-SHA child precedes independent clean split range.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Independent AUTHORIZATION_REVIEW_PASS_BOUNDED; full frozen inputs/metadata/608 mutations accepted, no findings/waivers. Normal dispatch only; no worker/effect GO.",
+    "currentRoleTransition": "COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -617,7 +617,7 @@
     "continuityFullHook": "3397passed148skipped4warnings178.66s"
   },
   "p5a2_source_ui_20261026": {
-    "status": "SOURCE_REVIEW_PASS_BOUNDED",
+    "status": "CLOSED_BOUNDED_SOURCE_UI",
     "baseline": "355ff938ce3beb532f32c60b7d9780147ed469bc",
     "spec": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_UI_WORK_ORDER.md",
@@ -656,6 +656,59 @@
     "materialCommit": "a637e96bf8627ccf4de7384ed0b3c20fb512ae16",
     "materialPaths": 33,
     "materialFullHook": "3397passed148skipped4warnings153.66s",
-    "materialTerminalReview": "POST_MATERIAL_SOURCE_UI_REVIEW_PASS_BOUNDED"
+    "materialTerminalReview": "POST_MATERIAL_SOURCE_UI_REVIEW_PASS_BOUNDED",
+    "trancheDisposition": "CLOSED_BOUNDED_SOURCE_UI",
+    "continuityCommit": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "continuityFullHook": "3397passed148skipped4warnings277.43s",
+    "committedRange": "FINAL_CLEAN_SOURCE_UI_RANGE_REVIEW_PASS_BOUNDED"
+  },
+  "p5a2_source_coverage_design_20261026": {
+    "status": "DESIGN_COMPLETE_STAGE_A_ADMISSION_PENDING",
+    "intake": "docs/decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md",
+    "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "runtimeBuildAuthorized": false,
+    "newPhysicalBudgetAdmitted": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "milestoneComplete": false,
+    "operationalCoverageAccepted": false,
+    "openDecisions": [
+      "runtime synthetic authority/enrollment",
+      "owned development backend lifecycle/effect budget",
+      "operational coverage/retention/business quality remain unknown"
+    ],
+    "independentInputs": {
+      "data": {
+        "path": "fixtures/p5a2_source_demo_v1.json",
+        "sha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae"
+      },
+      "authority": {
+        "path": "fixtures/p5a2_source_demo_authority_v1.json",
+        "sha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb"
+      },
+      "oracle": {
+        "path": "tests/fixtures/p5a2_source_demo_oracle.json",
+        "sha256": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca"
+      },
+      "rootIndependentCheck": "All37 old-domain models/aggregate digests and both COMPLETE new-scope receipt transforms PASS; no new runtime loader/query imported."
+    }
+  },
+  "p5a2_synthetic_backend_20261026": {
+    "status": "AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+    "spec": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
+    "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
+    "runtimeBuildAuthorized": false,
+    "newPhysicalBudgetAdmitted": false,
+    "sourceAccepted": false,
+    "milestoneComplete": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "staticLifecycleDigest": "97a307e0c190d5073c07cdaec20ea453fb93d9fdafa6ceea2ca043d3f1185459",
+    "plannedRuntimeLifecycleDigest": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c",
+    "plannedSourceDigest": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "authorizationAccepted": true,
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }

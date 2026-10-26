@@ -1,0 +1,273 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-STAGE-A-20261026",
+  "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "baselineCommit": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
+  "risk": "R2",
+  "specPath": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+  "specCanonicalSha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a",
+  "workerPaths": [
+    "apps/workspace-api/src/workspace_api/config.py",
+    "apps/workspace-api/src/workspace_api/demo/__init__.py",
+    "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json",
+    "apps/workspace-api/src/workspace_api/demo/authority_v1.json",
+    "apps/workspace-api/src/workspace_api/demo/bundle.py",
+    "apps/workspace-api/src/workspace_api/demo/coverage.py",
+    "apps/workspace-api/src/workspace_api/demo/seed.py",
+    "apps/workspace-api/src/workspace_api/demo/app.py",
+    "apps/workspace-api/src/workspace_api/demo/read_routes.py",
+    "apps/workspace-api/src/workspace_api/demo/read_routes_shift.py",
+    "apps/workspace-web/vite.source-demo.config.ts",
+    "infrastructure/demo/p5a2-source-postgres.compose.yml",
+    "scripts/p5a2_source_demo_common.py",
+    "scripts/p5a2_source_demo_preflight.py",
+    "scripts/p5a2_source_demo_start.py",
+    "scripts/p5a2_source_demo_stop.py",
+    "scripts/p5a2_source_demo_smoke.py",
+    "tests/unit/test_p5a2_demo_bundle.py",
+    "tests/unit/test_p5a2_demo_coverage.py",
+    "tests/unit/test_p5a2_demo_profile.py",
+    "tests/unit/test_p5a2_demo_lifecycle.py",
+    "tests/unit/test_p5a2_demo_routes.py",
+    "tests/integration/test_p5a2_demo_source_http.py"
+  ],
+  "workerReturn": "docs/decisions/P5A2_SYNTHETIC_BACKEND_WORKER_RETURN_2026-10-26.md",
+  "reviewerPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_REVIEW_2026-10-26.md",
+  "rootOnlyPaths": [
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
+    "fixtures/p5a2_source_demo_v1.json",
+    "fixtures/p5a2_source_demo_authority_v1.json",
+    "tests/fixtures/p5a2_source_demo_oracle.json",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json",
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+    "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json",
+    "docs/specs/p5a2_demo_lifecycle_invariant_pin.py",
+    "docs/cvf/invariants/registry.json",
+    "docs/specs/p5a2_scoped_source_invariant_pin.py",
+    "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+    "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+    "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/SESSION_MEMORY.md",
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "IMPLEMENTATION_STATUS.json",
+    "docs/PROJECT_INDEX.md",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "knowledge/PROJECT_CONTEXT.md",
+    "knowledge/manifest.json",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+    "docs/catalog/MODULE_CATALOG_DETAIL.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "docs/INDEX.md",
+    "docs/decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_COVERAGE_DESIGN_2026-10-26.md"
+  ],
+  "frozenInputs": {
+    "fixtures/p5a2_source_demo_v1.json": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+    "fixtures/p5a2_source_demo_authority_v1.json": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+    "tests/fixtures/p5a2_source_demo_oracle.json": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d"
+  },
+  "preCodeDerivation": "Independent Luna input author: native 36/36/37 recipe from prior frozen body/source/API inputs. Root parsed all37 existing domain models and recomputed aggregate digests, both full new-scope receipt transforms from old API expectations; no new loader/verifier imported. Lifecycle eight positives and full608 generic mutations verified before implementation.",
+  "immutablePredecessorPins": {
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "tests/fixtures/p5a2_scoped_source_oracle.json": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "tests/fixtures/p5a2_docker_backend_oracle.json": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "tests/fixtures/p5a2_scoped_source_pg_oracle.json": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f"
+  },
+  "sourceFamily": {
+    "path": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+    "baselineCanonicalSha256": "cb0fb2427848d58aaf44a3c675f3a4d9d4d59cc38214993684eb5cd4dc492243",
+    "metadataPatch": {
+      "remove": [],
+      "set": {
+        "contractSources": [
+          {
+            "path": "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+            "sha256": "db1d218083bfadac149f1c4415cfe0bc13213f41f33311a107447cad24abe7bf",
+            "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+          },
+          {
+            "path": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
+            "sha256": "81e90a629448fcca576ed53758c6117d9d8065b5f922cea7f8d5416e4b52f0dd",
+            "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+          },
+          {
+            "path": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
+            "sha256": "3df88a9540f7b403c8f59c719e4084ef928d94dd1a68046c0a1472fcf77fd830",
+            "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+          },
+          {
+            "path": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
+            "sha256": "d6f5562ab126e98bc1954bb47091f028889fa6f7a80d2c065e904e8a3e832eb7",
+            "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+          },
+          {
+            "path": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+            "sha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a",
+            "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+          }
+        ],
+        "ownershipBindings": [
+          {
+            "bindingId": "P5A2_SOURCE_MATRIX_DIGEST",
+            "ownerPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+            "consumers": [
+              {
+                "consumerPath": "docs/specs/p5a2_scoped_source_invariant_pin.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+              },
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+              },
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+              },
+              {
+                "consumerPath": "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+              }
+            ]
+          },
+          {
+            "bindingId": "P5A2_DEMO_BUNDLE_IDENTITY",
+            "ownerPath": "fixtures/p5a2_source_demo_v1.json",
+            "consumers": [
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json",
+                "strategy": "JSON_REFERENCE",
+                "jsonPointer": "/"
+              },
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/demo/bundle.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_DEMO_BUNDLE_SHA256"
+              }
+            ]
+          },
+          {
+            "bindingId": "P5A2_DEMO_AUTHORITY_IDENTITY",
+            "ownerPath": "fixtures/p5a2_source_demo_authority_v1.json",
+            "consumers": [
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/demo/authority_v1.json",
+                "strategy": "JSON_REFERENCE",
+                "jsonPointer": "/"
+              },
+              {
+                "consumerPath": "apps/workspace-api/src/workspace_api/demo/coverage.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_DEMO_AUTHORITY_SHA256"
+              }
+            ]
+          }
+        ],
+        "evidenceTestPaths": [
+          "tests/unit/test_invariant_family_contract.py",
+          "tests/integration/test_invariant_family_repository_guard.py",
+          "tests/unit/test_p5a2_scoped_source.py",
+          "tests/unit/test_p5a2_scoped_source_caps.py",
+          "tests/unit/test_p5a2_scoped_source_family.py",
+          "tests/integration/test_p5a2_scoped_source_sql.py",
+          "tests/integration/test_p5a2_source_api_identity.py",
+          "tests/integration/test_p5a2_source_api_receipts.py",
+          "tests/integration/test_p5a2_source_api_release.py",
+          "tests/unit/test_p5a2_source_api_transport.py",
+          "apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts",
+          "apps/workspace-web/src/tests/proactiveSourceApi.test.ts",
+          "apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx",
+          "apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx",
+          "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx",
+          "tests/unit/test_p5a2_demo_bundle.py",
+          "tests/unit/test_p5a2_demo_coverage.py",
+          "tests/unit/test_p5a2_demo_profile.py",
+          "tests/unit/test_p5a2_demo_routes.py",
+          "tests/integration/test_p5a2_demo_source_http.py"
+        ],
+        "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim. TypeScript HTTP consumer adds flat family/UTF8 digest and actor/window checks with full84 mutation evidence, then a safe transient UI projection; it does not validate deep native lineage or add operational coverage. Isolated development composition admits only the exact frozen synthetic dataset/metadata authority and two fixed contexts; normal coverage None remains. Stage A in-process HTTP evidence is nonphysical; persistent PostgreSQL and OS resource effects require separate Stage B admission."
+      }
+    },
+    "plannedFinalCanonicalSha256": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "literalConsumerPaths": [
+      "docs/specs/p5a2_scoped_source_invariant_pin.py",
+      "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+      "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+      "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts"
+    ]
+  },
+  "lifecycleFamily": {
+    "path": "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json",
+    "staticCanonicalSha256": "97a307e0c190d5073c07cdaec20ea453fb93d9fdafa6ceea2ca043d3f1185459",
+    "runtimeMetadataPatch": {
+      "remove": [],
+      "set": {
+        "representationSurfaces": [
+          "PYTHON_RESOURCE_RECORD"
+        ],
+        "parityReason": "One Python owner-record adapter surface; physical ownership and liveness remain contextual Stage B checks.",
+        "ownershipBindings": [
+          {
+            "bindingId": "P5A2_DEMO_LIFECYCLE_MATRIX_DIGEST",
+            "ownerPath": "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json",
+            "consumers": [
+              {
+                "consumerPath": "docs/specs/p5a2_demo_lifecycle_invariant_pin.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
+              },
+              {
+                "consumerPath": "scripts/p5a2_source_demo_common.py",
+                "strategy": "CANONICAL_DIGEST",
+                "digestSymbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
+              }
+            ]
+          }
+        ],
+        "evidenceTestPaths": [
+          "tests/unit/test_invariant_family_contract.py",
+          "tests/integration/test_invariant_family_repository_guard.py",
+          "tests/unit/test_p5a2_demo_lifecycle.py"
+        ],
+        "emitterAdapter": {
+          "identity": "p5a2_source_demo_owner_record",
+          "kind": "REAL_SERVICE_EMITTER"
+        },
+        "boundedClaim": "Flat resource lifecycle shape, exact counters and contextual ownership refusal adapter with inert unit evidence. Stage A performs no Docker, database, server or physical ownership effects. Actual OS/container identity, liveness, loopback binding and persistent PostgreSQL/JWT/UI proof require separately admitted Stage B execution."
+      }
+    },
+    "plannedRuntimeCanonicalSha256": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c",
+    "docpinPath": "docs/specs/p5a2_demo_lifecycle_invariant_pin.py",
+    "runtimeConsumer": "scripts/p5a2_source_demo_common.py",
+    "symbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
+  },
+  "rendering": "UTF8 ensure_ascii=False indent2 preserve baseline key order trailing LF; native LF bytes, not sorted JSON hash",
+  "activationGate": "Only after actual worker files exist; Root applies exact metadata and literal pins; independent materialization then test GO. No future placeholder paths activated at dispatch.",
+  "effects": {
+    "dockerInvocations": 0,
+    "databaseWrites": 0,
+    "serverProcesses": 0,
+    "browserSessions": 0,
+    "providerCalls": 0,
+    "credentialReads": 0,
+    "packageInstalls": 0,
+    "productionCoverageAllowed": false
+  },
+  "milestoneComplete": false,
+  "resolvedPreCodeFindings": [
+    "ADMISSION-F1 still-owned counters vs creation/cleanup contextual trail",
+    "ADMISSION-F2 exact five-path dispatch-SHA continuity graph"
+  ],
+  "independentReview": "docs/decisions/P5A2_SYNTHETIC_BACKEND_REVIEW_2026-10-26.md",
+  "independentReviewRawSha256": "1ad8eef62a635bad84f72c302c3ef9cb775ab3f18442d13dac3a3a005431841b"
+}

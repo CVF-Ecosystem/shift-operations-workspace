@@ -136,6 +136,14 @@
       "risk": "R2",
       "lifecycle": "ACTIVE",
       "applicabilityMode": "R2_SCOPED_SOURCE_SHARED_RECEIPT_FIELDS_COUNTS_AND_DIGEST_CONTRACT"
+    },
+    {
+      "familyId": "P5A2-SOURCE-DEMO-RESOURCE-LIFECYCLE",
+      "matrixPath": "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json",
+      "ownerRole": "SPEC_AUTHOR",
+      "risk": "R2",
+      "lifecycle": "ACTIVE",
+      "applicabilityMode": "R2_PERSISTENT_RESOURCE_LIFECYCLE_OWNER_COUNTERS_AND_CROSS_AGENT_MUTATIONS"
     }
   ]
 }

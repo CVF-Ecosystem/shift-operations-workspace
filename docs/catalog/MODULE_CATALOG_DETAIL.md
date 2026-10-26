@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY_DETAIL.json`](MODULE_REGISTRY_DETAIL.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-10-26T11:26:57.394806+00:00_
+_Last generated: 2026-10-26T13:09:45.601389+00:00_
 
 ## How to use this catalog
 
@@ -243,12 +243,12 @@ _Last generated: 2026-10-26T11:26:57.394806+00:00_
 - **Path:** `apps/workspace-web` (app)
 - **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling.
 - **CVF controls:** —
-- **Enforcement:** App.tsx restores a tab-scoped JWT session; ConnectivityRuntime resolves /auth/me before queue/poll activation. Exactly three typed CAS transitions may stage in a strict actor-bound 50-item/24-hour queue while pre-dispatch offline; all other mutations remain online-only. Replay and foreground polling share serialized refresh, fail stop on ambiguity/conflict/server errors and keep backend identity/permission/assignment/version gates authoritative. The navigation service worker never caches API/auth data; polling is not push and the queue is not exactly-once. P5-A2 G11 source-inspection UI independently accepted bounded: manual UTC request, safe synthetic counts/refusals, current-session/abort/stale handling and privacy; 145 frontend tests/typecheck/production build PASS and full84 flat mutations. Normal material/continuity gates pending. No operational coverage/forecasting claim.
+- **Enforcement:** App.tsx restores a tab-scoped JWT session; ConnectivityRuntime resolves /auth/me before queue/poll activation. Exactly three typed CAS transitions may stage in a strict actor-bound 50-item/24-hour queue while pre-dispatch offline; all other mutations remain online-only. Replay and foreground polling share serialized refresh, fail stop on ambiguity/conflict/server errors and keep backend identity/permission/assignment/version gates authoritative. The navigation service worker never caches API/auth data; polling is not push and the queue is not exactly-once. P5-A2 G11 source-inspection UI independently accepted bounded: manual UTC request, safe synthetic counts/refusals, current-session/abort/stale handling and privacy; 145 frontend tests/typecheck/production build PASS and full84 flat mutations. G11 source closure accepted a637e96/674d98e, normal3397PASS148skip/exact33+5clean. No operational coverage/forecasting claim.
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`, `apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts`, `apps/workspace-web/src/tests/proactiveSourceApi.test.ts`, `apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx`
 - **Metrics:** 9123 LOC across 95 code file(s)
-- **Next step:** Normal bounded G11 source UI material/continuity closure, then operational source/coverage DESIGN. Full forecasting/context/scheduler/quality/approval and operational completeness remain open; Phase5 0/5.
+- **Next step:** G04/G05 source/coverage DESIGN; operational backend authority, full forecasting/context/scheduler/quality/approval remain open. Source-inspection UI closed bounded only; Phase5 0/5.
 
 ### `workspace-worker` — partial
 

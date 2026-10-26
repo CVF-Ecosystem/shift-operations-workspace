@@ -1,0 +1,1064 @@
+{
+  "authority_version": "P5A2-SOURCE-DEMO-AUTHORITY-1",
+  "fixture_id": "P5A2-SOURCE-DEMO-1",
+  "instance_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+  "actor_id": "PUBLIC_ACTOR",
+  "data_bundle_sha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+  "coverage_mode": "SYNTHETIC_FIXTURE",
+  "profiles": [
+    {
+      "case": "initial_asof36",
+      "coverage_seed": {
+        "fixture_id": "P5A2-SOURCE-DEMO-1",
+        "instance_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "scope_id": "P5A2-SELF-77b89304823a5d39f60ff3872317a3d2de8403b72b740f33140cfc61aca03311",
+        "actor_id": "PUBLIC_ACTOR",
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T12:00:00Z",
+        "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+        "numeric_policy_version": "P5A2-INITIAL-1",
+        "eligible_shifts": [
+          {
+            "shift_id": "0a949ba7-ac0a-58e7-bc75-7f8c6ead413f",
+            "ends_at": "2026-01-01T17:00:00Z",
+            "assignment_id": "da2283f5-4f5c-5cf2-a780-d491880c67b9",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "0ec5b408-b58f-582f-9c17-036b6aac9199",
+            "ends_at": "2026-01-02T09:00:00Z",
+            "assignment_id": "1c0dcb10-af77-5bc1-a0a3-6509add66908",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "18d9d40f-0c61-55a9-8f51-5ee882177588",
+            "ends_at": "2026-01-01T20:00:00Z",
+            "assignment_id": "abdac0c3-f4c3-5d4c-b320-22b22efe0081",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "19e1bde2-5f3a-5732-adf9-9cfbbbbaab8a",
+            "ends_at": "2026-01-01T01:00:00Z",
+            "assignment_id": "dc5b849e-94fb-55cf-a5e2-7901d5797b0f",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "2355ec7a-843a-5e31-887a-5d1fc0c268ad",
+            "ends_at": "2026-01-01T06:00:00Z",
+            "assignment_id": "7d2cf38f-22d5-5709-9d3d-22a668977eb7",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "23c4a9ed-f1ed-5882-ac7a-fcae619f9ba4",
+            "ends_at": "2026-01-01T04:00:00Z",
+            "assignment_id": "d3fcae2c-4fde-5d12-b7ef-9775fb3139c4",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "29fbde19-0b82-5c9b-9900-5a1a057f950d",
+            "ends_at": "2026-01-02T10:00:00Z",
+            "assignment_id": "bccbfc3f-9e05-5553-869b-e7d9df6d0429",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "2bd367a1-ab0b-5d41-bb30-809e673e85d5",
+            "ends_at": "2026-01-02T04:00:00Z",
+            "assignment_id": "e9447f55-74b6-59c9-9692-5731038a24ec",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "42cd68df-b62c-5ee2-abc5-a6b536003bde",
+            "ends_at": "2026-01-01T15:00:00Z",
+            "assignment_id": "e320c84a-e9cf-5f4a-8542-0f88d2acccbc",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "48394fbd-e95f-5376-8624-53e703fa635f",
+            "ends_at": "2026-01-02T05:00:00Z",
+            "assignment_id": "2a152b04-8af1-5e78-b35e-9c3877a42856",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "557b110d-fa54-56cf-8ffd-a61b0fcd54e7",
+            "ends_at": "2026-01-01T11:00:00Z",
+            "assignment_id": "fbb69742-8002-5ac8-87cf-d2baded85ddf",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "5be12497-538c-5ac6-82d9-742b56d5f7e5",
+            "ends_at": "2026-01-01T05:00:00Z",
+            "assignment_id": "b5b9e1bc-d9b0-5617-8a19-976950108aa8",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "5e9eac16-e037-5141-992a-cf2c41ce7f02",
+            "ends_at": "2026-01-01T18:00:00Z",
+            "assignment_id": "bf3a9dc2-7296-59ab-ae88-8bdbb06ab907",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "6a7846e3-3a58-50ba-a5d2-88818b9a6967",
+            "ends_at": "2026-01-01T00:00:00Z",
+            "assignment_id": "9da171ef-13c1-599a-b115-7afffd114471",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "710463da-6074-545e-bef8-3aeaba7e0d1b",
+            "ends_at": "2026-01-02T01:00:00Z",
+            "assignment_id": "06058290-4312-5fde-a63e-f8ac1cc1f350",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "711e6d96-dfe9-52df-80fa-261b1964e10f",
+            "ends_at": "2026-01-02T02:00:00Z",
+            "assignment_id": "8c26900c-7cf2-57ba-a3c3-7e3a81436995",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "82e0696a-751a-5372-b135-56312057f364",
+            "ends_at": "2026-01-01T19:00:00Z",
+            "assignment_id": "906a908c-acda-5388-be6c-96d29a76907c",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "849423b0-6de7-54ff-9607-be621609e17a",
+            "ends_at": "2026-01-02T06:00:00Z",
+            "assignment_id": "03995bf6-0807-5f63-881f-fe295124e1dd",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "86f91ac2-c11e-5a34-b79b-72141275ba4c",
+            "ends_at": "2026-01-01T22:00:00Z",
+            "assignment_id": "422af376-eff2-5f4b-b1d3-d68a6e320d59",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "92578a82-6fb5-5c08-97f4-d2fc9f79deee",
+            "ends_at": "2026-01-02T11:00:00Z",
+            "assignment_id": "9f10b4eb-e2fa-5db2-a84b-f5f733863153",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "9d6dfa2b-dd84-554a-a5f0-c871461dc8ef",
+            "ends_at": "2026-01-01T21:00:00Z",
+            "assignment_id": "552e5f16-53d7-5d51-bc92-6d3b8c6cf1a0",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "9d95fcfb-c2b4-5f95-91ed-3ef0d371d9fa",
+            "ends_at": "2026-01-01T03:00:00Z",
+            "assignment_id": "d8eb1f70-7d4d-54ec-93b1-7e5796942e7d",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "a6085503-7e42-5807-b307-04c8ee610e9e",
+            "ends_at": "2026-01-01T23:00:00Z",
+            "assignment_id": "4422e0e2-e2b6-5799-88b9-d4c95939ebb4",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "a7c360a3-0bb9-5021-a576-38d6e42eb9f2",
+            "ends_at": "2026-01-01T16:00:00Z",
+            "assignment_id": "8e32bec3-cdae-5764-971b-6bbbf77529a7",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "b975d96b-f2e9-5571-bb31-9ef263abdfbf",
+            "ends_at": "2026-01-02T00:00:00Z",
+            "assignment_id": "28c8f4ee-1203-5a64-b548-54a1a0f7dd0b",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "c204c584-8c19-55c5-bd7a-c97bae0fc433",
+            "ends_at": "2026-01-01T13:00:00Z",
+            "assignment_id": "5bfef066-0657-56f6-82bf-00c0d426a7e9",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "cc6eb5e5-fc7c-5726-866e-96099322c3d0",
+            "ends_at": "2026-01-02T08:00:00Z",
+            "assignment_id": "475cea08-b1a7-52eb-a81a-21901a065d54",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "d10b6ac5-2ff2-5820-9f40-c7b75307a6a4",
+            "ends_at": "2026-01-02T07:00:00Z",
+            "assignment_id": "3a8321ac-91dd-5be7-b204-2d0554c57db0",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "d74e8e31-01d6-59c7-8930-82ad0f1ce9f7",
+            "ends_at": "2026-01-01T08:00:00Z",
+            "assignment_id": "c1de0c28-6de1-57ba-b6b2-e8b1fe660374",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "de7b4813-0952-56d2-84ea-207c483547ef",
+            "ends_at": "2026-01-02T03:00:00Z",
+            "assignment_id": "1f8bb0ad-c00f-5cc3-ba61-585b1858a840",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "e9fe5909-73f4-5173-9e26-0b34883345bf",
+            "ends_at": "2026-01-01T12:00:00Z",
+            "assignment_id": "71ba493d-47c9-54e2-a51a-d58b57140041",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "ed1c0e03-fbbb-568b-add9-ef4db4528184",
+            "ends_at": "2026-01-01T02:00:00Z",
+            "assignment_id": "d19350b6-8585-5220-a307-1fddd70cb3ba",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "ee3a065c-b5d1-5243-91ab-19f56cdf14e0",
+            "ends_at": "2026-01-01T14:00:00Z",
+            "assignment_id": "71c27082-d2ba-5b1d-bd6a-d1b57f1df416",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f39ead08-c442-5ec4-baf3-3fd2dfcee211",
+            "ends_at": "2026-01-01T09:00:00Z",
+            "assignment_id": "f6200a5c-ca9f-594b-a6ba-b7a36b9a7780",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f5c7538d-7e37-5dc4-baff-70632c18b9c0",
+            "ends_at": "2026-01-01T07:00:00Z",
+            "assignment_id": "2109741b-b3b3-516f-8f40-1b3cbaad3641",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f6286f72-0e07-5d96-b259-bdb515c862c6",
+            "ends_at": "2026-01-01T10:00:00Z",
+            "assignment_id": "c46a7b1c-2793-5e40-94ed-bddd8a4d97b3",
+            "assignment_version": 1
+          }
+        ],
+        "candidate_reports": [
+          {
+            "shift_id": "0a949ba7-ac0a-58e7-bc75-7f8c6ead413f",
+            "report_id": "0d65e4db-2e95-515b-b1b1-1bab0ce6b192",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T17:00:00Z",
+            "created_at": "2026-01-01T17:00:00Z",
+            "snapshot_digest": "514922be85e58b1fcab49cdfe87da3e0df1a3c2b2d147d154da748c68b0b7111"
+          },
+          {
+            "shift_id": "0ec5b408-b58f-582f-9c17-036b6aac9199",
+            "report_id": "69bf69e9-c52a-533d-92c4-4fd7c1cb6962",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T09:00:00Z",
+            "created_at": "2026-01-02T09:00:00Z",
+            "snapshot_digest": "33408166fa6c676d27d0e24c42936fb2068f8fd45c34cc01a68c7bfcd1f07c8c"
+          },
+          {
+            "shift_id": "18d9d40f-0c61-55a9-8f51-5ee882177588",
+            "report_id": "edc0a88f-0685-5c67-8c61-952744a4e463",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T20:00:00Z",
+            "created_at": "2026-01-01T20:00:00Z",
+            "snapshot_digest": "91fc4db92814e3b8acd3dd20c0c18b28808963649db8373dbabacae2da2e3acf"
+          },
+          {
+            "shift_id": "19e1bde2-5f3a-5732-adf9-9cfbbbbaab8a",
+            "report_id": "64cdd742-4779-50ee-a6d9-bc15491bca36",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T01:00:00Z",
+            "created_at": "2026-01-01T01:00:00Z",
+            "snapshot_digest": "541fecef231796fbdb4c2951762669eda1c89fb12c027d3b352233b55cf4c26b"
+          },
+          {
+            "shift_id": "2355ec7a-843a-5e31-887a-5d1fc0c268ad",
+            "report_id": "eefb6e49-e2a4-5c86-a5dc-605a76eb153a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T06:00:00Z",
+            "created_at": "2026-01-01T06:00:00Z",
+            "snapshot_digest": "c08e093418fc1f5122f80bb5ff1057b033a9a2a87e8c438796aa2a055247dc52"
+          },
+          {
+            "shift_id": "23c4a9ed-f1ed-5882-ac7a-fcae619f9ba4",
+            "report_id": "85082e3d-a665-5df5-aa03-374cc656c1df",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T04:00:00Z",
+            "created_at": "2026-01-01T04:00:00Z",
+            "snapshot_digest": "91214c0286bf83d10aa4e250d6d9877994195235c5fd35c71d1732a84a567ed0"
+          },
+          {
+            "shift_id": "29fbde19-0b82-5c9b-9900-5a1a057f950d",
+            "report_id": "afc97406-029d-571a-b3b0-195c13875e62",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T10:00:00Z",
+            "created_at": "2026-01-02T10:00:00Z",
+            "snapshot_digest": "4808cc7066b70877f119d71e00f0b2a1073f7869f9e18c10b8e98c936cb8dc7e"
+          },
+          {
+            "shift_id": "2bd367a1-ab0b-5d41-bb30-809e673e85d5",
+            "report_id": "c318644f-02fe-5355-b94b-aa711a3fc828",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T04:00:00Z",
+            "created_at": "2026-01-02T04:00:00Z",
+            "snapshot_digest": "a121d72e6ac348b55c77d6ffef6569d28bf1932e11fa4ae5c439c9d52b6f9ed3"
+          },
+          {
+            "shift_id": "42cd68df-b62c-5ee2-abc5-a6b536003bde",
+            "report_id": "d00efb2a-d522-5ff6-838a-def20931508b",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T15:00:00Z",
+            "created_at": "2026-01-01T15:00:00Z",
+            "snapshot_digest": "8186e24bbb62bde065cf4e9cf2f96074ddebb7bb2e7de8286901dff68ba38592"
+          },
+          {
+            "shift_id": "48394fbd-e95f-5376-8624-53e703fa635f",
+            "report_id": "1c0bdca5-c1c3-5ab9-b2da-ad9dccb24bfd",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T05:00:00Z",
+            "created_at": "2026-01-02T05:00:00Z",
+            "snapshot_digest": "5a15f9c47fbb3eab3fb8d654547a7a20166b3ae74f1787c5b175a999aa93848c"
+          },
+          {
+            "shift_id": "557b110d-fa54-56cf-8ffd-a61b0fcd54e7",
+            "report_id": "f53f1ad1-ae1c-5267-8694-14b33022711d",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T11:00:00Z",
+            "created_at": "2026-01-01T11:00:00Z",
+            "snapshot_digest": "e5ffb1c937a75b9ad474cd6b36804366438c148a1cfda1e3582992416e1e272c"
+          },
+          {
+            "shift_id": "5be12497-538c-5ac6-82d9-742b56d5f7e5",
+            "report_id": "320a4f40-8ffe-5291-980f-847afc18395b",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T05:00:00Z",
+            "created_at": "2026-01-01T05:00:00Z",
+            "snapshot_digest": "0857d505832e13e7e69b9dea7d74e067d06ff5a835f2caa852a877d3cdc0e085"
+          },
+          {
+            "shift_id": "5e9eac16-e037-5141-992a-cf2c41ce7f02",
+            "report_id": "afe9489a-da77-5d58-85fa-854f211e5472",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T18:00:00Z",
+            "created_at": "2026-01-01T18:00:00Z",
+            "snapshot_digest": "1257816cb4d2c063f3c6f3aa74660540dd02b13124eeebc5001149c3d30cc768"
+          },
+          {
+            "shift_id": "6a7846e3-3a58-50ba-a5d2-88818b9a6967",
+            "report_id": "069514e2-7f57-5d23-871b-224c32bf48f6",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T00:00:00Z",
+            "created_at": "2026-01-01T00:00:00Z",
+            "snapshot_digest": "850c3cdd5b546bec947eebe741c8dd08bd07dafde62e245c5f7bd1a5cd47a7e9"
+          },
+          {
+            "shift_id": "710463da-6074-545e-bef8-3aeaba7e0d1b",
+            "report_id": "16deea5c-3a07-59f7-91cb-888f40b800e8",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T01:00:00Z",
+            "created_at": "2026-01-02T01:00:00Z",
+            "snapshot_digest": "9ce6f25f68e342e32e1d4c0f67297bb54ad16930e4ec5ac66ea33c8e7cbb7e55"
+          },
+          {
+            "shift_id": "711e6d96-dfe9-52df-80fa-261b1964e10f",
+            "report_id": "5c54280f-2fa7-56ec-829e-796b908bbee2",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T02:00:00Z",
+            "created_at": "2026-01-02T02:00:00Z",
+            "snapshot_digest": "6a97dd537b885ca4626894ce76013cb7666f51b6897c0aa4301771b8285597e3"
+          },
+          {
+            "shift_id": "82e0696a-751a-5372-b135-56312057f364",
+            "report_id": "3c18ea36-41bf-5493-952c-dfe19e47b204",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T19:00:00Z",
+            "created_at": "2026-01-01T19:00:00Z",
+            "snapshot_digest": "bee6d21d593989d3ee822fc4bfcabeb48130a0d4b75da25a2af1dd522e1679d3"
+          },
+          {
+            "shift_id": "849423b0-6de7-54ff-9607-be621609e17a",
+            "report_id": "cf95821b-9baf-5824-83f6-7d17210f05bc",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T06:00:00Z",
+            "created_at": "2026-01-02T06:00:00Z",
+            "snapshot_digest": "73a9281dafc5e6160a4aee51144ad0b47909b1454274d4dc311f997e16730a31"
+          },
+          {
+            "shift_id": "86f91ac2-c11e-5a34-b79b-72141275ba4c",
+            "report_id": "54169580-4fbc-55e7-a9d8-61d673425728",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T22:00:00Z",
+            "created_at": "2026-01-01T22:00:00Z",
+            "snapshot_digest": "d473fa4c274998ee6e491548fd942ba68250b5995c5e9530fe6334231ec23114"
+          },
+          {
+            "shift_id": "92578a82-6fb5-5c08-97f4-d2fc9f79deee",
+            "report_id": "a16a1a62-c07e-56f2-8479-f99a429e70cc",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T11:00:00Z",
+            "created_at": "2026-01-02T11:00:00Z",
+            "snapshot_digest": "5656bfcab8886b1bc0517c0ee503ab0b3038fda4d8f4eeb741f864e094c5d325"
+          },
+          {
+            "shift_id": "9d6dfa2b-dd84-554a-a5f0-c871461dc8ef",
+            "report_id": "d9e12142-559b-5b57-94b4-78e4260e1087",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T21:00:00Z",
+            "created_at": "2026-01-01T21:00:00Z",
+            "snapshot_digest": "4ebd1a2f47c45aa288f1744f081162b238e9aee0b88524da65873e9aac5c26af"
+          },
+          {
+            "shift_id": "9d95fcfb-c2b4-5f95-91ed-3ef0d371d9fa",
+            "report_id": "beb4f844-4158-5aec-9696-d7c844c59a69",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T03:00:00Z",
+            "created_at": "2026-01-01T03:00:00Z",
+            "snapshot_digest": "27ae4f0b421bb6e80f060372268145e6445cce8d4f3df5b0f0ed7e73c0e9649d"
+          },
+          {
+            "shift_id": "a6085503-7e42-5807-b307-04c8ee610e9e",
+            "report_id": "a6ced37e-e6a2-5587-99b5-8f5364d7d57f",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T23:00:00Z",
+            "created_at": "2026-01-01T23:00:00Z",
+            "snapshot_digest": "e4413a6144acf271fc8a47fb781eca9ce0f7b63879f82917f86fa1026852f17b"
+          },
+          {
+            "shift_id": "a7c360a3-0bb9-5021-a576-38d6e42eb9f2",
+            "report_id": "1136ce5b-fe2d-5095-83da-4ca57108c730",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T16:00:00Z",
+            "created_at": "2026-01-01T16:00:00Z",
+            "snapshot_digest": "14e0f68d4135556d9fd4e6c66b3f32092e5f5b73bb63377f6a5bcc98d148961b"
+          },
+          {
+            "shift_id": "b975d96b-f2e9-5571-bb31-9ef263abdfbf",
+            "report_id": "49d8874e-5fb5-579a-a4f4-c92ec9d9bbf5",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T00:00:00Z",
+            "created_at": "2026-01-02T00:00:00Z",
+            "snapshot_digest": "fb94f8f7611b10fedc6ffde64bed32760a389bc2794db0189f1810b70c3746a9"
+          },
+          {
+            "shift_id": "c204c584-8c19-55c5-bd7a-c97bae0fc433",
+            "report_id": "9c5efd56-b19e-5fb8-a7f6-ed81a713e29f",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T13:00:00Z",
+            "created_at": "2026-01-01T13:00:00Z",
+            "snapshot_digest": "4be21d12d342dc6b2bf10ab094640155c1558c063a540f2a58c82d9fd0f451a5"
+          },
+          {
+            "shift_id": "cc6eb5e5-fc7c-5726-866e-96099322c3d0",
+            "report_id": "59a9e5dc-6f0c-5f11-94cb-d8a430160873",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T08:00:00Z",
+            "created_at": "2026-01-02T08:00:00Z",
+            "snapshot_digest": "67b11b697412dbb84b75b3a9856a0b1d713dc2fb43b8fdeb417de61d6275d701"
+          },
+          {
+            "shift_id": "d10b6ac5-2ff2-5820-9f40-c7b75307a6a4",
+            "report_id": "6646fe39-792e-5f8f-81a8-81199f3c73c8",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T07:00:00Z",
+            "created_at": "2026-01-02T07:00:00Z",
+            "snapshot_digest": "37a42787a7c4fdb01e0a9d8aeea91ce73b2af9da819913a58437d9290aafa17f"
+          },
+          {
+            "shift_id": "d74e8e31-01d6-59c7-8930-82ad0f1ce9f7",
+            "report_id": "cbd2fffa-fc87-54a4-a8c1-80a1d0ea3aaa",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T08:00:00Z",
+            "created_at": "2026-01-01T08:00:00Z",
+            "snapshot_digest": "c96a10f959ed72b9eb19377dd7721aabb19f1c9f7e594b21cdae8977b141aa01"
+          },
+          {
+            "shift_id": "de7b4813-0952-56d2-84ea-207c483547ef",
+            "report_id": "6c517b7b-205b-59b1-9970-7791e4bc0a4a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T03:00:00Z",
+            "created_at": "2026-01-02T03:00:00Z",
+            "snapshot_digest": "6430341b6f16d11eb09759086b749afdfae7b994cc9b2ac1d9024d6c8ae40aee"
+          },
+          {
+            "shift_id": "e9fe5909-73f4-5173-9e26-0b34883345bf",
+            "report_id": "f487ae4e-ef7d-5100-8ff0-b0402f49cbd0",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T12:00:00Z",
+            "created_at": "2026-01-01T12:00:00Z",
+            "snapshot_digest": "1af0b1d52a77c42def14654d76080f7b520faa6f80b773b59b79e2c9df93b68b"
+          },
+          {
+            "shift_id": "ed1c0e03-fbbb-568b-add9-ef4db4528184",
+            "report_id": "62cdb2f7-d211-5223-a8e3-61994944a72a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T02:00:00Z",
+            "created_at": "2026-01-01T02:00:00Z",
+            "snapshot_digest": "96a32841a1dc380a08927d872963cf8b60c473f2828356681b523baea67345ec"
+          },
+          {
+            "shift_id": "ee3a065c-b5d1-5243-91ab-19f56cdf14e0",
+            "report_id": "a81a944f-cc9a-5b3a-acb5-2bb12d4401de",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T14:00:00Z",
+            "created_at": "2026-01-01T14:00:00Z",
+            "snapshot_digest": "e041cd3cc1477389d31966c99f6639d319e468bca7fa26502d192ac9c9411624"
+          },
+          {
+            "shift_id": "f39ead08-c442-5ec4-baf3-3fd2dfcee211",
+            "report_id": "1df056ed-ad0d-55d6-9619-0b662975997d",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T09:00:00Z",
+            "created_at": "2026-01-01T09:00:00Z",
+            "snapshot_digest": "3b3356cb0afe524c4a9b5a7d49768ede8fe9d2cbf8d8701d8bb378d230627233"
+          },
+          {
+            "shift_id": "f5c7538d-7e37-5dc4-baff-70632c18b9c0",
+            "report_id": "67a82719-d3e8-57d2-a7b9-2a4d2daab28a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T07:00:00Z",
+            "created_at": "2026-01-01T07:00:00Z",
+            "snapshot_digest": "ea6bef30914a69aa80456da273a4a633dc06863432721ad64163125316e2e204"
+          },
+          {
+            "shift_id": "f6286f72-0e07-5d96-b259-bdb515c862c6",
+            "report_id": "2c2d0b07-06f8-5712-b7a8-afd257d2a6d5",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T10:00:00Z",
+            "created_at": "2026-01-01T10:00:00Z",
+            "snapshot_digest": "7f680e547d752e1c96425fe5279f40481cc8b158100b0951d6dc03d237a0b47a"
+          }
+        ]
+      },
+      "coverage_seed_digest": "cca1bbf67a74cca0e8f948b8461ed6df7692973f00e1be78b7ce3cd4a7fd665a"
+    },
+    {
+      "case": "later_asof38",
+      "coverage_seed": {
+        "fixture_id": "P5A2-SOURCE-DEMO-1",
+        "instance_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "scope_id": "P5A2-SELF-77b89304823a5d39f60ff3872317a3d2de8403b72b740f33140cfc61aca03311",
+        "actor_id": "PUBLIC_ACTOR",
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T14:00:00Z",
+        "cohort_policy_version": "P5A2-COHORT-ENDS-1",
+        "numeric_policy_version": "P5A2-INITIAL-1",
+        "eligible_shifts": [
+          {
+            "shift_id": "0a949ba7-ac0a-58e7-bc75-7f8c6ead413f",
+            "ends_at": "2026-01-01T17:00:00Z",
+            "assignment_id": "da2283f5-4f5c-5cf2-a780-d491880c67b9",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "0ec5b408-b58f-582f-9c17-036b6aac9199",
+            "ends_at": "2026-01-02T09:00:00Z",
+            "assignment_id": "1c0dcb10-af77-5bc1-a0a3-6509add66908",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "18d9d40f-0c61-55a9-8f51-5ee882177588",
+            "ends_at": "2026-01-01T20:00:00Z",
+            "assignment_id": "abdac0c3-f4c3-5d4c-b320-22b22efe0081",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "19e1bde2-5f3a-5732-adf9-9cfbbbbaab8a",
+            "ends_at": "2026-01-01T01:00:00Z",
+            "assignment_id": "dc5b849e-94fb-55cf-a5e2-7901d5797b0f",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "2355ec7a-843a-5e31-887a-5d1fc0c268ad",
+            "ends_at": "2026-01-01T06:00:00Z",
+            "assignment_id": "7d2cf38f-22d5-5709-9d3d-22a668977eb7",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "23c4a9ed-f1ed-5882-ac7a-fcae619f9ba4",
+            "ends_at": "2026-01-01T04:00:00Z",
+            "assignment_id": "d3fcae2c-4fde-5d12-b7ef-9775fb3139c4",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "29fbde19-0b82-5c9b-9900-5a1a057f950d",
+            "ends_at": "2026-01-02T10:00:00Z",
+            "assignment_id": "bccbfc3f-9e05-5553-869b-e7d9df6d0429",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "2bd367a1-ab0b-5d41-bb30-809e673e85d5",
+            "ends_at": "2026-01-02T04:00:00Z",
+            "assignment_id": "e9447f55-74b6-59c9-9692-5731038a24ec",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "42cd68df-b62c-5ee2-abc5-a6b536003bde",
+            "ends_at": "2026-01-01T15:00:00Z",
+            "assignment_id": "e320c84a-e9cf-5f4a-8542-0f88d2acccbc",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "48394fbd-e95f-5376-8624-53e703fa635f",
+            "ends_at": "2026-01-02T05:00:00Z",
+            "assignment_id": "2a152b04-8af1-5e78-b35e-9c3877a42856",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "557b110d-fa54-56cf-8ffd-a61b0fcd54e7",
+            "ends_at": "2026-01-01T11:00:00Z",
+            "assignment_id": "fbb69742-8002-5ac8-87cf-d2baded85ddf",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "5be12497-538c-5ac6-82d9-742b56d5f7e5",
+            "ends_at": "2026-01-01T05:00:00Z",
+            "assignment_id": "b5b9e1bc-d9b0-5617-8a19-976950108aa8",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "5e9eac16-e037-5141-992a-cf2c41ce7f02",
+            "ends_at": "2026-01-01T18:00:00Z",
+            "assignment_id": "bf3a9dc2-7296-59ab-ae88-8bdbb06ab907",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "6a7846e3-3a58-50ba-a5d2-88818b9a6967",
+            "ends_at": "2026-01-01T00:00:00Z",
+            "assignment_id": "9da171ef-13c1-599a-b115-7afffd114471",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "710463da-6074-545e-bef8-3aeaba7e0d1b",
+            "ends_at": "2026-01-02T01:00:00Z",
+            "assignment_id": "06058290-4312-5fde-a63e-f8ac1cc1f350",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "711e6d96-dfe9-52df-80fa-261b1964e10f",
+            "ends_at": "2026-01-02T02:00:00Z",
+            "assignment_id": "8c26900c-7cf2-57ba-a3c3-7e3a81436995",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "82e0696a-751a-5372-b135-56312057f364",
+            "ends_at": "2026-01-01T19:00:00Z",
+            "assignment_id": "906a908c-acda-5388-be6c-96d29a76907c",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "849423b0-6de7-54ff-9607-be621609e17a",
+            "ends_at": "2026-01-02T06:00:00Z",
+            "assignment_id": "03995bf6-0807-5f63-881f-fe295124e1dd",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "86f91ac2-c11e-5a34-b79b-72141275ba4c",
+            "ends_at": "2026-01-01T22:00:00Z",
+            "assignment_id": "422af376-eff2-5f4b-b1d3-d68a6e320d59",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "92578a82-6fb5-5c08-97f4-d2fc9f79deee",
+            "ends_at": "2026-01-02T11:00:00Z",
+            "assignment_id": "9f10b4eb-e2fa-5db2-a84b-f5f733863153",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "9d6dfa2b-dd84-554a-a5f0-c871461dc8ef",
+            "ends_at": "2026-01-01T21:00:00Z",
+            "assignment_id": "552e5f16-53d7-5d51-bc92-6d3b8c6cf1a0",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "9d95fcfb-c2b4-5f95-91ed-3ef0d371d9fa",
+            "ends_at": "2026-01-01T03:00:00Z",
+            "assignment_id": "d8eb1f70-7d4d-54ec-93b1-7e5796942e7d",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "a6085503-7e42-5807-b307-04c8ee610e9e",
+            "ends_at": "2026-01-01T23:00:00Z",
+            "assignment_id": "4422e0e2-e2b6-5799-88b9-d4c95939ebb4",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "a7c360a3-0bb9-5021-a576-38d6e42eb9f2",
+            "ends_at": "2026-01-01T16:00:00Z",
+            "assignment_id": "8e32bec3-cdae-5764-971b-6bbbf77529a7",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "b975d96b-f2e9-5571-bb31-9ef263abdfbf",
+            "ends_at": "2026-01-02T00:00:00Z",
+            "assignment_id": "28c8f4ee-1203-5a64-b548-54a1a0f7dd0b",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "c204c584-8c19-55c5-bd7a-c97bae0fc433",
+            "ends_at": "2026-01-01T13:00:00Z",
+            "assignment_id": "5bfef066-0657-56f6-82bf-00c0d426a7e9",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "cc6eb5e5-fc7c-5726-866e-96099322c3d0",
+            "ends_at": "2026-01-02T08:00:00Z",
+            "assignment_id": "475cea08-b1a7-52eb-a81a-21901a065d54",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "d10b6ac5-2ff2-5820-9f40-c7b75307a6a4",
+            "ends_at": "2026-01-02T07:00:00Z",
+            "assignment_id": "3a8321ac-91dd-5be7-b204-2d0554c57db0",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "d74e8e31-01d6-59c7-8930-82ad0f1ce9f7",
+            "ends_at": "2026-01-01T08:00:00Z",
+            "assignment_id": "c1de0c28-6de1-57ba-b6b2-e8b1fe660374",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "de7b4813-0952-56d2-84ea-207c483547ef",
+            "ends_at": "2026-01-02T03:00:00Z",
+            "assignment_id": "1f8bb0ad-c00f-5cc3-ba61-585b1858a840",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "e9fe5909-73f4-5173-9e26-0b34883345bf",
+            "ends_at": "2026-01-01T12:00:00Z",
+            "assignment_id": "71ba493d-47c9-54e2-a51a-d58b57140041",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "ed1c0e03-fbbb-568b-add9-ef4db4528184",
+            "ends_at": "2026-01-01T02:00:00Z",
+            "assignment_id": "d19350b6-8585-5220-a307-1fddd70cb3ba",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "ee3a065c-b5d1-5243-91ab-19f56cdf14e0",
+            "ends_at": "2026-01-01T14:00:00Z",
+            "assignment_id": "71c27082-d2ba-5b1d-bd6a-d1b57f1df416",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f39ead08-c442-5ec4-baf3-3fd2dfcee211",
+            "ends_at": "2026-01-01T09:00:00Z",
+            "assignment_id": "f6200a5c-ca9f-594b-a6ba-b7a36b9a7780",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f5c7538d-7e37-5dc4-baff-70632c18b9c0",
+            "ends_at": "2026-01-01T07:00:00Z",
+            "assignment_id": "2109741b-b3b3-516f-8f40-1b3cbaad3641",
+            "assignment_version": 1
+          },
+          {
+            "shift_id": "f6286f72-0e07-5d96-b259-bdb515c862c6",
+            "ends_at": "2026-01-01T10:00:00Z",
+            "assignment_id": "c46a7b1c-2793-5e40-94ed-bddd8a4d97b3",
+            "assignment_version": 1
+          }
+        ],
+        "candidate_reports": [
+          {
+            "shift_id": "0a949ba7-ac0a-58e7-bc75-7f8c6ead413f",
+            "report_id": "0d65e4db-2e95-515b-b1b1-1bab0ce6b192",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T17:00:00Z",
+            "created_at": "2026-01-01T17:00:00Z",
+            "snapshot_digest": "514922be85e58b1fcab49cdfe87da3e0df1a3c2b2d147d154da748c68b0b7111"
+          },
+          {
+            "shift_id": "0ec5b408-b58f-582f-9c17-036b6aac9199",
+            "report_id": "69bf69e9-c52a-533d-92c4-4fd7c1cb6962",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T09:00:00Z",
+            "created_at": "2026-01-02T09:00:00Z",
+            "snapshot_digest": "33408166fa6c676d27d0e24c42936fb2068f8fd45c34cc01a68c7bfcd1f07c8c"
+          },
+          {
+            "shift_id": "18d9d40f-0c61-55a9-8f51-5ee882177588",
+            "report_id": "edc0a88f-0685-5c67-8c61-952744a4e463",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T20:00:00Z",
+            "created_at": "2026-01-01T20:00:00Z",
+            "snapshot_digest": "91fc4db92814e3b8acd3dd20c0c18b28808963649db8373dbabacae2da2e3acf"
+          },
+          {
+            "shift_id": "19e1bde2-5f3a-5732-adf9-9cfbbbbaab8a",
+            "report_id": "64cdd742-4779-50ee-a6d9-bc15491bca36",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T01:00:00Z",
+            "created_at": "2026-01-01T01:00:00Z",
+            "snapshot_digest": "541fecef231796fbdb4c2951762669eda1c89fb12c027d3b352233b55cf4c26b"
+          },
+          {
+            "shift_id": "2355ec7a-843a-5e31-887a-5d1fc0c268ad",
+            "report_id": "eefb6e49-e2a4-5c86-a5dc-605a76eb153a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T06:00:00Z",
+            "created_at": "2026-01-01T06:00:00Z",
+            "snapshot_digest": "c08e093418fc1f5122f80bb5ff1057b033a9a2a87e8c438796aa2a055247dc52"
+          },
+          {
+            "shift_id": "23c4a9ed-f1ed-5882-ac7a-fcae619f9ba4",
+            "report_id": "85082e3d-a665-5df5-aa03-374cc656c1df",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T04:00:00Z",
+            "created_at": "2026-01-01T04:00:00Z",
+            "snapshot_digest": "91214c0286bf83d10aa4e250d6d9877994195235c5fd35c71d1732a84a567ed0"
+          },
+          {
+            "shift_id": "29fbde19-0b82-5c9b-9900-5a1a057f950d",
+            "report_id": "afc97406-029d-571a-b3b0-195c13875e62",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T10:00:00Z",
+            "created_at": "2026-01-02T10:00:00Z",
+            "snapshot_digest": "4808cc7066b70877f119d71e00f0b2a1073f7869f9e18c10b8e98c936cb8dc7e"
+          },
+          {
+            "shift_id": "2bd367a1-ab0b-5d41-bb30-809e673e85d5",
+            "report_id": "c318644f-02fe-5355-b94b-aa711a3fc828",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T04:00:00Z",
+            "created_at": "2026-01-02T04:00:00Z",
+            "snapshot_digest": "a121d72e6ac348b55c77d6ffef6569d28bf1932e11fa4ae5c439c9d52b6f9ed3"
+          },
+          {
+            "shift_id": "42cd68df-b62c-5ee2-abc5-a6b536003bde",
+            "report_id": "d00efb2a-d522-5ff6-838a-def20931508b",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T15:00:00Z",
+            "created_at": "2026-01-01T15:00:00Z",
+            "snapshot_digest": "8186e24bbb62bde065cf4e9cf2f96074ddebb7bb2e7de8286901dff68ba38592"
+          },
+          {
+            "shift_id": "48394fbd-e95f-5376-8624-53e703fa635f",
+            "report_id": "1c0bdca5-c1c3-5ab9-b2da-ad9dccb24bfd",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T05:00:00Z",
+            "created_at": "2026-01-02T05:00:00Z",
+            "snapshot_digest": "5a15f9c47fbb3eab3fb8d654547a7a20166b3ae74f1787c5b175a999aa93848c"
+          },
+          {
+            "shift_id": "557b110d-fa54-56cf-8ffd-a61b0fcd54e7",
+            "report_id": "f53f1ad1-ae1c-5267-8694-14b33022711d",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T11:00:00Z",
+            "created_at": "2026-01-01T11:00:00Z",
+            "snapshot_digest": "e5ffb1c937a75b9ad474cd6b36804366438c148a1cfda1e3582992416e1e272c"
+          },
+          {
+            "shift_id": "5be12497-538c-5ac6-82d9-742b56d5f7e5",
+            "report_id": "320a4f40-8ffe-5291-980f-847afc18395b",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T05:00:00Z",
+            "created_at": "2026-01-01T05:00:00Z",
+            "snapshot_digest": "0857d505832e13e7e69b9dea7d74e067d06ff5a835f2caa852a877d3cdc0e085"
+          },
+          {
+            "shift_id": "5e9eac16-e037-5141-992a-cf2c41ce7f02",
+            "report_id": "afe9489a-da77-5d58-85fa-854f211e5472",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T18:00:00Z",
+            "created_at": "2026-01-01T18:00:00Z",
+            "snapshot_digest": "1257816cb4d2c063f3c6f3aa74660540dd02b13124eeebc5001149c3d30cc768"
+          },
+          {
+            "shift_id": "6a7846e3-3a58-50ba-a5d2-88818b9a6967",
+            "report_id": "069514e2-7f57-5d23-871b-224c32bf48f6",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T00:00:00Z",
+            "created_at": "2026-01-01T00:00:00Z",
+            "snapshot_digest": "850c3cdd5b546bec947eebe741c8dd08bd07dafde62e245c5f7bd1a5cd47a7e9"
+          },
+          {
+            "shift_id": "6a7846e3-3a58-50ba-a5d2-88818b9a6967",
+            "report_id": "e6151a60-a02e-58a8-b204-211f2b887460",
+            "version": 2,
+            "generated_from_cutoff": "2026-01-01T00:00:00Z",
+            "created_at": "2026-01-02T13:00:00Z",
+            "snapshot_digest": "0c1d6cabb64dad51d54e7a325e85263ecc5ab9f019143df565f02a7215829cfa"
+          },
+          {
+            "shift_id": "710463da-6074-545e-bef8-3aeaba7e0d1b",
+            "report_id": "16deea5c-3a07-59f7-91cb-888f40b800e8",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T01:00:00Z",
+            "created_at": "2026-01-02T01:00:00Z",
+            "snapshot_digest": "9ce6f25f68e342e32e1d4c0f67297bb54ad16930e4ec5ac66ea33c8e7cbb7e55"
+          },
+          {
+            "shift_id": "711e6d96-dfe9-52df-80fa-261b1964e10f",
+            "report_id": "5c54280f-2fa7-56ec-829e-796b908bbee2",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T02:00:00Z",
+            "created_at": "2026-01-02T02:00:00Z",
+            "snapshot_digest": "6a97dd537b885ca4626894ce76013cb7666f51b6897c0aa4301771b8285597e3"
+          },
+          {
+            "shift_id": "82e0696a-751a-5372-b135-56312057f364",
+            "report_id": "3c18ea36-41bf-5493-952c-dfe19e47b204",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T19:00:00Z",
+            "created_at": "2026-01-01T19:00:00Z",
+            "snapshot_digest": "bee6d21d593989d3ee822fc4bfcabeb48130a0d4b75da25a2af1dd522e1679d3"
+          },
+          {
+            "shift_id": "849423b0-6de7-54ff-9607-be621609e17a",
+            "report_id": "cf95821b-9baf-5824-83f6-7d17210f05bc",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T06:00:00Z",
+            "created_at": "2026-01-02T06:00:00Z",
+            "snapshot_digest": "73a9281dafc5e6160a4aee51144ad0b47909b1454274d4dc311f997e16730a31"
+          },
+          {
+            "shift_id": "86f91ac2-c11e-5a34-b79b-72141275ba4c",
+            "report_id": "54169580-4fbc-55e7-a9d8-61d673425728",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T22:00:00Z",
+            "created_at": "2026-01-01T22:00:00Z",
+            "snapshot_digest": "d473fa4c274998ee6e491548fd942ba68250b5995c5e9530fe6334231ec23114"
+          },
+          {
+            "shift_id": "92578a82-6fb5-5c08-97f4-d2fc9f79deee",
+            "report_id": "a16a1a62-c07e-56f2-8479-f99a429e70cc",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T11:00:00Z",
+            "created_at": "2026-01-02T11:00:00Z",
+            "snapshot_digest": "5656bfcab8886b1bc0517c0ee503ab0b3038fda4d8f4eeb741f864e094c5d325"
+          },
+          {
+            "shift_id": "9d6dfa2b-dd84-554a-a5f0-c871461dc8ef",
+            "report_id": "d9e12142-559b-5b57-94b4-78e4260e1087",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T21:00:00Z",
+            "created_at": "2026-01-01T21:00:00Z",
+            "snapshot_digest": "4ebd1a2f47c45aa288f1744f081162b238e9aee0b88524da65873e9aac5c26af"
+          },
+          {
+            "shift_id": "9d95fcfb-c2b4-5f95-91ed-3ef0d371d9fa",
+            "report_id": "beb4f844-4158-5aec-9696-d7c844c59a69",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T03:00:00Z",
+            "created_at": "2026-01-01T03:00:00Z",
+            "snapshot_digest": "27ae4f0b421bb6e80f060372268145e6445cce8d4f3df5b0f0ed7e73c0e9649d"
+          },
+          {
+            "shift_id": "a6085503-7e42-5807-b307-04c8ee610e9e",
+            "report_id": "a6ced37e-e6a2-5587-99b5-8f5364d7d57f",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T23:00:00Z",
+            "created_at": "2026-01-01T23:00:00Z",
+            "snapshot_digest": "e4413a6144acf271fc8a47fb781eca9ce0f7b63879f82917f86fa1026852f17b"
+          },
+          {
+            "shift_id": "a7c360a3-0bb9-5021-a576-38d6e42eb9f2",
+            "report_id": "1136ce5b-fe2d-5095-83da-4ca57108c730",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T16:00:00Z",
+            "created_at": "2026-01-01T16:00:00Z",
+            "snapshot_digest": "14e0f68d4135556d9fd4e6c66b3f32092e5f5b73bb63377f6a5bcc98d148961b"
+          },
+          {
+            "shift_id": "b975d96b-f2e9-5571-bb31-9ef263abdfbf",
+            "report_id": "49d8874e-5fb5-579a-a4f4-c92ec9d9bbf5",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T00:00:00Z",
+            "created_at": "2026-01-02T00:00:00Z",
+            "snapshot_digest": "fb94f8f7611b10fedc6ffde64bed32760a389bc2794db0189f1810b70c3746a9"
+          },
+          {
+            "shift_id": "c204c584-8c19-55c5-bd7a-c97bae0fc433",
+            "report_id": "9c5efd56-b19e-5fb8-a7f6-ed81a713e29f",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T13:00:00Z",
+            "created_at": "2026-01-01T13:00:00Z",
+            "snapshot_digest": "4be21d12d342dc6b2bf10ab094640155c1558c063a540f2a58c82d9fd0f451a5"
+          },
+          {
+            "shift_id": "cc6eb5e5-fc7c-5726-866e-96099322c3d0",
+            "report_id": "59a9e5dc-6f0c-5f11-94cb-d8a430160873",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T08:00:00Z",
+            "created_at": "2026-01-02T08:00:00Z",
+            "snapshot_digest": "67b11b697412dbb84b75b3a9856a0b1d713dc2fb43b8fdeb417de61d6275d701"
+          },
+          {
+            "shift_id": "d10b6ac5-2ff2-5820-9f40-c7b75307a6a4",
+            "report_id": "6646fe39-792e-5f8f-81a8-81199f3c73c8",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T07:00:00Z",
+            "created_at": "2026-01-02T07:00:00Z",
+            "snapshot_digest": "37a42787a7c4fdb01e0a9d8aeea91ce73b2af9da819913a58437d9290aafa17f"
+          },
+          {
+            "shift_id": "d74e8e31-01d6-59c7-8930-82ad0f1ce9f7",
+            "report_id": "cbd2fffa-fc87-54a4-a8c1-80a1d0ea3aaa",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T08:00:00Z",
+            "created_at": "2026-01-01T08:00:00Z",
+            "snapshot_digest": "c96a10f959ed72b9eb19377dd7721aabb19f1c9f7e594b21cdae8977b141aa01"
+          },
+          {
+            "shift_id": "de7b4813-0952-56d2-84ea-207c483547ef",
+            "report_id": "6c517b7b-205b-59b1-9970-7791e4bc0a4a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-02T03:00:00Z",
+            "created_at": "2026-01-02T03:00:00Z",
+            "snapshot_digest": "6430341b6f16d11eb09759086b749afdfae7b994cc9b2ac1d9024d6c8ae40aee"
+          },
+          {
+            "shift_id": "e9fe5909-73f4-5173-9e26-0b34883345bf",
+            "report_id": "f487ae4e-ef7d-5100-8ff0-b0402f49cbd0",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T12:00:00Z",
+            "created_at": "2026-01-01T12:00:00Z",
+            "snapshot_digest": "1af0b1d52a77c42def14654d76080f7b520faa6f80b773b59b79e2c9df93b68b"
+          },
+          {
+            "shift_id": "ed1c0e03-fbbb-568b-add9-ef4db4528184",
+            "report_id": "62cdb2f7-d211-5223-a8e3-61994944a72a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T02:00:00Z",
+            "created_at": "2026-01-01T02:00:00Z",
+            "snapshot_digest": "96a32841a1dc380a08927d872963cf8b60c473f2828356681b523baea67345ec"
+          },
+          {
+            "shift_id": "ee3a065c-b5d1-5243-91ab-19f56cdf14e0",
+            "report_id": "a81a944f-cc9a-5b3a-acb5-2bb12d4401de",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T14:00:00Z",
+            "created_at": "2026-01-01T14:00:00Z",
+            "snapshot_digest": "e041cd3cc1477389d31966c99f6639d319e468bca7fa26502d192ac9c9411624"
+          },
+          {
+            "shift_id": "f39ead08-c442-5ec4-baf3-3fd2dfcee211",
+            "report_id": "1df056ed-ad0d-55d6-9619-0b662975997d",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T09:00:00Z",
+            "created_at": "2026-01-01T09:00:00Z",
+            "snapshot_digest": "3b3356cb0afe524c4a9b5a7d49768ede8fe9d2cbf8d8701d8bb378d230627233"
+          },
+          {
+            "shift_id": "f5c7538d-7e37-5dc4-baff-70632c18b9c0",
+            "report_id": "67a82719-d3e8-57d2-a7b9-2a4d2daab28a",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T07:00:00Z",
+            "created_at": "2026-01-01T07:00:00Z",
+            "snapshot_digest": "ea6bef30914a69aa80456da273a4a633dc06863432721ad64163125316e2e204"
+          },
+          {
+            "shift_id": "f6286f72-0e07-5d96-b259-bdb515c862c6",
+            "report_id": "2c2d0b07-06f8-5712-b7a8-afd257d2a6d5",
+            "version": 1,
+            "generated_from_cutoff": "2026-01-01T10:00:00Z",
+            "created_at": "2026-01-01T10:00:00Z",
+            "snapshot_digest": "7f680e547d752e1c96425fe5279f40481cc8b158100b0951d6dc03d237a0b47a"
+          }
+        ]
+      },
+      "coverage_seed_digest": "a73aaa7ef1c4399221222d69ef893c983be6b4a42b7cbbe9d55c91397b8d23f6"
+    }
+  ]
+}

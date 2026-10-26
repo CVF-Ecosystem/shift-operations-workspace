@@ -1,0 +1,185 @@
+{
+  "familyId": "P5A2-SOURCE-DEMO-RESOURCE-LIFECYCLE",
+  "sampleClass": "STATIC_EXPECTED_DATA_NOT_OS_PROOF",
+  "matrixContractSourceSha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a",
+  "samples": [
+    {
+      "outcomeId": "REFUSED_NO_EFFECT",
+      "shapeId": "REFUSED_NO_EFFECT_VALID",
+      "record": {
+        "outcome": "REFUSED_NO_EFFECT",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 0,
+        "volume_count": 0,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 0,
+        "effect_count": 0,
+        "reason": "IMAGE_ABSENT"
+      }
+    },
+    {
+      "outcomeId": "OWNED_RUNNING",
+      "shapeId": "OWNED_RUNNING_VALID",
+      "record": {
+        "outcome": "OWNED_RUNNING",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 1,
+        "volume_count": 1,
+        "api_count": 1,
+        "web_count": 1,
+        "total_owned_count": 4,
+        "container_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "api_pid": 1001,
+        "web_pid": 1002,
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_fingerprint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174
+      }
+    },
+    {
+      "outcomeId": "PARTIAL_OWNED_FAILURE",
+      "shapeId": "PARTIAL_OWNED_FAILURE_0100",
+      "record": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 0,
+        "volume_count": 1,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 1,
+        "reason": "SEED_FAILED",
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174,
+        "volume_id": "shiftops-p5a2-source-demo-data-v1"
+      }
+    },
+    {
+      "outcomeId": "PARTIAL_OWNED_FAILURE",
+      "shapeId": "PARTIAL_OWNED_FAILURE_1100",
+      "record": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 1,
+        "volume_count": 1,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 2,
+        "reason": "SEED_FAILED",
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174,
+        "container_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1"
+      }
+    },
+    {
+      "outcomeId": "PARTIAL_OWNED_FAILURE",
+      "shapeId": "PARTIAL_OWNED_FAILURE_1110",
+      "record": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 1,
+        "volume_count": 1,
+        "api_count": 1,
+        "web_count": 0,
+        "total_owned_count": 3,
+        "reason": "SEED_FAILED",
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174,
+        "container_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "api_pid": 1001
+      }
+    },
+    {
+      "outcomeId": "PARTIAL_OWNED_FAILURE",
+      "shapeId": "PARTIAL_OWNED_FAILURE_1111",
+      "record": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 1,
+        "volume_count": 1,
+        "api_count": 1,
+        "web_count": 1,
+        "total_owned_count": 4,
+        "reason": "SEED_FAILED",
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174,
+        "container_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "api_pid": 1001,
+        "web_pid": 1002
+      }
+    },
+    {
+      "outcomeId": "STOPPED_RETAINED",
+      "shapeId": "STOPPED_RETAINED_VALID",
+      "record": {
+        "outcome": "STOPPED_RETAINED",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "container_count": 0,
+        "volume_count": 1,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 1,
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "stopped_container_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "stopped_api_pid": 1001,
+        "stopped_web_pid": 1002,
+        "image_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "db_fingerprint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "db_port": 5433,
+        "api_port": 8001,
+        "web_port": 5174
+      }
+    },
+    {
+      "outcomeId": "STOP_REFUSED",
+      "shapeId": "STOP_REFUSED_VALID",
+      "record": {
+        "outcome": "STOP_REFUSED",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "1111111111111111111111111111111111111111111111111111111111111111",
+        "reason": "OWNER_MISMATCH",
+        "effect_count": 0,
+        "owner_record_digest_before": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "owner_record_digest_after": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      }
+    }
+  ],
+  "contextNegativeObligations": [
+    "missing/swap/duplicate/foreign resource IDs",
+    "stale owner_nonce and mismatched persisted owner digest",
+    "resource count boolean/fraction/out of 0-1 domain or wrong total sum",
+    "resource ID absent at flag=1 or present at flag=0",
+    "port/image/profile collision before effects",
+    "PID positivity/liveness/reuse and actual container/volume ownership",
+    "partial create and partial cleanup with truthful still-owned set",
+    "STOP_REFUSED must not overwrite persisted owner record",
+    "no volume deletion or unrelated process stop",
+    "reject impossible non-prefix owned combinations even when each individual count is 0 or 1",
+    "reject nonpositive, boolean, and fractional API/web/stopped PIDs in contextual process checks",
+    "reject foreign, swapped, duplicated or stale container/volume/process IDs after Docker and OS re-probe",
+    "reject stale or swapped owner_nonce, owner-record digest, profile ID, and database fingerprint",
+    "verify Docker sha256: image prefix then normalize to lowercase 64-hex before lifecycle record comparison",
+    "verify exact fixed named volume plus Docker ownership labels; static constant alone proves no physical ownership"
+  ]
+}
