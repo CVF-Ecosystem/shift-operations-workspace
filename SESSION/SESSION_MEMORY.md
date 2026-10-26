@@ -8,8 +8,8 @@ Normalhook intact; legacy docs/decisions returns explicitly use nativecheck_rech
 
 ## Current tranche
 
-p5a2_scoped_source_pg_source_effect_continuity; REVIEW; SESSION_SYNC_STEWARD; R2/live evidence YES for AI claim.
-IndependentpostmaterialPASS exact23/clean/38+5pins, actuala5dd2056. THISdedicated5pathchild recordsactualSHA; noDocker/provider effect.
+p5a2_scoped_source_pg_continuity_marker_correction; REVIEW; SESSION_SYNC_STEWARD; R2/live evidence YES for AI claim.
+Independentread-only reviewfoundsoleGC020marker stale, whileprose/actual23+5/pins passed. Same-scope5pathcontinuitycorrection only; effectNOTRUN.
 StageB SPEC/sourceWO/effectWO/admission and Rootpre-harness PGoracle0b69156f.
 Sourceoracle0f/bodyoracle12ad/family9b3/StageAcode/oldDockerhelpers readonly.
 ONE proposed newexperiment with cachedPG16imagef461 and psycopg3.3.4, noinstall/
@@ -36,4 +36,4 @@ Provider/key/model/CSV held,401spent; no operationalaccuracy/retention/AIclaim.
 
 ## Next allowed move
 
-Complete dedicatedactualSHAcontinuity normalhook; independentclean exact23+5splitrange, then freshRoot effectdeclaration forONErunner. No effect untilboth gates.
+Complete normalhook canonicalmaterialmarker correction; independentcleanrange rereview beforeONEeffect. No source/effect or budgetchange.

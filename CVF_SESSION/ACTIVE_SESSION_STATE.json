@@ -3,7 +3,7 @@
   "recordClass": "POINTER_MIRROR",
   "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_pg_source_effect_continuity",
+  "currentMode": "p5a2_scoped_source_pg_continuity_marker_correction",
   "activePhase": "REVIEW",
   "phaseModel": [
     "INTAKE",
