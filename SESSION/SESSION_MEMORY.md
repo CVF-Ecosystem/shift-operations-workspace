@@ -7,8 +7,8 @@ read-only selectedcontrols; no private/sharedpack/latestremote dependency.
 
 ## Current tranche
 
-P5-A2 G06/G11 source API BUILD: WORK_ORDER; COMMIT_STEWARD; R2.
-IndependentAUTHORIZATION_REVIEW_PASS_BOUNDED; exactpatch/oracle/productresolver/outcome accepted. SourcecodeNOTWRITTEN, family9b3active; normaldispatch gatesworker.
+P5-A2 G06/G11 source API BUILD: WORK_ORDER; SESSION_SYNC_STEWARD; R2.
+Actualdispatch846acf0 independentlyPASS exact19/clean, fullhook3332P148S. THISdedicated5actualSHAchild+cleanrange gates firstworker code.
 Full Product Milestone Binding in P5A2_SOURCE_API_BUILD_SPEC.md. Source readiness
 inspection with strict JWT/currentuser/action/server-scope, native bounded cohort
 preflight/fresh release, closed receipt/1MiB HTTP. Normal coverage None and blank
@@ -38,4 +38,4 @@ Allowners/P5-A2/B/C/D destinations inSPEC; Phase5 0/5. No provider/key/model/
 
 ## Next allowed move
 
-Normal exactdispatchcommit, independentterminalactualreview/dedicated5actualSHAcontinuity/cleanrange; then14pathworkerGO, STOPforfamilybinding beforetests.
+Complete THISnormalcontinuitychild and independentclean19+5range; thenfreshRootBUILDack/worker14paths GO, STOPbeforetests for independentfamilymaterialization.

@@ -1,5 +1,10 @@
 # P5-A2 source API — active implementation handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `846acf0e695372d6d3596eda4a7fbdf9fbf61b38`.
+Dedicated DISPATCH continuity: THIS exact five-path child records the actual dispatch SHA; derive child SHA after normal hook. Independent clean 19+5 review precedes worker GO.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; baseline59d63c66ce170ede7259c67a4f770d96e623f921.
 Root ORCHESTRATOR/SPEC_AUTHOR/WORK_ORDER_AUTHOR; WORK_ORDER/R2/liveYES for AI claims.
 InstalledCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
@@ -52,3 +57,7 @@ effect. A real new effect/risk/secret/public boundary still requires escalation.
 ## Independent authorization / dispatch preparation
 
 AUTHORIZATION_REVIEW_PASS_BOUNDED/no findings/waivers: full recoverablepatch, nativeLF3c565final, unchangedoutcomerules, newtwoAPIoracles andboundedresolver/calleroutcome accepted. Currentmatrix9b3 remainsactive. Rootfreshcanonical/status/index/Core/nativelegacyreviewack→COMMIT_STEWARD. Normaldispatch/terminalactualreview/dedicated5actualSHA/cleanrange beforeworkerGO; workerSTOPactualfiles beforefocusedtests, independentmaterializationgate required. No code/effect yet; all14remainders/owners/Phase5 0/5.
+
+## Actual dispatch / dedicated continuity
+
+846acf0e695372d6d3596eda4a7fbdf9fbf61b38 parent59d63c6 exact19paths; normal3332PASS148skip4warnings222.70s. IndependentPOST_DISPATCH_REVIEW_PASS_BOUNDED verifiesclean/oracle5cc/sourcepins/matrix9b3/fullpatch3c565/no workerwrites. Rootfreshcanonical/status/index/Coreack COMMIT_STEWARD→SESSION_SYNC_STEWARD. THISexact5child addssoleGC020actual846marker; normalhook+independentclean19+5range beforefreshBUILDdeclaration/workerGO. Stagedfamilygate stillrequired beforefocusedtests; noSourceAPIcode/effectyet, all14remainders/owners/Phase5 0/5retained.
