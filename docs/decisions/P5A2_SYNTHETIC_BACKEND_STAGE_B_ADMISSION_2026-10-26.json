@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-20261026",
-  "status": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "status": "START_FAILED_SPENT_VOLUME_RETAINED",
   "baselineCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
   "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
   "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
@@ -321,10 +321,14 @@
     "browser-env": ".venv/p5a2-demo-stage-b-browser-env-20261026.json",
     "am1-alias": ".venv/p5a2-demo-stage-b-am1-alias-20261026.json",
     "am1-source-admission": ".venv/p5a2-demo-stage-b-am1-source-admission-20261026.json",
-    "am1-preflight": ".venv/p5a2-demo-stage-b-am1-preflight-20261026.json"
+    "am1-preflight": ".venv/p5a2-demo-stage-b-am1-preflight-20261026.json",
+    "result-material-paths": ".venv/p5a2-stage-b-result-paths-20261027.json",
+    "result-material-hook": ".venv/p5a2-stage-b-result-material-20261027.log",
+    "result-continuity-hook": ".venv/p5a2-stage-b-result-continuity-20261027.log",
+    "result-clean-review": ".venv/p5a2-stage-b-result-clean-20261027.json"
   },
   "runtimeSourceFrozen": true,
-  "physicalAttempts": 0,
+  "physicalAttempts": 1,
   "providerCalls": 0,
   "newPhysicalBudgetAdmitted": true,
   "milestoneComplete": false,
@@ -353,7 +357,7 @@
       "web_count": 0
     }
   },
-  "startBudgetSpent": false,
+  "startBudgetSpent": true,
   "finiteReadOnlyDiagnosis": {
     "cliPresent": true,
     "localLinuxEnginePipePresent": true,
@@ -400,7 +404,7 @@
     "volumeDeletion": 0
   },
   "amendment1": {
-    "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "status": "ALIAS_AND_FRESH_PREFLIGHT_PASS",
     "reason": "Pinned cached image exists, required alias postgres:16 absent; original one readonlypreflight REFUSED_NO_EFFECT with no marker/start/resources.",
     "operatorAuthority": "Existing explicit Docker backend/execute/continuous-roadmap authority supports nondestructive local alias restoration to the SAME accepted image. No change to goal, risk ceiling, source/credential class, remote/network/acquisition/deletion/public effects; independent review and new committed dispatch remain required.",
     "sourceFrozen": true,
@@ -445,7 +449,37 @@
       "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
       "sha256AtAuthorization": "fb88232cb48a3d90bd3dccfc26ac3091e4646140c3c9d08ed7ff856f07794567",
       "verdict": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED"
-    }
+    },
+    "sourceAdmission": {
+      "verdict": "STAGE_B_AM1_SOURCE_ADMISSION_PASS_BOUNDED",
+      "actualHead": "5607ee72883df3e4bdd20bd24cc6152289c22c20",
+      "receipt": ".venv/p5a2-demo-stage-b-am1-source-admission-20261026.json"
+    },
+    "aliasObservation": {
+      "gate": "AM1_ALIAS",
+      "tagOperations": 1,
+      "imageInspections": 3,
+      "endpointReads": 1,
+      "result": "PASS",
+      "endpointKind": "desktopLinux",
+      "tagBefore": "ABSENT",
+      "tagAfterImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36"
+    },
+    "freshPreflightObservation": {
+      "exitCode": 0,
+      "result": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "effect_count": 0,
+        "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "node_path": "C:\\Users\\DELL\\AppData\\Local\\nvm\\v22.14.0\\node.exe",
+        "preflight": "PASS",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "web_port": 5174
+      },
+      "invocation": "AM1_ONE_FRESH_PREFLIGHT"
+    },
+    "budgetFlagsSnapshot": "Pre-execution authorization-time values: startBudgetAlreadySpent and physicalEffectExecuted are historical; terminal top-level startBudgetSpent/physicalAttempts/status are current."
   },
   "sourceAdmissionHistory": [
     {
@@ -455,6 +489,42 @@
     }
   ],
   "sourceAdmission": {
-    "status": "AM1_PENDING_AFTER_NEW_DISPATCH"
+    "verdict": "STAGE_B_AM1_SOURCE_ADMISSION_PASS_BOUNDED",
+    "actualHead": "5607ee72883df3e4bdd20bd24cc6152289c22c20",
+    "receipt": ".venv/p5a2-demo-stage-b-am1-source-admission-20261026.json",
+    "status": "ACCEPTED_AT_EXECUTION_SOURCE_HEAD"
+  },
+  "attemptReservationSha256": "16b689ad82945a61b79b430c4b39032cd84580594e6f1420c4ce140300f147fd",
+  "physicalSourceAccepted": false,
+  "ownerVerification": {
+    "registeredRecordValid": true,
+    "namedContainerAbsent": true,
+    "namedVolumePresent": true,
+    "volumeOwnerLabelsMatch": true,
+    "apiPidAbsent": true,
+    "webPidAbsent": true
+  },
+  "staticImportProbe": {
+    "cleanSeedImportExitCode": 1,
+    "missingModule": "operations_ledger",
+    "launcherPythonPathIncludesOnlyApi": true,
+    "freshProjectPythonFindsLocalModules": {
+      "operations_ledger": false,
+      "operations_domain": false,
+      "cvf_runtime": false,
+      "reporting_engine": false
+    },
+    "databaseCallOrSeedMainExecuted": false
+  },
+  "resultReviewer": {
+    "agent": "/root/stage_b_result_review",
+    "role": "independent REVIEWER",
+    "date": "2026-10-27"
+  },
+  "resultReview": {
+    "verdict": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
+    "sha256AtResultAcceptance": "9e8d994c996f5d964f460a998eaf3f673a93cfdcf1973b9e8d7a4ae61073935e",
+    "findings": [],
+    "waivers": []
   }
 }

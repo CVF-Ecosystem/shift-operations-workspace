@@ -12,7 +12,7 @@ channels → reporting → hardening → freeze.
 
 ## Trạng thái hiện tại — đọc mục này trước
 
-_Cập nhật: 2026-10-26; Phase 1–4 giữ closure bounded đã ghi, Phase 5 đang triển khai và chưa đóng milestone._ Quy ước:
+_Cập nhật: 2026-10-27; Phase 1–4 giữ closure bounded đã ghi, Phase 5 đang triển khai và chưa đóng milestone._ Quy ước:
 
 - `[x]` / `DONE` / `CLOSED_BOUNDED`: phần được nêu đã có implementation,
   independent review và closure trong đúng claim boundary;
@@ -499,7 +499,7 @@ operational report record cần để hoàn thành một ca và thỏa freeze pr
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến
-      thành operational fact hoặc kích hoạt protected action. G06/G11 identity/API contract is accepted; bounded [source API implementation](../work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md) independently source-accepted: 144 PASS/2 physical skips, full HTTP goldens/84 mutations. Source closed bounded a141156/355ff93, normal3397PASS148skip and exact36+5clean. [G11 source UI](../work_orders/P5A2_SOURCE_UI_WORK_ORDER.md) independently accepted bounded:145frontendPASS/typecheck/build, native84flat parity and privacy/session drills; source closed a637e96/674d98e normal3397PASS148skip/exact33+5clean. [G04/G05 source/coverage DESIGN](../decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md) complete; [synthetic backend Stage A](../work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md) dispatch0e232d0/0654c2e clean, source accepted64focusedPASS/full608/Vitebuild, source closed296e9ff/a77b120 normal3465PASS148skip/exact45+5clean; Stage B persistent local backend admission now active, no physical execution; operational coverage UNKNOWN.
+      thành operational fact hoặc kích hoạt protected action. G06/G11 identity/API contract is accepted; bounded [source API implementation](../work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md) independently source-accepted: 144 PASS/2 physical skips, full HTTP goldens/84 mutations. Source closed bounded a141156/355ff93, normal3397PASS148skip and exact36+5clean. [G11 source UI](../work_orders/P5A2_SOURCE_UI_WORK_ORDER.md) independently accepted bounded:145frontendPASS/typecheck/build, native84flat parity and privacy/session drills; source closed a637e96/674d98e normal3397PASS148skip/exact33+5clean. [G04/G05 source/coverage DESIGN](../decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md) complete; [synthetic backend Stage A](../work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md) dispatch0e232d0/0654c2e clean, source accepted64focusedPASS/full608/Vitebuild, source closed296e9ff/a77b120 normal3465PASS148skip/exact45+5clean; Stage B one physical start FAILED (standalone package-path blocker); container removed by owned cleanup, volume retained, no API/web/smoke/UI proof; budget SPENT. Existing failure evidence closure precedes one consolidated bounded source/recovery decision preserving volume. Acceptance requires exact SQL counts, JWT/API both frozen receipts and matching UI; operational coverage UNKNOWN.
 - [ ] **P5-B:** Dashboard, search, observability.
 - [ ] **P5-C:** Backup/restore, resilience drills, security review, performance.
 - [ ] **P5-D:** Deployment profiles, runbook, Shadow Mode pilot, release freeze.

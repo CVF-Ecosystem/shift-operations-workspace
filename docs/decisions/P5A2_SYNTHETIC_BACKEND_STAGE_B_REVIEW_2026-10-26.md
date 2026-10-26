@@ -1,10 +1,11 @@
 # P5-A2 synthetic backend Stage B — independent admission review
 
 docType: completion_review
-Status: AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED
-Date: 2026-10-26
-Reviewer: independent REVIEWER `/root/source_api_review`
-Baseline: `a77b12062fd530cf99056ea5f11b552a321747e8`
+Status: RESULT_REVIEW_PASS_FAILURE_RECORDED
+Date: 2026-10-27
+Reviewer: independent REVIEWER `/root/stage_b_result_review`
+Baseline: `5607ee72883df3e4bdd20bd24cc6152289c22c20`
+Historical admission review: `AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED`, dated 2026-10-26; reviewer `/root/source_api_review`; baseline `a77b12062fd530cf99056ea5f11b552a321747e8`. Its authorization decision and evidence are retained below.
 
 ## Original authorization and Product Milestone Binding (retained)
 
@@ -35,7 +36,7 @@ I assessed authority against the existing operator request for an isolated local
 
 The budget delta is exact: original read-only preflight 1 consumed plus **one** additional, total 2; at most one local tag, one current local endpoint metadata read and three bounded image inspections. The original maximum **one** reserved start remains unspent and unchanged; every container, volume, process, seed, migration, smoke, UI, read-only SQL, provider, install, pull, public effect and deletion limit remains unchanged. The exclusive ignored tag reservation is separate from the tracked immutable one-start reservation. The original evidence remains retained and the amended gate graph orders independent AM1 authorization, new dispatch/continuity/clean range, new source admission, alias gate, fresh preflight, start reservation, physical result, review and normal closure. Pinned Core closeability, invariant-family, session and Project Knowledge checks pass. No Docker, image inspection, alias mutation, Node/browser, SQL, secret, provider, package or physical action was run for this review.
 
-## Return-Time Closeability Recheck
+## Historical Admission Return-Time Closeability Recheck
 
 closeabilityDisposition: CLOSEABLE
 outsideAuthorityBlockers: NONE
@@ -43,3 +44,52 @@ nextRepairRoute: NONE
 workerRedispatchAllowed: YES
 
 This standalone `docType: completion_review` marker is applicable to the verified pinned Core `check_recheck`. Explicit invocation reports zero violations. The normal CLI/hook does not automatically scan legacy `docs/decisions/` reviews. AM1 remains closeable within the exact amended Work Order path/risk/effect envelope; authorization allows normal redispatch only, while new source admission and all AM1/physical gates remain future decisions.
+
+## Stage B failed-result review — 2026-10-27
+
+**CVF Agent Declaration.** Project: `shift-operations-workspace`. Installed public Core: `../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6`. Phase: REVIEW. Risk ceiling: R2. Live evidence required: YES for AI/governance claims. Role: independent REVIEWER, declared from the active `SESSION_SYNC_STEWARD` state before this review. Active handoff: `SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md`. Next allowed move: record and materialize the truthful failed result, then make one separate reviewed source/recovery decision that preserves the volume. Parked checkpoint: provider calls and key/model/CSV updates remain deferred; the original provider 401 is spent; no Stage B retry, stop, reset, or delete is authorized.
+
+**Disposition: `RESULT_REVIEW_PASS_FAILURE_RECORDED`.** Open review findings: NONE. Waivers: NONE. This review accepts only the sanitized failure result and owned-residue custody. The physical source attempt failed; no successful Stage B integration, operational coverage, milestone closure, or retry authority is accepted.
+
+### Product Milestone Binding and independent gap reconciliation
+
+Milestone: **P5-A2**, Phase 5 in `docs/implementation/EXECUTION_ROADMAP.md`. The full user outcome remains an authorized integrated scheduled flow for signals, forecasts, history, lineage, freshness, uncertainty, and abstention, followed by exact human run/version/source approval before a durable recommendation or action. This result-review assignment closes no product gap; P5-A2 remains OPEN and Phase 5 remains **0/5**. Current gap owners and roadmap destinations remain those in the canonical SPEC:
+
+| Gap | Current truth after this result | Remaining owner and roadmap destination |
+|---|---|---|
+| G01 / P5-A A7 | One real provider 401 spent; A7 BLOCKED | Root/operator, P5-A A7 then P5-A2 |
+| G02 | Operational RAG/context/index/citations BLOCKED | Backend/Root, P5-A2 context |
+| G03 | Business/cohort fit UNKNOWN | Backend/operator, P5-A2 method |
+| G04 | This synthetic physical attempt FAILED; operational integration UNKNOWN | Backend/Root, P5-A2 source |
+| G05 | This synthetic authority attempt FAILED; production mode/authority/coverage/retention and positive SQLite UNKNOWN | Backend/Root/operator, P5-A2 coverage |
+| G06 | Later use-time access OPEN | Backend/Root, P5-A2 approval |
+| G07 | Scheduler/claim/recovery OPEN | Backend/Root, P5-A2 runtime |
+| G08 | Operational signal quality OPEN | Backend/operator, P5-A2 signals |
+| G09 | Forecast accuracy/calibration OPEN | Backend/operator, P5-A2 forecasting |
+| G10 | Drift monitoring/display OPEN | Backend/UI/Root, P5-A2 quality and P5-B |
+| G11 | Remaining application flows OPEN; bounded source API/manual UI remain accepted | UI/Root/operator, P5-A2 application |
+| G12 | Exact human approval OPEN | Backend/UI/operator, P5-A2 approval |
+| G13 | Integrated outage/source drills OPEN | Backend/Root, P5-A2 drills |
+| G14 | Live AI-governance proof HELD | Root/operator, separately admitted P5-A2 REVIEW |
+
+P5-B remains backend/UI/Root-owned (dashboard, search, observability); P5-C remains backend/Root/operator-owned (backup, resilience, security, performance); P5-D remains Root/operator-owned (deployment, Shadow Mode, release). No remaining gap is treated as complete or omitted.
+
+### Independent result, source, and custody checks
+
+- The admission and result agree on chronology: the original preflight refused `IMAGE_ABSENT` with zero owned resources; AM1 restored the absent tag to the same pinned cached image and passed one fresh preflight; only then was the single immutable start reservation created and the start invoked once. The admission now records the AM1 source admission as accepted at execution head `5607ee72883df3e4bdd20bd24cc6152289c22c20`; the pre-execution budget flags are explicitly labeled as historical snapshots.
+- The immutable attempt artifact is `RESERVED_SPENT_NO_RETRY`, records maximum one call and actual source head `5607ee72883df3e4bdd20bd24cc6152289c22c20`, and its file SHA-256 matches the reservation digest recorded in admission/evidence: `16b689ad82945a61b79b430c4b39032cd84594e6f1420c4ce140300f147fd`. The start returned exit 1 with sanitized `START_FAILED`; there was no retry.
+- The failure owner observation is `PARTIAL_OWNED_FAILURE`: one owned named volume remains; the created owned container was removed by the bounded cleanup; API and web processes are absent. The owner record confirms matching labels, and the evidence counters reconcile to container 0, volume 1, API 0, web 0, total owned 1. `IMPLEMENTATION_STATUS.json` and canonical session state now record `resourceEffects: 2` as the two successful creations (container and named volume), excluding the alias metadata operation and removals; this cumulative creation count is distinct from the current owned-resource counters.
+- Admission, attempt, evidence, return, active handoff, implementation status, project index, roadmap, and current knowledge context consistently mark one physical attempt spent, no physical source acceptance, no API/web/smoke/SQL/browser proof, no provider calls, and no retry/recovery authority. Generated local credential files remain private; this review did not read their values, `.env`, or secrets. The retained volume is not presumed empty, fresh, or safe to restart. No post-failure cleanup, stop, reset, deletion, or recovery is authorized.
+- The accepted Stage A source pins are sealed in the admission; current HEAD remains `5607ee72883df3e4bdd20bd24cc6152289c22c20`, with no worktree source diff under `apps/`, `packages/`, `fixtures/`, or `tests/`. The sanitized standalone import probe reports missing `operations_ledger` under the launcher's API-only `PYTHONPATH`, before a database call or seed main. This is accepted as a standalone launch blocker. It does not identify the precise failed physical subprocess step or prove the retained database schema/migration state; those remain UNKNOWN pending a separate admitted inspection.
+- The review corrects the initially observed metadata drift before disposition: `resourceEffects` is reconciled to 2 with its definition; top-level source-admission state now reflects the accepted execution head; historical pre-execution budget flags are labeled. No remaining evidence inconsistency prevents truthful failure-result closure.
+
+No provider call or governance-behavior claim was made. No runtime, Docker, SQL, browser, network, or secret action was performed during this review, and no test was added or run.
+
+## Return-Time Closeability Recheck
+
+closeabilityDisposition: CLOSEABLE
+outsideAuthorityBlockers: NONE
+nextRepairRoute: NONE
+workerRedispatchAllowed: NO
+
+The bounded failed-result packet is closeable for failure recording and normal material/continuity only. Worker redispatch under this spent Stage B Work Order is NO. A source repair or retained-volume recovery requires a distinct reviewed decision. This review is in the legacy `docs/decisions/` family, so the verified pinned Core `check_recheck` was explicitly invoked for this exact artifact; the result and applicability are recorded here. Automatic CLI/hook return scanning does not cover this legacy family.

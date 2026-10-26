@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_stage_b_am1_dispatch_continuity",
+  "currentMode": "p5a2_synthetic_backend_stage_b_failed_result_review",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Independent clean11+5 AM1 split range, then NEW source admission before boundedlocalalias/freshpreflight; originalStart1unspent.",
+  "nextAllowedMove": "Independent failure/owned-residue review, sanitized result return and normal evidence material/continuity; then distinct bounded source/recovery decision preserving volume, no reset/delete.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
@@ -22,5 +22,5 @@
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-10-27"
 }

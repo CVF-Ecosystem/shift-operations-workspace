@@ -965,12 +965,12 @@
     "committedRange": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_synthetic_backend_stage_b_20261026": {
-    "status": "AM1_AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "status": "START_FAILED_SPENT_VOLUME_RETAINED",
     "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
     "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
     "sourceClosure": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED",
     "newPhysicalBudgetAdmitted": true,
-    "physicalAttempts": 0,
+    "physicalAttempts": 1,
     "providerCalls": 0,
     "milestoneComplete": false,
     "operationalCoverageAccepted": false,
@@ -983,7 +983,7 @@
     "dispatchPaths": 17,
     "dispatchFullHook": "3465passed148skipped4warnings147.00s",
     "dispatchTerminalReview": "POST_DISPATCH_STAGE_B_REVIEW_PASS_BOUNDED",
-    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "continuityStage": "AM1_DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
     "dispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188",
     "dispatchContinuityFullHook": "3465passed148skipped4warnings178.73s",
     "dispatchCommittedRange": "CLEAN_STAGE_B_DISPATCH_SPLIT_RANGE_PASS_BOUNDED",
@@ -1003,9 +1003,9 @@
         "web_count": 0
       }
     },
-    "startBudgetSpent": false,
-    "resourceEffects": 0,
-    "openDecision": "AM1 cached pinned image alias restoration; R2 local Docker metadata, no acquisition or overwrite.",
+    "startBudgetSpent": true,
+    "resourceEffects": 2,
+    "openDecision": "Standalone package path defect and retained-volume recovery require a new reviewed source/effect decision.",
     "diagnosis": {
       "cliPresent": true,
       "localLinuxEnginePipePresent": true,
@@ -1027,6 +1027,69 @@
     "amendment1CandidateSealed": true,
     "am1Authorization": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
     "initialDispatchCommit": "37ff857537e5d79dd7e5335ae1994dd2354b2dc5",
-    "initialDispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188"
+    "initialDispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188",
+    "am1DispatchCommit": "d1c3d4eaec6c5b70027346e275587677b9059d07",
+    "am1DispatchPaths": 11,
+    "am1DispatchFullHook": "3465passed148skipped4warnings185.17s",
+    "am1TerminalReview": "POST_DISPATCH_STAGE_B_AM1_REVIEW_PASS_BOUNDED",
+    "am1DispatchContinuityCommit": "5607ee72883df3e4bdd20bd24cc6152289c22c20",
+    "am1DispatchContinuityFullHook": "3465passed148skipped4warnings182.31s",
+    "am1CommittedRange": "CLEAN_STAGE_B_AM1_DISPATCH_SPLIT_RANGE_PASS_BOUNDED",
+    "am1SourceAdmission": "STAGE_B_AM1_SOURCE_ADMISSION_PASS_BOUNDED",
+    "am1Alias": {
+      "gate": "AM1_ALIAS",
+      "tagOperations": 1,
+      "imageInspections": 3,
+      "endpointReads": 1,
+      "result": "PASS",
+      "endpointKind": "desktopLinux",
+      "tagBefore": "ABSENT",
+      "tagAfterImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36"
+    },
+    "am1FreshPreflight": {
+      "exitCode": 0,
+      "result": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "effect_count": 0,
+        "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "node_path": "C:\\Users\\DELL\\AppData\\Local\\nvm\\v22.14.0\\node.exe",
+        "preflight": "PASS",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "web_port": 5174
+      },
+      "invocation": "AM1_ONE_FRESH_PREFLIGHT"
+    },
+    "attemptReservationSha256": "16b689ad82945a61b79b430c4b39032cd84580594e6f1420c4ce140300f147fd",
+    "ownedContainerCount": 0,
+    "ownedVolumeCount": 1,
+    "apiProcessCount": 0,
+    "webProcessCount": 0,
+    "physicalSourceAccepted": false,
+    "ownerVerification": {
+      "registeredRecordValid": true,
+      "namedContainerAbsent": true,
+      "namedVolumePresent": true,
+      "volumeOwnerLabelsMatch": true,
+      "apiPidAbsent": true,
+      "webPidAbsent": true
+    },
+    "staticImportProbe": {
+      "cleanSeedImportExitCode": 1,
+      "missingModule": "operations_ledger",
+      "launcherPythonPathIncludesOnlyApi": true,
+      "freshProjectPythonFindsLocalModules": {
+        "operations_ledger": false,
+        "operations_domain": false,
+        "cvf_runtime": false,
+        "reporting_engine": false
+      },
+      "databaseCallOrSeedMainExecuted": false
+    },
+    "resourceEffectsDefinition": "Successful resource creations: one container and one named volume; owned failure cleanup removed container, volume retained. Excludes local alias metadata and removals.",
+    "independentResultReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
+    "resultReviewFindings": [],
+    "resultReviewWaivers": [],
+    "resultMaterialDisposition": "NORMAL_MATERIAL_GATE_PENDING"
   }
 }

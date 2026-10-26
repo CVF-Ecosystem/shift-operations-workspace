@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-20261026",
-  "result": "PREFLIGHT_REFUSED_NO_EFFECT",
+  "result": "START_FAILED_BUDGET_SPENT_PARTIAL_VOLUME_RETAINED",
   "sourceAdmission": "STAGE_B_SOURCE_ADMISSION_PASS_BOUNDED",
   "preflight": {
     "exitCode": 1,
@@ -17,14 +17,14 @@
       "web_count": 0
     }
   },
-  "startInvocations": 0,
-  "attemptReservationCreated": false,
+  "startInvocations": 1,
+  "attemptReservationCreated": true,
   "ownedContainerCount": 0,
-  "ownedVolumeCount": 0,
+  "ownedVolumeCount": 1,
   "apiProcessCount": 0,
   "webProcessCount": 0,
   "browserContexts": 0,
-  "generatedCredentials": false,
+  "generatedCredentials": true,
   "providerCalls": 0,
   "milestoneComplete": false,
   "operationalCoverageAccepted": false,
@@ -47,9 +47,94 @@
     "diagnosticActor": "/root/source_openapi_repair"
   },
   "amendment1": {
-    "status": "PROPOSED_NOT_AUTHORIZED",
-    "tagOperations": 0,
-    "additionalPreflightInvocations": 0,
-    "startInvocations": 0
-  }
+    "alias": {
+      "gate": "AM1_ALIAS",
+      "tagOperations": 1,
+      "imageInspections": 3,
+      "endpointReads": 1,
+      "result": "PASS",
+      "endpointKind": "desktopLinux",
+      "tagBefore": "ABSENT",
+      "tagAfterImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36"
+    },
+    "freshPreflight": {
+      "exitCode": 0,
+      "result": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "effect_count": 0,
+        "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "node_path": "C:\\Users\\DELL\\AppData\\Local\\nvm\\v22.14.0\\node.exe",
+        "preflight": "PASS",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "web_port": 5174
+      },
+      "invocation": "AM1_ONE_FRESH_PREFLIGHT"
+    }
+  },
+  "attemptReservationSha256": "16b689ad82945a61b79b430c4b39032cd84580594e6f1420c4ce140300f147fd",
+  "startObservation": {
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "reason": "START_FAILED"
+    }
+  },
+  "failureOwnerObservation": {
+    "runtimeDirectoryExists": true,
+    "ownerRecordExists": true,
+    "secretReferenceFileExists": true,
+    "ownerObservation": {
+      "outcome": "PARTIAL_OWNED_FAILURE",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "container_count": 0,
+      "volume_count": 1,
+      "api_count": 0,
+      "web_count": 0,
+      "total_owned_count": 1,
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "reason": "SEED_FAILED",
+      "failure_class": "RuntimeError",
+      "creation_trail": [
+        {
+          "id": "shiftops-p5a2-source-demo-data-v1",
+          "kind": "volume"
+        },
+        {
+          "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b",
+          "kind": "container"
+        }
+      ],
+      "cleanup_trail": [
+        {
+          "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b",
+          "kind": "container"
+        }
+      ]
+    }
+  },
+  "ownerVerification": {
+    "registeredRecordValid": true,
+    "namedContainerAbsent": true,
+    "namedVolumePresent": true,
+    "volumeOwnerLabelsMatch": true,
+    "apiPidAbsent": true,
+    "webPidAbsent": true
+  },
+  "staticStandaloneImportProbe": {
+    "cleanSeedImportExitCode": 1,
+    "missingModule": "operations_ledger",
+    "launcherPythonPathIncludesOnlyApi": true,
+    "freshProjectPythonFindsLocalModules": {
+      "operations_ledger": false,
+      "operations_domain": false,
+      "cvf_runtime": false,
+      "reporting_engine": false
+    },
+    "databaseCallOrSeedMainExecuted": false
+  },
+  "smokeInvocations": 0,
+  "physicalSourceAccepted": false
 }

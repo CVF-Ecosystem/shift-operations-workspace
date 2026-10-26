@@ -153,3 +153,68 @@ rehydration/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2,
 liveYES for AI claims. Exact5 currentAM1SHA child then independentclean11+5/new
 sourceadmission beforealiasorfreshpreflight. OriginalStart1unspent, no actions.
 All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained; no self-referential child SHA.
+
+## AM1 clean/source admission / bounded alias and fresh preflight GO
+
+Independent clean11+5 d1c3d4e/5607ee7 and NEW_SOURCE_ADMISSION_PASS at5607,
+allfrozenpins/currentAM1budget/refusalhistory verified, nofindings/waivers.
+Rootfreshcanonicalrehydration/Core0; SESSION_SYNC_STEWARD to IMPLEMENTATION_WORKER
+BUILD/R2/liveYES for AI claims. Onlyboundedlocalaliasgate+ONEfreshpreflight GO;
+originalStart1helduntilfreshPASS+separateexclusiveSTARTreserve. No pull/source
+edit/overwrite or provider/production/public action authorized.
+
+## Actual AM1 pass / immutable single START reservation
+
+KnownlocaldesktopLinux endpoint, pinnedimageinspected, aliasABSENT thenONEtag
+to samef461 verified(3inspects). ONEfreshpreflightPASS exactcachedNode/ports/
+image/profile, noownerconflicts. Originalrefusal retained. Rootfreshcanonical
+rehydration/SourcePins/checkedignoredbuildtarget/Core0, IMPLEMENTATION_WORKER
+BUILD/R2. Exclusive immutable START marker nowwritten/spent(max1); existing
+start invokedonce next, no retry. GeneratedDB/viewer/JWT secrets only accepted
+private runtime; neverlogs/Git/evidence. All14gapowners/Phase5 0/5 retained.
+
+## Actual start failure / retained owned volume / no retry
+
+ExactlyONEstart returnedSTART_FAILED. Actualregisteredownerrecordpartial0100:
+containercreatedthenownedcleanupremovedit; onlynamedvolume remains, correct
+nonce/image/labels. Readonlyverification confirms containerabsent, volumeowned,
+API/webPIDabsent. Privategeneratedservicefileexists, no valuesread/emitted.
+Smoke/SQLsummary/browser notrun. ImmutableSTARTbudgetSPENT, no retry/stop/reset.
+Cleaninertseedmoduleimport(withlauncherAPI-onlyPYTHONPATH) failsmissing
+operations_ledger beforemain/DB; projectvenv hasno localmonorepo modules on
+defaultpath, unlikepytestbootstrap. Thisisaconfirmedstandaloneblocker; original
+sanitizedstartlosesprecisefailedsubcommand, do notinventphysicalphaseevidence.
+Rootrecords BUILD to REVIEW, IMPLEMENTATION_WORKER to ORCHESTRATOR, R2.
+Independentfailure/residue review and evidencecommit/continuity beforedistinct
+source/recoverydecision; retainedvolume nottreatedasfresh/deleted/restarted.
+All14gapowners/Phase5 0/5 remain; physicalsource NOTaccepted.
+
+
+## Resume acknowledgment 2026-10-27 / result review only
+
+Root rehydrated manifest/policy/workspace rules, verified installed pinned Core
+and native controls, canonical bootstrap/memory/state/this handoff,
+implementation/index/roadmap and complete G01-G14 binding. Core preflight0.
+ORCHESTRATOR to SESSION_SYNC_STEWARD for existing result metadata; REVIEW/R2,
+liveYES for AI claims. Independent Luna/max result reviewer
+/root/stage_b_result_review owns only the existing review artifact; Sol/medium
+/root/consolidated_recovery_design supplies finite read-only consolidated
+source/recovery design. No new source/effect assignment or runtime retry.
+User requires strict roadmap alignment, no unnecessary tranches and observable
+acceptance. Same G04/G05 proof requires exact SQL counts, JWT/native API both
+frozen contexts and matching source UI; provider remains deferred, volume
+preserved, all14 remainders/owners/destinations in SPEC, Phase5 0/5. Finish
+failed-result material/actual-SHA continuity first, then one reviewed bounded
+source/recovery decision addressing all predictable blockers together.
+
+
+## Independent failed-result acceptance / normal material gate
+
+Independent /root/stage_b_result_review RESULT_REVIEW_PASS_FAILURE_RECORDED;
+findings/waivers NONE. Standalone return/completion-review native check_recheck
+applicable, each0; legacy decisions not automatically scanned by CLI/hook.
+Root freshly rehydrates canonical records/current truth/index/roadmap/Core0;
+SESSION_SYNC_STEWARD to COMMIT_STEWARD REVIEW/R2/liveYES for AI claims.
+Normal material hook then independent terminal review, dedicated actual-SHA
+continuity and clean split range remain. Failed backend not accepted; all14
+remainders/owners/P5-A2/B/C/D retained, Phase5 0/5; no source/effect retry.
