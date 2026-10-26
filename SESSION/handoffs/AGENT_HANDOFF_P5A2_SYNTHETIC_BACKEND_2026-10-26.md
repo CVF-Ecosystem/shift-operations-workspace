@@ -82,3 +82,115 @@ verified pinned Core. COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
 claims. This exact5 child records sole actualSHA marker; normal hook then clean
 27+5 independent review remain before BUILD GO.
 All14gapowners/P5-A2/B/C/D and Phase5 0/5 retained. No new physical effect.
+
+## Clean dispatch / fresh BUILD acknowledgment
+
+Independent CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED actual0e232d0/0654c2e,
+exact27+5 clean, normal3397PASS148skip hooks148.08s/146.85s; sole marker actual
+dispatch0e232d0, no findings/waivers. Root freshly rereads current canonical
+continuity/implementation/index/roadmap and verified Core. SESSION_SYNC_STEWARD
+to ORCHESTRATOR; workers separately declare IMPLEMENTATION_WORKER, BUILD/R2,
+liveYES for AI claims. Source/default/refusal semantics and full14gapowners
+retained; Phase5 0/5. Existing dispatch grants code only, not physical effects.
+
+The exact23 worker paths are split without new paths: source/API worker owns
+the10 API/config/demo paths, one Vite profile config, and five tests excluding
+the lifecycle test (16), plus the sole worker-return artifact. Lifecycle worker
+owns compose/five scripts/lifecycle test (7), reports to source worker/Root;
+no shared file ownership. Root contract/matrix/pins/catalog/session and reviewer
+path stay excluded. Both perform inert syntax checks only and STOP before first
+focused tests at FILES_READY_FOR_BINDING. Root frozen real-file metadata/pins,
+independent materialization and explicit tests GO remain mandatory. No Docker,
+SQL write/listener/browser/provider/realsecret/.env/install effect in Stage A.
+
+## Consolidated initial static observations before tests
+
+Both worker sets reached actual files/inert syntax with no test or physical
+effect. Root consolidated B1-B4 (strict read identity, health/readiness, frozen
+authority identity, meaningful new composition/isolation negatives) and L1-L5
+(exact cached Node, child capture/private diagnostics, reverse cleanup prefix,
+verified exact stop/retained volume, actual branch evidence). Workers correct
+inside original23 paths before binding; no runtime family or oracle expansion.
+No failed test is hidden: focused tests remain HELD pending independent real
+family materialization. Root catalog/session ownership and all14gapowners remain.
+
+## Real files / frozen binding gate
+
+Both bounded worker file sets now exist; inert syntax only, no focused tests.
+Root applied only admitted full metadata patches/literal consumer pins to real
+files; original outcomes/mutations/oracles unchanged. Independent real-file
+materialization review remains before explicit tests GO. No physical effect.
+
+## Independent real-file materialization / focused test GO
+
+Independent FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED actual23files, exact
+frozen source6fec1889/lifecyclef323ef10, original4sourcepinsliteralonly, trusted
+deployablecopies/frozeninputs/realconsumer/evidencepaths/nativelegacyrecheck
+all PASS, no findings/waivers. Root freshly verifies installed Core0; same
+ORCHESTRATOR/BUILD/R2. Explicit focused unit/in-process HTTP and inert lifecycle
+tests GO now; preserve failures and correct inside original ownership. All
+physical effects, provider/realcredential/.env/production/public claims stay HELD.
+Independent source review and normal material/continuity closure remain.
+
+## BUILD evidence return / formal REVIEW transition
+
+Backend42PASS, lifecycle18PASS/full608, initial test-setup failures retained;
+Root isolated Vite77modules1.11s cachedNode22.14.0 build PASS. Independent
+new6-file corpus60PASS, then source evaluation confirmed DEMO-SRC-F1: Python
+value equality admits boolean/float version metadata as integer1. Source
+acceptance and material gate HELD pending one consolidated independent review
+and bounded repair. Root freshly rehydrates canonical continuity/implementation/
+index/roadmap; ORCHESTRATOR records BUILD to REVIEW. No physical/provider/
+realcredential/.env effect or whole milestone claim; all14gapowners unchanged.
+
+## Consolidated source return / accepted F1 repair route
+
+Independent complete source pass CHANGES_REQUIRED exactlyDEMO-SRC-F1, noother
+findings/waivers. Independent6-file60PASS5.31s retained; four actual malformed
+key version probes(True/1.0 forassignment/report) accepted. New independent
+root cause, same acceptance/risk/effect/path/commitowner; no third-round
+recurrence. Root explicitly verified both standalone legacy markers/oneheading
+and pinned native check_recheck0 before redispatch. Workerreturn initialraw
+29bff2a63cbbfb01d1d9e27be2d219374a7225ef200ff1dbc484a2dac25402c3 retained.
+Root freshly rehydrates current canonical files/implementation/index/roadmap;
+ORCHESTRATOR routes REVIEW to BUILD for existing coverage.py + its unit test
+and workerreturn only. Exact6focusedrerun then independent rereview required.
+No new contract/oracle/family/effect authority; full14gapowners/Phase5 0/5 retained.
+
+## Independent F1 return / source acceptance / normal material gate
+
+Independent SOURCE_REVIEW_PASS_BOUNDED; four actual bool/float version probes
+now SCOPE_INCOMPLETE, two full expected positives unchanged. Exact6focused64PASS
+worker6.06s/independent5.54s, one existing dependency warning. Earlier62P2F
+wrong-interpreter run and original42/18 initial failures preserved in return.
+All23hashes/lines, source6fec1889/lifecyclef323ef10, allfrozen/predecessor pins,
+deployablecopies, applicable standalone native rechecks, Core/session/invariant
+checks PASS; no open findings/waivers. Root freshly rehydrates current canonical
+files/implementation/index/roadmap; ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2.
+Normal exact material commit remains, then actual independent terminal review,
+dedicated exact5 actualmaterialSHA child and independent clean split gate before
+closure. No physical/production/AI governance proof; all14gapowners/Phase5 0/5.
+
+## Retained normal material hook failure / same-scope repair
+
+Normal hook FAILED1/3460PASS/148skip/4warnings197.86s, no material commit; HEAD
+still0654c2e. Existing test_operations_domain_boundary rejects new seeder
+shim-namespace import (only ledger_factory is authorized E1). DEMO-HOOK-F1 is
+an independent new root cause after focused64/source review, not recurrence
+of strict metadata F1. Root accepts bounded canonical operational model imports
+and genuine existing ledger factory/User injection repair in seed.py, existing
+bundle unit test if needed and workerreturn only. No guard/allowlist exception,
+no package/normalfactory/contract change. Applicable native legacy rechecks0
+and Core0 before redispatch; COMMIT_STEWARD to ORCHESTRATOR, BUILD/R2. Relevant
+existing boundary plus newdemo corpus and independent rereview before retry.
+All raw initial failures/evidence and14gapowners/Phase5 0/5 preserved; noeffects.
+
+## Independent hook repair return / normal material retry
+
+Independent SOURCE_REVIEW_PASS_BOUNDED resolvesDEMO-HOOK-F1; canonicalmodels/
+genuineexistingfactory/expectedDSN/PGguard/markerbeforeconfig proven by
+boundary+sixdemo78PASS worker10.74s/reviewer11.73s. Originalfullhook1FAIL and
+resolvedSRCF1 evidence retained; noopenfindings/waivers. Rootfreshcanonical
+rehydration/Core0, ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2. Normal material
+retry only, then actual terminal review/dedicated5actualSHA/clean range.
+No physical/milestone proof or new effect; all14gapowners/Phase5 0/5 retained.

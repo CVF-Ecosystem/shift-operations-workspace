@@ -30,6 +30,11 @@
       "path": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
       "sha256": "d6f5562ab126e98bc1954bb47091f028889fa6f7a80d2c065e904e8a3e832eb7",
       "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
+      "sha256": "e46be4c422895c61ae9b687be38785d1223f3ca2031dda0f80c11a0325bca84a",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
     }
   ],
   "representationSurfaces": [
@@ -2261,6 +2266,38 @@
           "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
         }
       ]
+    },
+    {
+      "bindingId": "P5A2_DEMO_BUNDLE_IDENTITY",
+      "ownerPath": "fixtures/p5a2_source_demo_v1.json",
+      "consumers": [
+        {
+          "consumerPath": "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json",
+          "strategy": "JSON_REFERENCE",
+          "jsonPointer": "/"
+        },
+        {
+          "consumerPath": "apps/workspace-api/src/workspace_api/demo/bundle.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_DEMO_BUNDLE_SHA256"
+        }
+      ]
+    },
+    {
+      "bindingId": "P5A2_DEMO_AUTHORITY_IDENTITY",
+      "ownerPath": "fixtures/p5a2_source_demo_authority_v1.json",
+      "consumers": [
+        {
+          "consumerPath": "apps/workspace-api/src/workspace_api/demo/authority_v1.json",
+          "strategy": "JSON_REFERENCE",
+          "jsonPointer": "/"
+        },
+        {
+          "consumerPath": "apps/workspace-api/src/workspace_api/demo/coverage.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_DEMO_AUTHORITY_SHA256"
+        }
+      ]
     }
   ],
   "emitterAdapter": {
@@ -2282,7 +2319,12 @@
     "apps/workspace-web/src/tests/proactiveSourceApi.test.ts",
     "apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx",
     "apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx",
-    "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx"
+    "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx",
+    "tests/unit/test_p5a2_demo_bundle.py",
+    "tests/unit/test_p5a2_demo_coverage.py",
+    "tests/unit/test_p5a2_demo_profile.py",
+    "tests/unit/test_p5a2_demo_routes.py",
+    "tests/integration/test_p5a2_demo_source_http.py"
   ],
-  "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim. TypeScript HTTP consumer adds flat family/UTF8 digest and actor/window checks with full84 mutation evidence, then a safe transient UI projection; it does not validate deep native lineage or add operational coverage."
+  "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim. TypeScript HTTP consumer adds flat family/UTF8 digest and actor/window checks with full84 mutation evidence, then a safe transient UI projection; it does not validate deep native lineage or add operational coverage. Isolated development composition admits only the exact frozen synthetic dataset/metadata authority and two fixed contexts; normal coverage None remains. Stage A in-process HTTP evidence is nonphysical; persistent PostgreSQL and OS resource effects require separate Stage B admission."
 }

@@ -2,7 +2,7 @@
 
 ## Start Here
 
-- Current G04/G05 source/coverage: [intake/design](decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md). Design complete; [Stage A SPEC](specs/P5A2_SYNTHETIC_BACKEND_SPEC.md) / [Work Order](work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md) with independently frozen data/authority/complete HTTP expectations. Admission pending; no physical effects.
+- Current G04/G05 source/coverage: [intake/design](decisions/P5A2_SOURCE_COVERAGE_INTAKE_DESIGN_2026-10-26.md). Design complete; [Stage A SPEC](specs/P5A2_SYNTHETIC_BACKEND_SPEC.md) / [Work Order](work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md) with independently frozen data/authority/complete HTTP expectations. Dispatch0e232d0/0654c2e independently clean; Stage A independently source-accepted64focusedPASS, full608 lifecycle corpus and profile build; normal material/continuity pending; no physical effects.
 
 - Active G11 source-inspection UI: [SPEC](specs/P5A2_SOURCE_UI_SPEC.md), [WO](work_orders/P5A2_SOURCE_UI_WORK_ORDER.md), [frozen admission](decisions/P5A2_SOURCE_UI_ADMISSION_2026-10-26.json). Manual UTC query, safe counts/refusals, synthetic label and session/stale privacy; independent source PASS: 145 frontend tests/typecheck/build, full84 flat mutations and session/privacy cases; [source review](decisions/P5A2_SOURCE_UI_REVIEW_2026-10-26.md) and [worker evidence](decisions/P5A2_SOURCE_UI_WORKER_RETURN_2026-10-26.md). Source closure a637e96/674d98e accepted bounded, normal3397PASS148skip and exact33+5clean; operational coverage UNKNOWN.
 

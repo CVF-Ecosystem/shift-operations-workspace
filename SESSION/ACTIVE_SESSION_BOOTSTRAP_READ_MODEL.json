@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_dispatch_continuity",
+  "currentMode": "p5a2_synthetic_backend_material_retry",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
-  "nextAllowedMove": "Independent clean 27+5 split range; then fresh worker BUILD declaration, inert code only, STOP before binding/tests.",
+  "nextAllowedMove": "Normal exact material hook retry; actual independent terminal review; dedicated exact5 materialSHA child and clean range before Stage A closure; Stage B separately admitted.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

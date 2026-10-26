@@ -11,7 +11,7 @@ from workspace_api.application.proactive_source_receipt import (
     READY_FIELDS, REFUSED_FIELDS, emit_source_refused, validate_source_receipt,
 )
 
-P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST = "cb0fb2427848d58aaf44a3c675f3a4d9d4d59cc38214993684eb5cd4dc492243"
+P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST = "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754"
 MAX_RESPONSE_BYTES = 1_048_576
 NO_CACHE = {"Cache-Control": "no-store", "Pragma": "no-cache"}
 

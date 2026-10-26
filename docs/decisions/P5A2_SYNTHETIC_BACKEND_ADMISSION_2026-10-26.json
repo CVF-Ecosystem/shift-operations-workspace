@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-STAGE-A-20261026",
-  "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "status": "SOURCE_REVIEW_PASS_BOUNDED",
   "baselineCommit": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
   "risk": "R2",
   "specPath": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
@@ -269,5 +269,25 @@
     "ADMISSION-F2 exact five-path dispatch-SHA continuity graph"
   ],
   "independentReview": "docs/decisions/P5A2_SYNTHETIC_BACKEND_REVIEW_2026-10-26.md",
-  "independentReviewRawSha256": "1ad8eef62a635bad84f72c302c3ef9cb775ab3f18442d13dac3a3a005431841b"
+  "initialAuthorizationReviewRawSha256": "1ad8eef62a635bad84f72c302c3ef9cb775ab3f18442d13dac3a3a005431841b",
+  "familyMaterializationReview": {
+    "verdict": "FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED",
+    "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_REVIEW_2026-10-26.md",
+    "sha256AtBindingGate": "d61886fdd36abd6750b85920c19c6e1c9513cd2f73c4367605ef72297e24f910"
+  },
+  "sourceReview": {
+    "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_REVIEW_2026-10-26.md",
+    "sha256AtSourceGate": "c4425b725c2dc667c9a8e599e17b92a74be27c3f2a5243e463d4cc985a404a8a",
+    "verdict": "SOURCE_REVIEW_PASS_BOUNDED",
+    "postHookFocused": "78passed"
+  },
+  "workerReturnRawSha256": "fad20938ba127eb40c5af3391549d1ea511fc9f4ba7a7d4fe0d5d666d77ee667",
+  "sourceAccepted": true,
+  "physicalSourceAccepted": false,
+  "openFindings": [],
+  "resolvedFindings": [
+    "DEMO-SRC-F1",
+    "DEMO-HOOK-F1"
+  ],
+  "initialMaterialHookFailure": "1failed3460passed148skipped4warnings197.86s"
 }

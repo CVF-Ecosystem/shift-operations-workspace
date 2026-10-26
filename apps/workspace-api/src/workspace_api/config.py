@@ -1,3 +1,5 @@
+import os
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _MIN_JWT_SECRET_BYTES = 32
@@ -93,6 +95,9 @@ class Settings(BaseSettings):
         the process, which is a strictly larger compromise than a weak
         secret, so this is accepted rather than defended against here.
         """
+        # The isolated demo child must never read the repository/operator dotenv.
+        if os.environ.get("P5A2_SOURCE_DEMO_PROFILE") == "P5A2-SOURCE-DEMO-LOCAL-1":
+            kwargs["_env_file"] = None
         super().__init__(**kwargs)
         value = self.jwt_secret_key
         if not value or not value.strip():

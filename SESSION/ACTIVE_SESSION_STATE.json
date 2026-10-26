@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_synthetic_backend_dispatch_continuity",
+  "mode": "p5a2_synthetic_backend_material_retry",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -19,7 +19,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent clean 27+5 split range; then fresh worker BUILD declaration, inert code only, STOP before binding/tests.",
+  "next_allowed_move": "Normal exact material hook retry; actual independent terminal review; dedicated exact5 materialSHA child and clean range before Stage A closure; Stage B separately admitted.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_synthetic_backend_dispatch_continuity",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Actual dispatch 0e232d0 independently terminal-reviewed; exact27; normal3397passed148skipped4warnings148.08s. Dedicated actual-SHA child before clean split-range gate.",
+    "currentMode": "p5a2_synthetic_backend_material_retry",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "Independent hook-repair SOURCE_REVIEW_PASS_BOUNDED, noopenfindings/waivers; boundary+demo78PASS worker10.74s/reviewer11.73s. Original normal1FAIL retained; retry normal exact material hook only.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +55,9 @@
     "activeHandoffNote": "G04/G05 synthetic development backend Stage A, zero physical effects.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Actual dispatch 0e232d0 independently terminal-reviewed; exact27; normal3397passed148skipped4warnings148.08s. Dedicated actual-SHA child before clean split-range gate.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Independent hook-repair SOURCE_REVIEW_PASS_BOUNDED, noopenfindings/waivers; boundary+demo78PASS worker10.74s/reviewer11.73s. Original normal1FAIL retained; retry normal exact material hook only.",
+    "currentRoleTransition": "COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -694,14 +694,14 @@
     }
   },
   "p5a2_synthetic_backend_20261026": {
-    "status": "AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "status": "SOURCE_ACCEPTED_MATERIAL_RETRY",
     "baseline": "674d98e35f0fbafa868c34d3c3adbdd215ef3aa5",
     "spec": "docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SYNTHETIC_BACKEND_BUILD_WORK_ORDER.md",
     "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_ADMISSION_2026-10-26.json",
-    "runtimeBuildAuthorized": false,
+    "runtimeBuildAuthorized": true,
     "newPhysicalBudgetAdmitted": false,
-    "sourceAccepted": false,
+    "sourceAccepted": true,
     "milestoneComplete": false,
     "providerCalls": 0,
     "dockerInvocations": 0,
@@ -714,6 +714,40 @@
     "dispatchPaths": 27,
     "dispatchFullHook": "3397passed148skipped4warnings148.08s",
     "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
-    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE"
+    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "dispatchContinuityCommit": "0654c2e346579fed2aed4b5aa16647a5f3a438a4",
+    "dispatchContinuityFullHook": "3397passed148skipped4warnings146.85s",
+    "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact27+5",
+    "familyBindingActive": true,
+    "initialStaticObservations": [
+      "B1 strict expiry on protected demo reads",
+      "B2 public native health for readiness",
+      "B3 frozen authority identity on injection",
+      "B4 meaningful composition/isolation negatives",
+      "L1 exact cached Node and necessary dependencies",
+      "L2 child capture, private ACL and secret-free diagnostics",
+      "L3 truthful reverse cleanup prefix",
+      "L4 exact stop/retain verification",
+      "L5 actual lifecycle branch inert evidence"
+    ],
+    "testsAuthorized": true,
+    "familyMaterializationReview": "FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED",
+    "backendFocused": "42passed4.77s",
+    "lifecycleFocused": "18passed1.00s",
+    "independentFocused": "64passed1existingwarning5.54s",
+    "profileBuild": "PASS77modules1.11s exactNode22.14.0 sanitizedenv ignoredoutput",
+    "openSourceFindings": [],
+    "sourceReview": "SOURCE_REVIEW_PASS_BOUNDED",
+    "initialWorkerReturnSha256": "29bff2a63cbbfb01d1d9e27be2d219374a7225ef200ff1dbc484a2dac25402c3",
+    "resolvedSourceFindings": [
+      "DEMO-SRC-F1",
+      "DEMO-HOOK-F1"
+    ],
+    "focused": "64passed1existingwarning6.06s projectvenv",
+    "workerReturnSha256": "fad20938ba127eb40c5af3391549d1ea511fc9f4ba7a7d4fe0d5d666d77ee667",
+    "initialMaterialHookFailure": "1failed3460passed148skipped4warnings197.86s",
+    "initialMaterialHookLog": ".venv/p5a2-demo-material-20261026.log",
+    "postHookRepairFocused": "78passed1existingwarning10.74s",
+    "independentPostHookFocused": "78passed1existingwarning11.73s"
   }
 }

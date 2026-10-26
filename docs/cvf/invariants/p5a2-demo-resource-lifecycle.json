@@ -17,10 +17,10 @@
     }
   ],
   "representationSurfaces": [
-    "STATIC_PYTHON_CONTRACT"
+    "PYTHON_RESOURCE_RECORD"
   ],
   "parityMode": "NOT_APPLICABLE",
-  "parityReason": "Static pre-code family has one declared representation surface; runtime adapter binding and parity await real Stage A files and independent materialization.",
+  "parityReason": "One Python owner-record adapter surface; physical ownership and liveness remain contextual Stage B checks.",
   "closedTopLevelObject": true,
   "outcomes": [
     {
@@ -1062,17 +1062,23 @@
           "consumerPath": "docs/specs/p5a2_demo_lifecycle_invariant_pin.py",
           "strategy": "CANONICAL_DIGEST",
           "digestSymbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
+        },
+        {
+          "consumerPath": "scripts/p5a2_source_demo_common.py",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_DEMO_LIFECYCLE_MATRIX_CANONICAL_DIGEST"
         }
       ]
     }
   ],
   "emitterAdapter": {
-    "identity": "STATIC_CONTRACT_ONLY_P5A2_DEMO_RESOURCE_LIFECYCLE",
-    "kind": "SYNTHETIC_DETERMINISTIC"
+    "identity": "p5a2_source_demo_owner_record",
+    "kind": "REAL_SERVICE_EMITTER"
   },
   "evidenceTestPaths": [
     "tests/unit/test_invariant_family_contract.py",
-    "tests/integration/test_invariant_family_repository_guard.py"
+    "tests/integration/test_invariant_family_repository_guard.py",
+    "tests/unit/test_p5a2_demo_lifecycle.py"
   ],
-  "boundedClaim": "Static pre-code flat shape and fixed counter proof only; fake sample IDs are not OS/container evidence. Runtime liveness, exact ownership, creation/stop transitions, total counts for actual effects, PostgreSQL/JWT/UI behavior and Stage B physical proof remain independently required."
+  "boundedClaim": "Flat resource lifecycle shape, exact counters and contextual ownership refusal adapter with inert unit evidence. Stage A performs no Docker, database, server or physical ownership effects. Actual OS/container identity, liveness, loopback binding and persistent PostgreSQL/JWT/UI proof require separately admitted Stage B execution."
 }
