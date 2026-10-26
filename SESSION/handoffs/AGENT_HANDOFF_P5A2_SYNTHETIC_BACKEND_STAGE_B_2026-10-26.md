@@ -1,8 +1,8 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `37ff857537e5d79dd7e5335ae1994dd2354b2dc5`.
-Dedicated dispatch continuity: this exact5 child records actual SHA after terminal review; normal hook then independent clean17+5 split range required.
+Material commit recorded for this handoff: `d1c3d4eaec6c5b70027346e275587677b9059d07`.
+Dedicated AM1 dispatch continuity: exactfive records current actual AM1 dispatch SHA after terminal review; normal hook then independent clean11+5 and new source admission required.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
@@ -143,3 +143,13 @@ localeffect fits operatorDockerintent. Explicit standalone native recheck0.
 Rootfreshcanonicalrehydration/Core0; WORK_ORDER_AUTHOR to COMMIT_STEWARD.
 NormalAM1redispatch thenactualreview/dedicated5actualSHA/clean/newsourceadmission
 remainbeforealias/freshpreflight. OriginalStart1unspent; no actions yet.
+
+## Actual AM1 dispatch / dedicated continuity
+
+Actuald1c3d4eaec6c5b70027346e275587677b9059d07, exact11; normal3465passed148skipped4warnings185.17s. Independent
+POST_DISPATCH_STAGE_B_AM1_REVIEW_PASS_BOUNDED, nofindings/waivers, frozen
+source/inputs/budget/originalNoEffecthistory verified. Rootfreshcanonical
+rehydration/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2,
+liveYES for AI claims. Exact5 currentAM1SHA child then independentclean11+5/new
+sourceadmission beforealiasorfreshpreflight. OriginalStart1unspent, no actions.
+All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained; no self-referential child SHA.
