@@ -1,8 +1,8 @@
 # P5-A2 G11 source-inspection UI — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `86d4ac461d93c2468530c990ad192e29d63ba91f`.
-Dedicated dispatch continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean19+5 split range are required.
+Material commit recorded for this handoff: `a637e96bf8627ccf4de7384ed0b3c20fb512ae16`.
+Dedicated material continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean33+5 split range are required.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baseline355ff938ce3beb532f32c60b7d9780147ed469bc; R2; live YES for AI claims.
@@ -100,3 +100,13 @@ precommit/material/terminalactualreview/dedicatedactualSHA/clean range remain
 before closure. Full14 milestone remainders/owners/P5-A2/B/C/D and Phase5 0/5
 retained. Product return: operational source/coverage DESIGN, effects separately
 admitted. No provider/credential/Docker/production/browser/release effect.
+
+## Actual material / dedicated continuity
+
+Actuala637e96bf8627ccf4de7384ed0b3c20fb512ae16, exact33; normal3397passed148skipped4warnings153.66s. IndependentPOST_MATERIAL_SOURCE_UI_REVIEW_PASS_BOUNDED verifies
+actual range/pins/catalog/session/native legacy rechecks, findings/waivers NONE.
+Root freshly rehydrates canonical continuity/implementation/index/roadmap and
+verified pinned Core; COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
+claims. THIS exact5 child records sole actualSHA marker; normal hook then clean
+33+5 independent review remain before closure. No self-referential child SHA.
+Full14 milestone gaps/owners and Phase5 0/5 retained. No new effect.

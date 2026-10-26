@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_ui_material_gate",
+  "currentMode": "p5a2_source_ui_material_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
-  "nextAllowedMove": "Normal source UI material commit; independent actual terminal review; dedicated exact-five actual-SHA continuity; clean split range; then operational source/coverage DESIGN with effects separately admitted.",
+  "nextAllowedMove": "Independent clean 33+5 split range; then return directly to operational source/coverage DESIGN; real effects separately admitted.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

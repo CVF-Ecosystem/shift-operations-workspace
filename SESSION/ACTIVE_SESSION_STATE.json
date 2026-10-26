@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_source_ui_material_gate",
+  "mode": "p5a2_source_ui_material_continuity",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -19,7 +19,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Normal source UI material commit; independent actual terminal review; dedicated exact-five actual-SHA continuity; clean split range; then operational source/coverage DESIGN with effects separately admitted.",
+  "next_allowed_move": "Independent clean 33+5 split range; then return directly to operational source/coverage DESIGN; real effects separately admitted.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_source_ui_material_gate",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Independent SOURCE_REVIEW_PASS_BOUNDED: manual UTC/flat84/privacy/session lifecycle accepted, fullfrontend145PASS/typecheck/Vitebuild PASS. Normal Python hook and actual-range closure remain.",
+    "currentMode": "p5a2_source_ui_material_continuity",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Actual material a637e96 independently terminal-reviewed, exact33; normal 3397passed148skipped4warnings153.66s. This exact five-path actual-SHA child precedes independent clean split range.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,9 +55,9 @@
     "activeHandoffNote": "Bounded G11 source-inspection UI, after accepted source API closure.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Independent SOURCE_REVIEW_PASS_BOUNDED: manual UTC/flat84/privacy/session lifecycle accepted, fullfrontend145PASS/typecheck/Vitebuild PASS. Normal Python hook and actual-range closure remain.",
-    "currentRoleTransition": "COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Actual material a637e96 independently terminal-reviewed, exact33; normal 3397passed148skipped4warnings153.66s. This exact five-path actual-SHA child precedes independent clean split range.",
+    "currentRoleTransition": "SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -638,7 +638,7 @@
     "dispatchPaths": 19,
     "dispatchFullHook": "3397passed148skipped4warnings242.00s",
     "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
-    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "continuityStage": "MATERIAL_ACTUAL_SHA_PENDING_CLEAN_RANGE",
     "dispatchContinuityCommit": "74923de2fc0ca0ea603f68a032a8bc6c25367aa9",
     "dispatchContinuityFullHook": "3397passed148skipped4warnings163.84s",
     "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5",
@@ -652,6 +652,10 @@
     "productionBuild": "PASS Vite77modules1.47s exactNode22.14.0",
     "workerReturnSha256": "02fd306a4f4872af53778d44eb5944381c1901f56b8aec2ad98ab9141fd8e951",
     "initialFailures": "4tsc errors repaired; duplicatedVitestconfig startup corrected; focused16PASS1timeout repaired/target3PASS; missingnpm.cmd launcher notexecuted build; final145PASS",
-    "independentSourceReview": "SOURCE_REVIEW_PASS_BOUNDED"
+    "independentSourceReview": "SOURCE_REVIEW_PASS_BOUNDED",
+    "materialCommit": "a637e96bf8627ccf4de7384ed0b3c20fb512ae16",
+    "materialPaths": 33,
+    "materialFullHook": "3397passed148skipped4warnings153.66s",
+    "materialTerminalReview": "POST_MATERIAL_SOURCE_UI_REVIEW_PASS_BOUNDED"
   }
 }
