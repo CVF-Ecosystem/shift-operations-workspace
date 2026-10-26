@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_pg_result_material",
+  "currentMode": "p5a2_scoped_source_pg_closed_bounded",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
-  "nextAllowedMove": "Normal resultmaterial commit; independentterminalactualrange review; dedicated5actualresultSHAcontinuity+canonicalmarker andcleanrange. Then nextboundedP5-A2 G06/G11 application identity/API contract, noautomaticBUILD.",
+  "nextAllowedMove": "AfterTHISnormalchild+independentclean18+5range, boundedINTAKE/SPEC P5-A2 G06/G11 applicationidentity/API contract. No automaticBUILD, rerun orprovidercall.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

@@ -1,8 +1,8 @@
 # P5-A2 scoped source PostgreSQL — active Stage B handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `a5dd2056b331ff152bed644c2d1beffde76987fe`.
-Dedicated joint source MATERIAL / effect DISPATCH continuity: `994c615c8dbc2269961e2224d6cab0bfc8c031d0`; this exact five-path corrective child fixes the stale canonical marker. Derive this child SHA from Git afterward.
+Material commit recorded for this handoff: `cad8ffc1e60a2ee753fb714e4336016e67634834`.
+Dedicated RESULT continuity: THIS exact five-path child records the actual result material SHA; derive this child SHA from Git after its normal hook. Independent clean 18+5 split-range closure is the final gate.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; Root ORCHESTRATOR/SPEC_AUTHOR/WORK_ORDER_AUTHOR, R2/liveYES.
@@ -97,3 +97,7 @@ Correction142f4cc64a468665c76d0a23ba4470895cfe499a normal3332PASS148skip4warning
 ## Independent physical result acceptance / normal result material
 
 PHYSICAL_RESULT_REVIEW_PASS_BOUNDED: exactrawrunner/embeddedobservation/oracles/native500/501/refusals/RR1→1→2/fourwritercases accepted, 38+5pinsmatch, markerSPENT. Exactcontainer981ad65f/namecvf-pg-live-38288aafcde5/volume21747e93independentlyabsent viareadonlyDockerinspect/ps. OnePG16.15target1PASS31.18s, no acquisition/provider/retry. Freshcanonical/status/index/Coreack RootORCHESTRATOR→COMMIT_STEWARD. Resultnormalmaterial/terminalactualreview then dedicated5actualresultSHAchild MUST replace soleGC020marker, thenindependentcleanrange. This accepts fixtureSQLonly, all14remainders/owners/Phase5 0/5retained; nextboundedP5-A2 G06/G11 applicationprincipal/API contract, noautomaticBUILD.
+
+## Actual RESULT material / final dedicated continuity
+
+Actualcad8ffc1e60a2ee753fb714e4336016e67634834 parent142f4cc exact18paths, unmodifiednormalhook3332PASS148skip4warnings226.95s. IndependentPOST_RESULT_MATERIAL_REVIEW_PASS_BOUNDED confirmsclean/exact18/evidencecbbe5b03/immutableattemptb469a42f/38+5pins/no sourcechange/spenteffectinactive. Freshcanonical/status/index/Coreack RootCOMMIT_STEWARD→SESSION_SYNC_STEWARD. THISdedicatedexact5child replacesSOLEGC020markerwithactualRESULTcad8ffc. ConditionalFREEZE/CLOSED_BOUNDED_SYNTHETIC_PHYSICAL_SOURCE becomes effective only after THISnormalhook andindependentclean18+5splitrange. No missingartifact/failingtest/waiver; onephysical1PASS31.18s/PG16.15 andownedcleanupaccepted; no standingDB/provider/retry. AllG01–G14remainders/owners/P5-A2/B/C/D/Phase5 0/5retained. NextboundedINTAKE/SPEC G06/G11 applicationprincipal/API integration; no automaticBUILD.

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_scoped_source_pg_result_material",
+  "mode": "p5a2_scoped_source_pg_closed_bounded",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -20,7 +20,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Normal resultmaterial commit; independentterminalactualrange review; dedicated5actualresultSHAcontinuity+canonicalmarker andcleanrange. Then nextboundedP5-A2 G06/G11 application identity/API contract, noautomaticBUILD.",
+  "next_allowed_move": "AfterTHISnormalchild+independentclean18+5range, boundedINTAKE/SPEC P5-A2 G06/G11 applicationidentity/API contract. No automaticBUILD, rerun orprovidercall.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_scoped_source_pg_result_material",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "IndependentPHYSICAL_RESULT_REVIEW_PASS_BOUNDED: onePG16.15 target1PASS31.18s, allfrozencases andownedcleanup independentlyaccepted. AttemptSPENT/no retry. Resultnormalclosure pending.",
+    "currentMode": "p5a2_scoped_source_pg_closed_bounded",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Resultmaterialcad8ffc independentlyPASS exact18/clean/38+5pins. THISdedicated5actualresultSHA child plusfinalindependentrange gates boundedclosure. SQLfixtureonly, no standingbackend, Phase5 0/5.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Stage B physical PostgreSQL source proof; prior Stage A handoff is settled history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "IndependentPHYSICAL_RESULT_REVIEW_PASS_BOUNDED: onePG16.15 target1PASS31.18s, allfrozencases andownedcleanup independentlyaccepted. AttemptSPENT/no retry. Resultnormalclosure pending.",
-    "currentRoleTransition": "COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Resultmaterialcad8ffc independentlyPASS exact18/clean/38+5pins. THISdedicated5actualresultSHA child plusfinalindependentrange gates boundedclosure. SQLfixtureonly, no standingbackend, Phase5 0/5.",
+    "currentRoleTransition": "SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -471,21 +471,21 @@
     "oracleRawSha256": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
     "workerReturnSha256": "0a15c53b45e2bdceff3e64dacd06f0bcf37e075c71a96af426d9d2eeae7ad60f",
     "physicalPostgresQueryProof": false,
-    "stageB": "HELD",
+    "stageB": "PHYSICAL_SYNTHETIC_ACCEPTED_SEE_p5a2_scoped_source_pg_20261026",
     "providerCalls": 0,
     "continuityCommit": "8dc39e119e4c343a18c2f16375448eebf22467bf",
     "continuityFullHook": "3316passed147skipped4warnings161.61s",
     "committedRange": "EXACT31_PLUS5_CLEAN_VERIFIED"
   },
   "p5a2_scoped_source_pg_20261026": {
-    "status": "PHYSICAL_RESULT_ACCEPTED_PENDING_MATERIAL",
+    "status": "CLOSED_BOUNDED_SYNTHETIC_PHYSICAL_SOURCE",
     "openFindings": [],
     "oracleRawSha256": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f",
     "physicalInvocations": 1,
     "containersCreated": 1,
     "providerCalls": 0,
     "milestoneComplete": false,
-    "repair1Focused": "72passed1skip +19numeric-historypassed; exactgenericpendingindependentreview",
+    "repair1Focused": "72passed1safeSkip+19numeric/history; independentexact107passed3skip18.07s",
     "sourceAccepted": true,
     "resolvedFindings": [
       "PG-PLAN-F1",
@@ -518,7 +518,14 @@
     "cleanupRunnerReported": true,
     "cleanupIndependentlyAccepted": true,
     "resultReview": "PHYSICAL_RESULT_REVIEW_PASS_BOUNDED",
-    "resultMaterialCommit": "PENDING",
-    "productionCoverageAccepted": false
+    "resultMaterialCommit": "cad8ffc1e60a2ee753fb714e4336016e67634834",
+    "productionCoverageAccepted": false,
+    "resultMaterialPaths": 18,
+    "resultFullHook": "3332passed148skipped4warnings226.95s",
+    "resultTerminalReview": "POST_RESULT_MATERIAL_REVIEW_PASS_BOUNDED",
+    "closureCondition": "Effective after THIS dedicated5path child normalhook and independentclean18+5range; actual child SHA derived from Git.",
+    "trancheDisposition": "CLOSED_BOUNDED_SYNTHETIC_PHYSICAL_SOURCE_SUBJECT_TO_FINAL_CHILD_AND_RANGE",
+    "nextProductGap": "P5-A2 G06/G11 application principal/API contract; separate bounded intake/spec, no automatic BUILD",
+    "standingBackend": false
   }
 }

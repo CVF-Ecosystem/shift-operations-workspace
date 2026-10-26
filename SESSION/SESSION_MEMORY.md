@@ -8,8 +8,8 @@ Normalhook intact; legacy docs/decisions returns explicitly use nativecheck_rech
 
 ## Current tranche
 
-p5a2_scoped_source_pg_result_material; REVIEW; COMMIT_STEWARD; R2/live evidence YES for AI claim.
-IndependentPHYSICAL_RESULT_REVIEW_PASS_BOUNDED: onePG16.15 target1PASS31.18s, allfrozencases andownedcleanup independentlyaccepted. AttemptSPENT/no retry. Resultnormalclosure pending.
+p5a2_scoped_source_pg_closed_bounded; FREEZE; SESSION_SYNC_STEWARD; R2/live evidence YES for AI claim.
+Resultmaterialcad8ffc independentlyPASS exact18/clean/38+5pins. THISdedicated5actualresultSHA child plusfinalindependentrange gates boundedclosure. SQLfixtureonly, no standingbackend, Phase5 0/5.
 StageB SPEC/sourceWO/effectWO/admission and Rootpre-harness PGoracle0b69156f.
 Sourceoracle0f/bodyoracle12ad/family9b3/StageAcode/oldDockerhelpers readonly.
 ONE spent newexperiment with cachedPG16imagef461 and psycopg3.3.4, noinstall/
@@ -36,4 +36,4 @@ Provider/key/model/CSV held,401spent; no operationalaccuracy/retention/AIclaim.
 
 ## Next allowed move
 
-Normal resultmaterial commit; independentterminalactualrange review; dedicated5actualresultSHAcontinuity+canonicalmarker andcleanrange. Then nextboundedP5-A2 G06/G11 application identity/API contract, noautomaticBUILD.
+AfterTHISnormalchild+independentclean18+5range, boundedINTAKE/SPEC P5-A2 G06/G11 applicationidentity/API contract. No automaticBUILD, rerun orprovidercall.
