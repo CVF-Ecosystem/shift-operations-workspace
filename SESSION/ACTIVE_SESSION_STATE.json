@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_synthetic_backend_stage_b_failed_result_review",
+  "mode": "p5a2_synthetic_backend_stage_b_failed_result_closed",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
   "last_updated": "2026-10-27",
   "required_reads": [
@@ -18,7 +18,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent failure/owned-residue review, sanitized result return and normal evidence material/continuity; then distinct bounded source/recovery decision preserving volume, no reset/delete.",
+  "next_allowed_move": "After independent clean 15+5 result range: one consolidated INTAKE/DESIGN/SPEC/WORK_ORDER for standalone source repair and retained-volume recovery. Preserve volume/nonce/credentials, inspect schema/data before any seed, no migration rerun or physical retry under spent Stage B WO. Acceptance: SQL counts, real JWT/API two frozen receipts and matching UI; P5-A2 remains OPEN.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -37,9 +37,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_synthetic_backend_stage_b_failed_result_review",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "ONE start failed START_FAILED; accepted cleanup removed ownedcontainer, retained labeledvolume only. StartbudgetSPENT, no API/web/smoke/UI. Standalone seed import fails operations_ledger because launcher PYTHONPATH only API while pytest supplies monorepo roots. No retry/recovery under current WO.",
+    "currentMode": "p5a2_synthetic_backend_stage_b_failed_result_closed",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Failure evidence only; Stage B physical acceptance FAILED, budget SPENT. Independent terminal review authorizes actual-SHA continuity; final clean split range remains.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -54,9 +54,9 @@
     "activeHandoffNote": "Stage B persistent synthetic local backend admission/execution; source Stage A settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Independent RESULT_REVIEW_PASS_FAILURE_RECORDED; normal result material hook, then terminal review and actual-SHA continuity. No source/effect retry.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD_TO_COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Dedicated actual-SHA result continuity after independent terminal pass; no source/runtime effect.",
+    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-27"
   },
@@ -883,6 +883,12 @@
     "independentResultReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
     "resultReviewFindings": [],
     "resultReviewWaivers": [],
-    "resultMaterialDisposition": "NORMAL_MATERIAL_GATE_PENDING"
+    "resultMaterialDisposition": "COMMITTED_FAILED_RESULT_PHYSICAL_ACCEPTANCE_NOT_MET",
+    "resultMaterialCommit": "555119eb9344624ae52a36609f84591dfb928db2",
+    "resultMaterialPaths": 15,
+    "resultMaterialFullHook": "3465passed148skipped4warnings157.37s",
+    "terminalResultReview": "TERMINAL_REVIEW_PASS_BOUNDED",
+    "resultEvidenceClosure": "Dedicated exact5 child plus independent clean15+5 required; backend remains FAILED/OPEN, no current retry authority.",
+    "consolidatedRecoveryDecision": "Standalone child import roots; preserve existing volume/nonce/credentials; read-only schema/data inventory before permitted seed. No automatic migrations; new reviewed source/effect contract required."
   }
 }

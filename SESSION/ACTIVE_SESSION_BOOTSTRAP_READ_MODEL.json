@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_stage_b_failed_result_review",
+  "currentMode": "p5a2_synthetic_backend_stage_b_failed_result_closed",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Independent failure/owned-residue review, sanitized result return and normal evidence material/continuity; then distinct bounded source/recovery decision preserving volume, no reset/delete.",
+  "nextAllowedMove": "After independent clean 15+5 result range: one consolidated INTAKE/DESIGN/SPEC/WORK_ORDER for standalone source repair and retained-volume recovery. Preserve volume/nonce/credentials, inspect schema/data before any seed, no migration rerun or physical retry under spent Stage B WO. Acceptance: SQL counts, real JWT/API two frozen receipts and matching UI; P5-A2 remains OPEN.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

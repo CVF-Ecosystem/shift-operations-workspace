@@ -1,8 +1,8 @@
 # P5-A2 synthetic backend Stage B — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `d1c3d4eaec6c5b70027346e275587677b9059d07`.
-Dedicated AM1 dispatch continuity: exactfive records current actual AM1 dispatch SHA after terminal review; normal hook then independent clean11+5 and new source admission required.
+Material commit recorded for this handoff: `555119eb9344624ae52a36609f84591dfb928db2`.
+Dedicated failed-result continuity records this actual material SHA after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 Date2026-10-26; baselinea77b12062fd530cf99056ea5f11b552a321747e8; WORK_ORDER/R2.
@@ -218,3 +218,21 @@ SESSION_SYNC_STEWARD to COMMIT_STEWARD REVIEW/R2/liveYES for AI claims.
 Normal material hook then independent terminal review, dedicated actual-SHA
 continuity and clean split range remain. Failed backend not accepted; all14
 remainders/owners/P5-A2/B/C/D retained, Phase5 0/5; no source/effect retry.
+
+
+## Actual failed-result material / dedicated continuity 2026-10-27
+
+Material555119eb9344624ae52a36609f84591dfb928db2 exact15; normal3465PASS148skip
+4warnings157.37s. Independent TERMINAL_REVIEW_PASS_BOUNDED, findings/waiversNONE,
+exact15 manifest/no source delta/clean parent5607ee7; standalone native return
+and completion rechecks applicable0, no automatic legacy decisions scan.
+Fresh canonical/Core acknowledgment; COMMIT_STEWARD to SESSION_SYNC_STEWARD,
+FREEZE/R2/liveYES for AI claims, failure-evidence record only. Exact5 dedicated
+child then independent clean15+5 discharges evidence closure. Stage B physical
+acceptance remains FAILED/budgetSPENT; no API/web/smoke/UI result, volume1 kept.
+All14gapowners/P5-A2/B/C/D and Phase5 0/5 retained. This child authorizes no
+source repair or runtime retry. Next is ONE consolidated source/recovery
+contract: standalone child roots, same volume/nonce/credentials, read-only
+schema/data inventory before gated seed, no automatic migration rerun. Stop
+on ambiguity. Concrete acceptance is SQL counts, JWT/API both frozen receipts
+and matching synthetic UI, then return to integrated product gaps.
