@@ -24,11 +24,16 @@ def _sha(value: object) -> str:
 
 
 def _strip_p5a_export_delta(doc: dict) -> None:
-    """Verify and remove only the exact P5-A GET export operation.
+    """Verify and remove the exact P5-A2 source and P5-A export deltas.
 
-    Missing or altered coverage fails before deletion. All other OpenAPI
-    paths and schemas remain for the pre-P5A golden comparison.
+    The source leaf is removed first so the historical export leaf sees its
+    unchanged pre-source document. Missing or altered coverage fails before
+    deletion; all unrelated paths and schemas remain for golden comparison.
     """
+    from test_p5a2_source_openapi_contract import _strip_p5a_source_delta
+
+    _strip_p5a_source_delta(doc)
+
     paths = doc["paths"]
     assert _EXPORT_PATH in paths, "P5-A export path missing"
     operations = paths[_EXPORT_PATH]
@@ -92,6 +97,17 @@ def test_unrelated_path_cannot_hide_behind_p5a_delta():
     reduced = json.loads(json.dumps(app.openapi()))
     reduced["paths"]["/undisclosed-p5a-probe"] = {"get": {"responses": {"200": {}}}}
     _strip_p5a_export_delta(reduced)
+    assert _sha(reduced) != GOLDEN_OPENAPI_SHA
+
+
+def test_unrelated_schema_cannot_hide_behind_p5a_delta():
+    from test_c3b2_mutation_openapi_contract import GOLDEN_OPENAPI_SHA
+    from workspace_api.main import app
+
+    reduced = json.loads(json.dumps(app.openapi()))
+    reduced["components"]["schemas"]["UnrelatedProbe"] = {"type": "object"}
+    _strip_p5a_export_delta(reduced)
+    assert reduced["components"]["schemas"]["UnrelatedProbe"] == {"type": "object"}
     assert _sha(reduced) != GOLDEN_OPENAPI_SHA
 
 

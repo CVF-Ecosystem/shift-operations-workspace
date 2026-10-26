@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_source_api_build_dispatch_continuity",
+  "mode": "p5a2_source_api_build_am1_material_gate",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -20,7 +20,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Complete THISnormalcontinuitychild and independentclean19+5range; thenfreshRootBUILDack/worker14paths GO, STOPbeforetests for independentfamilymaterialization.",
+  "next_allowed_move": "Normal material commit, independent terminal actual review, dedicated actual-SHA five-path continuity and clean split range; continue directly to G11 UI SPEC/WO.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_source_api_build_dispatch_continuity",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Actualdispatch846acf0 independentlyPASS exact19/clean, fullhook3332P148S. THISdedicated5actualSHAchild+cleanrange gates firstworker code.",
+    "currentMode": "p5a2_source_api_build_am1_material_gate",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "Independent AM1 repair review PASS: source code unchanged, 218 PASS/2 existing physical skips; original full-hook15 failures retained. Normal material hook and actual-range closure pending.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Active bounded source API implementation; previous identity planning is closed history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Actualdispatch846acf0 independentlyPASS exact19/clean, fullhook3332P148S. THISdedicated5actualSHAchild+cleanrange gates firstworker code.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Independent AM1 repair review PASS: source code unchanged, 218 PASS/2 existing physical skips; original full-hook15 failures retained. Normal material hook and actual-range closure pending.",
+    "currentRoleTransition": "COMMIT_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -563,7 +563,7 @@
     "finalReview": "FINAL_CLEAN_API_PLANNING_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_source_api_build_20261026": {
-    "status": "DISPATCH_CONTINUITY_PENDING",
+    "status": "SOURCE_REVIEW_PASS_BOUNDED",
     "spec": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md",
     "admission": "docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json",
@@ -571,10 +571,10 @@
     "oracle": "tests/fixtures/p5a2_source_api_oracle.json",
     "oracleRawSha256": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
     "plannedFinalMatrixCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
-    "familyBindingActive": false,
-    "apiImplemented": false,
-    "sourceAccepted": false,
-    "runtimeBuildReleased": false,
+    "familyBindingActive": true,
+    "apiImplemented": true,
+    "sourceAccepted": true,
+    "runtimeBuildReleased": true,
     "operationalCoverageAccepted": false,
     "providerCalls": 0,
     "dockerInvocations": 0,
@@ -584,6 +584,24 @@
     "dispatchCommit": "846acf0e695372d6d3596eda4a7fbdf9fbf61b38",
     "dispatchPaths": 19,
     "dispatchFullHook": "3332passed148skipped4warnings222.70s",
-    "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED"
+    "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
+    "dispatchContinuityCommit": "7f3c63ddedf700f09fe57a6feb5f51b994b6ed5c",
+    "dispatchContinuityHook": "3332passed148skipped4warnings218.08s",
+    "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5",
+    "buildStage": "NORMAL_MATERIAL_GATE",
+    "familyMaterializationReview": "FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED",
+    "focusedCombined": "144passed2skipped10.23s",
+    "initialFocused": "142passed2skipped12.03s",
+    "targetedFixes": "53passed",
+    "workerReturnSha256": "e1cb1c80d05c8d9483959a34ace9ec82d73e58107d0e59392bf0da60e606713c",
+    "independentSourceReview": "AM1_REPAIR_REVIEW_PASS_BOUNDED",
+    "materialHookFailure": "15failed3370passed148skipped4warnings437.50s",
+    "materialHookFailureLog": ".venv/p5a2-api-source-material-20261026.log",
+    "am1Authorization": "AM1_AUTHORIZATION_PASS_BOUNDED",
+    "resolvedFindings": [
+      "API-OPENAPI-F1"
+    ],
+    "am1Focused": "218passed2skipped",
+    "am1Openapi": "74passed"
   }
 }

@@ -768,7 +768,7 @@
     "finalReview": "FINAL_CLEAN_API_PLANNING_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_source_api_build_20261026": {
-    "status": "DISPATCH_READY",
+    "status": "SOURCE_REVIEW_PASS_BOUNDED",
     "spec": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md",
     "admission": "docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json",
@@ -776,16 +776,37 @@
     "oracle": "tests/fixtures/p5a2_source_api_oracle.json",
     "oracleRawSha256": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
     "plannedFinalMatrixCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
-    "familyBindingActive": false,
-    "apiImplemented": false,
-    "sourceAccepted": false,
-    "runtimeBuildReleased": false,
+    "familyBindingActive": true,
+    "apiImplemented": true,
+    "sourceAccepted": true,
+    "runtimeBuildReleased": true,
     "operationalCoverageAccepted": false,
     "providerCalls": 0,
     "dockerInvocations": 0,
     "milestoneComplete": false,
     "authorizationAccepted": true,
     "openFindings": [],
-    "dispatchCommit": "PENDING"
+    "dispatchCommit": "846acf0e695372d6d3596eda4a7fbdf9fbf61b38",
+    "dispatchPaths": 19,
+    "dispatchFullHook": "3332passed148skipped4warnings222.70s",
+    "dispatchTerminalReview": "POST_DISPATCH_REVIEW_PASS_BOUNDED",
+    "dispatchContinuityCommit": "7f3c63ddedf700f09fe57a6feb5f51b994b6ed5c",
+    "dispatchContinuityHook": "3332passed148skipped4warnings218.08s",
+    "dispatchCommittedRange": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5",
+    "buildStage": "NORMAL_MATERIAL_GATE",
+    "familyMaterializationReview": "FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED",
+    "focusedCombined": "144passed2skipped10.23s",
+    "initialFocused": "142passed2skipped12.03s",
+    "targetedFixes": "53passed",
+    "workerReturnSha256": "e1cb1c80d05c8d9483959a34ace9ec82d73e58107d0e59392bf0da60e606713c",
+    "independentSourceReview": "AM1_REPAIR_REVIEW_PASS_BOUNDED",
+    "materialHookFailure": "15failed3370passed148skipped4warnings437.50s",
+    "materialHookFailureLog": ".venv/p5a2-api-source-material-20261026.log",
+    "am1Authorization": "AM1_AUTHORIZATION_PASS_BOUNDED",
+    "resolvedFindings": [
+      "API-OPENAPI-F1"
+    ],
+    "am1Focused": "218passed2skipped",
+    "am1Openapi": "74passed"
   }
 }

@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SOURCE-API-BUILD-20261026",
-  "status": "AUTHORIZATION_REVIEWED_PENDING_DISPATCH",
+  "status": "AM1_REPAIR_REVIEW_PASS_BOUNDED",
   "baselineCommit": "59d63c66ce170ede7259c67a4f770d96e623f921",
   "risk": "R2",
   "providerCalls": 0,
@@ -122,5 +122,21 @@
     "trailingLF": true,
     "canonicalization": "UTF8_UNIVERSAL_NEWLINE via native invariant_family_contract.canonical_digest"
   },
-  "unchangedShapeRuleDigest": "7e22ce5427d60443e294b5b2410a5a57f30d9462a9871ac24bf1e8380648a299"
+  "unchangedShapeRuleDigest": "7e22ce5427d60443e294b5b2410a5a57f30d9462a9871ac24bf1e8380648a299",
+  "amendment1": {
+    "finding": "API-OPENAPI-F1",
+    "rootCause": "Exact historical OpenAPI chain retains the admitted new endpoint and schemas.",
+    "failure": "15failed3370passed148skipped4warnings437.50s",
+    "failureLog": ".venv/p5a2-api-source-material-20261026.log",
+    "additionalWorkerPaths": [
+      "tests/unit/test_report_export_openapi.py",
+      "tests/unit/test_p5a2_source_openapi_contract.py"
+    ],
+    "rootOnlyFixture": "tests/fixtures/p5a2_source_openapi_delta.json",
+    "fixtureRawSha256": "64b5123445e1e9a6f6ac123c809d57414a511412fe0b1ea575c2bf5fecf27dbf",
+    "priorGoldenUnchanged": "a85bd8909ca88aba97d57825f3457ce9e5ef52979234db71b08a5ad05a20d211",
+    "independentAdmission": "AM1_AUTHORIZATION_PASS_BOUNDED",
+    "effects": "NONE; tests only; no runtime or matrix rule changes",
+    "repairReview": "AM1_REPAIR_REVIEW_PASS_BOUNDED"
+  }
 }

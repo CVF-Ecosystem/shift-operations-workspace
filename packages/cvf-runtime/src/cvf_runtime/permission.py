@@ -97,6 +97,7 @@ _ACTION_MIN_ROLE: dict[str, str] = {
     # implicit consequence of assignment alone - same bar as viewer's
     # existing read authority, no new capability is granted.
     "retrieval.query": "viewer",
+    "proactive.source.read": "viewer",
     # P4-E identity mapping and conversation routing (SPEC R7 exact table).
     # These are the sole authority for their actions; no endpoint-local
     # role comparison may restate this ordering (SPEC R7's explicit ban).

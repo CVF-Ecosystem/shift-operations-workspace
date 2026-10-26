@@ -61,3 +61,39 @@ AUTHORIZATION_REVIEW_PASS_BOUNDED/no findings/waivers: full recoverablepatch, na
 ## Actual dispatch / dedicated continuity
 
 846acf0e695372d6d3596eda4a7fbdf9fbf61b38 parent59d63c6 exact19paths; normal3332PASS148skip4warnings222.70s. IndependentPOST_DISPATCH_REVIEW_PASS_BOUNDED verifiesclean/oracle5cc/sourcepins/matrix9b3/fullpatch3c565/no workerwrites. Rootfreshcanonical/status/index/Coreack COMMIT_STEWARD→SESSION_SYNC_STEWARD. THISexact5child addssoleGC020actual846marker; normalhook+independentclean19+5range beforefreshBUILDdeclaration/workerGO. Stagedfamilygate stillrequired beforefocusedtests; noSourceAPIcode/effectyet, all14remainders/owners/Phase5 0/5retained.
+
+## Fresh BUILD acknowledgment / exact worker GO
+
+Dedicated7f3c63ddedf700f09fe57a6feb5f51b994b6ed5c normal3332PASS148skip4warnings218.08s; independentCLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5clean dischargesdispatchgate. Rootfreshcanonical/status/index/Core/nativelegacyread→ORCHESTRATOR; assignedIMPLEMENTATION_WORKER entersBUILD afteritsfreshrehydration. Exactly14workercode/testpaths+ownreturn GO, noextra split, sourceoracles/familyRootonly. STOPbeforefocusedtests atactualFILES_READY_FOR_BINDING; Rootapprovedexactpatch/twopins/catalogandindependentreviewbeforetests. No provider/Docker/effect, APIacceptancestillfalse/all14remainders/owners/Phase5 0/5.
+
+## Stage1 files / preapproved family materialization
+
+WorkerFILES_READY_FOR_BINDING: exactly14realcode/testfiles, AST14PASS/diffPASS, <=155lines; nofocusedtest/effect yet. Rootfreshcanonical/status/index/Coreack appliesONLYcommittedmetadata patch and two existingdigestliterals; actualnativeLF3c565 matchespre-BUILDexpected, outcomes/shapes/domains/relations/mutationsunchanged, 11sourcepins/oracle5ccmatch. Rootrecordsactualworkerhashsnapshot andrefreshescatalog. IndependentREVIEWER gatechecksactualpaths/consumer/evidence/guard beforetestsGO; SOURCEACCEPTANCEfalse/TESTSHELD. Same14paths/R2/noeffects/all14remainders/Phase5 0/5.
+
+## Actual family gate acceptance / focused tests GO
+
+IndependentFAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED verifiesactual3c565 exactpatch,3consumerpins,10realevidencepaths/native+HTTPmutationbinding,11sourcepins/oracle5cc, old2digestliteralonlydiff, Core/invariant/sessionPASS/nativelegacy[]. Rootfreshcanonical/status/index/Coreack→ORCHESTRATOR releasesworkerfocusedtests/same14pathrepairs. Source/HTTPacceptancepending. Rootsourceobservationsforworkerinitialtests: UTF8server-scopecanonicalization forUnicodeactor andOpenAPIthreequeryparameters needcoverage; nooutsideauthoritychange. Preserveallfailures; all14remainders/owners/Phase5 0/5.
+
+## Stable source candidate / independent source REVIEW
+
+Worker14files+return796894e0 stable, <=155executablelines, initial142PASS2skip/fix-targeted53PASS/final144PASS2existingphysicalskip10.23s. FullrawHTTPpositives58234/59509bytes matchnewfrozenoracle; native+HTTP54READY/30REFUSEDmutations rejected; UTF8scope/OpenAPIquery/actual1MiB edge included. Noeffects/failures/selfapproval/commit. Rootcapturesactual14sha, refreshescatalogcurrentfacts andtransitionsORCHESTRATOR→independentREVIEWER. APIcodepresent, sourceacceptancepending; all14remainders/owners/Phase5 0/5, continueG11UIafterboundedAPIclosure.
+
+## Source acceptance / normal material gate
+
+Root reread canonical bootstrap, memory, state, this handoff, implementation truth, index and roadmap; installed Core preflight COMPLIANT. Fresh role ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2/live YES for AI claims. Independent SOURCE_REVIEW_PASS_BOUNDED confirms all 14 worker hashes, full frozen HTTP receipts, 144 PASS/2 existing physical skips, 84 native/HTTP mutations, and explicit applicable native legacy return/review rechecks with zero violations. Findings and waivers NONE. Source accepted only within fixture/read-only HTTP scope; no operational coverage or whole milestone claim. Full G01-G14 remainder and owners in BUILD SPEC remain. Normal material/terminal actual review/dedicated actual-SHA continuity/clean range still required, then return directly to G11 UI SPEC/WO. No new external effect or push.
+
+## Consolidated AM1 / historical OpenAPI chain
+
+Normal material hook refused: 15 historical OpenAPI assertions, 3370 PASS, 148 existing skips, 4 warnings437.50s; no material commit. Independent reviewer confirms single API-OPENAPI-F1 root cause: new source endpoint/two schemas remain in old exact-delta chain. Root fresh rehydration/Core acknowledgment, COMMIT_STEWARD to WORK_ORDER_AUTHOR, WORK_ORDER/R2. Consolidated amendment authorizes only two additional test paths and Root frozen source OpenAPI leaf 64b5123445e1e9a6f6ac123c809d57414a511412fe0b1ea575c2bf5fecf27dbf. Complete leaf independently removes back to unchanged historical golden a85bd890; no runtime/oldgolden/family change. Independent amendment admission before repair; all 14 milestone remainders/owners retained, then normal closure and G11 UI return.
+
+## AM1 admitted / fresh repair BUILD acknowledgment
+
+Independent AM1_AUTHORIZATION_PASS_BOUNDED confirms full frozen exact leaf and original historical SHA, bounded paths/gate graph/no runtime change. Root freshly rehydrates current canonical continuity/implementation/index/roadmap, Core COMPLIANT, WORK_ORDER_AUTHOR to ORCHESTRATOR. REPAIR_WORKER may enter BUILD after its own declaration: only two named test files and existing return. Preserve original15fail/3370PASS log; no other mutation/effect/commit. All14 milestone remainders/owners and G11 product return unchanged.
+
+## AM1 stable return / independent REVIEW
+
+Root fresh current bootstrap/memory/state/handoff/implementation/index/roadmap acknowledgment and Core preflight PASS; ORCHESTRATOR to independent REVIEWER, REVIEW/R2. Luna repair worker stable two tests/returne1cb1c80; standalone11/OpenAPI74/combined218 PASS2existingphysicalskip9.35s. All14 original sourcepins unchanged; Root fixture64b512 unchanged. Original full-hook failure retained; independent acceptance pending, no selfapproval/commit/effect. Full14gapowners/Phase5 0/5 and G11 product return retained.
+
+## AM1 repair accepted / fresh normal material gate
+
+Independent AM1_REPAIR_REVIEW_PASS_BOUNDED verifies exact two test paths/Root frozen OpenAPI leaf, unchanged 14 runtime/test source hashes and historical goldens, 218 PASS/2 existing physical skips plus standalone11/OpenAPI74 PASS. Original full-hook15failure log retained; API-OPENAPI-F1 resolved, no open finding/waiver. Root fresh canonical/implementation/index/roadmap/Core acknowledgment, ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2/live YES for AI claims. Normal full hook remains mandatory; no closure before actual material/terminal review/dedicatedactualSHA/cleanrange. All14 milestone remainders/owners remain; direct G11 UI return after source closure, no new effects.

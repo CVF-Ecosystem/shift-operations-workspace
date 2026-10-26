@@ -126,6 +126,53 @@ the actual material SHA in the sole GC020 handoff marker; never a planned hash.
 
 ## Invariant-Family Proof
 
+## Amendment 1 — exact OpenAPI regression-chain integration
+
+The first normal material hook refused the commit: 15 historical OpenAPI
+assertions failed, 3370 passed, 148 existing skips, 4 warnings in437.50s.
+Retain `.venv/p5a2-api-source-material-20261026.log`; HEAD remains7f3c63d.
+The new endpoint and two structural schemas must be verified and removed before
+the historical exact-delta chain. No historical golden SHA may be refreshed.
+This is one consolidated same-outcome/R2/no-effect repair, not new product scope.
+The Product Milestone Binding above and frozen BUILD SPEC's full G01–G14 table
+apply: only G06/G11/HTTP G13 source acceptance; all remainders/owners unchanged,
+Phase5 0/5. Finite stop: green unchanged normal hook, normal source closure,
+then directly G11 UI under its own contract.
+
+Additional exact REPAIR_WORKER paths:
+- tests/unit/test_report_export_openapi.py — call the verified newer source
+  delta helper before its existing export-only verification/removal.
+- tests/unit/test_p5a2_source_openapi_contract.py — real exact source path/two
+  schema checks, structural assertions and closed negative regression corpus.
+- Existing worker-return path above — append Amendment1 evidence, original
+  failure and role continuity; preserve historical evidence and recheck.
+
+Root alone freezes tests/fixtures/p5a2_source_openapi_delta.json from the reviewed
+structural contract before repair code, records its hash/full content admission
+and independently proves removal returns exactly to the prior OpenAPI golden.
+Reviewer must inspect the complete fixture and independent structural facts;
+a digest alone is insufficient. No old golden, application code, source oracle,
+family semantics or private/control path changes. Helpers may not delete broad
+prefixes, prune arbitrary unused schemas, swallow mismatches or hide unrelated
+paths/old operation changes. Missing/changed source operation, security, query,
+response, each schema and extra method must refuse before any deletion. Unknown
+schema/path and changed old operations remain for the historical hash to reject.
+Avoid circular test imports; all executable files remain <=300 lines.
+
+WORK_ORDER_AUTHOR first records this consolidated amendment and proposed frozen
+delta in admission; independent reviewer authorization and native return-time
+recheck must pass before REPAIR_WORKER mutation. The existing focused test gate
+now additionally runs all ten historical OpenAPI modules plus the new module,
+then the unchanged normal full precommit. Root owns staging/commit. No new
+dispatch effect or standalone support tranche is opened; existing committed
+dispatch remains authority for this dependent repair after amendment admission.
+The pre_commit and focused_checker_tests rows below include the two exact
+additional test paths; pre_commit also names the Root fixture. The existing
+worker_return_fast row continues to bind the return artifact. Repair owner,
+phase and commit owner remain as declared.
+
+## Invariant-Family Proof (continued)
+
 Follow docs/cvf/INVARIANT_FAMILY_STANDARD.md and registered
 P5A2-SCOPED-SOURCE-OUTCOMES. Admission contains the recoverable pre-BUILD exact
 extension and final pin; no second matrix authority. HTTP bare receipt uses
@@ -150,11 +197,12 @@ foreseeableFileSplitDisposition: NOT_REQUIRED_UNDER_SIZE_BUDGET
 | dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md material-SHA marker | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
 | pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md;docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
 | family_materialization | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/cvf/invariants/p5a2-scoped-source-outcomes.json;docs/specs/p5a2_scoped_source_invariant_pin.py;apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | pre_implementation_autorun |
-| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/application/proactive_source_access.py;apps/workspace-api/src/workspace_api/application/proactive_source_preview.py;apps/workspace-api/src/workspace_api/api/proactive/router.py;apps/workspace-api/src/workspace_api/api/proactive/response.py;tests/integration/test_p5a2_source_api_identity.py;tests/integration/test_p5a2_source_api_receipts.py;tests/integration/test_p5a2_source_api_release.py;tests/unit/test_p5a2_source_api_transport.py | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun,family_materialization |
+| am1_authorization | IMPLEMENTATION | work-order-author | IMPLEMENTATION | docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md;docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json;tests/fixtures/p5a2_source_openapi_delta.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | family_materialization |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/application/proactive_source_access.py;apps/workspace-api/src/workspace_api/application/proactive_source_preview.py;apps/workspace-api/src/workspace_api/api/proactive/router.py;apps/workspace-api/src/workspace_api/api/proactive/response.py;tests/integration/test_p5a2_source_api_identity.py;tests/integration/test_p5a2_source_api_receipts.py;tests/integration/test_p5a2_source_api_release.py;tests/unit/test_p5a2_source_api_transport.py;tests/unit/test_report_export_openapi.py;tests/unit/test_p5a2_source_openapi_contract.py | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun,family_materialization,am1_authorization |
 | adif_integrity | WORKER_RETURN | implementation-worker | IMPLEMENTATION | docs/decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
 | worker_return_fast | WORKER_RETURN | implementation-worker | WORKER_RETURN | docs/decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests,adif_integrity |
 | reviewer_fast | REVIEW | reviewer | REVIEW | docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
-| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | apps/workspace-api/src/workspace_api/application/proactive_source_access.py;apps/workspace-api/src/workspace_api/application/proactive_source_preview.py;apps/workspace-api/src/workspace_api/api/proactive/__init__.py;apps/workspace-api/src/workspace_api/api/proactive/router.py;apps/workspace-api/src/workspace_api/api/proactive/response.py;apps/workspace-api/src/workspace_api/main.py;apps/workspace-api/src/workspace_api/config.py;apps/workspace-api/src/workspace_api/dependencies.py;packages/cvf-runtime/src/cvf_runtime/permission.py;tests/unit/p5a2_source_api_helpers.py;tests/integration/test_p5a2_source_api_identity.py;tests/integration/test_p5a2_source_api_receipts.py;tests/integration/test_p5a2_source_api_release.py;tests/unit/test_p5a2_source_api_transport.py;docs/decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md;docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md;docs/cvf/invariants/p5a2-scoped-source-outcomes.json;docs/specs/p5a2_scoped_source_invariant_pin.py;apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;IMPLEMENTATION_STATUS.json;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md;docs/implementation/EXECUTION_ROADMAP.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | apps/workspace-api/src/workspace_api/application/proactive_source_access.py;apps/workspace-api/src/workspace_api/application/proactive_source_preview.py;apps/workspace-api/src/workspace_api/api/proactive/__init__.py;apps/workspace-api/src/workspace_api/api/proactive/router.py;apps/workspace-api/src/workspace_api/api/proactive/response.py;apps/workspace-api/src/workspace_api/main.py;apps/workspace-api/src/workspace_api/config.py;apps/workspace-api/src/workspace_api/dependencies.py;packages/cvf-runtime/src/cvf_runtime/permission.py;tests/unit/p5a2_source_api_helpers.py;tests/integration/test_p5a2_source_api_identity.py;tests/integration/test_p5a2_source_api_receipts.py;tests/integration/test_p5a2_source_api_release.py;tests/unit/test_p5a2_source_api_transport.py;docs/decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md;docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md;docs/cvf/invariants/p5a2-scoped-source-outcomes.json;docs/specs/p5a2_scoped_source_invariant_pin.py;apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;IMPLEMENTATION_STATUS.json;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md;docs/implementation/EXECUTION_ROADMAP.md;tests/unit/test_report_export_openapi.py;tests/unit/test_p5a2_source_openapi_contract.py;tests/fixtures/p5a2_source_openapi_delta.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | reviewer_fast |
 | terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
 | continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
 | committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md;docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |

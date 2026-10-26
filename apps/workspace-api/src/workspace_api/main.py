@@ -16,6 +16,7 @@ from workspace_api.api.staffing.router import router as staffing_router
 from workspace_api.api.external_identities.router import router as external_identities_router
 from workspace_api.api.conversation_routes.router import router as conversation_routes_router
 from workspace_api.external_ingress.router import router as external_ingress_router
+from workspace_api.api.proactive.router import router as proactive_router
 from workspace_api.config import settings
 from workspace_api.middleware.request_id import RequestIdMiddleware
 
@@ -43,6 +44,7 @@ app.include_router(staffing_router)
 app.include_router(external_identities_router)
 app.include_router(conversation_routes_router)
 app.include_router(external_ingress_router)
+app.include_router(proactive_router)
 
 
 def _compose_external_ingress_service():

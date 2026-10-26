@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_api_build_dispatch_continuity",
+  "currentMode": "p5a2_source_api_build_am1_material_gate",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md",
-  "nextAllowedMove": "Complete THISnormalcontinuitychild and independentclean19+5range; thenfreshRootBUILDack/worker14paths GO, STOPbeforetests for independentfamilymaterialization.",
+  "nextAllowedMove": "Normal material commit, independent terminal actual review, dedicated actual-SHA five-path continuity and clean split range; continue directly to G11 UI SPEC/WO.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

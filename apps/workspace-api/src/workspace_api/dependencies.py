@@ -1,6 +1,6 @@
 """Request-scoped dependencies, including the CVF identity boundary."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import lru_cache
 
 from fastapi import Depends, HTTPException
@@ -102,3 +102,23 @@ def get_principal_with_expiry(
         return decode_access_token_with_expiry(credentials.credentials)
     except TokenError as exc:
         raise HTTPException(status_code=401, detail=f"Invalid token: {exc}") from exc
+
+
+def get_proactive_identity(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> tuple[Principal, datetime]:
+    """Use the strict existing verifier and normalize its public denial."""
+    try:
+        return get_principal_with_expiry(credentials)
+    except HTTPException as exc:
+        raise HTTPException(status_code=401, detail="Authentication required",
+                            headers={"Cache-Control": "no-store", "Pragma": "no-cache"}) from exc
+
+
+def get_proactive_source_coverage():
+    """No operational coverage authority is installed by default."""
+    return None
+
+
+def get_proactive_source_clock():
+    return lambda: datetime.now(timezone.utc)

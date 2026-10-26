@@ -59,6 +59,8 @@ class Settings(BaseSettings):
     # When set, the API uses the durable SqlLedger; otherwise it falls back to
     # the in-memory ledger (tests, offline/degraded mode).
     database_url: str = ""
+    # Explicit single-ledger source identity; blank composition refuses.
+    proactive_source_instance_id: str = ""
     # Comma-separated allowlist used outside development. Empty by default so a
     # non-dev deployment that forgets to set it fails closed (no origins) rather
     # than open.
