@@ -12,21 +12,31 @@ from __future__ import annotations
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, ConfigDict, Field
-
 from cvf_runtime.errors import CvfDenied
 from cvf_runtime.identity import Principal
+from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import Response
+from operations_domain.models import (
+    Report,
+    ReportSection,
+    ReportSourceRef,
+    ReportStatus,
+    ReportType,
+)
 from operations_ledger import Ledger
-
-from operations_domain.models import Report, ReportSection, ReportSourceRef, ReportStatus, ReportType
-from workspace_api.application.report_service import ReportService
+from pydantic import BaseModel, ConfigDict, Field
+from reporting_engine import ExportFailure
 from workspace_api.application.assignment_scope import AssignmentScope, require_active_assignment
+from workspace_api.application.report_export import export_report
+from workspace_api.application.report_service import ReportService
 from workspace_api.dependencies import get_ledger, get_principal
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
 _MAX_HISTORY_ROWS = 100
+_EXPORT_VIEWS = ["shift-summary", "customer-report", "incident-report", "handover-report"]
+_XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+_EXPORT_BINARY_SCHEMA = {"type": "string", "format": "binary"}
 
 
 class ReportCreateInput(BaseModel):
@@ -114,6 +124,59 @@ def get_report(
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Report not found") from exc
     return ReportResponse.from_report(report)
+
+
+@router.get(
+    "/{report_id}/export",
+    response_class=Response,
+    responses={200: {"description": "PDF or XLSX attachment", "content": {
+        "application/pdf": {"schema": _EXPORT_BINARY_SCHEMA},
+        _XLSX_MIME: {"schema": _EXPORT_BINARY_SCHEMA},
+    }}},
+    openapi_extra={"parameters": [
+        {"name": "format", "in": "query", "required": True,
+         "schema": {"type": "string", "enum": ["pdf", "xlsx"]}},
+        {"name": "view", "in": "query", "required": True,
+         "schema": {"type": "string", "enum": _EXPORT_VIEWS}},
+    ]},
+)
+def export_report_file(
+    report_id: str,
+    format: str | None = Query(default=None, include_in_schema=False),
+    view: str | None = Query(default=None, include_in_schema=False),
+    principal: Principal = Depends(get_principal),
+    ledger: Ledger = Depends(get_ledger),
+):
+    try:
+        report = ledger.get_report(UUID(report_id))
+        AssignmentScope(ledger).require_record(report, principal)
+    except (KeyError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail="Report not found") from exc
+    if format not in {"pdf", "xlsx"} or view not in {
+        "shift-summary", "customer-report", "incident-report", "handover-report"
+    }:
+        raise HTTPException(status_code=422, detail={
+            "code": "EXPORT_INVALID_PARAMETER", "message": "Invalid export option",
+        })
+    try:
+        data = export_report(report, view, format)
+    except ExportFailure as exc:
+        status = 503 if exc.code == "EXPORT_BUSY" else 500 if exc.code == "EXPORT_FAILED" else 422
+        raise HTTPException(status_code=status, detail={
+            "code": exc.code, "message": "Report export unavailable",
+        }) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail={
+            "code": "EXPORT_FAILED", "message": "Report export unavailable",
+        }) from exc
+    mime = "application/pdf" if format == "pdf" else (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    filename = f"report-{report.report_id}-v{report.version}-{view}.{format}"
+    return Response(data, media_type=mime, headers={
+        "Content-Disposition": f'attachment; filename="{filename}"',
+        "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff",
+    })
 
 
 @router.get("", response_model=list[ReportResponse])

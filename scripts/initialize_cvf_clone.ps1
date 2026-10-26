@@ -23,47 +23,51 @@ $missing = @($required | Where-Object { -not ($manifest.PSObject.Properties.Name
 if ($missing.Count -gt 0) {
     throw "Manifest is not portable schema v2; missing: $($missing -join ', ')"
 }
+if ([string]$manifest.cvfCoreRepository -ne "https://github.com/Blackbird081/Controlled-Vibe-Framework-CVF.git") {
+    throw "Fresh-clone initializer requires the approved public CVF Core repository"
+}
+if ([string]$manifest.cvfCoreCommit -cnotmatch '^[0-9a-f]{40}$') {
+    throw "Fresh-clone initializer requires an exact 40-character public Core pin"
+}
 
 $corePath = Resolve-FromProject $projectResolved $manifest.cvfCoreRelativePath
 $workspaceRulesPath = Resolve-FromProject $projectResolved $manifest.workspaceRulesRelativePath
 $workspaceRoot = Split-Path -Parent $workspaceRulesPath
 
-if (-not (Test-Path -LiteralPath $corePath -PathType Container)) {
+$freshClone = -not (Test-Path -LiteralPath $corePath -PathType Container)
+if ($freshClone) {
     New-Item -ItemType Directory -Path $workspaceRoot -Force | Out-Null
     git -c core.longpaths=true clone $manifest.cvfCoreRepository $corePath
     if ($LASTEXITCODE -ne 0) { throw "CVF core clone failed" }
 }
 
-git -C $corePath config core.longpaths true
-if ($LASTEXITCODE -ne 0) { throw "Unable to enable long-path support in the CVF core clone" }
+$origin = (git -C $corePath remote get-url origin | Out-String).Trim()
+if ($LASTEXITCODE -ne 0 -or $origin -ne [string]$manifest.cvfCoreRepository) {
+    throw "Installed CVF Core origin differs from approved public repository"
+}
+if ($freshClone) {
+    git -C $corePath config core.longpaths true
+    if ($LASTEXITCODE -ne 0) { throw "Unable to enable long-path support in the new CVF core clone" }
+}
 
 $pending = (git -C $corePath status --porcelain | Out-String).Trim()
 if (-not [string]::IsNullOrWhiteSpace($pending)) {
     throw "Hidden CVF core is dirty; reconcile it before initialization: $corePath"
 }
 
-git -C $corePath fetch origin main --quiet
-if ($LASTEXITCODE -ne 0) { throw "Unable to fetch public CVF origin/main" }
-
 $pin = [string]$manifest.cvfCoreCommit
 git -C $corePath cat-file -e "$pin`^{commit}" 2>$null
 if ($LASTEXITCODE -ne 0) {
-    throw "Pinned CVF commit is not available from the public repository: $pin"
-}
-git -C $corePath merge-base --is-ancestor $pin origin/main 2>$null
-if ($LASTEXITCODE -ne 0) {
-    throw "Pinned CVF commit is not reachable from public origin/main: $pin"
+    throw "Pinned CVF commit is not available in installed public Core: $pin"
 }
 
 $head = (git -C $corePath rev-parse HEAD | Out-String).Trim()
-if (-not $head.StartsWith($pin, [System.StringComparison]::OrdinalIgnoreCase)) {
-    git -C $corePath merge-base --is-ancestor $head $pin 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        throw "Hidden core cannot fast-forward safely to pinned commit. Local=$head Pin=$pin"
+if (-not $head.Equals($pin, [System.StringComparison]::OrdinalIgnoreCase)) {
+    if (-not $freshClone) {
+        throw "Installed shared CVF Core HEAD differs from project pin; request separately reviewed adoption. Local=$head Pin=$pin"
     }
-    git -C $corePath checkout main --quiet
-    git -C $corePath merge --ff-only $pin
-    if ($LASTEXITCODE -ne 0) { throw "Hidden core fast-forward failed" }
+    git -C $corePath checkout --detach $pin --quiet
+    if ($LASTEXITCODE -ne 0) { throw "Hidden core checkout of declared pin failed" }
 }
 
 $binding = [ordered]@{
@@ -82,8 +86,8 @@ if (-not (Test-Path -LiteralPath $workspaceRulesPath -PathType Leaf)) {
     Copy-Item -LiteralPath $sourceRules -Destination $workspaceRulesPath
 }
 
-$doctor = Join-Path $corePath "scripts\check_cvf_workspace_agent_enforcement.ps1"
-& powershell -ExecutionPolicy Bypass -File $doctor -ProjectPath $projectResolved
+$adapter = Join-Path $projectResolved "scripts\check_cvf_core_machine_inheritance.py"
+& python $adapter --enforce
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "FRESH_CLONE_CONTINUITY_PASS" -ForegroundColor Green

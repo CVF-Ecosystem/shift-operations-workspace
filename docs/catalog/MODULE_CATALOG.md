@@ -8,9 +8,9 @@ Status: GOVERNED
 
 - Total modules: 26
 - Enforced: 2
-- Partial: 14
+- Partial: 15
 - Contract-only: 5
-- Stub: 5
+- Stub: 4
 - Deprecated: 0
 
 | id | status | path | evidence | description |
@@ -34,7 +34,7 @@ Status: GOVERNED
 | operations-ledger | ENFORCED | `packages/operations-ledger` | tests/cvf/test_ledger_protocol.py | Source-of-truth persistence. Defines the Ledger Protocol and an append-only, dual-backend SqlLedger (SQLAlchemy Core over the existing migration schema; generic Uuid/JSON types work against SQLite or PostgreSQL from the same table definitions). InMemoryLedger (in workspace-api) is the offline/test backend. |
 | project-knowledge-pack | PARTIAL | `knowledge` | tests/unit/test_project_knowledge_pack.py | Repository-owned INTERNAL advisory knowledge pack for current project context, operations terminology and governance boundaries. |
 | refinery-bridge | PARTIAL | `packages/refinery-bridge` | tests/unit/test_refinery_models.py | Boundary to CVF Refinery: normalize, terminology, dedupe, redact, classify, conflict detection, context candidates. |
-| reporting-engine | STUB | `packages/reporting-engine` | packages/reporting-engine/customer-report/README.md | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
+| reporting-engine | PARTIAL | `packages/reporting-engine` | tests/unit/test_report_export_renderers.py | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | retrieval-contracts | PARTIAL | `packages/retrieval-contracts` | tests/unit/test_p3c_retrieval_contract_models.py | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
 | shared-kernel | STUB | `packages/shared-kernel` | packages/shared-kernel/errors/README.md | Identifiers, time, errors, result, validation, observability and security primitives. |
 | workspace-api | PARTIAL | `apps/workspace-api` | apps/workspace-api/src/workspace_api/tests/test_lifecycle.py | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |

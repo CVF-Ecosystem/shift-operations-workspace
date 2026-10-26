@@ -19,19 +19,22 @@ handoff, session memory, implementation status, documentation index, and
 roadmap. Conflicting continuity stops work rather than selecting a convenient
 source.
 
-This first-party operator project also inherits current private CVF controls
-through the workspace `operator-local` rule pack. The public hidden core remains
-the portable product carrier; private provenance remains read-only authority.
-Materialized provenance continuity is a refreshable projection and must not be
-treated as a new authority root owned by this project.
+This independent project inherits selected controls from the installed public
+workspace Core at its declared pin. The local adapter verifies public origin,
+installed commit and selected tracked source/hash integrity before invoking
+the native Core closeability checker with this project as its target. The
+normal Git hook remains mandatory. Static packet validation does not prove
+AI behavior or interception of out-of-band tools. The native CLI scans returns
+in docs/reviews; this project's legacy docs/decisions returns are explicitly
+checked with the verified native function and marker applicability during
+independent review, not automatically covered by that CLI selector.
 
-The operator-local ADIF-0057 responsibility-topology control is machine-bound
-to this repository through `scripts/check_cvf_core_machine_inheritance.py`.
-Before dispatch, redispatch, review, or commit, that guard verifies the exact
-private provenance and rule-pack pins, then runs the materialized closeability
-checker against this project root. The configured Git pre-commit hook invokes
-the same guard; out-of-band tools that bypass repository gates remain outside
-the enforcement claim.
+Private provenance, shared rule-pack files and framework session continuity
+are not routine project dependencies. Upstream repository changes do not
+invalidate an intact installed pinned Core. Core updates require an explicit
+reviewed action; project startup does not fetch, update or repin it. Project
+SESSION remains the sole continuity source; history records prior bindings
+without making them current requirements.
 
 Source and evidence must stay within classification, provenance, purpose, and
 data-scope boundaries. INTERNAL data is not automatically eligible for an

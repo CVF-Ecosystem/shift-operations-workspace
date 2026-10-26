@@ -20,12 +20,19 @@ atomic with mutation).
 from __future__ import annotations
 
 from contextlib import AbstractContextManager
+from datetime import datetime
 from typing import Any, Protocol, runtime_checkable
 from uuid import UUID
+
+from operations_ledger._proactive_source_types import FreshCohort, ScopedSourceUnit
 
 
 @runtime_checkable
 class Ledger(Protocol):
+    def scoped_source_read(self, user_id: str, start: datetime, end: datetime,
+                           as_of: datetime) -> AbstractContextManager[ScopedSourceUnit]: ...
+    def fresh_scoped_cohort(self, user_id: str, start: datetime, end: datetime,
+                            prior_shift_ids: tuple[UUID, ...]) -> FreshCohort: ...
     def transaction(self) -> AbstractContextManager[Any]: ...
     # P2R-OPERATIONAL-REPORT-FREEZE-PREREQUISITE (SPEC R22, F6 repair): the
     # bounded, write-reserving transaction modes for Report mutation and

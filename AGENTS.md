@@ -1,11 +1,10 @@
-﻿# CVF Agent Instructions - Downstream Project
+# CVF Agent Instructions - Downstream Project
 
-> Reconciled first-party operator project. Portable public CVF core:
+> Independent downstream project. Installed public workspace CVF Core:
 > `../.Controlled-Vibe-Framework-CVF` at
-> `19386f64e6bc36d1dcdbadca6ff97253feefb1bf`. Private operator-local
-> provenance source: `../../Controlled-Vibe-Framework-CVF-Provenance` at
-> `4567d750087d47f369939a0e9891ca6fcb596034`. Bootstrap date: 2026-09-09;
-> operator-local governance learning refreshed: 2026-09-10.
+> `aa672d11910ae1982557e4810a2a8002a611e9e6`.
+> Core-only inheritance correction authorized by the operator: 2026-10-26.
+> Project continuity belongs only to this project's `SESSION/` tree.
 
 ## Catalog Kit And Detailed Module Records
 
@@ -41,46 +40,57 @@ routing, static badges, layout, RBAC) that assert no AI governance behavior.
 
 ## First-Request Protocol (MANDATORY)
 
-Before performing ANY action on this project, you MUST:
+Before material work on a new/resumed session, tranche, role or handoff:
 
-1. Read `.cvf/manifest.json` and extract `cvfCoreRepository`,
-   `cvfCoreRelativePath`, `cvfCoreCommit`, `operatorLocalProvenance`,
-   `canonicalContinuityPaths`, `phaseModel`, and `requiredDocs`.
-2. Resolve/verify the core path. On a fresh clone, run
-   `powershell -ExecutionPolicy Bypass -File scripts/initialize_cvf_clone.ps1`
-   to clone/pin the core and generate git-ignored local binding. Run the
-   workspace doctor before material work; it must confirm the hidden core
-   tracks the public CVF remote, carries the public-safe workspace kit, and
-   matches `origin/main`. On stale/unrelated history, stop and reconcile with
-   `scripts/update_cvf_workspace_public_core.ps1`.
-3. Read `.cvf/policy.json`; `liveGovernanceEvidenceRequired`,
-   `mockAllowedOnlyForUi`, and `operatorLocalProvenanceRequired` must be true.
-4. Verify `../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json` records profile
-   `operator-local` and the exact provenance source commit pinned by the
-   manifest. Read its rule-pack manifest, materialized provenance `AGENTS.md`,
-   bootstrap read model, compact memory front door, and the active handoff
-   named by that bootstrap. The private provenance surfaces are read-only
-   authority; copied rule-pack files are refreshable projections, not new
-   project-owned authority roots.
-5. Before dispatch, redispatch, review, or commit, run
-   `python scripts/check_cvf_core_machine_inheritance.py --enforce`. This
-   verifies the exact operator-local provenance/rule-pack pin and applies the
-   materialized ADIF-0057 closeability checker to this project worktree.
-6. Resolve project continuity progressively from
-   `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`, then
-   `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json`, and the
-   active handoff under `SESSION/handoffs/`. `CVF_SESSION/ACTIVE_SESSION_STATE.json`
-   is only a compatibility mirror. Read `IMPLEMENTATION_STATUS.json`,
-   `docs/INDEX.md`, and `docs/implementation/EXECUTION_ROADMAP.md`. Do a
-   targeted full-history lookup only when a current fact is missing or
-   contradictory.
-7. Declare your operating context before your first substantive action, as a
-   `CVF Agent Declaration` naming project, CVF core path and commit, phase,
-   risk ceiling, live evidence required (YES), active role, active handoff,
-   next allowed move, and parked checkpoint.
+1. Read `.cvf/manifest.json` and `.cvf/policy.json`: resolve `cvfCoreRepository`,
+   `cvfCoreRelativePath`, exact `cvfCoreCommit`, `cvfControls`,
+   `canonicalContinuityPaths`, `phaseModel` and `requiredDocs`. Required live
+   evidence, UI-only mock, phase, role and workspace isolation controls remain.
+2. Verify `../WORKSPACE_RULES.md` and the installed public Core. Routine local
+   preflight is `python scripts/check_cvf_core_machine_inheritance.py --enforce`:
+   verify declared public origin, exact installed Core pin and selected tracked
+   artifact bytes/hashes before invoking the native closeability checker with
+   this project as `--repo-root`. Missing or tampered installed controls fail.
+   Do not fetch, update or repin Core automatically. New upstream commits do
+   not invalidate an intact installed pinned Core. Fresh-clone initialization
+   through `scripts/initialize_cvf_clone.ps1` is an explicit installation action.
+   Latest-version workspace doctor/update tools belong to requested reviewed
+   Core installation/update diagnosis, not ordinary project startup/commits.
+3. Read the pinned Core closeability standard/checker named in `cvfControls`.
+   This is the only framework control binding. Do not require, resolve, inspect
+   or execute private provenance, shared operator-local rule-pack files or their
+   Git HEAD during routine project work. Provenance-to-Core transfer happens
+   only through a separately requested reviewed Core update. The framework's
+   own memory, bootstrap or active handoff is never this project's continuity.
+4. Run the same local Core preflight before dispatch, redispatch, review or
+   commit. The configured normal pre-commit hook remains mandatory and intact;
+   preserve all catalog/session/file-size/test gates and return-time rechecks.
+   Current Core CLI automatically scans Work Orders and `docs/reviews/`.
+   This project's historical return/review family is `docs/decisions/`; before
+   accepting or redispatching those packets, explicitly apply the verified
+   pinned Core `check_recheck` function and confirm its exact standalone
+   self-declared return or completion-review marker is applicable. Record the
+   result in independent review. Do not claim automatic CLI/hook return-scan
+   coverage for that legacy path; this is a documented native selector limit.
+5. Rehydrate progressively from `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`,
+   `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json` and its named
+   active handoff. `CVF_SESSION/ACTIVE_SESSION_STATE.json` is a compatibility
+   mirror only. Read `IMPLEMENTATION_STATUS.json`, `docs/INDEX.md` and
+   `docs/implementation/EXECUTION_ROADMAP.md`; use targeted history only for a
+   missing or contradictory current fact.
+6. Declare a fresh `CVF Agent Declaration`: project, installed Core path/commit,
+   phase, risk ceiling, live evidence required YES, role, active handoff, next
+   allowed move and parked checkpoint before substantive material work.
 
-If you cannot complete steps 1-7 because a file is missing or unreadable:
--> **STOP. Report which file is missing. Do not proceed.**
+If required installed controls or project continuity are missing/unreadable,
+STOP and identify them. If project bootstrap/state/handoff contradict, report
+`BLOCKED_CONTINUITY_DRIFT`; do not silently select one. Source provenance may
+be documented historically, but is not an installed-control dependency.
+
+The Core-only correction now uses this ordinary adapter and normal hook.
+Direct native Core diagnostics do not waive the installed-binding preflight.
+Historical correction admission and its independent review remain in the dated
+SPEC/Work Order; they are not a continuing exception for later work.
 
 ## Mandatory Continuity Rehydration
 
@@ -112,6 +122,31 @@ A tranche may inherit accepted evidence and enter at its earliest open stage
 when that decision is recorded. Gate every applicable transition, but do not
 require a standalone review artifact after each stage. REVIEW is formal result evaluation before FREEZE; lifecycle traceability is not universal machine enforcement.
 
+## Mandatory Product Milestone Binding
+
+Before any new dispatch or redispatch, including repair, governance maintenance,
+research and repository absorption, the ORCHESTRATOR and WORK_ORDER_AUTHOR MUST
+include the `Product Milestone Binding` block defined in
+`docs/implementation/ACCEPTANCE_GATES.md`. Inline assignments and handoffs have
+this same obligation; a separate Work Order file is not an exemption.
+
+Bind the assignment to a named product milestone and its observable user outcome.
+Reconcile ALL remaining requirements for that milestone against current source,
+integration and accepted evidence, not only the defect or component being assigned.
+Name which gaps this assignment closes, all gaps it leaves, and an accountable
+owner and concrete roadmap destination for each remainder. Unknown coverage is
+`UNKNOWN / BLOCKED`, never omitted or treated as complete.
+
+Do not dispatch when the binding or complete gap reconciliation is missing.
+Support work must identify the specific milestone gap it unblocks, its necessity,
+a bounded stop condition and the return to product work; without that link it is
+parked. Repeated support work cannot automatically authorize another tranche.
+REVIEWER MUST reject incomplete bindings and independently assess milestone
+coverage. Closing a bounded tranche does not close its milestone: reconcile the
+remaining gap set at return/review/closure; milestone completion requires its
+full acceptance evidence and existing closure gates. Historical closed records
+are not rewritten; any new assignment must use current implementation truth.
+
 ## Provider-Neutral Role Contract
 
 Roles are responsibilities and must never be hardcoded to a specific provider.
@@ -131,6 +166,16 @@ without hiding dissent or failed checks.
 - COMMIT_STEWARD: verifies changed set and owns the authorized commit action.
 - SESSION_SYNC_STEWARD: synchronizes memory, state, handoff, index, catalog.
 
+## Operator Delegation Preferences (2026-10-23)
+
+The operator authorizes autonomous ORCHESTRATOR/REVIEWER work across the roadmap
+and explicit subagent delegation. Do not repeat routine scope approvals within
+that authority; escalate only at the real boundary changes listed below.
+Default subagent model: Luna, reasoning max. Difficult work: Sol, reasoning medium.
+These are operator-selected execution preferences, not provider-bound role owners.
+Preserve independent review for governance-significant implementation. Every
+assignment still carries the full Product Milestone Binding and bounded paths.
+
 ## Live Governance Evidence Rule / Workspace Isolation Rule
 
 For any claim that CVF governs AI/agent behavior here: you MUST invoke a real
@@ -140,9 +185,10 @@ allowed only for UI rendering and component-level tests that assert no
 governance decision.
 
 Do NOT run downstream tasks inside either CVF repository, and do NOT commit
-downstream artifacts into public core or private provenance. Both
-`../.Controlled-Vibe-Framework-CVF` and `../../Controlled-Vibe-Framework-CVF-Provenance`
-are **read-only references** for project work. Your IDE/terminal working
+downstream artifacts into public core or private provenance. The installed
+`../.Controlled-Vibe-Framework-CVF` is a **read-only reference** for project
+work. The private provenance repository is outside project dependencies and
+authority; do not use it as a project work directory or write destination. Your IDE/terminal working
 directory must remain this project root. The workspace root must contain
 `WORKSPACE_RULES.md`; if missing, stop and restore the workspace boundary.
 
@@ -171,18 +217,16 @@ APIs, security changes, or governance-relevant behavior are at minimum R2.
 
 ## Required First-Read Documents
 
-1. `.cvf/manifest.json` and `.cvf/policy.json`.
-2. `../WORKSPACE_RULES.md` and `../CVF_RULE_PACKS/ACTIVE_RULE_PACK.json`.
-3. The operator-local manifest plus its materialized provenance `AGENTS.md`,
-   bootstrap read model, compact memory, and named active handoff.
-4. `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`,
-   `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json`, and its
-   named active project handoff.
-5. `IMPLEMENTATION_STATUS.json`, `docs/INDEX.md`, and
+1. `.cvf/manifest.json`, `.cvf/policy.json` and `../WORKSPACE_RULES.md`.
+2. Installed pinned Core closeability standard/checker named in `cvfControls`.
+3. Project `SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json`,
+   `SESSION/SESSION_MEMORY.md`, `SESSION/ACTIVE_SESSION_STATE.json` and its named
+   active handoff; resolve only project continuity.
+4. `IMPLEMENTATION_STATUS.json`, `docs/INDEX.md` and
    `docs/implementation/EXECUTION_ROADMAP.md`.
-6. Latest `docs/CVF_BOOTSTRAP_LOG_*.md`.
-7. `knowledge/` when project context is needed; run the project knowledge
-   checker before trusting its generated pack.
+5. Latest project `docs/CVF_BOOTSTRAP_LOG_*.md` when bootstrap context is needed.
+6. `knowledge/` when needed; run the project knowledge checker before trusting
+   its generated pack. No private provenance session or shared rule-pack read.
 
 ## Invariant-Family Routing
 

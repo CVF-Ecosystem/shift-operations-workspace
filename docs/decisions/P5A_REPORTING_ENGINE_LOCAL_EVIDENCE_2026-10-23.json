@@ -1,0 +1,518 @@
+{
+  "schemaVersion": "1.0",
+  "milestone": "P5-A",
+  "disposition": "LOCAL_REVIEW_EVIDENCE_ONLY",
+  "claimBoundary": "Deterministic local export/API/UI evidence; no provider call, CVF AI-governance proof, deployment or milestone closure.",
+  "coreCommit": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
+  "provenanceCommit": "91174b47c43801b53d780d85550142a964007364",
+  "browserReceiptSha256": "7d1de26eafff2cc7f834500787605eadbc70dbb9fab0ae9f34512186c2ec894c",
+  "browser": {
+    "claim": "Local actual-format/browser evidence only; no CVF live governance proof",
+    "source_hashes": {
+      "apps/workspace-api/src/workspace_api/api/reports/router.py": "6a5d64cb93041db2c785523fb2c4b03e4c7905a32687e0661dc67a25569c3654",
+      "apps/workspace-api/src/workspace_api/application/report_export.py": "46cfc68066d8c9bb497e13018af47ddf69064ba4b980eadfd3cf99942ce2ee77",
+      "apps/workspace-api/src/workspace_api/application/report_snapshot.py": "0fc32ff4f955800faec6aba1d31baacbdccbf076ad61fcfc3fed9731f510550f",
+      "apps/workspace-web/src/features/operator-actions/ReportActions.tsx": "a206e22558035379cf09fb357220b94789c1e1936b8955500e81c001b0515c24",
+      "apps/workspace-web/src/features/operator-actions/ReportDownload.tsx": "ddd832e91868e5f7a043aa5e27be017cf0030211b549d879106681db45eacc10",
+      "apps/workspace-web/src/features/operator-actions/ReportDownloadHistory.tsx": "1a6264cc0bcfe92c98d8e2df211d3ccb33df9049f77952dd2abf849e236fa5f4",
+      "apps/workspace-web/src/services/api.ts": "3a9b8903323adaa2ebffc35579677cfb580a83e05cea2da6de7eca8d7ad54a94",
+      "apps/workspace-web/src/services/reportExport.ts": "2f7da93f00c946b197e3260c4a10de9f9e8918e50544a368361c0dda0c3f8a46",
+      "packages/operations-domain/src/operations_domain/report_digest.py": "909bca095d4caf8bb4c92e1eb48d1299c08222c4fcb379b7e1bbc97f9b830530",
+      "packages/reporting-engine/src/reporting_engine/__init__.py": "cb4ef14403bb55745c2a7a72083f4c6296621edb74c0dbe44ffcd4eefcb19efa",
+      "packages/reporting-engine/src/reporting_engine/assets/DejaVuSans.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "packages/reporting-engine/src/reporting_engine/assets/LICENSE_DEJAVU": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+      "packages/reporting-engine/src/reporting_engine/limits.py": "575129267c94b4c89896ac4a5d58fe91a274ba4b9288efc95ee77764b0e38d86",
+      "packages/reporting-engine/src/reporting_engine/model.py": "69a39e522ccc2cef232c05d2bf519534fae44d26be0315d5164c1a662a1b5f20",
+      "packages/reporting-engine/src/reporting_engine/pdf.py": "44e3a632da0ffa30326d484586d54d152f79c67804f1ca32e27c4ecc6377493a",
+      "packages/reporting-engine/src/reporting_engine/views.py": "815b29366ddbb7d0b4078bc8c6ab8b233319a841bb70cc1a0b20f8498ff03fb7",
+      "packages/reporting-engine/src/reporting_engine/worker.py": "f22160247307a4eed04ffddd66a2e640ff5c50843c6924f171bac9162b1f0e11",
+      "packages/reporting-engine/src/reporting_engine/xlsx.py": "2b9620a30991d785cc45a677b78866f773de8823eb7472bac85e4c260065af89",
+      "packages/reporting-engine/src/reporting_engine/xlsx_xml.py": "4b7f6ec5ac55d66d4a1a44968e3eafe8d561524b5e3f94aa2bb0b5afde8025f9",
+      "tests/integration/test_report_export_browser.py": "b2744cffd82757dbfb799eb94a70b7c61a903506d537d79f5f58721f0aa2cfa9",
+      "tests/integration/test_report_export_browser_support.py": "10eeca526cc8e8174c177c621f912e6a35150ec256370d30d727d673038d6a4d"
+    },
+    "browser_script_sha256": "01916c74f920f648de7b24404ba0f7c5b7b7bf735b0621403ea13a24f685022c",
+    "before_digest": "cec14da13d7263f314980483950f0d1c5cedcb3fc7907395150ef4f70cc25bc8",
+    "browser": {
+      "downloads": [
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "shift-summary",
+          "format": "pdf",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-shift-summary.pdf",
+          "bytes": 29329,
+          "sha256": "ce1f0ed8f6ecef716cc42141cc4d152885ae08e546367d104b822347a10f00d6",
+          "mime": "application/pdf"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "shift-summary",
+          "format": "xlsx",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-shift-summary.xlsx",
+          "bytes": 9610,
+          "sha256": "05c4ca2020f306c00e0419c5fc37d1407c692ae6dcd8622fbb6a89ce5a57736f",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "customer-report",
+          "format": "pdf",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-customer-report.pdf",
+          "bytes": 24516,
+          "sha256": "3860998437fb9cf72da31e78cf1ba2b78fb81ce0891eeb8959f5b6867655f094",
+          "mime": "application/pdf"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "customer-report",
+          "format": "xlsx",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-customer-report.xlsx",
+          "bytes": 7214,
+          "sha256": "f994a9c954baaf6a4db5155d8ef122b2c650c0b99b8ea7525596d34232493566",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "incident-report",
+          "format": "pdf",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-incident-report.pdf",
+          "bytes": 24598,
+          "sha256": "e6b5bfa1419ec1dd2466e2be67a570d33e37d3905ffb6cd39a83857fec70ca3a",
+          "mime": "application/pdf"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "incident-report",
+          "format": "xlsx",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-incident-report.xlsx",
+          "bytes": 7313,
+          "sha256": "8109ea4ac49cf4704c992a1debe9af85ed238ad7638cf32fba19595f7ebb614e",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "handover-report",
+          "format": "pdf",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-handover-report.pdf",
+          "bytes": 25970,
+          "sha256": "1f665005c0e285efeaf3f770db5858670c9793b1c55e2ff2318c7c8387b8c2be",
+          "mime": "application/pdf"
+        },
+        {
+          "version": 2,
+          "id": "54d48e06-023e-46f7-9d42-8d0c9e0b456c",
+          "view": "handover-report",
+          "format": "xlsx",
+          "filename": "report-54d48e06-023e-46f7-9d42-8d0c9e0b456c-v2-handover-report.xlsx",
+          "bytes": 8009,
+          "sha256": "f823b521b72687ba18d65cca5a273cfc91459e378ebf6bb6826d34f93881901b",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+          "version": 1,
+          "id": "705c4844-591c-4eeb-899c-5d7b446331de",
+          "view": "shift-summary",
+          "format": "pdf",
+          "filename": "report-705c4844-591c-4eeb-899c-5d7b446331de-v1-shift-summary.pdf",
+          "bytes": 29348,
+          "sha256": "4f0e57d936b815d47125978d26a9d83b4fc977bb8b880594ccc2f2fcc72f4c17",
+          "mime": "application/pdf"
+        },
+        {
+          "version": 1,
+          "id": "705c4844-591c-4eeb-899c-5d7b446331de",
+          "view": "shift-summary",
+          "format": "xlsx",
+          "filename": "report-705c4844-591c-4eeb-899c-5d7b446331de-v1-shift-summary.xlsx",
+          "bytes": 9630,
+          "sha256": "8171e1bc290bb56959565b14f58b8e16a97e568f51f1cc2f10521d43b007cfc8",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        }
+      ],
+      "urlsCreated": 10,
+      "urlsRevoked": 10,
+      "corsHiddenDisposition": true,
+      "offlineRefusedWithoutDownload": true,
+      "pageErrors": 0,
+      "browserVersion": "151.0.7922.34"
+    },
+    "after_digest": "cec14da13d7263f314980483950f0d1c5cedcb3fc7907395150ef4f70cc25bc8",
+    "result": "PASS",
+    "evidence_directory": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\shift-operations-workspace\\.venv\\p5a-browser-1792772279328042000",
+    "python": "3.13.12",
+    "node": "v22.14.0",
+    "owned_processes_stopped": true
+  },
+  "artifactPackets": [
+    {
+      "name": "full-approved-current",
+      "oracleSha256": "164b6f013f191efcff677830aa83be9748415f22620adcc01b21f04139d34a64",
+      "pdfSha256": "2cd3ed5ae252c8709cbbb1abcded47984e046fb8c67d590d0d56e5be0efee06c",
+      "xlsxSha256": "4ea97dce2fb25e1b9b43c8a83a46b929485c601e0cffdebce11740ec47685563",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-approved-historical",
+      "oracleSha256": "46f3688bd034976bbff3a49eb0452007200fc18d7a8fb8dd4998e0c1120b1e40",
+      "pdfSha256": "7885c4aff9f707a1b7e7f8a8ad85e939d49b9d03ad3fd3c191a77d86b23a0214",
+      "xlsxSha256": "ec66695111be965973406f5bc4c892ec6a722638f671b5bb1689cb300d95f60c",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-draft-current",
+      "oracleSha256": "7acf2bd57332ae2a5eb3afcbec55f3a79e50023e09fd3ab7d7e588b552ce3f45",
+      "pdfSha256": "d31470b3eab28f7f5056f3806a0e6b6deea7e6567eee7cc7c66a6953c4fc3f31",
+      "xlsxSha256": "78804163e6106927d8e96fed5b95ad0fb03c2215a2866847836054f553e825a2",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-draft-historical",
+      "oracleSha256": "ab63ea8390890e6b08e52d5a90e6b871459ab1a2ce9cadbce17303dd5c80ab2e",
+      "pdfSha256": "dcee0af29333e03586c2e6cb9a07228f926e2346005fd116226444692382915c",
+      "xlsxSha256": "240ba9c993d4f8357182c880c088649551b7da71125a3751e72dcfdbb4f2dec0",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-frozen-current",
+      "oracleSha256": "2509789b74ff75163753329442216455004cbacad86ce4fda28076aedef7d7cd",
+      "pdfSha256": "166cf2c74b5bd1850b31cd233b4aef375752a364325b757f8c43985ead130415",
+      "xlsxSha256": "29f0ceec2a1d8e26de3ca84cffe1d3cf66e63b3d434122915167dee15dec2979",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-frozen-historical",
+      "oracleSha256": "67088ab24fcde4bf93dbece434218ed9377adfded3361d8e2279cd4fc76929d4",
+      "pdfSha256": "1d77981d037c6dfa9b171cf42d40b6747323aa674d852265296eb3cd687b8b06",
+      "xlsxSha256": "99bfcbc7b93c826e72f62294b4f8d7cf357be2cb2d0658c1ac4523e6067fd8c4",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-in_review-current",
+      "oracleSha256": "4809fcde04f8d10579047c379bb53ea425d86ef7dcbb9738e2e81b01a1212151",
+      "pdfSha256": "d9098778be2b431c542fa7cae8fb44884dd8710d4bbf4431107634f3fa9f4a6c",
+      "xlsxSha256": "dfa7f9c6fb1b0a06198d96f6868f657f8aead163072dd70f197003c6bb5bf05f",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    },
+    {
+      "name": "full-in_review-historical",
+      "oracleSha256": "40c003faba6bcddb2435bc255862415f2288e40e79f42010c3312f943ffa6e08",
+      "pdfSha256": "9151dbe6c830305aeaa4b93c7434c677712150ccbe81965b0ea28699a9a85f13",
+      "xlsxSha256": "7fc898f7ee36a3f80b712692eeee05ac731d370dd38731d4192617a998ddb339",
+      "expectedRecordCount": 6,
+      "expectedReferenceCount": 11,
+      "stateUnchanged": true
+    }
+  ],
+  "independentCorpus": {
+    "command": ".venv/Scripts/python.exe -m pytest -q tests/unit/test_report_export_views.py tests/cvf/test_report_export_outcomes.py",
+    "result": "13 passed,1 existing dependency warning",
+    "seconds": 13.69,
+    "matrixCanonicalDigest": "9e076aed6aded4e6c4d9f1b1bcd8923cd1e760d6ac823f9e79dccd644f1db9df",
+    "specCanonicalDigest": "5192379129cb88601496a6768d487d81779e487c4efb187a6a255b8cc06e84c8"
+  },
+  "workerBackend": {
+    "result": "221 relevant backend/P2-R passed",
+    "seconds": 36.39,
+    "reviewedBy": "root independent REVIEWER; artifact review separately recorded"
+  },
+  "frontend": {
+    "result": "128 tests across21 files; tsc -b and vite build PASS",
+    "node": "22.14.0"
+  },
+  "pdfVisual": {
+    "reviewer": "root independent REVIEWER",
+    "result": "PASS: Vietnamese readable, margins/wrapping and continued section/record context visible",
+    "scope": "first page and continued page raster; browser download panel"
+  },
+  "retainedFailures": [
+    ".venv/p5a-proof/attempt-1/ missing historical controls after8 current downloads",
+    ".venv/p5a-browser-1792769673106137900/ XLSX422 on SQLite naive timestamp after PDF success"
+  ],
+  "liveEvidence": {
+    "status": "BLOCKED_NOT_ADMITTED",
+    "physicalCalls": 0,
+    "credentialAccess": false,
+    "reason": "Current quota/model/endpoint/cost/key-source authority absent; local quota catalog expired. Current acceptance keeps A7 canary-dependent."
+  },
+  "wheel": {
+    "filename": "reporting_engine-0.1.0-py3-none-any.whl",
+    "sha256": "bec322f04443d9ef2b008d435e2c7d02cde9a5db78719bb797d7618aab58ca3f",
+    "fontSha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+    "licenseSha256": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+    "xlsxSourceMatches": true,
+    "isolatedResourceImport": "Worker and independent Luna review PASS; no source-tree renderer substitution"
+  },
+  "independentArtifactReview": {
+    "reviewer": "p5a_artifact_review, Luna/max, read-only independent REVIEWER",
+    "disposition": "ACCEPTED_LOCAL_BOUNDED",
+    "checkedProvenanceCommit": "91174b47c43801b53d780d85550142a964007364",
+    "packetCases": 8,
+    "packetPerCase": {
+      "records": 6,
+      "references": 11,
+      "manifestReferences": 6,
+      "evidenceOccurrences": 4,
+      "nestedHandoverSources": 1
+    },
+    "actualBrowserViewMembership": {
+      "shift-summary": {
+        "records": 5,
+        "references": 13
+      },
+      "customer-report": {
+        "records": 1,
+        "references": 1
+      },
+      "incident-report": {
+        "records": 1,
+        "references": 2
+      },
+      "handover-report": {
+        "records": 1,
+        "references": 6
+      }
+    },
+    "checks": [
+      "Exact record/reference Counter and hash matching for8 packet cases and10 actual browser downloads",
+      "Current/history/status/version/snapshot/canonical cutoff metadata",
+      "Vietnamese text extraction without replacement glyphs",
+      "CR exact XML/openpyxl roundtrip; aware UTC/naive wall-clock labelled derivatives;15-digit numeric and larger signed exact annotated text",
+      "Literal formulas, no hyperlinks/external links",
+      "Final wheel isolated -B -I import and exact packaged font/license hashes",
+      "OS/runtime-only child env, root/web dotenv guards and import-safe harness",
+      "21 selected source hashes and generatedJS SHA match;10 downloads byte count/SHA/MIME match; DB nonmutation; URL/process cleanup"
+    ],
+    "bindingNote": "Subsequent unrelated private source HEAD movement is handled by root bounded reference synchronization. This does not reclassify historical review pin or authorize A7."
+  },
+  "committedSourceBinding": {
+    "canonicalization": "CRLF to LF for text source only; assets byte-exact. Staged blobs compared with exact observed browser source bytes under this normalization. No semantic/source edit or browser rerun.",
+    "sourceSha256": {
+      "apps/workspace-api/src/workspace_api/api/reports/router.py": "6a5d64cb93041db2c785523fb2c4b03e4c7905a32687e0661dc67a25569c3654",
+      "apps/workspace-api/src/workspace_api/application/report_export.py": "46cfc68066d8c9bb497e13018af47ddf69064ba4b980eadfd3cf99942ce2ee77",
+      "apps/workspace-api/src/workspace_api/application/report_snapshot.py": "0fc32ff4f955800faec6aba1d31baacbdccbf076ad61fcfc3fed9731f510550f",
+      "apps/workspace-web/src/features/operator-actions/ReportActions.tsx": "a206e22558035379cf09fb357220b94789c1e1936b8955500e81c001b0515c24",
+      "apps/workspace-web/src/features/operator-actions/ReportDownload.tsx": "ddd832e91868e5f7a043aa5e27be017cf0030211b549d879106681db45eacc10",
+      "apps/workspace-web/src/features/operator-actions/ReportDownloadHistory.tsx": "1a6264cc0bcfe92c98d8e2df211d3ccb33df9049f77952dd2abf849e236fa5f4",
+      "apps/workspace-web/src/services/api.ts": "3a9b8903323adaa2ebffc35579677cfb580a83e05cea2da6de7eca8d7ad54a94",
+      "apps/workspace-web/src/services/reportExport.ts": "2f7da93f00c946b197e3260c4a10de9f9e8918e50544a368361c0dda0c3f8a46",
+      "packages/operations-domain/src/operations_domain/report_digest.py": "909bca095d4caf8bb4c92e1eb48d1299c08222c4fcb379b7e1bbc97f9b830530",
+      "packages/reporting-engine/src/reporting_engine/__init__.py": "cb4ef14403bb55745c2a7a72083f4c6296621edb74c0dbe44ffcd4eefcb19efa",
+      "packages/reporting-engine/src/reporting_engine/assets/DejaVuSans.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "packages/reporting-engine/src/reporting_engine/assets/LICENSE_DEJAVU": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+      "packages/reporting-engine/src/reporting_engine/limits.py": "575129267c94b4c89896ac4a5d58fe91a274ba4b9288efc95ee77764b0e38d86",
+      "packages/reporting-engine/src/reporting_engine/model.py": "69a39e522ccc2cef232c05d2bf519534fae44d26be0315d5164c1a662a1b5f20",
+      "packages/reporting-engine/src/reporting_engine/pdf.py": "44e3a632da0ffa30326d484586d54d152f79c67804f1ca32e27c4ecc6377493a",
+      "packages/reporting-engine/src/reporting_engine/views.py": "815b29366ddbb7d0b4078bc8c6ab8b233319a841bb70cc1a0b20f8498ff03fb7",
+      "packages/reporting-engine/src/reporting_engine/worker.py": "f22160247307a4eed04ffddd66a2e640ff5c50843c6924f171bac9162b1f0e11",
+      "packages/reporting-engine/src/reporting_engine/xlsx.py": "2b9620a30991d785cc45a677b78866f773de8823eb7472bac85e4c260065af89",
+      "packages/reporting-engine/src/reporting_engine/xlsx_xml.py": "4b7f6ec5ac55d66d4a1a44968e3eafe8d561524b5e3f94aa2bb0b5afde8025f9",
+      "tests/integration/test_report_export_browser.py": "c570f44b9ab18ab3dd150ede5c537d0d4d1c9ee45be456fa66cecda90ab9be2f",
+      "tests/integration/test_report_export_browser_support.py": "b91b31be85640ee855deea6f2cbba51ce1c47c62498a7dffe3ee3af1b732b54d"
+    },
+    "eolOnlyPaths": [
+      "tests/integration/test_report_export_browser.py",
+      "tests/integration/test_report_export_browser_support.py"
+    ]
+  },
+  "artifactPacketRoot": ".venv/p5a-reviewed-artifact-packet-1792770726863305200/",
+  "artifactRetentionNote": "Exact reviewed24 files/raster copies preserved before full pytest regenerates its mutable worker output directory.",
+  "retainedFullGateFailure": {
+    "result": "13 failed,3156 passed,146 skipped,4 warnings in174.46s",
+    "cause": "P5-A export delta not yet linked through full historical OpenAPI chain",
+    "materialCommitOccurred": false,
+    "log": ".venv/p5a-material-commit-attempt-1.log"
+  },
+  "preOpenapiBrowser": {
+    "receipt": {
+      "claim": "Local actual-format/browser evidence only; no CVF live governance proof",
+      "source_hashes": {
+        "apps/workspace-api/src/workspace_api/api/reports/router.py": "6f5b2faf5758aa833b9168f1716012a2344ac9735f9d98b89c8bebfae8007e63",
+        "apps/workspace-api/src/workspace_api/application/report_export.py": "46cfc68066d8c9bb497e13018af47ddf69064ba4b980eadfd3cf99942ce2ee77",
+        "apps/workspace-api/src/workspace_api/application/report_snapshot.py": "0fc32ff4f955800faec6aba1d31baacbdccbf076ad61fcfc3fed9731f510550f",
+        "apps/workspace-web/src/features/operator-actions/ReportActions.tsx": "a206e22558035379cf09fb357220b94789c1e1936b8955500e81c001b0515c24",
+        "apps/workspace-web/src/features/operator-actions/ReportDownload.tsx": "ddd832e91868e5f7a043aa5e27be017cf0030211b549d879106681db45eacc10",
+        "apps/workspace-web/src/features/operator-actions/ReportDownloadHistory.tsx": "1a6264cc0bcfe92c98d8e2df211d3ccb33df9049f77952dd2abf849e236fa5f4",
+        "apps/workspace-web/src/services/api.ts": "3a9b8903323adaa2ebffc35579677cfb580a83e05cea2da6de7eca8d7ad54a94",
+        "apps/workspace-web/src/services/reportExport.ts": "2f7da93f00c946b197e3260c4a10de9f9e8918e50544a368361c0dda0c3f8a46",
+        "packages/operations-domain/src/operations_domain/report_digest.py": "909bca095d4caf8bb4c92e1eb48d1299c08222c4fcb379b7e1bbc97f9b830530",
+        "packages/reporting-engine/src/reporting_engine/__init__.py": "cb4ef14403bb55745c2a7a72083f4c6296621edb74c0dbe44ffcd4eefcb19efa",
+        "packages/reporting-engine/src/reporting_engine/assets/DejaVuSans.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+        "packages/reporting-engine/src/reporting_engine/assets/LICENSE_DEJAVU": "d75938dec098f06f0ac3c00853065d94f020be1c3c62ef1dc2975ba15b4d9b0e",
+        "packages/reporting-engine/src/reporting_engine/limits.py": "575129267c94b4c89896ac4a5d58fe91a274ba4b9288efc95ee77764b0e38d86",
+        "packages/reporting-engine/src/reporting_engine/model.py": "69a39e522ccc2cef232c05d2bf519534fae44d26be0315d5164c1a662a1b5f20",
+        "packages/reporting-engine/src/reporting_engine/pdf.py": "44e3a632da0ffa30326d484586d54d152f79c67804f1ca32e27c4ecc6377493a",
+        "packages/reporting-engine/src/reporting_engine/views.py": "815b29366ddbb7d0b4078bc8c6ab8b233319a841bb70cc1a0b20f8498ff03fb7",
+        "packages/reporting-engine/src/reporting_engine/worker.py": "f22160247307a4eed04ffddd66a2e640ff5c50843c6924f171bac9162b1f0e11",
+        "packages/reporting-engine/src/reporting_engine/xlsx.py": "2b9620a30991d785cc45a677b78866f773de8823eb7472bac85e4c260065af89",
+        "packages/reporting-engine/src/reporting_engine/xlsx_xml.py": "4b7f6ec5ac55d66d4a1a44968e3eafe8d561524b5e3f94aa2bb0b5afde8025f9",
+        "tests/integration/test_report_export_browser.py": "b2744cffd82757dbfb799eb94a70b7c61a903506d537d79f5f58721f0aa2cfa9",
+        "tests/integration/test_report_export_browser_support.py": "10eeca526cc8e8174c177c621f912e6a35150ec256370d30d727d673038d6a4d"
+      },
+      "browser_script_sha256": "01916c74f920f648de7b24404ba0f7c5b7b7bf735b0621403ea13a24f685022c",
+      "before_digest": "92291b5448ff6d35da6a8f8a9206679e1ef34c31d186b812ea8ec3b8a88c53b3",
+      "browser": {
+        "downloads": [
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "shift-summary",
+            "format": "pdf",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-shift-summary.pdf",
+            "bytes": 29315,
+            "sha256": "2d43b2ec274548e9e4a27ee3398c5b52c3cc1e98d717c5c15baac741fdc62792",
+            "mime": "application/pdf"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "shift-summary",
+            "format": "xlsx",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-shift-summary.xlsx",
+            "bytes": 9601,
+            "sha256": "ce9ce4a6285d640cee421b3215cee9203b4b573de7b0d711d57af2b1f96b56e4",
+            "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "customer-report",
+            "format": "pdf",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-customer-report.pdf",
+            "bytes": 24512,
+            "sha256": "ae8b2ae22635a8e3e5b7879e81461db5adec100fc3ea5422909fca57fd048583",
+            "mime": "application/pdf"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "customer-report",
+            "format": "xlsx",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-customer-report.xlsx",
+            "bytes": 7211,
+            "sha256": "05a0bf434f3d91b22a627e6e67ca48a9076728c1e9bde516b76fd2ec267e401c",
+            "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "incident-report",
+            "format": "pdf",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-incident-report.pdf",
+            "bytes": 24601,
+            "sha256": "a948cd9452348ed65c1417102aa40c1654ebcf51c7f7535b59fc0adbe37772c4",
+            "mime": "application/pdf"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "incident-report",
+            "format": "xlsx",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-incident-report.xlsx",
+            "bytes": 7309,
+            "sha256": "45e611eedac055cd32fd19b174a3da63303e5d4d3989de1abd124d00f97e550d",
+            "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "handover-report",
+            "format": "pdf",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-handover-report.pdf",
+            "bytes": 25964,
+            "sha256": "3b2a0030dceabe9cc48c9ba2283c7d2c0a25813dab1ac43b00002c02cd7b76bf",
+            "mime": "application/pdf"
+          },
+          {
+            "version": 2,
+            "id": "13a5fc35-61b9-4e26-b33a-5a2f8c1b1437",
+            "view": "handover-report",
+            "format": "xlsx",
+            "filename": "report-13a5fc35-61b9-4e26-b33a-5a2f8c1b1437-v2-handover-report.xlsx",
+            "bytes": 8002,
+            "sha256": "f4eb69494f2466e0ea70f57bf6e614e30ee8afde74fd2cb920ccf5a2427f1efa",
+            "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          },
+          {
+            "version": 1,
+            "id": "077687af-b554-4939-a9fb-e7c79e33760e",
+            "view": "shift-summary",
+            "format": "pdf",
+            "filename": "report-077687af-b554-4939-a9fb-e7c79e33760e-v1-shift-summary.pdf",
+            "bytes": 29341,
+            "sha256": "891da8cfa0217b53184dc9be4aa354ec1f99cc7f6a53643eebb30d70c33e2320",
+            "mime": "application/pdf"
+          },
+          {
+            "version": 1,
+            "id": "077687af-b554-4939-a9fb-e7c79e33760e",
+            "view": "shift-summary",
+            "format": "xlsx",
+            "filename": "report-077687af-b554-4939-a9fb-e7c79e33760e-v1-shift-summary.xlsx",
+            "bytes": 9620,
+            "sha256": "bef495afc1bb24dc9013161bf4ce46cf8bff5f7cd049f16e53214d68eb5f891e",
+            "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          }
+        ],
+        "urlsCreated": 10,
+        "urlsRevoked": 10,
+        "corsHiddenDisposition": true,
+        "offlineRefusedWithoutDownload": true,
+        "pageErrors": 0,
+        "browserVersion": "151.0.7922.34"
+      },
+      "after_digest": "92291b5448ff6d35da6a8f8a9206679e1ef34c31d186b812ea8ec3b8a88c53b3",
+      "result": "PASS",
+      "evidence_directory": "D:\\UNG DUNG AI\\TOOL AI 2026\\CVF-Workspace\\shift-operations-workspace\\.venv\\p5a-browser-1792770726863305200",
+      "python": "3.13.12",
+      "node": "v22.14.0",
+      "owned_processes_stopped": true
+    },
+    "receiptSha256": "ae9eb6604d450ebafdca2f7ece4262d0db758d7d8316bf78b1afcff696f44b78",
+    "scope": "Independent Luna exact reference/counter review applies to this historical successful pass. Renderer/UI/harness unchanged afterwards; only route docs corrected."
+  },
+  "postOpenapiReview": {
+    "reviewer": "root independent REVIEWER",
+    "result": "PASS_BOUNDED",
+    "focusedOpenapi": "63 passed; historical golden SHA literals unchanged",
+    "apiOutcomes": "2 passed on InMemory/reloaded SQLite",
+    "independentAstCheck": "All route function bodies identical to previously accepted runtime",
+    "changedSourcePaths": [
+      "apps/workspace-api/src/workspace_api/api/reports/router.py"
+    ],
+    "newOperationCanonicalSha256": "f680820c3a9232ca1528ab0ca8c5f67c9c89a9038dea6993f0664d48daa59535",
+    "browser": "Fresh10/10 actual downloads PASS with stable DB digest, URL/process cleanup, offline/CORS behavior. Main browser receipt binds final route source.",
+    "checkedProvenanceCommit": "f6cd469094545061f4c9db0e09ebe6b0e86f7d00"
+  },
+  "materialCommit": "56b4c2729b56c3094d69c141b9ee918026d3cb5a",
+  "fullPrecommit": {
+    "result": "3173 passed, 146 skipped, 4 warnings in 175.82s",
+    "changedPaths": 51,
+    "normalHooks": true
+  },
+  "bindingAtMaterialCommit": {
+    "publicCoreCommit": "b69e1088978e8c90ac58a2243fcf8f90d0f857ed",
+    "privateProvenanceCommit": "9a1c1c37f7f6b8f97bd3be540c32c0bf932cc403",
+    "claimBoundary": "Normal material hook verified current static binding; historical review and browser checkpoints retain their own observed pins."
+  }
+}

@@ -165,6 +165,14 @@ class SqlLedger(
         # SPEC R25: delegated to _shift_queries for the file-size guard.
         return _shift_queries.list_shifts(self.engine, self.models)
 
+    def scoped_source_read(self, user_id, start, end, as_of):
+        from operations_ledger import _proactive_source_sql
+        return _proactive_source_sql.scoped_source_read(self, user_id, start, end, as_of)
+
+    def fresh_scoped_cohort(self, user_id, start, end, prior_shift_ids):
+        from operations_ledger import _proactive_source_sql
+        return _proactive_source_sql.fresh_scoped_cohort(self, user_id, start, end, prior_shift_ids)
+
     def close_shift(self, shift_id: UUID, *, unit=None):
         # SPEC R25: delegated to _shift_queries for the file-size guard.
         return _shift_queries.close_shift(self._open(unit), self.models, shift_id)

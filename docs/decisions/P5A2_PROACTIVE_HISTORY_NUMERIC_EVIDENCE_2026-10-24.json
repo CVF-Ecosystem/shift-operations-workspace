@@ -1,0 +1,104 @@
+{
+  "tranche": "P5A2-PROACTIVE-HISTORY-NUMERIC",
+  "phase": "REPAIR_WORKER_RETURN_FOR_INDEPENDENT_REREVIEW",
+  "claimBoundary": "Supplied canonical Report candidates and explicit completeness assertions only; no real ledger enumeration, runtime authorization, scheduler, API/UI, RAG, approval persistence, provider call, or CVF AI-governance behavior proof.",
+  "frozenContract": {
+    "specCanonicalSha256": "fd35641cf43768c1d35a5187c43af7b3c8a3e08caaa21253e9527ed3ae67bf5e",
+    "matrixCanonicalSha256": "4ff487569ef29d413dcd3e51e3e595057f395f61a0cd79ea299b046a54f2e573"
+  },
+  "retainedInitialPacket": {
+    "focused": "18/18 PASS",
+    "withP2RSnapshot": "41/41 PASS",
+    "disposition": "INCOMPLETE_EVIDENCE; independent round-1 review CHANGES_REQUIRED",
+    "reviewPath": "docs/decisions/P5A2_PROACTIVE_HISTORY_NUMERIC_REVIEW_2026-10-24.md",
+    "rootProbePath": ".venv/p5a2-first-source-review-probes.json",
+    "observedFailures": [
+      "truthy complete accepted",
+      "conflicting duplicate bytes accepted",
+      "malformed content raised AttributeError",
+      "mixed version types raised TypeError",
+      "history abstention lacked required count"
+    ]
+  },
+  "retainedRoundOneRepair": {
+    "focused": "24/24 PASS",
+    "withP2RSnapshot": "47/47 PASS",
+    "disposition": "NUM-R1-1..5 accepted on independent rereview; NUM-R2-1 H4 serialization-before-cap regression found",
+    "rootObservedOversizedModelDumpCalls": [
+      501,
+      0,
+      0,
+      0
+    ]
+  },
+  "focusedEvidence": [
+    {
+      "command": "python -X utf8 -m pytest -q tests/unit/test_proactive_numeric.py tests/unit/test_proactive_history.py tests/integration/test_proactive_supplied_contract.py",
+      "result": "PASS 25/25 after round-2 same-scope repair",
+      "covers": [
+        "canonical Reports and conflicting duplicate bytes",
+        "as-of versions and actual fold order",
+        "late correction and target exclusion",
+        "typed scope/time/cap refusal",
+        "independent digest preimages/nonmutation",
+        "independent numerical oracle values",
+        "exact freshness/drift boundaries",
+        "available/required abstention diagnostics"
+      ]
+    },
+    {
+      "command": "python -X utf8 -m pytest -q tests/unit/test_proactive_numeric.py tests/unit/test_proactive_history.py tests/integration/test_proactive_supplied_contract.py tests/unit/test_report_snapshot.py",
+      "result": "PASS 48/48 after round-2 same-scope repair"
+    },
+    {
+      "command": "python -X utf8 scripts/check_invariant_families.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 scripts/check_cvf_core_machine_inheritance.py --enforce",
+      "result": "PASS 0/0"
+    },
+    {
+      "command": "python -X utf8 scripts/check_file_size.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 scripts/check_session_state.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 scripts/check_project_knowledge.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 scripts/testing/validate_repository.py",
+      "result": "CATALOG VERIFY FAIL while new code metrics await root-owned regeneration; reporting-engine 449 LOC/8 files recorded versus 815 LOC/13 files recomputed. No product test failure inferred."
+    }
+  ],
+  "knownLimits": [
+    "No actual assignment or database completeness proof; supplied complete/retention flags remain caller assertions.",
+    "The six-fold in-sample residual envelope is not probabilistic calibration or prospective accuracy evidence.",
+    "No scheduled terminal receipt emitter or invariant runtime adapter; static matrix guard is contract mechanics only.",
+    "Root owns metadata/catalog reconciliation, full pre-commit gate and independent review before material commit."
+  ],
+  "materialResumption20261025": {
+    "provenanceCommit": "6d5c4a5de4b23e4ec5cb5a54fb8f0c8e6a71fd2c",
+    "committedProjectionCount": 1779,
+    "projectionVerification": "Git blob identity with CRLF normalization; exact set, no unknown files",
+    "selectedSourceClean": true,
+    "unchangedAcceptedProductTestHashes": {
+      "packages/reporting-engine/src/reporting_engine/proactive_models.py": "f61fbbfc141b872294e6a1cccf1a389ecc05eea34e61b3025c1183f289172004",
+      "packages/reporting-engine/src/reporting_engine/proactive_history.py": "cad9546dcc46d137ecbea2cfab24d656b7990f6075a72875b012b5196c044c9f",
+      "packages/reporting-engine/src/reporting_engine/proactive_metrics.py": "fff29594b6431c1d1180c54e878ff5a09eaf9f564e1d8f49bf9336a835d3cbb7",
+      "packages/reporting-engine/src/reporting_engine/proactive_evaluation.py": "6f9c50591e4e234911cd30a7702e0b3d2729e46441b77e489b73d3cfc17e2caf",
+      "packages/reporting-engine/src/reporting_engine/proactive_analysis.py": "4e5a2c26e3b6f524131e70d1dcdac1b145574606c569c2c2729cad90af1c005c",
+      "packages/reporting-engine/README.md": "f346076228bde004ed7f65fce35b8e5a04c1c06cc4bc16127b139e36e9232ac1",
+      "tests/unit/proactive_helpers.py": "72aaef3653e9b4886d3cb8cf322a2b3596983813d6b7e5b75dea45cf4598de25",
+      "tests/unit/test_proactive_numeric.py": "06794358165457057cd63a0bab538da1e3c75a8c4cbb07c10b11d76fa9dcf8bd",
+      "tests/unit/test_proactive_history.py": "6c59cb687cc5da8826da5d1d1dade9f1b763f7672ae6b6778cab04720d5e0aeb",
+      "tests/integration/test_proactive_supplied_contract.py": "88746f7c8c98ea938d98370d490b244b1e22110eaf29ee458a88b2b99af3ddac"
+    },
+    "postBuildFullHook": "Actual normal material hook result and SHA recorded by COMMIT_STEWARD in canonical active handoff; required before completion.",
+    "liveProviderCalls": 0
+  }
+}

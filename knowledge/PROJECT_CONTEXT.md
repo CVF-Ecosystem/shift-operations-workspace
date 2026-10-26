@@ -107,16 +107,59 @@ authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
 Knowledge phase-order cycle and bind terminal review evidence ownership.
 Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
-review and continuity commit close the tranche. Public Core remains pinned at
-`483c5e33d`; the operator-local rule pack is materialized from private
-provenance `e4c055484` and its ADIF-0057 machine gate is bound to the project.
-Both cores are read-only. External-repository absorption is now
-`INTAKE_READY / SOURCE_SET_REQUIRED`; no repository has been scanned or
-absorbed. Phase 5, catalog schema migration and XR1 historical-object debt
-remain parked.
+review and continuity commit close the tranche. Public workspace Core remains pinned at
+`aa672d119`. Operator-authorized Core-only binding correction has independent source/config acceptance:
+reuse its native closeability checker and integrity-check installed controls;
+private provenance/shared packs/framework continuity are no project dependency.
+CVF references remain read-only. P5-A is in REVIEW with bounded local acceptance of
+A1-A6: renderer, authenticated API, current/history UI, exact artifact lineage,
+Vietnamese PDF layout and packaged font/wheel proof. Actual browser10/10,
+frontend128 tests/build and backend221 tests passed; independent corpus13/13
+passed. The full material gate passed. A7 source passed3199tests; its one real canary returned401invalid_api_key,
+retained in committed failed receipt3b569639. The operator defers further live
+runs and key/model updates, and resumes source-verified whole-milestone P5-A2
+reviewed pure supplied-input history/numeric functions without closing P5-A A7. Reporting-engine remains partial, P5-A open, Phase5 0/5.
+P5-A2/B/C/D retain their roadmap owners; no support successor, production,
+deployment or general CVF-governance behavior claim. Absorption, catalog
+migration and XR1 remain parked. Active handoff/status carry current truth.
 
 Plans state intent. Implementation status, source, tests, and independent
 review evidence determine implemented truth. A future reader must re-open the
 canonical files instead of treating this summary as fresh continuity.
+
+
+P5-A2 pure-input subset25focused/48withsnapshot and7independent numeric oracles
+passed after consolidated repair. Actual scoped ledger, scheduler/API/UI/RAG,
+exact human approval and operational-quality/live evidence remain open.
+Prior2026-10-25 private binding refreshes are historical, not current startup
+authority. Current operator direction is installed pinned Core only.
+The canonical active handoff records actual material SHA, normal full hook and
+continuity receipts; source review alone does not close material completion.
+Upstream/private repository movement does not invalidate intact installed Core;
+explicit reviewed Core update is separate from ordinary project operations.
+
+G04-G06 source audit pins20source surfaces and4existing test excerpts. Current
+query/cohort/retention/snapshot gaps remain; synthetic data with actual backend
+is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
+or acceptance and does not require operational data before fixture development.
+Live holds and all14milestone remainders remain; active handoff owns current truth.
+
+Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
+36shifts37versions, awaretime/immutablecontent/asof-lineage/analysis against
+frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
+retained; committedAM1 oneuv3.3.4 recovery succeeded. No standingbackend or
+operationalcoverageclaim. Core-only correction and carriedSQL now CLOSED_BOUNDED at3de6c50/7134f9e,
+normal3253testsPASS and exact29+5cleanrange. G04–G06 source contract/staticfamily
+accepted bc25/814d; native source Stage A now independently accepted after repair2:
+source+generic91PASS2skip/84native mutation rejections, fulloracle receipts/lineage/
+analysis, native500/501 zero-bodycopy, fresh access and strict receipt semantics.
+StageB now independently accepts synthetic physical PostgreSQL query proof:
+onePG16.15 target1PASS31.18s, frozen contexts/caps/RR/writer races and ownedcleanup.
+Current handoff owns normal resultmaterial/actualSHAcontinuity closure.
+Production coverage/retention, API/UI/scheduler/context/approval and operational
+quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retained.
+
+
+Current2026-10-26: StageA exact31+5closure a7374f86/8dc39e1 verified. StageB synthetic physical1PASS31.18s/PG16.15 and exactownedcleanup independentlyaccepted aftersealedsource/continuity/cleanrange; source107PASS3skip. PhysicalattemptSPENT, normalresultclosurepending. Old budgets remain spent; provider/operational gates held.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

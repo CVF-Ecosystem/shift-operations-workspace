@@ -221,11 +221,11 @@
       "id": "reporting-engine",
       "name": "reporting-engine",
       "path": "packages/reporting-engine",
-      "status": "STUB",
+      "status": "PARTIAL",
       "description": "Build report drafts from confirmed records, validate evidence, export PDF/Excel.",
-      "evidence": "packages/reporting-engine/customer-report/README.md",
+      "evidence": "tests/unit/test_report_export_renderers.py",
       "dependencies": [
-        "operations-ledger"
+        "operations-domain"
       ]
     },
     {

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "packId": "shift-operations-project-knowledge",
   "classification": "INTERNAL",
-  "reviewedAt": "2026-09-26",
+  "reviewedAt": "2026-10-26",
   "entries": [
     {
       "id": "project-context",
@@ -19,18 +19,18 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "a9790455d27191eddf30f0d64b062d77149af0aea224ec44513b0318949fe807"
+          "sha256": "2b95b3e5dc480247449fd5f168c6bd96737fdd92f8833ea017f495acccefed57"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "13a437ecffb65111cd5a89ce9290ddc3d45a22f2aa2d6497052f76fd222d66ea"
+          "sha256": "b59d749953650e6157e97f6c2ab2e210b1cea6da52bc83164649a7c19767332e"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "6cf8a7c1f7041a670dc21f2b7047d78fd4d00fc297b0039d7df096ccbf4c77ed"
+          "sha256": "8185f912428f19220f69cd08acf729d003677dfbe8320c02d120c8edc4890542"
         }
       ],
-      "reviewedAt": "2026-09-26",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -80,7 +80,7 @@
           "sha256": "1333aca990d855e52288c9262a9d744e828e93e7548e96eec30c9e153055ef2f"
         }
       ],
-      "reviewedAt": "2026-08-03",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",
@@ -107,15 +107,15 @@
       "sourcePins": [
         {
           "path": "AGENTS.md",
-          "sha256": "79ded3928542782c83a82764640b78a827bd59e6ac47a1f61028d49df8dd3ad5"
+          "sha256": "24ba13810a6358c437c8aa0401ee36d30deff8cff15041cc4a5c14d9d493ef9d"
         },
         {
           "path": ".cvf/manifest.json",
-          "sha256": "6b34278805a2dc81f4539b1c88b2e185a017ecbe4e37916e62b3e27edb501adf"
+          "sha256": "1f78ade5b537cd19e2d9e60174166d6b93b1508489e095b22082df619795e58d"
         },
         {
           "path": ".cvf/policy.json",
-          "sha256": "8af60f13bf9cbba6a7e83fda40bd7b9de5e731a53ab62201c98fdd13db254f4f"
+          "sha256": "70c56a02c455cc26b4c591c763b80a37234a5386557c56ae489079d822bc4785"
         },
         {
           "path": "docs/cvf/CONTEXT_CONTROL.md",
@@ -134,7 +134,7 @@
           "sha256": "2abfb7946ea14c3ae59d4fc608a1cd58f34215c6ab8912bbe225e5ce487881f3"
         }
       ],
-      "reviewedAt": "2026-09-26",
+      "reviewedAt": "2026-10-26",
       "refreshTriggers": [
         "SOURCE_SHA256_CHANGE",
         "OWNER_WITHDRAWAL",

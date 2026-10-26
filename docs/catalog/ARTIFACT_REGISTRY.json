@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "projectName": "shift-operations-workspace",
-  "updatedAt": "2026-09-26",
+  "updatedAt": "2026-10-26",
   "claimBoundary": "Registers generated bootstrap authority surfaces only; it does not claim runtime module capability.",
   "artifacts": [
     {
@@ -63,7 +63,7 @@
     {
       "id": "continuity-initial-handoff",
       "family": "continuity",
-      "path": "SESSION/handoffs/CQA_PATTERN_ADOPTION_ROADMAP_2026-09-27.md",
+      "path": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
       "status": "ACTIVE",
       "description": "Initial agent handoff."
     },

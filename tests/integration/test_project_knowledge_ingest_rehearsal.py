@@ -12,6 +12,7 @@ from typing import Callable
 
 import pytest
 
+from scripts._cvf_core_binding import verify_binding
 from scripts.check_project_knowledge import DOCS, ROOT, secret_codes, validate_pack
 
 HELPER_SHA256 = "856b99d9273b0384c40c05bc2132eae66e9dce20b9a9c8b75c3d91ae7016d2c6"
@@ -28,29 +29,95 @@ def _hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _pinned_helper() -> Path:
-    manifest = json.loads((ROOT / ".cvf/manifest.json").read_text(encoding="utf-8"))
-    core = (ROOT / manifest["cvfCoreRelativePath"]).resolve(strict=True)
+def _pinned_helper(project_root: Path = ROOT) -> Path:
+    manifest = json.loads((project_root / ".cvf/manifest.json").read_text(encoding="utf-8"))
+    verify_binding(project_root)
+    core = (project_root / manifest["cvfCoreRelativePath"]).resolve(strict=True)
     expected = manifest["cvfCoreCommit"]
     head = subprocess.run(
         ["git", "-C", str(core), "rev-parse", "HEAD"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    remote = subprocess.run(
-        ["git", "-C", str(core), "rev-parse", "origin/main"],
+    origin = subprocess.run(
+        ["git", "-C", str(core), "remote", "get-url", "origin"],
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    assert head == remote == expected
-    assert not subprocess.run(
-        ["git", "-C", str(core), "status", "--porcelain"],
-        capture_output=True, text=True, check=True,
-    ).stdout.strip()
+    assert head == expected
+    assert origin == manifest["cvfCoreRepository"]
     helper = core / "scripts/ingest_cvf_downstream_knowledge.ps1"
+    blob = subprocess.run(
+        ["git", "-C", str(core), "show", f"{expected}:scripts/ingest_cvf_downstream_knowledge.ps1"],
+        capture_output=True, check=True,
+    ).stdout
+    assert helper.read_bytes().replace(b"\r\n", b"\n") == blob.replace(b"\r\n", b"\n")
     assert _hash(helper) == HELPER_SHA256
     source = helper.read_text(encoding="utf-8")
     for token in NETWORK_TOKENS:
         assert not re.search(rf"(?i)(?<![A-Za-z0-9_]){re.escape(token)}(?![A-Za-z0-9_])", source)
     return helper
+
+
+def _disposable_core_project(tmp_path: Path) -> tuple[Path, Path]:
+    workspace = tmp_path / "workspace"
+    project = workspace / "project"
+    core = workspace / ".Controlled-Vibe-Framework-CVF"
+    (project / ".cvf").mkdir(parents=True)
+    core.mkdir(parents=True)
+    live_core = (ROOT / "../.Controlled-Vibe-Framework-CVF").resolve(strict=True)
+    manifest = json.loads((ROOT / ".cvf/manifest.json").read_text(encoding="utf-8"))
+    for relative in [
+        *(item["path"] for item in manifest["cvfControls"]["artifacts"]),
+        "scripts/ingest_cvf_downstream_knowledge.ps1",
+    ]:
+        target = core / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(live_core / relative, target)
+    (core / "unrelated-model-gateway.txt").write_text("baseline\n", encoding="utf-8")
+    subprocess.run(["git", "init", "-q", str(core)], check=True)
+    subprocess.run(["git", "-C", str(core), "config", "user.email", "fixture@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(core), "config", "user.name", "Fixture"], check=True)
+    subprocess.run(["git", "-C", str(core), "remote", "add", "origin", manifest["cvfCoreRepository"]], check=True)
+    subprocess.run(["git", "-C", str(core), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(core), "commit", "-q", "-m", "local fixture"], check=True)
+    manifest["cvfCoreCommit"] = subprocess.check_output(
+        ["git", "-C", str(core), "rev-parse", "HEAD"], text=True,
+    ).strip()
+    (project / ".cvf/manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    shutil.copyfile(ROOT / ".cvf/policy.json", project / ".cvf/policy.json")
+    return project, core
+
+
+def test_disposable_pinned_core_tolerates_unrelated_tracked_dirt(tmp_path: Path) -> None:
+    project, core = _disposable_core_project(tmp_path)
+    (core / "unrelated-model-gateway.txt").write_text("changed\n", encoding="utf-8")
+    assert _pinned_helper(project) == core / "scripts/ingest_cvf_downstream_knowledge.ps1"
+
+
+@pytest.mark.parametrize(
+    "change",
+    ["changed_helper", "missing_helper", "changed_control", "missing_control", "wrong_origin", "wrong_pin"],
+)
+def test_disposable_pinned_core_rejects_bound_drift(tmp_path: Path, change: str) -> None:
+    project, core = _disposable_core_project(tmp_path)
+    helper = core / "scripts/ingest_cvf_downstream_knowledge.ps1"
+    control = core / "governance/compat/check_gate_to_role_closeability.py"
+    if change == "changed_helper":
+        helper.write_bytes(helper.read_bytes() + b"\n# tampered\n")
+    elif change == "missing_helper":
+        helper.unlink()
+    elif change == "changed_control":
+        control.write_bytes(control.read_bytes() + b"\n# tampered\n")
+    elif change == "missing_control":
+        control.unlink()
+    elif change == "wrong_origin":
+        subprocess.run(["git", "-C", str(core), "remote", "set-url", "origin", "https://example.invalid/core.git"], check=True)
+    elif change == "wrong_pin":
+        manifest_path = project / ".cvf/manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["cvfCoreCommit"] = "0" * 40
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises((ValueError, FileNotFoundError, AssertionError)):
+        _pinned_helper(project)
 
 
 def _assert_index(payload: dict, root: Path, expected: set[str] = DOCS) -> None:

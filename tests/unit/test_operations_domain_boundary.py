@@ -14,10 +14,13 @@ environment was not over-stripped. See SPEC section 4.3.
 from __future__ import annotations
 
 import ast
+import os
 import subprocess
 import sys
 import textwrap
 from pathlib import Path
+
+import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DOMAIN_SRC = REPO_ROOT / "packages" / "operations-domain" / "src"
@@ -61,11 +64,13 @@ E2_USER_IMPORTERS = {
 
 _ISOLATION_PROGRAM = textwrap.dedent(
     """
-    import importlib, sys
+    import importlib, sys, sysconfig
     from pathlib import Path
 
     repo_root = Path(sys.argv[1]).resolve()
     allowed = Path(sys.argv[2]).resolve()
+    runtime_prefix = Path(sys.prefix).resolve()
+    runtime_sites = {Path(sysconfig.get_path(k)).resolve() for k in ("purelib", "platlib")}
 
     import operations_domain.models as m
     import operations_domain.lifecycle as lc
@@ -93,7 +98,8 @@ _ISOLATION_PROGRAM = textwrap.dedent(
         if not entry:
             continue
         p = Path(entry).resolve()
-        if p == allowed:
+        # Permit only exact active interpreter runtime/site paths inside the repo.
+        if p == allowed or p == runtime_prefix or p in runtime_sites:
             continue
         assert repo_root not in p.parents and p != repo_root, f"repo path on sys.path: {p}"
 
@@ -102,33 +108,30 @@ _ISOLATION_PROGRAM = textwrap.dedent(
 )
 
 
-def test_operations_domain_imports_without_any_other_repo_root(tmp_path):
+@pytest.mark.parametrize("injected", [None, REPO_ROOT, REPO_ROOT / "apps/workspace-api/src"])
+def test_operations_domain_imports_without_any_other_repo_root(tmp_path, injected):
     """AC-01 / AC-15 / R7: repository-scoped import isolation."""
     script = tmp_path / "isolation_probe.py"
     script.write_text(_ISOLATION_PROGRAM, encoding="utf-8")
-
-    env = {
-        k: v
-        for k, v in __import__("os").environ.items()
-        # Drop any inherited path injection rather than extending it.
-        if k not in {"PYTHONPATH", "PYTHONSTARTUP"}
-    }
-    env["PYTHONPATH"] = str(DOMAIN_SRC)
+    env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONSTARTUP"}}
+    env["PYTHONPATH"] = str(DOMAIN_SRC) + (os.pathsep + str(injected) if injected else "")
 
     proc = subprocess.run(
         # -P: do not prepend the script directory or cwd to sys.path.
-        # -E is NOT used: it would drop the PYTHONPATH we deliberately set.
         [sys.executable, "-P", str(script), str(REPO_ROOT), str(DOMAIN_SRC)],
+        check=False,
         cwd=tmp_path,  # temporary cwd outside the repository
         env=env,
         capture_output=True,
         text=True,
     )
-    assert proc.returncode == 0, (
-        f"isolation subprocess failed\nSTDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}"
-    )
-    assert "ISOLATION_OK" in proc.stdout
-
+    if injected:
+        assert proc.returncode != 0 and (
+            "repo path on sys.path" in proc.stderr or "importable - repo roots" in proc.stderr
+        ), proc.stderr
+    else:
+        assert proc.returncode == 0, proc.stderr
+        assert "ISOLATION_OK" in proc.stdout
 
 def _domain_source_files() -> list[Path]:
     return sorted(DOMAIN_PKG.rglob("*.py"))
@@ -169,9 +172,7 @@ def test_exactly_one_canonical_definition_per_moved_name():
     for path in _iter_production_files():
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         for node in tree.body:
-            if isinstance(node, ast.ClassDef) and node.name in locations:
-                locations[node.name].append(path.relative_to(REPO_ROOT).as_posix())
-            elif isinstance(node, ast.FunctionDef) and node.name in locations:
+            if isinstance(node, (ast.ClassDef, ast.FunctionDef)) and node.name in locations:
                 locations[node.name].append(path.relative_to(REPO_ROOT).as_posix())
 
     expected_models = "packages/operations-domain/src/operations_domain/models.py"

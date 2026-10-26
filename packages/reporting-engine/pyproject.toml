@@ -1,0 +1,16 @@
+[project]
+name = "reporting-engine"
+version = "0.1.0"
+description = "Bounded immutable report PDF and XLSX renderers"
+requires-python = ">=3.12"
+dependencies = ["operations-domain", "reportlab==4.4.4", "openpyxl==3.1.5"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+reporting_engine = ["assets/DejaVuSans.ttf", "assets/LICENSE_DEJAVU"]

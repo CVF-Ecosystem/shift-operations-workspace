@@ -69,8 +69,13 @@ _NEW_BODY_OPERATIONS = {
 
 
 def _strip_c3b2_mutation_delta(doc: dict) -> None:
-    """Remove exactly the C3b2 delta, in place. Raises on any missing/moved
-    key so a silent no-op can never mask a regression."""
+    """Remove the later P5A path, then exactly the C3b2 delta in place.
+
+    Earlier historical proof chains call this latest link first.
+    """
+    from test_report_export_openapi import _strip_p5a_export_delta
+
+    _strip_p5a_export_delta(doc)
     schemas = doc["components"]["schemas"]
 
     for path, method in _NEW_BODY_OPERATIONS:
@@ -134,11 +139,13 @@ def test_openapi_delta_is_exactly_the_c3b2_mutation_precondition_changes():
 
 
 def test_openapi_document_is_the_new_golden_value():
-    """The full current document, including the C3b2 delta, matches the
-    pinned current GOLDEN_OPENAPI_SHA."""
+    """After the later P5A path is stripped, the C3b2 golden stays exact."""
+    from test_report_export_openapi import _strip_p5a_export_delta
     from workspace_api.main import app
 
-    actual = canonical(app.openapi())
+    reduced = json.loads(json.dumps(app.openapi()))
+    _strip_p5a_export_delta(reduced)
+    actual = canonical(reduced)
     assert _sha(actual) == GOLDEN_OPENAPI_SHA, actual.decode("utf-8")[:6000]
 
 
