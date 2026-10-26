@@ -91,3 +91,55 @@ roadmap and verified pinned Core; COMMIT_STEWARD to SESSION_SYNC_STEWARD,
 R2/liveYES for AI claims. This exact5 records sole actualSHA; normal hook then
 clean17+5 independent review remain. No self-referential child SHA and no
 new effect authority from continuity. Full14gapowners/P5-A2/B/C/D/Phase5 0/5.
+
+## Clean dispatch / independent source admission / preflight-only GO
+
+Independent clean17+5 actual37ff857/076336d and SOURCE_ADMISSION_PASS at076
+verify frozen23source/inputs/migrations/matrices/sourcecommits/roles/budget;
+no findings/waivers. Rootfreshcanonicalrehydration/Core0; SESSION_SYNC_STEWARD
+to IMPLEMENTATION_WORKER BUILD/R2/liveYES for AI claims. OnlyONEreadonly
+preflight GO. Start remainshelduntilPASS+exclusive immutable reservation.
+All14gapowners/Phase5 0/5 remain; no provider/realsecret/production/public effect.
+
+## Actual one preflight refusal / no effect
+
+Existing preflight invokedonce under independentadmission; REFUSED_NO_EFFECT
+IMAGE_ABSENT with exactregisteredzeroresourcecounters. No immutableattempt,
+start, DBwrite, API/web/browser, generatedsecret or provider action. Startbudget
+unspent; no automaticpreflightretry. Root records BUILD to REVIEW and moves
+IMPLEMENTATION_WORKER to ORCHESTRATOR forfinitehoststatus diagnosis/result
+review. Imageabsence mayrepresent DockerCLI/engine availability; do notinfer
+cacheloss or start/pull anything without a new bounded revieweddecision.
+
+## Finite independent diagnosis / bounded AM1 authoring
+
+Luna readonlydiagnosis confirms localCLI/engine reachable: postgres:16 tag
+NoSuchImage, exactcachedsha256:f4610795... existsandmatchesacceptedpin. Exactly
+twofixedlocal imageinspections, no tag/pull/start/filewrite/provider; no routing
+credential/envvalues exposed. Root records currentfailure and sourcefrozen.
+ExistingoperatorDockerbackend intent covers a reviewed nondestructive local
+alias restoration to the same accepted image; no acquisition/risk/goal change
+and no routineoperatorwait. ORCHESTRATOR to WORK_ORDER_AUTHOR WORK_ORDER/R2
+forAM1candidate: max1tagonlyifabsent/nooverwrite and1freshreadonlypreflight,
+originalsingleStart budgetunspent/unchanged. Independentreview/normalamendment
+dispatch/actualSHAchild/clean/sourceadmission beforeanynewDockeraction. No action now.
+
+## AM1 candidate sealed / independent authorization pending
+
+ExistingWOamended only for max1localalias to samecachedf461 whenabsent, known
+localendpointmetadata check/3fixedimageinspections, exclusiveignoredtagreserve,
+and max1freshpreflight(2total includingoriginalrefusal). Startmax1unchanged/
+unspent. Source23/oracles/migrations/families frozen; no pull/network/overwrite/
+secret/deletion or profilechange. ActualAM1baseline076336d; allmetadata/roles/
+closedpaths sealedinAD, originalfailure/diagnosis retained. Independentreview/
+normalredispatch/actualSHAchild/clean/newsourceadmission beforeactions.
+
+## Independent AM1 authorization / normal redispatch gate
+
+Independent AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED, nofindings/waivers: original
+REFUSED0effect truth/pinnedcache present/alias absent, exactsource/budget/
+localendpoint/nooverwrite/noacquisition and full14gapowners verified. SameR2
+localeffect fits operatorDockerintent. Explicit standalone native recheck0.
+Rootfreshcanonicalrehydration/Core0; WORK_ORDER_AUTHOR to COMMIT_STEWARD.
+NormalAM1redispatch thenactualreview/dedicated5actualSHA/clean/newsourceadmission
+remainbeforealias/freshpreflight. OriginalStart1unspent; no actions yet.

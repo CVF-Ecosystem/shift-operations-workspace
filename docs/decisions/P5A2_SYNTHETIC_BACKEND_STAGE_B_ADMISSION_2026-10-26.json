@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-20261026",
-  "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "status": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
   "baselineCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
   "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
   "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
@@ -237,7 +237,7 @@
     "secretReference": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/secrets.json"
   },
   "budget": {
-    "readOnlyPreflightInvocations": 1,
+    "readOnlyPreflightInvocations": 2,
     "startInvocations": 1,
     "newOwnedContainers": 1,
     "newNamedVolumes": 1,
@@ -259,7 +259,10 @@
     "packageInstalls": 0,
     "publicEffects": 0,
     "automaticRetries": 0,
-    "volumeDeletion": 0
+    "volumeDeletion": 0,
+    "localImageTagOperations": 1,
+    "localDockerEndpointMetadataReads": 1,
+    "am1ReadOnlyImageInspections": 3
   },
   "browser": {
     "tool": "Existing @playwright/test via Node REPL, isolated headless Chromium context; UI acts only, no new tracked harness.",
@@ -315,21 +318,143 @@
     "smoke": ".venv/p5a2-demo-stage-b-smoke-20261026.json",
     "sql": ".venv/p5a2-demo-stage-b-sql-20261026.json",
     "browser": ".venv/p5a2-demo-stage-b-browser-20261026.json",
-    "browser-env": ".venv/p5a2-demo-stage-b-browser-env-20261026.json"
+    "browser-env": ".venv/p5a2-demo-stage-b-browser-env-20261026.json",
+    "am1-alias": ".venv/p5a2-demo-stage-b-am1-alias-20261026.json",
+    "am1-source-admission": ".venv/p5a2-demo-stage-b-am1-source-admission-20261026.json",
+    "am1-preflight": ".venv/p5a2-demo-stage-b-am1-preflight-20261026.json"
   },
   "runtimeSourceFrozen": true,
   "physicalAttempts": 0,
   "providerCalls": 0,
-  "newPhysicalBudgetAdmitted": false,
+  "newPhysicalBudgetAdmitted": true,
   "milestoneComplete": false,
   "operationalCoverageAccepted": false,
   "successDisposition": "Keep OWNED_RUNNING container/volume/API/web and private owner record. Close temporary proof browser. No stop under this run.",
   "stopDisposition": "Only a separate explicit operator request later authorizes existing exact-owner stop; retain volume. A closed/failed/ambiguous profile needs new reviewed stop/recovery decision. No implicit recovery or deletion.",
-  "workOrderNativeLfSha256": "4f6e310dd538e87227d0fbc9c4515d13d106f9656c0df6f955848a5d1ba9f0a3",
+  "workOrderNativeLfSha256": "a752a99ea5128517dbc2fc9bc4bbe20a60fd7b07e5f9872d3f568222c871b895",
   "authorizationReview": {
     "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
     "sha256AtAuthorization": "672cb2bc68dc7eb38df7dd3f0e526145bb18afea511e5ce3e2284a81c1dfa5d1",
     "verdict": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
   },
-  "authorizationAccepted": true
+  "authorizationAccepted": true,
+  "preflightObservation": {
+    "exitCode": 1,
+    "result": {
+      "api_count": 0,
+      "container_count": 0,
+      "effect_count": 0,
+      "outcome": "REFUSED_NO_EFFECT",
+      "owner_nonce": "2b62711d087f92358940228e032c261e295f513d818e541a6129d22e2a8fd59a",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "reason": "IMAGE_ABSENT",
+      "total_owned_count": 0,
+      "volume_count": 0,
+      "web_count": 0
+    }
+  },
+  "startBudgetSpent": false,
+  "finiteReadOnlyDiagnosis": {
+    "cliPresent": true,
+    "localLinuxEnginePipePresent": true,
+    "dockerBackendPresent": true,
+    "dockerRoutingEnvPresence": false,
+    "tagInspect": {
+      "exitCode": 1,
+      "classification": "NoSuchImage",
+      "tag": "postgres:16"
+    },
+    "exactImageInspect": {
+      "exitCode": 0,
+      "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "matchesSealedPin": true
+    },
+    "tagOrPullOrStartActions": 0,
+    "diagnosticActor": "/root/source_openapi_repair"
+  },
+  "initialDispatchCommit": "37ff857537e5d79dd7e5335ae1994dd2354b2dc5",
+  "initialDispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188",
+  "initialBudget": {
+    "readOnlyPreflightInvocations": 1,
+    "startInvocations": 1,
+    "newOwnedContainers": 1,
+    "newNamedVolumes": 1,
+    "apiProcesses": 1,
+    "staticWebProcesses": 1,
+    "seedInvocations": 1,
+    "migrationInvocations": 1,
+    "smokeInvocations": 1,
+    "nativeSourceHttpSmokeContexts": 2,
+    "browserInstances": 1,
+    "browserContexts": 1,
+    "browserUiLogin": 1,
+    "browserSourceSubmits": 2,
+    "screenshots": 2,
+    "additionalReadOnlySqlSummaryConnections": 1,
+    "providerCalls": 0,
+    "operatorCredentialReads": 0,
+    "imagePulls": 0,
+    "packageInstalls": 0,
+    "publicEffects": 0,
+    "automaticRetries": 0,
+    "volumeDeletion": 0
+  },
+  "amendment1": {
+    "status": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "reason": "Pinned cached image exists, required alias postgres:16 absent; original one readonlypreflight REFUSED_NO_EFFECT with no marker/start/resources.",
+    "operatorAuthority": "Existing explicit Docker backend/execute/continuous-roadmap authority supports nondestructive local alias restoration to the SAME accepted image. No change to goal, risk ceiling, source/credential class, remote/network/acquisition/deletion/public effects; independent review and new committed dispatch remain required.",
+    "sourceFrozen": true,
+    "initialPreflightRetained": {
+      "exitCode": 1,
+      "result": {
+        "api_count": 0,
+        "container_count": 0,
+        "effect_count": 0,
+        "outcome": "REFUSED_NO_EFFECT",
+        "owner_nonce": "2b62711d087f92358940228e032c261e295f513d818e541a6129d22e2a8fd59a",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "reason": "IMAGE_ABSENT",
+        "total_owned_count": 0,
+        "volume_count": 0,
+        "web_count": 0
+      }
+    },
+    "additionalPreflights": 1,
+    "totalPreflightMaximum": 2,
+    "originalStartMaximum": 1,
+    "startBudgetAlreadySpent": false,
+    "maximumTagOperations": 1,
+    "cliPath": "C:/Users/DELL/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+    "allowedLocalEndpoints": {
+      "desktopLinux": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "localLegacy": "npipe:////./pipe/docker_engine"
+    },
+    "endpointProtocol": "One current endpoint metadata inspect captured in process, classify only against allowed local endpoints; remote/unknown refuses. Do not read config/auth files or emit raw endpoint/context/env/errors.",
+    "tagProtocol": "Explicit --host allowed local endpoint; exact cached image ID must match sealedf461; inspect alias immediately before: absent allows ONE tag; sameID skips; otherID refuses. Exclusive ignored tag reservation before command. Inspect after verifies alias match. No overwrite/pull/retry/alternative image/context change.",
+    "tagReference": "postgres:16",
+    "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "tagReservationPath": ".venv/p5a2-demo-stage-b-am1-tag-reservation-20261026.json",
+    "freshGateProtocol": "Independent AM1 authorization then normal dispatch/dedicated5 actualSHA/clean and new source admission before alias or additional preflight. Original076 source admission is history only. Fresh preflight PASS still precedes the one immutable START reservation.",
+    "physicalEffectExecuted": false,
+    "networkAcquisition": 0,
+    "imagePulls": 0,
+    "sourceCodeEdits": 0,
+    "workOrderNativeLfSha256": "a752a99ea5128517dbc2fc9bc4bbe20a60fd7b07e5f9872d3f568222c871b895",
+    "baselineCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188",
+    "review": {
+      "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md",
+      "sha256AtAuthorization": "fb88232cb48a3d90bd3dccfc26ac3091e4646140c3c9d08ed7ff856f07794567",
+      "verdict": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED"
+    }
+  },
+  "sourceAdmissionHistory": [
+    {
+      "verdict": "STAGE_B_SOURCE_ADMISSION_PASS_BOUNDED",
+      "actualHead": "076336dcdfa5bf3486c830bfe47e6877b081e188",
+      "ignoredReceipt": ".venv/p5a2-demo-stage-b-source-admission-20261026.json"
+    }
+  ],
+  "sourceAdmission": {
+    "status": "AM1_PENDING_AFTER_NEW_DISPATCH"
+  }
 }

@@ -965,11 +965,11 @@
     "committedRange": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_synthetic_backend_stage_b_20261026": {
-    "status": "AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
+    "status": "AM1_AUTHORIZATION_ACCEPTED_DISPATCH_GATE",
     "sourceMaterialCommit": "296e9ff28176ffa84a2bd6ec9e0ca4bf92ee87e0",
     "sourceContinuityCommit": "a77b12062fd530cf99056ea5f11b552a321747e8",
     "sourceClosure": "FINAL_CLEAN_SYNTHETIC_BACKEND_SOURCE_RANGE_REVIEW_PASS_BOUNDED",
-    "newPhysicalBudgetAdmitted": false,
+    "newPhysicalBudgetAdmitted": true,
     "physicalAttempts": 0,
     "providerCalls": 0,
     "milestoneComplete": false,
@@ -978,6 +978,55 @@
     "admission": "docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json",
     "sourcePinsSealed": true,
     "authorizationAccepted": true,
-    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+    "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "dispatchCommit": "37ff857537e5d79dd7e5335ae1994dd2354b2dc5",
+    "dispatchPaths": 17,
+    "dispatchFullHook": "3465passed148skipped4warnings147.00s",
+    "dispatchTerminalReview": "POST_DISPATCH_STAGE_B_REVIEW_PASS_BOUNDED",
+    "continuityStage": "DISPATCH_ACTUAL_SHA_PENDING_CLEAN_RANGE",
+    "dispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188",
+    "dispatchContinuityFullHook": "3465passed148skipped4warnings178.73s",
+    "dispatchCommittedRange": "CLEAN_STAGE_B_DISPATCH_SPLIT_RANGE_PASS_BOUNDED",
+    "sourceAdmission": "STAGE_B_SOURCE_ADMISSION_PASS_BOUNDED",
+    "preflight": {
+      "exitCode": 1,
+      "result": {
+        "api_count": 0,
+        "container_count": 0,
+        "effect_count": 0,
+        "outcome": "REFUSED_NO_EFFECT",
+        "owner_nonce": "2b62711d087f92358940228e032c261e295f513d818e541a6129d22e2a8fd59a",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "reason": "IMAGE_ABSENT",
+        "total_owned_count": 0,
+        "volume_count": 0,
+        "web_count": 0
+      }
+    },
+    "startBudgetSpent": false,
+    "resourceEffects": 0,
+    "openDecision": "AM1 cached pinned image alias restoration; R2 local Docker metadata, no acquisition or overwrite.",
+    "diagnosis": {
+      "cliPresent": true,
+      "localLinuxEnginePipePresent": true,
+      "dockerBackendPresent": true,
+      "dockerRoutingEnvPresence": false,
+      "tagInspect": {
+        "exitCode": 1,
+        "classification": "NoSuchImage",
+        "tag": "postgres:16"
+      },
+      "exactImageInspect": {
+        "exitCode": 0,
+        "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "matchesSealedPin": true
+      },
+      "tagOrPullOrStartActions": 0,
+      "diagnosticActor": "/root/source_openapi_repair"
+    },
+    "amendment1CandidateSealed": true,
+    "am1Authorization": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "initialDispatchCommit": "37ff857537e5d79dd7e5335ae1994dd2354b2dc5",
+    "initialDispatchContinuityCommit": "076336dcdfa5bf3486c830bfe47e6877b081e188"
   }
 }

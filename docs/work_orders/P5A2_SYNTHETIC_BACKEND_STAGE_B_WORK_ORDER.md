@@ -2,13 +2,17 @@
 
 Status: DISPATCH_READY
 Date: 2026-10-26; Stage A source baseline a77b12062fd530cf99056ea5f11b552a321747e8; risk R2.
-Roles: Root ORCHESTRATOR/WORK_ORDER_AUTHOR/effect and artifact owner; Root /root as IMPLEMENTATION_WORKER (effect executor); independent REVIEWER for source admission and result; operator for business acceptance.
+Roles: Root ORCHESTRATOR/WORK_ORDER_AUTHOR/effect and artifact owner; Root /root as IMPLEMENTATION_WORKER (effect executor); independent REVIEWER for AM1 authorization, new source admission, and result; operator for business acceptance.
 
-This is the sealed dispatch candidate for one bounded physical proof of the
-already-built synthetic local source profile. DISPATCH_READY makes the graph
-eligible for independent authorization review; it is not execution permission.
-Independent authorization, normal dispatch/actual-SHA continuity/clean range,
-independent source admission and preflight PASS remain before reserved start.
+This is the Stage B dispatch candidate, amended by AM1 for one bounded local
+cached-image alias gate and one fresh preflight. Its `DISPATCH_READY` status
+means it awaits independent AM1 authorization review; it is not execution
+permission. The original authorization, dispatch, and source admission
+preceded one preflight; that preflight produced a preserved no-effect refusal.
+AM1 requires
+its own independent review, normal dispatch, dedicated actual-SHA continuity
+and clean range, new source admission, and its fresh preflight before the
+existing single reserved start can proceed.
 
 ## Product Milestone Binding
 
@@ -52,6 +56,16 @@ physical synthetic source proof, if its full evidence passes. It does not
 close any whole product gap, P5-A2, or Phase 5. Product return is to the
 integrated runtime, quality, context, and approval gaps in the SPEC. Repeated
 support work does not authorize another tranche.
+
+AM1's necessity is limited to the diagnosed missing `postgres:16` alias while
+the exact previously accepted cached image remains present. AM1 closes no
+product gap by itself; it unblocks the same bounded G04/G05 profile by allowing
+at most one local alias restoration to the exact pinned image and one fresh
+preflight. If preflight passes, execution returns immediately to the already
+bounded single-profile proof below. If the endpoint, image identity, tag state,
+or fresh preflight is unexpected, stop without retry and return the preserved
+result to Root for a new reviewed decision. No further diagnostic tranche or
+product-acceptance claim is implied.
 
 ## Bounded assignment and custody
 
@@ -139,7 +153,12 @@ source survey. Any mismatch stops before preflight or effects.
 
 | Resource or action | Maximum in this assignment | Fixed boundary |
 |---|---:|---|
-| Cached image | Inspect one local postgres:16 image | No pull, install, build, or network access |
+| Original preflight | One invocation; already used | Preserved `REFUSED_NO_EFFECT / IMAGE_ABSENT`; not rerun |
+| AM1 Docker endpoint metadata | One current-context endpoint read | Accept only the two fixed local npipe endpoints below; no raw context/config/auth output |
+| AM1 image inspection | At most three inspections | Exact cached image ID plus alias-before/alias-after; explicit approved local endpoint |
+| AM1 local alias | At most one tag operation | Only restore absent `postgres:16` to the exact accepted cached image ID; no overwrite |
+| AM1 tag reservation | One exclusive ignored record | Root-owned `.venv/p5a2-demo-stage-b-am1-tag-reservation-20261026.json` before any tag operation |
+| Fresh read-only preflight | One additional invocation; two total including original | Only after AM1 dispatch, dedicated clean continuity, new source admission, and alias gate |
 | Owned PostgreSQL container | One newly owned container | shiftops-p5a2-source-demo-db-v1; actual image ID and owner nonce required |
 | Persistent volume | One newly owned named volume | shiftops-p5a2-source-demo-data-v1; retain it; no reset, prune, or deletion |
 | Database seed | One seed of the frozen dataset | 1 user, 36 shifts, 36 assignments, 37 report versions |
@@ -151,6 +170,57 @@ source survey. Any mismatch stops before preflight or effects.
 | Browser proof | One temporary browser context/session | Real UI, one sign-in, exactly two submits, then close the browser context |
 | Stop in this run | Zero on success | Explicit future operator stop requires its own reviewed decision; retain volume |
 
+### Amendment 1 — local cached-image alias gate (authorization pending)
+
+The initial admitted preflight returned `REFUSED_NO_EFFECT` with reason
+`IMAGE_ABSENT`; its API, container, volume, web, total-owned, and effect
+counters were zero. No attempt marker or start invocation exists, and the
+single start budget remains unspent. The finite read-only diagnosis found the
+required `postgres:16` tag absent while the exact previously accepted image
+`sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36`
+is present on the local engine. The diagnosis performed no tag, pull, start,
+or source change. Preserve the original refusal and diagnosis as history; do
+not spend or reinterpret the original preflight again.
+
+AM1 is a new candidate only. No AM1 action is allowed until an independent
+review accepts this amendment, Root completes a new normal dispatch and the
+dedicated five-path actual-SHA continuity/clean-range gate, and an independent
+new source-admission PASS is recorded. Then perform one current-endpoint
+metadata read in process using the installed Docker CLI
+`C:/Users/DELL/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe`
+and `docker context inspect --format {{.Endpoints.docker.Host}}`. Do not emit
+the raw context, environment, Docker configuration, auth-file contents, or
+diagnostic errors. Continue only if the current endpoint is exactly one of:
+
+- Docker Desktop Linux engine: `npipe:////./pipe/dockerDesktopLinuxEngine`
+- local legacy Docker engine: `npipe:////./pipe/docker_engine`
+
+Any remote, malformed, or unrecognized endpoint stops AM1 without mutation.
+Against only the explicitly selected approved local endpoint, inspect the
+exact pinned image ID using explicit `--host <approved-npipe-endpoint>`. The
+ID must equal the sealed value above. Root then writes the one exclusive
+ignored reservation listed in the budget table before the alias decision or
+any possible tag operation. Immediately after reservation, inspect
+`postgres:16` against that same endpoint using explicit `--host`; this is the
+last check before mutation. If the alias is absent, perform exactly one local
+`image tag` from the pinned image ID to `postgres:16` using the same explicit
+`--host`, then inspect the alias once to confirm it resolves to that same ID.
+If the alias already resolves to
+the exact ID, record that result and skip the tag operation. If it resolves to
+any other ID, refuse without overwriting it. A mismatch, reservation conflict,
+failed verification, or any unexpected result stops immediately; no retry,
+alternate context, tag repair, pull, build, install, daemon start, or network
+acquisition is allowed. The AM1 limit is one endpoint read, at most three
+image inspections (pinned ID, alias before, alias after), one reservation,
+and at most one local tag mutation.
+
+After the alias gate, use the single additional fresh preflight only once. It
+must independently confirm the pinned image, ports, prerequisites and owner
+state. A refusal ends this run before any start; do not retry. A PASS is still
+only preflight evidence: Root must then write the already-defined immutable
+one-start reservation before invoking the existing start tool once. The
+original maximum of one start invocation is unchanged and remains unspent.
+
 The profile identity is P5A2-SOURCE-DEMO-LOCAL-1; fixture
 P5A2-SOURCE-DEMO-1; actor PUBLIC_ACTOR; viewer source-demo-viewer; role
 viewer; coverage mode SYNTHETIC_FIXTURE. The dedicated PostgreSQL compose
@@ -158,14 +228,16 @@ uses Docker's existing default bridge by network_mode: bridge, creates no
 network, and exposes only the loopback PostgreSQL port. The repository's
 full-stack docker-compose.yml is forbidden.
 
-Only cached postgres:16 may be used. Preflight must confirm the exact project
-Python interpreter and installed psycopg/SQLAlchemy, exact already-installed
-Node 22.14.0 and existing frontend modules, the expected 11 migration files,
-the exact profile files, the local image ID, no existing owner/container/
-volume conflict, and all three ports free. No installation is allowed.
-Preflight is one read-only invocation, allowed only after dispatch continuity
-and independent source admission. A refusal ends this attempt before any
-effect. Preflight itself does not spend the single start budget.
+Only cached postgres:16 may be used. The fresh preflight must confirm the exact
+project Python interpreter and installed psycopg/SQLAlchemy, exact
+already-installed Node 22.14.0 and existing frontend modules, the expected 11
+migration files, the exact profile files, the local image ID, no existing
+owner/container/volume conflict, and all three ports free. No installation is
+allowed. The original one-invocation preflight budget is spent; AM1 supplies
+exactly one additional fresh read-only invocation after the new dispatch
+continuity, clean-range, source-admission, and alias gates pass. A fresh
+preflight refusal ends this attempt before any start or other resource effect.
+Preflight itself does not spend the single start budget.
 
 All services bind to 127.0.0.1. The launcher may generate a database
 password, viewer password, and JWT signing secret only inside the admitted
@@ -266,7 +338,9 @@ deployment, release, or AI governance. No provider call is part of the task.
 The Stage B evidence record is secret-free and Root-owned. It records:
 
 - actual source and frozen-input pin-manifest digests and the source admission;
-- the zero-effect preflight result and exact cached image ID/ports;
+- the original zero-effect preflight result, the AM1 alias-gate before/after
+  observations and any single tag result, the fresh preflight result, and the
+  exact cached image ID/ports;
 - the pre-start attempt reservation SHA and whether the single start call occurred;
 - actual profile/resource IDs, owner nonce, process IDs, image ID, database
   fingerprint, PostgreSQL major, migration/schema result, table counts, and
@@ -289,33 +363,41 @@ automatic support tranche is authorized.
 
 The lifecycle is WORK_ORDER → independent authorization review → normal
 dispatch commit → dedicated five-path actual-SHA continuity commit and clean
-range → independent source admission → one read-only preflight → immutable
-effect reservation → one start → smoke/browser proof → result review →
+range → independent new source admission → bounded AM1 local alias gate → one
+fresh read-only preflight → immutable effect reservation → one start →
+smoke/browser proof → result review →
 normal result material closure → terminal review → actual-SHA continuity and
 clean-range closure. This Work Order grants no invocation before its prerequisite gates pass. This dispatch candidate has sealed source/roles/paths in the admission.
-Independent authorization is still required before normal dispatch; later
-source admission and preflight precede effects.
+Independent AM1 authorization is still required before the new normal
+dispatch; actual-SHA continuity/clean range and new source admission precede
+the AM1 alias action and fresh preflight. The initial authorization, dispatch,
+source admission and no-effect preflight remain preserved history only.
 
-Before any preflight or physical invocation, require all of:
+The AM1 sequence has these ordered gates. Items 1–5 are prerequisites before
+any alias mutation or fresh preflight:
 
-1. Independent Stage B authorization review: COMPLETE, no open finding or
-   waiver.
+1. Independent AM1 authorization review: COMPLETE, no open finding or waiver.
 2. Exact sealed manifest of all Stage A source paths, hashes, line counts,
    frozen fixtures/oracles, predecessor hashes, family digests, actual source
-   commits, exact root-owned artifact paths, named roles, and exact budget.
-3. Normal dispatch commit with the Work Order, admission and required
+   commits, exact root-owned artifact paths, named roles, AM1 alias reservation,
+   and total/original/additional budgets.
+3. New normal dispatch commit with the amended Work Order, admission and required
    continuity; actual dispatch SHA in the literal handoff material-SHA marker.
 4. A dedicated five-path dispatch-continuity commit covering the Stage B
    handoff, SESSION/ACTIVE_SESSION_STATE.json,
    SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json,
    SESSION/SESSION_MEMORY.md, and CVF_SESSION/ACTIVE_SESSION_STATE.json,
    followed by an independent clean split-range check.
-5. Independent source-admission PASS on the exact source pins and frozen
-   inputs. Only then may Root invoke the read-only preflight.
-6. Read-only preflight PASS with no owner conflict, no occupied port, exact
-   cached image/runtime, dependencies, migrations, and no installation.
-7. Root exclusively writes the immutable one-start attempt reservation before invoking
-   the existing start tool. After reservation there is no retry.
+5. Independent AM1 source-admission PASS on the exact source pins and frozen
+   inputs; the earlier `076336d` admission is historical and not reused.
+6. AM1 local endpoint and image/tag checks pass. If the alias is absent, the
+   single exclusive tag reservation precedes the only allowed tag operation;
+   a preexisting different image ID refuses without overwrite.
+7. The one additional fresh read-only preflight passes with no owner conflict,
+   no occupied port, exact cached image/runtime, dependencies, migrations,
+   and no installation.
+8. Root exclusively writes the immutable one-start attempt reservation before
+   invoking the existing start tool. After reservation there is no retry.
 
 If any condition is missing or contradictory, remain at that gate with zero
 physical effects. Any objective, path, effect, budget, source pin, risk,
@@ -353,9 +435,10 @@ new source code, tests, or arbitrary path additions:
 - STAGE_B_SOURCE: the 23 exact Stage A source paths in the accepted Stage A
   admission, treated read-only and pinned by the Stage B admission.
 - STAGE_B_EFFECT: the existing preflight/start/smoke/stop/common scripts and
-  dedicated compose file, the exact user-local owner/secrets directory
-  defined by the existing script, the one named database/container/volume,
-  and the two loopback child processes.
+  dedicated compose file; the exact local Docker `postgres:16` alias to the
+  pinned image and one ignored AM1 tag-reservation path; the exact user-local
+  owner/secrets directory defined by the existing script; the one named
+  database/container/volume; and the two loopback child processes.
 - STAGE_B_EVIDENCE: the exact Stage B evidence/return/review records and the
   two screenshot paths listed above.
 - STAGE_B_ROOT_MATERIAL: the exact Stage B Work Order, admission, attempt,
@@ -373,11 +456,12 @@ result-material SHA in the same exact five continuity paths.
 | gateId | mustPassBy | repairOwner | repairPhase | mutationSurface | topology | commitOwner | commitPhase | dependsOn |
 |---|---|---|---|---|---|---|---|---|
 | authorization_review | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
-| pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/implementation/EXECUTION_ROADMAP.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json | BOUNDED_PATH_FAMILY | commit-steward | DISPATCH_COMMIT | authorization_review |
+| pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/P5A2_SYNTHETIC_BACKEND_STAGE_B_WORK_ORDER.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;IMPLEMENTATION_STATUS.json;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/implementation/EXECUTION_ROADMAP.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json | BOUNDED_PATH_FAMILY | commit-steward | DISPATCH_COMMIT | authorization_review |
 | dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md material-SHA marker;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
 | pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
 | source_admission | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_REVIEW_2026-10-26.md;SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
-| read_only_preflight | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json;.venv/p5a2-demo-stage-b-preflight-20261026.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | source_admission |
+| image_alias_remediation | IMPLEMENTATION | orchestrator | IMPLEMENTATION | Docker local `postgres:16` alias to the exact pinned image;`.venv/p5a2-demo-stage-b-am1-tag-reservation-20261026.json`;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | source_admission |
+| read_only_preflight | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json;.venv/p5a2-demo-stage-b-preflight-20261026.json;.venv/p5a2-demo-stage-b-am1-preflight-20261026.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | source_admission,image_alias_remediation |
 | effect_reservation | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ATTEMPT_2026-10-26.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | read_only_preflight |
 | physical_start | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ATTEMPT_2026-10-26.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | effect_reservation |
 | focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_ADMISSION_2026-10-26.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_EVIDENCE_2026-10-26.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_STAGE_B_RETURN_2026-10-26.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,source_admission |
@@ -399,7 +483,7 @@ that legacy family.
 ## Seal checklist (resolved by Root admission, independently verified before dispatch)
 
 1. This DISPATCH_READY candidate still requires the independent
-   reviewer accepts the complete Work Order and the active closeability
+   reviewer to accept the complete Work Order and verify the active closeability
    contract is CLOSEABLE with no unresolved path family or split.
 2. Seal all 23 current source path raw hashes and line counts, actual source
    commits, exact input/oracle pins, and both family digests in the Stage B
@@ -409,13 +493,17 @@ that legacy family.
    Confirm the five dispatch continuity paths and actual-SHA marker.
 4. Name the executor, independent reviewer, Root effect/artifact/commit owner,
    existing browser tool selected, and future explicit-stop owner.
-5. Confirm the one-preflight/one-reserved-start/two-context/one-browser
-   budget, local-only boundaries, evidence paths, failure stop, and later
-   volume-retaining stop rules without broadening the assignment.
+5. Confirm the spent original plus one additional fresh preflight, at most one
+   same-image alias tag, one reserved start, two query contexts, and one
+   browser context; retain the local-only boundaries, evidence paths, failure
+   stop, and later volume-retaining stop rules without broadening the
+   assignment.
 
-The seal items are now resolved in the exact admission. Independent review
-must accept the candidate before dispatch. No preflight or physical action is
-allowed until the later actual-SHA clean gate and source admission pass.
+The original Stage B seal items are recorded in the exact admission; AM1 adds
+the bounded local alias and one fresh-preflight budget above. The candidate
+awaits independent AM1 authorization review before dispatch. No AM1 alias
+action, additional preflight, or physical action is allowed until the new
+actual-SHA clean gate and new source admission pass.
 
 ## Resolved Root seal / execution bounds
 

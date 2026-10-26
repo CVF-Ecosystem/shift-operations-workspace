@@ -1,12 +1,12 @@
 # P5-A2 synthetic backend Stage B — independent admission review
 
 docType: completion_review
-Status: AUTHORIZATION_REVIEW_PASS_BOUNDED
+Status: AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED
 Date: 2026-10-26
 Reviewer: independent REVIEWER `/root/source_api_review`
 Baseline: `a77b12062fd530cf99056ea5f11b552a321747e8`
 
-## Decision and Product Milestone Binding
+## Original authorization and Product Milestone Binding (retained)
 
 **AUTHORIZATION_REVIEW_PASS_BOUNDED.** Open findings: NONE. Waivers: NONE. The sealed Stage B Work Order and admission authorize Root's normal dispatch process only. The actual dispatch commit, dedicated five-path actual-SHA continuity, independent clean-range check, and later independent source admission must pass before even the one read-only Docker preflight. A successful preflight and exclusive attempt reservation are then required before the single start invocation. This review spent no physical attempt or effect budget.
 
@@ -23,6 +23,18 @@ The canonical complete G01–G14 table in `docs/specs/P5A2_SYNTHETIC_BACKEND_SPE
 
 Pinned Core inheritance and active Work Order closeability preflight report zero violations; invariant-family, session and Project Knowledge checks pass. The ordinary Core CLI/hook scans Work Orders and `docs/reviews/` but not this project's legacy `docs/decisions/` completion reviews; the explicit applicable native recheck below supplies that limit. No Docker command, preflight, SQL, browser launch, listener, provider call, package install, real secret or physical effect was used for this authorization review.
 
+## Amendment 1 independent authorization — current decision
+
+**AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED.** Open findings: NONE. Waivers: NONE. This authorizes Root's normal AM1 redispatch only. The original authorization, clean `37ff857`/`076336d` dispatch split and source admission remain accepted history; they do not authorize the new alias action or another preflight. AM1 requires a new normal dispatch commit, dedicated five-path actual-SHA continuity, independent clean split-range check and new independent source admission before any AM1 Docker command. The one new local alias gate and one additional read-only preflight are future effect decisions under those gates.
+
+The original one permitted preflight is spent and returned `REFUSED_NO_EFFECT` / `IMAGE_ABSENT`, exit 1, with API, container, volume, web, total-owned and effect counters all zero. The exact same result appears in the admission and secret-free evidence. No attempt marker, start invocation, generated credential, database, listener, browser or provider action exists. A finite separate read-only diagnosis used two fixed local image inspections: `postgres:16` yielded `NoSuchImage`; the accepted `sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36` image exists on the local engine. The record reports no tag, pull, start or source edit. This supports a missing alias diagnosis, not a missing-image or successful physical-profile claim.
+
+The 539-line amended Work Order's native LF SHA-256 is `a752a99ea5128517dbc2fc9bc4bbe20a60fd7b07e5f9872d3f568222c871b895`, matching both admission pins. All 23 source native LF/raw/line pins still equal accepted Stage A Git blobs; four frozen inputs, four predecessor oracles, 11 migrations, two families, the SPEC and read-only package/browser pins are unchanged. Root retains the same executor, independent reviewer, exact 23 Root-owned paths and reviewer-only path. The full G01–G14 gap/owner/P5-A2/B/C/D table is unchanged: AM1 unblocks only the same known synthetic G04/G05 physical attempt; operational G04/G05, other blocked/open/unknown/held gaps, AI governance proof and P5-A2 remain unaccepted, Phase 5 remains 0/5. A failed endpoint, alias identity, reservation or fresh preflight ends this finite repair and returns to Root for a new reviewed decision.
+
+I assessed authority against the existing operator request for an isolated local Docker synthetic backend and execution across the roadmap. Restoring one **absent local tag to the identical previously accepted cached image** is a bounded dependent local Docker metadata effect necessary for this already selected profile. It adds no image acquisition, remote/network use, overwrite of another tag, source path, credential class, production/public effect, deletion, risk ceiling or commit-owner change. AM1 expressly checks one current endpoint against only two local named-pipe endpoints, uses explicit `--host`, confirms the exact pinned image ID, reserves the alias operation exclusively, inspects the tag immediately before mutation, skips a same-ID tag, refuses a different-ID tag, and verifies the same ID after at most one tag. There is no automatic retry or alternative context. This stays within the existing operator-authorized effect class; no additional routine approval is required.
+
+The budget delta is exact: original read-only preflight 1 consumed plus **one** additional, total 2; at most one local tag, one current local endpoint metadata read and three bounded image inspections. The original maximum **one** reserved start remains unspent and unchanged; every container, volume, process, seed, migration, smoke, UI, read-only SQL, provider, install, pull, public effect and deletion limit remains unchanged. The exclusive ignored tag reservation is separate from the tracked immutable one-start reservation. The original evidence remains retained and the amended gate graph orders independent AM1 authorization, new dispatch/continuity/clean range, new source admission, alias gate, fresh preflight, start reservation, physical result, review and normal closure. Pinned Core closeability, invariant-family, session and Project Knowledge checks pass. No Docker, image inspection, alias mutation, Node/browser, SQL, secret, provider, package or physical action was run for this review.
+
 ## Return-Time Closeability Recheck
 
 closeabilityDisposition: CLOSEABLE
@@ -30,4 +42,4 @@ outsideAuthorityBlockers: NONE
 nextRepairRoute: NONE
 workerRedispatchAllowed: YES
 
-This standalone `docType: completion_review` marker is applicable to the verified pinned Core `check_recheck`. Explicit invocation reports zero violations. The normal CLI/hook does not automatically scan legacy `docs/decisions/` reviews. The packet is closeable within the exact Work Order path/risk/effect envelope; authorization allows normal dispatch only, while independent source admission and all physical gates remain future decisions.
+This standalone `docType: completion_review` marker is applicable to the verified pinned Core `check_recheck`. Explicit invocation reports zero violations. The normal CLI/hook does not automatically scan legacy `docs/decisions/` reviews. AM1 remains closeable within the exact amended Work Order path/risk/effect envelope; authorization allows normal redispatch only, while new source admission and all AM1/physical gates remain future decisions.

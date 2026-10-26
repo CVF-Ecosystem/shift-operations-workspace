@@ -1,0 +1,55 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-20261026",
+  "result": "PREFLIGHT_REFUSED_NO_EFFECT",
+  "sourceAdmission": "STAGE_B_SOURCE_ADMISSION_PASS_BOUNDED",
+  "preflight": {
+    "exitCode": 1,
+    "result": {
+      "api_count": 0,
+      "container_count": 0,
+      "effect_count": 0,
+      "outcome": "REFUSED_NO_EFFECT",
+      "owner_nonce": "2b62711d087f92358940228e032c261e295f513d818e541a6129d22e2a8fd59a",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "reason": "IMAGE_ABSENT",
+      "total_owned_count": 0,
+      "volume_count": 0,
+      "web_count": 0
+    }
+  },
+  "startInvocations": 0,
+  "attemptReservationCreated": false,
+  "ownedContainerCount": 0,
+  "ownedVolumeCount": 0,
+  "apiProcessCount": 0,
+  "webProcessCount": 0,
+  "browserContexts": 0,
+  "generatedCredentials": false,
+  "providerCalls": 0,
+  "milestoneComplete": false,
+  "operationalCoverageAccepted": false,
+  "finiteReadOnlyDiagnosis": {
+    "cliPresent": true,
+    "localLinuxEnginePipePresent": true,
+    "dockerBackendPresent": true,
+    "dockerRoutingEnvPresence": false,
+    "tagInspect": {
+      "exitCode": 1,
+      "classification": "NoSuchImage",
+      "tag": "postgres:16"
+    },
+    "exactImageInspect": {
+      "exitCode": 0,
+      "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "matchesSealedPin": true
+    },
+    "tagOrPullOrStartActions": 0,
+    "diagnosticActor": "/root/source_openapi_repair"
+  },
+  "amendment1": {
+    "status": "PROPOSED_NOT_AUTHORIZED",
+    "tagOperations": 0,
+    "additionalPreflightInvocations": 0,
+    "startInvocations": 0
+  }
+}
