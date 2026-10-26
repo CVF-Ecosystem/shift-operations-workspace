@@ -1,23 +1,23 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_api_identity_planning_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md",
-  "nextAllowedMove": "After THISnormalchild+independentclean16+5range: bounded G06/G11 implementation-WO decision with accepted resolver/operator outcome and native source-mode gates. No automatic BUILD/provider/Docker.",
+  "currentMode": "p5a2_source_api_build_dispatch",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md",
+  "nextAllowedMove": "Normal exactdispatchcommit, independentterminalactualreview/dedicated5actualSHAcontinuity/cleanrange; then14pathworkerGO, STOPforfamilybinding beforetests.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",
+    "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
+    "docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md",
+    "docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json",
+    "tests/fixtures/p5a2_source_api_oracle.json",
     "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
-    "docs/work_orders/P5A2_SOURCE_API_IDENTITY_PLANNING_WORK_ORDER.md",
-    "docs/decisions/P5A2_SOURCE_API_IDENTITY_INTAKE_2026-10-26.md",
-    "docs/PROJECT_INDEX.md",
+    "docs/decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
-    "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
-    "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "docs/decisions/P5A2_SOURCE_API_IDENTITY_REVIEW_2026-10-26.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md"
+    "docs/PROJECT_INDEX.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_BUILD_2026-10-26.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

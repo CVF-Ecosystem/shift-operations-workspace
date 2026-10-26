@@ -737,7 +737,7 @@
     "resultFinalReview": "FINAL_CLEAN_RESULT_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_source_api_identity_20261026": {
-    "status": "PLANNING_ACCEPTED_PENDING_MATERIAL",
+    "status": "CLOSED_BOUNDED_INTAKE_SPEC",
     "baseline": "dcaca2c02dfdb012cc55b16907b7c6f31fecf305",
     "spec": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_API_IDENTITY_PLANNING_WORK_ORDER.md",
@@ -756,6 +756,36 @@
       "API-SPEC-F2"
     ],
     "independentReview": "PLANNING_REVIEW_PASS_BOUNDED",
-    "materialCommit": "PENDING"
+    "materialCommit": "123d677970ace3c5dcdb14278944e50e0d7bf561",
+    "materialPaths": 16,
+    "materialFullHook": "3332passed148skipped4warnings250.44s",
+    "terminalReview": "POST_PLANNING_MATERIAL_REVIEW_PASS_BOUNDED",
+    "closureCondition": "DISCHARGED by actual59d63c6 and independentclean16+5range",
+    "trancheDisposition": "CLOSED_BOUNDED_INTAKE_SPEC",
+    "nextProductMove": "Separate G06/G11 implementation-WO decision requires bounded scope resolver/concrete operator outcome; operational READY separately requires native coverage-mode/family/emitter/validator + source authority. No automatic BUILD.",
+    "continuityCommit": "59d63c66ce170ede7259c67a4f770d96e623f921",
+    "continuityFullHook": "3332passed148skipped4warnings213.93s",
+    "finalReview": "FINAL_CLEAN_API_PLANNING_RANGE_REVIEW_PASS_BOUNDED"
+  },
+  "p5a2_source_api_build_20261026": {
+    "status": "DISPATCH_READY",
+    "spec": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md",
+    "admission": "docs/decisions/P5A2_SOURCE_API_BUILD_ADMISSION_2026-10-26.json",
+    "baseline": "59d63c66ce170ede7259c67a4f770d96e623f921",
+    "oracle": "tests/fixtures/p5a2_source_api_oracle.json",
+    "oracleRawSha256": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "plannedFinalMatrixCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
+    "familyBindingActive": false,
+    "apiImplemented": false,
+    "sourceAccepted": false,
+    "runtimeBuildReleased": false,
+    "operationalCoverageAccepted": false,
+    "providerCalls": 0,
+    "dockerInvocations": 0,
+    "milestoneComplete": false,
+    "authorizationAccepted": true,
+    "openFindings": [],
+    "dispatchCommit": "PENDING"
   }
 }

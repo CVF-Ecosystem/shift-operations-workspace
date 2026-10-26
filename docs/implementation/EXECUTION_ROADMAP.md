@@ -499,7 +499,7 @@ operational report record cần để hoàn thành một ca và thỏa freeze pr
       governed retrieval/RAG ổn định: scheduled signals, anomaly/trend
       detection, forecast confidence/calibration, drift monitoring và human
       approval trước mọi durable recommendation/action. Dự báo không tự biến
-      thành operational fact hoặc kích hoạt protected action. G06/G11 is now bounded [identity/API INTAKE/SPEC](../specs/P5A2_SOURCE_API_IDENTITY_SPEC.md); no route or implementation accepted.
+      thành operational fact hoặc kích hoạt protected action. G06/G11 identity/API contract is accepted; bounded [source API BUILD admission](../work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md) now under review, no route or implementation accepted yet.
 - [ ] **P5-B:** Dashboard, search, observability.
 - [ ] **P5-C:** Backup/restore, resilience drills, security review, performance.
 - [ ] **P5-D:** Deployment profiles, runbook, Shadow Mode pilot, release freeze.

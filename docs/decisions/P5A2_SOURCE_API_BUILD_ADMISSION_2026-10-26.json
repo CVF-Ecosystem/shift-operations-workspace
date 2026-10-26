@@ -1,0 +1,126 @@
+{
+  "id": "P5A2-SOURCE-API-BUILD-20261026",
+  "status": "AUTHORIZATION_REVIEWED_PENDING_DISPATCH",
+  "baselineCommit": "59d63c66ce170ede7259c67a4f770d96e623f921",
+  "risk": "R2",
+  "providerCalls": 0,
+  "dockerInvocations": 0,
+  "packageInstalls": 0,
+  "runtimeOperationalCoverageAllowed": false,
+  "workerPaths": [
+    "apps/workspace-api/src/workspace_api/application/proactive_source_access.py",
+    "apps/workspace-api/src/workspace_api/application/proactive_source_preview.py",
+    "apps/workspace-api/src/workspace_api/api/proactive/__init__.py",
+    "apps/workspace-api/src/workspace_api/api/proactive/router.py",
+    "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+    "apps/workspace-api/src/workspace_api/main.py",
+    "apps/workspace-api/src/workspace_api/config.py",
+    "apps/workspace-api/src/workspace_api/dependencies.py",
+    "packages/cvf-runtime/src/cvf_runtime/permission.py",
+    "tests/unit/p5a2_source_api_helpers.py",
+    "tests/integration/test_p5a2_source_api_identity.py",
+    "tests/integration/test_p5a2_source_api_receipts.py",
+    "tests/integration/test_p5a2_source_api_release.py",
+    "tests/unit/test_p5a2_source_api_transport.py"
+  ],
+  "workerReturn": "docs/decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md",
+  "matrixPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+  "baselineMatrixRawSha256": "9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c",
+  "baselineMatrixCanonicalSha256": "9b3ba818e647d228e453706fac1378a69388bbae7b1a02d81732e64d939d5d4c",
+  "familyMetadataPatch": {
+    "remove": [
+      "parityReason"
+    ],
+    "set": {
+      "title": "Scoped source admission receipts and bounded HTTP consumer",
+      "contractSources": [
+        {
+          "path": "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
+          "sha256": "db1d218083bfadac149f1c4415cfe0bc13213f41f33311a107447cad24abe7bf",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        },
+        {
+          "path": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
+          "sha256": "81e90a629448fcca576ed53758c6117d9d8065b5f922cea7f8d5416e4b52f0dd",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        },
+        {
+          "path": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
+          "sha256": "3df88a9540f7b403c8f59c719e4084ef928d94dd1a68046c0a1472fcf77fd830",
+          "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+        }
+      ],
+      "representationSurfaces": [
+        "PYTHON_CONTRACT",
+        "HTTP_JSON"
+      ],
+      "parityMode": "APPLICABLE",
+      "ownershipBindings": [
+        {
+          "bindingId": "P5A2_SOURCE_MATRIX_DIGEST",
+          "ownerPath": "docs/cvf/invariants/p5a2-scoped-source-outcomes.json",
+          "consumers": [
+            {
+              "consumerPath": "docs/specs/p5a2_scoped_source_invariant_pin.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            },
+            {
+              "consumerPath": "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            },
+            {
+              "consumerPath": "apps/workspace-api/src/workspace_api/api/proactive/response.py",
+              "strategy": "CANONICAL_DIGEST",
+              "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+            }
+          ]
+        }
+      ],
+      "evidenceTestPaths": [
+        "tests/unit/test_invariant_family_contract.py",
+        "tests/integration/test_invariant_family_repository_guard.py",
+        "tests/unit/test_p5a2_scoped_source.py",
+        "tests/unit/test_p5a2_scoped_source_caps.py",
+        "tests/unit/test_p5a2_scoped_source_family.py",
+        "tests/integration/test_p5a2_scoped_source_sql.py",
+        "tests/integration/test_p5a2_source_api_identity.py",
+        "tests/integration/test_p5a2_source_api_receipts.py",
+        "tests/integration/test_p5a2_source_api_release.py",
+        "tests/unit/test_p5a2_source_api_transport.py"
+      ],
+      "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim."
+    }
+  },
+  "expectedFinalMatrixCanonicalSha256": "3c565239318753f0c12f218b4a6517435a78cf2e7b74f60d0d61226da01e6b6a",
+  "rootPinUpdatePaths": [
+    "docs/specs/p5a2_scoped_source_invariant_pin.py",
+    "apps/workspace-api/src/workspace_api/application/proactive_source_receipt.py"
+  ],
+  "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST",
+  "sourcePins": {
+    "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md": "81e90a629448fcca576ed53758c6117d9d8065b5f922cea7f8d5416e4b52f0dd",
+    "tests/fixtures/p5a2_scoped_source_oracle.json": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "tests/fixtures/p5a2_docker_backend_oracle.json": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "tests/fixtures/p5a2_scoped_source_pg_oracle.json": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f",
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "apps/workspace-api/src/workspace_api/auth/tokens.py": "2c6b4ed636b74fb005d5d1e911358206030107834a642c6fb060c1da0c34a4b5",
+    "apps/workspace-api/src/workspace_api/application/proactive_source.py": "09294f30d70333a4da450b97f59031ccca7638e1154ebe6ae1f6b8330ef21137",
+    "packages/operations-ledger/src/operations_ledger/_proactive_source_sql.py": "3c719f293482734febfbbd19f8b3d9f68834065267076688a986a2700bf5505d",
+    "packages/operations-ledger/src/operations_ledger/_proactive_source_sql_content.py": "bd94577a21c6e55763c11c0b276cd0a472c1c2577b4247ddad19b32d4ab0b480",
+    "apps/workspace-api/src/workspace_api/infrastructure/_proactive_source_memory.py": "1f9a2145fd0151c66a0a8781b66c9d948b7e166a74f1ba1fddcfb5903bcdac3d",
+    "packages/operations-ledger/src/operations_ledger/_proactive_source_types.py": "790d15856de1fc66b9b0700e1304a30e2f193cbc67d4702a29ac583022f759f3"
+  },
+  "apiOracleRawSha256": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+  "materializationGate": "Independent pre-BUILD approval of full recoverable patch and final digest; current matrix stays for dispatch. Worker creates real exact files then stops before focused tests. Root applies exact patch/pins; independent actual-byte/path/consumer/native-guard check before tests resume. No placeholder tests.",
+  "matrixSerialization": {
+    "encoding": "UTF8",
+    "indent": 2,
+    "ensureAscii": false,
+    "keyOrder": "Preserve baseline insertion order, remove listed keys then dict.update set keys in patch order",
+    "trailingLF": true,
+    "canonicalization": "UTF8_UNIVERSAL_NEWLINE via native invariant_family_contract.canonical_digest"
+  },
+  "unchangedShapeRuleDigest": "7e22ce5427d60443e294b5b2410a5a57f30d9462a9871ac24bf1e8380648a299"
+}
