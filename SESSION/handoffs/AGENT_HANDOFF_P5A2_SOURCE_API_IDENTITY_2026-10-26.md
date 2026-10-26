@@ -1,5 +1,10 @@
 # P5-A2 G06/G11 source API identity — active planning handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `123d677970ace3c5dcdb14278944e50e0d7bf561`.
+Dedicated PLANNING continuity: THIS exact five-path child records the actual material SHA; derive child SHA after normal hook. Independent clean 16+5 split-range review is the final closure gate.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; baseline dcaca2c02dfdb012cc55b16907b7c6f31fecf305.
 Phase INTAKE → DESIGN → SPEC, R2; Root ORCHESTRATOR/SPEC_AUTHOR;
 live evidence required YES for AI claims. Installed Core read-only
@@ -59,3 +64,7 @@ IndependentCHANGES_REQUIRED_BOUNDED API-SPEC-F1/F2 accepted inonepacket. Rootfre
 ## Planning acceptance / COMMIT_STEWARD acknowledgment
 
 IndependentPLANNING_REVIEW_PASS_BOUNDED, F1/F2resolved/no waiver; canonicalrecheckCLOSEABLE/NONE/NONE/NO, nativeintake/review[]. Rootfreshcanonical/status/index/Coreack→COMMIT_STEWARD. Exact16docs/metadata planningmaterial thenindependentterminalactualrange/dedicated5actualSHAchild/cleanclosure only. API NOT_IMPLEMENTED, no runtimeBUILD/provider/Docker/source-mode change. FutureWOdecisionmustmeet acceptedboundedresolver/concreteoperatoroutcome/nativecoverage-mode/family/authoritygates; all14remainders/owners/Phase5 0/5 retained.
+
+## Actual planning material / dedicated final continuity
+
+Actual123d677970ace3c5dcdb14278944e50e0d7bf561 parentdcaca2c exact16paths. Unmodifiednormalhook3332PASS148skip4warnings250.44s. IndependentPOST_PLANNING_MATERIAL_REVIEW_PASS_BOUNDED: clean/exact16/no runtimecodechange, kitpointermatch/nativelegacyreturns[]. Rootfreshcanonical/status/index/Coreack COMMIT_STEWARD→SESSION_SYNC_STEWARD. THISexact5childaddsSOLEGC020actualplanningSHAmarker. ConditionalFREEZE/CLOSED_BOUNDED_INTAKE_SPEC effective only afterTHISnormalhook andindependentclean16+5range; no missingartifact/failingtest/waiver. AcceptedG06/G11contract+partialG13testplan only, API NOT_IMPLEMENTED/runtimeBUILDfalse/operationalcoverageUNKNOWN. Futureworkorderdecisionneedsboundedresolver/concreteoperatoroutcome; operationalREADYneedsseparatenativecoverage-mode/family/emitter/validator+sourceauthority. No automaticBUILD/provider/Docker; all14remainders/owners/P5-A2/B/C/D/Phase5 0/5retained.

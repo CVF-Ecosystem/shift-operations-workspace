@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_source_api_identity_planning_material",
+  "mode": "p5a2_source_api_identity_planning_closed_bounded",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md",
   "last_updated": "2026-10-26",
   "required_reads": [
@@ -20,7 +20,7 @@
     "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Normal exact16planning material commit; independentterminalactualrange, dedicated5actualSHAcontinuity/cleanclosure. Successorwork-order decision only, no automatic BUILD.",
+  "next_allowed_move": "After THISnormalchild+independentclean16+5range: bounded G06/G11 implementation-WO decision with accepted resolver/operator outcome and native source-mode gates. No automatic BUILD/provider/Docker.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -39,9 +39,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_source_api_identity_planning_material",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Independent planningPASS, two findingsresolved; source/API/matrix/oracles unchanged. Normal docs-only exact16material and dedicatedactualSHAcontinuity remain.",
+    "currentMode": "p5a2_source_api_identity_planning_closed_bounded",
+    "activePhase": "FREEZE",
+    "activePhaseNote": "Actual planning123d677 independentlyPASS exact16/clean. THISdedicated5actualSHAchild plusfinalindependentcleanrange gates INTAKE/SPEC closure only; API still NOT_IMPLEMENTED.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "activeHandoffNote": "Source API identity INTAKE/SPEC only; prior StageB proof is closed bounded history.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
-    "activeRole": "COMMIT_STEWARD",
-    "activeRoleNote": "Independent planningPASS, two findingsresolved; source/API/matrix/oracles unchanged. Normal docs-only exact16material and dedicatedactualSHAcontinuity remain.",
-    "currentRoleTransition": "COMMIT_STEWARD",
+    "activeRole": "SESSION_SYNC_STEWARD",
+    "activeRoleNote": "Actual planning123d677 independentlyPASS exact16/clean. THISdedicated5actualSHAchild plusfinalindependentcleanrange gates INTAKE/SPEC closure only; API still NOT_IMPLEMENTED.",
+    "currentRoleTransition": "SESSION_SYNC_STEWARD",
     "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD",
     "updatedAt": "2026-10-26"
   },
@@ -532,7 +532,7 @@
     "resultFinalReview": "FINAL_CLEAN_RESULT_RANGE_REVIEW_PASS_BOUNDED"
   },
   "p5a2_source_api_identity_20261026": {
-    "status": "PLANNING_ACCEPTED_PENDING_MATERIAL",
+    "status": "CLOSED_BOUNDED_INTAKE_SPEC",
     "baseline": "dcaca2c02dfdb012cc55b16907b7c6f31fecf305",
     "spec": "docs/specs/P5A2_SOURCE_API_IDENTITY_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_SOURCE_API_IDENTITY_PLANNING_WORK_ORDER.md",
@@ -551,6 +551,12 @@
       "API-SPEC-F2"
     ],
     "independentReview": "PLANNING_REVIEW_PASS_BOUNDED",
-    "materialCommit": "PENDING"
+    "materialCommit": "123d677970ace3c5dcdb14278944e50e0d7bf561",
+    "materialPaths": 16,
+    "materialFullHook": "3332passed148skipped4warnings250.44s",
+    "terminalReview": "POST_PLANNING_MATERIAL_REVIEW_PASS_BOUNDED",
+    "closureCondition": "Effective only after THIS dedicated5path child normalhook and independentclean16+5range; childSHA derived from Git.",
+    "trancheDisposition": "CLOSED_BOUNDED_CONTRACT_ONLY_SUBJECT_TO_FINAL_CHILD_AND_RANGE",
+    "nextProductMove": "Separate G06/G11 implementation-WO decision requires bounded scope resolver/concrete operator outcome; operational READY separately requires native coverage-mode/family/emitter/validator + source authority. No automatic BUILD."
   }
 }

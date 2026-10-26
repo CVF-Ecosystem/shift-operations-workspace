@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_api_identity_planning_material",
+  "currentMode": "p5a2_source_api_identity_planning_closed_bounded",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_API_IDENTITY_2026-10-26.md",
-  "nextAllowedMove": "Normal exact16planning material commit; independentterminalactualrange, dedicated5actualSHAcontinuity/cleanclosure. Successorwork-order decision only, no automatic BUILD.",
+  "nextAllowedMove": "After THISnormalchild+independentclean16+5range: bounded G06/G11 implementation-WO decision with accepted resolver/operator outcome and native source-mode gates. No automatic BUILD/provider/Docker.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

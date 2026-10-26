@@ -7,8 +7,8 @@ read-only selectedcontrols; no private/sharedpack/latestremote dependency.
 
 ## Current tranche
 
-P5-A2 G06/G11 source API identity: REVIEW; COMMIT_STEWARD; R2.
-Independent planningPASS, two findingsresolved; source/API/matrix/oracles unchanged. Normal docs-only exact16material and dedicatedactualSHAcontinuity remain.
+P5-A2 G06/G11 source API identity: FREEZE; SESSION_SYNC_STEWARD; R2.
+Actual planning123d677 independentlyPASS exact16/clean. THISdedicated5actualSHAchild plusfinalindependentcleanrange gates INTAKE/SPEC closure only; API still NOT_IMPLEMENTED.
 Canonical full Product Milestone Binding in P5A2_SOURCE_API_IDENTITY_SPEC.md:
 strict signed JWT expiry + current stored user/action, server-only self scope,
 bounded assignment preflight/fresh release, default coverage refusal, receipt-only
@@ -38,4 +38,4 @@ no Docker rerun, production/deployment or operationalaccuracy claim.
 
 ## Next allowed move
 
-Normal exact16planning material commit; independentterminalactualrange, dedicated5actualSHAcontinuity/cleanclosure. Successorwork-order decision only, no automatic BUILD.
+After THISnormalchild+independentclean16+5range: bounded G06/G11 implementation-WO decision with accepted resolver/operator outcome and native source-mode gates. No automatic BUILD/provider/Docker.
