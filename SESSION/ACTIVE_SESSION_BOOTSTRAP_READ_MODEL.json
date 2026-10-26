@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_source_ui_dispatch_gate",
+  "currentMode": "p5a2_source_ui_dispatch_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SOURCE_UI_2026-10-26.md",
-  "nextAllowedMove": "Normal exact dispatch commit, independent actual review, dedicated five-path actual-SHA continuity, clean split range before worker BUILD.",
+  "nextAllowedMove": "Independent clean 19+5 split range; then fresh worker BUILD declaration/GO, real files STOP before tests for binding gate.",
   "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
   "requiredReads": [
     "AGENTS.md",

@@ -1,5 +1,10 @@
 # P5-A2 G11 source-inspection UI — active handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `86d4ac461d93c2468530c990ad192e29d63ba91f`.
+Dedicated dispatch continuity: this exact five-path child records actual SHA after terminal review; normal hook then independent clean19+5 split range are required.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
 Date2026-10-26; baseline355ff938ce3beb532f32c60b7d9780147ed469bc; R2; live YES for AI claims.
 Root ORCHESTRATOR/SPEC_AUTHOR/WORK_ORDER_AUTHOR; WORK_ORDER admission pending.
 Installed Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
@@ -45,3 +50,13 @@ package/browser/production/deployment/public/push effect.
 ## Independent admission / normal dispatch gate
 
 AUTHORIZATION_REVIEW_PASS_BOUNDED, findings/waivers NONE: full84 independent descriptors/two positive contexts/nine refusals, complete metadata-only proposedmatrix nativeLFcb0fb242, real futureTSconsumer/test binding and three old literalpins, exact14paths/200linebudget/currentG01-G14coverage verified. Root fresh canonical/implementation/index/roadmap/pinnedCore acknowledgment, WORK_ORDER_AUTHOR to COMMIT_STEWARD, WORK_ORDER/R2/liveYESforAIclaims. Normaldispatch/terminalactualreview/dedicated5actualSHA/cleanrange before workerGO; old3c565staysactive, realfiles+independentmaterializationgate beforetests. NoUIcode/effects, allremainders/owners/Phase5 0/5 retained.
+
+## Actual dispatch / dedicated continuity
+
+Actual86d4ac461d93c2468530c990ad192e29d63ba91f, exact19; normal3397passed148skipped4warnings242.00s. IndependentPOST_DISPATCH_REVIEW_PASS_BOUNDED verifies
+actual range/pins/catalog/session/native legacy rechecks, findings/waivers NONE.
+Root freshly rehydrates canonical continuity/implementation/index/roadmap and
+verified pinned Core; COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
+claims. THIS exact5 child records sole actualSHA marker; normal hook then clean
+19+5 independent review remain before BUILD GO. No self-referential child SHA.
+Full14 milestone gaps/owners and Phase5 0/5 retained. No new effect.

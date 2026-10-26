@@ -7,8 +7,8 @@ read-only selected public controls; no private/shared pack/latest remote binding
 
 ## Current tranche
 
-P5-A2 G11 source UI: WORK_ORDER; COMMIT_STEWARD; R2; live YES for AI claims.
-Independent G11 authorization PASS, full oracle84/patch/nativeLFcb0fb/exact14paths/currentmilestone verified; no UI code or test yet. Normal dispatch/continuity gate pending.
+P5-A2 G11 source UI: WORK_ORDER; SESSION_SYNC_STEWARD; R2; live YES for AI claims.
+Actual dispatch 86d4ac4 independently terminal-reviewed, exact19; normal 3397passed148skipped4warnings242.00s. This exact five-path actual-SHA child precedes independent clean split range.
 Full current Product Milestone Binding in docs/specs/P5A2_SOURCE_UI_SPEC.md. Manual UTC source inspection
 only, safe counts/refusals; synthetic READY explicitly test data. Same native
 source family semantics; staged real TS consumer binding before tests. Root
@@ -36,4 +36,4 @@ CSV/Docker/production/install/deployment/browser/public effect in this tranche.
 
 ## Next allowed move
 
-Normal exact dispatch commit, independent actual review, dedicated five-path actual-SHA continuity, clean split range before worker BUILD.
+Independent clean 19+5 split range; then fresh worker BUILD declaration/GO, real files STOP before tests for binding gate.
