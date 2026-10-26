@@ -2,7 +2,7 @@
 
 ## Start Here
 
-- Current G04/G05 consolidated recovery: [SPEC](specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md), [Work Order](work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md), [admission](decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json). One source+retained-volume recovery acceptance unit; AM1 source/authorization independently PASS; initial preflight refused virtual OWNER RIGHTS, source recognition corrected without ACL change; source+AM1 material/continuity/clean/new admission required before final extra preflight. No migration replay; SQL/JWT/API two frozen receipts/UI required. Prior failed-result555119e/08c62da clean15+5; physical backend not accepted.
+- Current G04/G05 recovery: [failed result and concrete pending authority proposal](decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md), [evidence](decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json), [review](decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md). Source256a052/5c9597e accepted3483PASS, one recovery FAILED at native seed; new container removed, volume retained, postseed rows UNKNOWN; SQL/JWT/API/UI acceptance NOT met. No retry; operator decision on exact source/data repair boundary before any new budget. Same recovery tranche, Phase5 0/5.
 
 
 - Current G04/G05 [Stage B handoff](../SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md): one physical start FAILED; owned container removed, named volume retained; API/web/smoke/UI unexecuted, start budget SPENT. Independent failed-result review and normal evidence closure precede one consolidated source/recovery decision. Source Stage A296e9ff/a77b120 independently closed bounded exact45+5.

@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY_DETAIL.json`](MODULE_REGISTRY_DETAIL.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-10-26T20:59:36.141969+00:00_
+_Last generated: 2026-10-26T22:01:35.164178+00:00_
 
 ## How to use this catalog
 
@@ -80,7 +80,7 @@ _Last generated: 2026-10-26T20:59:36.141969+00:00_
 - **Depends on:** `shared-kernel`
 - **Tests:** `tests/cvf/test_ledger_protocol.py`, `tests/integration/test_sql_ledger_sqlite.py`, `tests/integration/test_sql_ledger_integrity.py`, `tests/integration/test_schema_parity.py`, `tests/integration/test_schema_parity_types_and_checks.py`, `tests/integration/test_schema_parity_users.py`, `tests/integration/test_evidence_persistence.py`, `tests/integration/test_sql_ledger_postgres_live.py`, `tests/integration/test_postgres_live_runner.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/integration/test_schema_parity_handovers.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/integration/test_handover_postgres_live.py`, `tests/cvf/test_handover_vertical.py`, `tests/integration/test_handover_ledger_parity.py`, `tests/integration/test_message_sqlite.py`, `tests/integration/test_message_postgres_live.py`, `tests/unit/test_p5a2_scoped_source.py`, `tests/unit/test_p5a2_scoped_source_caps.py`, `tests/unit/test_p5a2_scoped_source_family.py`, `tests/integration/test_p5a2_scoped_source_sql.py`, `tests/integration/test_p5a2_scoped_source_postgres_live.py`, `tests/unit/test_p5a2_scoped_source_postgres_runner.py`
 - **Metrics:** 3777 LOC across 26 code file(s)
-- **Next step:** P5-A2 actual PostgreSQL scoped-query Stage B accepted bounded atcad8ffc/0b7f870. Persistent synthetic profile start FAILED; volume-preserving recovery is source BUILD only until independent checkpoint. Production enrollment/retention, later use authorization, scheduler/context/approval and whole milestone remain open; Phase5 0/5.
+- **Next step:** P5-A2 actual scoped PostgreSQL query proof remains accepted bounded atcad8ffc/0b7f870. Persistent recovery proved prewritePG16.15 RR/read-only31tables0, then native seedFAILED; postseeddataUNKNOWN/volume retained. No retry or existing-identity timestamp repair authority. Production enrollment/retention/later-access/runtime/context/approval remain open, Phase5 0/5.
 
 ### `ai-gateway` — partial
 
@@ -212,7 +212,7 @@ _Last generated: 2026-10-26T20:59:36.141969+00:00_
 - **Depends on:** `operations-domain`
 - **Tests:** `tests/unit/test_report_export_renderers.py`, `tests/unit/test_report_export_views.py`, `tests/unit/test_report_export_limits.py`, `tests/cvf/test_report_export_outcomes.py`, `tests/integration/test_report_export_browser.py`, `tests/unit/test_proactive_history.py`, `tests/unit/test_proactive_numeric.py`, `tests/integration/test_proactive_supplied_contract.py`
 - **Metrics:** 869 LOC across 13 code file(s)
-- **Next step:** P5-A A7 remains OPEN after spent provider401, live deferred. P5-A2 supplied numeric, native scoped history, actual PostgreSQL query and bounded source API/manual UI accepted; persistent synthetic integration failed and recovery remains gated. Scheduler/context/exact approval, operational quality/drills and applicable live proof remain open; Phase5 0/5.
+- **Next step:** P5-A A7 OPEN after spent401/live deferred. Pure numeric/native scoped history/query/source API/manual UI accepted bounded; persistent synthetic recoveryFAILED before API/UI, no integrated acceptance. Operator exact seed-source/data scope decision pending. Scheduler/context/approval/operational quality/drills/live proof remain open; Phase5 0/5.
 
 ### `retrieval-contracts` — partial
 
@@ -236,7 +236,7 @@ _Last generated: 2026-10-26T20:59:36.141969+00:00_
 - **Depends on:** `cvf-runtime`, `operations-ledger`, `operations-domain`
 - **Tests:** `apps/workspace-api/src/workspace_api/tests/test_lifecycle.py`, `tests/cvf/test_vertical_end_to_end.py`, `tests/cvf/test_correction_vertical.py`, `tests/cvf/test_task_vertical.py`, `tests/cvf/test_freeze_invariant.py`, `tests/cvf/test_atomic_mutation_audit.py`, `tests/cvf/test_approval_known_principals.py`, `tests/cvf/test_shift_close_governance.py`, `tests/cvf/test_customer_request_vertical.py`, `tests/cvf/test_auth_tokens.py`, `tests/cvf/test_auth_login.py`, `tests/integration/test_evidence_persistence.py`, `tests/unit/test_operations_domain_boundary.py`, `tests/unit/test_operations_domain_shim_identity.py`, `tests/unit/test_operations_domain_serialization.py`, `tests/cvf/test_handover_vertical.py`, `tests/cvf/_shift_close_fixtures.py`, `tests/cvf/test_shift_close_freeze_interaction.py`, `tests/integration/test_sql_ledger_handovers.py`, `tests/unit/test_p2b_openapi_contract.py`, `tests/cvf/_customer_request_fixtures.py`, `tests/cvf/test_customer_request_transitions.py`, `tests/cvf/test_message_admission.py`, `tests/unit/test_message_openapi_contract.py`, `tests/integration/test_message_admission_live_evidence_runner.py`, `tests/unit/test_p5a2_scoped_source.py`, `tests/unit/test_p5a2_scoped_source_caps.py`, `tests/unit/test_p5a2_scoped_source_family.py`, `tests/integration/test_p5a2_scoped_source_sql.py`, `tests/integration/test_p5a2_source_api_identity.py`, `tests/integration/test_p5a2_source_api_receipts.py`, `tests/integration/test_p5a2_source_api_release.py`, `tests/unit/test_p5a2_source_api_transport.py`, `tests/unit/test_p5a2_source_openapi_contract.py`, `tests/unit/test_p5a2_demo_bundle.py`, `tests/unit/test_p5a2_demo_coverage.py`, `tests/unit/test_p5a2_demo_profile.py`, `tests/unit/test_p5a2_demo_lifecycle.py`, `tests/unit/test_p5a2_demo_routes.py`, `tests/integration/test_p5a2_demo_source_http.py`
 - **Metrics:** 11029 LOC across 113 code file(s)
-- **Next step:** Stage B physical start FAILED/SPENT, owned volume retained; consolidated recovery source BUILD only after cleanbb9837d/c6fb255. Independent source checkpoint and new max1 reserved effect must precede SQL/JWT/API/UI proof. Operational coverage/retention, scheduler/context/quality/exact approval remain open; Phase5 0/5.
+- **Next step:** Recovery source256a052/5c9597e accepted bounded with3483PASS. ONE physical recovery FAILED at native seed; prewritePG16.15 RR/read-only31tables0, container removed, volume retained, postseedrowsUNKNOWN; no API/web/JWT/UI acceptance. Exact app-seed/persistent synthetic identity repair scope needs operator decision before new budget. All operational coverage/retention/runtime/context/quality/approval remain open; Phase5 0/5.
 
 ### `workspace-web` — partial
 
@@ -248,7 +248,7 @@ _Last generated: 2026-10-26T20:59:36.141969+00:00_
 - **Depends on:** `workspace-contracts`, `workspace-api`
 - **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`, `apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts`, `apps/workspace-web/src/tests/proactiveSourceApi.test.ts`, `apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx`
 - **Metrics:** 9132 LOC across 96 code file(s)
-- **Next step:** Manual source UI is accepted bounded; persistent backend integration still has no physical UI proof after failed Stage B start. Consolidated recovery requires two real synthetic UI contexts/screenshots after SQL/JWT/API proof. Full forecasting/context/scheduler/quality/approval flows remain open; Phase5 0/5.
+- **Next step:** Manual source UI remains accepted bounded as source only. Persistent recovery FAILED before API/web/browser; physical two-context UI acceptance NOT met, no screenshots. Operator source/data scope decision required; full forecasting/context/scheduler/quality/approval flows remain open, Phase5 0/5.
 
 ### `workspace-worker` — partial
 

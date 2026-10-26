@@ -1,7 +1,7 @@
 # P5-A2 synthetic backend recovery authorization review
 
 docType: completion_review
-Status: AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED
+Status: RESULT_REVIEW_PASS_FAILURE_RECORDED
 Date: 2026-10-27
 Reviewer: independent REVIEWER (`/root/recovery_review`)
 Baseline: `08c62dad7b956faf7e1d1dd6cb56ee79e10cbead`
@@ -84,17 +84,17 @@ public and deployment effects are zero.
 
 closeabilityDisposition: CLOSEABLE
 outsideAuthorityBlockers: NONE
-nextRepairRoute: CONSOLIDATED_ORCHESTRATOR_AMENDMENT
+nextRepairRoute: OPERATOR_ESCALATION
 workerRedispatchAllowed: NO
 
 The original authorization and source checkpoint decisions remain recorded
-below; the ACL refusal closes as a truthful no-effect observation. The latest
-identity classification corrects its cause without changing the spent budget.
-No worker redispatch or physical retry follows until a reviewed orchestrator
-amendment. The verified pinned Core `check_recheck` was explicitly invoked on
-this exact standalone `docType: completion_review` artifact after the
-classification update and returned zero violations. The native CLI/hook does
-not automatically select the legacy `docs/decisions/` review family.
+below. The one recovery invocation failed with its budget spent and retained
+volume preserved; this result is closeable as failure, with no automatic
+physical retry or worker redispatch. A changed source and persistent-identity
+repair contract requires a separately reviewed operator authority decision.
+The verified pinned Core `check_recheck` is explicitly invoked on this exact
+standalone `docType: completion_review` artifact at return. The native
+CLI/hook does not automatically select the legacy `docs/decisions/` family.
 
 ## Independent actual-source checkpoint
 
@@ -407,3 +407,123 @@ retry. If it passes, the original max-one exclusive reservation/recovery and
 subsequent SQL/JWT/API/UI proof gates still apply. No ACL write, migration,
 reset, new volume/nonce/secret, install, pull, provider call or public effect
 is authorized by AM1.
+
+## Final preflight and orchestration record reconciliation
+
+Disposition: **PREFLIGHT_RECORD_RECONCILIATION_PASS_BOUNDED**. The original
+preflight refusal remains spent and unchanged. The single AM1 final additional
+read-only preflight returned exit 0/PASS, bringing cumulative preflights to
+two, the reviewed maximum. Its secret-free receipt matches the sealed cached
+image, owner nonce/digest, exact three loopback ports and retained volume
+identity. I rechecked the 12 accepted source hashes against committed and
+working bytes, 43 frozen pins and current metadata-only owner digest; all
+match. The owner remains registered `PARTIAL_OWNED_FAILURE` with one volume
+and no container/API/web. No attempt marker exists, recovery invocations are
+zero and the physical budget remains unreleased.
+
+The independent clean 27+5 and committed-source admission was delivered in
+the reviewer's prior message. The two proposed ignored `.venv` receipt files
+were optional and were not written. Root's metadata prelude incorrectly
+assumed they existed and failed before its planned role/mode write; PowerShell
+then continued to the already-authorized read-only preflight. That sequence
+is a real orchestration defect and is retained in admission/continuity. It
+does not erase the PASS result, create an extra preflight, or establish that
+the planned role transition happened. Root subsequently recorded REVIEW and
+ORCHESTRATOR; the source/owner/Core/session prerequisites were checked before
+the failed file read. No later effect occurred.
+
+The bounded repair route is to record a **fresh** IMPLEMENTATION role and
+phase transition, re-run pinned-Core and sealed source/owner checks, then use
+one fail-closed process with checked prerequisites for the exact exclusive
+new reservation and at most one recovery invocation. Do not re-run preflight
+or infer success from a continued shell sequence. Any prerequisite failure
+stops before marker creation. The current review releases only that
+recorded-role/reservation route; physical SQL/JWT/API/UI acceptance remains
+unproved. All G01–G14 remainders, P5-A2/B/C/D owners and Phase 5 0/5 remain
+unchanged, with no ACL, migration, reset, volume, secret, provider or public
+effect authorized beyond the existing Work Order.
+
+## Spent physical recovery result and static source finding
+
+Disposition: **RESULT_REVIEW_PASS_FAILURE_RECORDED**. This is acceptance of
+the truthful failed-result record, not recovery or product acceptance. The
+single immutable reservation was consumed. Recovery exited 1 at
+`NATIVE_SEED_OR_VERIFY`; another preflight, reservation or recovery effect is
+not authorized. The prewrite real PostgreSQL 16.15 repeatable-read,
+read-only inventory observed all 31 application tables empty and classified
+`EMPTY_COMPATIBLE`. Native seed was invoked once. No post-seed read-only
+summary exists, so the retained database's present row counts are **UNKNOWN**:
+the transaction may have committed before verification failed. The new
+exact-owned container was created then removed with cleanup verified. The
+same volume and local credentials, old and new trails, and owner failure
+record remain. The API, web, smoke, browser, JWT and UI proof counts are zero.
+Metadata-only owner inspection agrees with the recorded failure owner and
+receipt; no secret contents or database state were read in this review.
+
+Frozen source supports a concrete candidate failure mechanism. The bundle's
+synthetic user has `created_at=2025-12-31T20:00:00Z` and native seed creates
+the User model with it. `operations_ledger._rows.user_row` omits
+`created_at`; migration 003 supplies `DEFAULT now()`. Native seed exits the
+ledger transaction before `_verify_existing` compares the whole round-tripped
+User model. If seed committed, the database default timestamp would differ
+from the frozen bundle value. The child stderr is unavailable in the
+sanitized result, so this is a **static hypothesis**, not a proven physical
+exception; other failure causes and actual post-seed rows remain unknown.
+No frozen seed, schema, fixture or current identity is changed here.
+
+A future repair would cross the current source and persistent-data authority
+boundary. Root may present one reviewed, operator-authorized packet for the
+exact native seed source and focused tests, plus at most one **new** bounded
+physical recovery on this existing volume. It must first re-inventory in a
+read-only repeatable-read transaction and verify identity, all table counts,
+security fields and synthetic object hashes. If all are empty, corrected
+native seeding may preserve the frozen user timestamp in its owned
+transaction. If exactly 110 expected synthetic rows exist, all other tables
+are empty, and every field and hash matches except this one User timestamp,
+an explicit contract could allow only that synthetic user's `created_at`
+correction in one owned transaction. Any other mismatch must refuse. This
+proposal grants no write, reset, migration, retry or new effect now.
+
+The full P5-A2 outcome and G01–G14 remainder set, including P5-A2/B/C/D
+owners and roadmap destinations, remains as reconciled above; only the
+bounded local G04/G05 recovery route was attempted. No whole gap or milestone
+closed. Phase 5 remains 0/5. SQL target counts, real JWT/API receipts and
+two-context UI evidence are unmet. The result should be returned and
+committed as failure under Root's normal result/continuity process before
+any new authority decision.
+
+Return-time check: pinned public Core inheritance preflight exited 0 with
+zero violations. Explicit verified pinned Core `check_recheck` on this exact
+legacy-path `completion_review` was applicable, found exactly one standalone
+recheck section and returned zero violations. No automatic CLI/hook selection
+of `docs/decisions/` is claimed.
+
+## Formal failed-result worker return review
+
+Disposition: **FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY**. I reviewed
+the standalone `COMPLETE_PENDING_REVIEW` return against the accepted
+failed-result review, admission and evidence. It describes the one spent
+reservation/recovery, actual PG16.15 read-only prewrite inventory, failed
+`NATIVE_SEED_OR_VERIFY`, exact new-container cleanup and retained volume
+without turning the unknown post-seed state or static timestamp hypothesis
+into a claimed physical diagnosis. SQL, JWT/API, smoke, browser and UI
+acceptance remain unmet. The first ACL refusal, second preflight PASS and
+recorded orchestration sequencing defect remain visible. All 12 accepted
+source raw hashes and 43 frozen read-only pins still match local bytes.
+Findings: NONE. Waivers: NONE.
+
+The return reconciles G01–G14 and P5-A2/B/C/D owners and destinations. The
+local G04/G05 attempt closed no whole gap; Phase 5 remains 0/5. Its suggested
+seeder and conditional one-field synthetic identity correction are explicitly
+unapplied and outside current authority. They require operator-reviewed
+source and persistent-data scope, a new bounded budget, read-only full-record
+and security/hash inventory first, and refusal for any mismatch beyond the
+sole specified timestamp. This review approves truthful source and failure
+evidence material plus continuity closure only. It authorizes no further
+physical, credential, provider, browser, retry or proposed repair effect.
+
+Pinned public Core inheritance preflight exited 0. Explicit verified pinned
+Core `check_recheck` was applicable to both the standalone worker return and
+this standalone completion-review artifact; each has exactly one return-time
+recheck section and returned zero violations. The Core CLI/hook does not
+automatically select this legacy `docs/decisions/` family.

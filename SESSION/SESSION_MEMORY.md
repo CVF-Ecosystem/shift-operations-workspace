@@ -7,8 +7,8 @@ read-only selected controls; no private/shared/latest remote dependency.
 
 ## Current tranche
 
-P5-A2 G04/G05 consolidated source and retained-volume recovery; WORK_ORDER;
-SESSION_SYNC_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
+P5-A2 G04/G05 consolidated source and retained-volume recovery; REVIEW;
+COMMIT_STEWARD; R2/liveYES for AI claims. Prior failed-result evidence independently
 closed15+5 at555119e/08c62da, normal3465PASS148skip157.37s/151.50s. Physical
 backend FAILED, prior start budget SPENT, ownedvolume1 retained, API/web0.
 Known source blocker: standalone API-only PYTHONPATH omits monorepo packages;
@@ -31,10 +31,17 @@ accountability and destinations retained. Phase5 0/5; no whole productgapclose.
 
 ## Next allowed move
 
-AM1 same-tranche candidate: sourcefix recognizesexactOWNER RIGHTS alias only
-underexistingcurrent-userowner/privateDACLguards; noACLchange. Projectvenv36
-focusedPASS/full608; ambientPython34PASS2envfail retained thencorrectedvenvPASS.
-Source+AM1material256a052 exact27 normal3483PASS165.94s/independentterminalPASS; dedicated
-exact5actualSHAchild/clean/newcommittedsourceadmission beforeONEFINALextra
-preflight(total2). Recovermax1stillunspent/noattempt. Originalrefusalretained.
-All14gapowners/P5-A2/B/C/D remain, Phase5 0/5. No new tranche or effects now.
+ONEreservedrecoverFAILED NATIVE_SEED_OR_VERIFY; budgetSPENT. Exactnewowned
+containerdee30...removed, existingvolume1retained/registeredcleanupverified,
+API/web/smoke/browser0. PrewritePG16.15 RR/RO inventoryall31tables0; postseed
+rowsUNKNOWN(noadditionalquery). Source static candidate: user_row omitsfrozen
+created_at while seed exact verifier comparesit; physicalexacterrornotretained.
+Independentfailedresult/residue+finiteREADONLY sourcediagnosis, thencommit
+result/continuity. No moreDocker/DB/secret/seed/retry/sourcechange. Appseed
+path/possibleexisting-user timestamppatch isoutsidecurrentfrozen scope,
+requires explicit reviewedauthoritydecision; no new supporttrancheautomatically.
+Same14gapowners/P5-A2/B/C/D/Phase5 0/5; physicalacceptanceNOTmet.
+
+Independentformalreturn/resultreviewPASS for evidenceONLY; currentnormal
+material/terminal/exact5continuity/clean gates remain beforeauthorityquestion.
+PhysicalmốcNOTmet; no retry/data/sourcefixauthority.

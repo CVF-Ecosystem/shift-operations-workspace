@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "4696b5ace3633f37d46fd1dacddad7b2369adb64c54747dd923e3c57ce64262e"
+          "sha256": "e778a53582257e7ae6691e6fa646511186ab4ecbe990027c8aa881bba4bc712d"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
@@ -27,7 +27,7 @@
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "8e37311c15bb1611b7369c6ac31717c1a19478def9f136974387b89958c966bc"
+          "sha256": "2320f4983f2665dd804fc64124db37499f414bc91a601102e8d976b2f658fb8b"
         }
       ],
       "reviewedAt": "2026-10-26",

@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_synthetic_backend_recovery_am1_review",
+  "currentMode": "p5a2_synthetic_backend_recovery_failed_result_review",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
-  "nextAllowedMove": "Finish AM1 exact5 actualSHA child, then independent clean27+5 and NEW committed-source admission before final extra readonly preflight. Recovery remains max1/unspent until PASS+exclusive reservation; no ACLwrites/provider/migration/reset.",
-  "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
+  "nextAllowedMove": "Finish independent current RETURN review and normal failed-result material/terminal/exact5continuity/clean. Then await explicit operator authority on concrete seed.py + conditional one-field synthetic identity repair + one new bounded recovery proposal in RETURN. No current retry or automatic new tranche.",
+  "parkedOperatorCheckpoint": "Operator decision required before new app-seed source scope or conditional persistent synthetic user.created_at correction and any fresh recovery budget. Current recovery SPENT/failed; retained volume/data preserved and postseed rows UNKNOWN. Provider live/key/model/CSV remain deferred, original provider401 spent.",
   "requiredReads": [
     "AGENTS.md",
     "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
@@ -15,7 +15,8 @@
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md"
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",

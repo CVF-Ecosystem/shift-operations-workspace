@@ -410,3 +410,59 @@ COMMIT_STEWARD to SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYES. This exact5
 recordsrealSHA; independentclean27+5 and NEWcommittedsourceadmission still
 precedeONEFINALextra preflight. No effects/ACLchanges, recovermax1unspent.
 All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained; same recoverytranche.
+
+
+## Final preflight PASS / transparent orchestration record reconciliation
+
+Independent clean27+5/newsourceadmission existed as reviewerMESSAGE; ignored
+receipt files optional/unwritten. Root incorrectly assumedfileexists, so
+metadata prelude failed beforeplannedrole/modewrite; PowerShellcontinued to
+already-authorized finalreadonlypreflight afterCore0/sessionPASS. Actual
+preflightPASS cumulative2, noattempt/recover/newresource/secretvalues. Source
+12pins/ownerffb644 unchanged. Rootrecordsprocessdeviation, no retroactive
+claimofpriorrolewrite; physicalHELD. SESSION_SYNC_STEWARD to ORCHESTRATOR,
+REVIEW/R2/liveYES for independentrecordreconciliation. Futureeffectsteps use
+onePythonprocess checkedprerequisites; no morepreflight. Fresh recorded
+IMPLEMENTATION role/Core/hash check mustprecedeexclusiveNEWmarker/recover1.
+All14gapowners/P5-A2/B/C/D/Phase5 0/5 retained, no new tranche.
+
+
+## Independent record reconciliation / fresh implementation before reservation
+
+PREFLIGHT_RECORD_RECONCILIATION_PASS_BOUNDED explicitly preserves Root's
+failed-prelude/PScontinuation issue, confirms prior messageauthority andactual
+preflightPASS2/caps/source/owner; no retroactive roleclaim. Root freshlyreads
+fullFirstRequest/canonicalcontrols; ORCHESTRATOR to IMPLEMENTATION_WORKER
+BUILD/R2/liveYES NOW before marker/effect. CheckedCore0/source12/ownerffb,
+lock/markerabsent, onePythonprocess fail-closed. ExclusiveNEWmarker andONE
+recover next; no furtherpreflight/source/ACL/provider/migration/reset/new
+volume/secret. All14gapowners/P5-A2/B/C/D/Phase5 0/5 remain.
+
+
+## Actual reserved recovery failure / retained volume / no further effects
+
+Exactlyone immutableNEWmarker spent, recoverexit1 NATIVE_SEED_OR_VERIFY.
+ActualPG16.15 prewriteinventory RR/readOnly,31tablesall0/EMPTY_COMPATIBLE,
+fingerprintafeb7f5c...; no migration/ACL/newvolume/secret. Native seedinvoked1,
+failedbeforepostsummary/API/web. PostseedrowsUNKNOWN (do notassumerollback).
+Freshsource-ownedcleanup recordednewcontainerdee30...removed; registered
+PARTIAL0100 volume1/trails retained, cleanupverifiedtrue, no unknowncustody.
+No smoke/browser/provider. IMPLEMENTATION_WORKER to ORCHESTRATOR REVIEW/R2/
+liveYES. BudgetSPENT; no automaticretry/new supporttranche. Independent
+failedresult/residue review andfiniteREADONLY sourcediagnosis only. Candidate
+sourceblocker: frozenUser.created_at vs nativeuser_row omission/DBDEFAULTnow
+thenexactUserverification. Exactphysicalexceptionnotretained; do notinvent.
+Any appseed sourcepath or existingidentity timestamppatch exceedscurrent
+frozen scope andneeds explicit reviewedauthoritydecision. All14gaps/Phase5 0/5.
+
+
+## Formal source+failed-result packet acceptance / normal material
+
+Independent FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY/RESULT_REVIEW_PASS_
+FAILURE_RECORDED, NONE/NONE. Standalone legacyreturn+completionrechecks
+applicable0/oneheadingeach. Source12+frozen43 match. CLOSERdisposition accepts
+currentevidencepacket only; physicalmốcFAILED, operatornewsource/data scope
+pending. Freshcanonical/Core0; ORCHESTRATOR to CLOSER to COMMIT_STEWARD,
+REVIEW/R2/liveYES. Normalmaterial/terminal/exact5actualSHAcontinuity/clean
+required beforeauthorityquestion. No further effects or automaticnewtranche;
+all14gapowners/P5-A2/B/C/D/Phase5 0/5 retained. ProposalunappliedinRETURN.

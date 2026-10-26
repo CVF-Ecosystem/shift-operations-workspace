@@ -1,0 +1,237 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-20261027",
+  "status": "RECOVERY_FAILED_SPENT_VOLUME_RETAINED",
+  "claimBoundary": "Accepted source and failed physical result only; SQL target counts/JWT/API/UI NOT accepted, P5-A2 OPEN Phase5 0/5. No AI governance or production claim.",
+  "sourceMaterial": "256a052761c688159d603911c1bd9e521b403d9d",
+  "sourceContinuity": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa",
+  "sourcePins": {
+    "scripts/p5a2_source_demo_bootstrap.py": {
+      "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "lineCount": 50
+    },
+    "scripts/p5a2_source_demo_recover.py": {
+      "rawSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+      "nativeLfSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+      "lineCount": 264
+    },
+    "scripts/p5a2_source_demo_recovery_custody.py": {
+      "rawSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+      "nativeLfSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+      "lineCount": 135
+    },
+    "scripts/p5a2_source_demo_recovery_docker.py": {
+      "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "lineCount": 123
+    },
+    "scripts/p5a2_source_demo_recovery_inventory.py": {
+      "rawSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+      "nativeLfSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+      "lineCount": 135
+    },
+    "scripts/p5a2_source_demo_recovery_services.py": {
+      "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "lineCount": 47
+    },
+    "scripts/p5a2_source_demo_recovery_smoke.py": {
+      "rawSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "nativeLfSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "lineCount": 37
+    },
+    "scripts/p5a2_source_demo_start.py": {
+      "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "lineCount": 232
+    },
+    "tests/unit/test_p5a2_demo_bootstrap.py": {
+      "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "lineCount": 46
+    },
+    "tests/unit/test_p5a2_demo_recovery_findings.py": {
+      "rawSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+      "nativeLfSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+      "lineCount": 148
+    },
+    "tests/unit/test_p5a2_demo_recovery_smoke.py": {
+      "rawSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "nativeLfSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "lineCount": 45
+    },
+    "tests/unit/test_p5a2_demo_recovery_source.py": {
+      "rawSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+      "nativeLfSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+      "lineCount": 213
+    }
+  },
+  "sourceReview": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "sourceFullHook": "3483passed148skipped4warnings165.94s/163.17s",
+  "originalRefusedPreflight": {
+    "invocation": "ONE_RECOVERY_PREFLIGHT",
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "stage": "SECRET_ACL_INVALID"
+    }
+  },
+  "finalPreflight": {
+    "invocation": "AM1_ONE_FINAL_PREFLIGHT",
+    "exitCode": 0,
+    "result": {
+      "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "owner_digest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "ports": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "web_port": 5174
+      },
+      "preflight": "PASS",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+    }
+  },
+  "orchestrationIssue": {
+    "code": "OPTIONAL_RECEIPT_ASSUMPTION_AND_NON_FAIL_CLOSED_SHELL_SEQUENCE",
+    "observation": "Metadata prelude failed reading optional ignored reviewer receipt; PowerShell continued to already-authorized final readonly preflight. Source/owner checks preceding failure passed, Core/session gates passed, finalpreflightPASS atcap2; role/mode recording prelude did not complete. No reservation/recover/resource/secretvalue action.",
+    "disposition": "Recorded transparently; physicalheld for independent reconciliation. Remaining effect orchestration uses one Python process with checked prerequisites, no dependent PowerShell continuation.",
+    "extraPreflightRetries": 0,
+    "independentReconciliation": "PREFLIGHT_RECORD_RECONCILIATION_PASS_BOUNDED",
+    "reviewSha256": "fa27da06fd7d92b02d5919cc0ad6a4d53f35896eb5e4af2f9e9ab26ced26b728"
+  },
+  "attemptReservationSha256": "bab61d9b7731002091cfdbdfe18246ea3f97782331f77d401f1f92cb58aacf69",
+  "recoveryObservation": {
+    "invocation": "ONE_RESERVED_RECOVERY",
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "stage": "RECOVERY_FAILED_NATIVE_SEED_OR_VERIFY"
+    }
+  },
+  "finalRegisteredLifecycle": {
+    "volume_id": "shiftops-p5a2-source-demo-data-v1",
+    "api_port": 8001,
+    "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "web_count": 0,
+    "reason": "SEED_FAILED",
+    "outcome": "PARTIAL_OWNED_FAILURE",
+    "api_count": 0,
+    "web_port": 5174,
+    "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "db_port": 5433,
+    "volume_count": 1,
+    "container_count": 0,
+    "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "total_owned_count": 1
+  },
+  "registeredShapeValid": true,
+  "ownerMetadataDigest": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
+  "ownerSafeContext": {
+    "creation_trail": [
+      {
+        "id": "shiftops-p5a2-source-demo-data-v1",
+        "kind": "volume"
+      },
+      {
+        "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b",
+        "kind": "container"
+      },
+      {
+        "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+        "kind": "container",
+        "recovery": true
+      }
+    ],
+    "cleanup_trail": [
+      {
+        "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b",
+        "kind": "container"
+      },
+      {
+        "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+        "kind": "container",
+        "recovery": true
+      }
+    ],
+    "recovery_failure_stage": "NATIVE_SEED_OR_VERIFY",
+    "recovery_cleanup_verified": true,
+    "recovery_prewrite_inventory": {
+      "classification": "EMPTY_COMPATIBLE",
+      "counts": {
+        "approval_receipts": 0,
+        "approvals": 0,
+        "audit_records": 0,
+        "corrections": 0,
+        "customer_requests": 0,
+        "edge_external_proposals": 0,
+        "edge_ingress_reservations": 0,
+        "edge_outbound_attempts": 0,
+        "edge_quarantines": 0,
+        "edge_rate_counters": 0,
+        "edge_raw_envelopes": 0,
+        "edge_service_nonces": 0,
+        "evidence_links": 0,
+        "external_identity_observations": 0,
+        "handover_items": 0,
+        "handovers": 0,
+        "identity_mappings": 0,
+        "incidents": 0,
+        "messages": 0,
+        "operational_events": 0,
+        "p4e_action_receipts": 0,
+        "p4e_placement_decisions": 0,
+        "p4e_placement_work": 0,
+        "p4e_proposals": 0,
+        "reports": 0,
+        "route_bindings": 0,
+        "shift_assignments": 0,
+        "shifts": 0,
+        "task_creation_intents": 0,
+        "tasks": 0,
+        "users": 0
+      },
+      "database": "shiftops_p5a2_source_demo",
+      "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+      "postgresql_major": 16,
+      "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+      "schema_table_count": 31,
+      "transaction_isolation": "repeatable read",
+      "transaction_read_only": "on"
+    }
+  },
+  "effects": {
+    "preflightInvocations": 2,
+    "reservedRecoveries": 1,
+    "recoveryInvocations": 1,
+    "newContainersCreated": 1,
+    "newContainersRemoved": 1,
+    "newVolumes": 0,
+    "retainedVolumes": 1,
+    "nativeSeedInvocations": 1,
+    "prewriteInventories": 1,
+    "postSeedSummaries": 0,
+    "apiChildren": 0,
+    "webChildren": 0,
+    "smokeInvocations": 0,
+    "browserContexts": 0,
+    "screenshots": 0,
+    "providerCalls": 0,
+    "pulls": 0,
+    "installs": 0,
+    "migrations": 0,
+    "volumeDeletesOrResets": 0,
+    "aclWrites": 0,
+    "internalLockedRevalidations": 1
+  },
+  "databaseAfterFailedSeed": "UNKNOWN: native seed may have committed before exact verification failed; no unbudgeted query/start/retry. Prewrite snapshot was EMPTY_COMPATIBLE all31tables0.",
+  "physicalSourceAccepted": false,
+  "milestoneComplete": false,
+  "operationalCoverageAccepted": false,
+  "newSourceHypothesis": "Frozen user.created_at2025-12-31 differs from native user_row which omits created_at/DBDEFAULTnow; seed exact verification compares created_at. Independent source diagnosis required; physical exact exception not retained by shared run wrapper.",
+  "counterSemantics": "preflightInvocations counts two separately admitted external CLI calls; one locked revalidation belongs to the one recovery invocation. Resource counts refer to recorded owned residue; postseed DB contents remain UNKNOWN.",
+  "independentResultReview": "RESULT_REVIEW_PASS_FAILURE_RECORDED / FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY",
+  "sourceDiagnosis": "Frozen User.created_at vs native user row omission/default-now/full-User verifier is source-supported hypothesis, not exact physical exception proof; no source/data repair or retry authority."
+}

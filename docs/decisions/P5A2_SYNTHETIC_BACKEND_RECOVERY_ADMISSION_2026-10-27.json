@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-20261027",
-  "status": "AM1_AUTHORIZED_NORMAL_SOURCE_MATERIAL_GATE",
+  "status": "FAILED_RESULT_NORMAL_MATERIAL_GATE",
   "baselineCommit": "08c62dad7b956faf7e1d1dd6cb56ee79e10cbead",
   "priorFailure": {
     "material": "555119eb9344624ae52a36609f84591dfb928db2",
@@ -458,7 +458,7 @@
     "am1-source-admission": ".venv/p5a2-demo-recovery-am1-source-admission-20261027.json",
     "am1-preflight": ".venv/p5a2-demo-recovery-am1-preflight-20261027.json"
   },
-  "physicalAttempts": 0,
+  "physicalAttempts": 1,
   "providerCalls": 0,
   "physicalSourceAccepted": false,
   "milestoneComplete": false,
@@ -655,7 +655,7 @@
       "independentFocused": "36passed3.45s/full608mutations/cleanprocesscomposition"
     }
   ],
-  "preflightInvocations": 1,
+  "preflightInvocations": 2,
   "preflightObservation": {
     "invocation": "ONE_RECOVERY_PREFLIGHT",
     "exitCode": 1,
@@ -664,7 +664,7 @@
       "stage": "SECRET_ACL_INVALID"
     }
   },
-  "resourceEffects": 0,
+  "resourceEffects": 1,
   "amendment1": {
     "status": "AUTHORIZATION_ACCEPTED_NORMAL_MATERIAL_ONLY",
     "cause": "ACL_IDENTITY_CLASSIFICATION_CORRECTED_BOUNDED",
@@ -689,7 +689,7 @@
     "route": "Same-tranche reviewed bounded amendment plus normal source/material/actualSHA continuity/clean source admission before extra final preflight; no new tranche.",
     "additionalPreflightsMaximum": 1,
     "totalPreflightMaximum": 2,
-    "additionalPreflightsUsed": 0,
+    "additionalPreflightsUsed": 1,
     "initialPreflightCount": 1,
     "sourceRepairRound": 2,
     "sourceFixDone": true,
@@ -699,7 +699,40 @@
     "reviewVerdict": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
     "reviewSha256AtAuthorization": "124e15f795d354d6d4f8fc9bcaa9179b71e9ad8ddd956122f94881582afaf8f9",
     "findings": [],
-    "waivers": []
+    "waivers": [],
+    "cleanAndSourceAdmission": {
+      "verdict": "CLEAN_AM1_SPLIT_RANGE_AND_COMMITTED_SOURCE_ADMISSION_PASS_BOUNDED",
+      "reviewer": "/root/recovery_review",
+      "evidenceSource": "Independent reviewer message; ignored receipt files were optional and not written",
+      "material": "256a052761c688159d603911c1bd9e521b403d9d",
+      "continuity": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa",
+      "materialPaths": 27,
+      "continuityPaths": 5,
+      "sourcePins": 12,
+      "frozenPins": 43,
+      "ownerDigest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+      "folderAclSddlSha256": "4e83f1991c16e22a190eeb07efcc464c2599f7c65c39e55636002318f7ca8258"
+    },
+    "finalPreflightObservation": {
+      "invocation": "AM1_ONE_FINAL_PREFLIGHT",
+      "exitCode": 0,
+      "result": {
+        "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "owner_digest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+        "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+        "ports": {
+          "api_port": 8001,
+          "db_port": 5433,
+          "web_port": 5174
+        },
+        "preflight": "PASS",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+      }
+    },
+    "materialCommit": "256a052761c688159d603911c1bd9e521b403d9d",
+    "continuityCommit": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa"
   },
   "initialRecoveryBudget": {
     "sourceTests": "Bounded inert source/standalone structural imports; no database/provider/governance behavior claim",
@@ -734,5 +767,54 @@
     "smokeLoginRequests": 1,
     "browserLoginRequests": 1,
     "inventoryReadOnlyConnections": 1
+  },
+  "orchestrationIssue": {
+    "code": "OPTIONAL_RECEIPT_ASSUMPTION_AND_NON_FAIL_CLOSED_SHELL_SEQUENCE",
+    "observation": "Metadata prelude failed reading optional ignored reviewer receipt; PowerShell continued to already-authorized final readonly preflight. Source/owner checks preceding failure passed, Core/session gates passed, finalpreflightPASS atcap2; role/mode recording prelude did not complete. No reservation/recover/resource/secretvalue action.",
+    "disposition": "Recorded transparently; physicalheld for independent reconciliation. Remaining effect orchestration uses one Python process with checked prerequisites, no dependent PowerShell continuation.",
+    "extraPreflightRetries": 0,
+    "independentReconciliation": "PREFLIGHT_RECORD_RECONCILIATION_PASS_BOUNDED",
+    "reviewSha256": "fa27da06fd7d92b02d5919cc0ad6a4d53f35896eb5e4af2f9e9ab26ced26b728"
+  },
+  "recoveryBudgetSpent": true,
+  "attemptReservationSha256": "bab61d9b7731002091cfdbdfe18246ea3f97782331f77d401f1f92cb58aacf69",
+  "recoveryObservation": {
+    "invocation": "ONE_RESERVED_RECOVERY",
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "stage": "RECOVERY_FAILED_NATIVE_SEED_OR_VERIFY"
+    }
+  },
+  "finalRegisteredLifecycle": {
+    "volume_id": "shiftops-p5a2-source-demo-data-v1",
+    "api_port": 8001,
+    "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "web_count": 0,
+    "reason": "SEED_FAILED",
+    "outcome": "PARTIAL_OWNED_FAILURE",
+    "api_count": 0,
+    "web_port": 5174,
+    "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "db_port": 5433,
+    "volume_count": 1,
+    "container_count": 0,
+    "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "total_owned_count": 1
+  },
+  "ownerMetadataDigestAfterFailure": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
+  "postSeedDatabaseState": "UNKNOWN",
+  "apiProcessCount": 0,
+  "webProcessCount": 0,
+  "browserContexts": 0,
+  "smokeInvocations": 0,
+  "resultReview": {
+    "verdict": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
+    "reviewPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md",
+    "reviewSha256AtInitialFailureAcceptance": "f1695c4e2857720a56658f5303f2d65ad0022d002a4e0a6bfac1cf3fd0e3b07a",
+    "returnFormalReview": "FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY",
+    "reviewSha256AtFormalAcceptance": "5e913a1cf9556b9311d43c7759b122d61e3713606956226cb9f9f52a8d17bcda",
+    "findings": [],
+    "waivers": []
   }
 }
