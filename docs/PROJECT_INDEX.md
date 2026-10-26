@@ -2,7 +2,7 @@
 
 ## Start Here
 
-- Active G11 source-inspection UI: [SPEC](specs/P5A2_SOURCE_UI_SPEC.md), [WO](work_orders/P5A2_SOURCE_UI_WORK_ORDER.md), [frozen admission](decisions/P5A2_SOURCE_UI_ADMISSION_2026-10-26.json). Manual UTC query, safe counts/refusals, synthetic label and session/stale privacy; independent authorization pending, no UI implementation yet.
+- Active G11 source-inspection UI: [SPEC](specs/P5A2_SOURCE_UI_SPEC.md), [WO](work_orders/P5A2_SOURCE_UI_WORK_ORDER.md), [frozen admission](decisions/P5A2_SOURCE_UI_ADMISSION_2026-10-26.json). Manual UTC query, safe counts/refusals, synthetic label and session/stale privacy; independent source PASS: 145 frontend tests/typecheck/build, full84 flat mutations and session/privacy cases; [source review](decisions/P5A2_SOURCE_UI_REVIEW_2026-10-26.md) and [worker evidence](decisions/P5A2_SOURCE_UI_WORKER_RETURN_2026-10-26.md). Normal material/continuity gates pending; operational coverage UNKNOWN.
 
 - G06/G11 source API independently accepted bounded: [BUILD SPEC](specs/P5A2_SOURCE_API_BUILD_SPEC.md), [Work Order](work_orders/P5A2_SOURCE_API_BUILD_WORK_ORDER.md), [source review](decisions/P5A2_SOURCE_API_BUILD_REVIEW_2026-10-26.md), [worker evidence](decisions/P5A2_SOURCE_API_BUILD_WORKER_RETURN_2026-10-26.md). Mounted read-only HTTP/JWT source inspection, 144 PASS/2 existing physical skips, frozen full receipts and 84 native/HTTP mutation rejections; source material/continuity closed bounded at a141156/355ff93. Operational coverage UNKNOWN; G11 UI now in admission, Phase5 0/5.
 

@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SOURCE-UI-20261026",
-  "status": "AUTHORIZATION_ACCEPTED_DISPATCH_PENDING",
+  "status": "SOURCE_REVIEW_PASS_BOUNDED",
   "baselineCommit": "355ff938ce3beb532f32c60b7d9780147ed469bc",
   "apiClosure": {
     "disposition": "FINAL_CLEAN_SOURCE_API_RANGE_REVIEW_PASS_BOUNDED",
@@ -138,5 +138,6 @@
     "disposition": "Exact handoff material-SHA marker and direct dispatch-continuity dependency added before admission/dispatch; no waiver."
   },
   "preAdmissionSpecClarification": "The complete84 corpus is generated from initial READY plus old ACCESS_DENIED; both full API positive contexts are independently sampled. No expectation derived from UI.",
-  "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+  "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "independentSourceReview": "SOURCE_REVIEW_PASS_BOUNDED"
 }

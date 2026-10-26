@@ -2,7 +2,7 @@
 
 > GENERATED FILE — do not edit by hand. Source of truth is [`MODULE_REGISTRY_DETAIL.json`](MODULE_REGISTRY_DETAIL.json). Run `python scripts/generate_catalog.py --write` to regenerate.
 
-_Last generated: 2026-10-26T10:45:49.956552+00:00_
+_Last generated: 2026-10-26T11:26:57.394806+00:00_
 
 ## How to use this catalog
 
@@ -13,8 +13,8 @@ _Last generated: 2026-10-26T10:45:49.956552+00:00_
 ## Totals
 
 - Modules: **26**
-- Code LOC (py/ts/tsx): **40622**
-- Code files: **385**
+- Code LOC (py/ts/tsx): **41260**
+- Code files: **396**
 - By status: contract-only=5, enforced=2, partial=15, stub=4
 
 ## Status legend
@@ -44,7 +44,7 @@ _Last generated: 2026-10-26T10:45:49.956552+00:00_
 | `reporting-engine` | packages/reporting-engine | partial | 869 | evidence | Build report drafts from confirmed records, validate evidence, export PDF/Excel. |
 | `retrieval-contracts` | packages/retrieval-contracts | partial | 1029 | data_scope | Pure deterministic P3-C contract binding admitted P3-A candidates to source, scope, lifecycle, retention, provenance and use-time revalidation evidence. |
 | `workspace-api` | apps/workspace-api | partial | 10541 | identity, permission, domain_lock, risk, approval, evidence, audit, refusal, freeze | FastAPI backend for authenticated operational workflows across shifts, internal messages, events, corrections, tasks, customer requests, incidents, handovers and approvals. Each implemented action uses the applicable cvf-runtime identity/permission/audit and domain-specific risk/evidence/approval/domain_lock gates. "Golden vertical" is avoided here per the 2026-07-22 Codex review: durability and end-to-end scope remain action-, backend- and risk-specific; see docs/cvf/CVF_CONTROL_MAPPING.md. |
-| `workspace-web` | apps/workspace-web | partial | 8485 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
+| `workspace-web` | apps/workspace-web | partial | 9123 | — | Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling. |
 | `workspace-worker` | apps/workspace-worker | partial | 18 | — | Background jobs: message/event extraction, report generation, notification and outbound delivery, maintenance, scheduling, retry. |
 | `channel-sdk` | packages/channel-sdk | contract-only | 451 | — | Provider-neutral closed contracts for service assertions, attachment scanning and digest-only outbound adapter delivery. |
 | `cvf-application-profile` | packages/cvf-application-profile | contract-only | 0 | identity, permission, domain_lock, data_scope, risk, approval, evidence, cost, refusal, termination, freeze | Declarative CVF profile for this application: risk classes, approval, evidence, domain lock, data, cost, refusal, termination, freeze policies. Does not copy CVF core. |
@@ -243,12 +243,12 @@ _Last generated: 2026-10-26T10:45:49.956552+00:00_
 - **Path:** `apps/workspace-web` (app)
 - **Purpose:** Mobile PWA + Desktop Web operational UI (React/Vite). P2-C provides assignment-scoped reads and operator/supervisor workflows; P2-D adds bounded offline transition staging and foreground polling.
 - **CVF controls:** —
-- **Enforcement:** App.tsx restores a tab-scoped JWT session; ConnectivityRuntime resolves /auth/me before queue/poll activation. Exactly three typed CAS transitions may stage in a strict actor-bound 50-item/24-hour queue while pre-dispatch offline; all other mutations remain online-only. Replay and foreground polling share serialized refresh, fail stop on ambiguity/conflict/server errors and keep backend identity/permission/assignment/version gates authoritative. The navigation service worker never caches API/auth data; polling is not push and the queue is not exactly-once.
+- **Enforcement:** App.tsx restores a tab-scoped JWT session; ConnectivityRuntime resolves /auth/me before queue/poll activation. Exactly three typed CAS transitions may stage in a strict actor-bound 50-item/24-hour queue while pre-dispatch offline; all other mutations remain online-only. Replay and foreground polling share serialized refresh, fail stop on ambiguity/conflict/server errors and keep backend identity/permission/assignment/version gates authoritative. The navigation service worker never caches API/auth data; polling is not push and the queue is not exactly-once. P5-A2 G11 source-inspection UI independently accepted bounded: manual UTC request, safe synthetic counts/refusals, current-session/abort/stale handling and privacy; 145 frontend tests/typecheck/production build PASS and full84 flat mutations. Normal material/continuity gates pending. No operational coverage/forecasting claim.
 - **Contract:** packages/workspace-contracts (JSON schemas)
 - **Depends on:** `workspace-contracts`, `workspace-api`
-- **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`
-- **Metrics:** 8485 LOC across 84 code file(s)
-- **Next step:** P5-A2 G11 source-inspection UI SPEC/WO under independent admission; no new source UI code yet. Operational reporting/quality/coverage and remaining P5-A2 application flows stay open.
+- **Tests:** `apps/workspace-web/src/tests/App.test.tsx`, `apps/workspace-web/src/tests/api.test.ts`, `apps/workspace-web/src/tests/operatorActionsCore.test.tsx`, `apps/workspace-web/src/tests/supervisorStaffing.test.tsx`, `apps/workspace-web/src/tests/supervisorCloseout.test.tsx`, `apps/workspace-web/src/tests/supervisorMutationState.test.tsx`, `apps/workspace-web/src/tests/offlineQueue.test.ts`, `apps/workspace-web/src/tests/offlineSync.test.ts`, `apps/workspace-web/src/tests/realtimeSync.test.ts`, `apps/workspace-web/e2e/p2d-offline-realtime.spec.ts`, `apps/workspace-web/e2e/phase2-full-shift-exit.spec.ts`, `tests/integration/test_phase2_full_shift_exit_postgres_live.py`, `tests/integration/test_phase2_full_shift_live_evidence_runner.py`, `apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts`, `apps/workspace-web/src/tests/proactiveSourceApi.test.ts`, `apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx`, `apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx`
+- **Metrics:** 9123 LOC across 95 code file(s)
+- **Next step:** Normal bounded G11 source UI material/continuity closure, then operational source/coverage DESIGN. Full forecasting/context/scheduler/quality/approval and operational completeness remain open; Phase5 0/5.
 
 ### `workspace-worker` — partial
 

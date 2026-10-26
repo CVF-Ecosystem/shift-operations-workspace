@@ -7,8 +7,8 @@ read-only selected public controls; no private/shared pack/latest remote binding
 
 ## Current tranche
 
-P5-A2 G11 source UI: WORK_ORDER; SESSION_SYNC_STEWARD; R2; live YES for AI claims.
-Actual dispatch 86d4ac4 independently terminal-reviewed, exact19; normal 3397passed148skipped4warnings242.00s. This exact five-path actual-SHA child precedes independent clean split range.
+P5-A2 G11 source UI: REVIEW; COMMIT_STEWARD; R2; live YES for AI claims.
+Independent SOURCE_REVIEW_PASS_BOUNDED: manual UTC/flat84/privacy/session lifecycle accepted, fullfrontend145PASS/typecheck/Vitebuild PASS. Normal Python hook and actual-range closure remain.
 Full current Product Milestone Binding in docs/specs/P5A2_SOURCE_UI_SPEC.md. Manual UTC source inspection
 only, safe counts/refusals; synthetic READY explicitly test data. Same native
 source family semantics; staged real TS consumer binding before tests. Root
@@ -36,4 +36,4 @@ CSV/Docker/production/install/deployment/browser/public effect in this tranche.
 
 ## Next allowed move
 
-Independent clean 19+5 split range; then fresh worker BUILD declaration/GO, real files STOP before tests for binding gate.
+Normal source UI material commit; independent actual terminal review; dedicated exact-five actual-SHA continuity; clean split range; then operational source/coverage DESIGN with effects separately admitted.

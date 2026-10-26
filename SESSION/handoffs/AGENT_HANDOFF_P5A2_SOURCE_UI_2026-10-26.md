@@ -60,3 +60,43 @@ verified pinned Core; COMMIT_STEWARD to SESSION_SYNC_STEWARD, R2/liveYES for AI
 claims. THIS exact5 child records sole actualSHA marker; normal hook then clean
 19+5 independent review remain before BUILD GO. No self-referential child SHA.
 Full14 milestone gaps/owners and Phase5 0/5 retained. No new effect.
+
+## Fresh BUILD acknowledgment / worker GO
+
+Actualdispatch86d4ac461d93c2468530c990ad192e29d63ba91f normal3397PASS148skip4warnings242.00s; dedicated74923de2fc0ca0ea603f68a032a8bc6c25367aa9 normal3397PASS148skip4warnings163.84s. Independent CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact19+5 clean, findings/waivers NONE, soleGC020actual86 marker, oracle3af/sourcepins/prospectivecb0/current3c intact. Root freshly rehydrates current canonical continuity/implementation/index/roadmap and pinned Core; SESSION_SYNC_STEWARD to ORCHESTRATOR, BUILD/R2/liveYESforAIclaims. Exact14workerpaths+ownreturn GO afterworkerfreshdeclaration; realcode/tests and inerttypecheck then STOP beforefocusedtests at FILES_READY_FOR_BINDING. Rootonlyexactpatch/threeoldpins/catalog+independentbindinggate beforetestsGO. All14milestoneowners/Phase5 0/5 retained, no neweffect.
+
+## Initial real-file observations before binding
+
+Root consolidated inspection of all14 realfiles identified nativeLFmatrix hash assertion versus literal, exact positive safe projections, explicit boolean/fraction domains, pendingunmount/storage/session evidence, exactqueryconstruction, flat minLength guards and UTCseconds/calendar edges. Same14paths/R2/noeffects/Rootcommitowner; worker may consolidate code/inerttypecheck, thenSTOPbeforetestsagain. No outsideauthorityorcontractchange; all14milestonegaps/owners/Phase5 0/5 retained. Core preflight/session PASS; source/binding acceptance stillpending.
+
+## Actual files / preapproved family materialization
+
+Worker real14 files and inert typecheck ready; no focused tests yet. Root fresh
+canonical/implementation/index/roadmap/Core acknowledgment, ORCHESTRATOR in BUILD
+R2/liveYESforAIclaims. Root applies ONLY committed metadata patch and three old
+literal pins. Actual native LFcb0fb2427848d58aaf44a3c675f3a4d9d4d59cc38214993684eb5cd4dc492243 equals pre-BUILD plan; outcomes/shapes/domains/
+relations/mutations unchanged. All immutable inputs match. Stage1 actual14 hashes
+captured; real TS symbol/executable size verified. Independent actual binding
+gate before tests remains mandatory; source acceptance false, no operational
+coverage or AI proof. Full14gap owners/Phase5 0/5 and product return retained.
+
+## Independent actual binding accepted / test GO
+
+FAMILY_MATERIALIZATION_REVIEW_PASS_BOUNDED verifies exactfullcb0metadata patch/unchangedoutcomerules, all4consumerpins/15realevidencepaths/14actualfilehashes/200linebudget/immutableoracles and nativeCore/legacyreview/invariant/catalog/session checks. Root fresh canonical/implementation/index/roadmap acknowledgment and Core preflight PASS; ORCHESTRATOR in BUILD/R2/liveYESforAIclaims releases focusedtests/same14pathrepairs, then fullfrontendtests/typecheck/build. Sourcebehavior/privacy/race/evidence acceptance stillpending independentreview. No neweffect/authoritychange; full14gapowners/Phase5 0/5 and operationalcoverageDESIGN productreturn retained.
+
+## Stable source candidate / independent REVIEW
+
+Worker exact14files/return02fd306a stable; fullfrontend26files145PASS (17new), inerttypecheckPASS exactNode22.14, Viteproduction77modules1.47s PASS, full84mutation/positive/refusal/race/privacy cases present. Initial4TSerrors/configstartup/focusedtimeout/missinglauncher observations retained, allcurrentchecks green; no tsbuildinfo/unlistedartifact or effects. Root fresh canonical/implementation/index/roadmap/Core acknowledgment, ORCHESTRATOR to independent REVIEWER, REVIEW/R2/liveYESforAIclaims; capture14candidatehashes, refreshactualcatalog. Sourceacceptancepending, all14gaps/owners/Phase5 0/5 and operationalcoverageDESIGN return retained.
+
+## Source accepted / fresh normal material gate
+
+Independent SOURCE_REVIEW_PASS_BOUNDED accepts bounded G11 manual source caller,
+UTC/flat84/safe projection/session lifecycle and current evidence; findings and
+waivers NONE. Fullfrontend145PASS/typecheck/productionVite77modules PASS,
+initial failed observations retained; actual14 candidate hashes and return02fd
+stable. Root fresh canonical/implementation/index/roadmap/pinnedCore acknowledgment,
+ORCHESTRATOR to COMMIT_STEWARD, REVIEW/R2/liveYESforAIclaims. Normal Python
+precommit/material/terminalactualreview/dedicatedactualSHA/clean range remain
+before closure. Full14 milestone remainders/owners/P5-A2/B/C/D and Phase5 0/5
+retained. Product return: operational source/coverage DESIGN, effects separately
+admitted. No provider/credential/Docker/production/browser/release effect.

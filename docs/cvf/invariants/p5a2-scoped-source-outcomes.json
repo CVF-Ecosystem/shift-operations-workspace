@@ -25,6 +25,11 @@
       "path": "docs/specs/P5A2_SOURCE_API_BUILD_SPEC.md",
       "sha256": "3df88a9540f7b403c8f59c719e4084ef928d94dd1a68046c0a1472fcf77fd830",
       "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    },
+    {
+      "path": "docs/specs/P5A2_SOURCE_UI_SPEC.md",
+      "sha256": "d6f5562ab126e98bc1954bb47091f028889fa6f7a80d2c065e904e8a3e832eb7",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
     }
   ],
   "representationSurfaces": [
@@ -2249,6 +2254,11 @@
           "consumerPath": "apps/workspace-api/src/workspace_api/api/proactive/response.py",
           "strategy": "CANONICAL_DIGEST",
           "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
+        },
+        {
+          "consumerPath": "apps/workspace-web/src/features/proactive-source/sourceReceipt.ts",
+          "strategy": "CANONICAL_DIGEST",
+          "digestSymbol": "P5A2_SCOPED_SOURCE_MATRIX_CANONICAL_DIGEST"
         }
       ]
     }
@@ -2267,7 +2277,12 @@
     "tests/integration/test_p5a2_source_api_identity.py",
     "tests/integration/test_p5a2_source_api_receipts.py",
     "tests/integration/test_p5a2_source_api_release.py",
-    "tests/unit/test_p5a2_source_api_transport.py"
+    "tests/unit/test_p5a2_source_api_transport.py",
+    "apps/workspace-web/src/tests/proactiveSourceReceipt.test.ts",
+    "apps/workspace-web/src/tests/proactiveSourceApi.test.ts",
+    "apps/workspace-web/src/tests/proactiveSourcePanel.test.tsx",
+    "apps/workspace-web/src/tests/proactiveSourceRaces.test.tsx",
+    "apps/workspace-web/src/tests/proactiveSourceConsole.test.tsx"
   ],
-  "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim."
+  "boundedClaim": "Native receipt semantics plus bounded authenticated HTTP representation. Field rules/outcomes unchanged; the API-only 1MiB overflow maps to SOURCE_REFUSED/SCOPE_INCOMPLETE under the accepted API contract. Runtime acceptance requires real native and HTTP consumers, full mutation/parity tests and frozen fixture receipts. No operational coverage, PostgreSQL API run, durable action, production or AI governance claim. TypeScript HTTP consumer adds flat family/UTF8 digest and actor/window checks with full84 mutation evidence, then a safe transient UI projection; it does not validate deep native lineage or add operational coverage."
 }
