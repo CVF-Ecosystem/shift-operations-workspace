@@ -164,7 +164,7 @@ def _adopt_lost_create(resource: dict, state: dict, expected_volume: str) -> boo
 
 
 def _record_failure(owner: dict, state: dict, resource: dict,
-                    stage: str, cleaned: bool) -> None:
+                    stage: str, cleaned: bool, *, reason: str = "SEED_FAILED") -> None:
     # Never claim an absent resource without a fresh exact identity check.
     try:
         current = inspect("container", CONTAINER)
@@ -194,7 +194,7 @@ def _record_failure(owner: dict, state: dict, resource: dict,
         state["recovery_unknown_custody"] = "VOLUME_IDENTITY_UNVERIFIED"
     state["recovery_failure_stage"] = stage
     state["recovery_cleanup_verified"] = cleaned
-    reason = "CLEANUP_FAILED" if not cleaned else "SEED_FAILED"
+    reason = "CLEANUP_FAILED" if not cleaned else reason
     record = resource_record("PARTIAL_OWNED_FAILURE", EXPECTED_NONCE,
                              **resource, image_id=IMAGE.removeprefix("sha256:"),
                              reason=reason)

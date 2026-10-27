@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_am3_dispatch_continuity",
+  "mode": "p5a2_am3_partial_material_commit",
   "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
   "last_updated": "2026-10-27",
   "required_reads": [
@@ -19,7 +19,7 @@
     "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent clean18+5 after this exact5 normal continuity commit; then bounded verify-only guard/custody source BUILD, no effects until actual source and cleanup checkpoints.",
+  "next_allowed_move": "Normal exact24 partial-result material commit with full hook; independent terminal review then exact5actualSHA continuity and clean range. No runtime/browser/SQL/provider retry.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_am3_dispatch_continuity",
-    "activePhase": "WORK_ORDER",
-    "activePhaseNote": "Terminal AM3 dispatch PASS exact18/full3511PASS; dedicated exact5 actual-SHA continuity only, source/effect still held until independent clean.",
+    "currentMode": "p5a2_am3_partial_material_commit",
+    "activePhase": "REVIEW",
+    "activePhaseNote": "Independent RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY; findings NONE/waivers NONE; UI remains unmet and effects spent.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -55,10 +55,10 @@
     "activeHandoffNote": "AM3 same-unit verify-only runtime/UI; AM2 partial record settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "Operator approved max1 verify-only runtime/browser continuation; no repeat routine approval. No seed/CAS/data write, provider/key/model/CSV/reset/public effect. Any further budget/boundary needs operator decision.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Terminal AM3 dispatch PASS exact18/full3511PASS; dedicated exact5 actual-SHA continuity only, source/effect still held until independent clean.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_AM3",
-    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "Independent RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY; findings NONE/waivers NONE; UI remains unmet and effects spent.",
+    "currentRoleTransition": "ORCHESTRATOR_TO_COMMIT_STEWARD_AM3",
+    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3_TO_ORCHESTRATOR_AM3_TO_IMPLEMENTATION_WORKER_AM3_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3",
     "updatedAt": "2026-10-27"
   },
   "verification_snapshot_20261023": {
@@ -1115,13 +1115,13 @@
     "cleanRangeReview": "Required on latest continuity after normal commit; actual independent receipt .venv/am2-final-clean.json; no claim of product closure"
   },
   "p5a2_verify_only_am3_20261027": {
-    "status": "DISPATCH_CONTINUITY_PENDING_CLEAN",
+    "status": "PARTIAL_RESULT_REVIEW_ACCEPTED_UI_UNMET",
     "operatorReply": "Cho phép 1 lượt verify-only",
     "sameAcceptanceUnit": true,
     "newProductTranche": false,
     "physicalBudgetReleased": false,
-    "physicalAttempts": 0,
-    "browserContexts": 0,
+    "physicalAttempts": 1,
+    "browserContexts": 1,
     "applicationWrites": 0,
     "milestoneComplete": false,
     "authorizationReview": "AM3_AUTHORIZATION_REVIEW_PASS_BOUNDED",
@@ -1129,6 +1129,60 @@
     "dispatchCommit": "fb5459e5299ade9361cee50f2ae7425872a49566",
     "dispatchPaths": 18,
     "dispatchFullHook": "3511passed148skipped4warnings260.84s",
-    "dispatchTerminalReview": "TERMINAL_AM3_DISPATCH_PASS_BOUNDED"
+    "dispatchTerminalReview": "TERMINAL_AM3_DISPATCH_PASS_BOUNDED",
+    "dispatchContinuityCommit": "29a8a99105e574268343ff0c1414261ec262fad5",
+    "dispatchContinuityFullHook": "3511passed148skipped4warnings185.40s",
+    "dispatchCleanReview": "FINAL_CLEAN_AM3_DISPATCH_18_PLUS_5_PASS_SOURCE_ONLY",
+    "sourceCheckpoint": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
+    "sourcePaths": 7,
+    "workerFocused": "135passed17.05s",
+    "independentFocused": "135passed17.45s",
+    "preflightInvocations": 1,
+    "attemptBudgetSpent": true,
+    "attemptReservationSha256": "0ea3d1535fcc92ea56f14c13d3443c07f997dfb966cb2fe19c65e9b5cbb56bd2",
+    "nativeSeedCalls": 0,
+    "casCalls": 0,
+    "physicalSqlAccepted": true,
+    "physicalHttpInheritedAccepted": true,
+    "physicalUiAccepted": false,
+    "browserLogins": 1,
+    "uiSubmits": 0,
+    "screenshots": 0,
+    "proofFailureStage": "PANEL_READY",
+    "exactBrowserException": "NOT_RECORDED_BY_FIXED_SANITIZED_CONTRACT",
+    "ownedContainer": null,
+    "apiPid": null,
+    "webPid": null,
+    "finalResources": {
+      "volume": 1,
+      "container": 0,
+      "api": 0,
+      "web": 0
+    },
+    "finalOwnerDigest": "fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158",
+    "cleanupVerified": true,
+    "providerCalls": 0,
+    "retryAllowed": false,
+    "historicalExecutionReceipts": {
+      "successfulRuntimeOwnerDigest": "ca5c473f8eb0ddd7abfdcee8143e7b49d74c39a858670beee13c6d2b8714ae7d",
+      "successfulRuntimeIds": {
+        "container_id": "e8e2de751a2c5d068570c7717b8c8392ba3654442d95a7d93aca45297b09913d",
+        "api_pid": 13120,
+        "web_pid": 16216
+      },
+      "preUiLiveness": {
+        "result": "PRE_UI_LIVENESS_PASS",
+        "exactContainerRunning": true,
+        "exactPidKernelHandles": 2,
+        "loopbackTcpReady": [
+          8001,
+          5174
+        ],
+        "httpReplays": 0
+      }
+    },
+    "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+    "resultFindings": [],
+    "resultWaivers": []
   }
 }

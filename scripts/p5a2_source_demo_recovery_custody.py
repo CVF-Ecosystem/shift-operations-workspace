@@ -15,6 +15,9 @@ from p5a2_source_demo_common import (CONTAINER, OWNER, PORTS, PROFILE, RUNTIME,
 from p5a2_source_demo_recovery_docker import IMAGE, inspect, verified_image, verified_volume
 
 EXPECTED_NONCE = "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999"
+AM2_CONTAINER = "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532"
+AM3_OWNER_DIGEST = "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab"
+AM3_VOLUME_IDENTITY = "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
 SECRET = RUNTIME / "secrets.json"
 EXPECTED_RUNTIME = Path("C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo")
 
@@ -46,6 +49,61 @@ def owner_state(expected_digest: str) -> dict:
     if not OWNER.is_file() or OWNER.is_symlink() or RUNTIME.is_symlink():
         raise fail("OWNER_CUSTODY_INVALID")
     return owner
+
+
+def am3_owner_state(expected_digest: str) -> dict:
+    """Bind the cleaned AM2 volume-only owner without weakening old recovery."""
+    if expected_digest != AM3_OWNER_DIGEST or RUNTIME.resolve() != EXPECTED_RUNTIME.resolve():
+        raise fail("AM3_OWNER_DIGEST_INVALID")
+    owner = read_owner()
+    if (owner is None or owner.get("profile_id") != PROFILE
+            or owner.get("owner_nonce") != EXPECTED_NONCE
+            or owner.get("outcome") != "PARTIAL_OWNED_FAILURE"
+            or owner.get("reason") != "HEALTH_FAILED"
+            or owner.get("volume_id") != VOLUME
+            or owner.get("image_id") != IMAGE.removeprefix("sha256:")
+            or any(owner.get(key) for key in ("container_id", "api_pid", "web_pid"))
+            or [owner.get(key) for key in ("volume_count", "container_count",
+                                           "api_count", "web_count", "total_owned_count")]
+               != [1, 0, 0, 0, 1]
+            or owner.get("secret_ref") != str(SECRET)
+            or owner.get("creation_trail") != [
+                {"kind": "volume", "id": VOLUME},
+                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"},
+                {"kind": "container", "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+                 "recovery": True},
+                {"kind": "container", "id": AM2_CONTAINER, "recovery": True},
+                {"kind": "api", "id": 12612},
+                {"kind": "web", "id": 38184}]
+            or owner.get("cleanup_trail") != [
+                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"},
+                {"kind": "container", "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+                 "recovery": True},
+                {"kind": "web", "id": 38184, "result": "ALREADY_ABSENT_VERIFIED", "am2": True},
+                {"kind": "api", "id": 12612, "result": "ALREADY_ABSENT_VERIFIED", "am2": True},
+                {"kind": "container", "id": AM2_CONTAINER,
+                 "result": "REMOVED_STOPPED_EXACT_OWNED", "am2": True}]):
+        raise fail("AM3_OWNER_STATE_INVALID")
+    if digest(owner) != expected_digest or not OWNER.is_file() or OWNER.is_symlink() or RUNTIME.is_symlink():
+        raise fail("AM3_OWNER_CUSTODY_INVALID")
+    return owner
+
+
+def am3_preflight(expected_digest: str) -> dict:
+    am3_owner_state(expected_digest)
+    verified_image()
+    volume = verified_volume(EXPECTED_NONCE)
+    if volume_identity(volume) != AM3_VOLUME_IDENTITY:
+        raise fail("AM3_VOLUME_CHANGED")
+    if inspect("container", CONTAINER) is not None:
+        raise fail("CONTAINER_CONFLICT")
+    if not all(port_free(port) for port in PORTS.values()):
+        raise fail("PORT_BUSY")
+    secret_custody()
+    return {"preflight": "PASS", "profile_id": PROFILE,
+            "owner_nonce": EXPECTED_NONCE, "owner_digest": expected_digest,
+            "volume_id": VOLUME, "volume_identity": volume_identity(volume),
+            "image_id": IMAGE, "ports": PORTS}
 
 
 def secret_custody() -> None:

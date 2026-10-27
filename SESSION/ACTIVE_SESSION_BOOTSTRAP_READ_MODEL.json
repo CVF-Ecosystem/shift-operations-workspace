@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_am3_dispatch_continuity",
+  "currentMode": "p5a2_am3_partial_material_commit",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
-  "nextAllowedMove": "Independent clean18+5 after this exact5 normal continuity commit; then bounded verify-only guard/custody source BUILD, no effects until actual source and cleanup checkpoints.",
+  "nextAllowedMove": "Normal exact24 partial-result material commit with full hook; independent terminal review then exact5actualSHA continuity and clean range. No runtime/browser/SQL/provider retry.",
   "parkedOperatorCheckpoint": "Operator approved max1 verify-only runtime/browser continuation; no repeat routine approval. No seed/CAS/data write, provider/key/model/CSV/reset/public effect. Any further budget/boundary needs operator decision.",
   "requiredReads": [
     "AGENTS.md",

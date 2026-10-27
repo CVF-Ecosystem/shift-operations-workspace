@@ -96,3 +96,32 @@ Thisdedicatedexact5actualSHAchild thenindependentclean18+5 beforeSOURCEBUILD.
 No source/effects/secret/provider/budgetspent yet. Full14gapowners/destinations/
 Phase5 0/5, oneverify-onlyprofile/browserstillheld. Operatornewapprovalvalid;
 no additionalroutinepermission. No newtranche/seed/CAS/reset/nativeSmoke.
+
+## AM3 source BUILD acknowledgment / bounded worker assignments
+
+FINAL_CLEAN_AM3_DISPATCH_18_PLUS_5_PASS_SOURCE_ONLY actualfb5459e/29a8a99;
+normal3511PASS148skip4warnings260.84s/185.40s, clean,50pins/3families/recheck0.
+Freshcanonical ack; SESSION_SYNC_STEWARD→ORCHESTRATOR BUILD/R2/liveYESforAIclaim.
+Sol IMPLEMENTATION_WORKER owns ONLY recover.py/custody.py/necessaryverify_*.py
+and existingrecoverySource/Findings tests. Luna IMPLEMENTATION_WORKER ownsONLY
+new tests/unit/test_p5a2_demo_verify_only.py, ≤300lines, coordinatehelperseam;
+no competingedits. Independentrecovery_review ownsfinalsource/procedure/result.
+Root source-effect/commit control; full14gapbinding/Phase5 0/5 unchanged.
+NativepathmustNEVERcallseeder/CAS/DML; existingtwoRRROsnapshots requireknown
+EXACT31rows/hash/schema/fingerprint equality before services, existingfamily
+EXACT_VERIFIED0 only. Anyotherstate refuses. No app/seedhelper/globalmodel/
+normalAPI/UI/migration/fixture/oracle/ACL/family edits. Effectsheld; no worker
+Docker/DB/provider/secrets/commit. Returnfocusedsource/canary/legacyregression
+andrawLFpins; source+concretecleanup checkpoint beforeRootonephysicalbudget.
+
+## AM3 physical BUILD fresh acknowledgment
+
+CVF Agent Declaration: project shift-operations-workspace, read-only pinned public Core aa672d1; BUILD/R2/liveYESforAIclaims. ORCHESTRATOR→IMPLEMENTATION_WORKER Root effect owner. Canonical bootstrap/memory/state/handoff/truth/index/roadmap rehydrated. Independent STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED, 7 actual source pins, 135worker/135independent tests, 28 inert receipt probes, exact11migrationpins. Source/helpers frozen now. Max1readonlypreflight then exclusive marker/one verify-onlyruntime/browser; no seed/CAS/datawrite/provider/reset/nativeSmoke/retry. Full14gapowners/destinations/Phase5 0/5 unchanged. Parent stays alive through contiguousUI; exact fresh CID/PID/volume/TCP immediatelybeforeUI. Independent actual result/screenshots review still required.
+
+## AM3 actual single attempt / partial result REVIEW acknowledgment
+
+Fresh canonical acknowledgment; IMPLEMENTATION_WORKER→ORCHESTRATOR REVIEW/R2/liveYESforAIclaims. Core0, 7source/5procedure/11migrationpins stayed frozen. One readonlypreflightPASS, exclusive AM3 marker spent, one verify-onlyruntimePASS: both realRRRO exact31tables1/36/36/37/other27zero, stateD941/schemaD1b, EXACT_VERIFIED0appwrites, seed/CAS0. Fresh exactCID/PIDkernelhandles/volume/TCPPASS immediatelybefore one directawaitedbrowser. Onecontext/login1 actualHTTP200; failed PANEL_READY/Error before anysourcequery/screenshot. That fixedstage spans panelwait and initialdatefills; precise operation/causeUNKNOWN. No retry or inferred product defect. Reviewed exactownedcleanupPASS retainedvolume1/containerAPIweb0, finalownerfe9b8926...; oldnonce/credentials/data preserved. Current effectauthorityclosed; old successful IDs onlyhistorical. No postUISQL/globalunchangedclaim. Full14gapowners/destinations/Phase50/5 unchanged; syntheticUI/P5-A2notaccepted. Formal resultreview and normalcommits stillrequired.
+
+## AM3 result accepted for normal material commit
+
+Fresh canonical acknowledgment; ORCHESTRATOR→COMMIT_STEWARD REVIEW/R2/liveYESforAIclaims. RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY, findingsNONE/waiversNONE. Exact seven source/fiveprocedure/markerbytes unchanged, actualSQL/0writes/login200 and failedPANEL_READY/UI0queries0shots reconciled. Cleanupvolumeonlyfe9b8926..., currentIDsnull/authorityfalse, old IDs historical. Complete14gapowners/destinations/P5-A2OPEN/Phase50/5; no whole UI/product closure. Catalog3/session/size/invariant/knowledge/diff/CorePASS; legacyRETURN/REVIEW standaloneapplicable check_recheck0 each. Supplemental readonly Playwright source inspection and timed-out inertJSDOM attempt add no browser/SQL proof; precise cause remainsUNKNOWN. Normalexact24material/fullhook thenterminal/exact5/clean only.

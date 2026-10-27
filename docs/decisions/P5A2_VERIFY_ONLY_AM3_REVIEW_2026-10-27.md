@@ -1,12 +1,25 @@
-# P5-A2 verify-only AM3 independent authorization review
+# P5-A2 verify-only AM3 independent source and result review
 
 docType: completion_review
-Status: AUTHORIZATION_REVIEW_PASS_BOUNDED
+Status: RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY
 Date: 2026-10-27
 Reviewer: independent REVIEWER (`/root/recovery_review`)
 Risk: R2; live provider evidence required for any AI-governance claim.
 
 ## Decision and phase entry
+
+Current result disposition: **RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY**.
+The one AM3 attempt verified the retained synthetic database and logged in
+through the real browser, then failed before source-panel queries or
+screenshots. The formal partial result is truthful and closeable as an
+evidence record; UI acceptance and P5-A2 remain open. The authorization
+and source/procedure checkpoint sections below preserve their earlier
+decisions; the final result assessment is at the end.
+
+Current checkpoint disposition: **STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED**.
+The earlier authorization below remains historical; the actual seven-file
+source and five ignored Root procedures have now passed independent static
+review as recorded at the end. Physical preflight and effects have not run.
 
 The operator's explicit “Cho phép 1 lượt verify-only” authorizes one bounded
 continuation of the same synthetic SQL → JWT/API → UI acceptance unit. I
@@ -139,3 +152,171 @@ I explicitly invoked the verified pinned Core `check_recheck` on this exact
 legacy completion review after writing it: marker applicable, one recheck
 heading, zero violations. The current CLI/hook does not automatically select
 this legacy path family.
+
+## Actual source and Root procedure checkpoint
+
+**STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED.** I independently inspected all
+seven actual changed source/test files and recomputed their raw SHA-256,
+native-LF SHA-256 and line counts against `AM3_ADMISSION.sourceCheckpoint`:
+seven exact, every changed Python file at most 300 lines. With an in-memory
+`ACCEPTED` checkpoint copy, the ignored Root verifier passed 53 current
+source/input pins, plus the 11 inherited pinned migration files and the
+exact changed-source/worktree authority check. The predecessor mutable
+baselines remain historical; frozen seed/ledger/UI/inventory, fixtures,
+AM2 packets and invariant families are unchanged. The actual admission
+remains `PENDING` and physical budget held until Root records this review.
+
+The entry uses the exact cleaned AM2 owner metadata: merged digest
+`3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab`,
+`PARTIAL_OWNED_FAILURE`/`HEALTH_FAILED`, volume-only counts (1,0,0,0),
+six creation and five cleanup trail entries, unchanged nonce/volume/image
+and private secret reference. My read-only call to `am3_owner_state` verified
+that exact owner and trail without reading secret contents or Docker.
+AM3's reservation binds its own exclusive marker ID, owner digest, current
+volume identity, image and known database/schema/state digests; an AM2 marker
+cannot pass. The runtime uses the existing guarded local container path,
+then one full RR/RO inventory and one distinct RR/RO post-summary. The
+verify-only guard requires exact PostgreSQL 16.15, all 31 tables/counts,
+frozen `created_at`, fingerprint, schema and full state digest twice before
+services. It emits the existing `EXACT_VERIFIED` family record with zero
+AM3-owned application writes. There is no call to `_native_seed`,
+`seed_transaction`, CAS or DML in this AM3 branch. Runtime failure uses the
+existing exact-owned cleanup/failure recorder and stops without retry.
+
+My project-venv focused run passed **135 tests in 17.45 seconds**, including
+domain boundary/shim, clean child import, native seed transactions,
+AM3 28 guard/entry canaries, lifecycle, bootstrap and source tests. The
+worker's combined run passed 135 in 17.05 seconds. The invariant-family
+and file-size guards passed; `git diff --check` found no whitespace error.
+These are structural and inert tests, not a physical AM3 result.
+
+I statically reviewed the five ignored Root procedures and the frozen web
+panel against the admitted one-attempt budget. The executor rechecks Core,
+all source/input/procedure pins and IMPLEMENTATION_WORKER role, reserves the
+preflight and marker before the respective actions, writes the marker with
+exclusive binary create/fsync/readback, and accepts only closed sanitized
+native receipts. It checks exact running container, retained volume,
+current merged owner and two saved kernel PID identities plus loopback TCP
+immediately before the single browser body. The browser uses direct awaited
+JS, cached Playwright 1.62.1/Chromium 151.0.7922.34, the frozen labels and
+as-of contexts, one login, two GETs and two panel screenshots. It explicitly
+creates only the admitted screenshot parent directory. The controller
+holds its execution parent while waiting for the one browser result and
+performs no native smoke/JWT/HTTP replay. The browser receipt validator
+requires exact success fields, frozen cases/counts/as-of values, zero
+blocked external requests, closed browser, two admitted nonempty PNG paths
+and sanitized failures. Root's inert receipt probe passed **28** positive
+and adversarial checks; I reran it independently with zero effects.
+Structural PNG checks are not visual proof: result review must inspect the
+actual two screenshots and browser evidence before accepting UI.
+
+The failure-cleanup procedure derives the future target only from a closed
+successful runtime receipt and current preflight volume identity. It
+freshly checks the actual new CID/owner/PIDs/volume, holds both live kernel
+process handles before any stop, handles already-absent PIDs and running or
+stopped exact new container, preserves the old trails/volume/credentials,
+and refuses foreign or unknown custody. It is not invoked by this review.
+Success retention requires a separate result disposition; no later stop is
+authorized by this checkpoint.
+
+Reviewed ignored procedure SHA-256 pins, to be copied into admission and
+rechecked before any effect:
+
+| Procedure | SHA-256 |
+|---|---|
+| `.venv/am3_physical_once.py` | `ef8e537fba71d531b0983e8e7ac97a8d2e308269d518f0931965f2f110794980` |
+| `.venv/am3_verify.py` | `cfa73dbb9f26b76a82ed0c789bb445573449252eb014bd6ed6d19232f05dabb0` |
+| `.venv/am3_receipts.py` | `b8fe1cb6fe390ca6013fcb3bc6fa84a211a25d036076bd8ebeb48bf49f5aa77b` |
+| `.venv/am3_failure_cleanup.py` | `598581aae52ac920bd5feb497c3c01d5c47c29b0a5564aa78bedf0771cd1408d` |
+| `.venv/am3_browser_proof.js` | `dec906855aa12181ef8db1c36415fb3bb0f83ab33354841d409718da8ced70ec` |
+
+Two predictable Root procedure issues were corrected before checkpoint:
+the executor now validates the whole browser proof and actual screenshot
+files before reporting success; the receipt adapter now uses the immutable
+AM2 migration map and the verifier pins all 11 migrations. The browser now
+creates its admitted screenshot directory before capture. Findings after
+these corrections: **NONE**. Waivers: **NONE**.
+
+Root may record current seven source pins as `ACCEPTED`, copy the exact five
+procedure hashes, and set the static cleanup/source review gate. Then it may
+perform at most one read-only preflight. Only a passing preflight plus fresh
+Core/continuity/pin checks permits the exclusive AM3 marker and one
+verify-only runtime/browser attempt. Every failure stops and records
+truthful custody without retry. No SQL, Docker, browser, secret-value or
+provider effect was performed during this review. The last accepted SQL
+state from AM3, if successful, is pre-service; a later global unchanged-DB
+claim would require separate evidence. AM3 addresses only synthetic G04/G05
+UI evidence; all whole G01–G14 gaps, P5-A2 and Phase 5 (0/5) remain open.
+
+I explicitly reran verified pinned Core `check_recheck` on this standalone
+legacy completion review after this append: marker applicable, one
+Return-Time Closeability Recheck heading, zero violations. Native CLI/hook
+does not automatically scan `docs/decisions/` for this marker.
+
+## Formal one-attempt partial-result review
+
+**RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY.** Findings: **NONE**. Waivers:
+**NONE**. I reviewed the synchronized AM3 admission, evidence and standalone
+worker return against canonical bootstrap/memory/state/handoff, implementation
+truth, roadmap, index, detailed catalog and knowledge. Current authority is
+closed (`physicalBudgetReleased=false`, marker SPENT, retry false); the
+successful runtime CID/API/web PIDs are retained as historical receipts,
+while current IDs are null. The exact seven source pins and five ignored
+procedure hashes stayed unchanged after the effect. The exclusive AM3 marker
+raw SHA-256 matches the evidence. The inherited AM2 markers and packets
+remain immutable.
+
+The single read-only preflight passed, then exactly one verify-only runtime
+returned a closed receipt. Two separate actual PostgreSQL 16.15
+repeatable-read/read-only observations both matched the 31-table exact
+synthetic state: users 1, shifts 36, assignments 36, reports 37, all other
+27 tables zero, fixed database fingerprint, schema digest and state digest.
+The frozen user timestamp, password/security and raw row/hash comparisons
+were satisfied. The existing family emitted `EXACT_VERIFIED` with zero
+AM3-owned application writes; seed, `seed_transaction`, CAS and migrations
+were not invoked. This is the last accepted SQL observation, **before**
+API/web and browser; there is no post-UI global unchanged-database claim.
+Prior real JWT and two native HTTP digests remain inherited, not replayed.
+
+One API/web pair and the new exact owned container started. Fresh CID,
+both saved kernel PID handles, volume identity and loopback TCP passed
+immediately before the one direct awaited browser body. Its one browser
+context and one real login returned HTTP 200; it then reported `UI_FAILED`
+at fixed stage `PANEL_READY`, class `Error`, with zero source submissions,
+GETs, cases and screenshots. `PANEL_READY` spans panel visibility wait and
+initial date-field fills; the exact operation and cause were not retained.
+I draw no product, selector, timeout or runtime-causation inference. Browser
+closure and secret-free failure receipt were validated. Neither screenshot
+path exists; no placeholder image or UI acceptance is claimed.
+
+The pre-reviewed exact-owned cleanup passed once. Official merged owner
+metadata now records `PARTIAL_OWNED_FAILURE`/`HEALTH_FAILED`, digest
+`fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158`,
+volume 1 and container/API/web 0, verified cleanup true and preserved
+creation/cleanup trails. Cleanup recorded zero application writes and zero
+runtime restarts. I independently checked the closed native/browser
+receipts, marker hash, source/procedure pins, spent counters and merged owner
+digest without Docker, SQL, browser, provider or secret-value reads.
+
+The return's full G01–G14 table retains G01/A7 provider 401 and G02 RAG
+BLOCKED; G03 fit and G04/G05 operational production coverage/authority/
+retention/SQLite UNKNOWN; G06 later access, G07 runtime, G08–G10 quality,
+G11 other flows, G12 exact approval and G13 integrated drills OPEN; G14
+provider proof HELD. It assigns the same accountable backend, UI, Root and
+operator owners and P5-A2/P5-B/P5-C/P5-D destinations. AM3 advances only
+local synthetic G04/G05 read-only and login evidence. The missing actual
+36/36/36 then 36/36/37 panel proof remains FAILED. No whole gap or
+milestone closes; P5-A2 remains OPEN and Phase 5 remains 0/5.
+
+This review admits a normal material commit of the source and truthful
+partial-result packet, then terminal material review, dedicated exact-five
+actual-SHA continuity and independent clean committed-range review.
+It does not authorize a source repair, further runtime/browser attempt,
+provider call, automatic support tranche or product closure. Future UI
+work requires a new bounded diagnosis and concrete acceptance authority.
+
+Verified pinned Core `check_recheck` was explicitly rerun after this edit
+on both legacy standalone AM3 worker return and this completion review:
+each marker applicable, one Return-Time Closeability Recheck heading and
+zero violations. The native CLI/hook does not automatically select this
+`docs/decisions/` family.

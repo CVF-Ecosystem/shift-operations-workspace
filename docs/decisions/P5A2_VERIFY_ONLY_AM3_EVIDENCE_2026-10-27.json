@@ -1,0 +1,477 @@
+{
+  "id": "P5A2-VERIFY-ONLY-AM3-EVIDENCE-20261027",
+  "status": "PARTIAL_SOURCE_SQL_LOGIN_ACCEPTED_UI_UNMET",
+  "sameAcceptanceUnit": true,
+  "newTranche": false,
+  "operatorAuthority": "Cho phép 1 lượt verify-only",
+  "dispatchCommit": "fb5459e5299ade9361cee50f2ae7425872a49566",
+  "dispatchContinuityCommit": "29a8a99105e574268343ff0c1414261ec262fad5",
+  "sourceCheckpoint": {
+    "verdict": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
+    "sourcePaths": 7,
+    "actualSourcePins": {
+      "scripts/p5a2_source_demo_recover.py": {
+        "rawSha256": "3a5f30c3731734ff6fe05facc89697b96dd7cbed161396883122728202560782",
+        "nativeLfSha256": "3a5f30c3731734ff6fe05facc89697b96dd7cbed161396883122728202560782",
+        "lineCount": 299
+      },
+      "scripts/p5a2_source_demo_recovery_custody.py": {
+        "rawSha256": "f10df78725bbf99502e061a245d089f1063e93785486a72ab176f7a659f32692",
+        "nativeLfSha256": "f10df78725bbf99502e061a245d089f1063e93785486a72ab176f7a659f32692",
+        "lineCount": 197
+      },
+      "scripts/p5a2_source_demo_verify_guard.py": {
+        "rawSha256": "6379e40fbe5a3d937ab4fdc25a345b44030c0e87002cf7f570c82604a524dbec",
+        "nativeLfSha256": "6379e40fbe5a3d937ab4fdc25a345b44030c0e87002cf7f570c82604a524dbec",
+        "lineCount": 79
+      },
+      "scripts/p5a2_source_demo_verify_runtime.py": {
+        "rawSha256": "9eed4ceb3f452479aabe31dc57a8f52a69329f24418ef7523a356b74f38a8168",
+        "nativeLfSha256": "9eed4ceb3f452479aabe31dc57a8f52a69329f24418ef7523a356b74f38a8168",
+        "lineCount": 143
+      },
+      "tests/unit/test_p5a2_demo_recovery_source.py": {
+        "rawSha256": "d8d8d8a84fc5995b60ccfc6b3ee8ead0a2b8ee95357234651e07490e489f8f4c",
+        "nativeLfSha256": "d8d8d8a84fc5995b60ccfc6b3ee8ead0a2b8ee95357234651e07490e489f8f4c",
+        "lineCount": 237
+      },
+      "tests/unit/test_p5a2_demo_recovery_findings.py": {
+        "rawSha256": "cb70aa418d8c820ec1484ffbd730775b364a4e4ca3c3abdd1d06a22e29396de6",
+        "nativeLfSha256": "cb70aa418d8c820ec1484ffbd730775b364a4e4ca3c3abdd1d06a22e29396de6",
+        "lineCount": 254
+      },
+      "tests/unit/test_p5a2_demo_verify_only.py": {
+        "rawSha256": "c0b77273a020b784d0c3b8e175e7c18bd6fe7014f4e54bb4ff773e327bca1fda",
+        "nativeLfSha256": "c0b77273a020b784d0c3b8e175e7c18bd6fe7014f4e54bb4ff773e327bca1fda",
+        "lineCount": 226
+      }
+    },
+    "procedureSha256": {
+      ".venv/am3_physical_once.py": "ef8e537fba71d531b0983e8e7ac97a8d2e308269d518f0931965f2f110794980",
+      ".venv/am3_verify.py": "cfa73dbb9f26b76a82ed0c789bb445573449252eb014bd6ed6d19232f05dabb0",
+      ".venv/am3_receipts.py": "b8fe1cb6fe390ca6013fcb3bc6fa84a211a25d036076bd8ebeb48bf49f5aa77b",
+      ".venv/am3_failure_cleanup.py": "598581aae52ac920bd5feb497c3c01d5c47c29b0a5564aa78bedf0771cd1408d",
+      ".venv/am3_browser_proof.js": "dec906855aa12181ef8db1c36415fb3bb0f83ab33354841d409718da8ced70ec"
+    },
+    "focusedIndependent": "135 passed in 17.45s",
+    "inertRootReceiptProbes": "28 PASS",
+    "invariantGuard": "PASS",
+    "fileSizeGuard": "PASS",
+    "legacyCompletionReviewCheckRecheck": "applicable; one heading; zero violations",
+    "currentCheckpointStatusAtReview": "PENDING",
+    "physicalBudgetReleasedAtReview": false,
+    "claimBoundary": "AM3 verify-only synthetic G04/G05 UI proof pending; no physical effect in review; P5-A2 OPEN, Phase5 0/5"
+  },
+  "executionSourcePins": {
+    "scripts/p5a2_source_demo_recover.py": {
+      "rawSha256": "3a5f30c3731734ff6fe05facc89697b96dd7cbed161396883122728202560782",
+      "nativeLfSha256": "3a5f30c3731734ff6fe05facc89697b96dd7cbed161396883122728202560782",
+      "lineCount": 299
+    },
+    "scripts/p5a2_source_demo_recovery_custody.py": {
+      "rawSha256": "f10df78725bbf99502e061a245d089f1063e93785486a72ab176f7a659f32692",
+      "nativeLfSha256": "f10df78725bbf99502e061a245d089f1063e93785486a72ab176f7a659f32692",
+      "lineCount": 197
+    },
+    "scripts/p5a2_source_demo_verify_guard.py": {
+      "rawSha256": "6379e40fbe5a3d937ab4fdc25a345b44030c0e87002cf7f570c82604a524dbec",
+      "nativeLfSha256": "6379e40fbe5a3d937ab4fdc25a345b44030c0e87002cf7f570c82604a524dbec",
+      "lineCount": 79
+    },
+    "scripts/p5a2_source_demo_verify_runtime.py": {
+      "rawSha256": "9eed4ceb3f452479aabe31dc57a8f52a69329f24418ef7523a356b74f38a8168",
+      "nativeLfSha256": "9eed4ceb3f452479aabe31dc57a8f52a69329f24418ef7523a356b74f38a8168",
+      "lineCount": 143
+    },
+    "tests/unit/test_p5a2_demo_recovery_source.py": {
+      "rawSha256": "d8d8d8a84fc5995b60ccfc6b3ee8ead0a2b8ee95357234651e07490e489f8f4c",
+      "nativeLfSha256": "d8d8d8a84fc5995b60ccfc6b3ee8ead0a2b8ee95357234651e07490e489f8f4c",
+      "lineCount": 237
+    },
+    "tests/unit/test_p5a2_demo_recovery_findings.py": {
+      "rawSha256": "cb70aa418d8c820ec1484ffbd730775b364a4e4ca3c3abdd1d06a22e29396de6",
+      "nativeLfSha256": "cb70aa418d8c820ec1484ffbd730775b364a4e4ca3c3abdd1d06a22e29396de6",
+      "lineCount": 254
+    },
+    "tests/unit/test_p5a2_demo_verify_only.py": {
+      "rawSha256": "c0b77273a020b784d0c3b8e175e7c18bd6fe7014f4e54bb4ff773e327bca1fda",
+      "nativeLfSha256": "c0b77273a020b784d0c3b8e175e7c18bd6fe7014f4e54bb4ff773e327bca1fda",
+      "lineCount": 226
+    }
+  },
+  "rootProcedurePins": {
+    ".venv/am3_physical_once.py": {
+      "rawSha256": "ef8e537fba71d531b0983e8e7ac97a8d2e308269d518f0931965f2f110794980",
+      "nativeLfSha256": "ef8e537fba71d531b0983e8e7ac97a8d2e308269d518f0931965f2f110794980"
+    },
+    ".venv/am3_verify.py": {
+      "rawSha256": "cfa73dbb9f26b76a82ed0c789bb445573449252eb014bd6ed6d19232f05dabb0",
+      "nativeLfSha256": "cfa73dbb9f26b76a82ed0c789bb445573449252eb014bd6ed6d19232f05dabb0"
+    },
+    ".venv/am3_receipts.py": {
+      "rawSha256": "b8fe1cb6fe390ca6013fcb3bc6fa84a211a25d036076bd8ebeb48bf49f5aa77b",
+      "nativeLfSha256": "b8fe1cb6fe390ca6013fcb3bc6fa84a211a25d036076bd8ebeb48bf49f5aa77b"
+    },
+    ".venv/am3_failure_cleanup.py": {
+      "rawSha256": "598581aae52ac920bd5feb497c3c01d5c47c29b0a5564aa78bedf0771cd1408d",
+      "nativeLfSha256": "598581aae52ac920bd5feb497c3c01d5c47c29b0a5564aa78bedf0771cd1408d"
+    },
+    ".venv/am3_browser_proof.js": {
+      "rawSha256": "dec906855aa12181ef8db1c36415fb3bb0f83ab33354841d409718da8ced70ec",
+      "nativeLfSha256": "dec906855aa12181ef8db1c36415fb3bb0f83ab33354841d409718da8ced70ec"
+    }
+  },
+  "attemptMarker": {
+    "path": "docs/decisions/P5A2_VERIFY_ONLY_AM3_ATTEMPT_2026-10-27.json",
+    "rawSha256": "0ea3d1535fcc92ea56f14c13d3443c07f997dfb966cb2fe19c65e9b5cbb56bd2",
+    "spent": true,
+    "maximumVerifyRuntimeCalls": 1
+  },
+  "preflight": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "owner_digest": "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "ports": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "web_port": 5174
+      },
+      "preflight": "PASS",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+    }
+  },
+  "runtime": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "api_count": 1,
+      "api_pid": 13120,
+      "api_port": 8001,
+      "application_data_writes": 0,
+      "container_count": 1,
+      "container_id": "e8e2de751a2c5d068570c7717b8c8392ba3654442d95a7d93aca45297b09913d",
+      "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+      "db_port": 5433,
+      "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "outcome": "OWNED_RUNNING",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "owner_record_digest": "ca5c473f8eb0ddd7abfdcee8143e7b49d74c39a858670beee13c6d2b8714ae7d",
+      "owner_record_path": "C:\\Users\\DELL\\AppData\\Local\\shiftops-p5a2-source-demo\\owner.json",
+      "pre_service_inventory": {
+        "classification": "EXACT_SEEDED",
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "observed_created_at": "2025-12-31T20:00:00+00:00",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "schema_table_count": 31,
+        "state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+        "table_names": [
+          "approval_receipts",
+          "approvals",
+          "audit_records",
+          "corrections",
+          "customer_requests",
+          "edge_external_proposals",
+          "edge_ingress_reservations",
+          "edge_outbound_attempts",
+          "edge_quarantines",
+          "edge_rate_counters",
+          "edge_raw_envelopes",
+          "edge_service_nonces",
+          "evidence_links",
+          "external_identity_observations",
+          "handover_items",
+          "handovers",
+          "identity_mappings",
+          "incidents",
+          "messages",
+          "operational_events",
+          "p4e_action_receipts",
+          "p4e_placement_decisions",
+          "p4e_placement_work",
+          "p4e_proposals",
+          "reports",
+          "route_bindings",
+          "shift_assignments",
+          "shifts",
+          "task_creation_intents",
+          "tasks",
+          "users"
+        ],
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "pre_service_summary": {
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "record_classification": "EXACT_SEEDED",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "total_owned_count": 4,
+      "verification_family_record": {
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "durable_application_writes": 0,
+        "exact_rows_verified": true,
+        "outcome": "EXACT_VERIFIED",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1"
+      },
+      "verification_state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+      "volume_count": 1,
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "web_count": 1,
+      "web_pid": 16216,
+      "web_port": 5174
+    }
+  },
+  "preUiLiveness": {
+    "result": "PRE_UI_LIVENESS_PASS",
+    "exactContainerRunning": true,
+    "exactPidKernelHandles": 2,
+    "loopbackTcpReady": [
+      8001,
+      5174
+    ],
+    "httpReplays": 0
+  },
+  "browser": {
+    "result": "UI_FAILED",
+    "browserContexts": 1,
+    "browserLogins": 1,
+    "uiSubmits": 0,
+    "screenshots": [],
+    "cases": [],
+    "externalRequestsBlocked": 0,
+    "secretValuesRecorded": false,
+    "browserClosed": true,
+    "packageVersion": "1.62.1",
+    "browserVersion": "151.0.7922.34",
+    "jwtLoginStatus": 200,
+    "failureStage": "PANEL_READY",
+    "errorKind": "Error"
+  },
+  "cleanup": {
+    "result": "AM3_EXACT_FAILURE_CLEANUP_PASS",
+    "remaining": {
+      "volume": 1,
+      "container": 0,
+      "api": 0,
+      "web": 0
+    },
+    "applicationWrites": 0,
+    "runtimeRestarts": 0,
+    "ownerDigest": "fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158"
+  },
+  "currentResources": {
+    "volume": 1,
+    "container": 0,
+    "api": 0,
+    "web": 0
+  },
+  "currentOwnerDigest": "fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158",
+  "actualCounters": {
+    "externalReadonlyPreflight": 1,
+    "runtimeInvocations": 1,
+    "newContainers": 1,
+    "apiChildren": 1,
+    "webChildren": 1,
+    "readOnlyProofConnections": 2,
+    "seedCalls": 0,
+    "casCalls": 0,
+    "applicationWrites": 0,
+    "browserContexts": 1,
+    "browserLogins": 1,
+    "sourceSubmits": 0,
+    "sourceGets": 0,
+    "screenshots": 0,
+    "nativeSmokeCalls": 0,
+    "nativeJwtHttpReplays": 0,
+    "providerCalls": 0,
+    "installs": 0,
+    "pulls": 0,
+    "resets": 0,
+    "newVolumes": 0,
+    "newCredentials": 0,
+    "runtimeRestarts": 0
+  },
+  "inheritedHttp": {
+    "initialDigest": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+    "laterDigest": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+    "replayCalls": 0
+  },
+  "inheritedHttpSource": "Immutable AM2 EVIDENCE/RETURN; not rerun in AM3",
+  "failureDetail": "PANEL_READY fixedstage includes panel.waitFor and initial start/end fill; Error class only; precise operation and cause UNKNOWN. No raw exception/DOM/body/token retained.",
+  "claimBoundary": {
+    "applicationDataWritesZero": "AM3-owned call paths only: no native seed/CAS/INSERT/UPDATE; internal PostgreSQL startup/WAL may occur",
+    "lastExactDatabaseObservation": "Second RR/read-only snapshot before API/web startup",
+    "uiProofInheritance": "Prior AM2 SQL/JWT/two HTTP receipts plus AM3 pre-service exact SQL snapshot and frozen read-only login/source routes",
+    "postUiGlobalDatabaseUnchangedClaimAllowed": false,
+    "postUiSqlObservation": "NONE_BUDGETED"
+  },
+  "lastExactDatabaseObservation": "Second real RR/read-only snapshot before API/web; no postUI or postcleanup SQL",
+  "screenshotsPresent": [],
+  "gapReconciliation": [
+    {
+      "gap": "G01/A7",
+      "remainder": "Provider401 spent; BLOCKED",
+      "ownerDestination": "Root/operator → P5-A A7 then P5-A2"
+    },
+    {
+      "gap": "G02",
+      "remainder": "Operational RAG/context/index/citations BLOCKED",
+      "ownerDestination": "Backend/Root → P5-A2 context"
+    },
+    {
+      "gap": "G03",
+      "remainder": "Business/cohort fit UNKNOWN",
+      "ownerDestination": "Backend/operator → P5-A2 method"
+    },
+    {
+      "gap": "G04",
+      "remainder": "Synthetic SQL/JWT/nativeHTTP accepted; AM3 exactRO and browserlogin200; UI proof FAILED; operational integration UNKNOWN",
+      "ownerDestination": "Backend/Root → P5-A2 source"
+    },
+    {
+      "gap": "G05",
+      "remainder": "Synthetic exact31tables/hash verified; production mode/authority/coverage/retention/SQLite UNKNOWN; UI missing",
+      "ownerDestination": "Backend/Root/operator → P5-A2 coverage"
+    },
+    {
+      "gap": "G06",
+      "remainder": "Later use-time access OPEN",
+      "ownerDestination": "Backend/Root → P5-A2 approval"
+    },
+    {
+      "gap": "G07",
+      "remainder": "Scheduler/claim/recovery OPEN",
+      "ownerDestination": "Backend/Root → P5-A2 runtime"
+    },
+    {
+      "gap": "G08",
+      "remainder": "Operational signal quality OPEN",
+      "ownerDestination": "Backend/operator → P5-A2 signals"
+    },
+    {
+      "gap": "G09",
+      "remainder": "Operational forecast accuracy OPEN",
+      "ownerDestination": "Backend/operator → P5-A2 forecasting"
+    },
+    {
+      "gap": "G10",
+      "remainder": "Drift monitoring/display OPEN",
+      "ownerDestination": "Backend/UI/Root → P5-A2 quality and P5-B"
+    },
+    {
+      "gap": "G11",
+      "remainder": "Source API/manual UI source accepted; actual panel evidence failed; other flows OPEN",
+      "ownerDestination": "UI/Root/operator → P5-A2 application"
+    },
+    {
+      "gap": "G12",
+      "remainder": "Exact human approval OPEN",
+      "ownerDestination": "Backend/UI/operator → P5-A2 approval"
+    },
+    {
+      "gap": "G13",
+      "remainder": "Integrated drills OPEN; bounded failure/cleanup recorded only",
+      "ownerDestination": "Backend/Root → P5-A2 drills and P5-C"
+    },
+    {
+      "gap": "G14",
+      "remainder": "Live AI governance proof HELD; AM3 NO_AI/provider0",
+      "ownerDestination": "Root/operator → separately admitted P5-A2 REVIEW"
+    }
+  ],
+  "milestoneComplete": false,
+  "phase5Complete": 0,
+  "phase5Total": 5,
+  "retryAllowed": false,
+  "review": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+  "findings": [],
+  "waivers": [],
+  "supplementalReadOnlyDiagnosis": {
+    "browserLaunches": 0,
+    "sqlCalls": 0,
+    "staticRead": "Installed Playwright1.62.1 fill implementation throws Malformed value when normalized input.value differs from supplied string; this alone does not identify the AM3 failure.",
+    "inertDomAttempt": "JSDOM-only helper timed out in Node executor; no result and no cause proof; no retry.",
+    "actualFailureCause": "UNKNOWN"
+  }
+}

@@ -1,6 +1,7 @@
 """Focused inert probes for the independent SRC-1 through SRC-4 findings."""
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -19,6 +20,75 @@ import p5a2_source_demo_recover as recover  # noqa: E402
 import p5a2_source_demo_recovery_custody as custody  # noqa: E402
 import p5a2_source_demo_recovery_docker as docker  # noqa: E402
 import p5a2_source_demo_recovery_inventory as inventory  # noqa: E402
+import p5a2_source_demo_verify_runtime as am3  # noqa: E402
+
+
+def test_am3_marker_is_distinct_and_exact(monkeypatch, tmp_path):
+    path = tmp_path / "am3-attempt.json"
+    monkeypatch.setattr(am3, "ATTEMPT", path)
+    owner_digest, volume_id = custody.AM3_OWNER_DIGEST, custody.AM3_VOLUME_IDENTITY
+    marker = {"id": am3.MARKER_ID, "status": "RESERVED_SPENT_NO_RETRY",
+              "maximumVerifyRuntimeCalls": 1, "profileId": common.PROFILE,
+              "ownerNonce": custody.EXPECTED_NONCE, "ownerDigest": owner_digest,
+              "imageId": docker.IMAGE, "volumeIdentity": volume_id,
+              "expectedDatabaseFingerprint": am3.FINGERPRINT,
+              "expectedSchemaDigest": am3.SCHEMA_DIGEST,
+              "expectedStateDigest": am3.STATE_DIGEST}
+    def receipt(value):
+        raw = json.dumps(value).encode()
+        path.write_bytes(raw)
+        return hashlib.sha256(raw).hexdigest()
+    am3.reservation(receipt(marker), owner_digest, volume_id)
+    for changed in ({**marker, "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-AM2-ATTEMPT-20261027"},
+                    {**marker, "maximumVerifyRuntimeCalls": True},
+                    {**marker, "ownerDigest": "0" * 64},
+                    {**marker, "unreviewed": 1}):
+        with pytest.raises(RuntimeError, match="AM3_RESERVATION_INVALID"):
+            am3.reservation(receipt(changed), owner_digest, volume_id)
+
+
+def test_am3_owner_trails_and_volume_identity_are_exact(monkeypatch, tmp_path):
+    monkeypatch.setattr(common, "RUNTIME", tmp_path)
+    monkeypatch.setattr(common, "OWNER", tmp_path / "owner.json")
+    monkeypatch.setattr(custody, "RUNTIME", tmp_path)
+    monkeypatch.setattr(custody, "OWNER", tmp_path / "owner.json")
+    monkeypatch.setattr(custody, "EXPECTED_RUNTIME", tmp_path)
+    monkeypatch.setattr(custody, "SECRET", tmp_path / "secrets.json")
+    record = common.resource_record("PARTIAL_OWNED_FAILURE", custody.EXPECTED_NONCE,
+        volume_id=common.VOLUME, image_id=docker.IMAGE.removeprefix("sha256:"),
+        reason="HEALTH_FAILED")
+    fc = "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"
+    dee = "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747"
+    owner = {**record, "secret_ref": str(custody.SECRET),
+             "creation_trail": [{"kind": "volume", "id": common.VOLUME},
+                                {"kind": "container", "id": fc},
+                                {"kind": "container", "id": dee, "recovery": True},
+                                {"kind": "container", "id": custody.AM2_CONTAINER, "recovery": True},
+                                {"kind": "api", "id": 12612}, {"kind": "web", "id": 38184}],
+             "cleanup_trail": [{"kind": "container", "id": fc},
+                               {"kind": "container", "id": dee, "recovery": True},
+                               {"kind": "web", "id": 38184, "result": "ALREADY_ABSENT_VERIFIED", "am2": True},
+                               {"kind": "api", "id": 12612, "result": "ALREADY_ABSENT_VERIFIED", "am2": True},
+                               {"kind": "container", "id": custody.AM2_CONTAINER,
+                                "result": "REMOVED_STOPPED_EXACT_OWNED", "am2": True}]}
+    common.write_owner(owner)
+    monkeypatch.setattr(custody, "digest", lambda _: custody.AM3_OWNER_DIGEST)
+    monkeypatch.setattr(custody, "verified_image", lambda: None)
+    monkeypatch.setattr(custody, "verified_volume", lambda _: {"Name": common.VOLUME})
+    monkeypatch.setattr(custody, "volume_identity", lambda _: custody.AM3_VOLUME_IDENTITY)
+    monkeypatch.setattr(custody, "inspect", lambda *_: None)
+    monkeypatch.setattr(custody, "port_free", lambda *_: True)
+    monkeypatch.setattr(custody, "secret_custody", lambda: None)
+    assert custody.am3_preflight(custody.AM3_OWNER_DIGEST)["preflight"] == "PASS"
+    altered = copy.deepcopy(common.read_owner())
+    altered["cleanup_trail"][-1].pop("result")
+    monkeypatch.setattr(custody, "read_owner", lambda: altered)
+    with pytest.raises(RuntimeError, match="AM3_OWNER_STATE_INVALID"):
+        custody.am3_owner_state(custody.AM3_OWNER_DIGEST)
+    monkeypatch.setattr(custody, "read_owner", common.read_owner)
+    monkeypatch.setattr(custody, "volume_identity", lambda _: "0" * 64)
+    with pytest.raises(RuntimeError, match="AM3_VOLUME_CHANGED"):
+        custody.am3_preflight(custody.AM3_OWNER_DIGEST)
 
 
 def test_marker_exact_integer_and_isolated_attempt_path(monkeypatch, tmp_path):

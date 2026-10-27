@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import copy
+import os
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -16,6 +18,19 @@ import p5a2_source_demo_recovery_inventory as inventory  # noqa: E402
 import p5a2_source_demo_recover as recover  # noqa: E402
 import p5a2_source_demo_common as common  # noqa: E402
 import p5a2_source_demo_recovery_custody as custody  # noqa: E402
+
+
+def test_am3_entry_clean_child_import_has_no_config_or_database(tmp_path):
+    from p5a2_source_demo_bootstrap import isolated_child_env
+
+    env = isolated_child_env()
+    env["PYTHONPATH"] = str(ROOT / "scripts") + os.pathsep + env["PYTHONPATH"]
+    code = ("import sys; import p5a2_source_demo_verify_runtime; "
+            "assert 'workspace_api.config' not in sys.modules; "
+            "assert 'psycopg' not in sys.modules")
+    result = subprocess.run([sys.executable, "-P", "-c", code],
+                            cwd=tmp_path, env=env, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
 
 
 def test_expected_migration_set_and_partial_rows_refuse():
@@ -135,6 +150,9 @@ def test_failure_after_exact_cleanup_keeps_old_volume_and_history(monkeypatch, t
     assert loaded["total_owned_count"] == 1
     assert loaded["recovery_failure_stage"] == "READ_ONLY_INVENTORY"
     assert loaded["cleanup_trail"] == [{"kind": "container", "id": "a" * 64}]
+    recover._record_failure(old, state, resource, "VERIFY_ONLY_GUARD", True,
+                            reason="HEALTH_FAILED")
+    assert common.read_owner()["reason"] == "HEALTH_FAILED"
 
 
 def test_prewrite_inventory_uses_one_explicit_read_only_snapshot(monkeypatch):

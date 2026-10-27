@@ -155,11 +155,13 @@ quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retain
 
 
 
-Current SAME-unit AM3 verify-only runtime/UI budget explicitly approved: max1
-profile/browser,0appwrites/seed/CAS/reset/provider, onecontext/twoqueries/twoshots.
-Contract admission only/effectheld. AM2partialrecord153531b clean27+5union;
-finalsource104/102, oldphysicalhashes retained, actualSQL1/36/36/37/JWT2HTTPpass,
-UIfailedLOGIN, causeUNKNOWN. Volume1retained/containerAPIweb0, existingdatarepair
-mustnotrepeat. Full14gapowners/destinations preserved; P5-A2 OPEN/Phase5 0/5.
+Current SAME-unit AM3 result: source135worker/135independentPASS; ONEverify-only
+runtime confirmed two realRRRO snapshots exact31tables1/36/36/37/other27zero,
+0AM3appwrites/seed/CAS. Browsercontext1/login200 then PANEL_READY failure before
+sourcequery/screenshots0; preciseoperation/causeUNKNOWN. Reviewedexactcleanup
+retainedvolume1/containerAPIweb0. BudgetSPENT/no retry; no automaticnewtranche.
+PriorAM2 source/SQL/JWT/twoHTTP evidence remains accepted and immutable.
+UI/P5-A2 acceptanceUNMET; full14gapowners/destinations preserved, Phase5 0/5.
+Normal result closure receipts belong to active AM3 handoff.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`
