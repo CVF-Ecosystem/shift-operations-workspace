@@ -2,24 +2,24 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_am2_waiting_operator_ui_runtime_budget",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
+  "mode": "p5a2_am3_verify_only_dispatch",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
   "last_updated": "2026-10-27",
   "required_reads": [
     "AGENTS.md",
-    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
-    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md",
+    "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",
+    "docs/work_orders/P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_REVIEW_2026-10-27.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
     "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Obtain independent final clean exact27 material plus FIVE-PATH continuity union if not yet done; once PASS, await explicit operator decision on AM2 RETURN verify-only runtime/UI budget. No runtime/source/data repair retry or automatic tranche.",
+  "next_allowed_move": "Normal AM3 READY dispatch commit, terminal review, dedicated exact5 actual-SHA continuity and independent clean range; then bounded verify-only guard/custody source BUILD.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_am2_waiting_operator_ui_runtime_budget",
-    "activePhase": "FREEZE",
-    "activePhaseNote": "Current receipt clarified: no physical authority/live CID/PIDs; final owner0100. Historical live IDs/68-60 evidence retained separately. Partial material committed, independent final clean range required; UI/milestone open.",
+    "currentMode": "p5a2_am3_verify_only_dispatch",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "AM3 independent authorization PASS; READY seal only. Same-unit source guard and one effect budget held until normal dispatch/exact5/clean/source checkpoint.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -51,14 +51,14 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
-    "activeHandoffNote": "Successor for explicit AM2 seed/conditional timestamp scope; predecessor failure immutable.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
+    "activeHandoffNote": "AM3 same-unit verify-only runtime/UI; AM2 partial record settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "AM2 max1 recovery/browser execution SPENT: source, sole created_at CAS, SQL/JWT/two HTTP accepted; actual UI_FAILED LOGIN. No retry. Any fresh runtime/browser budget requires explicit operator decision on concrete same-unit proposal in AM2 RETURN; do not repeat source/data repair. Provider/key/model/CSV remain deferred.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Current receipt clarified: no physical authority/live CID/PIDs; final owner0100. Historical live IDs/68-60 evidence retained separately. Partial material committed, independent final clean range required; UI/milestone open.",
-    "currentRoleTransition": "SESSION_SYNC_STEWARD_REACK_CURRENT_RECEIPT_CLARIFICATION",
-    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2",
+    "parkedOperatorCheckpoint": "Operator approved max1 verify-only runtime/browser continuation; no repeat routine approval. No seed/CAS/data write, provider/key/model/CSV/reset/public effect. Any further budget/boundary needs operator decision.",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "AM3 independent authorization PASS; READY seal only. Same-unit source guard and one effect budget held until normal dispatch/exact5/clean/source checkpoint.",
+    "currentRoleTransition": "ORCHESTRATOR_TO_COMMIT_STEWARD_AM3",
+    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3",
     "updatedAt": "2026-10-27"
   },
   "verification_snapshot_20261023": {
@@ -1113,5 +1113,18 @@
       "postSeedObservation": "EXACT_SEEDED before UI; no post-cleanup SQL"
     },
     "cleanRangeReview": "Required on latest continuity after normal commit; actual independent receipt .venv/am2-final-clean.json; no claim of product closure"
+  },
+  "p5a2_verify_only_am3_20261027": {
+    "status": "READY_NORMAL_DISPATCH_PENDING",
+    "operatorReply": "Cho phép 1 lượt verify-only",
+    "sameAcceptanceUnit": true,
+    "newProductTranche": false,
+    "physicalBudgetReleased": false,
+    "physicalAttempts": 0,
+    "browserContexts": 0,
+    "applicationWrites": 0,
+    "milestoneComplete": false,
+    "authorizationReview": "AM3_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "authorizationAccepted": true
   }
 }

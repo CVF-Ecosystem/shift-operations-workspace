@@ -155,14 +155,11 @@ quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retain
 
 
 
-AM2 same-unit finalsource10paths accepted104/102PASS after canonicalUser repair;
-oldphysicalexecutionhashes retained, no replay. Operator exact scope applied.
-Actual native only synthetic user.created_at CAS1, SQL1/36/36/37 and realJWT/
-twofrozenHTTP PASS. ActualUIFAILEDLOGIN beforelogin/query/screenshot; later
-savedAPI/web absent and exactcontainerstopped, causeUNKNOWN. Reviewedcleanup
-retainedvolume1/containerAPIweb0. No reset/provider/restart; budgetsSPENT/no
-retry. PhysicalUI acceptance unmet; partial-result review accepted. Active handoff owns
-actual normal material/continuity receipts.
-Full14gapowners/destinations preserved; P5-A2 OPEN, Phase5 0/5.
+Current SAME-unit AM3 verify-only runtime/UI budget explicitly approved: max1
+profile/browser,0appwrites/seed/CAS/reset/provider, onecontext/twoqueries/twoshots.
+Contract admission only/effectheld. AM2partialrecord153531b clean27+5union;
+finalsource104/102, oldphysicalhashes retained, actualSQL1/36/36/37/JWT2HTTPpass,
+UIfailedLOGIN, causeUNKNOWN. Volume1retained/containerAPIweb0, existingdatarepair
+mustnotrepeat. Full14gapowners/destinations preserved; P5-A2 OPEN/Phase5 0/5.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

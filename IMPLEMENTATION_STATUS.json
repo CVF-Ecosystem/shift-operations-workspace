@@ -1297,5 +1297,19 @@
     "postProofBoundaryFinding": "RESOLVED canonical User seam; initial1failed39passed retained; final104/102PASS, no physical replay",
     "normalCommitHeld": false,
     "physicalExecutionSourceFocused": "68worker/60independent; old10 source pins retained"
+  },
+  "p5a2_verify_only_am3_20261027": {
+    "status": "AUTHORIZATION_ACCEPTED_NORMAL_DISPATCH_PENDING",
+    "sameAcceptanceUnit": true,
+    "newProductTranche": false,
+    "baselineCommit": "153531bfa525cf56c2bd2758107bda345ab8b500",
+    "operatorApproval": "Cho phép 1 lượt verify-only; custody binding/verify-only guard; max1 profile/browser; no app writes/reset/repeatrepair/provider",
+    "physicalBudgetReleased": false,
+    "physicalAttempts": 0,
+    "applicationWrites": 0,
+    "milestoneComplete": false,
+    "acceptance": "Exact retained full rows/state/schema/security hash, 0seed/CAS, one browser context/two asof submissions/two real screenshots synthetic36/36/36 then36/36/37",
+    "remainder": "FullG01-G14 currentAM3spec/activehandoff, allowners/destinations P5-A2/B/C/D; Phase5 0/5",
+    "authorizationReview": "AM3_AUTHORIZATION_REVIEW_PASS_BOUNDED"
   }
 }

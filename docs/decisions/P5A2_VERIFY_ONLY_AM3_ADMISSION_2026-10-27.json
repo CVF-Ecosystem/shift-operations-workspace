@@ -1,0 +1,545 @@
+{
+  "id": "P5A2-VERIFY-ONLY-AM3-ADMISSION-20261027",
+  "status": "DISPATCH_READY_SOURCE_EFFECT_HELD",
+  "baselineCommit": "153531bfa525cf56c2bd2758107bda345ab8b500",
+  "risk": "R2",
+  "phase": "SPEC_TO_WORK_ORDER",
+  "operatorAuthority": "Cho phép 1 lượt verify-only: same-unit max1 runtime/browser; zero application data writes; no reset, repeat repair or provider",
+  "productMilestoneBinding": {
+    "milestone": "P5-A2",
+    "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
+    "fullAcceptance": "docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md",
+    "userOutcome": "Authorized scheduled signals/forecasts/history/lineage/freshness/uncertainty/abstention and exact human run/version/source approval before durable action",
+    "thisAssignment": [
+      "G04 synthetic UI",
+      "G05 synthetic UI"
+    ],
+    "allRemainingGapIds": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "accountableOwnerDestinations": "Exact G01-G14 tables in AM3 SPEC and WO; backend/UI/Root/operator at P5-A2/B/C/D",
+    "milestoneComplete": false,
+    "phase5CompleteItems": 0,
+    "phase5TotalItems": 5
+  },
+  "roles": {
+    "effectArtifactCommitOwner": "Root",
+    "specAndWorkOrderAuthor": "consolidated_recovery_design",
+    "futureImplementationWorker": "Only after dispatch",
+    "independentReviewer": "recovery_review",
+    "sessionSyncSteward": "Root"
+  },
+  "paths": {
+    "spec": "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",
+    "workOrder": "docs/work_orders/P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
+    "admission": "docs/decisions/P5A2_VERIFY_ONLY_AM3_ADMISSION_2026-10-27.json",
+    "attempt": "docs/decisions/P5A2_VERIFY_ONLY_AM3_ATTEMPT_2026-10-27.json",
+    "evidence": "docs/decisions/P5A2_VERIFY_ONLY_AM3_EVIDENCE_2026-10-27.json",
+    "return": "docs/decisions/P5A2_VERIFY_ONLY_AM3_RETURN_2026-10-27.md",
+    "review": "docs/decisions/P5A2_VERIFY_ONLY_AM3_REVIEW_2026-10-27.md",
+    "screenshots": [
+      "docs/reviews/evidence/p5a2-source-demo-am3-initial-20261027.png",
+      "docs/reviews/evidence/p5a2-source-demo-am3-later-20261027.png"
+    ]
+  },
+  "workerMutationPaths": [
+    "scripts/p5a2_source_demo_recover.py",
+    "scripts/p5a2_source_demo_recovery_custody.py",
+    "scripts/p5a2_source_demo_verify_*.py",
+    "tests/unit/test_p5a2_demo_recovery_source.py",
+    "tests/unit/test_p5a2_demo_recovery_findings.py",
+    "tests/unit/test_p5a2_demo_verify_only.py"
+  ],
+  "workerExistingBaselinePins": {
+    "scripts/p5a2_source_demo_recover.py": {
+      "rawSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+      "nativeLfSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+      "lineCount": 299
+    },
+    "scripts/p5a2_source_demo_recovery_custody.py": {
+      "rawSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+      "nativeLfSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+      "lineCount": 139
+    },
+    "tests/unit/test_p5a2_demo_recovery_source.py": {
+      "rawSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+      "nativeLfSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+      "lineCount": 219
+    },
+    "tests/unit/test_p5a2_demo_recovery_findings.py": {
+      "rawSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+      "nativeLfSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+      "lineCount": 184
+    }
+  },
+  "workerNewFamily": [
+    "scripts/p5a2_source_demo_verify_*.py",
+    "tests/unit/test_p5a2_demo_verify_only.py"
+  ],
+  "rootOnlyMutationPaths": [
+    "IMPLEMENTATION_STATUS.json",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/SESSION_MEMORY.md",
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "docs/INDEX.md",
+    "docs/PROJECT_INDEX.md",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "docs/catalog/MODULE_CATALOG_DETAIL.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "knowledge/PROJECT_CONTEXT.md",
+    "knowledge/manifest.json",
+    "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",
+    "docs/work_orders/P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_ATTEMPT_2026-10-27.json",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_EVIDENCE_2026-10-27.json",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_RETURN_2026-10-27.md",
+    "docs/reviews/evidence/p5a2-source-demo-am3-initial-20261027.png",
+    "docs/reviews/evidence/p5a2-source-demo-am3-later-20261027.png"
+  ],
+  "reviewerOnlyPath": "docs/decisions/P5A2_VERIFY_ONLY_AM3_REVIEW_2026-10-27.md",
+  "allOtherPathsReadOnly": true,
+  "frozenAcceptedSourcePins": {
+    "apps/workspace-api/src/workspace_api/config.py": {
+      "rawSha256": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "nativeLfSha256": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "lineCount": 124
+    },
+    "apps/workspace-api/src/workspace_api/demo/__init__.py": {
+      "rawSha256": "6dc234afa641751bb967d1e3956721361bd0c5039cc0b46ec6c9ab9ffef2ebf2",
+      "nativeLfSha256": "d49f553022655d44a6a06955379feef5880d79bb6bcf6c511d06892ef42cea0d",
+      "lineCount": 1
+    },
+    "apps/workspace-api/src/workspace_api/demo/app.py": {
+      "rawSha256": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "nativeLfSha256": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "lineCount": 98
+    },
+    "apps/workspace-api/src/workspace_api/demo/authority_v1.json": {
+      "rawSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "nativeLfSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "lineCount": 1064
+    },
+    "apps/workspace-api/src/workspace_api/demo/bundle.py": {
+      "rawSha256": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "nativeLfSha256": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "lineCount": 27
+    },
+    "apps/workspace-api/src/workspace_api/demo/coverage.py": {
+      "rawSha256": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "nativeLfSha256": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "lineCount": 84
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes.py": {
+      "rawSha256": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "nativeLfSha256": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "lineCount": 43
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes_shift.py": {
+      "rawSha256": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "nativeLfSha256": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "lineCount": 42
+    },
+    "apps/workspace-api/src/workspace_api/demo/seed.py": {
+      "rawSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+      "nativeLfSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+      "lineCount": 203
+    },
+    "apps/workspace-api/src/workspace_api/demo/seed_recovery.py": {
+      "rawSha256": "da56c6139199babddbe996e0e163ceb8eeeba4b6239160b3b0291bc4e417eae7",
+      "nativeLfSha256": "da56c6139199babddbe996e0e163ceb8eeeba4b6239160b3b0291bc4e417eae7",
+      "lineCount": 202
+    },
+    "apps/workspace-api/src/workspace_api/demo/seed_recovery_compare.py": {
+      "rawSha256": "0525ec227c1e485bc4189169d806c03cb76db69db7937f52def142ff027b5835",
+      "nativeLfSha256": "0525ec227c1e485bc4189169d806c03cb76db69db7937f52def142ff027b5835",
+      "lineCount": 131
+    },
+    "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json": {
+      "rawSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "nativeLfSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "lineCount": 5240
+    },
+    "apps/workspace-web/vite.source-demo.config.ts": {
+      "rawSha256": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "nativeLfSha256": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "lineCount": 9
+    },
+    "infrastructure/demo/p5a2-source-postgres.compose.yml": {
+      "rawSha256": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "nativeLfSha256": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "lineCount": 26
+    },
+    "scripts/p5a2_source_demo_bootstrap.py": {
+      "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+      "lineCount": 50
+    },
+    "scripts/p5a2_source_demo_common.py": {
+      "rawSha256": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "nativeLfSha256": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "lineCount": 256
+    },
+    "scripts/p5a2_source_demo_preflight.py": {
+      "rawSha256": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "nativeLfSha256": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "lineCount": 64
+    },
+    "scripts/p5a2_source_demo_recovery_docker.py": {
+      "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+      "lineCount": 123
+    },
+    "scripts/p5a2_source_demo_recovery_inventory.py": {
+      "rawSha256": "64754bc00c4faf039e4a27e0ad25bef0d74362fdacf46f1450bbb1b351d05a92",
+      "nativeLfSha256": "64754bc00c4faf039e4a27e0ad25bef0d74362fdacf46f1450bbb1b351d05a92",
+      "lineCount": 202
+    },
+    "scripts/p5a2_source_demo_recovery_services.py": {
+      "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+      "lineCount": 47
+    },
+    "scripts/p5a2_source_demo_recovery_smoke.py": {
+      "rawSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "nativeLfSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+      "lineCount": 37
+    },
+    "scripts/p5a2_source_demo_smoke.py": {
+      "rawSha256": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "nativeLfSha256": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "lineCount": 98
+    },
+    "scripts/p5a2_source_demo_start.py": {
+      "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+      "lineCount": 232
+    },
+    "scripts/p5a2_source_demo_stop.py": {
+      "rawSha256": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "nativeLfSha256": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "lineCount": 153
+    },
+    "tests/integration/test_p5a2_demo_source_http.py": {
+      "rawSha256": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "nativeLfSha256": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "lineCount": 180
+    },
+    "tests/unit/test_p5a2_demo_bootstrap.py": {
+      "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+      "lineCount": 46
+    },
+    "tests/unit/test_p5a2_demo_bundle.py": {
+      "rawSha256": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "nativeLfSha256": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "lineCount": 83
+    },
+    "tests/unit/test_p5a2_demo_coverage.py": {
+      "rawSha256": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "nativeLfSha256": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "lineCount": 120
+    },
+    "tests/unit/test_p5a2_demo_lifecycle.py": {
+      "rawSha256": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "nativeLfSha256": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "lineCount": 238
+    },
+    "tests/unit/test_p5a2_demo_profile.py": {
+      "rawSha256": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "nativeLfSha256": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "lineCount": 42
+    },
+    "tests/unit/test_p5a2_demo_recovery_smoke.py": {
+      "rawSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "nativeLfSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+      "lineCount": 45
+    },
+    "tests/unit/test_p5a2_demo_routes.py": {
+      "rawSha256": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "nativeLfSha256": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "lineCount": 15
+    },
+    "tests/unit/test_p5a2_demo_seed_recovery.py": {
+      "rawSha256": "86396c12b843bbe4b3209d0e505a6caaab25d3661dfd13d28c92a82ba79a5b69",
+      "nativeLfSha256": "86396c12b843bbe4b3209d0e505a6caaab25d3661dfd13d28c92a82ba79a5b69",
+      "lineCount": 192
+    },
+    "tests/unit/test_p5a2_demo_seed_transactions.py": {
+      "rawSha256": "7dd941e16a047e19dd3899d37a2b9fc9244e347a73eec9604093d5727aef5f8a",
+      "nativeLfSha256": "7dd941e16a047e19dd3899d37a2b9fc9244e347a73eec9604093d5727aef5f8a",
+      "lineCount": 283
+    }
+  },
+  "frozenFixturesOracles": {
+    "fixtures/p5a2_source_demo_v1.json": {
+      "rawSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "nativeLfSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "lineCount": 5240
+    },
+    "fixtures/p5a2_source_demo_authority_v1.json": {
+      "rawSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "nativeLfSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "lineCount": 1064
+    },
+    "tests/fixtures/p5a2_source_demo_oracle.json": {
+      "rawSha256": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+      "nativeLfSha256": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+      "lineCount": 3614
+    },
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json": {
+      "rawSha256": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d",
+      "nativeLfSha256": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d",
+      "lineCount": 185
+    }
+  },
+  "immutableAM2Packets": {
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md": {
+      "rawSha256": "cdd851ef5d80db938f446069553ab80ab3612fdb996a5e36a64a7a43b4541416",
+      "nativeLfSha256": "cdd851ef5d80db938f446069553ab80ab3612fdb996a5e36a64a7a43b4541416",
+      "lineCount": 286
+    },
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md": {
+      "rawSha256": "a0c05a424ab840598665810553e7955f12b7f91de303f8245a15c9dd564ef9ae",
+      "nativeLfSha256": "a0c05a424ab840598665810553e7955f12b7f91de303f8245a15c9dd564ef9ae",
+      "lineCount": 412
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json": {
+      "rawSha256": "31a45dab8d73ab043a936236e29500fdad85d5318eb9b5589a30d48ef03d2bde",
+      "nativeLfSha256": "ddbe04422bd3e19abd90551ed99e0216c85e500c864e3f52ecd72c2de1a77819",
+      "lineCount": 929
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json": {
+      "rawSha256": "13f347363b8603f90144238e52c7861b37f181e18acff87ab7cf1cbb31485a08",
+      "nativeLfSha256": "13f347363b8603f90144238e52c7861b37f181e18acff87ab7cf1cbb31485a08",
+      "lineCount": 9
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json": {
+      "rawSha256": "d2dc47f2d51e4a1650692d320a5040afe7d2c6cac971cabbd2443f9501be6553",
+      "nativeLfSha256": "0b2bac6a6f9792aff9845a19ca6ed5669c5fbadc6e1b7cefe8424cd2dec2ceed",
+      "lineCount": 528
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md": {
+      "rawSha256": "828a3bd500e6d76ef9e5b0a7f1b6f1c0f02e1c0cafab6ed492b08b075d6a296f",
+      "nativeLfSha256": "828a3bd500e6d76ef9e5b0a7f1b6f1c0f02e1c0cafab6ed492b08b075d6a296f",
+      "lineCount": 205
+    },
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md": {
+      "rawSha256": "fde3cccb8ffcb5c2b061e42189a56ce4aea10c302cdabf8ce707bc97d79eb0a1",
+      "nativeLfSha256": "fde3cccb8ffcb5c2b061e42189a56ce4aea10c302cdabf8ce707bc97d79eb0a1",
+      "lineCount": 300
+    },
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md": {
+      "rawSha256": "3f838629eb32c1268a644e62f1ed6711d884d4b8079f13d4799d0e48cd9d98e3",
+      "nativeLfSha256": "0e403607541e10a4728d48dcb444bd54f97655ebe3ddba866294b72875c40a06",
+      "lineCount": 308
+    }
+  },
+  "invariantFamilies": {
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c",
+    "docs/cvf/invariants/p5a2-demo-seed-recovery.json": "3f69a9164bdff0d303b96a6d4b6c8e7c8829a736ee4e2138a4c3d29f1364fb41"
+  },
+  "retainedOwner": {
+    "profileId": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "ownerDigest": "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab",
+    "outcome": "PARTIAL_OWNED_FAILURE",
+    "reason": "HEALTH_FAILED",
+    "resourceCounts": {
+      "volume": 1,
+      "container": 0,
+      "api": 0,
+      "web": 0
+    },
+    "volumeName": "shiftops-p5a2-source-demo-data-v1",
+    "volumeIdentity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304",
+    "containerName": "shiftops-p5a2-source-demo-db-v1",
+    "credentialReference": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/secrets.json",
+    "runtimeDirectory": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo",
+    "priorAM2ContainerRemoved": "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532",
+    "previousTrailMustBePreserved": true
+  },
+  "image": {
+    "immutableId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "dockerCli": "C:/Users/DELL/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+    "host": "npipe:////./pipe/dockerDesktopLinuxEngine",
+    "pulls": 0
+  },
+  "verifyOnly": {
+    "database": "shiftops_p5a2_source_demo",
+    "fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+    "schemaDigest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+    "stateDigest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+    "classification": "EXACT_SEEDED",
+    "tables": 31,
+    "targetCounts": {
+      "users": 1,
+      "shifts": 36,
+      "shift_assignments": 36,
+      "reports": 37
+    },
+    "otherTablesZero": 27,
+    "readOnlyProofConnections": 2,
+    "nativeSeedCalls": 0,
+    "seedTransactionCalls": 0,
+    "applicationWrites": 0,
+    "familyOutcome": "EXACT_VERIFIED"
+  },
+  "inheritedHttp": {
+    "initialDigest": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+    "laterDigest": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+    "replayCalls": 0
+  },
+  "browser": {
+    "url": "http://127.0.0.1:5174",
+    "initialQuery": {
+      "query_start": "2026-01-01T00:00:00Z",
+      "query_end": "2026-01-02T12:00:00Z",
+      "run_as_of": "2026-01-02T12:00:00Z"
+    },
+    "laterQuery": {
+      "query_start": "2026-01-01T00:00:00Z",
+      "query_end": "2026-01-02T12:00:00Z",
+      "run_as_of": "2026-01-02T14:00:00Z"
+    },
+    "initialCounts": [
+      36,
+      36,
+      36
+    ],
+    "laterCounts": [
+      36,
+      36,
+      37
+    ],
+    "freshContainerAndPidLivenessImmediatelyBeforeUi": true,
+    "directTopLevelAwaitJsNoEval": true
+  },
+  "attemptMarker": {
+    "path": "docs/decisions/P5A2_VERIFY_ONLY_AM3_ATTEMPT_2026-10-27.json",
+    "id": "P5A2-VERIFY-ONLY-AM3-ATTEMPT-20261027",
+    "status": "RESERVED_SPENT_NO_RETRY",
+    "maximumVerifyRuntimeCalls": 1,
+    "requiredBindings": [
+      "profileId",
+      "ownerNonce",
+      "ownerDigest",
+      "imageId",
+      "volumeIdentity",
+      "expectedDatabaseFingerprint",
+      "expectedSchemaDigest",
+      "expectedStateDigest"
+    ],
+    "exclusiveCreateAndFsync": true,
+    "noReuseOfSpentMarkers": true
+  },
+  "budget": {
+    "readOnlyExternalPreflight": 1,
+    "exclusiveAttemptMarker": 1,
+    "verifyRuntimeInvocations": 1,
+    "newContainersMaximum": 1,
+    "existingVolumes": 1,
+    "newVolumes": 0,
+    "newNonces": 0,
+    "newCredentials": 0,
+    "readOnlyInventoryConnections": 1,
+    "readOnlyPostsummaryConnections": 1,
+    "nativeSeedOrCasCalls": 0,
+    "applicationDataWrites": 0,
+    "migrationOrDdlCalls": 0,
+    "apiChildren": 1,
+    "webChildren": 1,
+    "nativeSmokeCalls": 0,
+    "jwtOrHttpReplays": 0,
+    "browserContexts": 1,
+    "browserLogins": 1,
+    "browserSubmits": 2,
+    "browserSourceGets": 2,
+    "screenshots": 2,
+    "dbReadinessMaxAttempts": 40,
+    "apiReadinessMaxAttempts": 40,
+    "webReadinessMaxAttempts": 40,
+    "providerCalls": 0,
+    "installs": 0,
+    "pulls": 0,
+    "resetsOrDeletes": 0,
+    "automaticRetries": 0,
+    "publicEffects": 0,
+    "postUiSqlInspections": 0
+  },
+  "gates": {
+    "independentAuthorization": "AM3_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "normalDispatchCommit": "PENDING",
+    "actualShaExactFiveContinuity": "PENDING",
+    "independentCleanDispatch": "PENDING",
+    "sourceBuildReleased": false,
+    "independentActualSourceCheckpoint": "PENDING",
+    "physicalBudgetReleased": false,
+    "resultReview": "PENDING",
+    "normalMaterialCommit": "PENDING",
+    "terminalContinuityAndCleanRange": "PENDING",
+    "cleanupProcedureStaticReview": "PENDING_BEFORE_ATTEMPT_MARKER"
+  },
+  "sourceCheckpoint": {
+    "status": "PENDING",
+    "actualChangedSourcePins": {},
+    "frozenSourcePinsRequired": true,
+    "focusedResults": {},
+    "acceptedBytesImmutableAfterCheckpoint": true
+  },
+  "oldAM2Budgets": "SPENT_IMMUTABLE",
+  "noCurrentEffectAuthorization": true,
+  "specAuthorMutationPaths": [
+    "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",
+    "docs/work_orders/P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_ADMISSION_2026-10-27.json"
+  ],
+  "rootIgnoredCleanupProcedure": {
+    "path": ".venv/am3_failure_cleanup.py",
+    "preparedBeforeAttemptMarker": true,
+    "independentStaticReviewRequired": true,
+    "bindsActualOwnerContainerPidsAndVolume": "Static current owner/volume baseline; future newly recorded CID/PID handles verified against fresh exact identity immediately before cleanup",
+    "covers": [
+      "live exact owned API/web and container",
+      "already-absent PID and stopped exact new container"
+    ],
+    "fixedLocalDockerTransport": true,
+    "foreignKillForbidden": true,
+    "retainsVolumeAndCredentials": true,
+    "unknownCustodyStops": true,
+    "reviewHashRecordedInEvidence": true
+  },
+  "claimBoundary": {
+    "applicationDataWritesZero": "AM3-owned call paths only: no native seed/CAS/INSERT/UPDATE; internal PostgreSQL startup/WAL may occur",
+    "lastExactDatabaseObservation": "Second RR/read-only snapshot before API/web startup",
+    "uiProofInheritance": "Prior AM2 SQL/JWT/two HTTP receipts plus AM3 pre-service exact SQL snapshot and frozen read-only login/source routes",
+    "postUiGlobalDatabaseUnchangedClaimAllowed": false,
+    "postUiSqlObservation": "NONE_BUDGETED"
+  },
+  "authorizationAccepted": true,
+  "authorizationReview": "AM3_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "readyContractPins": {
+    "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md": "ea60b11b5ab97f3cd466abe745b1c6cb7a0583ee47489c53cd6a114ebd9ee324",
+    "docs\\work_orders\\P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md": "f975e6e08104176a9cf81fbd8ddde71de70654a9cf2871542c0c3f47f4d57b77"
+  }
+}
