@@ -19,7 +19,7 @@
     "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent clean27+5 after this continuity; once PASS, await explicit operator decision on concrete SAME-unit verify-only runtime/UI budget in AM2 RETURN. No retry, repeated data repair or automatic new tranche; provider remains deferred.",
+  "next_allowed_move": "Obtain independent final clean exact27 material plus FIVE-PATH continuity union if not yet done; once PASS, await explicit operator decision on AM2 RETURN verify-only runtime/UI budget. No runtime/source/data repair retry or automatic tranche.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -40,7 +40,7 @@
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
     "currentMode": "p5a2_am2_waiting_operator_ui_runtime_budget",
     "activePhase": "FREEZE",
-    "activePhaseNote": "Terminal accepts final source+partial physical evidence only. Actual material c44041f exact27/full3511PASS; dedicated exact5 continuity then independent clean27+5 discharges evidence closure. UI/milestone remain open.",
+    "activePhaseNote": "Current receipt clarified: no physical authority/live CID/PIDs; final owner0100. Historical live IDs/68-60 evidence retained separately. Partial material committed, independent final clean range required; UI/milestone open.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -56,9 +56,9 @@
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
     "parkedOperatorCheckpoint": "AM2 max1 recovery/browser execution SPENT: source, sole created_at CAS, SQL/JWT/two HTTP accepted; actual UI_FAILED LOGIN. No retry. Any fresh runtime/browser budget requires explicit operator decision on concrete same-unit proposal in AM2 RETURN; do not repeat source/data repair. Provider/key/model/CSV remain deferred.",
     "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Terminal accepts final source+partial physical evidence only. Actual material c44041f exact27/full3511PASS; dedicated exact5 continuity then independent clean27+5 discharges evidence closure. UI/milestone remain open.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_AM2",
-    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2",
+    "activeRoleNote": "Current receipt clarified: no physical authority/live CID/PIDs; final owner0100. Historical live IDs/68-60 evidence retained separately. Partial material committed, independent final clean range required; UI/milestone open.",
+    "currentRoleTransition": "SESSION_SYNC_STEWARD_REACK_CURRENT_RECEIPT_CLARIFICATION",
+    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2",
     "updatedAt": "2026-10-27"
   },
   "verification_snapshot_20261023": {
@@ -1040,12 +1040,12 @@
     "resultRecordClosure": "Dedicated exact5 child plus independentclean17+5 discharges current failed-result evidence only; physical acceptanceFAILED/operator scope pending."
   },
   "p5a2_recovery_am2_20261027": {
-    "status": "FROZEN_PARTIAL_EVIDENCE_RECORD_ONLY_UI_OPEN",
+    "status": "PARTIAL_EVIDENCE_MATERIAL_COMMITTED_UI_OPEN",
     "operatorReply": "Cho phép phạm vi này",
     "priorResultClean": "FINAL_CLEAN_17_PLUS_5_PASS",
     "priorMaterial": "68d40b0f368e0ad0233e4427c5274168765c6214",
     "priorContinuity": "bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea",
-    "physicalBudgetReleased": true,
+    "physicalBudgetReleased": false,
     "physicalAttempts": 1,
     "milestoneComplete": false,
     "authorizationReview": "AM2_AUTHORIZATION_REVIEW_PASS_BOUNDED",
@@ -1057,23 +1057,23 @@
     "dispatchContinuityCommit": "dbbabe4ea6958e02dd0754125f3548865755b104",
     "dispatchContinuityFullHook": "3483passed148skipped4warnings219.79s",
     "dispatchCleanReview": "FINAL_CLEAN_AM2_DISPATCH_18_PLUS_5_PASS",
-    "sourceCheckpoint": "SOURCE_CHECKPOINT_PASS_BOUNDED",
+    "sourceCheckpoint": "POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
     "sourcePaths": 10,
-    "workerFocused": "68passed",
-    "independentFocused": "60passed23.19s",
+    "workerFocused": "104passed26.83s",
+    "independentFocused": "102passed26.53s",
     "recoveryBudgetSpent": true,
-    "postSeedDatabaseState": "EXACT_SEEDED",
+    "postSeedDatabaseState": "LAST_ACCEPTED_EXACT_SEEDED; NO_POST_CLEANUP_SQL; VOLUME_PRESERVED",
     "physicalSqlAccepted": true,
-    "ownedContainer": "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532",
-    "apiPid": 12612,
-    "webPid": 38184,
+    "ownedContainer": null,
+    "apiPid": null,
+    "webPid": null,
     "physicalSourceAccepted": false,
     "browserContexts": 1,
     "browserLogins": 0,
     "uiSubmits": 0,
     "screenshots": 0,
     "proofFailureStage": "LOGIN",
-    "registeredOwnerStale": true,
+    "registeredOwnerStale": false,
     "cleanupReview": "STATIC_CLEANUP_GO_BOUNDED",
     "finalOwnerDigest": "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab",
     "finalResources": {
@@ -1085,11 +1085,11 @@
     "cleanupVerified": true,
     "physicalHttpAccepted": true,
     "physicalUiAccepted": false,
-    "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+    "resultReview": "POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
     "resultFindings": [],
     "resultWaivers": [],
     "trancheDisposition": "PHYSICAL_UI_ACCEPTANCE_NOT_MET; PARTIAL_EVIDENCE_RECORD_ACCEPTED",
-    "postProofBoundaryFinding": "AM2-BOUNDARY-USER-IMPORT",
+    "postProofBoundaryFinding": "RESOLVED canonical User seam; initial1failed39passed retained in material evidence",
     "postProofSourceReview": "POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
     "postProofFocused": "104worker/102independentPASS",
     "normalCommitHeld": false,
@@ -1098,6 +1098,20 @@
     "resultMaterialFullHook": "3511passed148skipped4warnings240.58s",
     "resultTerminalReview": "TERMINAL_AM2_RESULT_MATERIAL_PASS_BOUNDED",
     "resultRecordClosure": "Dedicated exact5 actual-SHA continuity plus independent clean27+5; no product/UI/milestone closure.",
-    "nextOperatorDecision": "Concrete same-unit verify-only runtime/UI budget in AM2 RETURN; not authorized; old attempts spent."
+    "nextOperatorDecision": "Concrete same-unit verify-only runtime/UI budget in AM2 RETURN; not authorized; old attempts spent.",
+    "historicalExecutionReceipts": {
+      "physicalBudgetWasReleasedBeforeOneCall": true,
+      "successfulRecoveryIds": {
+        "container": "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532",
+        "apiPid": 12612,
+        "webPid": 38184
+      },
+      "registeredOwnerWasStaleAtUiFailure": true,
+      "preProofSourceCheckpoint": "SOURCE_CHECKPOINT_PASS_BOUNDED",
+      "preProofWorkerFocused": "68passed",
+      "preProofIndependentFocused": "60passed23.19s",
+      "postSeedObservation": "EXACT_SEEDED before UI; no post-cleanup SQL"
+    },
+    "cleanRangeReview": "Required on latest continuity after normal commit; actual independent receipt .venv/am2-final-clean.json; no claim of product closure"
   }
 }

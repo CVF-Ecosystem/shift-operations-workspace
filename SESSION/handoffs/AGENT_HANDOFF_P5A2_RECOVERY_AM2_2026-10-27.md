@@ -289,3 +289,20 @@ runtime/browserbudgetSPENT; concretepossibleverify-only SAME-unit runtime/UI
 continuation inRETURN isNOTAUTHORIZED. Source/datarepairmustnotrepeat. No new
 tranche/restart/reset/provider/key/model/CSV/push/deploy. Nextoperatorcheckpoint
 onlyrealnewruntime/browserbudget aftercleanrecordrange, notroutineapproval.
+
+## Reviewed current-vs-historical continuity receipt clarification
+
+Independentreview authorized only sameFIVE correctivecontinuityfiles. Prior
+3b8c269 exact5 normal3511PASS148skip4warnings246.04s remains immutable history;
+no amend/rewrite. Currentcontrolcontract/bootstrap/handoff alreadywaitoperator/
+spent; per-AM2receipt inherited earlierlive values ambiguously. Currentreceipt
+nowphysicalBudgetReleasedfalse/registeredOwnerStalefalse/liveCIDandPIDsnull,
+finalsource104/102/postproofreview/currentowner0100; oldreleasedflag/liveIDs/
+staleownerflag/preproof68-60 explicitly nested as historicalExecutionReceipts.
+DBstate labeled LAST_ACCEPTED_EXACT_SEEDED/no postcleanupSQL. Actualsource /
+oldphysicalhashes/effects/AD/EVIDENCE unchanged; no authority expansion.
+Freshcanonical acknowledgment; sameSESSION_SYNC_STEWARD FREEZE/R2/liveYES for
+partialrecord only. Materialc44041f exact27 normal3511PASS240.58s andterminal
+PASS stand. Thisnewnormalexact5child thenindependentclean27+FIVE-PATHunion
+acrossbothcontinuitychildren required; no claimcleanpassedbeforedecision.
+All14gaps/owners/Phase5 0/5/UIFAILED/volume1/no newruntimebudget unchanged.

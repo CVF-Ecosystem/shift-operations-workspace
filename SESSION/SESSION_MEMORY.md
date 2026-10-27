@@ -32,6 +32,6 @@ P5-A2/B/C/D destinations preserved. Phase5 0/5. No AIgovernance/productionclaim.
 
 ## Next allowed move
 
-Independent clean27+5 after this continuity; once PASS, await explicit operator decision on concrete SAME-unit verify-only runtime/UI budget in AM2 RETURN. No retry, repeated data repair or automatic new tranche; provider remains deferred.
+Obtain independent final clean exact27 material plus FIVE-PATH continuity union if not yet done; once PASS, await explicit operator decision on AM2 RETURN verify-only runtime/UI budget. No runtime/source/data repair retry or automatic tranche.
 
-Current role SESSION_SYNC_STEWARD; phase FREEZE. Terminal accepts final source+partial physical evidence only. Actual material c44041f exact27/full3511PASS; dedicated exact5 continuity then independent clean27+5 discharges evidence closure. UI/milestone remain open.
+Current role SESSION_SYNC_STEWARD; phase FREEZE. Current receipt clarified: no physical authority/live CID/PIDs; final owner0100. Historical live IDs/68-60 evidence retained separately. Partial material committed, independent final clean range required; UI/milestone open.
