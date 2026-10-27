@@ -2,24 +2,24 @@
   "schema_version": "1.0",
   "repository": "shift-operations-workspace",
   "description": "Machine session state. Provider-neutral: every agent (Claude, Codex, Gemini, or any other) and every human reads this before governed work. Update it at end of session and point active_handoff at the newest handoff.",
-  "mode": "p5a2_am3_partial_record_continuity",
-  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
+  "mode": "p5a2_am4_dispatch_commit",
+  "active_handoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md",
   "last_updated": "2026-10-27",
   "required_reads": [
     "AGENTS.md",
-    "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",
-    "docs/work_orders/P5A2_VERIFY_ONLY_AM3_WORK_ORDER.md",
-    "docs/decisions/P5A2_VERIFY_ONLY_AM3_ADMISSION_2026-10-27.json",
-    "docs/decisions/P5A2_VERIFY_ONLY_AM3_REVIEW_2026-10-27.md",
+    "docs/specs/P5A2_UI_COMPLETION_AM4_SPEC.md",
+    "docs/work_orders/P5A2_UI_COMPLETION_AM4_WORK_ORDER.md",
+    "docs/decisions/P5A2_UI_COMPLETION_AM4_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_UI_COMPLETION_AM4_REVIEW_2026-10-27.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
     "docs/PROJECT_INDEX.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
-    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md"
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_RETURN_2026-10-27.md"
   ],
   "roadmap": "docs/implementation/EXECUTION_ROADMAP.md",
-  "next_allowed_move": "Independent clean exact24+5 committed-range review after this dedicated continuity commit. Then bounded P5-A2 UI diagnosis/planning only; no new effect, retry or automatic tranche.",
+  "next_allowed_move": "Normal exact18 dispatch then independent terminal review/exact5actualSHA continuity/clean before source BUILD.",
   "commit_discipline": "Commit and push to origin main as soon as each roadmap tranche is complete and gates pass. Do not batch multiple tranches into one commit. Commit message must name the tranche id and verification result. See history_index for the full historical commit-discipline record and its named example commits.",
   "blocked_work": [
     "Restating P4-A/P3-B/Phase 3 bounded closure as application-level AI wiring, durable accounting, production provider integration, RAG, deployment or production readiness.",
@@ -38,9 +38,9 @@
   },
   "cvf_bootstrap_continuity_contract": {
     "note": "Fields below satisfy the CVF Project Bootstrap Continuity Contract's machine-readable active-state requirements. They are additive only - no existing field above (mode, active_handoff, next_allowed_move, blocked_work, history_index) was renamed, removed, or reinterpreted. See docs/CVF_BOOTSTRAP_LOG_2026-07-22.md for the original reconciliation record and AGENTS.md for why this project keeps SESSION/ instead of CVF_SESSION/.",
-    "currentMode": "p5a2_am3_partial_record_continuity",
-    "activePhase": "REVIEW",
-    "activePhaseNote": "Actual partial-evidence material5e84c18 normal3542PASS148skip4warnings148.69s; independent terminalPASS; dedicated actualSHA continuity, UI remains unmet.",
+    "currentMode": "p5a2_am4_dispatch_commit",
+    "activePhase": "WORK_ORDER",
+    "activePhaseNote": "READY sealed; normal18 dispatch only, source/effect still held.",
     "controlChainModel": [
       "INTAKE",
       "DESIGN",
@@ -51,14 +51,14 @@
       "FREEZE"
     ],
     "controlChainModelNote": "This is the seven-step governance control chain from AGENTS.md, distinct from this project's own five-phase business roadmap referenced by 'roadmap' above (docs/implementation/EXECUTION_ROADMAP.md). The control chain governs how one unit of work moves through gates; the roadmap governs what is being built and in what order.",
-    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
-    "activeHandoffNote": "AM3 same-unit verify-only runtime/UI; AM2 partial record settled.",
+    "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md",
+    "activeHandoffNote": "AM4 same-unit one additional UI completion attempt; AM3 record settled.",
     "nextAllowedMove": "Mirrors next_allowed_move above - see that field for the full text.",
-    "parkedOperatorCheckpoint": "AM3 operator-approved max1 verify-only attempt is SPENT; UI acceptance UNMET. No current runtime/browser/SQL/data-repair/provider/reset/push authority. No automatic new support tranche; any new effect or budget needs a concrete reviewed operator decision.",
-    "activeRole": "SESSION_SYNC_STEWARD",
-    "activeRoleNote": "Actual partial-evidence material5e84c18 normal3542PASS148skip4warnings148.69s; independent terminalPASS; dedicated actualSHA continuity, UI remains unmet.",
-    "currentRoleTransition": "COMMIT_STEWARD_TO_SESSION_SYNC_STEWARD_AM3",
-    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3_TO_ORCHESTRATOR_AM3_TO_IMPLEMENTATION_WORKER_AM3_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3",
+    "parkedOperatorCheckpoint": "Operator explicitly approved one additional UI completion attempt; new AM4 contract/source/procedure gates still held. Max1verify-onlyruntime/browser,0datawrites/seed/CAS/reset/provider; no further budget automatically.",
+    "activeRole": "COMMIT_STEWARD",
+    "activeRoleNote": "READY sealed; normal18 dispatch only, source/effect still held.",
+    "currentRoleTransition": "WORK_ORDER_AUTHOR_TO_COMMIT_STEWARD_AM4",
+    "roleRoute": "P4C_REPAIR_WORKER_TO_ORCHESTRATOR_TO_CORE_REFRESH_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_REPAIR_WORKER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_AMENDMENT_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_TO_INDEPENDENT_INTAKE_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_INTAKE_REVIEWER_TO_ORCHESTRATOR_TO_COMMIT_STEWARD_TO_ORCHESTRATOR_TO_DESIGN_AUTHOR_TO_INDEPENDENT_DESIGN_REVIEWER_TO_REPAIR_WORKER_TO_INDEPENDENT_DESIGN_REVIEWER_TO_ORCHESTRATOR_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_REVIEWER_TO_ORCHESTRATOR_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REVIEWER_TO_ORCHESTRATOR_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_REPAIR_WORKER_TO_SPEC_AUTHOR_TO_INDEPENDENT_SPEC_AMENDMENT_REVIEWER_TO_WORK_ORDER_AUTHOR_TO_INDEPENDENT_AUTHORIZATION_REREVIEWER_TO_INDEPENDENT_COMPLETION_REREVIEWER_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_INDEPENDENT_REVIEWER_TO_IMPLEMENTATION_WORKER_TO_INDEPENDENT_COMPLETION_REVIEWER_TO_ORCHESTRATOR_TO_INTAKE_AUTHOR_POST_MATERIAL_REVIEW_TO_CLOSER_TO_SESSION_SYNC_STEWARD_TO_ORCHESTRATOR_AM2_APPROVED_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_IMPLEMENTATION_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_REPAIR_WORKER_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_ORCHESTRATOR_AM2_TO_COMMIT_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_SESSION_SYNC_STEWARD_AM2_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3_TO_ORCHESTRATOR_AM3_TO_IMPLEMENTATION_WORKER_AM3_TO_ORCHESTRATOR_AM3_TO_COMMIT_STEWARD_AM3_TO_SESSION_SYNC_STEWARD_AM3_TO_ORCHESTRATOR_AM4_TO_WORK_ORDER_AUTHOR_AM4_TO_COMMIT_STEWARD_AM4",
     "updatedAt": "2026-10-27"
   },
   "verification_snapshot_20261023": {
@@ -1189,5 +1189,16 @@
     "resultMaterialFullHook": "3542passed148skipped4warnings148.69s",
     "resultTerminalReview": "TERMINAL_AM3_MATERIAL_PASS_PARTIAL_ONLY",
     "resultRecordClosure": "Dedicated exact5 actual-SHA continuity then independent clean24+5; partial evidence only, UI/P5-A2 acceptanceUNMET."
+  },
+  "p5a2_ui_completion_am4_20261027": {
+    "status": "INTAKE_DESIGN_OPERATOR_APPROVED_EFFECT_HELD",
+    "operatorReply": "tiếp 1 lượt cho xong phần UI",
+    "sameAcceptanceUnit": true,
+    "newProductTranche": false,
+    "physicalBudgetReleased": false,
+    "physicalAttempts": 0,
+    "browserContexts": 0,
+    "applicationWrites": 0,
+    "milestoneComplete": false
   }
 }
