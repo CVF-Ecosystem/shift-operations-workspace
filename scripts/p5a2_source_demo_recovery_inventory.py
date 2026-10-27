@@ -43,7 +43,7 @@ def classify_counts(counts: dict[str, int]) -> str:
     raise fail("PARTIAL_OR_FOREIGN_DATA")
 
 
-def inventory(dsn: str) -> dict:
+def inventory(dsn: str, viewer_password: str | None = None) -> dict:
     import psycopg
 
     expected = expected_tables()
@@ -82,24 +82,50 @@ def inventory(dsn: str) -> dict:
                 if any(not required.issubset(columns.get(table, set()))
                        for table, required in native.items()):
                     raise fail("SCHEMA_COLUMNS_INVALID")
+                if any(columns.get(table) != native[table] for table in TARGET):
+                    raise fail("TARGET_RAW_COLUMNS_INVALID")
+                schema_digest = digest({name: sorted(columns.get(name, set()))
+                                        for name in sorted(expected)})
                 counts = {}
                 for name in sorted(expected):
                     cur.execute(f'SELECT count(*) FROM "{name}"')
                     counts[name] = cur.fetchone()[0]
                 classification = classify_counts(counts)
+                if viewer_password is not None:
+                    from workspace_api.demo.bundle import load_bundle
+                    from workspace_api.demo.seed_recovery_compare import compare_rows
+                    from workspace_api.infrastructure import repository
+
+                    rows = {}
+                    for name in sorted(expected):
+                        cur.execute(f'SELECT * FROM "{name}"')
+                        columns_now = [column.name for column in cur.description]
+                        rows[name] = [dict(zip(columns_now, row))
+                                      for row in cur.fetchall()]
+                    state = compare_rows(rows, load_bundle(), viewer_password,
+                                         repository.User)
+                    classification = state["classification"]
             finally:
                 cur.execute("ROLLBACK")
-    return {"database": database, "postgresql_major": 16,
+    result = {"database": database, "postgresql_major": 16,
             "postgresql_version": version,
             "transaction_isolation": "repeatable read",
             "transaction_read_only": "on",
             "db_fingerprint": digest({"database": database,
                                       "system_identifier": system_id}),
-            "schema_table_count": len(expected), "counts": counts,
+            "schema_table_count": len(expected), "schema_digest": schema_digest,
+            "table_names": sorted(expected),
+            "counts": counts,
             "classification": classification}
+    if viewer_password is not None:
+        result.update({key: state[key] for key in
+                       ("state_digest", "observed_created_at")})
+    return result
 
 
-def post_seed_summary(dsn: str, expected_fingerprint: str) -> dict:
+def post_seed_summary(dsn: str, expected_fingerprint: str,
+                      viewer_password: str | None = None,
+                      expected_schema_digest: str | None = None) -> dict:
     """The one separately budgeted post-seed SQL summary connection."""
     import psycopg
 
@@ -120,16 +146,57 @@ def post_seed_summary(dsn: str, expected_fingerprint: str) -> dict:
                         or digest({"database": database,
                                    "system_identifier": system_id}) != expected_fingerprint):
                     raise fail("POST_SEED_IDENTITY_INVALID")
+                expected = expected_tables()
+                cur.execute("SELECT tablename FROM pg_tables WHERE schemaname = 'public'")
+                if {row[0] for row in cur.fetchall()} != expected:
+                    raise fail("POST_SEED_TABLE_SET_INVALID")
                 counts = {}
-                for name in sorted(expected_tables()):
+                for name in sorted(expected):
                     cur.execute(f'SELECT count(*) FROM "{name}"')
                     counts[name] = cur.fetchone()[0]
                 if classify_counts(counts) != "EXACT_SEEDED":
                     raise fail("POST_SEED_COUNTS_INVALID")
+                cur.execute("SELECT table_name, column_name FROM information_schema.columns WHERE table_schema = 'public'")
+                columns: dict[str, set[str]] = {}
+                for table, column in cur.fetchall():
+                    columns.setdefault(table, set()).add(column)
+                native = required_columns()
+                if any(columns.get(table) != native[table] for table in TARGET):
+                    raise fail("POST_SEED_TARGET_COLUMNS_INVALID")
+                schema_digest = digest({name: sorted(columns.get(name, set()))
+                                        for name in sorted(expected)})
+                if expected_schema_digest is not None and schema_digest != expected_schema_digest:
+                    raise fail("POST_SEED_SCHEMA_CHANGED")
+                if viewer_password is not None:
+                    from workspace_api.demo.bundle import load_bundle
+                    from workspace_api.demo.seed_recovery_compare import compare_rows
+                    from workspace_api.infrastructure import repository
+
+                    rows = {}
+                    for name in sorted(expected):
+                        cur.execute(f'SELECT * FROM "{name}"')
+                        columns_now = [column.name for column in cur.description]
+                        rows[name] = [dict(zip(columns_now, row))
+                                      for row in cur.fetchall()]
+                    state = compare_rows(rows, load_bundle(), viewer_password,
+                                         repository.User)
+                    if state["classification"] != "EXACT_SEEDED":
+                        raise fail("POST_SEED_ROWS_INVALID")
             finally:
                 cur.execute("ROLLBACK")
-    return {"database": database, "postgresql_major": 16,
+    result = {"database": database, "postgresql_major": 16,
             "postgresql_version": version,
             "transaction_isolation": isolation,
             "transaction_read_only": read_only,
-            "db_fingerprint": expected_fingerprint, "counts": counts}
+            "db_fingerprint": expected_fingerprint,
+            "schema_digest": schema_digest, "counts": counts}
+    if viewer_password is not None:
+        result["state_digest"] = state["state_digest"]
+        result["record_classification"] = state["classification"]
+    return result
+
+
+def verify_post_seed_digest(after: dict, seed_receipt: dict) -> None:
+    if (after.get("state_digest") != seed_receipt.get("state_digest")
+            or after.get("record_classification") != "EXACT_SEEDED"):
+        raise fail("POST_SEED_DIGEST_CHANGED")

@@ -138,12 +138,6 @@ continuity receipts; source review alone does not close material completion.
 Upstream/private repository movement does not invalidate intact installed Core;
 explicit reviewed Core update is separate from ordinary project operations.
 
-G04-G06 source audit pins20source surfaces and4existing test excerpts. Current
-query/cohort/retention/snapshot gaps remain; synthetic data with actual backend
-is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
-or acceptance and does not require operational data before fixture development.
-Live holds and all14milestone remainders remain; active handoff owns current truth.
-
 Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
 36shifts37versions, awaretime/immutablecontent/asof-lineage/analysis against
 frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
@@ -161,11 +155,14 @@ quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retain
 
 
 
-Prior failure source256a052/5c9597e accepted3483PASS; recovery failed native seed,
-old budgetSPENT. PrewritePG16.15 RR/RO31tables0, volume retained/APIweb0;
-postseed rows UNKNOWN. Operator explicitly approved exact AM2 demo seed/tests,
-readonly retained inspection and conditional sole synthetic created_at CAS,
-maximum1new reviewed recovery/noreset. Same SQL/JWT/API/UI unit; contract
-admission pending, no new effects yet. G04/G05 physicalOPEN, Phase5 0/5.
+AM2 same-unit finalsource10paths accepted104/102PASS after canonicalUser repair;
+oldphysicalexecutionhashes retained, no replay. Operator exact scope applied.
+Actual native only synthetic user.created_at CAS1, SQL1/36/36/37 and realJWT/
+twofrozenHTTP PASS. ActualUIFAILEDLOGIN beforelogin/query/screenshot; later
+savedAPI/web absent and exactcontainerstopped, causeUNKNOWN. Reviewedcleanup
+retainedvolume1/containerAPIweb0. No reset/provider/restart; budgetsSPENT/no
+retry. PhysicalUI acceptance unmet; partial-result review accepted. Active handoff owns
+actual normal material/continuity receipts.
+Full14gapowners/destinations preserved; P5-A2 OPEN, Phase5 0/5.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

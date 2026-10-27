@@ -139,6 +139,7 @@ def test_failure_after_exact_cleanup_keeps_old_volume_and_history(monkeypatch, t
 
 def test_prewrite_inventory_uses_one_explicit_read_only_snapshot(monkeypatch):
     names = inventory.expected_tables()
+    native = inventory.required_columns()
     statements = []
     class Cursor:
         current = ""
@@ -158,13 +159,13 @@ def test_prewrite_inventory_uses_one_explicit_read_only_snapshot(monkeypatch):
             if self.current.startswith("SELECT nspname"): return [("public",)]
             if self.current.startswith("SELECT tablename"): return [(name,) for name in names]
             if self.current.startswith("SELECT table_name, column_name"):
-                return [("users", "user_id")]
+                return [(table, column) for table, columns in native.items()
+                        for column in columns]
             raise AssertionError(self.current)
     class Connection:
         def __enter__(self): return self
         def __exit__(self, *_): return None
         def cursor(self): return Cursor()
-    monkeypatch.setattr(inventory, "required_columns", lambda: {"users": {"user_id"}})
     monkeypatch.setitem(sys.modules, "psycopg", SimpleNamespace(connect=lambda *a, **kw: Connection()))
     result = inventory.inventory("inert")
     assert result["classification"] == "EMPTY_COMPATIBLE"
@@ -190,13 +191,18 @@ def test_owner_preflight_uses_registered_partial_record_and_same_volume(monkeypa
     monkeypatch.setattr(custody, "SECRET", secret)
     nonce = custody.EXPECTED_NONCE
     old_id = "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"
+    prior_recovery_id = "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747"
     record = common.resource_record("PARTIAL_OWNED_FAILURE", nonce,
         volume_id=common.VOLUME, image_id=docker.IMAGE.removeprefix("sha256:"),
         reason="SEED_FAILED")
     owner = {**record, "secret_ref": str(secret),
              "creation_trail": [{"kind": "volume", "id": common.VOLUME},
-                                {"kind": "container", "id": old_id}],
-             "cleanup_trail": [{"kind": "container", "id": old_id}]}
+                                    {"kind": "container", "id": old_id},
+                                    {"kind": "container", "id": prior_recovery_id,
+                                     "recovery": True}],
+                 "cleanup_trail": [{"kind": "container", "id": old_id},
+                                   {"kind": "container", "id": prior_recovery_id,
+                                    "recovery": True}]}
     common.write_owner(owner)
     actual = common.read_owner()
     monkeypatch.setattr(custody, "verified_image", lambda: None)

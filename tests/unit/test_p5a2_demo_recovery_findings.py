@@ -25,7 +25,8 @@ def test_marker_exact_integer_and_isolated_attempt_path(monkeypatch, tmp_path):
     marker_path = tmp_path / "attempt.json"
     monkeypatch.setattr(recover, "ATTEMPT", marker_path)
     owner_digest = "a" * 64
-    payload = {"status": "RESERVED_SPENT_NO_RETRY", "maximumRecoveryCalls": 1,
+    payload = {"id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-AM2-ATTEMPT-20261027",
+               "status": "RESERVED_SPENT_NO_RETRY", "maximumRecoveryCalls": 1,
                "profileId": common.PROFILE, "ownerNonce": custody.EXPECTED_NONCE,
                "ownerDigest": owner_digest, "imageId": docker.IMAGE}
     for value, accepted in ((1, True), (True, False), (1.0, False), (2, False)):
@@ -38,6 +39,12 @@ def test_marker_exact_integer_and_isolated_attempt_path(monkeypatch, tmp_path):
         else:
             with pytest.raises(RuntimeError, match="RECOVERY_RESERVATION_INVALID"):
                 recover.reservation(sha, owner_digest)
+    payload["maximumRecoveryCalls"] = 1
+    payload["id"] = "P5A2-SYNTHETIC-BACKEND-RECOVERY-ATTEMPT-20261027"
+    raw = json.dumps(payload).encode()
+    marker_path.write_bytes(raw)
+    with pytest.raises(RuntimeError, match="RECOVERY_RESERVATION_INVALID"):
+        recover.reservation(hashlib.sha256(raw).hexdigest(), owner_digest)
     marker_path.unlink()
     with pytest.raises(RuntimeError, match="RECOVERY_RESERVATION_ABSENT"):
         recover.reservation("0" * 64, owner_digest)
@@ -94,6 +101,10 @@ def test_lost_create_foreign_container_is_not_removed(monkeypatch, tmp_path):
 
 def test_post_seed_summary_returns_actual_safe_mode_version_and_counts(monkeypatch):
     statements = []
+    foreign = False
+    extra_column = False
+    names = inventory.expected_tables()
+    native = inventory.required_columns()
     fingerprint = common.digest({"database": inventory.DATABASE,
                                  "system_identifier": "12345"})
     class Cursor:
@@ -110,6 +121,14 @@ def test_post_seed_summary_returns_actual_safe_mode_version_and_counts(monkeypat
                 name = self.current.split('"')[1]
                 return (inventory.TARGET.get(name, 0),)
             raise AssertionError(self.current)
+        def fetchall(self):
+            if self.current.startswith("SELECT tablename FROM pg_tables"):
+                return [(name,) for name in names] + ([('foreign_table',)] if foreign else [])
+            if self.current.startswith("SELECT table_name, column_name"):
+                return [(table, column) for table, columns in native.items()
+                        for column in columns] + ([('users', 'injected')]
+                                               if extra_column else [])
+            raise AssertionError(self.current)
     class Connection:
         def __enter__(self): return self
         def __exit__(self, *_): return None
@@ -124,6 +143,23 @@ def test_post_seed_summary_returns_actual_safe_mode_version_and_counts(monkeypat
     assert result["counts"]["reports"] == 37
     assert statements[0] == "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY"
     assert statements[-1] == "ROLLBACK"
+    foreign = True
+    statements.clear()
+    with pytest.raises(RuntimeError, match="POST_SEED_TABLE_SET_INVALID"):
+        inventory.post_seed_summary("inert", fingerprint)
+    assert not any(sql.startswith('SELECT count(*)') for sql in statements)
+    foreign = False
+    extra_column = True
+    with pytest.raises(RuntimeError, match="POST_SEED_TARGET_COLUMNS_INVALID"):
+        inventory.post_seed_summary("inert", fingerprint)
+
+
+def test_post_seed_digest_must_equal_committed_native_receipt():
+    after = {"state_digest": "a" * 64, "record_classification": "EXACT_SEEDED"}
+    receipt = {"state_digest": "a" * 64}
+    inventory.verify_post_seed_digest(after, receipt)
+    with pytest.raises(RuntimeError, match="POST_SEED_DIGEST_CHANGED"):
+        inventory.verify_post_seed_digest(after, {"state_digest": "b" * 64})
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="Windows ACL test")

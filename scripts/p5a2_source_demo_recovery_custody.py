@@ -33,9 +33,13 @@ def owner_state(expected_digest: str) -> dict:
             or owner.get("secret_ref") != str(SECRET)
             or owner.get("creation_trail") != [
                 {"kind": "volume", "id": VOLUME},
-                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"}]
+                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"},
+                {"kind": "container", "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+                 "recovery": True}]
             or owner.get("cleanup_trail") != [
-                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"}]):
+                {"kind": "container", "id": "fccef8401c3bceb3f8333418339d20f3f9f5d64c6535dfa08f64ab319ee28b3b"},
+                {"kind": "container", "id": "dee30bee86b3cd5395ca06188f586b869dbf329529701c296efa7c3b4bb49747",
+                 "recovery": True}]):
         raise fail("OWNER_STATE_INVALID")
     if digest(owner) != expected_digest:
         raise fail("OWNER_DIGEST_CHANGED")

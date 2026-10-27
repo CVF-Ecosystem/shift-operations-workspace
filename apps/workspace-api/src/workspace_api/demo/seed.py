@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import os
 import re
+import json
 
-from sqlalchemy import inspect
+from sqlalchemy import inspect, insert
 
 from workspace_api.demo.bundle import load_bundle
 from workspace_api.demo.coverage import load_authority
@@ -84,19 +85,19 @@ def _schema_and_counts(conn, engine) -> dict[str, int]:
             for name in names}
 
 
-def _verify_existing(ledger, user, shifts, assignments, reports, password):
+def _verify_existing(ledger, user, shifts, assignments, reports, password, *, unit=None):
     from workspace_api.auth.passwords import verify_password
 
-    stored = ledger.get_user_by_id(user.user_id)
+    stored = ledger.get_user_by_id(user.user_id, unit=unit)
     if (stored is None or not verify_password(password, stored.password_hash)
             or stored.model_copy(update={"password_hash": user.password_hash}).model_dump()
             != user.model_dump()):
         raise RuntimeError("existing synthetic user differs")
-    if any(ledger.get_shift(item.shift_id) != item for item in shifts):
+    if any(ledger.get_shift(item.shift_id, unit=unit) != item for item in shifts):
         raise RuntimeError("existing synthetic shifts differ")
-    if any(ledger.get_assignment(item.assignment_id) != item for item in assignments):
+    if any(ledger.get_assignment(item.assignment_id, unit=unit) != item for item in assignments):
         raise RuntimeError("existing synthetic assignments differ")
-    if any(ledger.get_report(item.report_id) != item for item in reports):
+    if any(ledger.get_report(item.report_id, unit=unit) != item for item in reports):
         raise RuntimeError("existing synthetic reports differ")
 
 
@@ -137,7 +138,8 @@ def verify_owned_database(ledger, bundle: dict) -> None:
             raise RuntimeError("synthetic report mismatch")
 
 
-def seed_owned_database(database_url: str, viewer_password: str) -> str:
+def seed_owned_database(database_url: str, viewer_password: str,
+                        expected_prewrite: dict | None = None) -> str | dict:
     """Write exactly once, accept exact repeat, refuse any partial prior state."""
     if os.environ.get("P5A2_SOURCE_DEMO_PROFILE") != PROFILE:
         raise RuntimeError("synthetic profile marker required")
@@ -146,6 +148,10 @@ def seed_owned_database(database_url: str, viewer_password: str) -> str:
     if authority["data_bundle_sha256"] is None:
         raise RuntimeError("synthetic authority unavailable")
     ledger = _owned_ledger(database_url)
+    if expected_prewrite is not None:
+        from workspace_api.demo.seed_recovery import seed_transaction
+        return seed_transaction(ledger, bundle, authority, viewer_password,
+                                expected_prewrite)
     user, shifts, assignments, reports = _models(bundle, viewer_password,
                                                   ledger.models.User)
     with ledger.engine.begin() as conn:
@@ -160,7 +166,10 @@ def seed_owned_database(database_url: str, viewer_password: str) -> str:
             # Close this read transaction before method-level reads.
             state = "VERIFY"
         elif all(count == 0 for count in counts.values()):
-            ledger.add_user(user, unit=conn)
+            from operations_ledger.tables import users
+
+            # Demo-local full row; the shared user writer omits created_at.
+            conn.execute(insert(users).values(**user.model_dump()))
             for shift in shifts:
                 ledger.create_shift(shift, unit=conn)
             for assignment in assignments:
@@ -170,7 +179,8 @@ def seed_owned_database(database_url: str, viewer_password: str) -> str:
             state = "SEEDED"
         else:
             raise RuntimeError("partial or foreign synthetic data")
-    _verify_existing(ledger, user, shifts, assignments, reports, viewer_password)
+        _verify_existing(ledger, user, shifts, assignments, reports,
+                         viewer_password, unit=conn)
     return state
 
 
@@ -180,8 +190,13 @@ def main() -> None:
     from workspace_api.config import settings
 
     password = os.environ.get("P5A2_SOURCE_DEMO_VIEWER_PASSWORD", "")
-    result = seed_owned_database(settings.database_url, password)
-    print(result)
+    snapshot_raw = os.environ.get("P5A2_SOURCE_DEMO_EXPECTED_SNAPSHOT")
+    try:
+        snapshot = json.loads(snapshot_raw) if snapshot_raw is not None else None
+    except ValueError:
+        raise RuntimeError("prewrite snapshot invalid") from None
+    result = seed_owned_database(settings.database_url, password, snapshot)
+    print(json.dumps(result, sort_keys=True) if isinstance(result, dict) else result)
 
 
 if __name__ == "__main__":

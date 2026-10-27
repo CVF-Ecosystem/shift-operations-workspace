@@ -1,12 +1,27 @@
-# P5-A2 retained-volume recovery AM2 independent authorization review
+# P5-A2 retained-volume recovery AM2 independent review
 
 docType: completion_review
-Status: AUTHORIZATION_REVIEW_PASS_BOUNDED
+Status: POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY
 Date: 2026-10-27
 Reviewer: independent REVIEWER (`/root/recovery_review`)
 Risk: R2; live provider evidence required for any AI-governance claim.
 
 ## Decision
+
+**Current material-readiness status: POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY.**
+The prior partial-result evidence assessment below remains historical, but
+normal pre-commit later found a genuine E2 domain-boundary violation in the
+new comparison helper. No material commit or new physical proof followed.
+The same-scope helper repair and independent final-source check now pass as
+recorded in the final section; the original physical observations remain
+bound to their separate execution-source hashes.
+
+Current result disposition: **RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY**.
+Source, local synthetic SQL, real JWT and both frozen HTTP receipts are
+accepted as bounded evidence. Actual UI proof failed before login or query;
+the combined physical acceptance, P5-A2 milestone and Phase 5 remain open.
+The paragraphs below preserve earlier authorization and source-checkpoint
+history; the final result assessment appears at the end of this review.
 
 The operator-approved AM2 SPEC, Work Order, new admission and registered
 seed-recovery invariant family are authorized for **normal dispatch only**.
@@ -124,3 +139,162 @@ checked explicitly with verified pinned Core `check_recheck`; the native
 CLI/hook does not automatically select this family.
 I invoked that exact `check_recheck` function after writing this artifact:
 standalone marker applicable, one recheck section, zero violations.
+
+## Independent AM2 source checkpoint and physical procedure review
+
+**SOURCE_CHECKPOINT_PASS_BOUNDED.** I inspected the ten actual changed source
+and focused test paths, independently recomputed their raw SHA-256, native-LF
+SHA-256 and line counts against `AM2_ADMISSION.sourceCheckpoint`, and found
+all ten exact; each Python file remains within 300 lines. The accepted
+predecessor recovery helpers, Stage A inputs, frozen tests/families/migrations
+and historical packets remain pinned. The admission is still `PENDING` and
+physical release is still held at this review point; Root owns that transition.
+The combined BUILD may keep source uncommitted under the reviewed Work Order,
+provided the exact accepted bytes remain frozen through physical evidence.
+
+Source behavior matches the AM2 contract: a full read-only 31-table physical
+and native-model inventory precedes any mutation; the owned transaction locks
+and rechecks table set, schema, identity, full rows, security and hashes;
+the empty branch inserts the frozen `created_at`, the exact branch writes
+zero, and the sole known synthetic timestamp mismatch uses a guarded
+one-field compare-and-set. Exact readback precedes commit. A distinct
+post-operation read-only summary checks full state, and the recovery entry
+requires its state digest to equal the successful seed receipt before
+services start. Unsupported raw types, schema drift, foreign rows and
+receipt-shape drift refuse. Uncertain commit remains an outer failure with
+unknown durable state. No old budget, migration, fixture/oracle, global
+ledger, normal API/UI, secret custody or ACL boundary was expanded.
+
+My focused project-venv run passed **60 tests** in 23.19 seconds, including
+13 native SQLite transaction tests for rollback, CAS and schema-only drift;
+the worker's broader focused run passed 68. The registered invariant guard
+and file-size guard passed. Independently running the ignored Root verifier
+with an in-memory `ACCEPTED` checkpoint copy passed all **62** source/input
+pins and the exact changed-source/worktree authority checks. This did not
+modify the admission or invoke physical services.
+
+I statically checked the one-shot preflight/receipt/marker procedure against
+the actual recovery output: strict closed receipt fields and digest linkage,
+explicit local environment and working directory, exact prior volume/owner
+identity, one new AM2 marker written exclusively with binary LF/fsync, and
+SPENT reservation before the attempted write. Root's inert receipt probes
+passed one positive and six negative cases. The separately prepared
+failure cleanup uses actual owned identity and fixed local transport; the
+browser procedure remains uninvoked. Before invoking the ignored one-shot
+executor, Root must verify the reviewed bytes remain unchanged: SHA-256
+`am2_physical_once.py=0cb25aea0f18961938fd94982bf59dab2e4efcb2062bfe5c4e4cc2a47e1f43ed`,
+`am2_verify.py=dfd07abc5f0ed1bc08d6d4c6105ab3169d0e3af76060e0cc18f5c248a6f02b36`,
+`am2_receipts.py=be026888949c5539e14a8e94d2cd57dbd96c741da4b7900e5278c4f688c45b4e`.
+Any procedure byte change requires static recheck before effect; it does not
+create another recovery budget.
+
+This review authorizes Root to record the exact source checkpoint as
+`ACCEPTED`, recheck current Core/continuity/pins, and perform **one** new
+read-only preflight, then an exclusive fresh AM2 reservation and **one**
+recovery only if preflight passes. One failure stops. SQL/JWT/API/UI proof
+and independent result review are still required. This closes no whole
+G01-G14 gap or P5-A2/P5-B/P5-C/P5-D milestone item; Phase 5 remains 0/5.
+The previously reconciled owners and destinations remain assigned.
+
+Pinned Core `check_recheck` was explicitly rerun on this standalone legacy
+`docs/decisions/` completion review after this append: applicable, one
+Return-Time Closeability Recheck, zero violations. The native CLI/hook does
+not automatically select this path family.
+
+## Final partial-result review
+
+Findings after packet corrections: **NONE**. Waivers: **NONE**. I reconciled
+the formal AM2 worker return, evidence and admission with the current
+handoff, implementation truth, roadmap, index, knowledge and catalog.
+The return's future proposal now correctly names one browser context, two
+as-of panel submissions and two real screenshots; it remains NOT AUTHORIZED.
+The operations-ledger catalog entry now records the AM2 demo-local repair
+and partial result without implying a changed shared ledger/user writer.
+
+The ten accepted source/test raw and native-LF pins remained exact through
+the physical attempt. Preflight, exclusive marker and recovery were each
+used once. PostgreSQL 16.15 repeatable-read/read-only inventory found the
+sole known synthetic user's `created_at` mismatch among the 31 expected
+tables. The guarded transaction performed one field update and exact
+readback; post-summary recorded users 1, shifts 36, assignments 36,
+reports 37, all other 27 tables zero. Native seed/post state digests match,
+and pre/post schema digests match. Real JWT login returned 200 and the two
+frozen HTTP receipt hashes matched. The later browser used one context and
+failed at LOGIN with zero successful logins, submissions and screenshots.
+Its exact exception and the reason the API/web processes later disappeared
+remain UNKNOWN; the intervening interruption is not causal proof.
+
+The first all-live cleanup refused before effects. I reviewed the subsequent
+stopped-container/absent-PID route, then independently checked its final
+recorded outcome against official merged owner metadata: digest
+`3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab`,
+`PARTIAL_OWNED_FAILURE`/`HEALTH_FAILED`, volume 1 and container/API/web 0.
+The exact new container was removed, the retained volume and old trail were
+preserved, and cleanup recorded zero application writes or runtime restarts.
+The last accepted SQL observation is before browser/cleanup; no extra
+post-cleanup SQL query is claimed. The AM2 marker SHA and SPENT budget match.
+No further recovery, smoke, browser, provider or deployment effect is
+authorized by this result review.
+
+The return independently reconciles all G01–G14 gaps with accountable
+backend, UI, Root and operator owners and concrete P5-A2/P5-B/P5-C/P5-D
+destinations. AM2 advances only local synthetic G04/G05 evidence; UI
+acceptance failed, operational coverage and the other remainders stay open.
+P5-A2 is OPEN and Phase 5 remains 0/5. This packet is closeable for the
+truthful source/SQL/HTTP/failed-UI evidence record after normal material,
+actual-SHA continuity and clean-range review. A fresh verify-only runtime/UI
+budget is solely an unapplied future operator checkpoint, not a same-turn
+redispatch or automatic tranche.
+
+I explicitly reran the verified pinned Core `check_recheck` on both the
+standalone AM2 worker return and this standalone legacy completion review
+after the final edit: each marker applicable, one Return-Time Closeability
+Recheck heading and zero violations. The native CLI/hook does not
+automatically select `docs/decisions/` packets.
+
+## Post-proof E2 importer repair and final source/result attribution
+
+**POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY.** The previously
+unrun normal domain-boundary gate exposed one real E2 importer violation:
+`seed_recovery_compare.py` directly imported canonical `User` outside the
+exact two production importer paths. The worker repaired only the already
+admitted helper/inventory/focused-test family. `compare_rows` now accepts
+an explicit `user_type` and rejects any class other than the canonical
+`repository.User` by identity. The native branch supplies its existing
+`ledger.models.User`; the read-only inventory supplies the existing E2
+repository's `User`. No model duplicate, dynamic import, E2 allowlist
+change, global ledger/app/config change or boundary-test weakening occurred.
+An isolated child proves repository `User` is the canonical class while
+`workspace_api.config`, `ledger_factory` and `.env` remain unopened;
+a wrong-class test refuses even an empty snapshot.
+
+I independently recomputed all ten current raw/native-LF/line pins: exact,
+all Python files at most 300 lines. Exactly five paths differ from the
+immutable `physicalExecutionSourceCheckpoint`: seed recovery transaction,
+comparison, read-only inventory and their two focused tests. The other five
+source/test pins match. The old physical checkpoint is byte-identical to
+the evidence artifact's execution-source map. A read-only copy of the
+admission with current status set to `ACCEPTED` passed the exact 62 pinned
+source/input and worktree-authority checks. My project-venv run of the
+domain-boundary/shim, AM2 source/native, bootstrap and lifecycle test set
+passed **102 tests in 26.53 seconds**; the worker's broader combined set
+passed 104. The invariant-family and file-size guards passed. No runtime,
+SQL, Docker, API, browser, provider or secret effect was repeated.
+
+The actual one-field PostgreSQL CAS, SQL counts, real JWT and two HTTP
+digests, failed UI login and final retained-volume custody were observed
+under the **old physical execution hashes**. The repaired final source
+has structural and inert regression evidence only; this review does not
+claim a physical replay of its five changed files. The original partial
+physical result remains truthful with that explicit attribution.
+Further effects remain spent and unauthorized. Root may restore the return
+to `COMPLETE_PENDING_REVIEW` with `workerRedispatchAllowed: NO`, synchronize
+old physical and new final source maps in evidence, and run the normal full
+material gate. Material acceptance still depends on that gate, actual-SHA
+continuity and independent clean-range review. P5-A2 and every whole
+G01–G14 gap remain open; Phase 5 remains 0/5.
+
+Verified pinned Core `check_recheck` was explicitly rerun after this edit
+on the standalone legacy AM2 return and completion review: each marker
+applicable, one Return-Time Closeability Recheck heading, zero violations.
+Native CLI/hook coverage does not automatically select `docs/decisions/`.

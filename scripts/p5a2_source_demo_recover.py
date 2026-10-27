@@ -16,11 +16,13 @@ from p5a2_source_demo_recovery_custody import (EXPECTED_NONCE, owner_state,
 from p5a2_source_demo_recovery_docker import (IMAGE, create_container, inspect,
                                               remove_container, verified_container,
                                               verified_volume)
-from p5a2_source_demo_recovery_inventory import TARGET, inventory, post_seed_summary
+from p5a2_source_demo_recovery_inventory import (TARGET, inventory,
+                                                 post_seed_summary, verify_post_seed_digest)
 from p5a2_source_demo_recovery_services import child_settings, start_services
 
-ATTEMPT = ROOT / "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json"
+ATTEMPT = ROOT / "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json"
 NODE = "C:/Users/DELL/AppData/Local/nvm/v22.14.0/node.exe"
+EXPECTED_DB_FINGERPRINT = "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9"
 
 
 def reservation(expected_sha: str, owner_digest: str) -> None:
@@ -34,6 +36,7 @@ def reservation(expected_sha: str, owner_digest: str) -> None:
     except ValueError:
         raise fail("RECOVERY_RESERVATION_INVALID") from None
     if (type(marker) is not dict
+            or marker.get("id") != "P5A2-SYNTHETIC-BACKEND-RECOVERY-AM2-ATTEMPT-20261027"
             or marker.get("status") != "RESERVED_SPENT_NO_RETRY"
             or type(marker.get("maximumRecoveryCalls")) is not int
             or marker.get("maximumRecoveryCalls") != 1
@@ -50,15 +53,40 @@ def _node_ready() -> None:
 
 
 def _native_seed(dsn: str, env: dict[str, str], viewer: str,
-                 classification: str) -> str:
-    # The existing seed is transaction owned. In the exact-existing branch it
-    # re-verifies every native object and the retained viewer password.
+                 before: dict) -> dict:
+    snapshot = {key: before[key] for key in (
+        "classification", "state_digest", "db_fingerprint", "observed_created_at",
+        "table_names", "schema_digest")}
     output = run([sys.executable, "-m", "workspace_api.demo.seed"],
-                 env={**env, "P5A2_SOURCE_DEMO_VIEWER_PASSWORD": viewer}, timeout=90)
-    expected = "SEEDED" if classification == "EMPTY_COMPATIBLE" else "VERIFY"
-    if output != expected:
+                 env={**env, "P5A2_SOURCE_DEMO_VIEWER_PASSWORD": viewer,
+                      "P5A2_SOURCE_DEMO_EXPECTED_SNAPSHOT": json.dumps(snapshot,
+                                                                          sort_keys=True)},
+                 timeout=90)
+    expected = {"EMPTY_COMPATIBLE": "SEEDED", "EXACT_SEEDED": "VERIFY",
+                "SOLE_CREATED_AT_MISMATCH": "CREATED_AT_REPAIRED"}[before["classification"]]
+    try:
+        result = json.loads(output)
+    except ValueError:
+        raise fail("NATIVE_SEED_RECEIPT_INVALID") from None
+    if (type(result) is not dict
+            or set(result) != {"result", "state_digest", "db_fingerprint", "family_record"}
+            or result.get("result") != expected
+            or result.get("db_fingerprint") != before["db_fingerprint"]
+            or not check_hex(result.get("state_digest"))
+            or type(result.get("family_record")) is not dict):
         raise fail("NATIVE_SEED_STATE_INVALID")
-    return output
+    from invariant_family_contract import load_json_no_dup, matches_shape_exactly
+
+    matrix = load_json_no_dup(ROOT / "docs/cvf/invariants/p5a2-demo-seed-recovery.json")
+    expected_outcome = {"SEEDED": "SEEDED_ATOMIC", "VERIFY": "EXACT_VERIFIED",
+                        "CREATED_AT_REPAIRED": "CREATED_AT_REPAIRED"}[expected]
+    shapes = [shape for outcome in matrix["outcomes"]
+              if outcome["outcomeId"] == expected_outcome
+              for shape in outcome["shapes"]]
+    if len(shapes) != 1 or not matches_shape_exactly(
+            shapes[0], result["family_record"], matrix):
+        raise fail("NATIVE_SEED_FAMILY_INVALID")
+    return result
 
 
 def _terminate_new_children(resource: dict, state: dict, handles: dict) -> bool:
@@ -202,19 +230,23 @@ def recover(owner_digest: str, attempt_sha: str) -> dict:
             from p5a2_source_demo_start import wait_db
             wait_db(dsn.replace("postgresql+psycopg://", "postgresql://", 1))
             stage = "READ_ONLY_INVENTORY"
-            before = inventory(dsn.replace("postgresql+psycopg://", "postgresql://", 1))
+            before = inventory(dsn.replace("postgresql+psycopg://", "postgresql://", 1),
+                               secret["viewer_password"])
+            if before["db_fingerprint"] != EXPECTED_DB_FINGERPRINT:
+                raise fail("RETAINED_DB_FINGERPRINT_CHANGED")
             state["recovery_prewrite_fingerprint"] = before["db_fingerprint"]
             state["recovery_prewrite_classification"] = before["classification"]
             state["recovery_prewrite_inventory"] = before
             stage = "NATIVE_SEED_OR_VERIFY"
-            seed_state = _native_seed(dsn, env, secret["viewer_password"],
-                                      before["classification"])
+            seed_receipt = _native_seed(dsn, env, secret["viewer_password"], before)
             stage = "POST_SEED_VERIFICATION"
             after = post_seed_summary(
                 dsn.replace("postgresql+psycopg://", "postgresql://", 1),
-                before["db_fingerprint"])
+                before["db_fingerprint"], secret["viewer_password"],
+                before["schema_digest"])
             if any(after["counts"][name] != value for name, value in TARGET.items()):
                 raise fail("POST_SEED_STATE_INVALID")
+            verify_post_seed_digest(after, seed_receipt)
             state["recovery_post_seed_summary"] = after
             stage = "API_WEB_START"
             start_services(NODE, env, resource, state, handles)
@@ -222,12 +254,15 @@ def recover(owner_digest: str, attempt_sha: str) -> dict:
                                      **resource, image_id=IMAGE.removeprefix("sha256:"),
                                      db_fingerprint=before["db_fingerprint"])
             replace_lifecycle(state, record)
-            state["recovery_seed_state"] = seed_state
+            state["recovery_seed_state"] = seed_receipt["result"]
+            state["recovery_seed_family"] = seed_receipt["family_record"]
             write_owner(state)
             return {**record, "owner_record_digest": digest(state),
                     "owner_record_path": str(OWNER),
                     "prewrite_inventory": before,
-                    "post_seed_summary": after}
+                    "post_seed_summary": after,
+                    "seed_state_digest": seed_receipt["state_digest"],
+                    "seed_family_record": seed_receipt["family_record"]}
         except Exception:
             adopted = _adopt_lost_create(resource, state, check["volume_identity"])
             if adopted:

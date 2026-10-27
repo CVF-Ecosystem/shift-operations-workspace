@@ -98,3 +98,175 @@ using held Windows PID helpers plus verified fixed-transport remove_container,
 no modification to frozen stop/Docker helper. Existing any-failure cleanup
 scope only, no new tranche/effect budget. Browser procedure static reviewed
 local-only/secret-safe, not invoked. Physical budget remains unspent/held.
+
+## Source BUILD acknowledgment and bounded two-worker assignment
+
+Fresh canonical files/implementation/index/roadmap read. Independent
+FINAL_CLEAN_AM2_DISPATCH_18_PLUS_5_PASS actual044ed5c/dbbabe4; both normalhooks
+3483PASS148skip4warnings220.32s/219.79s, clean. SESSION_SYNC_STEWARD to
+ORCHESTRATOR BUILD/R2/liveYES for AI claims. Full14gap binding/Phase5 0/5 intact.
+Named source IMPLEMENTATION_WORKER consolidated_recovery_design (Sol-Medium)
+owns only admitted seed.py/seed_*.py, recovery entry/inventory/custody and
+exact admitted recovery tests plus seed outcome adapter tests. Named second
+IMPLEMENTATION_WORKER stage_b_result_review (Luna-Max) owns ONLY
+ tests/unit/test_p5a2_demo_seed_transactions.py, actual native SQL/rollback tests;
+no source or metadata changes and no conflicting edits. Independent REVIEWER
+recovery_review owns source checkpoint and result; Root effect/commit owner.
+Both rehydrate/declare before BUILD; no Docker/secret/provider effects. Atomic
+empty seed, full RO+locked predicates, sole onefield timestamp CAS, rollback,
+concurrent drift and exact return families; matrix expectations immutable.
+Return focused tests+actual hashes then independent checkpoint. Physical held.
+
+## Accepted actual-source checkpoint / fresh Root physical BUILD declaration
+
+Fresh canonical bootstrap/memory/state/handoff, implementation/index/roadmap
+reread; Core inheritance0. Independent SOURCE_CHECKPOINT_PASS_BOUNDED:
+10actualraw/LFpinned paths, worker68PASS, independent60PASS23.19s, invariant/
+fileguardPASS, full608 lifecycle and fourseed-family outcome mutations; Root
+62pins/exact10/fullworktreeauthority PASS. Sourcebytes now frozen throughproof.
+Source/bootstrap/script transport and currentownerbaseline remain bounded.
+ORCHESTRATOR to IMPLEMENTATION_WORKER, BUILD/R2/liveYES for AI claims; no AI
+provider claim/call. Existing operator exact approval applies, no repeat wait.
+Root marks source checkpoint ACCEPTED and releases only maximum1new readonly
+preflight, exclusiveNEW AM2 binaryLF/fsync marker, maximum1recover ifPASS.
+Reviewed Root procedures SHA checked against independentreview beforeeffect;
+all three exact. Rootreceiptinert1positive6negative PASS, no effects.
+Known retainedfingerprintafeb.../volumeidentity7a9...; same volume/nonce/secrets.
+RO fullrows/security/hash/31schema snapshot then locked fullpredicate recheck;
+onlyemptyatomicseed/exactverify/solecreated_atCAS. Schema/state digests linked
+through committednative receipt and postsummary before services. Any failure
+stops, no retry/reset/newvolume/migration/ACL/provider/public. Cleanup onlynew
+exactownedresources using reviewed heldPIDhelpers/fixedtransport, targetfrom
+currentAM2preflightvolumeidentity + actualrecoverownerDigest/CID/PIDs.
+Full14gap owners/destinations/Phase5 0/5 unchanged. Acceptance still OPEN.
+
+## Actual AM2 recovery success / SQL accepted / HTTP-UI remaining
+
+Exactly1newpreflight PASS; exclusiveNEWmarker/1recover spent, nativeexit0.
+CurrentreadonlyPG16.15 RR/RO31tables: users1/shifts36/assignments36/reports37,
+other27tables0, SOLE_CREATED_AT_MISMATCH. Actualoldctime2026-10-26T21:46:26.699812Z;
+knownfingerprintafeb... and allrow/security/hash/schema predicates matched.
+CREATED_AT_REPAIRED durable_application_writes1, exactrowsverifiedtrue;
+post EXACT_SEEDED with unchangedschemadigestd1b13...; native/poststateDigest
+d9418536... match. No reseed/reset/migration/ACL/provider/newvolume/secret.
+OWNED_RUNNING newcontainer877cd8fc..., API12612/web38184, volume same;
+ownerDigestaf060a59... . SQL accepted bounded; JWT/API/UI still OPEN.
+Target-prelude first hashed raw lifecycle/context envelope ratherthan merged
+owner, assertion stopped before target writes/proofcalls. Corrected using
+common.read_owner; merged digestaf060... and actual IDs allmatch. No extra
+physical invocation. Root prepared ignoredcleanup target with CURRENT AM2
+preflightvolumeidentity7a9... plusactualrecoverownerDigest/CID/PIDs; independent
+targetreview beforepossiblecleanup. One native smoke and onebrowsercontext/
+twosubmits/twoscreenshots remain. Sourcebytesfrozen62pins; all14gapremainders/
+Phase5 0/5 unchanged.
+
+## Resume before first browser invocation
+
+Interrupted after Node rejected eval before any procedure execution. Rehydrated
+manifest/policy/workspace/pinnedcontrols and canonicalcontinuity/truth/index/roadmap;
+Core0/sessionPASS/source62pins/browserprocedure9b6167 unchanged. Fresh Root
+IMPLEMENTATION_WORKER declaration BUILD/R2/liveYES. Recovery1/smoke1spent/PASS;
+browserreserved, actualbrowser0/screenshots0/resultabsent. No budget refreshed.
+Use same reviewed procedure body directly as JS tool input, no eval or code
+generation. Existing TARGET_GO/onecontext/twoqueries/twoscreenshots and exact
+ownedfailurecleanup remain. Full14gap remainders/Phase5 0/5 unchanged.
+
+## Actual UI failure / spent proof / readonly custody reconciliation
+
+One actualbrowsercontext created then UI_FAILED atLOGIN; browserLogins0,
+uiSubmits0/screenshots0. Proofbrowser closed. No secondcontext/recover/smoke.
+Exact browserexception was intentionally notretained; do not inventcause.
+Reviewed all-live cleanuprefused beforeeffects; owner/trails digest unchanged.
+Fresh readonlyCIM: savedAPI12612 ABSENT, web38184 ABSENT. FixedlocalDocker
+inspect: newCID877cd8fc... identityverified, present but Runningfalse; current
+volumeidentity7a9... unchanged. RegisteredOWNED_RUNNING is now stale, notcurrent
+livenessproof. PrioractualSQLrepair1 andJWT/twoHTTPsuccess remain accepted;
+actualUIacceptanceFAILED. Backgroundtermination cause UNKNOWN; interruption
+occurred betweenHTTPproof andbrowser, but causation is notestablished.
+IMPLEMENTATION_WORKER to ORCHESTRATOR REVIEW/R2/liveYES. Existing any-failure
+cleanupscope permits reviewed bounded route for already-absentprocesses plus
+stoppedexactnewcontainer; no appwrite/reset/restart/volume deletion/newbudget.
+One consolidated freshidentity/custody checks before remove, then volume-only
+failure registration and source/evidence/normalcommit/exact5continuity.
+Full14gapowners/destinations/Phase5 0/5 unchanged; no automaticnewtranche.
+
+## Accepted existing-scope failure cleanup / prospective Root repair declaration
+
+Fresh canonical acknowledgment, Core0, reviewed procedure3b43cb... SHA unchanged.
+Independent STATIC_CLEANUP_GO_BOUNDED; owner/target/currentreadonlyresidue match.
+ORCHESTRATOR to REPAIR_WORKER, BUILD/R2/liveYES onlyfor authorized UI-failure
+cleanup: require exactstoppednewCID and both savedPIDs ABSENT, removeonlythat
+container fixedlocaltransport and registervolume-only failure. No processkill,
+appwrite/restart/reset/volume removal/newbudget. One cleanup invocation; any
+unknownstopsforreview. ProductUIFAILED remains, no retry/all14gaps/Phase5 0/5.
+
+## Actual cleanup PASS / formal source+partial-result return
+
+Exact stopped-container cleanupexit0; no appwrites or runtime starts. Final
+registered PARTIAL_OWNED_FAILURE0100 HEALTH_FAILED, samevolume1/containerAPIweb0;
+mergedownerDigest3af5e489...; oldtrails retained, API/web ALREADY_ABSENT_VERIFIED.
+Freshcanonical acknowledgment; REPAIR_WORKER to ORCHESTRATOR REVIEW/R2/liveYES.
+AM2 evidence and standalone return nowready for independent result review:
+source/soleCAS1/SQL/JWT/twoHTTP accepted; actualUIFAILEDLOGIN, context1/login0/
+query0/screenshot0, preciseexception/terminationcauseUNKNOWN. AllbudgetsSPENT.
+Sourcebytesfrozen; no mockedUI/placeholders/no extraSQL/restart/reset/provider.
+Normalgates/material/terminal/exact5actualSHA/clean needed; freezeonlysettled
+partial-result evidence, neverclaimphysicalUI/tranche/milestoneacceptance.
+Concretepossible SAME-unit verify-only runtime/UI continuation inRETURN is
+NOTAUTHORIZED andneeds newoperatorbudget. Full14gaps/owners/Phase5 0/5 remain.
+
+## Independent formal result review / bounded closer disposition / normal material
+
+RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY; findings NONE after consolidated
+packet wording+operations-ledgernextstep corrections, waivers NONE. Final
+mergedowner3af5.../PARTIAL0100, immutablemarker, native/poststate+schema,
+SQL/JWT/twoHTTPPASS/UIFAILED1context0login0query0shot, budgetsSPENT reconcile.
+StandaloneRETURN+completionreview bothapplicable, oneReturn-Timeheading each,
+verifiedpinnedCore check_recheck0; noCLIautomaticlegacycoverageclaim.
+Freshcanonical acknowledgment; ORCHESTRATOR to CLOSER to COMMIT_STEWARD,
+REVIEW/R2/liveYES. CLOSER accepts currentSOURCE+SQL/HTTP+truthfulfailedUIrecord
+ONLY; physicalUIacceptanceNOTMET, no wholetranche/milestoneclosure, Phase5 0/5.
+Current10sourcebytesfrozen, all14gaps/owners/destinations/parkedbudget unchanged.
+Normalmaterial/terminal/exact5actualSHA/clean required. No runtime/provider/
+reset/retry/newtranche. ConcretefutureSAME-unit UI budgetproposalunauthorized.
+
+## New independent precommit boundary finding / same-scope source repair
+
+Before normalcommit, existing domainboundary/shim check1failed39passed exposed
+new seed_recovery_compare directUserimporter outside frozen E2 exactset.
+No commit/runtime effect followed. Prior source60/68 and physicalevidence stay
+historicaltrue; physicalExecutionSourceCheckpoint retains exactold10hashes.
+COMMIT_STEWARD to ORCHESTRATOR BUILD/R2/liveYES. Currentfinalsource acceptance
+reopened for boundedrepairinsidealreadyallowedhelper, notnewtranche/scope.
+Do not weakenboundarytests, addUsercopy or modifygloballedger/normalapp/config.
+Use existingcanonicalUser seam with identity/no-dotenv proof and fullregression;
+independent source/resultrecheck before normalcommit. CurrentreturnBLOCKED
+for inside-authorityrepair, CLOSEABLE/NONE and workerredispatchYES; explicit
+legacyrecheck beforedispatch. AllphysicalbudgetsSPENT/no replay; UIstillFAILED,
+all14gaps/Phase5 0/5. Oldphysicalsourcepins mustnotbe silentlyreplacedbynewpins.
+
+## Narrow test integration ownership reassignment within accepted family
+
+Root ORCHESTRATOR reassigns ONLY snapshot() canonical User argument wiring in
+ tests/unit/test_p5a2_demo_seed_transactions.py from completed Luna worker to
+consolidated_recovery_design REPAIR_WORKER, within existing AM2testfamily.
+Preserve all13native transaction/refusal/drift/rollback assertions, converters,
+all31schema setup and≤300line guard; no testweakening/newpath/effect/commitowner
+change. Solalreadyownsallsourcecaller updates and must rehydrate/ack beforethis
+materialtestedit, runfullregression and stopforindependentreview. Same G04/G05
+source-boundary repair unblocksnormalcommit; actualUIstillFAILED/all14gaps/
+Phase5 0/5, no newtranche/runtime/provider budget.
+
+## Final post-proof repair acceptance / normal full material gate
+
+POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY, NONE/NONE. ExplicitUser
+injectioncanonicalidentity/no.env/config/ledger_factory loading proven; existing
+E2boundarytests unchanged. Worker104PASS26.83s/independent102PASS26.53s,
+all13native SQL/rollback cases retained; invariant/sizePASS. Current10pins exact,
+exactly5differ from immutable physicalExecutionSourceCheckpoint; oldactualSQL/
+CAS1/JWT/HTTP/UI/custody claims stayatoldhashes, finalsource inertregressiononly.
+No physicalreplay. Currentreturnready/no redispatch, explicitlegacybothrecheck0.
+Freshcanonical ack; ORCHESTRATOR to CLOSER to COMMIT_STEWARD REVIEW/R2/liveYES.
+CLOSER accepts finalsource+partialphysicalresult evidence only; UI/milestone
+NOTMET/Phase5 0/5, allbudgetsSPENT/volume1/otherresources0. Normalfullhook then
+terminal/exact5actualSHA/clean mandatory, no runtime or newtranche authority.

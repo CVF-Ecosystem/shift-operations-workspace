@@ -5,31 +5,33 @@ Active SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md.
 Installed public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6
 read-only selected controls; no private/shared/latest-remote dependency.
 
-## Current unit and authority
+## Current result and claim boundary
 
-P5-A2 G04/G05 same consolidated synthetic SQL → JWT/API → UI recovery.
-Prior failure evidence68d40b0/bc89436 independently clean17+5, normal3483PASS148skip.
-Import/ACL source accepted; physical recovery failed at native seed. Volume1 retained,
-container/API/web0; postseed rows UNKNOWN. Old attempt immutable/SPENT.
-Source-supported created_at hypothesis, not a proved physical exception.
-Operator explicitly replied “Cho phép phạm vi này”: approve exact demo seeder/tests,
-readonly retained-volume inspection, conditional sole synthetic user.created_at CAS,
-maxONE new recovery, no reset. No repeat routine approval. SPEC/WO AM2 admission
-before BUILD, normal dispatch/exact5/independentclean; independent source checkpoint
-before effects. Root ORCHESTRATOR; R2/liveYES for AI claims. Same nonce/credentials.
+SAME P5-A2 G04/G05 synthetic SQL → JWT/API → UI acceptance unit, AM2.
+Operator approved exact source/tests/readonlyinspection/solecreated_atCAS and
+max1new recovery/noreset. Dispatch044ed5c/dbbabe4 independently clean18+5;
+normal3483PASS148skip4warnings220.32s/219.79s. Execution source10pins accepted68/60PASS; finalcanonicalUserrepair104/102PASS,
+oldphysicalhashes retained/noreplay; fourseed-family outcomes and full608lifecycle mutations.
+Actual retainedPG16.15 fullRR/RO inventory proved soleuserctime mismatch;
+CAS1field preservesallotherrows/security/hash, SQL1/36/36/37 other27tables0.
+RealJWT/twofrozenHTTP PASS. ActualUIFAILEDLOGIN:1context,0login/query/screenshot.
+Later API/web absent and exactownedcontainerstopped; preciseexception/cause
+UNKNOWN. Reviewedcleanup removedonlynewstoppedcontainer, volume1retained,
+APIwebcontainer0. LastacceptedSQL EXACT_SEEDED, noappwrites/reset/restart.
+CurrentownerDigest3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab.
+AllAM2budgetsSPENT; no retry. Source/SQL/HTTP+truthfulfailedUI evidence accepted
+POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY; actualUI/milestone notclosed.
 
-## Acceptance and remainder
+## Milestone remainder
 
-SQL users1/shifts36/assignments36/reports37; real JWT/two frozen HTTP digests;
-actual synthetic UI36/36/36 then36/36/37. This closes no whole product gap.
-Full G01-G14 binding in current RECOVERY_SPEC/WO and active handoff: G01A7spent401/
-G02RAG BLOCKED; G03fit/G04operational/G05productionmode-authority-coverage-retention/
-SQLite UNKNOWN; G06lateruse/G07runtime/G08-G10quality/G11otherflows/G12approval/
-G13drills OPEN; G14provider HELD. Accountable backend/UI/Root/operator owners and
-concrete P5-A2/B/C/D destinations retained. Phase5 0/5; no production readiness.
+Current AM2RETURN/SPEC fullG01-G14 binding: G01A7spent401/G02RAG BLOCKED;
+G03fit/G04operational/G05productionmode-authority-coverage-retention/SQLite UNKNOWN;
+G06lateruse/G07runtime/G08-G10quality/G11otherflows/G12approval/G13drills OPEN;
+G14provider HELD. Backend/UI/Root/operator accountable owners and concrete
+P5-A2/B/C/D destinations preserved. Phase5 0/5. No AIgovernance/productionclaim.
 
 ## Next allowed move
 
-Independent clean18+5 dispatch review after this exact5 normal continuity commit, then bounded source BUILD only; physical still needs actual-hash source checkpoint.
+Normal exact27-path source/partial-result material commit, independent terminal review, exact5 actual-SHA continuity then clean range. No UI/product closure or new runtime budget.
 
-Current role SESSION_SYNC_STEWARD; phase WORK_ORDER. Terminal dispatch review PASS exact18; dedicated actual-SHA five-path continuity only. BUILD/effects held pending independent clean18+5.
+Current role COMMIT_STEWARD; phase REVIEW. Post-proof User boundary repair independently accepted104/102PASS; old physical source hashes retained, no runtime replay. Partial-result record only, normal full material gate next.

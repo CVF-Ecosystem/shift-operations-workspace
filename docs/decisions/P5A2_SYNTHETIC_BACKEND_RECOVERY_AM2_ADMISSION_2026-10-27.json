@@ -1,6 +1,6 @@
 {
   "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-AM2-20261027",
-  "status": "DISPATCH_READY_NO_BUILD_OR_EFFECT_RELEASE",
+  "status": "FINAL_SOURCE_AND_PARTIAL_RESULT_REVIEW_ACCEPTED",
   "familyId": "P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES",
   "baselineCommit": "bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea",
   "risk": "R2",
@@ -372,7 +372,8 @@
     "ownerDigest": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
     "container": "ABSENT_AFTER_EXACT_OWNED_CLEANUP",
     "databaseContents": "UNKNOWN_POST_SEED_FAILURE",
-    "credentialCustody": "Same exact private userlocal generated secrets.json, never tracked or logged"
+    "credentialCustody": "Same exact private userlocal generated secrets.json, never tracked or logged",
+    "expectedDatabaseFingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9"
   },
   "budget": {
     "readOnlyExternalPreflight": 1,
@@ -418,7 +419,7 @@
     "uncertainty": "REFUSED_ZERO_WRITE only for proven prewrite refusal or rollback; lost commit acknowledgment/postcommit failure means UNKNOWN outer recovery custody, no invented family result/fingerprint"
   },
   "gates": {
-    "sourceBuildReleased": false,
+    "sourceBuildReleased": true,
     "physicalBudgetReleased": false,
     "requiredBeforeBuild": [
       "independent SPEC/family/WO authorization",
@@ -436,10 +437,75 @@
     "failureStop": "One failure, preserve old trails/volume/credentials, clean only fresh exact owned resources, no retry"
   },
   "sourceCheckpoint": {
-    "status": "PENDING",
-    "actualChangedSourcePins": {},
+    "status": "ACCEPTED",
+    "actualChangedSourcePins": {
+      "apps/workspace-api/src/workspace_api/demo/seed.py": {
+        "rawSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+        "nativeLfSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+        "lineCount": 203
+      },
+      "apps/workspace-api/src/workspace_api/demo/seed_recovery.py": {
+        "rawSha256": "da56c6139199babddbe996e0e163ceb8eeeba4b6239160b3b0291bc4e417eae7",
+        "nativeLfSha256": "da56c6139199babddbe996e0e163ceb8eeeba4b6239160b3b0291bc4e417eae7",
+        "lineCount": 202
+      },
+      "apps/workspace-api/src/workspace_api/demo/seed_recovery_compare.py": {
+        "rawSha256": "0525ec227c1e485bc4189169d806c03cb76db69db7937f52def142ff027b5835",
+        "nativeLfSha256": "0525ec227c1e485bc4189169d806c03cb76db69db7937f52def142ff027b5835",
+        "lineCount": 131
+      },
+      "scripts/p5a2_source_demo_recover.py": {
+        "rawSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+        "nativeLfSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+        "lineCount": 299
+      },
+      "scripts/p5a2_source_demo_recovery_inventory.py": {
+        "rawSha256": "64754bc00c4faf039e4a27e0ad25bef0d74362fdacf46f1450bbb1b351d05a92",
+        "nativeLfSha256": "64754bc00c4faf039e4a27e0ad25bef0d74362fdacf46f1450bbb1b351d05a92",
+        "lineCount": 202
+      },
+      "scripts/p5a2_source_demo_recovery_custody.py": {
+        "rawSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+        "nativeLfSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+        "lineCount": 139
+      },
+      "tests/unit/test_p5a2_demo_recovery_source.py": {
+        "rawSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+        "nativeLfSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+        "lineCount": 219
+      },
+      "tests/unit/test_p5a2_demo_recovery_findings.py": {
+        "rawSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+        "nativeLfSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+        "lineCount": 184
+      },
+      "tests/unit/test_p5a2_demo_seed_recovery.py": {
+        "rawSha256": "86396c12b843bbe4b3209d0e505a6caaab25d3661dfd13d28c92a82ba79a5b69",
+        "nativeLfSha256": "86396c12b843bbe4b3209d0e505a6caaab25d3661dfd13d28c92a82ba79a5b69",
+        "lineCount": 192
+      },
+      "tests/unit/test_p5a2_demo_seed_transactions.py": {
+        "rawSha256": "7dd941e16a047e19dd3899d37a2b9fc9244e347a73eec9604093d5727aef5f8a",
+        "nativeLfSha256": "7dd941e16a047e19dd3899d37a2b9fc9244e347a73eec9604093d5727aef5f8a",
+        "lineCount": 283
+      }
+    },
     "frozenReadOnlyPinsRequired": true,
-    "acceptedBytesImmutableAfterCheckpoint": true
+    "acceptedBytesImmutableAfterCheckpoint": true,
+    "focusedResults": {
+      "combinedSeedRecoveryBootstrapLifecycle": "68 passed in 23.76s; project .venv; no physical database",
+      "newSeedFamily": "Four emitted positive outcomes plus generated mutation corpus",
+      "existingLifecycle": "18 passed; full 608 registered mutations",
+      "invariantGuard": "PASS",
+      "fileSizeGuard": "PASS",
+      "cleanChildSeedAndApp": "PASS nonphysical isolated import/composition",
+      "gitDiffCheck": "PASS",
+      "postProofBoundaryRepair": "104 passed in 26.83s; domain boundary, shim identity, AM2 source, native SQLite transaction; clean child config/dotenv isolation; no physical effect"
+    },
+    "independentReview": "POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+    "independentFocused": "102passed26.53s",
+    "rootExactPinCheck": "62pins_and_exact10_changed_source_manifest_PASS",
+    "postProofRepair": true
   },
   "noCurrentEffectAuthorization": true,
   "allOtherPathsReadOnly": true,
@@ -495,5 +561,369 @@
   "readyContractPins": {
     "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md": "cdd851ef5d80db938f446069553ab80ab3612fdb996a5e36a64a7a43b4541416",
     "docs\\work_orders\\P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md": "a0c05a424ab840598665810553e7955f12b7f91de303f8245a15c9dd564ef9ae"
+  },
+  "dispatchCommit": "044ed5c1064ea5e133df2c208c22c5a1ac5f33e3",
+  "dispatchContinuityCommit": "dbbabe4ea6958e02dd0754125f3548865755b104",
+  "dispatchCleanReview": "FINAL_CLEAN_AM2_DISPATCH_18_PLUS_5_PASS",
+  "preflightInvocations": 1,
+  "preflightObservation": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "owner_digest": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "ports": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "web_port": 5174
+      },
+      "preflight": "PASS",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+    }
+  },
+  "reservationBudgetSpent": true,
+  "recoveryBudgetSpent": true,
+  "attemptReservationSha256": "13f347363b8603f90144238e52c7861b37f181e18acff87ab7cf1cbb31485a08",
+  "physicalAttempts": 1,
+  "recoveryObservation": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "api_count": 1,
+      "api_pid": 12612,
+      "api_port": 8001,
+      "container_count": 1,
+      "container_id": "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532",
+      "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+      "db_port": 5433,
+      "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "outcome": "OWNED_RUNNING",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "owner_record_digest": "af060a590a6840f0715a15d0ee22ebdd6f189819c44fe689b604780fb93d4392",
+      "owner_record_path": "C:\\Users\\DELL\\AppData\\Local\\shiftops-p5a2-source-demo\\owner.json",
+      "post_seed_summary": {
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "record_classification": "EXACT_SEEDED",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "prewrite_inventory": {
+        "classification": "SOLE_CREATED_AT_MISMATCH",
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "observed_created_at": "2026-10-26T21:46:26.699812+00:00",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "schema_table_count": 31,
+        "state_digest": "cf339a90426209434a836a40c49fbf1650f698c0c6f9b963d78c41523d2f04f6",
+        "table_names": [
+          "approval_receipts",
+          "approvals",
+          "audit_records",
+          "corrections",
+          "customer_requests",
+          "edge_external_proposals",
+          "edge_ingress_reservations",
+          "edge_outbound_attempts",
+          "edge_quarantines",
+          "edge_rate_counters",
+          "edge_raw_envelopes",
+          "edge_service_nonces",
+          "evidence_links",
+          "external_identity_observations",
+          "handover_items",
+          "handovers",
+          "identity_mappings",
+          "incidents",
+          "messages",
+          "operational_events",
+          "p4e_action_receipts",
+          "p4e_placement_decisions",
+          "p4e_placement_work",
+          "p4e_proposals",
+          "reports",
+          "route_bindings",
+          "shift_assignments",
+          "shifts",
+          "task_creation_intents",
+          "tasks",
+          "users"
+        ],
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "seed_family_record": {
+        "changed_user_id": "PUBLIC_ACTOR",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "durable_application_writes": 1,
+        "exact_rows_verified": true,
+        "new_created_at_digest": "292b99a6fabb50371c443bb84661d4fd30d1434235cd8a17807458008db2f69b",
+        "old_created_at_digest": "a2fb28c232cd135ec55429c78addbc03b9a9aa5e94e5c25b76d4c3a5f84b1d04",
+        "outcome": "CREATED_AT_REPAIRED",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1"
+      },
+      "seed_state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+      "total_owned_count": 4,
+      "volume_count": 1,
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "web_count": 1,
+      "web_pid": 38184,
+      "web_port": 5174
+    }
+  },
+  "physicalSqlAccepted": true,
+  "physicalSourceAccepted": false,
+  "postSeedDatabaseState": "LAST_ACCEPTED_EXACT_SEEDED_PRESERVED_BY_NO_APP_WRITE_CLEANUP",
+  "cleanupTargetSha256": "1ff45163b55418ca2d529a27010d3f3eb95bbe8fb20faf99d8fdd6bdf0a6cc7d",
+  "orchestrationMetadataCorrection": "Target prelude initially hashed raw lifecycle/context envelope instead of merged owner; assertion stopped before writes or proof. Verified common.read_owner merged digest matches actual recovery receipt; no extra physical call.",
+  "cleanupTargetReview": "TARGET_GO",
+  "smokeInvocations": 1,
+  "smokeObservation": {
+    "exitCode": 0,
+    "result": {
+      "cases": [
+        {
+          "case": "initial_asof36",
+          "receipt_sha256": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+          "status": 200
+        },
+        {
+          "case": "later_asof38",
+          "receipt_sha256": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+          "status": 200
+        }
+      ],
+      "container_id": "877cd8fcbc82eb7404c76fa2575e77ddd61976539083f5aad0f57b147c9ad532",
+      "counts": {
+        "reports": 37,
+        "shift_assignments": 36,
+        "shifts": 36,
+        "users": 1
+      },
+      "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+      "jwt_login_status": 200,
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "postgresql_major": 16,
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "result": "PHYSICAL_SOURCE_SMOKE_PASS",
+      "secret_values_recorded": false
+    }
+  },
+  "browserBudgetReserved": true,
+  "browserInvocationRoutingCorrection": "Node REPL rejected eval code generation before executing any procedure: no browser launch/context/login/query/screenshot. Resume controls,62pins,9b6167 browser procedure hash verified. Invoke same reviewed body directly through JS tool; existing single reservation remains.",
+  "browserObservation": {
+    "result": "UI_FAILED",
+    "browserContexts": 1,
+    "browserLogins": 0,
+    "uiSubmits": 0,
+    "screenshots": [],
+    "cases": [],
+    "externalRequestsBlocked": 0,
+    "secretValuesRecorded": false,
+    "failureStage": "LOGIN"
+  },
+  "browserContexts": 1,
+  "uiSubmits": 0,
+  "proofFailureCleanupObservation": {
+    "exitCode": 1,
+    "result": {
+      "result": "PROOF_FAILURE_CLEANUP_REFUSED_OR_INCOMPLETE",
+      "remaining": "UNKNOWN_REQUIRE_REVIEW"
+    }
+  },
+  "absentProcessCleanupObservation": {
+    "exitCode": 0,
+    "result": {
+      "applicationWrites": 0,
+      "newRuntimeStarts": 0,
+      "ownerDigest": "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab",
+      "remaining": {
+        "api": 0,
+        "container": 0,
+        "volume": 1,
+        "web": 0
+      },
+      "result": "EXACT_STOPPED_CONTAINER_CLEANUP_PASS"
+    }
+  },
+  "physicalHttpAccepted": true,
+  "physicalUiAccepted": false,
+  "milestoneComplete": false,
+  "operationalCoverageAccepted": false,
+  "providerCalls": 0,
+  "finalRegisteredLifecycle": {
+    "api_count": 0,
+    "api_port": 8001,
+    "container_count": 0,
+    "db_port": 5433,
+    "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "outcome": "PARTIAL_OWNED_FAILURE",
+    "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "reason": "HEALTH_FAILED",
+    "total_owned_count": 1,
+    "volume_count": 1,
+    "volume_id": "shiftops-p5a2-source-demo-data-v1",
+    "web_count": 0,
+    "web_port": 5174
+  },
+  "finalOwnerDigest": "3af5e4892aaea7bfe64422ed7f3b237a6d54f910c8e2d0dbc68e6e925b9599ab",
+  "newRuntimeStartsAfterFailure": 0,
+  "resultReview": "POST_PROOF_REPAIR_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+  "resultReviewFindings": [],
+  "resultReviewWaivers": [],
+  "trancheDisposition": "PHYSICAL_UI_ACCEPTANCE_NOT_MET; SOURCE_SQL_HTTP_AND_FAILED_UI_RECORD_ACCEPTED_FOR_NORMAL_COMMIT",
+  "physicalExecutionSourceCheckpoint": {
+    "status": "ACCEPTED",
+    "actualChangedSourcePins": {
+      "apps/workspace-api/src/workspace_api/demo/seed.py": {
+        "rawSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+        "nativeLfSha256": "939c441af600f90bbdcee5a37df41108ee89888a9bcc9fe0e3a9beb7944f6b18",
+        "lineCount": 203
+      },
+      "apps/workspace-api/src/workspace_api/demo/seed_recovery.py": {
+        "rawSha256": "8f9e71d2a7c708d4bd29335e5a3305a4fd6358a4acfde5446eda4e7c9ead780f",
+        "nativeLfSha256": "8f9e71d2a7c708d4bd29335e5a3305a4fd6358a4acfde5446eda4e7c9ead780f",
+        "lineCount": 200
+      },
+      "apps/workspace-api/src/workspace_api/demo/seed_recovery_compare.py": {
+        "rawSha256": "18ced1a96c2191112a00199efedc60118a167e7ce2e78384a71b0f26948852db",
+        "nativeLfSha256": "18ced1a96c2191112a00199efedc60118a167e7ce2e78384a71b0f26948852db",
+        "lineCount": 125
+      },
+      "scripts/p5a2_source_demo_recover.py": {
+        "rawSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+        "nativeLfSha256": "cf3bbeef908a1cbb7d7da0f81f8c9a2d84c108f2de06c11596d6429cb6be0e09",
+        "lineCount": 299
+      },
+      "scripts/p5a2_source_demo_recovery_inventory.py": {
+        "rawSha256": "c6e838ea221292793d1e57f5060d08a00dfe4b5d2e9bbc2537802327b763c594",
+        "nativeLfSha256": "c6e838ea221292793d1e57f5060d08a00dfe4b5d2e9bbc2537802327b763c594",
+        "lineCount": 198
+      },
+      "scripts/p5a2_source_demo_recovery_custody.py": {
+        "rawSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+        "nativeLfSha256": "16c7eabe1c76f66e7bbda4e3353c3edd51da62c969f9b8adc2f012189b999bbb",
+        "lineCount": 139
+      },
+      "tests/unit/test_p5a2_demo_recovery_source.py": {
+        "rawSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+        "nativeLfSha256": "1e0c83a2349cbd698e275aa18c040f4c9ae1a143e70d18255d6837873689b244",
+        "lineCount": 219
+      },
+      "tests/unit/test_p5a2_demo_recovery_findings.py": {
+        "rawSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+        "nativeLfSha256": "1edc48938a189ab9f82e31eec254a936f69feaa1ced05b52c49fab4c81d0589d",
+        "lineCount": 184
+      },
+      "tests/unit/test_p5a2_demo_seed_recovery.py": {
+        "rawSha256": "d4e805522a07a251af350fdee33dccbb230ad32009fb4d8ade42a02b0dc2a5e1",
+        "nativeLfSha256": "d4e805522a07a251af350fdee33dccbb230ad32009fb4d8ade42a02b0dc2a5e1",
+        "lineCount": 152
+      },
+      "tests/unit/test_p5a2_demo_seed_transactions.py": {
+        "rawSha256": "a397081945b6d4b71f8bb480e1f3dcdcf1d4f7001c6ade557c94e1694f429c84",
+        "nativeLfSha256": "a397081945b6d4b71f8bb480e1f3dcdcf1d4f7001c6ade557c94e1694f429c84",
+        "lineCount": 283
+      }
+    },
+    "frozenReadOnlyPinsRequired": true,
+    "acceptedBytesImmutableAfterCheckpoint": true,
+    "focusedResults": {
+      "combinedSeedRecoveryBootstrapLifecycle": "68 passed in 23.76s; project .venv; no physical database",
+      "newSeedFamily": "Four emitted positive outcomes plus generated mutation corpus",
+      "existingLifecycle": "18 passed; full 608 registered mutations",
+      "invariantGuard": "PASS",
+      "fileSizeGuard": "PASS",
+      "cleanChildSeedAndApp": "PASS nonphysical isolated import/composition",
+      "gitDiffCheck": "PASS"
+    },
+    "independentReview": "SOURCE_CHECKPOINT_PASS_BOUNDED",
+    "independentFocused": "60passed23.19s",
+    "rootExactPinCheck": "62pins_and_exact10_changed_source_manifest_PASS"
+  },
+  "postProofBoundaryFinding": {
+    "id": "AM2-BOUNDARY-USER-IMPORT",
+    "command": "pytest test_operations_domain_boundary.py test_operations_domain_shim_identity.py -q",
+    "observed": "1failed39passed",
+    "cause": "New seed_recovery_compare direct User importer violates frozen exact E2 importer set",
+    "allowedRepair": "Existing admitted demo helper path, reuse canonical model seam; no boundary test weakening/global app change/runtime replay",
+    "resolution": "Explicit canonical User injection; existing E2 repository.User with no config/.env load; boundary tests unchanged; worker104PASS26.83s/independent102PASS26.53s; no physical replay"
   }
 }
