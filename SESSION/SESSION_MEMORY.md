@@ -3,7 +3,7 @@
 Updated2026-10-27. Canonical SESSION/ACTIVE_SESSION_STATE.json.
 Active SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md.
 Read-only public Core ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6.
-No private/shared/latestremote dependency. Root COMMIT_STEWARD WORK_ORDER/R2/liveYESforAIclaims.
+No private/shared/latestremote dependency. Root owner; R2/liveYESforAIclaims. Current phase/role are in Next allowed move.
 
 ## Same unit / new explicit bounded approval
 
@@ -29,7 +29,6 @@ G14providerHELD. Backend/UI/Root/operator acrossP5-A2/B/C/D accountable; Phase5 
 
 ## Next allowed move
 
-Normal AM3 READY dispatch commit, terminal review, dedicated exact5 actual-SHA
-continuity and independent clean range; then bounded verify-only guard/custody
-source BUILD. Current role COMMIT_STEWARD, WORK_ORDER/R2/liveYES for AI claims.
-Independent AM3 authorization PASS; physical/source effects held until gates.
+Independent clean18+5 after this exact5 normal continuity commit; then bounded verify-only guard/custody source BUILD, no effects until actual source and cleanup checkpoints.
+
+Current role SESSION_SYNC_STEWARD; phase WORK_ORDER. Terminal AM3 dispatch PASS exact18/full3511PASS; dedicated exact5 actual-SHA continuity only, source/effect still held until independent clean.

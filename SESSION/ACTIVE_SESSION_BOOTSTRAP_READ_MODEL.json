@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_am3_verify_only_dispatch",
+  "currentMode": "p5a2_am3_dispatch_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
-  "nextAllowedMove": "Normal AM3 READY dispatch commit, terminal review, dedicated exact5 actual-SHA continuity and independent clean range; then bounded verify-only guard/custody source BUILD.",
+  "nextAllowedMove": "Independent clean18+5 after this exact5 normal continuity commit; then bounded verify-only guard/custody source BUILD, no effects until actual source and cleanup checkpoints.",
   "parkedOperatorCheckpoint": "Operator approved max1 verify-only runtime/browser continuation; no repeat routine approval. No seed/CAS/data write, provider/key/model/CSV/reset/public effect. Any further budget/boundary needs operator decision.",
   "requiredReads": [
     "AGENTS.md",

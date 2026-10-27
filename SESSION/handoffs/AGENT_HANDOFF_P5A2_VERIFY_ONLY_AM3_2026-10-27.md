@@ -1,8 +1,8 @@
 # P5-A2 same-unit AM3 verify-only runtime/UI — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Predecessor material for this acceptance unit: `c44041feb0e9399c6cf31da0866f2e6b98c9763a`.
-AM2 continuity3b8c269/153531b; FINAL_CLEAN_AM2_27_PLUS_5_UNION_PASS_PARTIAL_ONLY.
+Material commit recorded for this handoff: `fb5459e5299ade9361cee50f2ae7425872a49566`.
+Dedicated AM3 dispatch continuity after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 ## Fresh rehydration and explicit operator approval
@@ -85,3 +85,14 @@ ack; ORCHESTRATOR→WORK_ORDER_AUTHOR→COMMIT_STEWARD WORK_ORDER/R2/liveYES.
 Root READYseal/statusonly/newcontractpins. Normaldispatch/exact5/clean before
 SOURCEBUILD; actualsourcecheckpoint/cleanupreview/preflight beforeoneeffect.
 No seed/CAS/provider/reset/nativeSmoke; no newtranche or effectrelease yet.
+
+## Actual AM3 dispatch and dedicated continuity
+
+Actualfb5459e5299ade9361cee50f2ae7425872a49566 exact18; normal3511PASS148skip
+4warnings260.84s. Independent TERMINAL_AM3_DISPATCH_PASS_BOUNDED, NONE/NONE;
+50pins/3families/currentREADYgraph0/manuallegacycompletionapplicable0/clean.
+Freshcanonical ack; COMMIT_STEWARD→SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYES.
+Thisdedicatedexact5actualSHAchild thenindependentclean18+5 beforeSOURCEBUILD.
+No source/effects/secret/provider/budgetspent yet. Full14gapowners/destinations/
+Phase5 0/5, oneverify-onlyprofile/browserstillheld. Operatornewapprovalvalid;
+no additionalroutinepermission. No newtranche/seed/CAS/reset/nativeSmoke.
