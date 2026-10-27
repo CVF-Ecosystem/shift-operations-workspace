@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_am4_partial_material_commit",
+  "currentMode": "p5a2_am4_partial_record_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md",
-  "nextAllowedMove": "Normal exact20 evidence material/fullhook, independent terminal review, exact5actualSHA continuity then clean range. No runtime/browser/SQL/source retry.",
+  "nextAllowedMove": "Independent clean exact20+5 after this dedicated continuity commit; then bounded UI readiness diagnosis/planning only. No source repair/new runtime/browser/SQL/provider or automatic tranche.",
   "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "requiredReads": [
     "AGENTS.md",

@@ -36,6 +36,6 @@ Currenteffectauthorityclosed; no retry/provider/reset/push/automatictranche.
 
 ## Next allowed move
 
-Normal exact20 evidence material/fullhook, independent terminal review, exact5actualSHA continuity then clean range. No runtime/browser/SQL/source retry.
+Independent clean exact20+5 after this dedicated continuity commit; then bounded UI readiness diagnosis/planning only. No source repair/new runtime/browser/SQL/provider or automatic tranche.
 
-Current role COMMIT_STEWARD; phase REVIEW. Independent partial-result review PASS; failed UI evidence accepted only, no current effects/source repair.
+Current role SESSION_SYNC_STEWARD; phase REVIEW. Actual1780283 exact20 normal3549PASS148skip4warnings230.57s; independent terminalPASS partial-only, currenteffects spent.

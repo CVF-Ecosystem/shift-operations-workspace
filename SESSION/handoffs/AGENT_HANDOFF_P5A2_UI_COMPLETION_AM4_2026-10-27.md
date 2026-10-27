@@ -1,7 +1,7 @@
 # P5-A2 same-unit UI completion AM4 — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `b77bafb96ed12504513c0b9cc5cbd027653271b8`.
+Material commit recorded for this handoff: `178028392edd9947c20b5fb52ae8ab919127e25a`.
 Dedicated AM4 dispatch actual-SHA continuity.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
@@ -118,3 +118,7 @@ Fresh canonical acknowledgment; IMPLEMENTATION_WORKER→ORCHESTRATOR REVIEW/R2/l
 ## AM4 partial-result material ownership
 
 Fresh canonical acknowledgment; ORCHESTRATOR→COMMIT_STEWARD REVIEW/R2/liveYESforAIclaims, project/readonlyCore aa672d1/currentAM4handoff unchanged. RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY, findingsNONE/waiversNONE. ExactSQL0writes/login200/submit1/GET0/digest0/screens0 INITIAL_RESPONSE causeUNKNOWN; staticprincipal/input-reset readinessgap hypothesisonly. Source3/helpers6/frozen77/families3/marker unchanged. Currentauthorityfalse/IDsnull, historicalIDsseparate, finalownerfa0e volumeonly. Full14gapowners/destinations retained/P5-A2OPEN/Phase50/5. Guards/catalog3/session/size/invariant/knowledge/diff/CorePASS; legacyRETURN/REVIEW standaloneapplicablemanualrechecks0. Normalexact20material thenterminal/exact5/clean only, no newtranche/repair/effects.
+
+## Actual AM4 partial material and dedicated terminal continuity
+
+Fresh canonical acknowledgment; COMMIT_STEWARD→SESSION_SYNC_STEWARD REVIEW/R2/liveYESforAIclaims. Actualmaterial178028392edd9947c20b5fb52ae8ab919127e25a exact20, normal3549PASS148skip4warnings230.57s. Independent TERMINAL_AM4_PARTIAL_MATERIAL_PASS_BOUNDED, NONE/NONE; exactparent6fa5d86/source3/procedure6/frozen77/family3/marker/legacyRETURN-REVIEWmanualapplicable0/clean. Thisexact5child recordsactualSHA; independentclean20+5 onlyafterchild. DispositionPARTIAL_EVIDENCE_MATERIAL_COMMITTED_UI_OPEN: actualSQL0writes/login200/submit1/sourceGET0/screens0 INITIAL_RESPONSE, physicalcauseUNKNOWN; principal/input-reset readinessgap hypothesisonly. Exactcleanupvolumeonlyfa0e, currentIDsnull/authorityfalse/SPENTparkedcheckpoint, historicalruntimeIDsretained. Full14gapowners/destinations/currentRETURN/P5-A2OPEN/Phase50/5. No UI/productclosure, retry or newtranche. Any future UI verification must first establish actual auth/me principal readiness and stable canonicalinputvalues before firstsubmit; proposalonly, no current source/effectbudget.
