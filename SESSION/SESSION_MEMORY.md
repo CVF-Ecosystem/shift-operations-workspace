@@ -29,6 +29,6 @@ No whole gap/milestone acceptance from syntheticUI; no automatic supporttranche.
 
 ## Next allowed move
 
-Normal exact18 dispatch then independent terminal review/exact5actualSHA continuity/clean before source BUILD.
+Dedicated exact5 actual dispatch SHA continuity then independent clean18+5 before source BUILD; no physical effect now.
 
-Current role COMMIT_STEWARD; phase WORK_ORDER. READY sealed; normal18 dispatch only, source/effect still held.
+Current role SESSION_SYNC_STEWARD; phase WORK_ORDER. Actual b77bafb exact18 normal3542PASS148skip4warnings153.05s; independent terminal dispatch PASS; source/effects held.

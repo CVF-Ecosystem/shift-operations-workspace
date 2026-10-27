@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_am4_dispatch_commit",
+  "currentMode": "p5a2_am4_dispatch_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md",
-  "nextAllowedMove": "Normal exact18 dispatch then independent terminal review/exact5actualSHA continuity/clean before source BUILD.",
+  "nextAllowedMove": "Dedicated exact5 actual dispatch SHA continuity then independent clean18+5 before source BUILD; no physical effect now.",
   "parkedOperatorCheckpoint": "Operator explicitly approved one additional UI completion attempt; new AM4 contract/source/procedure gates still held. Max1verify-onlyruntime/browser,0datawrites/seed/CAS/reset/provider; no further budget automatically.",
   "requiredReads": [
     "AGENTS.md",

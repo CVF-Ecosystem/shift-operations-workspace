@@ -1,5 +1,11 @@
 # P5-A2 same-unit UI completion AM4 — active handoff
 
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `b77bafb96ed12504513c0b9cc5cbd027653271b8`.
+Dedicated AM4 dispatch actual-SHA continuity.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
+
 ## Fresh rehydration / explicit approval / CVF Agent Declaration
 
 2026-10-27 operator: “tiếp 1 lượt cho xong phần UI”.
@@ -92,3 +98,7 @@ Fresh canonical acknowledgment; ORCHESTRATOR→WORK_ORDER_AUTHOR WORK_ORDER/R2/l
 ## AM4 normal dispatch ownership
 
 WORK_ORDER_AUTHOR→COMMIT_STEWARD WORK_ORDER/R2/liveYESforAIclaims. Root exact18normalhookcommit owner. Source/physicalbudgetunspent andheld.
+
+## Actual AM4 dispatch and dedicated continuity
+
+Fresh canonical acknowledgment; COMMIT_STEWARD→SESSION_SYNC_STEWARD WORK_ORDER/R2/liveYESforAIclaims. Actual b77bafb96ed12504513c0b9cc5cbd027653271b8 exact18, normal3542PASS148skip4warnings153.05s. Independent TERMINAL_DISPATCH_PASS_BOUNDED, NONE/NONE; 77pins/families3/READYgraph0/legacyAM3return-review+AM4reviewapplicable0/clean. Thisdedicatedexact5child recordsactualSHA; independentclean18+5 beforesourceBUILD. Currentapprovalnewmax1runtime/browser valid andunspent; allsource/physicalgatesheld. Full14gapowners/destinations/P5-A2OPEN/Phase50/5 unchanged. No seed/CAS/datawrite/provider/reset/newtranche.
