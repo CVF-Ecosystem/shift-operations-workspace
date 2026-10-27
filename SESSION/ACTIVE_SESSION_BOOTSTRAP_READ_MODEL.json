@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_am3_partial_material_commit",
+  "currentMode": "p5a2_am3_partial_record_continuity",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_VERIFY_ONLY_AM3_2026-10-27.md",
-  "nextAllowedMove": "Normal exact24 partial-result material commit with full hook; independent terminal review then exact5actualSHA continuity and clean range. No runtime/browser/SQL/provider retry.",
-  "parkedOperatorCheckpoint": "Operator approved max1 verify-only runtime/browser continuation; no repeat routine approval. No seed/CAS/data write, provider/key/model/CSV/reset/public effect. Any further budget/boundary needs operator decision.",
+  "nextAllowedMove": "Independent clean exact24+5 committed-range review after this dedicated continuity commit. Then bounded P5-A2 UI diagnosis/planning only; no new effect, retry or automatic tranche.",
+  "parkedOperatorCheckpoint": "AM3 operator-approved max1 verify-only attempt is SPENT; UI acceptance UNMET. No current runtime/browser/SQL/data-repair/provider/reset/push authority. No automatic new support tranche; any new effect or budget needs a concrete reviewed operator decision.",
   "requiredReads": [
     "AGENTS.md",
     "docs/specs/P5A2_VERIFY_ONLY_AM3_SPEC.md",

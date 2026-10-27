@@ -1,7 +1,7 @@
 # P5-A2 same-unit AM3 verify-only runtime/UI — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `fb5459e5299ade9361cee50f2ae7425872a49566`.
+Material commit recorded for this handoff: `5e84c180035f36e4415cf823773a614964b335c0`.
 Dedicated AM3 dispatch continuity after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
@@ -125,3 +125,7 @@ Fresh canonical acknowledgment; IMPLEMENTATION_WORKER→ORCHESTRATOR REVIEW/R2/l
 ## AM3 result accepted for normal material commit
 
 Fresh canonical acknowledgment; ORCHESTRATOR→COMMIT_STEWARD REVIEW/R2/liveYESforAIclaims. RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY, findingsNONE/waiversNONE. Exact seven source/fiveprocedure/markerbytes unchanged, actualSQL/0writes/login200 and failedPANEL_READY/UI0queries0shots reconciled. Cleanupvolumeonlyfe9b8926..., currentIDsnull/authorityfalse, old IDs historical. Complete14gapowners/destinations/P5-A2OPEN/Phase50/5; no whole UI/product closure. Catalog3/session/size/invariant/knowledge/diff/CorePASS; legacyRETURN/REVIEW standaloneapplicable check_recheck0 each. Supplemental readonly Playwright source inspection and timed-out inertJSDOM attempt add no browser/SQL proof; precise cause remainsUNKNOWN. Normalexact24material/fullhook thenterminal/exact5/clean only.
+
+## Actual AM3 result material and dedicated terminal continuity
+
+Fresh canonical acknowledgment; COMMIT_STEWARD→SESSION_SYNC_STEWARD REVIEW/R2/liveYESforAIclaims. Actualmaterial5e84c180035f36e4415cf823773a614964b335c0 exact24, normal3542PASS148skip4warnings148.69s. Independent TERMINAL_AM3_MATERIAL_PASS_PARTIAL_ONLY, NONE/NONE; exact parent29a8a99/source7/frozen46+11migrations/families3/procedures5/marker/rawreceipts/manuallegacyrechecks0/clean. Thisexact5child recordsactualSHA and explicitlySPENTparkedcheckpoint, currentIDsnull/authorityfalse, volumeonlyfe9b8926... retained. Current artifactdispositionPARTIAL_EVIDENCE_MATERIAL_COMMITTED_UI_OPEN; no UI/product acceptance. Onecontext/login200 then PANEL_READY/Error,0queries0shots, precise causeUNKNOWN; no retriedphysical/inertDOM proof. Full14gapowners/destinations in currentRETURN retained/P5-A2OPEN/Phase50/5. Independentclean24+5 onlyafterthischild; no automaticnewtranche/provider/datarepair/reset/browser.
