@@ -1,8 +1,8 @@
 # P5-A2 retained-volume recovery AM2 — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `044ed5c1064ea5e133df2c208c22c5a1ac5f33e3`.
-Dedicated AM2 dispatch continuity after independent terminal review.
+Material commit recorded for this handoff: `c44041feb0e9399c6cf31da0866f2e6b98c9763a`.
+Dedicated AM2 partial-result continuity after independent terminal review.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
 ## Fresh acknowledgment and operator approval
@@ -270,3 +270,22 @@ Freshcanonical ack; ORCHESTRATOR to CLOSER to COMMIT_STEWARD REVIEW/R2/liveYES.
 CLOSER accepts finalsource+partialphysicalresult evidence only; UI/milestone
 NOTMET/Phase5 0/5, allbudgetsSPENT/volume1/otherresources0. Normalfullhook then
 terminal/exact5actualSHA/clean mandatory, no runtime or newtranche authority.
+
+## Actual result material / dedicated continuity / parked operator budget
+
+Actualmaterialc44041feb0e9399c6cf31da0866f2e6b98c9763a exact27;
+normal3511PASS148skip4warnings240.58s. Independent
+TERMINAL_AM2_RESULT_MATERIAL_PASS_BOUNDED; NONE/NONE. Clean/manifest/sourcecurrent
+10worktree+Gitblobpins, oldphysical10map/5deltas, immutablemarker13f347...match;
+ReturnCOMPLETE_PENDING_REVIEW/redispatchNO, physicalgatefalse, manuallegacyboth
+applicable/oneheading/check_recheck0. Finalsource104/102inertrepaired, actual
+SQL/CAS1/JWT/HTTP/UI/custodyatoldphysicalsourcehashes preserved. Source/datapatch
+accepted butactualUIFAILED1context0login0query0shot; volumekept1/otherresources0.
+Freshcanonical/Core0; COMMIT_STEWARD to SESSION_SYNC_STEWARD, FREEZE/R2/liveYES
+for settledpartial-resultrecord ONLY, neverphysicalUI/tranche/milestoneclosure.
+Thisdedicatedexact5actualSHAchild thenindependentclean27+5 dischargescurrent
+normalrecordclosure. All14gapowners/destinations and Phase5 0/5 remain. AllAM2
+runtime/browserbudgetSPENT; concretepossibleverify-only SAME-unit runtime/UI
+continuation inRETURN isNOTAUTHORIZED. Source/datarepairmustnotrepeat. No new
+tranche/restart/reset/provider/key/model/CSV/push/deploy. Nextoperatorcheckpoint
+onlyrealnewruntime/browserbudget aftercleanrecordrange, notroutineapproval.

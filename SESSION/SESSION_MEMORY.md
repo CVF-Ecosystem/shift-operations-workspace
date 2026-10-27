@@ -32,6 +32,6 @@ P5-A2/B/C/D destinations preserved. Phase5 0/5. No AIgovernance/productionclaim.
 
 ## Next allowed move
 
-Normal exact27-path source/partial-result material commit, independent terminal review, exact5 actual-SHA continuity then clean range. No UI/product closure or new runtime budget.
+Independent clean27+5 after this continuity; once PASS, await explicit operator decision on concrete SAME-unit verify-only runtime/UI budget in AM2 RETURN. No retry, repeated data repair or automatic new tranche; provider remains deferred.
 
-Current role COMMIT_STEWARD; phase REVIEW. Post-proof User boundary repair independently accepted104/102PASS; old physical source hashes retained, no runtime replay. Partial-result record only, normal full material gate next.
+Current role SESSION_SYNC_STEWARD; phase FREEZE. Terminal accepts final source+partial physical evidence only. Actual material c44041f exact27/full3511PASS; dedicated exact5 continuity then independent clean27+5 discharges evidence closure. UI/milestone remain open.

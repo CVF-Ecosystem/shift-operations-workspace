@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_recovery_am2_final_result_material",
+  "currentMode": "p5a2_am2_waiting_operator_ui_runtime_budget",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md",
-  "nextAllowedMove": "Normal exact27-path source/partial-result material commit, independent terminal review, exact5 actual-SHA continuity then clean range. No UI/product closure or new runtime budget.",
+  "nextAllowedMove": "Independent clean27+5 after this continuity; once PASS, await explicit operator decision on concrete SAME-unit verify-only runtime/UI budget in AM2 RETURN. No retry, repeated data repair or automatic new tranche; provider remains deferred.",
   "parkedOperatorCheckpoint": "AM2 max1 recovery/browser execution SPENT: source, sole created_at CAS, SQL/JWT/two HTTP accepted; actual UI_FAILED LOGIN. No retry. Any fresh runtime/browser budget requires explicit operator decision on concrete same-unit proposal in AM2 RETURN; do not repeat source/data repair. Provider/key/model/CSV remain deferred.",
   "requiredReads": [
     "AGENTS.md",
