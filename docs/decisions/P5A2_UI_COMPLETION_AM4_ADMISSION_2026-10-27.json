@@ -1,6 +1,6 @@
 {
   "id": "P5A2-UI-COMPLETION-AM4-ADMISSION-20261027",
-  "status": "DISPATCH_READY",
+  "status": "AM4_PARTIAL_RESULT_REVIEW_ACCEPTED_UI_UNMET",
   "baselineCommit": "43ea7d048422f29c49c89a71f1e81394839485e2",
   "risk": "R2",
   "phase": "DESIGN_TO_SPEC_WORK_ORDER",
@@ -673,7 +673,38 @@
       "browser receipt with minute fields/fixed stages/safe categories",
       "exact-owned success and failure cleanup"
     ],
-    "actualHashes": "PENDING_SOURCE_AND_PROCEDURE_CHECKPOINT",
+    "actualHashes": {
+      ".venv/am4_physical_once.py": {
+        "rawSha256": "fc4d1433ff6a3a1a236064d5c687ea00e605107cce0dfede4d20c7278d4073d8",
+        "nativeLfSha256": "205b60fd365cebcaa0955af491810652fe5c012cc0b903f0af66c3d2abe34297",
+        "lineCount": 93
+      },
+      ".venv/am4_verify.py": {
+        "rawSha256": "ea3b9cd468cf917c29c3f60d8636bb5224e69c13e65f1597556300b5c3393ef8",
+        "nativeLfSha256": "ac02df59df081ed630032a5fb9f31d2fca35c7ef0a58c96634b43332f7ab35d2",
+        "lineCount": 37
+      },
+      ".venv/am4_receipts.py": {
+        "rawSha256": "985af159c08c5490c5329c6326e0055567dbc7fbe3fdd1a83fed28eeb46da550",
+        "nativeLfSha256": "97cd1b5cc1e49a8374203cedaa2e085186527d8fdc1be03a3136923ea7d52d1f",
+        "lineCount": 54
+      },
+      ".venv/am4_body_digest.py": {
+        "rawSha256": "ab8c1cac07b05131861570a1e4d49b4cb843973c307ca945094f556f683e71fe",
+        "nativeLfSha256": "ab8c1cac07b05131861570a1e4d49b4cb843973c307ca945094f556f683e71fe",
+        "lineCount": 8
+      },
+      ".venv/am4_failure_cleanup.py": {
+        "rawSha256": "31ef9c11fc728123edc526b31fb24d22c89b38d2f1ff0f84c013690b030b43fb",
+        "nativeLfSha256": "efe7cf19982efd631330911bfc8d3c2018532ef234849bf43f990e59c5eb2c73",
+        "lineCount": 79
+      },
+      ".venv/am4_browser_proof.js": {
+        "rawSha256": "a9fdcb782f746b18c1f93adefc3dee3df9c79a4486e11526fb3ee19049651a76",
+        "nativeLfSha256": "48d7bec115a2fdb39af1ee448a551dc5e129834011c2c7c640a6ae741a2dd39f",
+        "lineCount": 41
+      }
+    },
     "exactPaths": [
       ".venv/am4_physical_once.py",
       ".venv/am4_verify.py",
@@ -694,23 +725,52 @@
   },
   "gates": {
     "independentAuthorization": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
-    "normalDispatchCommit": "PENDING",
-    "actualShaExactFiveContinuity": "PENDING",
-    "independentCleanDispatch": "PENDING",
-    "sourceBuildReleased": false,
-    "independentActualSourceCheckpoint": "PENDING",
-    "procedureStaticReview": "PENDING",
+    "normalDispatchCommit": "b77bafb96ed12504513c0b9cc5cbd027653271b8",
+    "actualShaExactFiveContinuity": "6fa5d86bffdae75ca4cf4bf0a903ee13fe89ff84",
+    "independentCleanDispatch": "CLEAN_AM4_DISPATCH_18_PLUS_5_PASS_SOURCE_BUILD_ONLY",
+    "sourceBuildReleased": true,
+    "independentActualSourceCheckpoint": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
+    "procedureStaticReview": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
     "physicalBudgetReleased": false,
-    "resultReview": "PENDING",
+    "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
     "normalMaterialCommit": "PENDING",
     "terminalContinuityAndCleanRange": "PENDING"
   },
   "sourceCheckpoint": {
-    "status": "PENDING",
-    "actualChangedSourcePins": {},
+    "status": "ACCEPTED",
+    "actualChangedSourcePins": {
+      "scripts/p5a2_source_demo_verify_am4.py": {
+        "rawSha256": "35584b4be4ce49feee0a4d347d1e5d8597bf01aebe2deccf241cef90d7aeb2e6",
+        "nativeLfSha256": "35584b4be4ce49feee0a4d347d1e5d8597bf01aebe2deccf241cef90d7aeb2e6",
+        "lineCount": 143
+      },
+      "scripts/p5a2_source_demo_verify_am4_custody.py": {
+        "rawSha256": "dae091c3c8e2f575aa0588c40c892c6a7eefae3859a08e80cc958d766d26fa28",
+        "nativeLfSha256": "dae091c3c8e2f575aa0588c40c892c6a7eefae3859a08e80cc958d766d26fa28",
+        "lineCount": 80
+      },
+      "tests/unit/test_p5a2_demo_verify_am4.py": {
+        "rawSha256": "7c5553bfc511855a84ab8a258ae5507098535dcc964be409719ca2ebbce1654a",
+        "nativeLfSha256": "7c5553bfc511855a84ab8a258ae5507098535dcc964be409719ca2ebbce1654a",
+        "lineCount": 244
+      }
+    },
     "frozenSourcePinsRequired": true,
-    "focusedResults": {},
-    "acceptedBytesImmutableAfterCheckpoint": true
+    "focusedResults": {
+      "combined": "93passed4.88s newAM4+AM3+recovery+domainboundary/shim",
+      "newAm4": "7passed1.26s; inert owner/marker/order/noSeedCAS/cleanupstage/cleanimport",
+      "cleanChild": "PASS; workspace_api.config absent/no env/SQL/listener",
+      "fileSize": "PASS",
+      "invariantFamily": "PASS",
+      "rootReceiptProbes": "29PASS",
+      "rootBodyDigestProbes": "4PASSfloatUnicode/malformedstdin",
+      "rootCleanupProbes": "8PASSno real effects",
+      "datetimeInert": "3canonicalminuteRoundTrips/3legacysecondsRejected;0browserlaunches",
+      "nodeExecutorInert": "directawait/purestdinDigestIPC0exit/0browserlaunches"
+    },
+    "acceptedBytesImmutableAfterCheckpoint": true,
+    "independentReview": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
+    "independentFocused": "7 passed"
   },
   "readyContractPins": {
     "docs/specs/P5A2_UI_COMPLETION_AM4_SPEC.md": "95a27712a4e991c5adb9756b68b7678d7303d870258c34c32b0bdbeac64b0471",
@@ -803,5 +863,273 @@
     }
   },
   "authorizationAccepted": true,
-  "authorizationReview": "AUTHORIZATION_REVIEW_PASS_BOUNDED"
+  "authorizationReview": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+  "dispatchCommit": "b77bafb96ed12504513c0b9cc5cbd027653271b8",
+  "dispatchContinuityCommit": "6fa5d86bffdae75ca4cf4bf0a903ee13fe89ff84",
+  "dispatchCleanReview": "CLEAN_AM4_DISPATCH_18_PLUS_5_PASS_SOURCE_BUILD_ONLY",
+  "rootProcedurePins": {
+    ".venv/am4_physical_once.py": {
+      "rawSha256": "fc4d1433ff6a3a1a236064d5c687ea00e605107cce0dfede4d20c7278d4073d8",
+      "nativeLfSha256": "205b60fd365cebcaa0955af491810652fe5c012cc0b903f0af66c3d2abe34297",
+      "lineCount": 93
+    },
+    ".venv/am4_verify.py": {
+      "rawSha256": "ea3b9cd468cf917c29c3f60d8636bb5224e69c13e65f1597556300b5c3393ef8",
+      "nativeLfSha256": "ac02df59df081ed630032a5fb9f31d2fca35c7ef0a58c96634b43332f7ab35d2",
+      "lineCount": 37
+    },
+    ".venv/am4_receipts.py": {
+      "rawSha256": "985af159c08c5490c5329c6326e0055567dbc7fbe3fdd1a83fed28eeb46da550",
+      "nativeLfSha256": "97cd1b5cc1e49a8374203cedaa2e085186527d8fdc1be03a3136923ea7d52d1f",
+      "lineCount": 54
+    },
+    ".venv/am4_body_digest.py": {
+      "rawSha256": "ab8c1cac07b05131861570a1e4d49b4cb843973c307ca945094f556f683e71fe",
+      "nativeLfSha256": "ab8c1cac07b05131861570a1e4d49b4cb843973c307ca945094f556f683e71fe",
+      "lineCount": 8
+    },
+    ".venv/am4_failure_cleanup.py": {
+      "rawSha256": "31ef9c11fc728123edc526b31fb24d22c89b38d2f1ff0f84c013690b030b43fb",
+      "nativeLfSha256": "efe7cf19982efd631330911bfc8d3c2018532ef234849bf43f990e59c5eb2c73",
+      "lineCount": 79
+    },
+    ".venv/am4_browser_proof.js": {
+      "rawSha256": "a9fdcb782f746b18c1f93adefc3dee3df9c79a4486e11526fb3ee19049651a76",
+      "nativeLfSha256": "48d7bec115a2fdb39af1ee448a551dc5e129834011c2c7c640a6ae741a2dd39f",
+      "lineCount": 41
+    }
+  },
+  "preflightInvocations": 1,
+  "preflightObservation": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "owner_digest": "fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "ports": {
+        "api_port": 8001,
+        "db_port": 5433,
+        "web_port": 5174
+      },
+      "preflight": "PASS",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+    }
+  },
+  "attemptBudgetSpent": true,
+  "reservationBudgetSpent": true,
+  "attemptReservationSha256": "b356558ab8e786b54a8ed192e4973fd8b004bcd686708e79cd5c959c758479ae",
+  "physicalAttempts": 1,
+  "runtimeObservation": {
+    "exitCode": 0,
+    "nativeExitCode": 0,
+    "result": {
+      "api_count": 1,
+      "api_pid": 40060,
+      "api_port": 8001,
+      "application_data_writes": 0,
+      "container_count": 1,
+      "container_id": "2a1ad98f99d9019e950117f31e24064354b65e77e8991f7cc4350f50befba619",
+      "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+      "db_port": 5433,
+      "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+      "outcome": "OWNED_RUNNING",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "owner_record_digest": "e3ed54e5e77d08d32b266f4c63d1a1e523bb704dbdaf81e4e7375a081d407171",
+      "owner_record_path": "C:\\Users\\DELL\\AppData\\Local\\shiftops-p5a2-source-demo\\owner.json",
+      "pre_service_inventory": {
+        "classification": "EXACT_SEEDED",
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "observed_created_at": "2025-12-31T20:00:00+00:00",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "schema_table_count": 31,
+        "state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+        "table_names": [
+          "approval_receipts",
+          "approvals",
+          "audit_records",
+          "corrections",
+          "customer_requests",
+          "edge_external_proposals",
+          "edge_ingress_reservations",
+          "edge_outbound_attempts",
+          "edge_quarantines",
+          "edge_rate_counters",
+          "edge_raw_envelopes",
+          "edge_service_nonces",
+          "evidence_links",
+          "external_identity_observations",
+          "handover_items",
+          "handovers",
+          "identity_mappings",
+          "incidents",
+          "messages",
+          "operational_events",
+          "p4e_action_receipts",
+          "p4e_placement_decisions",
+          "p4e_placement_work",
+          "p4e_proposals",
+          "reports",
+          "route_bindings",
+          "shift_assignments",
+          "shifts",
+          "task_creation_intents",
+          "tasks",
+          "users"
+        ],
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "pre_service_summary": {
+        "counts": {
+          "approval_receipts": 0,
+          "approvals": 0,
+          "audit_records": 0,
+          "corrections": 0,
+          "customer_requests": 0,
+          "edge_external_proposals": 0,
+          "edge_ingress_reservations": 0,
+          "edge_outbound_attempts": 0,
+          "edge_quarantines": 0,
+          "edge_rate_counters": 0,
+          "edge_raw_envelopes": 0,
+          "edge_service_nonces": 0,
+          "evidence_links": 0,
+          "external_identity_observations": 0,
+          "handover_items": 0,
+          "handovers": 0,
+          "identity_mappings": 0,
+          "incidents": 0,
+          "messages": 0,
+          "operational_events": 0,
+          "p4e_action_receipts": 0,
+          "p4e_placement_decisions": 0,
+          "p4e_placement_work": 0,
+          "p4e_proposals": 0,
+          "reports": 37,
+          "route_bindings": 0,
+          "shift_assignments": 36,
+          "shifts": 36,
+          "task_creation_intents": 0,
+          "tasks": 0,
+          "users": 1
+        },
+        "database": "shiftops_p5a2_source_demo",
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "postgresql_major": 16,
+        "postgresql_version": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+        "record_classification": "EXACT_SEEDED",
+        "schema_digest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+        "state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+        "transaction_isolation": "repeatable read",
+        "transaction_read_only": "on"
+      },
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "total_owned_count": 4,
+      "verification_family_record": {
+        "db_fingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+        "durable_application_writes": 0,
+        "exact_rows_verified": true,
+        "outcome": "EXACT_VERIFIED",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1"
+      },
+      "verification_state_digest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+      "volume_count": 1,
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "web_count": 1,
+      "web_pid": 32004,
+      "web_port": 5174
+    }
+  },
+  "preUiObservation": {
+    "result": "PRE_UI_LIVENESS_PASS",
+    "exactContainerRunning": true,
+    "exactPidKernelHandles": 2,
+    "loopbackTcpReady": [
+      8001,
+      5174
+    ],
+    "httpReplays": 0
+  },
+  "browserBudgetReserved": true,
+  "browserObservation": {
+    "result": "UI_FAILED",
+    "browserContexts": 1,
+    "browserLogins": 1,
+    "uiSubmits": 1,
+    "screenshots": [],
+    "cases": [],
+    "externalRequestsBlocked": 0,
+    "browserSourceGets": 0,
+    "secretValuesRecorded": false,
+    "browserClosed": true,
+    "packageVersion": "1.62.1",
+    "browserVersion": "151.0.7922.34",
+    "jwtLoginStatus": 200,
+    "failureStage": "INITIAL_RESPONSE",
+    "errorKind": "Error",
+    "failureCategory": "OTHER_SANITIZED"
+  },
+  "failureCleanupObservation": {
+    "result": "AM4_EXACT_FAILURE_CLEANUP_PASS",
+    "remaining": {
+      "volume": 1,
+      "container": 0,
+      "api": 0,
+      "web": 0
+    },
+    "applicationWrites": 0,
+    "runtimeRestarts": 0,
+    "ownerDigest": "fa0efad507dfea10b53f26103d0d18f61c18e60201bbb7d8837cc6559a0f137a"
+  },
+  "retryAllowed": false,
+  "finalResources": {
+    "volume": 1,
+    "container": 0,
+    "api": 0,
+    "web": 0
+  },
+  "finalOwnerDigest": "fa0efad507dfea10b53f26103d0d18f61c18e60201bbb7d8837cc6559a0f137a",
+  "currentOwnedContainer": null,
+  "currentApiPid": null,
+  "currentWebPid": null,
+  "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY"
 }

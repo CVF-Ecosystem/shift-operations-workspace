@@ -1368,19 +1368,75 @@
     "resultWaivers": []
   },
   "p5a2_ui_completion_am4_20261027": {
-    "status": "DISPATCH_READY_SOURCE_AND_EFFECT_HELD",
+    "status": "PARTIAL_RESULT_REVIEW_ACCEPTED_UI_UNMET",
     "operatorReply": "tiếp 1 lượt cho xong phần UI",
     "sameAcceptanceUnit": true,
     "newProductTranche": false,
     "physicalBudgetReleased": false,
-    "physicalAttempts": 0,
-    "browserContexts": 0,
+    "physicalAttempts": 1,
+    "browserContexts": 1,
     "applicationWrites": 0,
     "milestoneComplete": false,
     "authorizationAccepted": true,
     "authorizationReview": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
     "spec": "docs/specs/P5A2_UI_COMPLETION_AM4_SPEC.md",
     "workOrder": "docs/work_orders/P5A2_UI_COMPLETION_AM4_WORK_ORDER.md",
-    "admission": "docs/decisions/P5A2_UI_COMPLETION_AM4_ADMISSION_2026-10-27.json"
+    "admission": "docs/decisions/P5A2_UI_COMPLETION_AM4_ADMISSION_2026-10-27.json",
+    "dispatchCommit": "b77bafb96ed12504513c0b9cc5cbd027653271b8",
+    "dispatchContinuityCommit": "6fa5d86bffdae75ca4cf4bf0a903ee13fe89ff84",
+    "dispatchCleanReview": "CLEAN_AM4_DISPATCH_18_PLUS_5_PASS_SOURCE_BUILD_ONLY",
+    "preflightInvocations": 1,
+    "attemptBudgetSpent": true,
+    "attemptReservationSha256": "b356558ab8e786b54a8ed192e4973fd8b004bcd686708e79cd5c959c758479ae",
+    "sourceCheckpoint": "STATIC_SOURCE_AND_PROCEDURE_PASS_BOUNDED",
+    "sourcePaths": 3,
+    "workerFocused": "93passed4.88s",
+    "independentFocused": "7passed",
+    "nativeSeedCalls": 0,
+    "casCalls": 0,
+    "physicalSqlAccepted": true,
+    "physicalHttpInheritedAccepted": true,
+    "physicalUiAccepted": false,
+    "browserLogins": 1,
+    "uiSubmits": 1,
+    "sourceGets": 0,
+    "screenshots": 0,
+    "proofFailureStage": "INITIAL_RESPONSE",
+    "errorCategory": "OTHER_SANITIZED",
+    "exactPhysicalCause": "UNKNOWN",
+    "ownedContainer": null,
+    "apiPid": null,
+    "webPid": null,
+    "finalResources": {
+      "volume": 1,
+      "container": 0,
+      "api": 0,
+      "web": 0
+    },
+    "finalOwnerDigest": "fa0efad507dfea10b53f26103d0d18f61c18e60201bbb7d8837cc6559a0f137a",
+    "cleanupVerified": true,
+    "retryAllowed": false,
+    "providerCalls": 0,
+    "historicalExecutionReceipts": {
+      "successfulRuntimeOwnerDigest": "e3ed54e5e77d08d32b266f4c63d1a1e523bb704dbdaf81e4e7375a081d407171",
+      "successfulRuntimeIds": {
+        "container_id": "2a1ad98f99d9019e950117f31e24064354b65e77e8991f7cc4350f50befba619",
+        "api_pid": 40060,
+        "web_pid": 32004
+      },
+      "preUiLiveness": {
+        "result": "PRE_UI_LIVENESS_PASS",
+        "exactContainerRunning": true,
+        "exactPidKernelHandles": 2,
+        "loopbackTcpReady": [
+          8001,
+          5174
+        ],
+        "httpReplays": 0
+      }
+    },
+    "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
+    "resultFindings": [],
+    "resultWaivers": []
   }
 }
