@@ -1,3 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# This repository is a multi-project workspace; test imports use the explicit
+# src paths below. The root distribution supplies dependency metadata only.
+packages = []
+
 [project]
 name = "shift-operations-workspace"
 version = "0.1.0"

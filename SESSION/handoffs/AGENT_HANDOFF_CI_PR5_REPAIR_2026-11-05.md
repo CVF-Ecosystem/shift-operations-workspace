@@ -1,6 +1,6 @@
 # PR #5 CI repair — active handoff
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: DISPATCHED; phase WORK_ORDER.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: BUILD; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -34,4 +34,7 @@ passes. No source repair or merge has occurred at this checkpoint. Independent
 authorization review must clear continuity before BUILD. No other open CI
 root cause is accepted yet; hosted rerun can reveal one. Independent
 authorization review PASS after aligned continuity and G01–G14 binding;
-BUILD begins only after this dispatch commit.
+BUILD began after dispatch commit `8f4ecfb` passed its normal hook
+(3549 passed, 148 skipped, 4 warnings). Current role IMPLEMENTATION_WORKER;
+source scope is `pyproject.toml` and catalog renderer only. Generated views
+have LF working-tree bytes; their tracked normalized content is unchanged.
