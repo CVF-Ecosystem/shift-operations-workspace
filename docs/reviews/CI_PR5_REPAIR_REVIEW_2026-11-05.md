@@ -46,3 +46,13 @@ between Windows and POSIX sorting, confirmed normalized casefold sorting
 matches the committed registry, and found Core/continuity/closeability
 checks PASS. Amended dispatch commit and repair BUILD remain. No merge or
 closure claim yet.
+
+## Amendment 1 pre-material source review
+
+Independent reviewer PASS, no blocker or waiver. The only added source path
+is `scripts/sync_cvf_catalog_kit.py` as amended. It sorts normalized
+relative POSIX paths by `(casefold(), original)` before evidence filtering,
+so Windows and Linux choose the same files and casefold ties are stable.
+All four affected stub modules match the committed registry. Local projection,
+detailed catalog, repository validation, session, Core and diff checks PASS.
+Material hook, hosted rerun and merge remain pending.

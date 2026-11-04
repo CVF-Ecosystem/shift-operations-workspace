@@ -1,6 +1,6 @@
 # PR #5 CI repair — active handoff
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_1_REVIEW; phase WORK_ORDER.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_1_BUILD; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -11,7 +11,7 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-CI-PR5-REPAIR amendment 1 dispatch commit after independent PASS, then bounded catalog
+Complete CI-PR5-REPAIR amendment 1 bounded catalog
 projection repair under `docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`,
 independent review, hosted CI and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
@@ -47,7 +47,10 @@ and `web` PASS. `validate` passed editable install and detailed catalog but
 failed kit projection on Ubuntu. Investigation isolated `Path` sorting's
 platform-dependent casing in `scripts/sync_cvf_catalog_kit.py`: four stub
 evidence paths select root README on Linux but nested README on Windows.
-Current role WORK_ORDER_AUTHOR, phase WORK_ORDER. Amendment 1 in the work
-order adds only deterministic projection sorting. Authorization re-review
-PASS with no blocking finding; amended dispatch continuity commit is next,
-then bounded repair BUILD. No product acceptance or AI governance claim.
+Amendment 1 in the work order adds only deterministic projection sorting.
+Authorization re-review PASS with no blocking finding. Dispatch commit
+`07b4011` passed its normal hook
+(3549/148/4). Current role IMPLEMENTATION_WORKER; deterministic projection
+sort is implemented and local projection/catalog/repository validation PASS.
+Independent source review, material hook and hosted CI remain. No product
+acceptance or AI governance claim.
