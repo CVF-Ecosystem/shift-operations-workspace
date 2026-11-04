@@ -5,9 +5,11 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 currentc8c7b36 normal3549PASS148skip4warnings188.81s.
-CI-only discovery failed; operator approved exact guard import; independent
-amendment admissionPASS. Full actual diagnostic receipts in activehandoff/WO/review.
+CI-PR5 guard939049145f05fdc1f41225b54b7b7acb386bde98 terminalPASS,
+normal3549PASS148skip4warnings384.61s. Operator exact Securityimport
+approved; actual10s/predicates unchanged. Dedicated actualSHAcontinuity,
+clean splitrange review, combinedpush/ONElatestHEADhosted verification and
+independent result acceptance gate green-only PR5merge. Not yet hostedgreen.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -48,13 +50,5 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Implement approved one-line Security module initialization in guard; independent source/terminal review and normal hook, ONE hosted verification then result review, actualSHA continuity/clean-range review before green-only merge.
-Current role IMPLEMENTATION_WORKER; phase BUILD. AM4 effects remain spent.
-
-Operator exact scope approval received: "Cho phép sửa guard và merge khi xanh".
-Independent GUARD_SCOPE_AMENDMENT_ADMISSION_PASS, no blocker/waiver.
-IMPLEMENTATION_WORKER/BUILD acknowledgment BEFORE source: add only explicit
-Security module import in the existing guard try. Actual10s/predicates/
-failure behavior unchanged; no AM4 execution/pin rewrite. G01–G14 unchanged.
-CoreCOMPLIANT/sessionPASS, invariant guardPASS; activation core-only retained
-stale/supplemental finding at documented project-policy boundary.
+Independently review clean material/actualSHA continuity ranges, push both commits, run ONE latestHEAD hosted verification; independently accept result and merge PR5 only when all latestHEAD checks green, then return to separately admitted G04/G05 planning. If failing stop for result review.
+Current role SESSION_SYNC_STEWARD; phase REVIEW. AM4 effects remain spent.

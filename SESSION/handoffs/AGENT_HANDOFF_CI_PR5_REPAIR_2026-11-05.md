@@ -1,10 +1,10 @@
 # PR #5 CI repair — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `800d8759a001de72adc3da0d94a9f046a7a7649e`.
+Material commit recorded for this handoff: `939049145f05fdc1f41225b54b7b7acb386bde98`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: HOST_COMPATIBILITY_RESULT_REVIEW; phase REVIEW.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: GUARD_MATERIAL_REVIEWED_HOSTED_MERGE_GATED; phase REVIEW.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,8 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-One windows-2022 candidate completed with actual childTIMEOUT; independent
-result review before further source. Current role ORCHESTRATOR.
+Guard material9390491 terminal accepted; actualSHA continuity, clean-range
+review and ONE latestHEAD hosted verification gate merge. Current role
+SESSION_SYNC_STEWARD.
 Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
@@ -279,3 +280,20 @@ blocker/waiver. One import inside existing try preserves failclosed10s/env/
 flags/predicates; no historicalpins/fixture changes. Focused18PASS3.17s,
 realPASS/PASS/FAIL0.408/0.329/0.355s, Core/session/invariant/diffPASS.
 Next normal fullhook, terminal review, ONE hosted verification/result review.
+
+## Approved guard material and dedicated actual-SHA continuity
+
+Independent TERMINAL_GUARD_MATERIAL_REVIEW_PASS exact8paths
+`c8c7b36..939049145f05fdc1f41225b54b7b7acb386bde98`, no blocker/waiver.
+Normal fullhook3549PASS148skip4warnings384.61s; focused18PASS and existing
+invariant/Core/session/diffPASS. Sole runtime delta is operator-approved
+explicitSecuritymoduleimport inside existing try; real10s/predicates intact.
+This dedicated5continuity records that actual SHA after terminal acceptance.
+Prior diagnostics/failures and operator approval remain in WO/review history.
+Independent clean split-range review precedes combinedpush of material and
+continuity; ONE hosted verification runs latestHEAD, avoiding duplicate
+material-only CI. Reviewer confirmed this preserves GC020/gates. No current
+hostedgreen/merge/closure claim. All latestHEADchecks and independent result
+acceptance gate authorized PR5merge. If failing stop for result review; no
+automatic extra repair. On successful merge return to separately admitted
+G04/G05 planning; AM4SPENT/UIUNMET/P5-A2OPEN/G01–G14 unchanged.
