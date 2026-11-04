@@ -1,10 +1,10 @@
 # PR #5 CI repair — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `a37b81566e97110d5431551f5feae09c94c7d2a1`.
+Material commit recorded for this handoff: `800d8759a001de72adc3da0d94a9f046a7a7649e`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: BOUNDED_ACL_STARTUP_REPAIR; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Complete independently admitted bounded ACL startup preparation, normal hook
-and latest hosted checks; merge only when green, then separately admitted
-G04/G05 readiness planning. Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Verify latest hosted checks and independent clean-range review, merge only
+when all pass; after merge return to separately admitted G04/G05 readiness
+planning. Current role SESSION_SYNC_STEWARD. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -162,3 +162,13 @@ Independent bounded startup source review PASS, no blocker/waiver. Exact
 workflow preparation command localPASS, focused8PASS2.70s and Core/session/
 YAML/diffPASS. Runtime verifier remains10s; all tests retained. Next normal
 material hook, terminal review, actualSHA continuity and latest hosted gates.
+
+## Bounded startup material accepted
+
+Independent terminal review PASS `4829c9c..800d875`, exact9paths,
+findings/waivers NONE/NONE. Normal3549PASS148skip4warnings179.26s, focused8
+and exact YAML preparation command PASS. Material pushed. This dedicated
+continuity records actual `800d8759a001de72adc3da0d94a9f046a7a7649e`
+after terminal acceptance; role SESSION_SYNC_STEWARD, phase REVIEW. Latest
+hosted green and clean split-range review still gate merge. Runtime verifier
+10s and all assertions remain; prior failed attempts are retained.

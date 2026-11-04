@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: BOUNDED_STARTUP_SOURCE_REVIEW_PASS_HOSTED_PENDING
+Status: BOUNDED_STARTUP_TERMINAL_PASS_HOSTED_PENDING
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -182,3 +182,11 @@ executed locally PASS; focused8PASS2.70s; Core/session/YAML/diff PASS.
 Prior actual-SHA continuity4829c9c passed normal3549/148/4 in196.86s.
 This same-scope material still requires normal hook, terminal review,
 dedicated latest-SHA continuity and latest hosted green checks before merge.
+
+Bounded startup terminal material review PASS `4829c9c..800d875`, exact9
+paths, findings/waivers NONE/NONE. Actual material
+`800d8759a001de72adc3da0d94a9f046a7a7649e`; normal3549PASS148skip4warnings
+179.26s plus focused8/exact YAML command PASS. Worktree clean, Core/session/
+range diff PASS; authorized push. Dedicated actualSHA continuity follows
+terminal acceptance; independent clean-range review and all latest-head
+hosted green checks still gate merge. No current CI-green/merge claim.
