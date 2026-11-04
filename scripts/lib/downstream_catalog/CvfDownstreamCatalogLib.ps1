@@ -399,7 +399,7 @@ function ConvertTo-CvfIndexMarkdown {
     $lines.Add("Plans describe intended work. ``IMPLEMENTATION_STATUS.json``, source, tests, and")
     $lines.Add("review evidence determine what is actually implemented.")
     $lines.Add("")
-    return ($lines -join "`r`n")
+    return ($lines -join "`n")
 }
 
 function ConvertTo-CvfModuleCatalogMarkdown {
@@ -441,5 +441,5 @@ function ConvertTo-CvfModuleCatalogMarkdown {
         }
     }
     $lines.Add("")
-    return ($lines -join "`r`n")
+    return ($lines -join "`n")
 }

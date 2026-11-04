@@ -84,6 +84,15 @@ button { border: 0; border-radius: 8px; padding: 10px 14px; cursor: pointer; bac
 .report-meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 0.9em; margin-bottom: 12px; }
 .report-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
+.proactive-source { padding: 16px; border-bottom: 1px solid #e5e7eb; }
+.proactive-source form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.proactive-source label { display: grid; gap: 4px; }
+.proactive-source input { padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; }
+.proactive-source button { padding: 8px 12px; }
+.proactive-source [role="status"] { margin-top: 12px; }
+.proactive-source dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; }
+.proactive-source dd { margin: 0; }
+
 @media (min-width: 768px) {
   .operations-console__panels { grid-template-columns: 1fr 1fr; }
 }

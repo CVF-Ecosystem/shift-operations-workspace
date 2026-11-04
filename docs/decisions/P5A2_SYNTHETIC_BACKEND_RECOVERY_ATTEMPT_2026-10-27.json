@@ -1,0 +1,14 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-1",
+  "status": "RESERVED_SPENT_NO_RETRY",
+  "reservedAtUtc": "2026-10-26T21:46:12.293875+00:00",
+  "actualSourceAdmissionHead": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa",
+  "maximumRecoveryCalls": 1,
+  "profileId": "P5A2-SOURCE-DEMO-LOCAL-1",
+  "ownerNonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+  "ownerDigest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+  "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+  "workOrderNativeLfSha256": "0c5444ec71a56493549f4210d804668ba82cdbcc928f33612007c65b14266a45",
+  "sourceManifestDigest": "6db61e0dd34c4deb86f0f6ebefb34355092b947d7b6629c9de61dad5068b8492",
+  "preflightReceiptSha256": "45d0a5d663e775f6d15baabf73d4e39d3123c0e84ce6670b7b87e86fcec5b8aa"
+}

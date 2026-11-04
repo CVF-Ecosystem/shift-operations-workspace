@@ -1,0 +1,26 @@
+name: shiftops-p5a2-source-demo
+services:
+  postgres:
+    image: postgres:16
+    pull_policy: never
+    container_name: shiftops-p5a2-source-demo-db-v1
+    network_mode: bridge
+    ports:
+      - "127.0.0.1:5433:5432"
+    environment:
+      POSTGRES_DB: shiftops_p5a2_source_demo
+      POSTGRES_USER: source_demo
+      POSTGRES_PASSWORD: ${P5A2_DB_PASSWORD:?required}
+    volumes:
+      - shiftops-p5a2-source-demo-data-v1:/var/lib/postgresql/data
+    labels:
+      cvf.project: shift-operations-workspace
+      cvf.profile: P5A2-SOURCE-DEMO-LOCAL-1
+      cvf.owner-nonce: ${P5A2_OWNER_NONCE:?required}
+volumes:
+  shiftops-p5a2-source-demo-data-v1:
+    name: shiftops-p5a2-source-demo-data-v1
+    labels:
+      cvf.project: shift-operations-workspace
+      cvf.profile: P5A2-SOURCE-DEMO-LOCAL-1
+      cvf.owner-nonce: ${P5A2_OWNER_NONCE:?required}

@@ -26,7 +26,9 @@ NETWORK_TOKENS = (
 
 
 def _hash(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # The installed Core permits host checkout line endings; bind the same
+    # canonical LF bytes used by the Git-blob comparison below.
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _pinned_helper(project_root: Path = ROOT) -> Path:

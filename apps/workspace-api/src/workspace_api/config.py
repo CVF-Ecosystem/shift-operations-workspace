@@ -1,3 +1,5 @@
+import os
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _MIN_JWT_SECRET_BYTES = 32
@@ -59,6 +61,8 @@ class Settings(BaseSettings):
     # When set, the API uses the durable SqlLedger; otherwise it falls back to
     # the in-memory ledger (tests, offline/degraded mode).
     database_url: str = ""
+    # Explicit single-ledger source identity; blank composition refuses.
+    proactive_source_instance_id: str = ""
     # Comma-separated allowlist used outside development. Empty by default so a
     # non-dev deployment that forgets to set it fails closed (no origins) rather
     # than open.
@@ -91,6 +95,9 @@ class Settings(BaseSettings):
         the process, which is a strictly larger compromise than a weak
         secret, so this is accepted rather than defended against here.
         """
+        # The isolated demo child must never read the repository/operator dotenv.
+        if os.environ.get("P5A2_SOURCE_DEMO_PROFILE") == "P5A2-SOURCE-DEMO-LOCAL-1":
+            kwargs["_env_file"] = None
         super().__init__(**kwargs)
         value = self.jwt_secret_key
         if not value or not value.strip():

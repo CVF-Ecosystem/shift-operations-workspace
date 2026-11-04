@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0",
+  "familyId": "P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES",
+  "title": "P5-A2 retained synthetic seed and one-field recovery terminal outcomes",
+  "ownerRole": "SPEC_AUTHOR",
+  "risk": "R2",
+  "lifecycle": "ACTIVE",
+  "applicabilityTriggers": [
+    "TRIGGER_2_OUTCOME_CONTROLS_FIELDS",
+    "TRIGGER_3_EXACT_COUNTER_RELATIONS",
+    "TRIGGER_4_INVENTORY_SEED_RECOVERY_VALIDATOR_PARITY"
+  ],
+  "contractSources": [
+    {
+      "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md",
+      "sha256": "245a8f38a543e9ed4d4c138c4294158bd2ad71d4be01dcaed3fc3937e9d0665a",
+      "canonicalization": "UTF8_UNIVERSAL_NEWLINE"
+    }
+  ],
+  "representationSurfaces": [
+    "PYTHON_SEED_RECOVERY_RESULT",
+    "READ_ONLY_INVENTORY_VERDICT",
+    "ROOT_SANITIZED_ATTEMPT_RECEIPT"
+  ],
+  "parityMode": "APPLICABLE",
+  "parityReason": "Inventory classification, native seed or CAS result, and the sanitized Root result must agree on write count, exact identity and terminal state.",
+  "closedTopLevelObject": true,
+  "outcomes": [
+    {
+      "outcomeId": "REFUSED_ZERO_WRITE",
+      "shapes": [{
+        "shapeId": "REFUSED_ZERO_WRITE_VALID",
+        "requiredFields": ["outcome", "profile_id", "db_fingerprint", "durable_application_writes", "exact_rows_verified", "reason"],
+        "forbiddenFields": ["changed_user_id", "old_created_at_digest", "new_created_at_digest"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "REFUSED_ZERO_WRITE"},
+          "profile_id": {"type": "STRING", "const": "P5A2-SOURCE-DEMO-LOCAL-1"},
+          "db_fingerprint": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"},
+          "durable_application_writes": {"type": "INTEGER", "const": 0},
+          "exact_rows_verified": {"type": "BOOLEAN", "const": false},
+          "reason": {"type": "STRING", "minLength": 1}
+        },
+        "relations": [{"relationId": "REFUSAL_ZERO_DURABLE_WRITES", "kind": "COUNTER_EQUALITY", "field": "durable_application_writes", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "SEEDED_ATOMIC",
+      "shapes": [{
+        "shapeId": "SEEDED_ATOMIC_VALID",
+        "requiredFields": ["outcome", "profile_id", "db_fingerprint", "durable_application_writes", "exact_rows_verified"],
+        "forbiddenFields": ["reason", "changed_user_id", "old_created_at_digest", "new_created_at_digest"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "SEEDED_ATOMIC"},
+          "profile_id": {"type": "STRING", "const": "P5A2-SOURCE-DEMO-LOCAL-1"},
+          "db_fingerprint": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"},
+          "durable_application_writes": {"type": "INTEGER", "const": 110},
+          "exact_rows_verified": {"type": "BOOLEAN", "const": true}
+        },
+        "relations": [{"relationId": "SEED_EXACT_110_ROWS", "kind": "COUNTER_EQUALITY", "field": "durable_application_writes", "value": 110}]
+      }]
+    },
+    {
+      "outcomeId": "EXACT_VERIFIED",
+      "shapes": [{
+        "shapeId": "EXACT_VERIFIED_VALID",
+        "requiredFields": ["outcome", "profile_id", "db_fingerprint", "durable_application_writes", "exact_rows_verified"],
+        "forbiddenFields": ["reason", "changed_user_id", "old_created_at_digest", "new_created_at_digest"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "EXACT_VERIFIED"},
+          "profile_id": {"type": "STRING", "const": "P5A2-SOURCE-DEMO-LOCAL-1"},
+          "db_fingerprint": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"},
+          "durable_application_writes": {"type": "INTEGER", "const": 0},
+          "exact_rows_verified": {"type": "BOOLEAN", "const": true}
+        },
+        "relations": [{"relationId": "EXACT_VERIFY_ZERO_WRITES", "kind": "COUNTER_EQUALITY", "field": "durable_application_writes", "value": 0}]
+      }]
+    },
+    {
+      "outcomeId": "CREATED_AT_REPAIRED",
+      "shapes": [{
+        "shapeId": "CREATED_AT_REPAIRED_VALID",
+        "requiredFields": ["outcome", "profile_id", "db_fingerprint", "durable_application_writes", "exact_rows_verified", "changed_user_id", "old_created_at_digest", "new_created_at_digest"],
+        "forbiddenFields": ["reason"],
+        "conditionalRules": [],
+        "fieldDomains": {
+          "outcome": {"type": "STRING", "const": "CREATED_AT_REPAIRED"},
+          "profile_id": {"type": "STRING", "const": "P5A2-SOURCE-DEMO-LOCAL-1"},
+          "db_fingerprint": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"},
+          "durable_application_writes": {"type": "INTEGER", "const": 1},
+          "exact_rows_verified": {"type": "BOOLEAN", "const": true},
+          "changed_user_id": {"type": "STRING", "const": "PUBLIC_ACTOR"},
+          "old_created_at_digest": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"},
+          "new_created_at_digest": {"type": "STRING", "pattern": "^[0-9a-f]{64}$"}
+        },
+        "relations": [{"relationId": "CAS_EXACT_ONE_FIELD", "kind": "COUNTER_EQUALITY", "field": "durable_application_writes", "value": 1}]
+      }]
+    }
+  ],
+  "mutationPolicy": {"excludedOperators": []},
+  "ownershipBindings": [{
+    "bindingId": "P5A2_SEED_RECOVERY_AM2_ADMISSION_REFERENCE",
+    "ownerPath": "docs/cvf/invariants/p5a2-demo-seed-recovery.json",
+    "consumers": [{
+      "consumerPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json",
+      "strategy": "JSON_REFERENCE",
+      "jsonPointer": "/familyId"
+    }]
+  }],
+  "emitterAdapter": {"identity": "p5a2_source_demo_seed_recovery_result", "kind": "REAL_SERVICE_EMITTER"},
+  "evidenceTestPaths": ["tests/unit/test_invariant_family_contract.py"],
+  "boundedClaim": "REFUSED_ZERO_WRITE is emitted only after a proven prewrite refusal or verified transaction rollback. Lost commit acknowledgement or uncertain postcommit failure has UNKNOWN database state and no fabricated family result. Pre-code exact synthetic seed, verify and sole PUBLIC_ACTOR created_at CAS outcome shapes. Focused inert adapters and matrix mutations are source proof only; actual retained SQL/JWT/HTTP/UI proof requires separately gated one-use execution. No AI governance behavior or operational coverage claim."
+}

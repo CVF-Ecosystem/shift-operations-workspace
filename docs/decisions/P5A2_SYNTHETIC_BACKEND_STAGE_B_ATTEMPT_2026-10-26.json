@@ -1,0 +1,13 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-STAGE-B-START-1",
+  "status": "RESERVED_SPENT_NO_RETRY",
+  "reservedAtUtc": "2026-10-26T16:23:10.680106+00:00",
+  "actualSourceAdmissionHead": "5607ee72883df3e4bdd20bd24cc6152289c22c20",
+  "workOrderNativeLfSha256": "a752a99ea5128517dbc2fc9bc4bbe20a60fd7b07e5f9872d3f568222c871b895",
+  "sourcePinManifestSha256": "a0c1f7013868b94e9125183d652f08817f13c6cd4137f643102af96a315b780a",
+  "preflightReceiptSha256": "8b94b561dedbde7201b9720a5aecb62afb8153219c26bb473b9b8ba9e240c5b5",
+  "maximumStartCalls": 1,
+  "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+  "profileId": "P5A2-SOURCE-DEMO-LOCAL-1",
+  "executor": "/root IMPLEMENTATION_WORKER"
+}

@@ -107,8 +107,8 @@ authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
 Knowledge phase-order cycle and bind terminal review evidence ownership.
 Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
-review and continuity commit close the tranche. Public workspace Core remains pinned at
-`aa672d119`. Operator-authorized Core-only binding correction has independent source/config acceptance:
+review and continuity commit close the tranche. Public workspace Core is now pinned at
+`c4c8767`. Operator-authorized Core-only binding correction has independent source/config acceptance:
 reuse its native closeability checker and integrity-check installed controls;
 private provenance/shared packs/framework continuity are no project dependency.
 CVF references remain read-only. P5-A is in REVIEW with bounded local acceptance of
@@ -138,12 +138,6 @@ continuity receipts; source review alone does not close material completion.
 Upstream/private repository movement does not invalidate intact installed Core;
 explicit reviewed Core update is separate from ordinary project operations.
 
-G04-G06 source audit pins20source surfaces and4existing test excerpts. Current
-query/cohort/retention/snapshot gaps remain; synthetic data with actual backend
-is proposed for the next reviewed SPEC/WO. This audit changes no runtime source
-or acceptance and does not require operational data before fixture development.
-Live holds and all14milestone remainders remain; active handoff owns current truth.
-
 Docker synthetic backend actualdisposablePG16.15 rehearsal independently passed:
 36shifts37versions, awaretime/immutablecontent/asof-lineage/analysis against
 frozenoracle, migrations001–011twice and exactownedcleanup. Originalpipfailure
@@ -155,11 +149,24 @@ source+generic91PASS2skip/84native mutation rejections, fulloracle receipts/line
 analysis, native500/501 zero-bodycopy, fresh access and strict receipt semantics.
 StageB now independently accepts synthetic physical PostgreSQL query proof:
 onePG16.15 target1PASS31.18s, frozen contexts/caps/RR/writer races and ownedcleanup.
-Current handoff owns normal resultmaterial/actualSHAcontinuity closure.
+StageB closure cad8ffc/0b7f870 is settled; the active handoff owns new planning.
 Production coverage/retention, API/UI/scheduler/context/approval and operational
 quality remain OPEN/UNKNOWN; all14gap owners, providerhold and Phase5 0/5 retained.
 
 
-Current2026-10-26: StageA exact31+5closure a7374f86/8dc39e1 verified. StageB synthetic physical1PASS31.18s/PG16.15 and exactownedcleanup independentlyaccepted aftersealedsource/continuity/cleanrange; source107PASS3skip. PhysicalattemptSPENT, normalresultclosurepending. Old budgets remain spent; provider/operational gates held.
+
+Current SAME-unit AM4 result: source93worker/7independentPASS; oneverify-only
+runtime exactdualRRRO31tables1/36/36/37/other27zero/0appwrites/seed/CAS. Browser
+context1/login200/canonicalfills/firstsubmit1 butsourceGET0/screens0, failed
+INITIAL_RESPONSE/OTHER_SANITIZED; exactcauseUNKNOWN. Exactcleanup retained
+volume1/containerAPIweb0. BudgetSPENT/no retry; no source repair/newtranche.
+Static asyncprincipal/input-reset readinessgap is hypothesisonly.
+AM2/AM3 accepted bounded source/SQL/JWT/HTTP receipts remain immutable.
+Full14gapowners/destinations retained; UI/P5-A2UNMET/Phase5 0/5.
+
+On 2026-11-04, the operator authorized a reviewed adoption of the clean,
+already installed public Core at `c4c8767`. The two selected native control
+artifacts remained byte-identical; local binding preflight passed. This
+support action leaves AM4's spent attempt and all P5-A2 gaps unchanged.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

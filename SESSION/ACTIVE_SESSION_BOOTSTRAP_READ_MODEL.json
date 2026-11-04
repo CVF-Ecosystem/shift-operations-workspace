@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "p5a2_scoped_source_pg_closed_bounded",
-  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md",
-  "nextAllowedMove": "AfterTHISnormalchild+independentclean18+5range, boundedINTAKE/SPEC P5-A2 G06/G11 applicationidentity/API contract. No automaticBUILD, rerun orprovidercall.",
-  "parkedOperatorCheckpoint": "AI-provider live calls and key/model/CSV updates remain deferred. Operator separately requests isolated local Docker PostgreSQL with synthetic data, only under reviewed WO/committed dispatch/dedicated continuity and Stage B source admission. Extra old-key trial remains unexecuted/held; original provider401 remains spent.",
+  "currentMode": "ci_pr5_material_reviewed_merge_gated_20261105",
+  "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md",
+  "nextAllowedMove": "Independently review clean material/actualSHA continuity ranges, push both commits, run ONE latestHEAD hosted verification; independently accept result and merge PR5 only when all latestHEAD checks green, then return to separately admitted G04/G05 planning. If failing stop for result review.",
+  "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "requiredReads": [
     "AGENTS.md",
-    "docs/specs/P5A2_SCOPED_SOURCE_POSTGRES_SPEC.md",
-    "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_WORK_ORDER.md",
-    "docs/work_orders/P5A2_SCOPED_SOURCE_POSTGRES_EFFECT_WORK_ORDER.md",
-    "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_ADMISSION_2026-10-26.json",
-    "tests/fixtures/p5a2_scoped_source_pg_oracle.json",
-    "docs/specs/P5A2_SCOPED_HISTORY_SOURCE_SPEC.md",
-    "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_REVIEW_2026-10-26.md",
+    "docs/specs/P5A2_UI_COMPLETION_AM4_SPEC.md",
+    "docs/work_orders/CVF_CORE_BINDING_ADOPTION_2026-11-04.md",
+    "docs/work_orders/CI_PR5_REPAIR_2026-11-05.md",
+    "docs/decisions/P5A2_UI_COMPLETION_AM4_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_UI_COMPLETION_AM4_REVIEW_2026-10-27.md",
     "docs/implementation/EXECUTION_ROADMAP.md",
     "docs/implementation/ACCEPTANCE_GATES.md",
     "docs/cvf/INVARIANT_FAMILY_STANDARD.md",
-    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SCOPED_SOURCE_POSTGRES_2026-10-26.md"
+    "docs/PROJECT_INDEX.md",
+    "SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md",
+    "docs/decisions/P5A2_VERIFY_ONLY_AM3_RETURN_2026-10-27.md"
   ],
   "historyIndex": {
     "sessionMemoryArchive": "SESSION/archive/SESSION_MEMORY_PRE_T3_2026-08-11.md",
     "activeSessionStateArchive": "SESSION/archive/ACTIVE_SESSION_STATE_PRE_T3_2026-08-11.json",
     "priorActiveHandoff": "SESSION/handoffs/EXTERNAL_REPOSITORY_ABSORPTION_INTAKE_2026-09-10.md"
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-05"
 }

@@ -1,0 +1,204 @@
+{
+  "paths": {
+    "/proactive/source": {
+      "get": {
+        "tags": [
+          "proactive"
+        ],
+        "summary": "Read Source",
+        "operationId": "read_source_proactive_source_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/P5A2ReadyReceipt"
+                    },
+                    {
+                      "$ref": "#/components/schemas/P5A2RefusedReceipt"
+                    }
+                  ],
+                  "title": "Response Read Source Proactive Source Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "422": {
+            "description": "Invalid request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "query_start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "query_end",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "run_as_of",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    }
+  },
+  "schemas": {
+    "P5A2ReadyReceipt": {
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "title": "Actor Id"
+        },
+        "candidate_version_count": {
+          "type": "integer",
+          "title": "Candidate Version Count"
+        },
+        "canonical_manifest": {
+          "type": "string",
+          "title": "Canonical Manifest"
+        },
+        "cohort_policy_version": {
+          "type": "string",
+          "title": "Cohort Policy Version"
+        },
+        "coverage_mode": {
+          "type": "string",
+          "title": "Coverage Mode"
+        },
+        "eligible_count": {
+          "type": "integer",
+          "title": "Eligible Count"
+        },
+        "max_snapshot_incident_refs": {
+          "type": "integer",
+          "title": "Max Snapshot Incident Refs"
+        },
+        "numeric_policy_version": {
+          "type": "string",
+          "title": "Numeric Policy Version"
+        },
+        "outcome": {
+          "type": "string",
+          "title": "Outcome"
+        },
+        "query_end": {
+          "type": "string",
+          "title": "Query End"
+        },
+        "query_start": {
+          "type": "string",
+          "title": "Query Start"
+        },
+        "receipt_version": {
+          "type": "string",
+          "title": "Receipt Version"
+        },
+        "run_as_of": {
+          "type": "string",
+          "title": "Run As Of"
+        },
+        "scope_id": {
+          "type": "string",
+          "title": "Scope Id"
+        },
+        "selected_count": {
+          "type": "integer",
+          "title": "Selected Count"
+        },
+        "source_digest": {
+          "type": "string",
+          "title": "Source Digest"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "actor_id",
+        "candidate_version_count",
+        "canonical_manifest",
+        "cohort_policy_version",
+        "coverage_mode",
+        "eligible_count",
+        "max_snapshot_incident_refs",
+        "numeric_policy_version",
+        "outcome",
+        "query_end",
+        "query_start",
+        "receipt_version",
+        "run_as_of",
+        "scope_id",
+        "selected_count",
+        "source_digest"
+      ],
+      "title": "P5A2ReadyReceipt"
+    },
+    "P5A2RefusedReceipt": {
+      "properties": {
+        "cohort_policy_version": {
+          "type": "string",
+          "title": "Cohort Policy Version"
+        },
+        "numeric_policy_version": {
+          "type": "string",
+          "title": "Numeric Policy Version"
+        },
+        "outcome": {
+          "type": "string",
+          "title": "Outcome"
+        },
+        "reason": {
+          "type": "string",
+          "title": "Reason"
+        },
+        "receipt_version": {
+          "type": "string",
+          "title": "Receipt Version"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "cohort_policy_version",
+        "numeric_policy_version",
+        "outcome",
+        "reason",
+        "receipt_version"
+      ],
+      "title": "P5A2RefusedReceipt"
+    }
+  }
+}

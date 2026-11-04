@@ -1,0 +1,820 @@
+{
+  "id": "P5A2-SYNTHETIC-BACKEND-RECOVERY-20261027",
+  "status": "FAILED_RESULT_NORMAL_MATERIAL_GATE",
+  "baselineCommit": "08c62dad7b956faf7e1d1dd6cb56ee79e10cbead",
+  "priorFailure": {
+    "material": "555119eb9344624ae52a36609f84591dfb928db2",
+    "continuity": "08c62dad7b956faf7e1d1dd6cb56ee79e10cbead",
+    "review": "CLEAN_15_PLUS_5_RESULT_RANGE_PASS_BOUNDED",
+    "oldAttemptImmutableSha256": "16b689ad82945a61b79b430c4b39032cd84580594e6f1420c4ce140300f147fd",
+    "oldBudget": "SPENT_NEVER_REUSED",
+    "volumeRetained": true
+  },
+  "risk": "R2",
+  "operatorAuthority": "Existing isolated local Docker synthetic backend request and continuous roadmap/subagent authority, reinforced 2026-10-27 strict scope and clear acceptance. One consolidated necessary G04/G05 repair/recovery; no public/provider/operator-secret/destructive boundary.",
+  "milestone": "P5-A2 OPEN, Phase5 0/5; no whole gap closure from synthetic proof",
+  "operatorAcceptance": "Full P5-A2 business acceptance belongs to operator; independent reviewer admits bounded technical source/effect proof only.",
+  "executor": {
+    "source": "/root/consolidated_recovery_design IMPLEMENTATION_WORKER after reviewed committed dispatch",
+    "physical": "/root IMPLEMENTATION_WORKER after independent actual-hash source admission and exclusive new reservation",
+    "artifactAndCommit": "/root",
+    "independentReviewer": "/root/recovery_review"
+  },
+  "rootOnlyMutationPaths": [
+    "CVF_SESSION/ACTIVE_SESSION_STATE.json",
+    "IMPLEMENTATION_STATUS.json",
+    "SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json",
+    "SESSION/ACTIVE_SESSION_STATE.json",
+    "SESSION/SESSION_MEMORY.md",
+    "SESSION/handoffs/AGENT_HANDOFF_P5A2_SYNTHETIC_BACKEND_STAGE_B_2026-10-26.md",
+    "docs/INDEX.md",
+    "docs/PROJECT_INDEX.md",
+    "docs/catalog/ARTIFACT_REGISTRY.json",
+    "docs/catalog/MODULE_CATALOG.md",
+    "docs/catalog/MODULE_CATALOG_DETAIL.md",
+    "docs/catalog/MODULE_REGISTRY.json",
+    "docs/catalog/MODULE_REGISTRY_DETAIL.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json",
+    "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md",
+    "docs/implementation/EXECUTION_ROADMAP.md",
+    "docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png",
+    "docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png",
+    "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
+    "docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md",
+    "knowledge/PROJECT_CONTEXT.md",
+    "knowledge/manifest.json"
+  ],
+  "reviewerOnlyPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md",
+  "workerMutationPaths": [
+    "scripts/p5a2_source_demo_start.py",
+    "scripts/p5a2_source_demo_bootstrap.py",
+    "scripts/p5a2_source_demo_recover.py",
+    "scripts/p5a2_source_demo_recovery_*.py",
+    "tests/unit/test_p5a2_demo_recovery_*.py",
+    "tests/unit/test_p5a2_demo_bootstrap.py",
+    "tests/unit/test_p5a2_demo_lifecycle.py"
+  ],
+  "allOtherPathsReadOnly": true,
+  "readOnlySourcePins": {
+    "apps/workspace-api/src/workspace_api/config.py": {
+      "nativeLfSha256": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "rawWorkingSha256AtSeal": "cba471e791321f7dc949c7e70c1feae409fe3eae5bc0475671fa0a33a23b9c16",
+      "lineCount": 124
+    },
+    "apps/workspace-api/src/workspace_api/demo/__init__.py": {
+      "nativeLfSha256": "d49f553022655d44a6a06955379feef5880d79bb6bcf6c511d06892ef42cea0d",
+      "rawWorkingSha256AtSeal": "6dc234afa641751bb967d1e3956721361bd0c5039cc0b46ec6c9ab9ffef2ebf2",
+      "lineCount": 1
+    },
+    "apps/workspace-api/src/workspace_api/demo/source_bundle_v1.json": {
+      "nativeLfSha256": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "rawWorkingSha256AtSeal": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+      "lineCount": 5240
+    },
+    "apps/workspace-api/src/workspace_api/demo/authority_v1.json": {
+      "nativeLfSha256": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "rawWorkingSha256AtSeal": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+      "lineCount": 1064
+    },
+    "apps/workspace-api/src/workspace_api/demo/bundle.py": {
+      "nativeLfSha256": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "rawWorkingSha256AtSeal": "117d5c3b38fba412b5ee0538ac68430e1c5e0a4c44b0752e775e91d231eda4fa",
+      "lineCount": 27
+    },
+    "apps/workspace-api/src/workspace_api/demo/coverage.py": {
+      "nativeLfSha256": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "rawWorkingSha256AtSeal": "b1c5c3ca5a5d4cadf7f63324930f42c60a7f424bae56650c84cd9051436990fe",
+      "lineCount": 84
+    },
+    "apps/workspace-api/src/workspace_api/demo/seed.py": {
+      "nativeLfSha256": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "rawWorkingSha256AtSeal": "f6c356e8c4ab5b32098662521330fa02c1081144d539c29c621ac5b7c58c1164",
+      "lineCount": 188
+    },
+    "apps/workspace-api/src/workspace_api/demo/app.py": {
+      "nativeLfSha256": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "rawWorkingSha256AtSeal": "4a2b9cfeef20baec6012e38af39098e0b985abfd80415e2a59e533ca48491709",
+      "lineCount": 98
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes.py": {
+      "nativeLfSha256": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "rawWorkingSha256AtSeal": "2e0721a4ae8d3cc19cd6f58d841054bf9f921805827f8ee39c3445559270a4ef",
+      "lineCount": 43
+    },
+    "apps/workspace-api/src/workspace_api/demo/read_routes_shift.py": {
+      "nativeLfSha256": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "rawWorkingSha256AtSeal": "1ddd1099f4f786df873db77d9da691bdef99f8484681031295a5b26a14f6204b",
+      "lineCount": 42
+    },
+    "apps/workspace-web/vite.source-demo.config.ts": {
+      "nativeLfSha256": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "rawWorkingSha256AtSeal": "97fbaebe464fa8e8adc398553b183163fd4cd3712e5d8f09d04590cdbc4b1f4d",
+      "lineCount": 9
+    },
+    "infrastructure/demo/p5a2-source-postgres.compose.yml": {
+      "nativeLfSha256": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "rawWorkingSha256AtSeal": "8f6528027853e15c9696c4c33e0a62b08f824d3dbcacd2f90c529eb50dad162a",
+      "lineCount": 26
+    },
+    "scripts/p5a2_source_demo_common.py": {
+      "nativeLfSha256": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "rawWorkingSha256AtSeal": "4043a8379344034cd37e33efcac34541e93488850c5774de107edb06f4faa0f6",
+      "lineCount": 256
+    },
+    "scripts/p5a2_source_demo_preflight.py": {
+      "nativeLfSha256": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "rawWorkingSha256AtSeal": "a9c64edbdf7ea3e905a8786d9b42b355e371e493609482322adcd38f61d6861d",
+      "lineCount": 64
+    },
+    "scripts/p5a2_source_demo_stop.py": {
+      "nativeLfSha256": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "rawWorkingSha256AtSeal": "306d9f9f2903cf29dc17e1330219207a2cca718152cdbc73fc5a132517e4898c",
+      "lineCount": 153
+    },
+    "scripts/p5a2_source_demo_smoke.py": {
+      "nativeLfSha256": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "rawWorkingSha256AtSeal": "e9952f65e388e7cf119ffaac005601051ceac530c328c7d57d6693c05a42876a",
+      "lineCount": 98
+    },
+    "tests/unit/test_p5a2_demo_bundle.py": {
+      "nativeLfSha256": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "rawWorkingSha256AtSeal": "a557f6598ee94ceadb9899e63a8a55df7a26555add3c6e22bbab5ac8dd9c7718",
+      "lineCount": 83
+    },
+    "tests/unit/test_p5a2_demo_coverage.py": {
+      "nativeLfSha256": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "rawWorkingSha256AtSeal": "702a92253761008ddbdad758c2c5192cf4f48d5be3e61e45c68988a38f239ec8",
+      "lineCount": 120
+    },
+    "tests/unit/test_p5a2_demo_profile.py": {
+      "nativeLfSha256": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "rawWorkingSha256AtSeal": "b4530be7900cc9d4c031cac56153fcfd730b6d0623dabb7a0b70bd5d0a7e996c",
+      "lineCount": 42
+    },
+    "tests/unit/test_p5a2_demo_lifecycle.py": {
+      "nativeLfSha256": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "rawWorkingSha256AtSeal": "725a3d0d84201948fe8cd5f621810bd120d6c0da78058b5a7e8493d2075a4737",
+      "lineCount": 238
+    },
+    "tests/unit/test_p5a2_demo_routes.py": {
+      "nativeLfSha256": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "rawWorkingSha256AtSeal": "607d1b05fadf8962c720168350153ef9db63ac62b24f75bc5bb976a99c001b8a",
+      "lineCount": 15
+    },
+    "tests/integration/test_p5a2_demo_source_http.py": {
+      "nativeLfSha256": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "rawWorkingSha256AtSeal": "ecab842295c6540cfb09bd1f06226b9713a3fbbfa21579a28b6178da97b179e0",
+      "lineCount": 180
+    }
+  },
+  "workerBaselinePins": {
+    "scripts/p5a2_source_demo_start.py": {
+      "nativeLfSha256": "4eae082072917d0d72dc69d28b9c69ccf31f98459077d8541b7ec9eab064fd5e",
+      "rawWorkingSha256AtSeal": "4eae082072917d0d72dc69d28b9c69ccf31f98459077d8541b7ec9eab064fd5e",
+      "lineCount": 230
+    }
+  },
+  "frozenInputs": {
+    "fixtures/p5a2_source_demo_v1.json": "5a7f1dbc61fbdc40b4c201763c18c463902ea8d928ad105eddeff7b16a617cae",
+    "fixtures/p5a2_source_demo_authority_v1.json": "3ed09877a15b7bbd9ae1178392e6262688607e73a678a95c86e0132e213baecb",
+    "tests/fixtures/p5a2_source_demo_oracle.json": "b43b5aa27cd593ba560cc48e534d7c7c12f2299d084d8c45dcbfb40a5c1a6aca",
+    "tests/fixtures/p5a2_source_demo_lifecycle_oracle.json": "eca7ad3966a4e4cedc436d2b7bf5bf65db9c73fe212cb2dc15e4d788c5bd660d"
+  },
+  "immutablePredecessorPins": {
+    "tests/fixtures/p5a2_source_api_oracle.json": "5cc32b1a0484460c7eafb8d23d7112f19ae713699dfd560bb98c4b00411e49fe",
+    "tests/fixtures/p5a2_scoped_source_oracle.json": "0f79676b627aceebd5e83a4b8143d29feda8deaad9392ad52cdd7204b593a044",
+    "tests/fixtures/p5a2_docker_backend_oracle.json": "12ad36cbd335a8def5e7ac9a6ade6f0bf542cb45af4cec1760a7291a8f6973c0",
+    "tests/fixtures/p5a2_scoped_source_pg_oracle.json": "0b69156fcb09a6b65a25c437320a5f4001f4068284d5bcf8b88438700a92f44f"
+  },
+  "migrationsReadOnlyNeverRun": {
+    "database/migrations/001_foundation.sql": "5f2e070d01e5817a004d3d2a260aeef17565ae9f89526c31428b268231982e19",
+    "database/migrations/002_tasks_customers_reports.sql": "1a971b4f224c54054a88d678fe9e744b617eef7b125ccd634c008574a9632e28",
+    "database/migrations/003_users.sql": "31104961fa97d209283242df9f168cd0c2299417d96fa190913c29638fedcd82",
+    "database/migrations/004_approval_receipts.sql": "299913808cf756db279505edb1dfcd595a6dcbf8d62d9e84ee8fe003efc3f300",
+    "database/migrations/005_incidents.sql": "3c08e64e93a600c04eab24479759fe1336c021fa9df60cf5ff97f27a7e394410",
+    "database/migrations/006_handovers.sql": "27d0234fab07a8b8ee9e47bc0a3680c381b450e7e48c97feb8e44a94d14e768a",
+    "database/migrations/007_report_history_constraints.sql": "8d54d9628ca0c63d3397dcba281ba34aaf081943a2e5a2f46c91bdd7a874fd90",
+    "database/migrations/008_shift_assignments.sql": "d8e101a6f0aa16b8ab2c97207ae9c03e3b0fc97e6c935e648e4e20a3cdc4b2aa",
+    "database/migrations/009_customer_request_version.sql": "36247e4f2abf90bce74acddbb978fc64bc36442c95e49b79eb5b399e2b4c53d3",
+    "database/migrations/010_integration_edge.sql": "0af9ae7f4821734bffd1fbb69f3ae01b85bbdd5e35cc2eadaccf6d02398d7abc",
+    "database/migrations/011_p4e_identity_conversation_routing.sql": "3eef2771d9cb6317ee3e388a257de5ecff75f647aa150b5a7d83c742e2b2e7c7"
+  },
+  "familiesUnchanged": {
+    "docs/cvf/invariants/p5a2-scoped-source-outcomes.json": "6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754",
+    "docs/cvf/invariants/p5a2-demo-resource-lifecycle.json": "f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c"
+  },
+  "readOnlyPrerequisitePins": {
+    "apps/workspace-web/package.json": "13c017a71ced349ab7b973ca5d340e6b6f8532d4d33c24461aba2062b9fb4115",
+    "node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core/browsers.json": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99"
+  },
+  "image": {
+    "tag": "postgres:16",
+    "requiredCachedImageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "priorAcceptedEvidence": "docs/decisions/P5A2_SCOPED_SOURCE_POSTGRES_EVIDENCE_2026-10-26.json",
+    "pulls": 0,
+    "automaticRepinAllowed": false
+  },
+  "profile": {
+    "id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "container": "shiftops-p5a2-source-demo-db-v1",
+    "volume": "shiftops-p5a2-source-demo-data-v1",
+    "database": "shiftops_p5a2_source_demo",
+    "bindHost": "127.0.0.1",
+    "ports": {
+      "database": 5433,
+      "api": 8001,
+      "web": 5174
+    },
+    "network": "existing Docker bridge; no new network",
+    "runtimeDirectory": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo",
+    "ownerRecord": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/owner.json",
+    "secretReference": "C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo/secrets.json"
+  },
+  "queries": [
+    {
+      "case": "initial_asof36",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T12:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 36
+      }
+    },
+    {
+      "case": "later_asof38",
+      "query": {
+        "query_start": "2026-01-01T00:00:00Z",
+        "query_end": "2026-01-02T12:00:00Z",
+        "run_as_of": "2026-01-02T14:00:00Z"
+      },
+      "expectedReceiptCanonicalJsonSha256": "874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554",
+      "expectedCounts": {
+        "eligible_count": 36,
+        "selected_count": 36,
+        "candidate_version_count": 37
+      }
+    }
+  ],
+  "browser": {
+    "tool": "Existing @playwright/test via Node REPL, isolated headless Chromium context; UI acts only, no new tracked harness.",
+    "package": "@playwright/test@1.62.1",
+    "engine": "Chromium/Chrome for Testing151.0.7922.34 revision1234 already cached",
+    "cachedExecutable": "C:/Users/DELL/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+    "url": "http://127.0.0.1:5174",
+    "screenshots": [
+      "docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png",
+      "docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png"
+    ],
+    "credentialFlow": "Read only existing generated viewer_password via exact private runtime reference within executor process; fill actual login UI in memory, never print or stringify secret/full errors. No auth token capture/storage in evidence.",
+    "proof": "Two manual source-panel submissions; synthetic label,36eligible/36selected,candidates36then37; no private fields in projection; close proof browser only.",
+    "childEnvironment": "Explicit system-path allowlist only; no provider/API/model credentials or operator .env inheritance. Temporary nonpersistent context; clear in-process viewer secret after fill and close proof browser."
+  },
+  "budget": {
+    "sourceTests": "Bounded inert source/standalone structural imports; no database/provider/governance behavior claim",
+    "readOnlyPreflight": 2,
+    "recoveryReservations": 1,
+    "recoveryInvocations": 1,
+    "newContainersMaximum": 1,
+    "newVolumes": 0,
+    "retainedVolumes": 1,
+    "newNonces": 0,
+    "newCredentials": 0,
+    "migrationInvocations": 0,
+    "schemaWrites": 0,
+    "gatedNativeSeedOrExactVerification": 1,
+    "apiChildren": 1,
+    "webChildren": 1,
+    "smokeInvocations": 1,
+    "smokeSourceContexts": 2,
+    "readOnlySqlSummaryConnections": 1,
+    "proofBrowserContexts": 1,
+    "uiSubmits": 2,
+    "screenshots": 2,
+    "providerCalls": 0,
+    "pulls": 0,
+    "installs": 0,
+    "deletesOrResetsOfVolumeOrData": 0,
+    "publicEffects": 0,
+    "automaticRetries": 0,
+    "dbReadinessMaximumAttempts": 40,
+    "apiReadinessMaximumAttempts": 40,
+    "webReadinessMaximumAttempts": 40,
+    "smokeLoginRequests": 1,
+    "browserLoginRequests": 1,
+    "inventoryReadOnlyConnections": 1
+  },
+  "retainedOwner": {
+    "profile": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "volume": "shiftops-p5a2-source-demo-data-v1",
+    "initialState": "PARTIAL_OWNED_FAILURE_0100",
+    "credentialCustody": "Existing exact private userlocal secrets.json only, same generated local credentials; never emit values or read operator/provider/.env secrets.",
+    "currentOwnerDigest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+    "databaseContents": "UNKNOWN until admitted RR/read-only inspection; no migration replay"
+  },
+  "combinedBuildContract": "Normal reviewed dispatch + dedicated actual-SHA continuity + independent clean range precede BUILD. Focused standalone/import/source tests and independent sealed actual-source-hash checkpoint precede new exclusive recovery reservation/effect. Source may remain uncommitted during this integrated BUILD; immutable after checkpoint until physical evidence. Final full normal material hook and result review cover whole integrated result. No separate source-only tranche.",
+  "sourceCheckpoint": {
+    "status": "AM1_SOURCE_REVIEW_PASS_BOUNDED",
+    "allChangedSourceHashesRequired": true,
+    "frozenReadOnlyPinsRequired": true,
+    "acceptedSourceImmutableAfterCheckpoint": true,
+    "oldFailureEvidencePreserved": true,
+    "actualSourcePins": {
+      "scripts/p5a2_source_demo_bootstrap.py": {
+        "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+        "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+        "lineCount": 50
+      },
+      "scripts/p5a2_source_demo_recover.py": {
+        "rawSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+        "nativeLfSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+        "lineCount": 264
+      },
+      "scripts/p5a2_source_demo_recovery_custody.py": {
+        "rawSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+        "nativeLfSha256": "91208da2fdc6d6cada7a3067d614d9a359ee6ed25cd27684a7a8362e43051ee0",
+        "lineCount": 135
+      },
+      "scripts/p5a2_source_demo_recovery_docker.py": {
+        "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+        "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+        "lineCount": 123
+      },
+      "scripts/p5a2_source_demo_recovery_inventory.py": {
+        "rawSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+        "nativeLfSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+        "lineCount": 135
+      },
+      "scripts/p5a2_source_demo_recovery_services.py": {
+        "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+        "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+        "lineCount": 47
+      },
+      "scripts/p5a2_source_demo_recovery_smoke.py": {
+        "rawSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+        "nativeLfSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+        "lineCount": 37
+      },
+      "scripts/p5a2_source_demo_start.py": {
+        "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+        "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+        "lineCount": 232
+      },
+      "tests/unit/test_p5a2_demo_bootstrap.py": {
+        "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+        "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+        "lineCount": 46
+      },
+      "tests/unit/test_p5a2_demo_recovery_findings.py": {
+        "rawSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+        "nativeLfSha256": "325cc9595d64439275367120d689803fbd2af89200688ff7da960d7c7da535a5",
+        "lineCount": 148
+      },
+      "tests/unit/test_p5a2_demo_recovery_smoke.py": {
+        "rawSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+        "nativeLfSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+        "lineCount": 45
+      },
+      "tests/unit/test_p5a2_demo_recovery_source.py": {
+        "rawSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+        "nativeLfSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+        "lineCount": 213
+      }
+    },
+    "actualSourceManifestDigest": "6db61e0dd34c4deb86f0f6ebefb34355092b947d7b6629c9de61dad5068b8492",
+    "sourceTestEvidence": "Projectvenv36focusedPASS inclactualtempOWNER RIGHTSpositive/EveryoneReadnegative/full608/cleanprocess; retained ambientPython34PASS2PYTHON_ENV_INVALID, correctedprojectvenvPASS.",
+    "sourceOwnerObservation": {
+      "outcome": "PARTIAL_OWNED_FAILURE",
+      "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+      "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+      "volume_id": "shiftops-p5a2-source-demo-data-v1",
+      "container_count": 0,
+      "volume_count": 1,
+      "api_count": 0,
+      "web_count": 0,
+      "total_owned_count": 1
+    },
+    "physicalCodeImmutablePendingReview": true,
+    "findings": [
+      "SRC-1",
+      "SRC-2",
+      "SRC-3",
+      "SRC-4"
+    ],
+    "reviewSha256": "22a3aee1a3a402bbe10cd34040cdf70d6e3cbed9e7456f3620aea83158eb8c97",
+    "repairRound": 2,
+    "additionalMarkerTestIsolation": "Missing-marker test must monkeypatch ATTEMPT to tmp; never depend on real attempt absence before final normal hook.",
+    "transportBinding": "One source-reviewed recovery_smoke wrapper delegates immutable native smoke using exact CLI/local-pipe inspect and restores binding; same one smoke budget, no duplicate validators.",
+    "reviewSha256AtAcceptance": "e3059bb1e27b9f57347c088d1a1627a305615a597a7557883745cfa9bdcf8425",
+    "resolvedFindings": [
+      "SRC-1",
+      "SRC-2",
+      "SRC-3",
+      "SRC-4"
+    ],
+    "openFindings": [],
+    "independentFocused": "36passed3.79s/full608/realtempOwnerRightspositiveandEveryoneNegative",
+    "independentNewRootCause": "Observed OWNER RIGHTS virtual current-owner SID S-1-3-4 rejected by source checker; not unsafe separate account and no permission change."
+  },
+  "acceptance": [
+    "SQL users1/shifts36/shift_assignments36/reports37, all other native tables0",
+    "Real JWT/native API exact two frozen canonical receipt digests",
+    "Actual UI synthetic label and counts36/36/36 then36/36/37"
+  ],
+  "readonlyInventory": "Exact local owned DB, PostgreSQL16/system identifier and baseline fingerprint, expected migration table set, native required column compatibility and all table counts in REPEATABLE READ READ ONLY before any seed. Allow only all-empty compatible schema or expected counts with all others0; native exact verifier validates frozen bodies/current generated viewer password without alteration. Ambiguous/foreign/partial/schema mismatch refuses and cleans only newly owned processes/container. No schema completeness/production claim.",
+  "failureDisposition": "Stop without retry. Preserve old and new creation/cleanup trails, existing volume/nonce/credentials. Remove only newly created exact verified owned processes/container. Record truthful residue, never reset/delete/reseed foreign or partial state.",
+  "successDisposition": "Retain owned container/volume/API/web, close only temporary proof browser; no stop authority from success. Return to integrated P5-A2 product gaps.",
+  "attemptPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ATTEMPT_2026-10-27.json",
+  "evidencePath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_EVIDENCE_2026-10-27.json",
+  "returnPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_RETURN_2026-10-27.md",
+  "ignoredObservationPaths": {
+    "dispatch": ".venv/p5a2-demo-recovery-dispatch-20261027.log",
+    "dispatch-paths": ".venv/p5a2-demo-recovery-dispatch-paths-20261027.json",
+    "dispatch-continuity": ".venv/p5a2-demo-recovery-dispatch-continuity-20261027.log",
+    "dispatch-clean": ".venv/p5a2-demo-recovery-dispatch-clean-20261027.json",
+    "source-tests": ".venv/p5a2-demo-recovery-source-tests-20261027.log",
+    "source-checkpoint": ".venv/p5a2-demo-recovery-source-checkpoint-20261027.json",
+    "preflight": ".venv/p5a2-demo-recovery-preflight-20261027.json",
+    "recover": ".venv/p5a2-demo-recovery-recover-20261027.json",
+    "smoke": ".venv/p5a2-demo-recovery-smoke-20261027.json",
+    "sql": ".venv/p5a2-demo-recovery-sql-20261027.json",
+    "browser": ".venv/p5a2-demo-recovery-browser-20261027.json",
+    "browser-env": ".venv/p5a2-demo-recovery-browser-env-20261027.json",
+    "material": ".venv/p5a2-demo-recovery-material-20261027.log",
+    "material-paths": ".venv/p5a2-demo-recovery-material-paths-20261027.json",
+    "continuity": ".venv/p5a2-demo-recovery-continuity-20261027.log",
+    "clean": ".venv/p5a2-demo-recovery-clean-20261027.json",
+    "am1-material": ".venv/p5a2-demo-recovery-am1-material-20261027.log",
+    "am1-material-paths": ".venv/p5a2-demo-recovery-am1-material-paths-20261027.json",
+    "am1-continuity": ".venv/p5a2-demo-recovery-am1-continuity-20261027.log",
+    "am1-clean": ".venv/p5a2-demo-recovery-am1-clean-20261027.json",
+    "am1-source-admission": ".venv/p5a2-demo-recovery-am1-source-admission-20261027.json",
+    "am1-preflight": ".venv/p5a2-demo-recovery-am1-preflight-20261027.json"
+  },
+  "physicalAttempts": 1,
+  "providerCalls": 0,
+  "physicalSourceAccepted": false,
+  "milestoneComplete": false,
+  "operationalCoverageAccepted": false,
+  "authorizationAccepted": true,
+  "physicalBudgetReleased": false,
+  "dockerEndpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+  "dockerCliPath": "C:/Users/DELL/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe",
+  "dockerRouting": "Use exact local named pipe/CLI on every Docker command; no ambient/remote context, tag edit or pull. Verify pinned image and identical retained volume mounts/labels before seed.",
+  "spec": {
+    "path": "docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md",
+    "nativeLfSha256": "af5ff88ae7349b418141f3242b69a41091724c916d6276d785ebf15adb11d7b0"
+  },
+  "workOrderNativeLfSha256": "0c5444ec71a56493549f4210d804668ba82cdbcc928f33612007c65b14266a45",
+  "authorizationReview": {
+    "verdict": "AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "path": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md",
+    "sha256AtAuthorization": "6dd812844cade9db297287d9a53e7a1b67e224c65bff125944c51fdee67369b3",
+    "findings": [],
+    "waivers": []
+  },
+  "dispatchCommit": "bb9837d0ca8b8ba2e12b63110a74be05c49681e8",
+  "dispatchContinuityCommit": "c6fb2551c0a32d6d521373085eb9cdc95977b019",
+  "dispatchCleanReview": "CLEAN_DISPATCH_SPLIT_RANGE_PASS_BOUNDED exact14+5",
+  "sourceCheckpointHistory": [
+    {
+      "status": "SOURCE_REVIEW_PENDING_PHYSICAL_HELD",
+      "allChangedSourceHashesRequired": true,
+      "frozenReadOnlyPinsRequired": true,
+      "acceptedSourceImmutableAfterCheckpoint": true,
+      "oldFailureEvidencePreserved": true,
+      "actualSourcePins": {
+        "scripts/p5a2_source_demo_start.py": {
+          "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+          "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+          "lineCount": 232
+        },
+        "scripts/p5a2_source_demo_bootstrap.py": {
+          "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+          "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+          "lineCount": 50
+        },
+        "scripts/p5a2_source_demo_recover.py": {
+          "nativeLfSha256": "0e834bf629e63735d5f801426486b665018068d5d5a6f43d2a4a63e864ef2d82",
+          "rawSha256": "0e834bf629e63735d5f801426486b665018068d5d5a6f43d2a4a63e864ef2d82",
+          "lineCount": 218
+        },
+        "scripts/p5a2_source_demo_recovery_custody.py": {
+          "nativeLfSha256": "5b7183366a4357665fcf3619e2596d4f80ac8ab6f3b63eb56818c6931320d25e",
+          "rawSha256": "5b7183366a4357665fcf3619e2596d4f80ac8ab6f3b63eb56818c6931320d25e",
+          "lineCount": 99
+        },
+        "scripts/p5a2_source_demo_recovery_docker.py": {
+          "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+          "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+          "lineCount": 123
+        },
+        "scripts/p5a2_source_demo_recovery_inventory.py": {
+          "nativeLfSha256": "2978b1ca74e8e0cb1aab30dec46c9cc382f9f928285d6d70e3853d56a547b2b5",
+          "rawSha256": "2978b1ca74e8e0cb1aab30dec46c9cc382f9f928285d6d70e3853d56a547b2b5",
+          "lineCount": 128
+        },
+        "scripts/p5a2_source_demo_recovery_services.py": {
+          "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+          "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+          "lineCount": 47
+        },
+        "tests/unit/test_p5a2_demo_bootstrap.py": {
+          "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+          "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+          "lineCount": 46
+        },
+        "tests/unit/test_p5a2_demo_recovery_source.py": {
+          "nativeLfSha256": "bdb994a85385ab23747538bceb86db8d489ff6752e562ba711452fb9c7199ebe",
+          "rawSha256": "bdb994a85385ab23747538bceb86db8d489ff6752e562ba711452fb9c7199ebe",
+          "lineCount": 208
+        }
+      },
+      "actualSourceManifestDigest": "25d94184218f9caa11f8d896ad59ba3b8eb5cc30f16521a1714577374f127274",
+      "sourceTestEvidence": "Worker29focusedPASS/full608lifecyclemutations/actualclean seed import+full nonphysical app composition; no DB/Docker/credential/provider effect.",
+      "sourceOwnerObservation": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "container_count": 0,
+        "volume_count": 1,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 1
+      },
+      "physicalCodeImmutablePendingReview": true
+    },
+    {
+      "status": "REPAIR1_SOURCE_CHECKPOINT_PASS_BOUNDED",
+      "allChangedSourceHashesRequired": true,
+      "frozenReadOnlyPinsRequired": true,
+      "acceptedSourceImmutableAfterCheckpoint": true,
+      "oldFailureEvidencePreserved": true,
+      "actualSourcePins": {
+        "scripts/p5a2_source_demo_bootstrap.py": {
+          "nativeLfSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+          "rawSha256": "58e508e593cdb1cdabfdb83d1f42bf2be3add3d19cea1bef778de0afa416793f",
+          "lineCount": 50
+        },
+        "scripts/p5a2_source_demo_recover.py": {
+          "nativeLfSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+          "rawSha256": "8088755487753c5c2ff36dfb5aca8beab73f88ba71ac52ce06d83fcdbb21af59",
+          "lineCount": 264
+        },
+        "scripts/p5a2_source_demo_recovery_custody.py": {
+          "nativeLfSha256": "4bdb4fe704e080510780a9d2b011b7d95c38578e36f452cbceaa273a8ce8cd26",
+          "rawSha256": "4bdb4fe704e080510780a9d2b011b7d95c38578e36f452cbceaa273a8ce8cd26",
+          "lineCount": 134
+        },
+        "scripts/p5a2_source_demo_recovery_docker.py": {
+          "nativeLfSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+          "rawSha256": "8478071b71160613a3de6ee4ea70f22d82896a8c6352245d6e478924c0f57f07",
+          "lineCount": 123
+        },
+        "scripts/p5a2_source_demo_recovery_inventory.py": {
+          "nativeLfSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+          "rawSha256": "228f2dfbd1eb4e3be29b9e14a9063a05ed5c3f82e32f8a19edcbb1cc1f86e2e3",
+          "lineCount": 135
+        },
+        "scripts/p5a2_source_demo_recovery_services.py": {
+          "nativeLfSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+          "rawSha256": "167123c42d108b4c331c29223be7784907b9368600e121075770b0e8c8e6e67b",
+          "lineCount": 47
+        },
+        "scripts/p5a2_source_demo_recovery_smoke.py": {
+          "nativeLfSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+          "rawSha256": "12b5f9b988076fa03c315d85575876d7e997023027c5aca0119793589bc2745d",
+          "lineCount": 37
+        },
+        "scripts/p5a2_source_demo_start.py": {
+          "nativeLfSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+          "rawSha256": "368424f00324d420624bbd424f9896c47a0bb159a500a0af06b9be7f5cae8511",
+          "lineCount": 232
+        },
+        "tests/unit/test_p5a2_demo_bootstrap.py": {
+          "nativeLfSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+          "rawSha256": "36e4cce9eb4ba8828a3e2d2ada71ed8e294cc82bc6b9e3d1d6a2d33aed915cd3",
+          "lineCount": 46
+        },
+        "tests/unit/test_p5a2_demo_recovery_findings.py": {
+          "nativeLfSha256": "e1b9b02a42f15a6bada0be55b1be7f978ee7ef305bbe590a97a7763d56128a5f",
+          "rawSha256": "e1b9b02a42f15a6bada0be55b1be7f978ee7ef305bbe590a97a7763d56128a5f",
+          "lineCount": 144
+        },
+        "tests/unit/test_p5a2_demo_recovery_smoke.py": {
+          "nativeLfSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+          "rawSha256": "bb1d5ca27729ad4c2b43da22b2b98f59df3e50cb3af91f0996ff519bc6d88828",
+          "lineCount": 45
+        },
+        "tests/unit/test_p5a2_demo_recovery_source.py": {
+          "nativeLfSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+          "rawSha256": "4a56aa2db6cdb2b9bc908d3bfe5a530716b998ee695a0621f36daf64b21b1b0f",
+          "lineCount": 213
+        }
+      },
+      "actualSourceManifestDigest": "f3e733d5151f339cb7feab9a547f7880927f1462708caad2842652e16f96c6e4",
+      "sourceTestEvidence": "Worker36focusedPASS3.05s/full608lifecyclemutations/actualclean seed import+full nonphysical app composition; Windows temporary privateACLpositive+EveryoneReadnegative; no actualDocker/DB/secret/runtime effect.",
+      "sourceOwnerObservation": {
+        "outcome": "PARTIAL_OWNED_FAILURE",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "container_count": 0,
+        "volume_count": 1,
+        "api_count": 0,
+        "web_count": 0,
+        "total_owned_count": 1
+      },
+      "physicalCodeImmutablePendingReview": true,
+      "findings": [
+        "SRC-1",
+        "SRC-2",
+        "SRC-3",
+        "SRC-4"
+      ],
+      "reviewSha256": "22a3aee1a3a402bbe10cd34040cdf70d6e3cbed9e7456f3620aea83158eb8c97",
+      "repairRound": 1,
+      "additionalMarkerTestIsolation": "Missing-marker test must monkeypatch ATTEMPT to tmp; never depend on real attempt absence before final normal hook.",
+      "transportBinding": "One source-reviewed recovery_smoke wrapper delegates immutable native smoke using exact CLI/local-pipe inspect and restores binding; same one smoke budget, no duplicate validators.",
+      "reviewSha256AtAcceptance": "e3059bb1e27b9f57347c088d1a1627a305615a597a7557883745cfa9bdcf8425",
+      "resolvedFindings": [
+        "SRC-1",
+        "SRC-2",
+        "SRC-3",
+        "SRC-4"
+      ],
+      "openFindings": [],
+      "independentFocused": "36passed3.45s/full608mutations/cleanprocesscomposition"
+    }
+  ],
+  "preflightInvocations": 2,
+  "preflightObservation": {
+    "invocation": "ONE_RECOVERY_PREFLIGHT",
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "stage": "SECRET_ACL_INVALID"
+    }
+  },
+  "resourceEffects": 1,
+  "amendment1": {
+    "status": "AUTHORIZATION_ACCEPTED_NORMAL_MATERIAL_ONLY",
+    "cause": "ACL_IDENTITY_CLASSIFICATION_CORRECTED_BOUNDED",
+    "reference": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers",
+    "observedVirtualPrincipal": "OWNER RIGHTS / S-1-3-4",
+    "publicSidTextSha256": "6fc80dfd06d4de9696770b7aad1bfb760434539d7d1d36a72fe0f29a0e6c4b13",
+    "runtimeAclSddlSha256Before": "4e83f1991c16e22a190eeb07efcc464c2599f7c65c39e55636002318f7ca8258",
+    "sourceFix": "Recognize exact virtual owner alias only while current-user ownership/protection/fullcontrol/inheritance checks pass; reject Everyone/other principals.",
+    "permissionWrites": 0,
+    "originalPreflightRetained": {
+      "invocation": "ONE_RECOVERY_PREFLIGHT",
+      "exitCode": 1,
+      "result": {
+        "status": "REFUSED_OR_FAILED",
+        "stage": "SECRET_ACL_INVALID"
+      }
+    },
+    "proposedAdditionalPreflights": 1,
+    "proposedTotalPreflightMaximum": 2,
+    "recoveryMaximumUnchanged": 1,
+    "physicalAttemptsAlreadySpent": 0,
+    "route": "Same-tranche reviewed bounded amendment plus normal source/material/actualSHA continuity/clean source admission before extra final preflight; no new tranche.",
+    "additionalPreflightsMaximum": 1,
+    "totalPreflightMaximum": 2,
+    "additionalPreflightsUsed": 1,
+    "initialPreflightCount": 1,
+    "sourceRepairRound": 2,
+    "sourceFixDone": true,
+    "authorizationAccepted": true,
+    "materialRoute": "Actual accepted source+AM1 normal material, terminal/exact5continuity/clean/new source admission before final extra preflight",
+    "unchangedRecoveryMaximum": 1,
+    "reviewVerdict": "AM1_AUTHORIZATION_REVIEW_PASS_BOUNDED",
+    "reviewSha256AtAuthorization": "124e15f795d354d6d4f8fc9bcaa9179b71e9ad8ddd956122f94881582afaf8f9",
+    "findings": [],
+    "waivers": [],
+    "cleanAndSourceAdmission": {
+      "verdict": "CLEAN_AM1_SPLIT_RANGE_AND_COMMITTED_SOURCE_ADMISSION_PASS_BOUNDED",
+      "reviewer": "/root/recovery_review",
+      "evidenceSource": "Independent reviewer message; ignored receipt files were optional and not written",
+      "material": "256a052761c688159d603911c1bd9e521b403d9d",
+      "continuity": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa",
+      "materialPaths": 27,
+      "continuityPaths": 5,
+      "sourcePins": 12,
+      "frozenPins": 43,
+      "ownerDigest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+      "folderAclSddlSha256": "4e83f1991c16e22a190eeb07efcc464c2599f7c65c39e55636002318f7ca8258"
+    },
+    "finalPreflightObservation": {
+      "invocation": "AM1_ONE_FINAL_PREFLIGHT",
+      "exitCode": 0,
+      "result": {
+        "image_id": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+        "owner_digest": "ffb6445236729dce80e125856e301d59ffe7efb0ddd94c6a0ab34d802f120c5e",
+        "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+        "ports": {
+          "api_port": 8001,
+          "db_port": 5433,
+          "web_port": 5174
+        },
+        "preflight": "PASS",
+        "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+        "volume_id": "shiftops-p5a2-source-demo-data-v1",
+        "volume_identity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+      }
+    },
+    "materialCommit": "256a052761c688159d603911c1bd9e521b403d9d",
+    "continuityCommit": "5c9597ef1e203b3fb1367bc9abfb298d435a14aa"
+  },
+  "initialRecoveryBudget": {
+    "sourceTests": "Bounded inert source/standalone structural imports; no database/provider/governance behavior claim",
+    "readOnlyPreflight": 1,
+    "recoveryReservations": 1,
+    "recoveryInvocations": 1,
+    "newContainersMaximum": 1,
+    "newVolumes": 0,
+    "retainedVolumes": 1,
+    "newNonces": 0,
+    "newCredentials": 0,
+    "migrationInvocations": 0,
+    "schemaWrites": 0,
+    "gatedNativeSeedOrExactVerification": 1,
+    "apiChildren": 1,
+    "webChildren": 1,
+    "smokeInvocations": 1,
+    "smokeSourceContexts": 2,
+    "readOnlySqlSummaryConnections": 1,
+    "proofBrowserContexts": 1,
+    "uiSubmits": 2,
+    "screenshots": 2,
+    "providerCalls": 0,
+    "pulls": 0,
+    "installs": 0,
+    "deletesOrResetsOfVolumeOrData": 0,
+    "publicEffects": 0,
+    "automaticRetries": 0,
+    "dbReadinessMaximumAttempts": 40,
+    "apiReadinessMaximumAttempts": 40,
+    "webReadinessMaximumAttempts": 40,
+    "smokeLoginRequests": 1,
+    "browserLoginRequests": 1,
+    "inventoryReadOnlyConnections": 1
+  },
+  "orchestrationIssue": {
+    "code": "OPTIONAL_RECEIPT_ASSUMPTION_AND_NON_FAIL_CLOSED_SHELL_SEQUENCE",
+    "observation": "Metadata prelude failed reading optional ignored reviewer receipt; PowerShell continued to already-authorized final readonly preflight. Source/owner checks preceding failure passed, Core/session gates passed, finalpreflightPASS atcap2; role/mode recording prelude did not complete. No reservation/recover/resource/secretvalue action.",
+    "disposition": "Recorded transparently; physicalheld for independent reconciliation. Remaining effect orchestration uses one Python process with checked prerequisites, no dependent PowerShell continuation.",
+    "extraPreflightRetries": 0,
+    "independentReconciliation": "PREFLIGHT_RECORD_RECONCILIATION_PASS_BOUNDED",
+    "reviewSha256": "fa27da06fd7d92b02d5919cc0ad6a4d53f35896eb5e4af2f9e9ab26ced26b728"
+  },
+  "recoveryBudgetSpent": true,
+  "attemptReservationSha256": "bab61d9b7731002091cfdbdfe18246ea3f97782331f77d401f1f92cb58aacf69",
+  "recoveryObservation": {
+    "invocation": "ONE_RESERVED_RECOVERY",
+    "exitCode": 1,
+    "result": {
+      "status": "REFUSED_OR_FAILED",
+      "stage": "RECOVERY_FAILED_NATIVE_SEED_OR_VERIFY"
+    }
+  },
+  "finalRegisteredLifecycle": {
+    "volume_id": "shiftops-p5a2-source-demo-data-v1",
+    "api_port": 8001,
+    "owner_nonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+    "web_count": 0,
+    "reason": "SEED_FAILED",
+    "outcome": "PARTIAL_OWNED_FAILURE",
+    "api_count": 0,
+    "web_port": 5174,
+    "profile_id": "P5A2-SOURCE-DEMO-LOCAL-1",
+    "db_port": 5433,
+    "volume_count": 1,
+    "container_count": 0,
+    "image_id": "f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+    "total_owned_count": 1
+  },
+  "ownerMetadataDigestAfterFailure": "45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511",
+  "postSeedDatabaseState": "UNKNOWN",
+  "apiProcessCount": 0,
+  "webProcessCount": 0,
+  "browserContexts": 0,
+  "smokeInvocations": 0,
+  "resultReview": {
+    "verdict": "RESULT_REVIEW_PASS_FAILURE_RECORDED",
+    "reviewPath": "docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md",
+    "reviewSha256AtInitialFailureAcceptance": "f1695c4e2857720a56658f5303f2d65ad0022d002a4e0a6bfac1cf3fd0e3b07a",
+    "returnFormalReview": "FORMAL_RETURN_REVIEW_PASS_FAILURE_EVIDENCE_ONLY",
+    "reviewSha256AtFormalAcceptance": "5e913a1cf9556b9311d43c7759b122d61e3713606956226cb9f9f52a8d17bcda",
+    "findings": [],
+    "waivers": []
+  }
+}

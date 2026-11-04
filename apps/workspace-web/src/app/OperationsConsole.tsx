@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { api, ApiError, type ApiErrorKind } from '../services/api';
 import { clearSession } from '../features/authentication/session';
 import { ShiftSelector } from '../features/shift-selection/ShiftSelector';
+import { ProactiveSourcePanel } from '../features/proactive-source/ProactiveSourcePanel';
 import { ShiftTimeline } from '../features/shift-timeline/ShiftTimeline';
 import { OpenWorkPanel } from '../features/open-work/OpenWorkPanel';
 import { IncidentSummary } from '../features/incident-room/IncidentSummary';
@@ -137,6 +138,7 @@ export function OperationsConsole({ onSignedOut }: OperationsConsoleProps) {
         errorKind={shiftsError}
         onSelect={setSelectedShiftId}
       />
+      <ProactiveSourcePanel />
       {selectedShiftId && (
         <div className="operations-console__panels">
           <ShiftTimeline events={dataState.confirmedEvents} loading={dataState.loading} errorKind={dataState.errorKind} />

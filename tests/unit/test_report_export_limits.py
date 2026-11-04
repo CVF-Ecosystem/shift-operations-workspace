@@ -8,7 +8,7 @@ import pytest
 from reporting_engine.limits import validate_text
 from reporting_engine.model import ExportFailure
 from reporting_engine.pdf import render_pdf
-from reporting_engine.worker import _run_isolated
+from reporting_engine.worker import DEADLINE_SECONDS, _run_isolated
 from reporting_engine.xlsx import render_xlsx
 
 
@@ -24,11 +24,11 @@ def test_partial_worker_output_is_killed_and_never_returned(tmp_path):
     marker = tmp_path / "after-partial-write.pid"
     start = time.monotonic()
     with pytest.raises(ExportFailure, match="EXPORT_LIMIT_EXCEEDED"):
-        _run_isolated(_partial_then_stall, (marker,), 3)
+        _run_isolated(_partial_then_stall, (marker,), DEADLINE_SECONDS)
     assert marker.is_file(), "child must reach the partial write before deadline"
     pid = int(marker.read_text(encoding="utf-8"))
     assert pid not in {child.pid for child in mp.active_children()}
-    assert 3 <= time.monotonic() - start < 6
+    assert DEADLINE_SECONDS <= time.monotonic() - start < DEADLINE_SECONDS + 3
 
 
 def test_xlsx_utf16_cell_limit_and_pdf_independence():

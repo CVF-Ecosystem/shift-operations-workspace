@@ -1,0 +1,412 @@
+# P5-A2 synthetic backend consolidated source and retained-volume recovery
+
+docType: work_order
+Status: DISPATCH_READY
+Date: 2026-10-27
+Baseline: `08c62dad7b956faf7e1d1dd6cb56ee79e10cbead`
+Risk: R2
+Phase: WORK_ORDER AM2 candidate; independent authorization, normal dispatch/continuity/clean gate and source checkpoint precede BUILD/effects.
+Role transition: SPEC_AUTHOR → WORK_ORDER_AUTHOR for this candidate.
+Root is ORCHESTRATOR, effect/artifact owner and COMMIT_STEWARD. A later named
+backend IMPLEMENTATION_WORKER changes source only after gates. An independent
+REVIEWER owns authorization, actual-source checkpoint and result review.
+
+## Amendment 2 — operator-approved same-tranche seed/data continuation
+
+Current baseline `bc894360f4d6a532ca5554a3e1fb3d3ef1a384ea` is clean
+after predecessor failed-result material `68d40b0` and dedicated continuity,
+independently reviewed 17+5. The operator explicitly approved the concrete
+new scope in the immutable recovery RETURN. All old preflight/recovery markers
+and historical admission/evidence/return/review remain byte-exact and SPENT.
+The previous compatible empty inventory is history, not a statement about
+current data: native seed failed after its transaction might have committed.
+Current postseed rows are UNKNOWN. Exact failed container removed; one volume
+retained; API/web zero; owner digest
+`45c1678e3ba0c1972248588a895db01d205897a585f3fefb37d0b9e9cb810511`.
+The active continuity carrier is now
+`SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md` and its
+four canonical/session mirror companions. This AM2 section governs the new
+work; later old text below records the predecessor contract and is superseded
+where its source, paths, budget, handoff, graph or database-state assumptions
+conflict. This candidate releases no BUILD or physical budget.
+
+The **Product Milestone Binding** below is reconciled at current `bc89436`
+plus the successor handoff. It continues to cover the full scheduled signals,
+forecasts, history/lineage/freshness/uncertainty/abstention and exact human
+approval outcome. All G01–G14 rows, accountable backend/UI/Root/operator
+owners and P5-A2/B/C/D destinations remain operative. This assignment handles
+only known synthetic G04/G05 SQL/JWT/API/UI proof; operational G04/G05 remain
+UNKNOWN, all other gap statuses unchanged, Phase 5 0/5. A successful local
+tranche closes no whole gap, milestone or phase. Root owns dispatch, effects,
+artifacts and commit; a named backend worker owns only authorized source;
+independent reviewer owns authorization, source checkpoint and result.
+
+Allowed worker source family: exact
+`apps/workspace-api/src/workspace_api/demo/seed.py`; necessary bounded
+`apps/workspace-api/src/workspace_api/demo/seed_*.py` splits; focused
+`tests/unit/test_p5a2_demo_seed*.py`; existing
+`scripts/p5a2_source_demo_recover.py`,
+`scripts/p5a2_source_demo_recovery_inventory.py`,
+`scripts/p5a2_source_demo_recovery_custody.py`, and their existing bounded
+`tests/unit/test_p5a2_demo_recovery_findings.py` and
+`tests/unit/test_p5a2_demo_recovery_source.py` only if required by new owner digest,
+read-only record inventory or guarded native seed/CAS. Python ≤300 lines.
+No global ledger or user persistence, migration, normal API/UI, fixture,
+oracle, other lifecycle/stop/smoke, secret or ACL mutation. Root-only packet
+paths: this SPEC/WO, new
+`docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json`,
+`..._AM2_ATTEMPT_2026-10-27.json`, `..._AM2_EVIDENCE_2026-10-27.json`,
+`..._AM2_RETURN_2026-10-27.md`, and Root metadata/catalog/continuity paths
+sealed in admission. Independent reviewer-only packet:
+`..._AM2_REVIEW_2026-10-27.md`. Existing unused recovery initial/later
+screenshots are the only browser artifacts. Existing admission/attempt/
+evidence/return/review remain read-only historical evidence.
+
+Pre-code invariant-family admission is REQUIRED for
+`P5A2-SOURCE-DEMO-SEED-RECOVERY-OUTCOMES` at
+`docs/cvf/invariants/p5a2-demo-seed-recovery.json`, with registry entry,
+canonical digest, bounded seed/recovery adapter and focused test binding.
+The predecessor resource lifecycle and scoped-source families are unchanged.
+The worker materializes the new family without duplicating the lifecycle
+grammar. Root and independent reviewer run the guard and full mutation corpus
+before REVIEW/FREEZE, recompute the digest and sample emitted positive per
+outcome. Candidate registration uses the existing generic checker test;
+BUILD adds `tests/unit/test_p5a2_demo_seed_recovery.py` with a real adapter
+and raw emitted positive for all four outcomes. The matrix's existing
+structural evidence test path stays fixed; the focused adapter path is bound
+in this Work Order and AD and independently checked at source checkpoint.
+The matrix's admission
+JSON `/familyId` binding is the pre-code ownership reference; it is not a
+substitute for the later emitter adapter. Structural tests are not physical
+acceptance or AI governance proof.
+
+One consolidated pre-code hazard review must cover: demo-local explicit user
+INSERT with frozen `created_at` because the shared user writer omits it;
+seed's exact timestamp
+persistence within an atomic transaction; partial commit before verification;
+read-only full row/security/body/hash inventory before any write; count-only
+false positives; foreign or partial rows; credential/role/ID preservation;
+one-field CAS under changed-row and concurrency races; owner digest change;
+new marker versus immutable old marker; lost container receipt and exact
+cleanup; PostgreSQL entrypoint auto-init refusal; and postwrite identity,
+counts and exact verification. The worker tests all applicable negative
+branches before source checkpoint. Any unknown state refuses zero app writes.
+
+Sequence: independent AM2 SPEC/family/WO authorization → normal dispatch
+material and hook → dedicated exact-five actual-SHA continuity → independent
+clean split-range → BUILD. Worker returns focused native seed/source tests and
+hashes. Independent source checkpoint pins every actual changed source/test
+raw/LF hash, matrix digest and frozen predecessor inputs before Root may run
+one fresh external read-only preflight. Root then writes one new exclusive
+AM2 attempt marker before maximum one recovery call. First complete RR/READ
+ONLY inventory is inside that call before any application write. Classify
+only EMPTY_COMPATIBLE, EXACT_SEEDED, SOLE_CREATED_AT_MISMATCH or REFUSED;
+full equality includes all frozen raw installed columns and native models,
+security fields, password verify,
+role/ID, timestamps, body/source hashes, schema/counts, authority and DB
+fingerprint. The sole timestamp mismatch is the one synthetic user's
+`created_at`, never a broad row/data correction. In one separate owned write
+transaction, first lock all 31 application tables and target rows, then fully
+reclassify all predicates before native atomic seed or one-field compare-and-set;
+exact seeded state only verifies. CAS matches old timestamp plus exact user
+ID, role, security identity and stored password-hash bytes, changes only
+`created_at`, and requires exactly one affected row. Exact raw-column/native
+model readback occurs BEFORE commit so verifier failure rolls back. Recovery
+maps native `SEEDED`/`VERIFY`/`CREATED_AT_REPAIRED` explicitly and refuses any
+other outcome. Postsummary checks exact rows/security/hashes, not counts alone.
+Any other mismatch or race before write refuses zero write. Label
+`REFUSED_ZERO_WRITE` only when prewrite refusal or rollback is verified;
+lost commit acknowledgment and postcommit failure leave database state
+UNKNOWN and receive only the separate outer recovery failure/custody receipt.
+No invented fingerprint or family outcome is recorded in that case.
+Then one read-only postsummary and exact SQL/JWT/HTTP/UI acceptance. Preserve
+volume/credentials/trails and clean only new exact owned effects on failure.
+
+New AM2 budget, separate from SPENT predecessor: external read-only preflight
+1; exclusive marker 1; recovery invocation 1; new container ≤1 over same
+volume; new volume/nonce/credentials/migration/schema write/reset/delete 0;
+read-only inventory connection 1, separate locked revalidation/write
+transaction connection 1, and postsummary connection 1; native seed
+≤1 OR guarded CAS ≤1 OR exact verify, with no second branch; API child ≤1,
+web child ≤1, smoke 1, two frozen HTTP contexts, smoke login 1, browser login
+1, browser context 1/two submits/two screenshots. DB/API/web readiness
+probes ≤40 each, no second startup. No package install, pull, provider call,
+`.env` or operator-secret read, ACL write, public network, deploy or push.
+Only the existing generated private local credential reference may be used
+by the Root physical executor after gates; values never enter tracked files,
+command arguments, logs or review. Every Docker command uses the fixed exact
+CLI and Desktop Linux pipe, not ambient context. Root's reservation and
+physical execution are HELD in this DRAFT.
+
+The AM2 admission must seal exact root/worker/reviewer/family/continuity
+paths, current raw+LF source and immutable input hashes, owner digest,
+existing volume/image/nonces, both frozen HTTP contexts, new budget, failure
+stops and exclusive marker before READY. Attempt/evidence must distinguish
+read-only verdict, empty atomic seed, exact verify, guarded CAS or refusal;
+record all 31 counts, DB identity/fingerprint, secret-free comparison digest,
+rowcount and rollback/commit result, resource identity/trails and final
+remaining resources. Do not put row bodies, password hashes, credentials,
+DSN or tokens in Git. Root records no acceptance from an absent receipt.
+After worker return and independent review, normal material/terminal review,
+dedicated exact-five actual-SHA continuity and clean range close only the
+observed AM2 result. A failure stops without an automatic new support tranche;
+the next governed move is the remaining P5-A2 product work or explicit new
+operator decision at a real boundary.
+
+## Amendment 1 — observed OWNER RIGHTS compatibility / final preflight
+
+This is the SAME recovery tranche and acceptance unit. Original reviewed
+bb9837d/c6fb255 dispatch and bounded SOURCE BUILD remain accepted history.
+Exactly one preflight was spent, returning SECRET_ACL_INVALID with no
+reservation, recovery, new resource, DB or secret-value read. Retain that
+receipt unchanged. Finite independent exact-identity diagnosis corrected the
+initial OTHER-principal inference: sole extra ACE is well-known OWNER RIGHTS
+S-1-3-4, representing the current object owner; current folder/file owners
+are the current user. Reference: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers .
+No permissions are changed, and no new account is trusted. The minimal source
+fix recognizes ONLY that virtual alias under all existing protected-DACL,
+current-user owner/full-control, non-inherited and other-principal checks.
+Actual temporary OWNER RIGHTS positive and Everyone negative tests apply.
+
+AM1 changes only the external preflight maximum: original 1 consumed plus ONE
+additional FINAL read-only preflight, total 2. Internal locked revalidation
+belongs to the one recovery invocation. Recovery remains maximum 1 and is
+UNSPENT; every other source, effect, data, secret, volume and acceptance limit
+is unchanged. No permission write, migration, reset, new volume/nonce/secret,
+provider, install, pull or public effect is added. A refusal on this final
+preflight stops without another source/support tranche automatically.
+
+Before the extra preflight: independent combined source/AM1 authorization;
+normal material commit containing the actual accepted source and AM1 packet;
+independent terminal review; dedicated exact-five actual-SHA continuity;
+independent clean split-range and NEW source admission of committed hashes.
+This is an intermediate same-tranche admission checkpoint, not physical or
+product acceptance. The accepted source then stays frozen through proof.
+AM1 supersedes the initial one-preflight figure below; all other caps remain.
+
+## Product Milestone Binding
+
+Milestone P5-A2, Phase 5 of `docs/implementation/EXECUTION_ROADMAP.md`, is
+reconciled at `08c62da` plus the current 2026-10-27 recovery intake/design
+acknowledgment in the active Stage B handoff. The full user outcome is an
+authorized integrated scheduled flow for signals, forecasts, source history,
+lineage, freshness, uncertainty and abstention, with exact human
+run/version/source approval before durable recommendation or action.
+Acceptance requires operational source authority/retention, scheduler and
+recovery, method/cohort fit, signal/forecast/drift quality, application
+access, exact approval, integrated drills and applicable real-provider
+governance proof; operator and independent reviewer own final milestone
+acceptance. The canonical business contract is
+`docs/specs/P5A2_PROACTIVE_REPORTING_SPEC.md`; the current complete gap
+reconciliation is in `docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md`
+and is repeated here for dispatch review. Mock UI checks cannot support a
+CVF AI-governance claim.
+
+Accepted bounded source/substrate/UI evidence is named in the baseline
+`docs/specs/P5A2_SYNTHETIC_BACKEND_SPEC.md` and prior Stage B Work Order.
+The Stage B failure return and independent review establish one spent start,
+only a retained labeled volume, no API/web/smoke/UI, and a confirmed
+standalone import blocker; failed-result material `555119e` and continuity
+`08c62da` closed clean 15+5. Database contents and migration progress remain
+UNKNOWN at that Stage B checkpoint. The later failed recovery established a
+compatible 31-table PG16.15 empty prewrite state, then failed after one
+native seed invocation; postseed rows remain UNKNOWN. The operator-approved
+AM2 therefore requires fresh read-only full-row inspection before any write.
+This assignment closes only the known local synthetic G04/G05
+physical proof route; no whole gap or milestone closes. Phase 5 remains 0/5.
+
+| Gap | Current evidence and status | This assignment | Owner and concrete remainder destination |
+|---|---|---|---|
+| G01/A7 | Real provider 401 spent; BLOCKED | No | Root/operator, P5-A A7 then P5-A2 |
+| G02 | Operational RAG/context/index/citations BLOCKED | No | Backend/Root, P5-A2 context |
+| G03 | Pure numeric accepted; business/cohort fit UNKNOWN | No | Backend/operator, P5-A2 method |
+| G04 | Scoped fixture/PG query/API accepted; standing synthetic backend failed; operational integration UNKNOWN | Synthetic recovery only | Backend/Root, P5-A2 source |
+| G05 | Fixture coverage accepted; production mode/authority/coverage/retention and positive SQLite UNKNOWN | Exact synthetic authority only | Backend/Root/operator, P5-A2 coverage |
+| G06 | Native/HTTP identity/fresh release accepted; later use-time access OPEN | No | Backend/Root, P5-A2 approval |
+| G07 | Scheduler/claim/recovery OPEN | No | Backend/Root, P5-A2 runtime |
+| G08 | Pure signals accepted; operational quality OPEN | No | Backend/operator, P5-A2 signals |
+| G09 | Pure forecasts accepted; operational accuracy OPEN | No | Backend/operator, P5-A2 forecasting |
+| G10 | Pure residual/drift accepted; monitoring/display OPEN | No | Backend/UI/Root, P5-A2 quality and P5-B |
+| G11 | Source API/manual UI accepted; other flows OPEN | Existing source panel only | UI/Root/operator, P5-A2 application |
+| G12 | Exact human approval OPEN | No | Backend/UI/operator, P5-A2 approval |
+| G13 | Native failure/stale/session drills accepted; integrated drills OPEN | No | Backend/Root, P5-A2 drills and P5-C |
+| G14 | Live AI-governance proof HELD | No | Root/operator, separately admitted P5-A2 REVIEW |
+
+P5-B dashboard/search/observability stays with backend/UI/Root; P5-C
+backup/resilience/security/performance stays with backend/Root/operator;
+P5-D deployment/Shadow Mode/release stays with Root/operator. UNKNOWN is
+neither omitted nor treated as accepted. The finite product return is one
+physical synthetic SQL/JWT/API/UI proof or one safe refusal, then P5-A2
+integrated runtime/context/quality/approval work. This support path is
+necessary because the selected local source demonstration cannot run from
+the standalone launcher and its volume must be preserved.
+
+## Allowed source, artifacts and owners
+
+The worker's bounded implementation family is exact existing
+`scripts/p5a2_source_demo_start.py` (import roots only), new
+`scripts/p5a2_source_demo_bootstrap.py`, new
+`scripts/p5a2_source_demo_recover.py`, and only necessary bounded
+`scripts/p5a2_source_demo_recovery_*.py` splits under the 300-line guard.
+Focused tests may be new `tests/unit/test_p5a2_demo_bootstrap.py`,
+`tests/unit/test_p5a2_demo_recovery_*.py` and the existing
+`tests/unit/test_p5a2_demo_lifecycle.py` only if needed for the existing
+adapter. The worker cannot edit normal API/UI, fixtures, oracles, migrations,
+`scripts/p5a2_source_demo_common.py`, stop, smoke, compose, existing family
+matrix/registry or accepted source logic. An unforeseen source path requires
+Root's consolidated reviewed amendment before mutation.
+
+Root owns the exact new decision family:
+`docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_ADMISSION_2026-10-27.json`,
+`..._ATTEMPT_2026-10-27.json`, `..._EVIDENCE_2026-10-27.json`, and
+`..._RETURN_2026-10-27.md`; the independent reviewer owns
+`docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_REVIEW_2026-10-27.md`.
+The optional successful browser screenshots are exactly
+`docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png` and
+`docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png`.
+Root's metadata/continuity/catalog/knowledge path family is the same exact
+family listed in the Stage B admission, with this SPEC and Work Order added.
+Before READY, Root seals its full actual path manifest, all current hashes,
+roles and budgets in the new admission; the shorthand above is not an
+unbounded path authorization. The existing active Stage B handoff and exact
+five session/mirror paths are the dispatch and terminal continuity carriers.
+
+## One integrated BUILD and physical stop rules
+
+1. Root obtains independent SPEC/authorization review, runs the ordinary
+   pre-dispatch gates, commits the normal dispatch, records its actual SHA in
+   the active handoff through a dedicated exact-five continuity commit, then
+   obtains independent clean split-range review. Only then does BUILD start.
+2. Worker changes only the bounded source/tests and runs clean standalone
+   child seed import and full demo app composition probes under the actual
+   child environment, plus focused source/refusal/lifecycle tests. The probes
+   make no DB, listener, browser, provider, install or network call. Pytest
+   alone is insufficient. Root and independent reviewer then check and pin
+   the ACTUAL changed source hashes/lines, the remaining 22 frozen Stage A
+   source pins, all frozen fixtures/oracles/migrations, and both invariant
+   family digests. The reviewer records SOURCE_CHECKPOINT_PASS or refusal.
+   Changed source may still be uncommitted in this same BUILD, but is frozen
+   byte-for-byte after checkpoint through physical result. Any later source
+   change invalidates admission and stops the effect budget.
+3. After checkpoint and a fresh pinned-Core preflight, Root verifies the
+   registered partial owner/volume-only state, exact nonce/labels, cached
+   image, mount target, local generated credential reference and custody,
+   absent container/API/web, and free fixed loopback ports 5433/8001/5174.
+   Every Docker command uses the exact local CLI
+   `C:/Users/DELL/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe`
+   with `--host npipe:////./pipe/dockerDesktopLinuxEngine`, never ambient or
+   remote Docker routing. The only image ID is the admitted cached pin; no
+   tag operation or pull occurs.
+   This is not the existing fresh-profile preflight. Refuse on ambiguity.
+   Root writes exactly one exclusive immutable recovery reservation before
+   any new container effect. The prior Stage B START reservation remains
+   spent and untouched.
+4. Root invokes the new recovery tool at most once. It reuses the same volume,
+   nonce and local generated credentials, with no new volume/secret and no
+   pull. At most one exact owned PostgreSQL container is created. Revalidate
+   image, labels and mounted volume. Before seed writes, collect a
+   single-connection repeatable-read read-only inventory of database name, PostgreSQL 16
+   identity/system identifier, source-compatible schema including expected
+   migration tables and native required columns, and counts for ALL tables.
+   Continue only with all rows empty, or exact target counts in four tables
+   and zero other rows. No migration replay, DDL, reset or delete is allowed.
+   Native seed once or exact verification must reject partial/foreign data
+   and mismatched record/body hashes. Repeat identity and counts afterward.
+5. Only after SQL acceptance, start at most one API and one web child.
+   Run one native smoke: real JWT login, two frozen HTTP source contexts with
+   receipt digests `5523c755204ea4ee3e960394306c61d32d75d926806276748f99be481f6b0e64`
+   and `874e8e5693e1efeea30f92ab26ef48dacb00f0b0efa109f977fd3e8beba6f554`.
+   Verify SQL users=1/shifts=36/shift_assignments=36/reports=37. One
+   isolated browser context may submit each accepted UTC query once and save
+   two screenshots: visible synthetic label, 36/36/36 then 36/36/37.
+6. On any failure, retain old evidence, owner trail, volume and credentials.
+   Stop only newly created exact owned children/container after fresh identity
+   verification, record the new trail and remaining resource counts, then
+   stop this tranche's physical work. Success retains one owned container,
+   existing volume, API and web process. A future stop needs a separate
+   reviewed decision retaining the volume. No automatic retry.
+
+Total NEW recovery budget: one read-only preflight, one exclusive reservation,
+one recovery call,
+one container over the existing volume, zero new volumes, zero new secrets,
+zero migrations, at most one native seed or exact verification, one API and
+one web child, one smoke, one read-only inventory connection and one read-only
+SQL summary, two smoke HTTP contexts and two UI submits, one smoke JWT login
+and one browser login, one browser context/two screenshots. Bounded readiness
+probes have maxima 40 each for DB, API and web, with no second startup.
+Provider calls, package installs,
+pulls, external/public network effects, `.env` reads, operator secrets,
+volume delete/reset, deployment and push are zero. This sealed candidate releases
+none of this budget. No prior spent effect count is reset.
+
+## Evidence and claim boundary
+
+The new admission records exact source/baseline/frozen hashes, owner/effect
+boundaries and reservation protocol. Attempt and evidence record resource
+IDs, label/nonce match, image and mount identity, secret-reference presence
+without value, prewrite schema/count verdict and fingerprint, postwrite
+counts, physical SQL/JWT/HTTP/UI results, canonical body and screenshot
+digests, cleanup trail and actual remaining resources. No passwords, DSN,
+JWT, bearer token, report bodies or local secret bytes enter Git, logs or
+review. Retain the prior failure receipt and any new refusal as observed.
+The result review reconciles all G01-G14, actual source manifest, tests,
+effect counts and claim limits. A successful local synthetic profile proves
+only this exact authority and two query contexts, never operational coverage,
+retention, business fit, forecasting quality, scheduler, approval, provider
+governance, production or milestone readiness.
+
+Reference `docs/cvf/INVARIANT_FAMILY_STANDARD.md` and registered
+P5A2-SOURCE-DEMO-RESOURCE-LIFECYCLE digest
+`f323ef1062e791c1c8fa4bff880b765a79547b571b0cfca9083286d680dcef2c`.
+The source family digest remains
+`6fec188950fe752ac438e2952ec3d4e2ffd3b4156efa0b9a2e06e1048c568754`.
+Reuse the existing adapter, do not copy matrix rules or
+create a second grammar. If a family surface changes, run
+`python scripts/check_invariant_families.py` before REVIEW/FREEZE.
+Legacy `docs/decisions/` return and completion review must carry exact
+standalone self-declared markers and Return-Time Closeability Rechecks;
+reviewer invokes pinned Core `check_recheck` explicitly and records result.
+The normal CLI/hook does not automatically scan that legacy family.
+
+## Gate-To-Role Closeability Contract
+
+closeabilityContractVersion: cvf.gate-role-closeability@1.0.0
+closeabilityDisposition: CLOSEABLE
+returnTimeRecheck: REQUIRED_BEFORE_REPAIR
+implementationTopologyPolicy: BOUNDED_PATH_FAMILIES
+foreseeableFileSplitDisposition: COVERED_BY_BOUNDED_PATH_FAMILY
+
+This AM2 graph uses exact new decision paths and the successor handoff.
+The bounded seed/recovery source/test families cover foreseeable ≤300-line
+splits; protected paths are exact in admission. Root seals current hashes
+before READY and verifies normal dispatch plus actual-SHA five-path continuity
+and independent clean split-range before BUILD. No graph row releases physical
+budget in this DRAFT. Root owns effect/artifact/commit and independent
+reviewer owns authorization, source checkpoint and result.
+
+| gateId | mustPassBy | repairOwner | repairPhase | mutationSurface | topology | commitOwner | commitPhase | dependsOn |
+|---|---|---|---|---|---|---|---|---|
+| authorization_review | PRE_DISPATCH | work-order-author | PRE_DISPATCH | docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json | EXACT_PATHS | commit-steward | DISPATCH_COMMIT | NONE |
+| pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | DISPATCH_COMMIT | authorization_review |
+| dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md material-SHA marker;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
+| pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
+| source_build | IMPLEMENTATION | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | dispatch_continuity,source_build |
+| source_checkpoint | IMPLEMENTATION | reviewer | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests |
+| read_only_preflight | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | source_checkpoint |
+| effect_reservation | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | read_only_preflight |
+| physical_start | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | effect_reservation |
+| physical_result | WORKER_RETURN | orchestrator | IMPLEMENTATION | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;C:/Users/DELL/AppData/Local/shiftops-p5a2-source-demo;shiftops-p5a2-source-demo-db-v1;shiftops-p5a2-source-demo-data-v1;owned-api-pid;owned-web-pid | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | physical_start |
+| adif_integrity | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests,physical_result |
+| worker_return_fast | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | adif_integrity |
+| reviewer_fast | REVIEW | reviewer | REVIEW | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | IMPLEMENTATION_STATUS.json;SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/INDEX.md;docs/PROJECT_INDEX.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/catalog/MODULE_CATALOG.md;docs/catalog/MODULE_CATALOG_DETAIL.md;docs/catalog/MODULE_REGISTRY.json;docs/catalog/MODULE_REGISTRY_DETAIL.json;docs/implementation/EXECUTION_ROADMAP.md;docs/reviews/evidence/p5a2-source-demo-recovery-initial-20261027.png;docs/reviews/evidence/p5a2-source-demo-recovery-later-20261027.png;docs/specs/P5A2_SYNTHETIC_BACKEND_RECOVERY_SPEC.md;docs/work_orders/P5A2_SYNTHETIC_BACKEND_RECOVERY_WORK_ORDER.md;knowledge/PROJECT_CONTEXT.md;knowledge/manifest.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ADMISSION_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_ATTEMPT_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_EVIDENCE_2026-10-27.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_RETURN_2026-10-27.md;docs/cvf/invariants/p5a2-demo-seed-recovery.json;docs/cvf/invariants/registry.json;apps/workspace-api/src/workspace_api/demo/seed.py;apps/workspace-api/src/workspace_api/demo/seed_*.py;tests/unit/test_p5a2_demo_seed*.py;scripts/p5a2_source_demo_recover.py;scripts/p5a2_source_demo_recovery_inventory.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/test_p5a2_demo_recovery_source.py;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
+| continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;SESSION/SESSION_MEMORY.md;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
+| committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_P5A2_RECOVERY_AM2_2026-10-27.md;docs/decisions/P5A2_SYNTHETIC_BACKEND_RECOVERY_AM2_REVIEW_2026-10-27.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
+
+Legacy docs/decisions AM2 RETURN and completion REVIEW require exact standalone
+self-declared markers and Return-Time Closeability Rechecks. The independent
+reviewer invokes pinned Core check_recheck explicitly; normal CLI/hook does
+not scan this historical family automatically. Source/effect budgets and
+product acceptance remain held until their respective independent gates.

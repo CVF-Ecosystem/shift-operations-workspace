@@ -1,0 +1,13 @@
+{
+  "expectedDatabaseFingerprint": "afeb7f5ca42aec45a1bdc9f8a6d10c7401a401c080ce4b6097279badb3cadca9",
+  "expectedSchemaDigest": "d1b13a0a45bad4c3607e5fbdb6439082df6f4b1ff3cd2f90398d4d0c228716db",
+  "expectedStateDigest": "d9418536c37fadc684a73ecfb2d2c67199bae29dfe5f43db5f12239b4ad8518b",
+  "id": "P5A2-UI-COMPLETION-AM4-ATTEMPT-20261027",
+  "imageId": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36",
+  "maximumVerifyRuntimeCalls": 1,
+  "ownerDigest": "fe9b89263d8e4f17f87238940622bd73fa9598e3df70e23c46b5a80b4737f158",
+  "ownerNonce": "3bf4a4c5d48d0f4ffc8a96a5aecfccaae6c07a9820cf8f7cf8757cf500ead999",
+  "profileId": "P5A2-SOURCE-DEMO-LOCAL-1",
+  "status": "RESERVED_SPENT_NO_RETRY",
+  "volumeIdentity": "7a9aebeaff0294132dde49494509a97a291de44811793cc845fa802f1e8aa304"
+}

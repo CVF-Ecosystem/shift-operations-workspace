@@ -33,7 +33,16 @@ def source_evidence(module: dict) -> str:
         suffixes = {".json", ".yaml", ".yml", ".py", ".ts"}
     else:
         suffixes = {".md", ".py", ".ts", ".json", ".yaml"}
-    for candidate in sorted(path.rglob("*")):
+    # Path ordering follows the host filesystem (case-insensitive on Windows,
+    # case-sensitive on Linux). Sort portable relative strings so evidence is
+    # stable for the committed registry on both platforms.
+    for candidate in sorted(
+        path.rglob("*"),
+        key=lambda item: (
+            item.relative_to(ROOT).as_posix().casefold(),
+            item.relative_to(ROOT).as_posix(),
+        ),
+    ):
         if candidate.is_file() and candidate.suffix in suffixes:
             return candidate.relative_to(ROOT).as_posix()
     raise ValueError(f"{module['id']}: no source evidence for {module['status']}")
