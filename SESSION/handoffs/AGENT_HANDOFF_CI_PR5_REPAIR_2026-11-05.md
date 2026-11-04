@@ -4,7 +4,7 @@
 Material commit recorded for this handoff: `a37b81566e97110d5431551f5feae09c94c7d2a1`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: BOUNDED_ACL_STARTUP_REPAIR; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Verify latest hosted checks and independent clean-range review, merge only
-when all pass; after merge return to separately admitted G04/G05 readiness
-planning. Current role SESSION_SYNC_STEWARD. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Complete independently admitted bounded ACL startup preparation, normal hook
+and latest hosted checks; merge only when green, then separately admitted
+G04/G05 readiness planning. Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -150,3 +150,15 @@ records actual `a37b81566e97110d5431551f5feae09c94c7d2a1` after terminal
 acceptance; role SESSION_SYNC_STEWARD, phase REVIEW. Clean split-range review
 and all latest-head hosted checks gate the authorized merge. Earlier failed
 attempts remain documented; no current CI-green or merge claim.
+
+Hosted41911989403 early ACL fixture failed with PowerShell setup
+TimeoutExpired10s before runtime verifier. Bounded startup plan independent
+admission PASS: CI sanitized identity/ACL warmup90s hard-fail; fixture-only
+setup60s, runtime verifier10s/assertions unchanged. Underlying dependency
+unknown. Current REPAIR_WORKER/BUILD acknowledgment precedes source changes.
+Dedicated prior actualSHAcontinuity4829c9c passed normal3549/148/4 in196.86s.
+
+Independent bounded startup source review PASS, no blocker/waiver. Exact
+workflow preparation command localPASS, focused8PASS2.70s and Core/session/
+YAML/diffPASS. Runtime verifier remains10s; all tests retained. Next normal
+material hook, terminal review, actualSHA continuity and latest hosted gates.

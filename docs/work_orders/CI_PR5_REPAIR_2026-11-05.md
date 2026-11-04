@@ -90,6 +90,15 @@ termination and no-return assertions; change no runtime deadline or guard.
 This is a separately evidenced test portability cause under the same CI
 milestone binding and requires independent review before repair.
 
+Same-path bounded startup preparation: hosted41911989403 early ACL fixture
+failed with PowerShell `TimeoutExpired` at10s during setup, before verifier.
+This is direct startup/setup latency evidence; the precise underlying
+dependency is unknown. Independently admitted CI setup may warm only Windows
+identity/Security/Get-Acl APIs in the same sanitized child environment, with
+90s timeout and hard failure. Fixture-only DACL setup may use60s; retain
+runtime verifier10s and all ACL/full-suite assertions. Existing CI/test
+path authority and full G01–G14 binding apply; no runtime source edit.
+
 ## Product Milestone Binding
 
 - **Milestone:** P5-A2, `docs/implementation/EXECUTION_ROADMAP.md`, assessed at

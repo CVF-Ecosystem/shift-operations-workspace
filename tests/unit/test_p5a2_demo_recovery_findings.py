@@ -260,7 +260,7 @@ foreach ($path in @({paths})) {{
 """
     result = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", script],
                             env=custody.child_env(), capture_output=True,
-                            text=True, timeout=10)
+                            text=True, timeout=60)
     assert result.returncode == 0 and result.stdout.strip() == "PRIVATE_FIXTURE_READY"
     assert custody.windows_private_acl(folder, file)
     result = subprocess.run(["icacls", str(file), "/grant", "*S-1-3-4:(F)"],

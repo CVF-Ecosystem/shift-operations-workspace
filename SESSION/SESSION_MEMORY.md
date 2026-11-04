@@ -5,14 +5,12 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 material `a37b81566e97110d5431551f5feae09c94c7d2a1`
-independent terminal review PASS exact10paths. Focused33PASS and unchanged
-normal hook3549PASS148skip4warnings197.16s. Deterministic ACL fixture and
-real product-deadline test retain runtime guards/all assertions. Material
-pushed; actual-SHA continuity precedes independent clean-range review.
-Latest-head hosted checks must all pass before authorized PR #5 merge.
-After merge return to separately admitted G04/G05 readiness planning.
-Failed attempts remain in handoff/review. AM4 SPENT, P5-A2/UI OPEN/UNMET.
+CI-PR5 bounded ACL startup plan independently admitted; REPAIR_WORKER/BUILD.
+Materiala37b815 and actualSHAcontinuity4829c9c each normal3549PASS148skip4warnings.
+Hosted41911989403 early ACL fixture PowerShell setup TimeoutExpired10s;
+precise startup dependency unknown. Prepare only Windows identity/ACL APIs
+in sanitized child bounded90s and fixture setup60s; real verifier10s and
+all assertions retained. Latest hosted green still gates merge. AM4/P5-A2 unchanged.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -53,5 +51,5 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Verify latest hosted PR #5 checks and independent clean-range review, merge only when all pass; after merge return to separately admitted G04/G05 readiness planning. No product runtime/provider attempt.
-Current role SESSION_SYNC_STEWARD; phase REVIEW. AM4 effects remain spent.
+Complete independently admitted bounded CI ACL startup preparation and fixture setup, normal hook and latest hosted checks; merge only when green, then return to separately admitted G04/G05 readiness planning.
+Current role REPAIR_WORKER; phase BUILD. AM4 effects remain spent.

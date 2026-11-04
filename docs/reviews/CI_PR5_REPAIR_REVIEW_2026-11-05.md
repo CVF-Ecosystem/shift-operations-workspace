@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: LATEST_TERMINAL_MATERIAL_PASS_HOSTED_PENDING
+Status: BOUNDED_STARTUP_SOURCE_REVIEW_PASS_HOSTED_PENDING
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -169,3 +169,16 @@ normal hook3549PASS148skip4warnings197.16s. Clean worktree, Core/session/range
 diff checks PASS; authorized fast-forward push. Dedicated actual-SHA
 continuity follows terminal review, then clean split-range review and all
 latest-head hosted checks before merge. Previous failures are retained.
+
+Hosted41911989403 early fixture step failed with actual PowerShell
+TimeoutExpired10s during DACL setup before verifier; precise underlying
+dependency remains UNKNOWN. Independently admitted bounded setup repair:
+CI sanitized-child identity/Security/Get-Acl preparation90s, hard-fail on
+timeout/nonzero/unexpected sentinel; fixture-only setup60s. Actual runtime
+verifier10s and original assertions/full gate unchanged.
+
+Independent startup source review PASS, no blocker/waiver. Exact YAML run
+executed locally PASS; focused8PASS2.70s; Core/session/YAML/diff PASS.
+Prior actual-SHA continuity4829c9c passed normal3549/148/4 in196.86s.
+This same-scope material still requires normal hook, terminal review,
+dedicated latest-SHA continuity and latest hosted green checks before merge.

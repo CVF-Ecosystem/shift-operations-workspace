@@ -54,6 +54,22 @@ jobs:
         run: python scripts/sync_cvf_catalog_kit.py
       - name: Repository validation
         run: python scripts/testing/validate_repository.py
+      - name: Prepare bounded Windows ACL dependencies
+        run: |
+          @'
+          import subprocess
+          import sys
+          sys.path.insert(0, "scripts")
+          from p5a2_source_demo_common import child_env
+          command = "$ErrorActionPreference='Stop'; Import-Module Microsoft.PowerShell.Security; $null=[Security.Principal.WindowsIdentity]::GetCurrent().User; $null=Get-Acl -LiteralPath $env:TEMP; 'ACL_DEPENDENCIES_READY'"
+          result = subprocess.run(
+              ["powershell", "-NoProfile", "-NonInteractive", "-Command", command],
+              env=child_env(), capture_output=True, text=True, timeout=90,
+          )
+          if result.returncode or result.stdout.strip() != "ACL_DEPENDENCIES_READY":
+              raise SystemExit("Windows ACL dependency preparation failed")
+          print("Windows ACL dependencies ready")
+          '@ | python -
       - name: Verify private ACL fixture on hosted Windows
         run: python -m pytest -q tests/unit/test_p5a2_demo_recovery_findings.py::test_explicit_everyone_read_grant_refuses_private_acl
       - name: Tests
