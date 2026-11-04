@@ -5,14 +5,12 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 material `800d8759a001de72adc3da0d94a9f046a7a7649e`
-independently terminal-accepted exact9paths. Normal3549PASS148skip4warnings
-179.26s; focused8PASS and exact YAML preparation command PASS. Bounded ACL
-setup retains actual runtime verifier10s/all assertions/full test gate.
-Material pushed; actualSHA continuity precedes independent clean-range review.
-All latest-head hosted checks must pass before authorized PR #5 merge.
-After merge return to separately admitted G04/G05 readiness planning.
-Earlier failed attempts retained in handoff/review. AM4 SPENT, P5-A2/UI OPEN.
+CI-PR5 REVIEW_COST_ESCALATION_REQUIRED remains recorded. Independent review
+admits one bounded real ACL-child diagnostic on current runner; no runner/
+runtime/timeout change. Instrument sanitized elapsed/exception/result status
+only, forward real calls unchanged, then stop for independent result review.
+Role IMPLEMENTATION_WORKER; phase BUILD. Latest hosted stillFAIL; no merge.
+AM4/P5-A2 unchanged; all failed evidence retained in handoff/review.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -53,5 +51,5 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Verify latest hosted PR #5 checks and independent clean-range review, merge only when all pass; after merge return to separately admitted G04/G05 readiness planning. No product runtime/provider attempt.
-Current role SESSION_SYNC_STEWARD; phase REVIEW. AM4 effects remain spent.
+Run one independently admitted sanitized real ACL-child diagnostic on current runner, then stop for independent result review. No speculative repair or merge while hosted checks fail.
+Current role IMPLEMENTATION_WORKER; phase BUILD. AM4 effects remain spent.

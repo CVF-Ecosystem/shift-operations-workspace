@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: BOUNDED_STARTUP_TERMINAL_PASS_HOSTED_PENDING
+Status: REVIEW_COST_ESCALATION_ONE_DIAGNOSTIC
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -190,3 +190,22 @@ paths, findings/waivers NONE/NONE. Actual material
 range diff PASS; authorized push. Dedicated actualSHA continuity follows
 terminal acceptance; independent clean-range review and all latest-head
 hosted green checks still gate merge. No current CI-green/merge claim.
+
+REVIEW_COST_ESCALATION_REQUIRED recorded after repeated hosted ACL baseline
+refusals. Hosted41913581429 warmupPASS, fixture setup completed, actual guard
+returnedFalse; exact refusal category UNKNOWN. Independent consolidated
+review admitted exactly one bounded diagnostic on the same runner. Observe
+the real encoded-command child with unchanged args/env/timeout10/flags,
+return its actual result and rethrow actual exceptions; log only elapsed,
+TIMEOUT/OSERROR, returncode, exactPASS/exactFAIL/OTHER and stderr-presence.
+No raw output/ACL/SID/rights/secrets. Original assertions and full gate remain.
+Early workflow uses pytest `-s` only to expose sanitized observations.
+
+Local diagnostic testPASS2.53s, three real child results PASS/PASS/FAIL,
+each about0.5s, with stderr-presence true (no raw stderr captured in record).
+Core/session/diff PASS. Normal hook, one hosted attempt, then independent
+result review; no automatic additional diagnostic or speculative repair.
+
+Independent bounded diagnostic source review PASS, no blocker/waiver:
+wrapper forwards the real child behavior and sanitized schema exactly as
+admitted; pytest teardown restores it, assertions/full gate unchanged.

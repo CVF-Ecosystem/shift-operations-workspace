@@ -99,6 +99,26 @@ identity/Security/Get-Acl APIs in the same sanitized child environment, with
 runtime verifier10s and all ACL/full-suite assertions. Existing CI/test
 path authority and full G01–G14 binding apply; no runtime source edit.
 
+REVIEW_COST_ESCALATION_REQUIRED: repeated hosted ACL baseline refusals
+remain after deterministic DACL and bounded setup; latest41913581429 warmup
+PASS, fixture setup completed, actual verifier returned False. Exact cause
+of that False is UNKNOWN. Stop speculative source repair. Independent
+ORCHESTRATOR/REVIEWER must assess this consolidated evidence and admit at
+most one bounded diagnostic using existing workflow/test paths before any
+further repair. Preserve runtime verifier10s and all assertions; collect
+only sanitized child elapsed/timeout/return status, never raw principals,
+rights or secrets. Existing operator CI authority permits this review;
+new risk/effect/objective boundaries still require escalation.
+
+Independent escalation disposition: ADMIT_ONE_BOUNDED_DIAGNOSTIC on current
+windows-latest, existing ACL test/workflow paths. Forward the real verifier
+subprocess unchanged, logging only elapsed seconds, TIMEOUT/OSERROR category,
+return code, exactPASS/exactFAIL/OTHER stdout class and stderr-present bool.
+No argv/encoded script/raw output/principals/rights/secrets. Preserve actual
+10s timeout, all arguments/creation flags/assertions and rethrow exceptions
+for the unchanged guard to handle. Run one hosted attempt, then stop for
+independent result review; no automatic second diagnostic or speculative fix.
+
 ## Product Milestone Binding
 
 - **Milestone:** P5-A2, `docs/implementation/EXECUTION_ROADMAP.md`, assessed at

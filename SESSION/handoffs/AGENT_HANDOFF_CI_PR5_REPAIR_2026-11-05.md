@@ -4,7 +4,7 @@
 Material commit recorded for this handoff: `800d8759a001de72adc3da0d94a9f046a7a7649e`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ONE_BOUNDED_DIAGNOSTIC; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Verify latest hosted checks and independent clean-range review, merge only
-when all pass; after merge return to separately admitted G04/G05 readiness
-planning. Current role SESSION_SYNC_STEWARD. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Run one admitted sanitized real ACL-child diagnostic on current runner, then
+stop for independent result review. Current role IMPLEMENTATION_WORKER.
+Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -172,3 +172,20 @@ continuity records actual `800d8759a001de72adc3da0d94a9f046a7a7649e`
 after terminal acceptance; role SESSION_SYNC_STEWARD, phase REVIEW. Latest
 hosted green and clean split-range review still gate merge. Runtime verifier
 10s and all assertions remain; prior failed attempts are retained.
+
+REVIEW_COST_ESCALATION_REQUIRED. Hosted41913581429 setup warmupPASS and
+fixture setup completed; actual verifier still returned False, exact cause
+UNKNOWN. Stop speculative repairs; independent consolidated diagnostic
+review is next under the existing CI work order. Dedicated actualSHA
+continuitye340176 normal3549PASS148skip4warnings201.13s is committed locally.
+No merge authority is exercised while a check fails.
+
+Escalation independent disposition ADMIT_ONE_BOUNDED_DIAGNOSTIC: current
+runner, actual child forwarded unchanged, sanitized elapsed/exception/result
+status only; no raw ACL/output/principals/secrets. Runtime10s, all arguments
+and assertions unchanged. One hosted attempt then stop for result review.
+Current IMPLEMENTATION_WORKER/BUILD acknowledgment precedes instrumentation.
+
+Independent diagnostic source review PASS, no blocker/waiver; local real
+diagnostic testPASS2.53s, Core/session/diffPASS. Normal hook and terminal
+review precede ONE hosted attempt, then stop for independent result review.
