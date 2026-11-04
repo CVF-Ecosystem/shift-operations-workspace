@@ -1,10 +1,10 @@
 # PR #5 CI repair — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `bebe4a1ba15cfb60b099da84b7e362c4ab376f56`.
+Material commit recorded for this handoff: `a37b81566e97110d5431551f5feae09c94c7d2a1`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ACL_FIXTURE_REPAIR; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Complete admitted ACL fixture/product-deadline test repairs and latest green gates,
-then merge and return to separately admitted G04/G05 readiness planning.
-Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Verify latest hosted checks and independent clean-range review, merge only
+when all pass; after merge return to separately admitted G04/G05 readiness
+planning. Current role SESSION_SYNC_STEWARD. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -140,3 +140,13 @@ Independent combined source review PASS exact10paths, no blockers/waivers;
 focused export+ACL33PASS14.76s. Runtime source and assertions retained.
 Proceed normal hook, terminal review, dedicated actual-SHA continuity and
 latest hosted green before merge.
+
+## Latest actual-SHA continuity
+
+Terminal independent review PASS `bebe4a1..a37b815`, exact10authorized paths,
+findings/waivers NONE/NONE. Focused33PASS; unchanged normal hook3549PASS,
+148skip/4warnings197.16s. The material is pushed. This dedicated continuity
+records actual `a37b81566e97110d5431551f5feae09c94c7d2a1` after terminal
+acceptance; role SESSION_SYNC_STEWARD, phase REVIEW. Clean split-range review
+and all latest-head hosted checks gate the authorized merge. Earlier failed
+attempts remain documented; no current CI-green or merge claim.

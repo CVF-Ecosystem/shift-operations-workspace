@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: ACL_FIXTURE_REFINEMENT_SOURCE_REVIEW
+Status: LATEST_TERMINAL_MATERIAL_PASS_HOSTED_PENDING
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -161,3 +161,11 @@ Combined source review PASS exact10paths versusbebe4a1: three admitted source
 paths and seven governance records; findings/waivers NONE/NONE. No runtime
 source change, skip or guard weakening. Focused33PASS; normal hook and latest
 hosted green remain gates.
+
+Latest terminal material review PASS `bebe4a1..a37b815`, exact10paths, no
+blocker/waiver; actual material
+`a37b81566e97110d5431551f5feae09c94c7d2a1`. Focused33PASS, unchanged
+normal hook3549PASS148skip4warnings197.16s. Clean worktree, Core/session/range
+diff checks PASS; authorized fast-forward push. Dedicated actual-SHA
+continuity follows terminal review, then clean split-range review and all
+latest-head hosted checks before merge. Previous failures are retained.

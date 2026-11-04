@@ -5,13 +5,14 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 same-path ACL fixture refinement; role REPAIR_WORKER, phase BUILD.
-Hosted41909216440:3549PASS147skip1failure, initial private ACL baseline only.
-Helper LF/hash and other fixtures passed. Construct exact private DACL with
-current owner before original assertions; runtime guard unchanged.
-Continuity hook first attempt:3548PASS148skip1export-child-start deadline
-failure; isolated report-export suite rerun25PASS, no source change needed.
-Normal hook/latest hosted green checks and merge remain. AM4/P5-A2 unchanged.
+CI-PR5 material `a37b81566e97110d5431551f5feae09c94c7d2a1`
+independent terminal review PASS exact10paths. Focused33PASS and unchanged
+normal hook3549PASS148skip4warnings197.16s. Deterministic ACL fixture and
+real product-deadline test retain runtime guards/all assertions. Material
+pushed; actual-SHA continuity precedes independent clean-range review.
+Latest-head hosted checks must all pass before authorized PR #5 merge.
+After merge return to separately admitted G04/G05 readiness planning.
+Failed attempts remain in handoff/review. AM4 SPENT, P5-A2/UI OPEN/UNMET.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -52,5 +53,5 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Complete admitted ACL fixture and product-deadline test repair, normal hook and latest hosted checks; merge only when green, then return to separately admitted G04/G05 readiness planning.
-Current role REPAIR_WORKER; phase BUILD. AM4 effects remain spent.
+Verify latest hosted PR #5 checks and independent clean-range review, merge only when all pass; after merge return to separately admitted G04/G05 readiness planning. No product runtime/provider attempt.
+Current role SESSION_SYNC_STEWARD; phase REVIEW. AM4 effects remain spent.
