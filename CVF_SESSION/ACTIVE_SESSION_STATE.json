@@ -16,7 +16,7 @@
   ],
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_CVF_CORE_BINDING_ADOPTION_2026-11-04.md",
   "nextAllowedMove": "See SESSION/ACTIVE_SESSION_STATE.json's next_allowed_move field for the full, current text - this mirror does not duplicate that long-form text to avoid drifting out of sync with the canonical source.",
-  "syncReceipt": "Core-binding adoption independent review PASS bounded; normal material and actual-SHA continuity commits pending; AM4 spent.",
+  "syncReceipt": "Core-binding material 4b4488f normal3549PASS148skip4warnings; independent terminal PASS; actual-SHA continuity commit in progress; AM4 spent.",
   "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "activeRole": "SESSION_SYNC_STEWARD",
   "currentRoleTransition": "ORCHESTRATOR_TO_SESSION_SYNC_STEWARD_CORE_BINDING_ADOPTION",

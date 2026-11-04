@@ -31,7 +31,12 @@ refusal in the NO_AI demo; the other was project knowledge source-pin drift
 after the binding/status edits. The knowledge pack was refreshed and its
 validator now passes. Independent repair review accepted removing the two
 ambient provider-key names from the child process that runs the unchanged
-normal hook. This does not bypass a test or read a secret value. Rerun pending.
+normal hook. This does not bypass a test or read a secret value. The rerun
+passed 3549 tests, 148 skipped and 4 warnings. Material commit
+`4b4488f890d741481f907a2c898486f94ea7e927` was independently reviewed
+as an exact 15-path clean committed range; terminal material review PASS with
+findings/waivers NONE/NONE. The reviewer did not independently capture or rerun
+the full hook stdout; the hook result is the commit process's reported receipt.
 
 Disposition: PASS for the bounded Core-binding adoption. No blocking findings
 or waivers. Normal pre-commit hook, material commit, actual-SHA continuity and

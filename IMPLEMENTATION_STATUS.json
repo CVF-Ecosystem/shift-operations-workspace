@@ -1440,12 +1440,15 @@
     "resultWaivers": []
   },
   "cvf_core_binding_adoption_20261104": {
-    "status": "REVIEW_ACCEPTED_COMMIT_PENDING",
+    "status": "TERMINAL_MATERIAL_PASS_CONTINUITY_PENDING",
     "installedPublicCore": "c4c8767ac8861854f40d466ba338ffd11eb9558e",
     "selectedControlsUnchanged": true,
     "nativePreflight": "COMPLIANT_0",
     "workOrder": "docs/work_orders/CVF_CORE_BINDING_ADOPTION_2026-11-04.md",
     "milestoneComplete": false,
-    "am4UiAttemptSpent": true
+    "am4UiAttemptSpent": true,
+    "materialCommit": "4b4488f890d741481f907a2c898486f94ea7e927",
+    "materialFullHook": "3549passed148skipped4warnings",
+    "terminalMaterialReview": "PASS_BOUNDED"
   }
 }

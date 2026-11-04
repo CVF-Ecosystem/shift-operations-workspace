@@ -7,7 +7,8 @@ R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies
 
 Explicit reviewed Core-binding adoption is in progress after operator
 authorization. The installed Core is clean; selected control bytes are
-unchanged, and the project preflight is COMPLIANT/0. P5-A2 remains OPEN,
+unchanged, and the project preflight is COMPLIANT/0. Material `4b4488f`
+passed normal3549/148/4 and independent terminal review. P5-A2 remains OPEN,
 Phase 5 0/5; AM4 UI acceptance UNMET and attempt SPENT.
 
 ## Same unit / actual AM4 partial result
