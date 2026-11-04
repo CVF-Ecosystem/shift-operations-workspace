@@ -250,3 +250,27 @@ markers/partial-output filter, first timeout only, original rethrown.
 Focused8PASS3.06s/direct readonly probePASS; Core/session/file-size/catalog/
 projection/manager/diffPASS. Next normal hook, terminal review, ONE hosted
 probe then stop for independent result review. No retry/repair inferred.
+
+ONE staged41919132332 result: actualTIMEOUT10.014s. Readonly probe
+EXIT_ZERO19.287s/stdoutPASS: ENTRY108ms, IDENTITY/READ_1=117ms,
+OWNER_1=19233ms; subsequent rules/read2/checksEXIT_PASS by19264ms.
+First Get-Acl spans19.116s, not process startup/ACL rejection. Automatic
+module discovery latency remains hypothesis, not cause proof. Stop
+REVIEW/ORCHESTRATOR for independent result/causal repair admission.
+Materialf492038 normal3549PASS148skip4warnings186.67s/terminalPASS.
+No further source/hosted attempt or merge inferred; escalation retained.
+
+Independent result review PASS. ONE CI-only causal candidate admitted:
+existing bounded90s sanitized dependency preparation resolves unqualified
+`Get-Command Get-Acl -ErrorAction Stop` BEFORE explicit module import and
+Get-Acl. This tests discovery/cache preparation, not proven causation.
+Runtime10s/script/all assertions/full tests unchanged. Source/terminal
+review and normal hook precede ONE hosted run then independent result
+review; no automatic successor. Current IMPLEMENTATION_WORKER/BUILD
+acknowledgment precedes source. Existing G01–G14 binding/stop apply.
+
+Independent DISCOVERY_PREPARATION_SOURCE_REVIEW_PASS exact8paths, no
+blocker/waiver. Sole source GetCommand before import; sanitized90s/hardfail/
+sentinel retained, actual runtime/test10s unchanged. Exact YAML preparation
+localPASS, Core/session/diffPASS. Normal hook/terminal then ONE hosted
+candidate, stop for independent result review.

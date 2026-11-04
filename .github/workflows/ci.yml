@@ -61,7 +61,7 @@ jobs:
           import sys
           sys.path.insert(0, "scripts")
           from p5a2_source_demo_common import child_env
-          command = "$ErrorActionPreference='Stop'; Import-Module Microsoft.PowerShell.Security; $null=[Security.Principal.WindowsIdentity]::GetCurrent().User; $null=Get-Acl -LiteralPath $env:TEMP; 'ACL_DEPENDENCIES_READY'"
+          command = "$ErrorActionPreference='Stop'; $null=Get-Command Get-Acl -ErrorAction Stop; Import-Module Microsoft.PowerShell.Security; $null=[Security.Principal.WindowsIdentity]::GetCurrent().User; $null=Get-Acl -LiteralPath $env:TEMP; 'ACL_DEPENDENCIES_READY'"
           result = subprocess.run(
               ["powershell", "-NoProfile", "-NonInteractive", "-Command", command],
               env=child_env(), capture_output=True, text=True, timeout=90,
