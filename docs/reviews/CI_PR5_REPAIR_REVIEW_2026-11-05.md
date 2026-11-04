@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: SOURCE_REVIEW_PASS_HOSTED_CI_PENDING
+Status: SOURCE_REVIEW_PASS_AMENDMENT_1_PENDING
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -31,3 +31,18 @@ Material hook, material commit/range review, hosted PR `validate`,
 `catalog-kit` and `web` checks, and final merge verification remain pending.
 Until then, no CI-green or merge claim is made. P5-A2 and UI acceptance remain
 OPEN/UNMET; AM4 attempt remains SPENT.
+
+## Hosted rerun after material `9f93aa4`
+
+Independent post-material review PASS, no finding/waiver; the exact 12-path
+dispatch plus material range is authorized, worktree clean, no added-line
+credential pattern, and Core/session checks pass. PR branch push was a
+fast-forward. GitHub Actions run `41900249175`: `catalog-kit` PASS, `web`
+PASS, `validate` FAIL at kit projection after editable install and detailed
+catalog PASS. This exposes a new platform-dependent evidence sort in
+`scripts/sync_cvf_catalog_kit.py`; amendment 1 independent authorization
+review PASS. The reviewer reproduced four stub-module evidence divergences
+between Windows and POSIX sorting, confirmed normalized casefold sorting
+matches the committed registry, and found Core/continuity/closeability
+checks PASS. Amended dispatch commit and repair BUILD remain. No merge or
+closure claim yet.

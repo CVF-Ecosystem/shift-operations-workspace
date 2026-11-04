@@ -1,6 +1,6 @@
 # PR #5 CI repair — active handoff
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: BUILD; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_1_REVIEW; phase WORK_ORDER.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -11,9 +11,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-bounded CI-PR5-REPAIR BUILD on the two diagnosed failures under
-`docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`, then independent review,
-hosted CI and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+CI-PR5-REPAIR amendment 1 dispatch commit after independent PASS, then bounded catalog
+projection repair under `docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`,
+independent review, hosted CI and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -36,5 +36,18 @@ root cause is accepted yet; hosted rerun can reveal one. Independent
 authorization review PASS after aligned continuity and G01–G14 binding;
 BUILD began after dispatch commit `8f4ecfb` passed its normal hook
 (3549 passed, 148 skipped, 4 warnings). Current role IMPLEMENTATION_WORKER;
-source scope is `pyproject.toml` and catalog renderer only. Generated views
+initial source scope was `pyproject.toml` and catalog renderer only. Generated views
 have LF working-tree bytes; their tracked normalized content is unchanged.
+
+## Hosted result and amendment 1
+
+Material commit `9f93aa4` passed its normal hook (3549/148/4), independent
+post-material review PASS and was pushed to the PR branch. Hosted `catalog-kit`
+and `web` PASS. `validate` passed editable install and detailed catalog but
+failed kit projection on Ubuntu. Investigation isolated `Path` sorting's
+platform-dependent casing in `scripts/sync_cvf_catalog_kit.py`: four stub
+evidence paths select root README on Linux but nested README on Windows.
+Current role WORK_ORDER_AUTHOR, phase WORK_ORDER. Amendment 1 in the work
+order adds only deterministic projection sorting. Authorization re-review
+PASS with no blocking finding; amended dispatch continuity commit is next,
+then bounded repair BUILD. No product acceptance or AI governance claim.

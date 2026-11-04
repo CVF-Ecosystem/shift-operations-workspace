@@ -5,10 +5,11 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5-REPAIR is separately authorized and in bounded BUILD.
-The two failing PR #5 checks are bounded by
-docs/work_orders/CI_PR5_REPAIR_2026-11-05.md. Next move is CI repair BUILD,
-independent review, hosted CI and merge. AM4 remains SPENT; P5-A2/UI open.
+CI-PR5-REPAIR amendment 1 authorization review PASS; dispatch commit pending.
+The two initial failures and hosted Ubuntu projection failure are bounded by
+docs/work_orders/CI_PR5_REPAIR_2026-11-05.md. Next move is independent
+amendment dispatch commit, then bounded catalog projection repair, hosted CI
+and merge. AM4 remains SPENT; P5-A2/UI open.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -49,9 +50,9 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Bounded CI-PR5-REPAIR BUILD on the two diagnosed CI failures under
-docs/work_orders/CI_PR5_REPAIR_2026-11-05.md, then independent review,
-hosted CI and PR #5 merge. No UI/runtime/SQL/provider attempt. Current role
-IMPLEMENTATION_WORKER; phase BUILD. Historical AM4 exact20+5 clean review
+Commit reviewed CI-PR5-REPAIR amendment 1 dispatch, then bounded catalog
+projection repair, independent review, hosted CI and PR #5 merge. No
+UI/runtime/SQL/provider attempt. Current role WORK_ORDER_AUTHOR; phase
+WORK_ORDER. Historical AM4 exact20+5 clean review
 is complete; actual1780283 exact20 normal3549PASS148skip4warnings230.57s,
 independent terminal PASS partial-only, current AM4 effects spent.
