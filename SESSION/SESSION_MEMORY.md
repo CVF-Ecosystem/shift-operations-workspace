@@ -1,9 +1,14 @@
 # Session Memory
 
-Updated2026-11-04. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_CVF_CORE_BINDING_ADOPTION_2026-11-04.md.
+Updated2026-11-05. Canonical SESSION/ACTIVE_SESSION_STATE.json.
+Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
+
+CI-PR5-REPAIR is separately authorized and DISPATCHED at WORK_ORDER.
+The two failing PR #5 checks are bounded by
+docs/work_orders/CI_PR5_REPAIR_2026-11-05.md. Next move is CI repair BUILD,
+independent review, hosted CI and merge. AM4 remains SPENT; P5-A2/UI open.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -40,10 +45,13 @@ Full14gapowners/destinations inactivehandoff/AM4RETURN: G01A7/G02BLOCKED;
 G03fit/G04operational/G05productionmode/authority/coverage/retention/SQLiteUNKNOWN;
 G06lateruse/G07runtime/G08-G10quality/G11otherflows/G12approval/G13drillsOPEN;
 G14providerHELD. Backend/UI/Root/operator P5-A2/B/C/D. No whole gap closes.
-Currenteffectauthorityclosed; no retry/provider/reset/push/automatictranche.
+Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Independent clean exact20+5 after this dedicated continuity commit; then bounded UI readiness diagnosis/planning only. No source repair/new runtime/browser/SQL/provider or automatic tranche.
-
-Current role SESSION_SYNC_STEWARD; phase REVIEW. Actual1780283 exact20 normal3549PASS148skip4warnings230.57s; independent terminalPASS partial-only, currenteffects spent.
+Bounded CI-PR5-REPAIR BUILD on the two diagnosed CI failures under
+docs/work_orders/CI_PR5_REPAIR_2026-11-05.md, then independent review,
+hosted CI and PR #5 merge. No UI/runtime/SQL/provider attempt. Current role
+WORK_ORDER_AUTHOR; phase WORK_ORDER. Historical AM4 exact20+5 clean review
+is complete; actual1780283 exact20 normal3549PASS148skip4warnings230.57s,
+independent terminal PASS partial-only, current AM4 effects spent.
