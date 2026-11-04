@@ -107,8 +107,8 @@ authorization; commits `c82d9e0` and `9809852` resolve the catalog-to-Project-
 Knowledge phase-order cycle and bind terminal review evidence ownership.
 Material commit `131a38b0c817903df2148107078c25dbe50d5f38` records the exact
 accepted product/review/catalog packet; post-material complete gates, terminal
-review and continuity commit close the tranche. Public workspace Core remains pinned at
-`aa672d119`. Operator-authorized Core-only binding correction has independent source/config acceptance:
+review and continuity commit close the tranche. Public workspace Core is now pinned at
+`c4c8767`. Operator-authorized Core-only binding correction has independent source/config acceptance:
 reuse its native closeability checker and integrity-check installed controls;
 private provenance/shared packs/framework continuity are no project dependency.
 CVF references remain read-only. P5-A is in REVIEW with bounded local acceptance of
@@ -163,5 +163,10 @@ volume1/containerAPIweb0. BudgetSPENT/no retry; no source repair/newtranche.
 Static asyncprincipal/input-reset readinessgap is hypothesisonly.
 AM2/AM3 accepted bounded source/SQL/JWT/HTTP receipts remain immutable.
 Full14gapowners/destinations retained; UI/P5-A2UNMET/Phase5 0/5.
+
+On 2026-11-04, the operator authorized a reviewed adoption of the clean,
+already installed public Core at `c4c8767`. The two selected native control
+artifacts remained byte-identical; local binding preflight passed. This
+support action leaves AM4's spent attempt and all P5-A2 gaps unchanged.
 
 Sources: `IMPLEMENTATION_STATUS.json`; `docs/catalog/MODULE_REGISTRY.json`; `docs/implementation/EXECUTION_ROADMAP.md`

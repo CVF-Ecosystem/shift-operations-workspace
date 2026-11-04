@@ -1,9 +1,14 @@
 # Session Memory
 
-Updated2026-10-27. Canonical SESSION/ACTIVE_SESSION_STATE.json.
-Active SESSION/handoffs/AGENT_HANDOFF_P5A2_UI_COMPLETION_AM4_2026-10-27.md.
-ReadonlyCore ../.Controlled-Vibe-Framework-CVF@aa672d11910ae1982557e4810a2a8002a611e9e6.
+Updated2026-11-04. Canonical SESSION/ACTIVE_SESSION_STATE.json.
+Active SESSION/handoffs/AGENT_HANDOFF_CVF_CORE_BINDING_ADOPTION_2026-11-04.md.
+ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
+
+Explicit reviewed Core-binding adoption is in progress after operator
+authorization. The installed Core is clean; selected control bytes are
+unchanged, and the project preflight is COMPLIANT/0. P5-A2 remains OPEN,
+Phase 5 0/5; AM4 UI acceptance UNMET and attempt SPENT.
 
 ## Same unit / actual AM4 partial result
 

@@ -1438,5 +1438,14 @@
     "resultReview": "RESULT_REVIEW_PASS_PARTIAL_EVIDENCE_ONLY",
     "resultFindings": [],
     "resultWaivers": []
+  },
+  "cvf_core_binding_adoption_20261104": {
+    "status": "REVIEW_ACCEPTED_COMMIT_PENDING",
+    "installedPublicCore": "c4c8767ac8861854f40d466ba338ffd11eb9558e",
+    "selectedControlsUnchanged": true,
+    "nativePreflight": "COMPLIANT_0",
+    "workOrder": "docs/work_orders/CVF_CORE_BINDING_ADOPTION_2026-11-04.md",
+    "milestoneComplete": false,
+    "am4UiAttemptSpent": true
   }
 }

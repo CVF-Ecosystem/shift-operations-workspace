@@ -2,8 +2,9 @@
 
 > Independent downstream project. Installed public workspace CVF Core:
 > `../.Controlled-Vibe-Framework-CVF` at
-> `aa672d11910ae1982557e4810a2a8002a611e9e6`.
+> `c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 > Core-only inheritance correction authorized by the operator: 2026-10-26.
+> Installed Core binding adoption authorized by the operator: 2026-11-04.
 > Project continuity belongs only to this project's `SESSION/` tree.
 
 ## Catalog Kit And Detailed Module Records
