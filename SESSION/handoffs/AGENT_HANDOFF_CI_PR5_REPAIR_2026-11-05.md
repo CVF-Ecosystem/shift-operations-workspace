@@ -1,10 +1,10 @@
 # PR #5 CI repair — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `a185e04368db2f202f8c5806403f3774700aca6e`.
+Material commit recorded for this handoff: `9e8b766e4438af7d715682f0a713db167d8303ce`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_2_BUILD; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Complete independently authorized CI-PR5-REPAIR amendment 2 BUILD under
-`docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`, then bounded CI environment
-and LF pin repair, full hosted checks and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Verify latest hosted PR #5 checks and independent clean-range review, merge
+only when all pass; after merge return to separately admitted G04/G05
+readiness planning. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -80,3 +80,14 @@ Amendment 2 source review PASS, findings/waivers NONE/NONE. Exact CI workflow
 and four knowledge LF pins independently verified, including public validator
 commit/SHA. Local knowledge/repository/catalog/Core/session checks PASS.
 Normal material hook, hosted CI and merge are next. No test exclusion added.
+
+## Accepted material and actual-SHA continuity
+
+Independent terminal material review PASS for exact10paths
+`a185e04..9e8b766e4438af7d715682f0a713db167d8303ce`, findings/waivers
+NONE/NONE. Normal unchanged hook3549PASS/148skip/4warnings in183.06s with
+the pinned public validator. The material is pushed. This dedicated
+continuity records its actual SHA after independent terminal review; role
+SESSION_SYNC_STEWARD, phase REVIEW. Clean split-range review follows this
+commit. Hosted run `41907009464` and latest-head checks gate merge; no
+CI-green or merge claim is made here. Operator merge authority remains.

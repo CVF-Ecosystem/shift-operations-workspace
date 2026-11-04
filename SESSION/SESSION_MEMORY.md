@@ -5,15 +5,13 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5-REPAIR amendment 2 independent authorization PASS; bounded BUILD.
-The operator authorized full clean-runner CI setup and merge only when green.
-Initial packaging/catalog/projection failures are repaired; hosted
-`catalog-kit` and `web` pass. The `validate` full test gate now exposes
-missing pinned Core, workspace rules, Windows/skill/runtime dependencies and
-four CRLF-derived knowledge pins. See
-docs/work_orders/CI_PR5_REPAIR_2026-11-05.md. Next move is amendment 2
-authorized CI environment and LF pin BUILD, hosted
-full tests and merge. AM4 remains SPENT; P5-A2/UI open.
+CI-PR5-REPAIR material `9e8b766e4438af7d715682f0a713db167d8303ce`
+independently accepted exact10paths; normal hook3549PASS148skip4warnings183s.
+Packaging/catalog/projection and clean-runner/knowledge-LF fixes committed.
+Actual-SHA continuity is recorded before clean split-range review. Hosted
+run41907009464 evaluating the material; latest-head hosted checks must all
+pass before authorized PR #5 merge. After merge, return to separately
+admitted G04/G05 readiness planning. AM4 remains SPENT; P5-A2/UI open.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -54,9 +52,9 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Complete independently authorized CI-PR5-REPAIR amendment 2 bounded
-CI environment and LF knowledge-pin repair, full hosted checks and PR #5
-merge. No product runtime/provider attempt. Current role IMPLEMENTATION_WORKER;
-phase BUILD. Historical AM4 exact20+5 clean review
+Verify latest hosted PR #5 checks and independent clean-range review, merge
+only when all pass; after merge return to separately admitted G04/G05
+readiness planning. No product runtime/provider attempt. Current role
+SESSION_SYNC_STEWARD; phase REVIEW. Historical AM4 exact20+5 clean review
 is complete; actual1780283 exact20 normal3549PASS148skip4warnings230.57s,
 independent terminal PASS partial-only, current AM4 effects spent.

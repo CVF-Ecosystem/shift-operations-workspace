@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "ci_pr5_repair_dispatched_20261105",
+  "currentMode": "ci_pr5_material_reviewed_merge_gated_20261105",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md",
-  "nextAllowedMove": "Complete independently authorized CI-PR5-REPAIR amendment 2 CI environment and LF knowledge-pin BUILD, full hosted checks and PR #5 merge. No product runtime/provider attempt.",
+  "nextAllowedMove": "Verify latest hosted PR #5 checks and independent clean-range review, merge only when all pass; after merge return to separately admitted G04/G05 readiness planning. No product runtime/provider attempt.",
   "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "requiredReads": [
     "AGENTS.md",

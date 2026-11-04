@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: AMENDMENT_2_SOURCE_REVIEW_PASS_HOSTED_PENDING
+Status: TERMINAL_MATERIAL_REVIEW_PASS_HOSTED_PENDING
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -92,3 +92,13 @@ historical AM4 completion review and AM3 return in `docs/decisions/`, with
 zero violations; no automatic legacy-path CLI coverage is asserted. This
 does not change those historical product dispositions. Normal material hook,
 hosted CI and merge verification remain pending.
+
+## Actual material terminal review
+
+Independent terminal review PASS at
+`9e8b766e4438af7d715682f0a713db167d8303ce`, exact10paths from `a185e04`.
+No blocker or waiver. Normal hook passed3549/148skip/4warnings in183.06s
+using the same pinned public validator. Worktree was clean; Core/session and
+diff checks PASS, `.githooks` intact. Authorized fast-forward push completed.
+Dedicated actual-SHA continuity follows this review, then independent clean
+split-range closure review and latest hosted checks gate PR #5 merge.
