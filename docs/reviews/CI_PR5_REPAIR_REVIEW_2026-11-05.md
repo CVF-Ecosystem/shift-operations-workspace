@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: DEPENDENT_PORTABILITY_REPAIR_ADMITTED
+Status: ACL_FIXTURE_REFINEMENT_SOURCE_REVIEW
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -121,3 +121,43 @@ no blockers/waivers. Expected helper hash, all tamper cases, runtime ACL code
 and private/OWNER RIGHTS/Everyone assertions remain intact. Focused two-file
 pytest24PASS in15.65s; Core/session/diff checks PASS. Normal hook and latest
 hosted green gates remain.
+
+Portability terminal material review PASS `58948cc..bebe4a1`, exact9paths,
+findings/waivers NONE/NONE. Material actual SHA
+`bebe4a1ba15cfb60b099da84b7e362c4ab376f56`; focused24PASS and unchanged
+normal hook3549PASS148skip4warnings178.92s. Core/session/diff checks PASS,
+clean worktree, authorized fast-forward push. Dedicated actual-SHA continuity
+follows terminal review; independent clean-range review and all latest-head
+hosted checks still gate merge. No current CI-green/merge claim.
+
+Hosted41909216440:3549PASS147skip1failure at the ACL test's initial private
+fixture assertion. The owner-only setup was insufficient on the hosted
+environment; exact remaining host ACL difference is not asserted. The
+same admitted test path now constructs the entire intended protected DACL
+with current-user owner and one FullControl Allow rule, using the same
+sanitized PowerShell environment as the runtime verifier. Runtime guard and
+all three original ACL assertions remain. Focused file8PASS9.42s.
+
+The attempted dedicated continuity hook did not commit:3548PASS148skip,
+one report-export child startup deadline failure. Isolated export suite
+reran25PASS8.86s without source changes. Current records are included with
+the corrective material; dedicated latest-SHA continuity follows its review.
+
+Independent same-path refinement/source review PASS, findings/waivers
+NONE/NONE. The complete private fixture DACL is deterministic; runtime
+verifier and assertions unchanged. The authorized CI workflow additionally
+runs the exact ACL test before the unchanged full pytest gate, failing early
+without exclusions or continue-on-error. Core/session/diff checks PASS.
+
+Second full-hook attempt retained:3548PASS148skip4warnings, same export
+worker test-only3s partial-write marker failure. Independent distinct-cause
+admission PASS for exact export test path: product `DEADLINE_SECONDS` is10;
+test now uses that constant and bound deadline+3 for cleanup, preserving
+partial write/child termination/ExportFailure assertions. Runtime unchanged.
+Combined export+ACL focused33PASS14.76s; Core/session PASS. This correction
+addresses the timing mismatch rather than dropping/retrying the assertion.
+
+Combined source review PASS exact10paths versusbebe4a1: three admitted source
+paths and seven governance records; findings/waivers NONE/NONE. No runtime
+source change, skip or guard weakening. Focused33PASS; normal hook and latest
+hosted green remain gates.

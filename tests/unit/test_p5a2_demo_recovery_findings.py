@@ -4,7 +4,6 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -238,16 +237,31 @@ def test_explicit_everyone_read_grant_refuses_private_acl(tmp_path):
     folder.mkdir()
     file = folder / "inert.txt"
     file.write_text("inert")
-    user = os.environ["USERNAME"]
-    for path, grant in ((folder, f"{user}:(OI)(CI)F"), (file, f"{user}:F")):
-        # Elevated hosted runners can create objects owned by Administrators.
-        # Establish the current-user ownership required by this fixture.
-        result = subprocess.run(["icacls", str(path), "/setowner", user],
-                                capture_output=True, text=True, timeout=10)
-        assert result.returncode == 0
-        result = subprocess.run(["icacls", str(path), "/inheritance:r", "/grant:r", grant],
-                                capture_output=True, text=True, timeout=10)
-        assert result.returncode == 0
+    # Build the complete private fixture rather than retaining any explicit
+    # runner-default grants. Use the same sanitized child environment as the
+    # real verifier; no raw ACL principals or rights are returned.
+    paths = ", ".join("'" + str(path).replace("'", "''") + "'"
+                      for path in (folder, file))
+    script = f"""
+$ErrorActionPreference = 'Stop'
+$sid = [Security.Principal.WindowsIdentity]::GetCurrent().User
+foreach ($path in @({paths})) {{
+  $acl = if (Test-Path -LiteralPath $path -PathType Container) {{
+    [Security.AccessControl.DirectorySecurity]::new()
+  }} else {{ [Security.AccessControl.FileSecurity]::new() }}
+  $acl.SetOwner($sid)
+  $acl.SetAccessRuleProtection($true, $false)
+  $acl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new(
+    $sid, [Security.AccessControl.FileSystemRights]::FullControl,
+    [Security.AccessControl.AccessControlType]::Allow))
+  Set-Acl -LiteralPath $path -AclObject $acl
+}}
+'PRIVATE_FIXTURE_READY'
+"""
+    result = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", script],
+                            env=custody.child_env(), capture_output=True,
+                            text=True, timeout=10)
+    assert result.returncode == 0 and result.stdout.strip() == "PRIVATE_FIXTURE_READY"
     assert custody.windows_private_acl(folder, file)
     result = subprocess.run(["icacls", str(file), "/grant", "*S-1-3-4:(F)"],
                             capture_output=True, text=True, timeout=10)

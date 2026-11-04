@@ -54,6 +54,8 @@ jobs:
         run: python scripts/sync_cvf_catalog_kit.py
       - name: Repository validation
         run: python scripts/testing/validate_repository.py
+      - name: Verify private ACL fixture on hosted Windows
+        run: python -m pytest -q tests/unit/test_p5a2_demo_recovery_findings.py::test_explicit_everyone_read_grant_refuses_private_acl
       - name: Tests
         run: python -m pytest -q
 

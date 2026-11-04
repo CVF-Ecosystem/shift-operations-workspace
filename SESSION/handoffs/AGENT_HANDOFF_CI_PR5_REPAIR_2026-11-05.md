@@ -1,10 +1,10 @@
 # PR #5 CI repair — active handoff
 
 <!-- CVF-GC020-MATERIAL-SHA:START -->
-Material commit recorded for this handoff: `9e8b766e4438af7d715682f0a713db167d8303ce`.
+Material commit recorded for this handoff: `bebe4a1ba15cfb60b099da84b7e362c4ab376f56`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: DEPENDENT_PORTABILITY_REPAIR; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ACL_FIXTURE_REPAIR; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Complete admitted two-test portability repair, normal hook and latest hosted
-checks; merge only when green, then return to separately admitted G04/G05
-readiness planning. Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Complete admitted ACL fixture/product-deadline test repairs and latest green gates,
+then merge and return to separately admitted G04/G05 readiness planning.
+Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -107,3 +107,36 @@ Dependent source review PASS with no finding/waiver; focused tests24PASS.
 Core/session/diff checks PASS; all original integrity/tamper/ACL assertions
 remain. Next normal material hook, terminal review, actual-SHA continuity,
 latest hosted checks and green-only merge.
+
+## Portability material accepted and actual-SHA continuity
+
+Independent terminal review PASS for `58948cc..bebe4a1`, exact9paths,
+findings/waivers NONE/NONE. Focused24PASS; unchanged normal hook3549PASS,
+148skip/4warnings in178.92s. Material pushed. This dedicated continuity
+records actual `bebe4a1ba15cfb60b099da84b7e362c4ab376f56` after review;
+phase REVIEW, role SESSION_SYNC_STEWARD. Independent clean split-range
+review and all latest-head hosted checks still gate the authorized merge.
+
+Hosted41909216440:3549PASS147skip1failure, only initial private ACL fixture
+baseline. Helper LF/hash checks passed. Same admitted test path refinement
+constructs exact current-user owned protected DACL before original assertions;
+runtime ACL guard remains unchanged. Role REPAIR_WORKER, phase BUILD, this
+acknowledgment precedes source refinement. Prior dedicated continuity commit
+did not complete: hook3548PASS148skip1export-child-start deadline failure;
+focused report-export suite reran25PASS without source changes.
+
+Independent ACL refinement and early focused workflow step review PASS,
+findings/waivers NONE/NONE; focused8PASS. Full pytest and all original ACL
+assertions remain. Next corrective normal hook, terminal review and actual-SHA
+continuity before latest hosted green-only merge.
+
+Second full-hook attempt again failed only the export worker's test-only3s
+startup marker (3548PASS148skip4warnings); product deadline is10s. The
+existing work order now adds the exact export test path to bind the real
+child test to the unchanged product deadline. Independent admission review
+and this current REPAIR_WORKER/BUILD acknowledgment precede that source edit.
+
+Independent combined source review PASS exact10paths, no blockers/waivers;
+focused export+ACL33PASS14.76s. Runtime source and assertions retained.
+Proceed normal hook, terminal review, dedicated actual-SHA continuity and
+latest hosted green before merge.

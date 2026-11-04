@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "ci_pr5_portability_repair_20261105",
+  "currentMode": "ci_pr5_acl_fixture_repair_20261105",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md",
-  "nextAllowedMove": "Complete independently admitted CI-PR5 test portability repair, normal hook and latest hosted checks; merge only when green, then return to separately admitted G04/G05 readiness planning.",
+  "nextAllowedMove": "Complete admitted ACL fixture and product-deadline test repair, normal hook and latest hosted checks; merge only when green, then return to separately admitted G04/G05 readiness planning.",
   "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "requiredReads": [
     "AGENTS.md",
