@@ -220,11 +220,11 @@ foreseeableFileSplitDisposition: COVERED_BY_BOUNDED_PATH_FAMILY
 | pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | authorization_review |
 | dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md material-SHA marker | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
 | pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
-| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/acl_child_diagnostic.py;tests/unit/test_report_export_limits.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/acl_child_diagnostic.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_report_export_limits.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
 | adif_integrity | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests |
 | worker_return_fast | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | adif_integrity |
 | reviewer_fast | REVIEW | reviewer | REVIEW | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
-| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/acl_child_diagnostic.py;tests/unit/test_report_export_limits.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md;docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/catalog/ARTIFACT_REGISTRY.json;docs/PROJECT_INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;tests/unit/acl_child_diagnostic.py;scripts/p5a2_source_demo_recovery_custody.py;tests/unit/test_report_export_limits.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md;docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/catalog/ARTIFACT_REGISTRY.json;docs/PROJECT_INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
 | terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
 | continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
 | committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |
@@ -246,3 +246,44 @@ Runtime10s/script/all assertions/full tests unchanged. Source/terminal
 review and normal hook precede ONE hosted run then independent result
 review; no automatic successor. Current IMPLEMENTATION_WORKER/BUILD
 acknowledgment precedes source. Existing G01–G14 binding/stop apply.
+
+ONE CI discovery41920745392 failed: actualTIMEOUT10.021s; staged
+probeEXIT_ZERO25.182s/stdoutPASS, ENTRY147ms READ_1=163ms,
+OWNER_1=25108ms, remaining checksEXIT_PASS25139ms. PreparationPASSED
+but subsequent child firstGetAcl24.945s; cache preparation insufficient.
+Candidatec8c7b36 normal3549PASS148skip4warnings188.81s/terminalPASS.
+STOP REVIEW/ORCHESTRATOR; no extra hosted attempt. Prospective exact
+scope expansion PENDING_OPERATOR: scripts/p5a2_source_demo_recovery_custody.py,
+add one `Import-Module Microsoft.PowerShell.Security -ErrorAction Stop`
+inside existing try before identity, preserving real10s/ACL predicates/failure
+handling. This explicit dependency initialization is outside current CI/test
+scope; no source edit or authority inferred. Independent result/proposal
+review requested, operator approval pending. Existing G01–G14 binding and
+escalation remain. No product acceptance/merge/AI-governance proof claim.
+
+Independent result review PASS; prospective one-line technical review PASS,
+NOT BUILD admission. Import in existing try is failclosed, timeout10s/ACL
+predicates unchanged. Operator exact runtime path approval pending; no
+fixture change or AM4 budget. Future accepted scope must reconcile live
+contract/invariant references without rewriting historical frozen evidence.
+
+## Approved exact guard dependency initialization
+
+Operator reply 2026-11-05: "Cho phép sửa guard và merge khi xanh" to the
+concrete one-line proposal. Add only
+`Import-Module Microsoft.PowerShell.Security -ErrorAction Stop` inside the
+existing try before identity in exact
+`scripts/p5a2_source_demo_recovery_custody.py`. Risk remains R2, commit owner
+COMMIT_STEWARD; no credential/provider/database/browser/deployment effects.
+Technical review accepted the prospective patch; independent amendment
+admission precedes BUILD. Keep actual10s timeout, args/env/flags, ACL
+predicates/caught failure and original tests unchanged. Historical AM4
+source hashes/evidence remain historical immutable proof and spent authority;
+this CI-only guard source delta does not authorize any AM4 execution or
+rewrite frozen pins. No new receipt/outcome contract; invariant-family
+registration NOT_APPLICABLE to explicit module initialization only, with
+existing family checker run before REVIEW. Existing full G01–G14 binding
+remains current: CI support G04/G05 only, all product gaps/owners/destinations
+unchanged. Local tests/normal hook/independent source and terminal review,
+ONE hosted verification then independent result review. Dedicated actualSHA
+continuity and clean split-range review precede green-only PR5 merge.

@@ -251,3 +251,31 @@ blocker/waiver. Sole source GetCommand before import; sanitized90s/hardfail/
 sentinel retained, actual runtime/test10s unchanged. Exact YAML preparation
 localPASS, Core/session/diffPASS. Normal hook/terminal then ONE hosted
 candidate, stop for independent result review.
+
+ONE CI discovery41920745392 failed: actualTIMEOUT10.021s; staged
+probeEXIT_ZERO25.182s/stdoutPASS, ENTRY147ms READ_1=163ms,
+OWNER_1=25108ms, remaining checksEXIT_PASS25139ms. PreparationPASSED
+but subsequent child firstGetAcl24.945s; cache preparation insufficient.
+Candidatec8c7b36 normal3549PASS148skip4warnings188.81s/terminalPASS.
+STOP REVIEW/ORCHESTRATOR; no extra hosted attempt. Prospective exact
+scope expansion PENDING_OPERATOR: scripts/p5a2_source_demo_recovery_custody.py,
+add one `Import-Module Microsoft.PowerShell.Security -ErrorAction Stop`
+inside existing try before identity, preserving real10s/ACL predicates/failure
+handling. This explicit dependency initialization is outside current CI/test
+scope; no source edit or authority inferred. Independent result/proposal
+review requested, operator approval pending. Existing G01–G14 binding and
+escalation remain. No product acceptance/merge/AI-governance proof claim.
+
+Operator exact scope approval received: "Cho phép sửa guard và merge khi xanh".
+Independent GUARD_SCOPE_AMENDMENT_ADMISSION_PASS, no blocker/waiver.
+IMPLEMENTATION_WORKER/BUILD acknowledgment BEFORE source: add only explicit
+Security module import in the existing guard try. Actual10s/predicates/
+failure behavior unchanged; no AM4 execution/pin rewrite. G01–G14 unchanged.
+CoreCOMPLIANT/sessionPASS, invariant guardPASS; activation core-only retained
+stale/supplemental finding at documented project-policy boundary.
+
+Independent GUARD_INITIALIZATION_SOURCE_REVIEW_PASS exact8paths, no
+blocker/waiver. One import inside existing try preserves failclosed10s/env/
+flags/predicates; no historicalpins/fixture changes. Focused18PASS3.17s,
+realPASS/PASS/FAIL0.408/0.329/0.355s, Core/session/invariant/diffPASS.
+Next normal fullhook, terminal review, ONE hosted verification/result review.

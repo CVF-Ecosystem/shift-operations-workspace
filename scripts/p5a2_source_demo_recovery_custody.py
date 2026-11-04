@@ -127,6 +127,7 @@ def windows_private_acl(folder: Path, file: Path) -> bool:
         return "'" + str(path).replace("'", "''") + "'"
     script = f"""
 try {{
+  Import-Module Microsoft.PowerShell.Security -ErrorAction Stop
   $userSid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
   # OWNER RIGHTS denotes this object's owner; owner and explicit user FullControl are checked below.
   $allowed = @($userSid, 'S-1-5-18', 'S-1-5-32-544', 'S-1-3-4')

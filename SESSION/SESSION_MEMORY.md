@@ -5,13 +5,9 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 ONE staged41919132332: actualTIMEOUT10.014s; readonly probe
-EXIT_ZERO19.287s/stdoutPASS. ENTRY108ms, IDENTITY/READ_1=117ms,
-OWNER_1=19233ms; all subsequent rules/read2/checksEXIT_PASS by19264ms.
-First Get-Acl19.116s; startup/ACL rejection not supported. Moduleautoload
-latency hypothesis unproven; stop REVIEW/ORCHESTRATOR for independent
-result/causal repair admission. REVIEW_COST_ESCALATION_REQUIRED retained.
-f492038 normal3549PASS148skip4warnings186.67s/terminalPASS. No merge.
+CI-PR5 currentc8c7b36 normal3549PASS148skip4warnings188.81s.
+CI-only discovery failed; operator approved exact guard import; independent
+amendment admissionPASS. Full actual diagnostic receipts in activehandoff/WO/review.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -52,14 +48,13 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Implement ONE admitted CI command-discovery preparation, source/terminal review and normal hook; ONE hosted run then independent result review; green-only merge.
+Implement approved one-line Security module initialization in guard; independent source/terminal review and normal hook, ONE hosted verification then result review, actualSHA continuity/clean-range review before green-only merge.
 Current role IMPLEMENTATION_WORKER; phase BUILD. AM4 effects remain spent.
 
-Independent result review PASS. ONE CI-only causal candidate admitted:
-existing bounded90s sanitized dependency preparation resolves unqualified
-`Get-Command Get-Acl -ErrorAction Stop` BEFORE explicit module import and
-Get-Acl. This tests discovery/cache preparation, not proven causation.
-Runtime10s/script/all assertions/full tests unchanged. Source/terminal
-review and normal hook precede ONE hosted run then independent result
-review; no automatic successor. Current IMPLEMENTATION_WORKER/BUILD
-acknowledgment precedes source. Existing G01–G14 binding/stop apply.
+Operator exact scope approval received: "Cho phép sửa guard và merge khi xanh".
+Independent GUARD_SCOPE_AMENDMENT_ADMISSION_PASS, no blocker/waiver.
+IMPLEMENTATION_WORKER/BUILD acknowledgment BEFORE source: add only explicit
+Security module import in the existing guard try. Actual10s/predicates/
+failure behavior unchanged; no AM4 execution/pin rewrite. G01–G14 unchanged.
+CoreCOMPLIANT/sessionPASS, invariant guardPASS; activation core-only retained
+stale/supplemental finding at documented project-policy boundary.
