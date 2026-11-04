@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: ONE_HOST_COMPATIBILITY_CANDIDATE_REVIEW
+Status: HOST_COMPATIBILITY_RESULT_TIMEOUT_REVIEW
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -228,3 +228,25 @@ hosted attempt then independent result review. No automatic retry/fix.
 Independent host-baseline source review PASS exact8paths, no blocker/waiver.
 Only one validate runner-label line plus7 governance records; Core/session/
 diff PASS. Normal hook and terminal review precede the one hosted candidate.
+
+Host candidate1c41ff2 normal3549PASS148skip4warnings251.43s and independent
+terminal reviewPASS. One run41917032275: actual ACL childTIMEOUT10.022s,
+fixtureREADY passed, total40.55s. Windows2022 did not resolve the observed
+timeout; no2025 causation claim. Stopped for independent result review
+before further source or hosted attempt. No merge/current CI-green claim.
+
+Independent staged probe/helper admission PASS before source: exact
+`tests/unit/acl_child_diagnostic.py` test-only split under300line cap; first
+actual timeout only triggers one90s read-only copied-script stage probe,
+filtered tokens/timings only, original exception rethrown. Real10s/assertions
+remain. Current IMPLEMENTATION_WORKER/BUILD acknowledgment; source review,
+normal hook, ONE hosted run then stop for independent result review.
+CoreCOMPLIANT; activation core-only stale/supplemental finding retained,
+project prohibits routine supplemental dependency. G01–G14/AM4 unchanged.
+
+Independent STAGED_DIAGNOSTIC_SOURCE_REVIEW_PASS exact9paths; no blocker
+or waiver. Actual10s/args/env/flags/assertions retained; strict allowlisted
+markers/partial-output filter, first timeout only, original rethrown.
+Focused8PASS3.06s/direct readonly probePASS; Core/session/file-size/catalog/
+projection/manager/diffPASS. Next normal hook, terminal review, ONE hosted
+probe then stop for independent result review. No retry/repair inferred.

@@ -6,11 +6,11 @@ import hashlib
 import json
 import subprocess
 import sys
-import time
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from acl_child_diagnostic import install_acl_observer
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -263,30 +263,7 @@ foreach ($path in @({paths})) {{
                             env=custody.child_env(), capture_output=True,
                             text=True, timeout=60)
     assert result.returncode == 0 and result.stdout.strip() == "PRIVATE_FIXTURE_READY"
-    real_run = subprocess.run
-
-    def observe_acl_child(argv, **kwargs):
-        if "-EncodedCommand" not in argv:
-            return real_run(argv, **kwargs)
-        started = time.monotonic()
-        try:
-            observed = real_run(argv, **kwargs)
-        except (subprocess.TimeoutExpired, OSError) as exc:
-            print("ACL_CHILD_DIAGNOSTIC " + json.dumps({
-                "elapsed": round(time.monotonic() - started, 3),
-                "outcome": "TIMEOUT" if isinstance(exc, subprocess.TimeoutExpired) else "OSERROR",
-            }))
-            raise
-        output = observed.stdout.strip()
-        print("ACL_CHILD_DIAGNOSTIC " + json.dumps({
-            "elapsed": round(time.monotonic() - started, 3),
-            "returncode": observed.returncode,
-            "stdout_class": output if output in {"PASS", "FAIL"} else "OTHER",
-            "stderr_present": bool(observed.stderr),
-        }))
-        return observed
-
-    monkeypatch.setattr(custody.subprocess, "run", observe_acl_child)
+    install_acl_observer(monkeypatch, custody.subprocess)
     assert custody.windows_private_acl(folder, file)
     result = subprocess.run(["icacls", str(file), "/grant", "*S-1-3-4:(F)"],
                             capture_output=True, text=True, timeout=10)

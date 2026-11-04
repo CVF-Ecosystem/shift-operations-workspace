@@ -4,7 +4,7 @@
 Material commit recorded for this handoff: `800d8759a001de72adc3da0d94a9f046a7a7649e`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ONE_HOST_COMPATIBILITY_CHECK; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: HOST_COMPATIBILITY_RESULT_REVIEW; phase REVIEW.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,8 +15,8 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Run one independently admitted windows-2022 compatibility check, then
-independent result review. Current role IMPLEMENTATION_WORKER.
+One windows-2022 candidate completed with actual childTIMEOUT; independent
+result review before further source. Current role ORCHESTRATOR.
 Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
@@ -205,3 +205,25 @@ acknowledgment precedes source. One hosted attempt then independent review.
 Independent host-baseline source review PASS, no blocker/waiver, exact8paths.
 Only validate runner label changed; Core/session/diffPASS. Normal hook and
 terminal review precede the one hosted candidate attempt.
+
+One host candidate41917032275 result: actual childTIMEOUT10.022s,
+fixtureREADY passed, total40.55s. Fixed2022 did not resolve timeout; no image
+causation inferred. Stopped at REVIEW/ORCHESTRATOR for independent result
+review before any further source or hosted attempt. Candidate1c41ff2 normal
+3549PASS148skip4warnings251.43s and terminal reviewPASS.
+
+Independent staged probe/helper admission PASS before source: exact
+`tests/unit/acl_child_diagnostic.py` test-only split under300line cap; first
+actual timeout only triggers one90s read-only copied-script stage probe,
+filtered tokens/timings only, original exception rethrown. Real10s/assertions
+remain. Current IMPLEMENTATION_WORKER/BUILD acknowledgment; source review,
+normal hook, ONE hosted run then stop for independent result review.
+CoreCOMPLIANT; activation core-only stale/supplemental finding retained,
+project prohibits routine supplemental dependency. G01–G14/AM4 unchanged.
+
+Independent STAGED_DIAGNOSTIC_SOURCE_REVIEW_PASS exact9paths; no blocker
+or waiver. Actual10s/args/env/flags/assertions retained; strict allowlisted
+markers/partial-output filter, first timeout only, original rethrown.
+Focused8PASS3.06s/direct readonly probePASS; Core/session/file-size/catalog/
+projection/manager/diffPASS. Next normal hook, terminal review, ONE hosted
+probe then stop for independent result review. No retry/repair inferred.
