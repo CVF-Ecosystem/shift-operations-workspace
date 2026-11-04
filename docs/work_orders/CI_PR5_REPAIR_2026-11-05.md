@@ -68,6 +68,18 @@ amendment admission rows use MATERIAL_COMMIT. After material, preserve
 independent terminal review, a dedicated actual-SHA continuity commit and
 clean split-range closure review.
 
+Dependent amendment 2 test-portability repair: run `41907009464` passed all
+environment/catalog setup and reported 3 failures/8 setup errors, isolated
+to two fixtures. Add exact paths
+`tests/integration/test_project_knowledge_ingest_rehearsal.py` and
+`tests/unit/test_p5a2_demo_recovery_findings.py`. Canonicalize helper SHA input
+to LF, matching the existing normalized Git-blob integrity comparison and
+unchanged expected hash. Explicitly set the ACL fixture owner to the current
+user before the existing private/OWNER RIGHTS/Everyone assertions; hosted
+admin-created files can default to the Administrators owner. Keep runtime
+ACL verifier and all tamper/refusal assertions unchanged. Existing G01–G14
+binding and operator CI authority apply; independent review gates repair.
+
 ## Product Milestone Binding
 
 - **Milestone:** P5-A2, `docs/implementation/EXECUTION_ROADMAP.md`, assessed at
@@ -140,11 +152,11 @@ foreseeableFileSplitDisposition: COVERED_BY_BOUNDED_PATH_FAMILY
 | pre_dispatch_gate | PRE_DISPATCH | orchestrator | PRE_DISPATCH | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;docs/catalog/ARTIFACT_REGISTRY.json;docs/INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | authorization_review |
 | dispatch_continuity | IMPLEMENTATION | session-sync-steward | IMPLEMENTATION | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md material-SHA marker | EXACT_PATHS | session-sync-steward | DISPATCH_CONTINUITY_COMMIT | pre_dispatch_gate |
 | pre_implementation_autorun | IMPLEMENTATION | orchestrator | IMPLEMENTATION | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity |
-| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
+| focused_checker_tests | WORKER_RETURN | implementation-worker | IMPLEMENTATION | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | dispatch_continuity,pre_implementation_autorun |
 | adif_integrity | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/work_orders/CI_PR5_REPAIR_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | focused_checker_tests |
 | worker_return_fast | WORKER_RETURN | orchestrator | WORKER_RETURN | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | adif_integrity |
 | reviewer_fast | REVIEW | reviewer | REVIEW | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | MATERIAL_COMMIT | worker_return_fast |
-| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md;docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/catalog/ARTIFACT_REGISTRY.json;docs/PROJECT_INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
+| pre_commit | PRE_MATERIAL_COMMIT | repair-worker | PRE_MATERIAL_COMMIT | pyproject.toml;scripts/lib/downstream_catalog/CvfDownstreamCatalogLib.ps1;scripts/sync_cvf_catalog_kit.py;.github/workflows/ci.yml;knowledge/manifest.json;tests/integration/test_project_knowledge_ingest_rehearsal.py;tests/unit/test_p5a2_demo_recovery_findings.py;docs/INDEX.md;docs/catalog/MODULE_CATALOG.md;docs/work_orders/CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md;SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json;docs/catalog/ARTIFACT_REGISTRY.json;docs/PROJECT_INDEX.md | BOUNDED_PATH_FAMILY | commit-steward | MATERIAL_COMMIT | reviewer_fast |
 | terminal_completion_review | POST_MATERIAL | reviewer | POST_MATERIAL | docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | commit-steward | CORRECTIVE_MATERIAL_COMMIT | pre_commit |
 | continuity | CONTINUITY_COMMIT | session-sync-steward | CONTINUITY_COMMIT | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;SESSION/ACTIVE_SESSION_STATE.json;SESSION/SESSION_MEMORY.md;SESSION/ACTIVE_SESSION_BOOTSTRAP_READ_MODEL.json;CVF_SESSION/ACTIVE_SESSION_STATE.json | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | terminal_completion_review |
 | committed_range_closure | POST_MATERIAL_CLOSURE | reviewer | POST_MATERIAL_CLOSURE | SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md;docs/reviews/CI_PR5_REPAIR_REVIEW_2026-11-05.md | EXACT_PATHS | session-sync-steward | CONTINUITY_COMMIT | continuity |

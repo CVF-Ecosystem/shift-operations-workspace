@@ -4,7 +4,7 @@
 Material commit recorded for this handoff: `9e8b766e4438af7d715682f0a713db167d8303ce`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: MATERIAL_ACCEPTED_MERGE_GATED; phase REVIEW.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: DEPENDENT_PORTABILITY_REPAIR; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Verify latest hosted PR #5 checks and independent clean-range review, merge
-only when all pass; after merge return to separately admitted G04/G05
-readiness planning. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Complete admitted two-test portability repair, normal hook and latest hosted
+checks; merge only when green, then return to separately admitted G04/G05
+readiness planning. Current role REPAIR_WORKER. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -91,3 +91,19 @@ continuity records its actual SHA after independent terminal review; role
 SESSION_SYNC_STEWARD, phase REVIEW. Clean split-range review follows this
 commit. Hosted run `41907009464` and latest-head checks gate merge; no
 CI-green or merge claim is made here. Operator merge authority remains.
+
+## Dependent portability repair acknowledgment
+
+Hosted `41907009464` passed all setup/catalog gates, then reported3fail/8errors:
+Core helper CRLF raw SHA differs from canonical LF and the ACL test fixture
+does not set a current-user owner on admin-created hosted files. Independent
+bounded repair admission PASS for the two exact test paths in the Work Order.
+Current role REPAIR_WORKER, phase BUILD; this acknowledgment precedes source
+repair. Preserve helper expected hash/tamper checks, runtime ACL guard and
+all private/OWNER RIGHTS/Everyone assertions. Continuity run41907853162 was
+cancelled for these known source causes. Latest green checks still gate merge.
+
+Dependent source review PASS with no finding/waiver; focused tests24PASS.
+Core/session/diff checks PASS; all original integrity/tamper/ACL assertions
+remain. Next normal material hook, terminal review, actual-SHA continuity,
+latest hosted checks and green-only merge.

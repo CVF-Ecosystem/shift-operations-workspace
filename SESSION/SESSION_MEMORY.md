@@ -5,13 +5,13 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5-REPAIR material `9e8b766e4438af7d715682f0a713db167d8303ce`
-independently accepted exact10paths; normal hook3549PASS148skip4warnings183s.
-Packaging/catalog/projection and clean-runner/knowledge-LF fixes committed.
-Actual-SHA continuity is recorded before clean split-range review. Hosted
-run41907009464 evaluating the material; latest-head hosted checks must all
-pass before authorized PR #5 merge. After merge, return to separately
-admitted G04/G05 readiness planning. AM4 remains SPENT; P5-A2/UI open.
+CI-PR5 dependent test portability repair independently admitted; role
+REPAIR_WORKER, phase BUILD. Hosted41907009464 full tests narrowed to3fail/8errors
+from helper CRLF hash and admin-owned ACL fixture. Exact2test repair paths
+are in the amended work order; runtime controls and all assertions retained.
+Latest continuity run41907853162 cancelled because it has the same known
+source causes. Normal hook/latest hosted checks and green-only merge remain.
+AM4 SPENT, P5-A2/UI OPEN/UNMET.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -52,9 +52,6 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Verify latest hosted PR #5 checks and independent clean-range review, merge
-only when all pass; after merge return to separately admitted G04/G05
-readiness planning. No product runtime/provider attempt. Current role
-SESSION_SYNC_STEWARD; phase REVIEW. Historical AM4 exact20+5 clean review
-is complete; actual1780283 exact20 normal3549PASS148skip4warnings230.57s,
-independent terminal PASS partial-only, current AM4 effects spent.
+Complete independently admitted CI-PR5 test portability repair, normal hook and latest hosted checks; merge only when green, then return to separately admitted G04/G05 readiness planning.
+Current role REPAIR_WORKER; phase BUILD. AM4 exact20+5 clean review remains
+complete; current AM4 effects spent. No product runtime/provider attempt.

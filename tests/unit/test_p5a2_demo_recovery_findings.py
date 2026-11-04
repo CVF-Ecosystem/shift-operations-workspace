@@ -240,6 +240,11 @@ def test_explicit_everyone_read_grant_refuses_private_acl(tmp_path):
     file.write_text("inert")
     user = os.environ["USERNAME"]
     for path, grant in ((folder, f"{user}:(OI)(CI)F"), (file, f"{user}:F")):
+        # Elevated hosted runners can create objects owned by Administrators.
+        # Establish the current-user ownership required by this fixture.
+        result = subprocess.run(["icacls", str(path), "/setowner", user],
+                                capture_output=True, text=True, timeout=10)
+        assert result.returncode == 0
         result = subprocess.run(["icacls", str(path), "/inheritance:r", "/grant:r", grant],
                                 capture_output=True, text=True, timeout=10)
         assert result.returncode == 0

@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: TERMINAL_MATERIAL_REVIEW_PASS_HOSTED_PENDING
+Status: DEPENDENT_PORTABILITY_REPAIR_ADMITTED
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -102,3 +102,22 @@ using the same pinned public validator. Worktree was clean; Core/session and
 diff checks PASS, `.githooks` intact. Authorized fast-forward push completed.
 Dedicated actual-SHA continuity follows this review, then independent clean
 split-range closure review and latest hosted checks gate PR #5 merge.
+
+## Hosted result and dependent test repair
+
+Clean split-range review PASS exact10 material +6 continuity at58948cc,
+no blockers/waivers. Hosted41907009464 subsequently passed full environment,
+catalog/repository setup and narrowed to3fail/8errors from two fixtures:
+Core helper raw CRLF hash and hosted admin ownership for ACL fixture baseline.
+Independent repair admission PASS for exact2test paths added to the Work
+Order; no further operator approval required. Normalize only helper hash
+input to LF and set fixture owner explicitly, keeping expected SHA, runtime
+ACL code and all tamper/refusal assertions. Latest continuity run41907853162
+cancelled because same known source causes remain. Repair source review,
+normal hook and hosted green gate remain pending.
+
+Dependent source review PASS exact2test changes plus7 authorized records,
+no blockers/waivers. Expected helper hash, all tamper cases, runtime ACL code
+and private/OWNER RIGHTS/Everyone assertions remain intact. Focused two-file
+pytest24PASS in15.65s; Core/session/diff checks PASS. Normal hook and latest
+hosted green gates remain.
