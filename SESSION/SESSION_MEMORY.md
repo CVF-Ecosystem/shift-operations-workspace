@@ -5,10 +5,12 @@ Active SESSION/handoffs/AGENT_HANDOFF_CVF_CORE_BINDING_ADOPTION_2026-11-04.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-Explicit reviewed Core-binding adoption is in progress after operator
+Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
 unchanged, and the project preflight is COMPLIANT/0. Material `4b4488f`
-passed normal3549/148/4 and independent terminal review. P5-A2 remains OPEN,
+passed normal3549/148/4 and independent terminal review; continuity
+`718816e` passed the same hook and clean15+9 review. Parked AM4 clean20+5
+review also passed. P5-A2 remains OPEN,
 Phase 5 0/5; AM4 UI acceptance UNMET and attempt SPENT.
 
 ## Same unit / actual AM4 partial result

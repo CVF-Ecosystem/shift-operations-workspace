@@ -1440,7 +1440,7 @@
     "resultWaivers": []
   },
   "cvf_core_binding_adoption_20261104": {
-    "status": "TERMINAL_MATERIAL_PASS_CONTINUITY_PENDING",
+    "status": "CLOSED_BOUNDED",
     "installedPublicCore": "c4c8767ac8861854f40d466ba338ffd11eb9558e",
     "selectedControlsUnchanged": true,
     "nativePreflight": "COMPLIANT_0",
@@ -1449,6 +1449,9 @@
     "am4UiAttemptSpent": true,
     "materialCommit": "4b4488f890d741481f907a2c898486f94ea7e927",
     "materialFullHook": "3549passed148skipped4warnings",
-    "terminalMaterialReview": "PASS_BOUNDED"
+    "terminalMaterialReview": "PASS_BOUNDED",
+    "continuityCommit": "718816e6aab0f82f4427040d529bb474b30d9c44",
+    "continuityFullHook": "3549passed148skipped4warnings",
+    "independentCleanRanges": "CORE_15_PLUS_9_PASS_AM4_20_PLUS_5_PASS"
   }
 }

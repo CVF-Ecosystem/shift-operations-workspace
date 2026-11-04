@@ -1,6 +1,6 @@
 # CVF Core binding adoption — 2026-11-04
 
-Status: REVIEWER_ACCEPTED_BOUNDED
+Status: CLOSED_BOUNDED
 
 ## INTAKE / DESIGN / SPEC / WORK_ORDER
 

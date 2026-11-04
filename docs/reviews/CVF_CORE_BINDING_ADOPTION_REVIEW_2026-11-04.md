@@ -38,9 +38,16 @@ as an exact 15-path clean committed range; terminal material review PASS with
 findings/waivers NONE/NONE. The reviewer did not independently capture or rerun
 the full hook stdout; the hook result is the commit process's reported receipt.
 
-Disposition: PASS for the bounded Core-binding adoption. No blocking findings
-or waivers. Normal pre-commit hook, material commit, actual-SHA continuity and
-clean committed-range review remain before FREEZE.
+Independent post-continuity clean-range review PASS at `718816e`: adoption
+material 15 paths plus continuity 9; parked AM4 partial-result material 20
+plus actual-SHA continuity 5. Both markers match actual material SHAs.
+AM4 legacy RETURN/REVIEW self-declared markers were manually checked with
+pinned `check_recheck`, zero violations. No defects/waivers. This settles
+only the Core binding and partial-result record; P5-A2/UI remain OPEN/UNMET.
+
+Disposition: PASS for bounded Core-binding adoption and clean committed
+ranges. No blocking findings or waivers. Normal material and continuity hooks
+passed; this closure record is the remaining local FREEZE action.
 
 P5-A2 remains OPEN, Phase 5 remains 0/5. AM4 UI acceptance is UNMET and
 attempt SPENT. This review does not establish AI-governance behavior or

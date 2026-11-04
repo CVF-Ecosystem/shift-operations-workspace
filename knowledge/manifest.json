@@ -19,7 +19,7 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "6b4fc15f73db5cb6625081e4b14d6ce1c96deac4f04b5e2da54104f6e7d52fc7"
+          "sha256": "177b18690de13166cefb3767a4de3fa0e418acce0eb32e7dabc93faa0c0cda0a"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",

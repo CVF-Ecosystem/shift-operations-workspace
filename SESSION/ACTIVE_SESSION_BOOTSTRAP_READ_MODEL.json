@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "canonicalSource": "SESSION/ACTIVE_SESSION_STATE.json",
-  "currentMode": "cvf_core_binding_adoption_20261104",
+  "currentMode": "cvf_core_binding_adoption_closed_20261104",
   "activeHandoff": "SESSION/handoffs/AGENT_HANDOFF_CVF_CORE_BINDING_ADOPTION_2026-11-04.md",
-  "nextAllowedMove": "Independent clean Core adoption material+continuity range and outstanding AM4 exact20+5 committed-range reviews; then record bounded closure before G04/G05 UI readiness diagnosis/planning. No source repair/new runtime/browser/SQL/provider or automatic tranche.",
+  "nextAllowedMove": "Bounded G04/G05 UI readiness diagnosis/planning only under a separately admitted assignment. No source repair/new runtime/browser/SQL/provider or automatic tranche.",
   "parkedOperatorCheckpoint": "AM4 approved one additional UI completion attempt is SPENT. UI acceptance UNMET; no current runtime/browser/SQL/seed/CAS/provider/reset/push authority. No automatic new tranche or retry.",
   "requiredReads": [
     "AGENTS.md",
