@@ -7,14 +7,47 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    # The full suite checks the supported Windows demo environment and the
+    # installed public Core, in addition to portable application tests.
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: Install
-        run: pip install -e ".[dev]"
+          python-version: "3.13.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.14.0"
+      - name: Install Python test environment
+        run: |
+          python -m venv .venv
+          ./.venv/Scripts/python.exe -m pip install -e ".[dev]" "psycopg[binary]>=3.2"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          (Resolve-Path .venv/Scripts).Path | Add-Content $env:GITHUB_PATH
+      - name: Install workspace Node dependencies
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.0 --activate
+          pnpm install --frozen-lockfile
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Initialize exact public Core and workspace rules
+        run: ./scripts/initialize_cvf_clone.ps1
+      - name: Install pinned public skill validator
+        run: |
+          $validatorRoot = Join-Path $env:RUNNER_TEMP 'cvf-skill-creator'
+          $validatorDirectory = Join-Path $validatorRoot 'scripts'
+          New-Item -ItemType Directory -Path $validatorDirectory -Force | Out-Null
+          $validatorPath = Join-Path $validatorDirectory 'quick_validate.py'
+          $source = 'https://raw.githubusercontent.com/openai/codex/d78f68f8d1016b2ffba14a91ccd33ef7fa527971/codex-rs/skills/src/assets/samples/skill-creator/scripts/quick_validate.py'
+          Invoke-WebRequest -Uri $source -OutFile $validatorPath
+          $expected = 'ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c'
+          if ((Get-FileHash $validatorPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) {
+            throw 'Public skill validator SHA-256 mismatch'
+          }
+          "SKILL_CREATOR_ROOT=$validatorRoot" | Add-Content $env:GITHUB_ENV
       - name: Module catalog --check (structural source of truth must not drift)
         run: python scripts/generate_catalog.py --check
       - name: CVF catalog kit projection --check

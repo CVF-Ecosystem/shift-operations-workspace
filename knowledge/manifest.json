@@ -19,15 +19,15 @@
       "sourcePins": [
         {
           "path": "IMPLEMENTATION_STATUS.json",
-          "sha256": "177b18690de13166cefb3767a4de3fa0e418acce0eb32e7dabc93faa0c0cda0a"
+          "sha256": "54b6157caad91dd3c502043e93d4b7ebe7d0aca8b1eddf074a28e98567040837"
         },
         {
           "path": "docs/catalog/MODULE_REGISTRY.json",
-          "sha256": "b59d749953650e6157e97f6c2ab2e210b1cea6da52bc83164649a7c19767332e"
+          "sha256": "5c0231fc0b97ad0c1f95ed8f2b53714e3d90801954e95d16b398fcc246e8f495"
         },
         {
           "path": "docs/implementation/EXECUTION_ROADMAP.md",
-          "sha256": "1bcc0beb40ff2a146a166c695657f4d7a2ed8125e1e65073a56d454c32a3792a"
+          "sha256": "3d5e9cae10968b036740ef5b6e6e67245dda477e540dbe537fb08789559b0fdb"
         }
       ],
       "reviewedAt": "2026-11-04",
@@ -115,7 +115,7 @@
         },
         {
           "path": ".cvf/policy.json",
-          "sha256": "70c56a02c455cc26b4c591c763b80a37234a5386557c56ae489079d822bc4785"
+          "sha256": "e1eb5bda4ebd64eba9e2a8c75aca01c638ac1a4db0946eb14cb56427cdfd8364"
         },
         {
           "path": "docs/cvf/CONTEXT_CONTROL.md",

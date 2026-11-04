@@ -1,6 +1,10 @@
 # PR #5 CI repair — active handoff
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_1_BUILD; phase BUILD.
+<!-- CVF-GC020-MATERIAL-SHA:START -->
+Material commit recorded for this handoff: `a185e04368db2f202f8c5806403f3774700aca6e`.
+<!-- CVF-GC020-MATERIAL-SHA:END -->
+
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: AMENDMENT_2_BUILD; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -11,9 +15,9 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Complete CI-PR5-REPAIR amendment 1 bounded catalog
-projection repair under `docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`,
-independent review, hosted CI and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
+Complete independently authorized CI-PR5-REPAIR amendment 2 BUILD under
+`docs/work_orders/CI_PR5_REPAIR_2026-11-05.md`, then bounded CI environment
+and LF pin repair, full hosted checks and merge. Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
 ## Dispatch acknowledgment
@@ -54,3 +58,25 @@ Authorization re-review PASS with no blocking finding. Dispatch commit
 sort is implemented and local projection/catalog/repository validation PASS.
 Independent source review, material hook and hosted CI remain. No product
 acceptance or AI governance claim.
+
+## Hosted full-test result and amendment 2
+
+Material `a185e04` passed normal hook 3549/148/4, independent post-material
+review and fast-forward push. GitHub run `41903721108`: catalog-kit/web PASS;
+validate passed install, detailed catalog, projection and repository checks,
+then full pytest failed (20 failures, 8 setup errors). Consolidated causes:
+clean Ubuntu runner lacks installed public pinned Core/workspace rules,
+Windows PowerShell and `.venv/Scripts/python.exe` demo environment, exact
+Node modules and public skill validator; four knowledge source pins encode
+local CRLF instead of tracked LF bytes. Operator explicitly authorized
+expanded public CI setup and merge when all checks pass. Current role
+IMPLEMENTATION_WORKER; phase BUILD. Amendment 2 independent authorization
+PASS: existing dispatch anchors remain, admission and continuity are recorded
+before BUILD and included in the material commit through the normal hook.
+Post-material independent review, dedicated actual-SHA continuity and clean
+range review remain mandatory. This acknowledgment precedes source changes.
+
+Amendment 2 source review PASS, findings/waivers NONE/NONE. Exact CI workflow
+and four knowledge LF pins independently verified, including public validator
+commit/SHA. Local knowledge/repository/catalog/Core/session checks PASS.
+Normal material hook, hosted CI and merge are next. No test exclusion added.
