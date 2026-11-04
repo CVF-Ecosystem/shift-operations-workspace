@@ -5,12 +5,13 @@ Active SESSION/handoffs/AGENT_HANDOFF_CI_PR5_REPAIR_2026-11-05.md.
 ReadonlyCore ../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e.
 R2/liveYESforAIclaims; currentNO_AI. No private/shared/latestremote dependencies.
 
-CI-PR5 REVIEW_COST_ESCALATION_REQUIRED remains recorded. Independent review
-admits one bounded real ACL-child diagnostic on current runner; no runner/
-runtime/timeout change. Instrument sanitized elapsed/exception/result status
-only, forward real calls unchanged, then stop for independent result review.
-Role IMPLEMENTATION_WORKER; phase BUILD. Latest hosted stillFAIL; no merge.
-AM4/P5-A2 unchanged; all failed evidence retained in handoff/review.
+CI-PR5 diagnostic result independently accepted TIMEOUT10.015s. One fixed
+windows-2022 host compatibility candidate admitted, runtime10s/all tests/
+diagnostics unchanged. Underlying delay and Windows2025 causation unproven.
+IMPLEMENTATION_WORKER/BUILD acknowledgment precedes runner-label edit.
+Source/terminal review and one hosted attempt, then independent result review.
+REVIEW_COST_ESCALATION_REQUIRED retained; no merge while failing.
+AM4/P5-A2 unchanged; failed evidence retained in handoff/review.
 
 Explicit reviewed Core-binding adoption is CLOSED_BOUNDED after operator
 authorization. The installed Core is clean; selected control bytes are
@@ -51,5 +52,5 @@ Current AM4 effect authority closed; no retry/provider/reset/automatic tranche.
 
 ## Next allowed move
 
-Run one independently admitted sanitized real ACL-child diagnostic on current runner, then stop for independent result review. No speculative repair or merge while hosted checks fail.
+Run one independently admitted windows-2022 host compatibility check with unchanged runtime10s/all tests, then independent result review; no merge until all gates pass.
 Current role IMPLEMENTATION_WORKER; phase BUILD. AM4 effects remain spent.

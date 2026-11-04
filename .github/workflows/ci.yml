@@ -9,7 +9,7 @@ jobs:
   validate:
     # The full suite checks the supported Windows demo environment and the
     # installed public Core, in addition to portable application tests.
-    runs-on: windows-latest
+    runs-on: windows-2022
     defaults:
       run:
         shell: pwsh

@@ -1,6 +1,6 @@
 # Independent PR #5 CI repair review
 
-Status: REVIEW_COST_ESCALATION_ONE_DIAGNOSTIC
+Status: ONE_HOST_COMPATIBILITY_CANDIDATE_REVIEW
 
 Independent reviewer: delegated reviewer, separate from implementation worker.
 Product Milestone Binding: P5-A2 G04/G05 CI support only; all G01–G14 gaps,
@@ -209,3 +209,22 @@ result review; no automatic additional diagnostic or speculative repair.
 Independent bounded diagnostic source review PASS, no blocker/waiver:
 wrapper forwards the real child behavior and sanitized schema exactly as
 admitted; pytest teardown restores it, assertions/full gate unchanged.
+
+One hosted diagnostic41915399636 result: actual ACL child elapsed10.015s,
+outcomeTIMEOUT; fixtureREADY assertion passed, total42.30s. No raw output or
+ACL recorded. This identifies timeout, not ACL-content rejection; underlying
+host cause UNKNOWN. Execution stopped for independent result review.
+Diagnostic material13b100e normal3549PASS148skip4warnings185.19s and terminal
+reviewPASS; no extra hosted attempt or source repair has been made yet.
+
+Independent diagnostic result review accepted exactTIMEOUT10.015s and
+admitted ONE supported fixedWindows2022 compatibility candidate. Only
+validate runner label changes; runtime10s, warmup/fixture setup, sanitized
+diagnostics, assertions and full tests remain. Underlying delay/Windows2025
+causation UNKNOWN; no Defender/security-policy change. Admission and current
+BUILD acknowledgment recorded before source; source/terminal review, one
+hosted attempt then independent result review. No automatic retry/fix.
+
+Independent host-baseline source review PASS exact8paths, no blocker/waiver.
+Only one validate runner-label line plus7 governance records; Core/session/
+diff PASS. Normal hook and terminal review precede the one hosted candidate.

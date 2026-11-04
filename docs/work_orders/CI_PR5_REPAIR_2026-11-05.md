@@ -119,6 +119,19 @@ No argv/encoded script/raw output/principals/rights/secrets. Preserve actual
 for the unchanged guard to handle. Run one hosted attempt, then stop for
 independent result review; no automatic second diagnostic or speculative fix.
 
+The one diagnostic41915399636 completed: actual encoded-command child
+TIMEOUT10.015s; fixtureREADY passed, test42.30s. This establishes child
+execution timeout, not ACL rejection; underlying host cause remains unknown.
+Execution stopped for independent result review before another source move.
+
+Independent result review accepted exactTIMEOUT10.015s evidence. Admit ONE
+host baseline compatibility check: change only `validate` runs-on to
+`windows-2022`, a supported fixed GitHub image; retain runtime10s, setup,
+diagnostics and all tests. This tests host compatibility; underlying delay
+and Windows2025 causation remain unproven. No Defender/security-policy change
+or runtime relaxation. Record admission before source, source/terminal review,
+one hosted attempt then independent result review before any further action.
+
 ## Product Milestone Binding
 
 - **Milestone:** P5-A2, `docs/implementation/EXECUTION_ROADMAP.md`, assessed at

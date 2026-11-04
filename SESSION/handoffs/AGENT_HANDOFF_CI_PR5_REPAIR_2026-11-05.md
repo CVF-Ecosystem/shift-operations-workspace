@@ -4,7 +4,7 @@
 Material commit recorded for this handoff: `800d8759a001de72adc3da0d94a9f046a7a7649e`.
 <!-- CVF-GC020-MATERIAL-SHA:END -->
 
-Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ONE_BOUNDED_DIAGNOSTIC; phase BUILD.
+Date: 2026-11-05. Tranche: CI-PR5-REPAIR. Status: ONE_HOST_COMPATIBILITY_CHECK; phase BUILD.
 Risk R2. ORCHESTRATOR → SPEC_AUTHOR → WORK_ORDER_AUTHOR → independent
 authorization REVIEWER → IMPLEMENTATION_WORKER. The operator explicitly
 authorized fixing both failing PR checks and merging PR #5 when gates pass.
@@ -15,8 +15,8 @@ Project: shift-operations-workspace. Installed read-only public Core:
 `../.Controlled-Vibe-Framework-CVF@c4c8767ac8861854f40d466ba338ffd11eb9558e`.
 Live provider evidence required YES for any AI-governance behavior claim;
 this repair makes none. Active handoff: this file. Next allowed move:
-Run one admitted sanitized real ACL-child diagnostic on current runner, then
-stop for independent result review. Current role IMPLEMENTATION_WORKER.
+Run one independently admitted windows-2022 compatibility check, then
+independent result review. Current role IMPLEMENTATION_WORKER.
 Parked checkpoint: AM4 attempt SPENT, UI acceptance
 UNMET, P5-A2 OPEN; no UI/runtime/SQL/provider attempt is authorized.
 
@@ -189,3 +189,19 @@ Current IMPLEMENTATION_WORKER/BUILD acknowledgment precedes instrumentation.
 Independent diagnostic source review PASS, no blocker/waiver; local real
 diagnostic testPASS2.53s, Core/session/diffPASS. Normal hook and terminal
 review precede ONE hosted attempt, then stop for independent result review.
+
+One diagnostic41915399636 completed: real encoded-command child
+TIMEOUT10.015s; fixtureREADY passed, total test42.30s. No ACL rejection
+inferred. Execution stopped at REVIEW; independent result review is next.
+Diagnostic material13b100e normal3549PASS148skip4warnings185.19s and terminal
+reviewPASS, current Core pin unchanged. No second diagnostic/repair yet.
+
+Independent result review PASS exactTIMEOUT10.015s; one fixedWindows2022
+compatibility check admitted. Only validate runner label changes; runtime10s,
+all tests/setup/diagnostics remain. Underlying delay and image causation
+unproven; no security-policy change. Current IMPLEMENTATION_WORKER/BUILD
+acknowledgment precedes source. One hosted attempt then independent review.
+
+Independent host-baseline source review PASS, no blocker/waiver, exact8paths.
+Only validate runner label changed; Core/session/diffPASS. Normal hook and
+terminal review precede the one hosted candidate attempt.
